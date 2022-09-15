@@ -3,9 +3,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:quiz/app/data/config/app_interceptor.dart';
 
 class DioSettings {
-  static const String baseUrl = 'http://139.59.158.39:8000/api';
-
-  // static const String baseUrl = 'https://de33-85-249-53-23.eu.ngrok.io/api';
+  static const String baseUrl = 'http://37.46.128.31/api';
   static const String tokenType = 'Bearer ';
 
   final BaseOptions _dioBaseOptions = BaseOptions(
