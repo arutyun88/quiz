@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quiz/app/application.dart';
 import 'package:quiz/app/config/firebase/firebase_options.dart';
+import 'package:quiz/app/di/di.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 void main() async {
@@ -11,6 +12,8 @@ void main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await configureDependencies();
 
   runApp(
     TranslationProvider(
