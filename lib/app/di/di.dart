@@ -6,6 +6,8 @@ import 'package:injectable/injectable.dart';
 import 'package:quiz/app/config/firebase/firebase_options.dart';
 import 'package:quiz/app/core/services/firestore_doc_service.dart';
 import 'package:quiz/app/core/services/firebase_remote_config_service.dart';
+import 'package:quiz/app/core/services/settings_local_storage_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'di.config.dart';
 
@@ -40,4 +42,14 @@ abstract class FirebaseConfigModule {
 
   @lazySingleton
   FirestoreDocService firestoreDocService() => FirestoreDocService(firestore: FirebaseFirestore.instance);
+}
+
+@module
+abstract class LocalStorageModule {
+  @preResolve
+  Future<SharedPreferences> sharedPreferences() async => await SharedPreferences.getInstance();
+
+  @lazySingleton
+  SettingsLocalStorageService settingsLocalStorageService(SharedPreferences preferences) =>
+      SettingsLocalStorageService(prefs: preferences);
 }
