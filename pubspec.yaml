@@ -32,6 +32,12 @@ dependencies:
   # Storage
   shared_preferences: ^2.5.2
 
+  # State
+  flutter_riverpod: ^2.6.1
+
+  # Routing
+  go_router: ^14.8.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
