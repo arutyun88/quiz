@@ -14,6 +14,9 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
+import '../../features/authentication/di/di.dart' as _i415;
+import '../../features/authentication/domain/repository/authentication_repository.dart'
+    as _i797;
 import '../core/services/firebase_remote_config_service.dart' as _i307;
 import '../core/services/firestore_doc_service.dart' as _i141;
 import '../core/services/settings_local_storage_service.dart' as _i218;
@@ -32,6 +35,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final firebaseConfigModule = _$FirebaseConfigModule();
     final localStorageModule = _$LocalStorageModule();
+    final authenticationModule = _$AuthenticationModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
       () => firebaseConfigModule.firebase(),
       preResolve: true,
@@ -46,6 +50,8 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i141.FirestoreDocService>(
         () => firebaseConfigModule.firestoreDocService());
+    gh.lazySingleton<_i797.AuthenticationRepository>(
+        () => authenticationModule.repository());
     await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(
       () => firebaseConfigModule
           .remoteConfigService(gh<_i627.FirebaseRemoteConfig>()),
@@ -60,3 +66,5 @@ extension GetItInjectableX on _i174.GetIt {
 class _$FirebaseConfigModule extends _i913.FirebaseConfigModule {}
 
 class _$LocalStorageModule extends _i913.LocalStorageModule {}
+
+class _$AuthenticationModule extends _i415.AuthenticationModule {}
