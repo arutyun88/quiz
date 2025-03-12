@@ -4,6 +4,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:quiz/app/config/firebase/firebase_options.dart';
+import 'package:quiz/app/core/localization/gateway/change_locale_gateway.dart';
 import 'package:quiz/app/core/services/firestore_doc_service.dart';
 import 'package:quiz/app/core/services/firebase_remote_config_service.dart';
 import 'package:quiz/app/core/services/settings_local_storage_service.dart';
@@ -52,4 +53,11 @@ abstract class LocalStorageModule {
   @lazySingleton
   SettingsLocalStorageService settingsLocalStorageService(SharedPreferences preferences) =>
       SettingsLocalStorageService(prefs: preferences);
+}
+
+@module
+abstract class AppSettingsModule {
+  @lazySingleton
+  ChangeLocaleGateway changeLocaleGateway(SettingsLocalStorageService storageService) =>
+      ChangeLocaleGateway(storageService: storageService);
 }

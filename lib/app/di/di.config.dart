@@ -17,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import '../../features/authentication/di/di.dart' as _i415;
 import '../../features/authentication/domain/repository/authentication_repository.dart'
     as _i797;
+import '../core/localization/gateway/change_locale_gateway.dart' as _i309;
 import '../core/services/firebase_remote_config_service.dart' as _i307;
 import '../core/services/firestore_doc_service.dart' as _i141;
 import '../core/services/settings_local_storage_service.dart' as _i218;
@@ -36,6 +37,7 @@ extension GetItInjectableX on _i174.GetIt {
     final firebaseConfigModule = _$FirebaseConfigModule();
     final localStorageModule = _$LocalStorageModule();
     final authenticationModule = _$AuthenticationModule();
+    final appSettingsModule = _$AppSettingsModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
       () => firebaseConfigModule.firebase(),
       preResolve: true,
@@ -59,6 +61,8 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i218.SettingsLocalStorageService>(() => localStorageModule
         .settingsLocalStorageService(gh<_i460.SharedPreferences>()));
+    gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
+        .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
     return this;
   }
 }
@@ -68,3 +72,5 @@ class _$FirebaseConfigModule extends _i913.FirebaseConfigModule {}
 class _$LocalStorageModule extends _i913.LocalStorageModule {}
 
 class _$AuthenticationModule extends _i415.AuthenticationModule {}
+
+class _$AppSettingsModule extends _i913.AppSettingsModule {}
