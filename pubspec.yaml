@@ -38,6 +38,10 @@ dependencies:
   # Routing
   go_router: ^14.8.1
 
+  # Code generation
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -46,6 +50,8 @@ dev_dependencies:
 
   # Code generation
   build_runner: ^2.4.13
+  freezed: ^2.5.7
+  json_serializable: ^6.9.0
 
   # DI
   injectable_generator: ^2.6.2
