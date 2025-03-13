@@ -2,5 +2,17 @@
     "languages(map)": {
         "en": "English",
         "ru": "Русский"
+    },
+    "profile": {
+        "theme": {
+            "title": "Theme",
+            "switcher": {
+                "as_system": "As in the system"
+            }
+        },
+        "application": "Application",
+        "language": {
+            "change": "Choose language"
+        }
     }
 }

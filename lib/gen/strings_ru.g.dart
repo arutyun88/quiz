@@ -37,6 +37,50 @@ class TranslationsRu implements Translations {
 		'en': 'English',
 		'ru': 'Русский',
 	};
+	@override late final _TranslationsProfileRu profile = _TranslationsProfileRu._(_root);
+}
+
+// Path: profile
+class _TranslationsProfileRu implements TranslationsProfileEn {
+	_TranslationsProfileRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsProfileThemeRu theme = _TranslationsProfileThemeRu._(_root);
+	@override String get application => 'Приложение';
+	@override late final _TranslationsProfileLanguageRu language = _TranslationsProfileLanguageRu._(_root);
+}
+
+// Path: profile.theme
+class _TranslationsProfileThemeRu implements TranslationsProfileThemeEn {
+	_TranslationsProfileThemeRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Тема оформления';
+	@override late final _TranslationsProfileThemeSwitcherRu switcher = _TranslationsProfileThemeSwitcherRu._(_root);
+}
+
+// Path: profile.language
+class _TranslationsProfileLanguageRu implements TranslationsProfileLanguageEn {
+	_TranslationsProfileLanguageRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get change => 'Изменить язык';
+}
+
+// Path: profile.theme.switcher
+class _TranslationsProfileThemeSwitcherRu implements TranslationsProfileThemeSwitcherEn {
+	_TranslationsProfileThemeSwitcherRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get as_system => 'Как в системе';
 }
 
 /// Flat map(s) containing all translations.
@@ -46,6 +90,10 @@ extension on TranslationsRu {
 		switch (path) {
 			case 'languages.en': return 'English';
 			case 'languages.ru': return 'Русский';
+			case 'profile.theme.title': return 'Тема оформления';
+			case 'profile.theme.switcher.as_system': return 'Как в системе';
+			case 'profile.application': return 'Приложение';
+			case 'profile.language.change': return 'Изменить язык';
 			default: return null;
 		}
 	}

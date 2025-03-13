@@ -41,6 +41,50 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 		'en': 'English',
 		'ru': 'Русский',
 	};
+	late final TranslationsProfileEn profile = TranslationsProfileEn._(_root);
+}
+
+// Path: profile
+class TranslationsProfileEn {
+	TranslationsProfileEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsProfileThemeEn theme = TranslationsProfileThemeEn._(_root);
+	String get application => 'Application';
+	late final TranslationsProfileLanguageEn language = TranslationsProfileLanguageEn._(_root);
+}
+
+// Path: profile.theme
+class TranslationsProfileThemeEn {
+	TranslationsProfileThemeEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Theme';
+	late final TranslationsProfileThemeSwitcherEn switcher = TranslationsProfileThemeSwitcherEn._(_root);
+}
+
+// Path: profile.language
+class TranslationsProfileLanguageEn {
+	TranslationsProfileLanguageEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get change => 'Choose language';
+}
+
+// Path: profile.theme.switcher
+class TranslationsProfileThemeSwitcherEn {
+	TranslationsProfileThemeSwitcherEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get as_system => 'As in the system';
 }
 
 /// Flat map(s) containing all translations.
@@ -50,6 +94,10 @@ extension on Translations {
 		switch (path) {
 			case 'languages.en': return 'English';
 			case 'languages.ru': return 'Русский';
+			case 'profile.theme.title': return 'Theme';
+			case 'profile.theme.switcher.as_system': return 'As in the system';
+			case 'profile.application': return 'Application';
+			case 'profile.language.change': return 'Choose language';
 			default: return null;
 		}
 	}
