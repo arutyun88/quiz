@@ -14,5 +14,19 @@
         "language": {
             "change": "Изменить язык"
         }
+    },
+    "authentication": {
+        "sign_in": {
+            "no_account": {
+                "text": "Нет аккаунта?",
+                "sign_up": "Зарегистрироваться"
+            }
+        },
+        "sign_up": {
+            "no_account": {
+                "text": "Есть аккаунт?",
+                "sign_in": "Войти"
+            }
+        }
     }
 }

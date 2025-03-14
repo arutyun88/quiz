@@ -23,6 +23,7 @@ class Palette extends ThemeExtension<Palette> {
     text: TextColor(
       primary: Colors.black,
       secondary: Colors.grey.shade600,
+      accent: Colors.orange,
     ),
   );
 
@@ -38,6 +39,7 @@ class Palette extends ThemeExtension<Palette> {
     text: TextColor(
       primary: Colors.white,
       secondary: Colors.grey.shade400,
+      accent: Colors.orange,
     ),
   );
 
@@ -108,10 +110,12 @@ class SwitchColor {
 class TextColor {
   final Color primary;
   final Color secondary;
+  final Color accent;
 
   TextColor({
     required this.primary,
     required this.secondary,
+    required this.accent,
   });
 
   TextColor lerp(TextColor? other, double t) {
@@ -120,6 +124,7 @@ class TextColor {
     return TextColor(
       primary: Color.lerp(primary, other.primary, t)!,
       secondary: Color.lerp(secondary, other.secondary, t)!,
+      accent: Color.lerp(accent, other.accent, t)!,
     );
   }
 }

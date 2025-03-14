@@ -42,6 +42,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 		'ru': 'Русский',
 	};
 	late final TranslationsProfileEn profile = TranslationsProfileEn._(_root);
+	late final TranslationsAuthenticationEn authentication = TranslationsAuthenticationEn._(_root);
 }
 
 // Path: profile
@@ -54,6 +55,17 @@ class TranslationsProfileEn {
 	late final TranslationsProfileThemeEn theme = TranslationsProfileThemeEn._(_root);
 	String get application => 'Application';
 	late final TranslationsProfileLanguageEn language = TranslationsProfileLanguageEn._(_root);
+}
+
+// Path: authentication
+class TranslationsAuthenticationEn {
+	TranslationsAuthenticationEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsAuthenticationSignInEn sign_in = TranslationsAuthenticationSignInEn._(_root);
+	late final TranslationsAuthenticationSignUpEn sign_up = TranslationsAuthenticationSignUpEn._(_root);
 }
 
 // Path: profile.theme
@@ -77,6 +89,26 @@ class TranslationsProfileLanguageEn {
 	String get change => 'Choose language';
 }
 
+// Path: authentication.sign_in
+class TranslationsAuthenticationSignInEn {
+	TranslationsAuthenticationSignInEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsAuthenticationSignInNoAccountEn no_account = TranslationsAuthenticationSignInNoAccountEn._(_root);
+}
+
+// Path: authentication.sign_up
+class TranslationsAuthenticationSignUpEn {
+	TranslationsAuthenticationSignUpEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsAuthenticationSignUpNoAccountEn no_account = TranslationsAuthenticationSignUpNoAccountEn._(_root);
+}
+
 // Path: profile.theme.switcher
 class TranslationsProfileThemeSwitcherEn {
 	TranslationsProfileThemeSwitcherEn._(this._root);
@@ -85,6 +117,28 @@ class TranslationsProfileThemeSwitcherEn {
 
 	// Translations
 	String get as_system => 'As in the system';
+}
+
+// Path: authentication.sign_in.no_account
+class TranslationsAuthenticationSignInNoAccountEn {
+	TranslationsAuthenticationSignInNoAccountEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get text => 'Don\'t have an account yet?';
+	String get sign_up => 'Sign up';
+}
+
+// Path: authentication.sign_up.no_account
+class TranslationsAuthenticationSignUpNoAccountEn {
+	TranslationsAuthenticationSignUpNoAccountEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get text => 'Already have an account?';
+	String get sign_in => 'Log in';
 }
 
 /// Flat map(s) containing all translations.
@@ -98,6 +152,10 @@ extension on Translations {
 			case 'profile.theme.switcher.as_system': return 'As in the system';
 			case 'profile.application': return 'Application';
 			case 'profile.language.change': return 'Choose language';
+			case 'authentication.sign_in.no_account.text': return 'Don\'t have an account yet?';
+			case 'authentication.sign_in.no_account.sign_up': return 'Sign up';
+			case 'authentication.sign_up.no_account.text': return 'Already have an account?';
+			case 'authentication.sign_up.no_account.sign_in': return 'Log in';
 			default: return null;
 		}
 	}

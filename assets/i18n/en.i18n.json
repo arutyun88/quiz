@@ -14,5 +14,19 @@
         "language": {
             "change": "Choose language"
         }
+    },
+    "authentication": {
+        "sign_in": {
+            "no_account": {
+                "text": "Don't have an account yet?",
+                "sign_up": "Sign up"
+            }
+        },
+        "sign_up": {
+            "no_account": {
+                "text": "Already have an account?",
+                "sign_in": "Log in"
+            }
+        }
     }
 }

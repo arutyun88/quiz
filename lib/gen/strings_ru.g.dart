@@ -38,6 +38,7 @@ class TranslationsRu implements Translations {
 		'ru': 'Русский',
 	};
 	@override late final _TranslationsProfileRu profile = _TranslationsProfileRu._(_root);
+	@override late final _TranslationsAuthenticationRu authentication = _TranslationsAuthenticationRu._(_root);
 }
 
 // Path: profile
@@ -50,6 +51,17 @@ class _TranslationsProfileRu implements TranslationsProfileEn {
 	@override late final _TranslationsProfileThemeRu theme = _TranslationsProfileThemeRu._(_root);
 	@override String get application => 'Приложение';
 	@override late final _TranslationsProfileLanguageRu language = _TranslationsProfileLanguageRu._(_root);
+}
+
+// Path: authentication
+class _TranslationsAuthenticationRu implements TranslationsAuthenticationEn {
+	_TranslationsAuthenticationRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsAuthenticationSignInRu sign_in = _TranslationsAuthenticationSignInRu._(_root);
+	@override late final _TranslationsAuthenticationSignUpRu sign_up = _TranslationsAuthenticationSignUpRu._(_root);
 }
 
 // Path: profile.theme
@@ -73,6 +85,26 @@ class _TranslationsProfileLanguageRu implements TranslationsProfileLanguageEn {
 	@override String get change => 'Изменить язык';
 }
 
+// Path: authentication.sign_in
+class _TranslationsAuthenticationSignInRu implements TranslationsAuthenticationSignInEn {
+	_TranslationsAuthenticationSignInRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsAuthenticationSignInNoAccountRu no_account = _TranslationsAuthenticationSignInNoAccountRu._(_root);
+}
+
+// Path: authentication.sign_up
+class _TranslationsAuthenticationSignUpRu implements TranslationsAuthenticationSignUpEn {
+	_TranslationsAuthenticationSignUpRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsAuthenticationSignUpNoAccountRu no_account = _TranslationsAuthenticationSignUpNoAccountRu._(_root);
+}
+
 // Path: profile.theme.switcher
 class _TranslationsProfileThemeSwitcherRu implements TranslationsProfileThemeSwitcherEn {
 	_TranslationsProfileThemeSwitcherRu._(this._root);
@@ -81,6 +113,28 @@ class _TranslationsProfileThemeSwitcherRu implements TranslationsProfileThemeSwi
 
 	// Translations
 	@override String get as_system => 'Как в системе';
+}
+
+// Path: authentication.sign_in.no_account
+class _TranslationsAuthenticationSignInNoAccountRu implements TranslationsAuthenticationSignInNoAccountEn {
+	_TranslationsAuthenticationSignInNoAccountRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get text => 'Нет аккаунта?';
+	@override String get sign_up => 'Зарегистрироваться';
+}
+
+// Path: authentication.sign_up.no_account
+class _TranslationsAuthenticationSignUpNoAccountRu implements TranslationsAuthenticationSignUpNoAccountEn {
+	_TranslationsAuthenticationSignUpNoAccountRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get text => 'Есть аккаунт?';
+	@override String get sign_in => 'Войти';
 }
 
 /// Flat map(s) containing all translations.
@@ -94,6 +148,10 @@ extension on TranslationsRu {
 			case 'profile.theme.switcher.as_system': return 'Как в системе';
 			case 'profile.application': return 'Приложение';
 			case 'profile.language.change': return 'Изменить язык';
+			case 'authentication.sign_in.no_account.text': return 'Нет аккаунта?';
+			case 'authentication.sign_in.no_account.sign_up': return 'Зарегистрироваться';
+			case 'authentication.sign_up.no_account.text': return 'Есть аккаунт?';
+			case 'authentication.sign_up.no_account.sign_in': return 'Войти';
 			default: return null;
 		}
 	}

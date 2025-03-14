@@ -37,6 +37,14 @@ class AppTheme extends ThemeExtension<AppTheme> {
         AppThemeMode.light => Brightness.light,
         AppThemeMode.dark => Brightness.dark,
       },
+      textTheme: switch (theme.themeMode) {
+        AppThemeMode.light => Typography.material2021().white,
+        AppThemeMode.dark => Typography.material2021().black,
+      }
+          .apply(
+        bodyColor: theme.palette.text.primary,
+        displayColor: theme.palette.text.primary,
+      ),
     );
   }
 
