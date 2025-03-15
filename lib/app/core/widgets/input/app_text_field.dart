@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:quiz/app/config/style/text_style_ex.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/input/app_input_border.dart';
@@ -41,6 +42,8 @@ class AppTextField extends StatelessWidget {
       keyboardType: keyboardType,
       textCapitalization: _textCapitalization,
       autocorrect: _autocorrect,
+      inputFormatters: _inputFormatters,
+      autovalidateMode: AutovalidateMode.disabled,
       decoration: InputDecoration(
         label: label != null
             ? ClipRRect(
@@ -93,6 +96,22 @@ class AppTextField extends StatelessWidget {
         return false;
       default:
         return true;
+    }
+  }
+
+  List<TextInputFormatter> get _inputFormatters {
+    switch (keyboardType) {
+      case TextInputType.number:
+      case TextInputType.phone:
+        return [FilteringTextInputFormatter.digitsOnly];
+      case TextInputType.emailAddress:
+      case TextInputType.visiblePassword:
+      case TextInputType.url:
+        return [FilteringTextInputFormatter.deny(RegExp(r'\s'))];
+      case TextInputType.datetime:
+        return [FilteringTextInputFormatter.allow(RegExp(r'[0-9/.: -]'))];
+      default:
+        return [];
     }
   }
 }
