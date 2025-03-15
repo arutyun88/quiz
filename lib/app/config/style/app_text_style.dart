@@ -36,6 +36,20 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
   /// fontWeight: 600
   final TextStyle body14Semibold;
 
+  /// fontSize: 16px
+  ///
+  /// height: 22px
+  ///
+  /// fontWeight: 400
+  final TextStyle body16Regular;
+
+  /// fontSize: 16px
+  ///
+  /// height: 22px
+  ///
+  /// fontWeight: 600
+  final TextStyle body16Semibold;
+
   /// fontSize: 18px
   ///
   /// height: 23px
@@ -49,6 +63,8 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
     required this.body14Regular,
     required this.body14Bold,
     required this.body14Semibold,
+    required this.body16Regular,
+    required this.body16Semibold,
     required this.heading18Bold,
   });
 
@@ -58,6 +74,8 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
     body14Regular: TextStyle(fontSize: 14.0, height: 20 / 14, fontWeight: FontWeight.w400),
     body14Bold: TextStyle(fontSize: 14.0, height: 20 / 14, fontWeight: FontWeight.w700),
     body14Semibold: TextStyle(fontSize: 14.0, height: 20 / 14, fontWeight: FontWeight.w600),
+    body16Regular: TextStyle(fontSize: 16.0, height: 22 / 16, fontWeight: FontWeight.w400),
+    body16Semibold: TextStyle(fontSize: 16.0, height: 22 / 16, fontWeight: FontWeight.w600),
     heading18Bold: TextStyle(fontSize: 18.0, height: 23 / 18, fontWeight: FontWeight.w700),
   );
   @override
@@ -67,6 +85,8 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
     TextStyle? body14Regular,
     TextStyle? body14Bold,
     TextStyle? body14Semibold,
+    TextStyle? body16Regular,
+    TextStyle? body16Semibold,
     TextStyle? heading18Bold,
   }) =>
       AppTextStyle._(
@@ -75,6 +95,8 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
         body14Regular: body14Regular ?? this.body14Regular,
         body14Bold: body14Bold ?? this.body14Bold,
         body14Semibold: body14Semibold ?? this.body14Semibold,
+        body16Regular: body16Regular ?? this.body16Regular,
+        body16Semibold: body16Semibold ?? this.body16Semibold,
         heading18Bold: heading18Bold ?? this.heading18Bold,
       );
 
@@ -87,6 +109,8 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
         body14Regular: TextStyle.lerp(body14Regular, other.body14Regular, t)!,
         body14Bold: TextStyle.lerp(body14Bold, other.body14Bold, t)!,
         body14Semibold: TextStyle.lerp(body14Semibold, other.body14Semibold, t)!,
+        body16Regular: TextStyle.lerp(body16Regular, other.body16Regular, t)!,
+        body16Semibold: TextStyle.lerp(body16Semibold, other.body16Semibold, t)!,
         heading18Bold: TextStyle.lerp(heading18Bold, other.heading18Bold, t)!,
       );
     }

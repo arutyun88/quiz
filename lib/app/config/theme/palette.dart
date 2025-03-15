@@ -5,11 +5,13 @@ class Palette extends ThemeExtension<Palette> {
     required this.background,
     required this.switchColor,
     required this.text,
+    required this.textField,
   });
 
   final BackgroundColor background;
   final SwitchColor switchColor;
   final TextColor text;
+  final TextFieldColor textField;
 
   static Palette light = Palette._(
     background: BackgroundColor(
@@ -24,6 +26,13 @@ class Palette extends ThemeExtension<Palette> {
       primary: Colors.black,
       secondary: Colors.grey.shade600,
       accent: Colors.orange,
+    ),
+    textField: TextFieldColor(
+      background: Colors.grey.shade100,
+      disabledBackground: Colors.grey.shade50,
+      labelColor: Colors.grey.shade700,
+      hintColor: Colors.grey.shade500,
+      cursorColor: Colors.grey.shade700,
     ),
   );
 
@@ -41,6 +50,13 @@ class Palette extends ThemeExtension<Palette> {
       secondary: Colors.grey.shade400,
       accent: Colors.orange,
     ),
+    textField: TextFieldColor(
+      background: const Color.fromRGBO(48, 48, 48, 1),
+      disabledBackground: Colors.grey.shade900,
+      labelColor: Colors.grey.shade200,
+      hintColor: Colors.grey.shade400,
+      cursorColor: Colors.grey.shade200,
+    ),
   );
 
   @override
@@ -48,11 +64,13 @@ class Palette extends ThemeExtension<Palette> {
     BackgroundColor? background,
     SwitchColor? switchColor,
     TextColor? text,
+    TextFieldColor? textField,
   }) {
     return Palette._(
       background: background ?? this.background,
       switchColor: switchColor ?? this.switchColor,
       text: text ?? this.text,
+      textField: textField ?? this.textField,
     );
   }
 
@@ -63,6 +81,7 @@ class Palette extends ThemeExtension<Palette> {
         background: background.lerp(other.background, t),
         switchColor: switchColor.lerp(other.switchColor, t),
         text: text.lerp(other.text, t),
+        textField: textField.lerp(other.textField, t),
       );
     }
     return this;
@@ -125,6 +144,34 @@ class TextColor {
       primary: Color.lerp(primary, other.primary, t)!,
       secondary: Color.lerp(secondary, other.secondary, t)!,
       accent: Color.lerp(accent, other.accent, t)!,
+    );
+  }
+}
+
+class TextFieldColor {
+  final Color background;
+  final Color disabledBackground;
+  final Color labelColor;
+  final Color hintColor;
+  final Color cursorColor;
+
+  TextFieldColor({
+    required this.background,
+    required this.disabledBackground,
+    required this.labelColor,
+    required this.hintColor,
+    required this.cursorColor,
+  });
+
+  TextFieldColor lerp(TextFieldColor? other, double t) {
+    if (other == null) return this;
+
+    return TextFieldColor(
+      background: Color.lerp(background, other.background, t)!,
+      disabledBackground: Color.lerp(disabledBackground, other.disabledBackground, t)!,
+      labelColor: Color.lerp(labelColor, other.labelColor, t)!,
+      hintColor: Color.lerp(hintColor, other.hintColor, t)!,
+      cursorColor: Color.lerp(cursorColor, other.cursorColor, t)!,
     );
   }
 }
