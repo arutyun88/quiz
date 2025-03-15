@@ -118,7 +118,7 @@ class _AppTextFieldState extends State<AppTextField> {
               )
             : null,
         labelStyle: context.textStyle.body16Regular.copyWith(color: context.palette.textField.labelColor),
-        floatingLabelStyle: context.textStyle.body16Semibold.copyWith(color: context.palette.textField.labelColor),
+        floatingLabelStyle: context.textStyle.body14Semibold.copyWith(color: context.palette.textField.labelColor),
         hintText: widget.hint,
         hintStyle: context.textStyle.body14Regular.copyWith(color: context.palette.textField.hintColor),
         hintMaxLines: 1,
