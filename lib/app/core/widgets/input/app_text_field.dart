@@ -15,6 +15,7 @@ class AppTextField extends StatefulWidget {
   final void Function(String?)? onValidationChanged;
   final ValidationType validationType;
   final bool obscureText;
+  final void Function(String)? onChanged;
 
   const AppTextField._({
     super.key,
@@ -25,6 +26,7 @@ class AppTextField extends StatefulWidget {
     this.onValidationChanged,
     this.validationType = ValidationType.none,
     this.obscureText = false,
+    this.onChanged,
   });
 
   factory AppTextField({
@@ -33,6 +35,7 @@ class AppTextField extends StatefulWidget {
     String? label,
     String? hint,
     TextInputType? keyboardType,
+    void Function(String)? onChanged,
   }) =>
       AppTextField._(
         key: key,
@@ -40,6 +43,7 @@ class AppTextField extends StatefulWidget {
         label: label,
         hint: hint,
         keyboardType: keyboardType,
+        onChanged: onChanged,
       );
 
   factory AppTextField.email({
@@ -48,6 +52,7 @@ class AppTextField extends StatefulWidget {
     String? label,
     String? hint,
     void Function(String?)? onValidationChanged,
+    void Function(String)? onChanged,
   }) =>
       AppTextField._(
         key: key,
@@ -57,6 +62,7 @@ class AppTextField extends StatefulWidget {
         keyboardType: TextInputType.emailAddress,
         onValidationChanged: onValidationChanged,
         validationType: ValidationType.email,
+        onChanged: onChanged,
       );
 
   factory AppTextField.password({
@@ -64,6 +70,7 @@ class AppTextField extends StatefulWidget {
     String? label,
     String? hint,
     void Function(String?)? onValidationChanged,
+    void Function(String)? onChanged,
     bool obscureText = true,
   }) =>
       AppTextField._(
@@ -74,6 +81,7 @@ class AppTextField extends StatefulWidget {
         onValidationChanged: onValidationChanged,
         validationType: ValidationType.password,
         obscureText: obscureText,
+        onChanged: onChanged,
       );
 
   @override
@@ -119,6 +127,7 @@ class _AppTextFieldState extends State<AppTextField> {
       obscureText: widget.obscureText,
       onChanged: (value) {
         _validateAndNotify(value);
+        widget.onChanged?.call(value);
       },
     );
   }
