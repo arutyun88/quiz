@@ -3,6 +3,12 @@
         "en": "English",
         "ru": "Русский"
     },
+    "text_field": {
+        "email": {
+            "label": "Email",
+            "hint": "Enter your email"
+        }
+    },
     "profile": {
         "theme": {
             "title": "Theme",

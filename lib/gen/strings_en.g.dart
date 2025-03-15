@@ -41,8 +41,19 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 		'en': 'English',
 		'ru': 'Русский',
 	};
+	late final TranslationsTextFieldEn text_field = TranslationsTextFieldEn._(_root);
 	late final TranslationsProfileEn profile = TranslationsProfileEn._(_root);
 	late final TranslationsAuthenticationEn authentication = TranslationsAuthenticationEn._(_root);
+}
+
+// Path: text_field
+class TranslationsTextFieldEn {
+	TranslationsTextFieldEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsTextFieldEmailEn email = TranslationsTextFieldEmailEn._(_root);
 }
 
 // Path: profile
@@ -66,6 +77,17 @@ class TranslationsAuthenticationEn {
 	// Translations
 	late final TranslationsAuthenticationSignInEn sign_in = TranslationsAuthenticationSignInEn._(_root);
 	late final TranslationsAuthenticationSignUpEn sign_up = TranslationsAuthenticationSignUpEn._(_root);
+}
+
+// Path: text_field.email
+class TranslationsTextFieldEmailEn {
+	TranslationsTextFieldEmailEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get label => 'Email';
+	String get hint => 'Enter your email';
 }
 
 // Path: profile.theme
@@ -148,6 +170,8 @@ extension on Translations {
 		switch (path) {
 			case 'languages.en': return 'English';
 			case 'languages.ru': return 'Русский';
+			case 'text_field.email.label': return 'Email';
+			case 'text_field.email.hint': return 'Enter your email';
 			case 'profile.theme.title': return 'Theme';
 			case 'profile.theme.switcher.as_system': return 'As in the system';
 			case 'profile.application': return 'Application';

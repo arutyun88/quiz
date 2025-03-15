@@ -37,8 +37,19 @@ class TranslationsRu implements Translations {
 		'en': 'English',
 		'ru': 'Русский',
 	};
+	@override late final _TranslationsTextFieldRu text_field = _TranslationsTextFieldRu._(_root);
 	@override late final _TranslationsProfileRu profile = _TranslationsProfileRu._(_root);
 	@override late final _TranslationsAuthenticationRu authentication = _TranslationsAuthenticationRu._(_root);
+}
+
+// Path: text_field
+class _TranslationsTextFieldRu implements TranslationsTextFieldEn {
+	_TranslationsTextFieldRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsTextFieldEmailRu email = _TranslationsTextFieldEmailRu._(_root);
 }
 
 // Path: profile
@@ -62,6 +73,17 @@ class _TranslationsAuthenticationRu implements TranslationsAuthenticationEn {
 	// Translations
 	@override late final _TranslationsAuthenticationSignInRu sign_in = _TranslationsAuthenticationSignInRu._(_root);
 	@override late final _TranslationsAuthenticationSignUpRu sign_up = _TranslationsAuthenticationSignUpRu._(_root);
+}
+
+// Path: text_field.email
+class _TranslationsTextFieldEmailRu implements TranslationsTextFieldEmailEn {
+	_TranslationsTextFieldEmailRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Email';
+	@override String get hint => 'Введите ваш email-адрес';
 }
 
 // Path: profile.theme
@@ -144,6 +166,8 @@ extension on TranslationsRu {
 		switch (path) {
 			case 'languages.en': return 'English';
 			case 'languages.ru': return 'Русский';
+			case 'text_field.email.label': return 'Email';
+			case 'text_field.email.hint': return 'Введите ваш email-адрес';
 			case 'profile.theme.title': return 'Тема оформления';
 			case 'profile.theme.switcher.as_system': return 'Как в системе';
 			case 'profile.application': return 'Приложение';
