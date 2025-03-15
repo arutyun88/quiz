@@ -6,23 +6,44 @@ import 'package:quiz/app/core/widgets/input/app_input_border.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class AppTextField extends StatefulWidget {
-  const AppTextField({
+  final bool enabled;
+  final String? label;
+  final String? hint;
+  final TextInputType? keyboardType;
+  final void Function(bool)? onValidationChanged;
+
+  const AppTextField._({
     super.key,
-    required this.enabled,
+    this.enabled = true,
     this.label,
     this.hint,
     this.keyboardType,
     this.onValidationChanged,
   });
 
+  factory AppTextField({
+    Key? key,
+    bool enabled = true,
+    String? label,
+    String? hint,
+    TextInputType? keyboardType,
+  }) =>
+      AppTextField._(
+        key: key,
+        enabled: enabled,
+        label: label,
+        hint: hint,
+        keyboardType: keyboardType,
+      );
+
   factory AppTextField.email({
     Key? key,
-    required bool enabled,
+    bool enabled = true,
     String? label,
     String? hint,
     void Function(bool)? onValidationChanged,
   }) =>
-      AppTextField(
+      AppTextField._(
         key: key,
         enabled: enabled,
         label: label ?? t.text_field.email.label,
@@ -30,12 +51,6 @@ class AppTextField extends StatefulWidget {
         keyboardType: TextInputType.emailAddress,
         onValidationChanged: onValidationChanged,
       );
-
-  final bool enabled;
-  final String? label;
-  final String? hint;
-  final TextInputType? keyboardType;
-  final void Function(bool)? onValidationChanged;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
