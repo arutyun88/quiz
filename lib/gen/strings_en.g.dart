@@ -54,6 +54,8 @@ class TranslationsTextFieldEn {
 
 	// Translations
 	late final TranslationsTextFieldEmailEn email = TranslationsTextFieldEmailEn._(_root);
+	late final TranslationsTextFieldPasswordEn password = TranslationsTextFieldPasswordEn._(_root);
+	late final TranslationsTextFieldConfirmPasswordEn confirm_password = TranslationsTextFieldConfirmPasswordEn._(_root);
 }
 
 // Path: profile
@@ -88,6 +90,30 @@ class TranslationsTextFieldEmailEn {
 	// Translations
 	String get label => 'Email';
 	String get hint => 'Enter your email';
+	String get validation_message => 'Invalid email format';
+}
+
+// Path: text_field.password
+class TranslationsTextFieldPasswordEn {
+	TranslationsTextFieldPasswordEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get label => 'Password';
+	String get hint => 'Minimum 8 characters, letters and numbers';
+	String get validation_message => 'Password must contain at least 8 characters, at least one uppercase and lowercase letter, as well as a number';
+}
+
+// Path: text_field.confirm_password
+class TranslationsTextFieldConfirmPasswordEn {
+	TranslationsTextFieldConfirmPasswordEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get label => 'Confirm password';
+	String get hint => 'Repeat the entered password';
 }
 
 // Path: profile.theme
@@ -172,6 +198,12 @@ extension on Translations {
 			case 'languages.ru': return 'Русский';
 			case 'text_field.email.label': return 'Email';
 			case 'text_field.email.hint': return 'Enter your email';
+			case 'text_field.email.validation_message': return 'Invalid email format';
+			case 'text_field.password.label': return 'Password';
+			case 'text_field.password.hint': return 'Minimum 8 characters, letters and numbers';
+			case 'text_field.password.validation_message': return 'Password must contain at least 8 characters, at least one uppercase and lowercase letter, as well as a number';
+			case 'text_field.confirm_password.label': return 'Confirm password';
+			case 'text_field.confirm_password.hint': return 'Repeat the entered password';
 			case 'profile.theme.title': return 'Theme';
 			case 'profile.theme.switcher.as_system': return 'As in the system';
 			case 'profile.application': return 'Application';

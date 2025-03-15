@@ -6,7 +6,17 @@
     "text_field": {
         "email": {
             "label": "Email",
-            "hint": "Enter your email"
+            "hint": "Enter your email",
+            "validation_message": "Invalid email format"
+        },
+        "password": {
+            "label": "Password",
+            "hint": "Minimum 8 characters, letters and numbers",
+            "validation_message": "Password must contain at least 8 characters, at least one uppercase and lowercase letter, as well as a number"
+        },
+        "confirm_password": {
+            "label": "Confirm password",
+            "hint": "Repeat the entered password"
         }
     },
     "profile": {

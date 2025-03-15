@@ -50,6 +50,8 @@ class _TranslationsTextFieldRu implements TranslationsTextFieldEn {
 
 	// Translations
 	@override late final _TranslationsTextFieldEmailRu email = _TranslationsTextFieldEmailRu._(_root);
+	@override late final _TranslationsTextFieldPasswordRu password = _TranslationsTextFieldPasswordRu._(_root);
+	@override late final _TranslationsTextFieldConfirmPasswordRu confirm_password = _TranslationsTextFieldConfirmPasswordRu._(_root);
 }
 
 // Path: profile
@@ -84,6 +86,30 @@ class _TranslationsTextFieldEmailRu implements TranslationsTextFieldEmailEn {
 	// Translations
 	@override String get label => 'Email';
 	@override String get hint => 'Введите ваш email-адрес';
+	@override String get validation_message => 'Неверный формат электронной почты';
+}
+
+// Path: text_field.password
+class _TranslationsTextFieldPasswordRu implements TranslationsTextFieldPasswordEn {
+	_TranslationsTextFieldPasswordRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Пароль';
+	@override String get hint => 'Минимум 8 символов, буквы и цифры';
+	@override String get validation_message => 'Пароль должен содержать минимум 8 символов, хотя бы одну заглавную и строчную букву, а также цифру';
+}
+
+// Path: text_field.confirm_password
+class _TranslationsTextFieldConfirmPasswordRu implements TranslationsTextFieldConfirmPasswordEn {
+	_TranslationsTextFieldConfirmPasswordRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Подтвердите пароль';
+	@override String get hint => 'Повторите введенный пароль';
 }
 
 // Path: profile.theme
@@ -168,6 +194,12 @@ extension on TranslationsRu {
 			case 'languages.ru': return 'Русский';
 			case 'text_field.email.label': return 'Email';
 			case 'text_field.email.hint': return 'Введите ваш email-адрес';
+			case 'text_field.email.validation_message': return 'Неверный формат электронной почты';
+			case 'text_field.password.label': return 'Пароль';
+			case 'text_field.password.hint': return 'Минимум 8 символов, буквы и цифры';
+			case 'text_field.password.validation_message': return 'Пароль должен содержать минимум 8 символов, хотя бы одну заглавную и строчную букву, а также цифру';
+			case 'text_field.confirm_password.label': return 'Подтвердите пароль';
+			case 'text_field.confirm_password.hint': return 'Повторите введенный пароль';
 			case 'profile.theme.title': return 'Тема оформления';
 			case 'profile.theme.switcher.as_system': return 'Как в системе';
 			case 'profile.application': return 'Приложение';

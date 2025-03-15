@@ -5,12 +5,16 @@ import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/input/app_input_border.dart';
 import 'package:quiz/gen/strings.g.dart';
 
+enum ValidationType { none, email, password }
+
 class AppTextField extends StatefulWidget {
   final bool enabled;
   final String? label;
   final String? hint;
   final TextInputType? keyboardType;
-  final void Function(bool)? onValidationChanged;
+  final void Function(String?)? onValidationChanged;
+  final ValidationType validationType;
+  final bool obscureText;
 
   const AppTextField._({
     super.key,
@@ -19,6 +23,8 @@ class AppTextField extends StatefulWidget {
     this.hint,
     this.keyboardType,
     this.onValidationChanged,
+    this.validationType = ValidationType.none,
+    this.obscureText = false,
   });
 
   factory AppTextField({
@@ -41,7 +47,7 @@ class AppTextField extends StatefulWidget {
     bool enabled = true,
     String? label,
     String? hint,
-    void Function(bool)? onValidationChanged,
+    void Function(String?)? onValidationChanged,
   }) =>
       AppTextField._(
         key: key,
@@ -50,6 +56,24 @@ class AppTextField extends StatefulWidget {
         hint: hint ?? t.text_field.email.hint,
         keyboardType: TextInputType.emailAddress,
         onValidationChanged: onValidationChanged,
+        validationType: ValidationType.email,
+      );
+
+  factory AppTextField.password({
+    bool enabled = true,
+    String? label,
+    String? hint,
+    void Function(String?)? onValidationChanged,
+    bool obscureText = true,
+  }) =>
+      AppTextField._(
+        enabled: enabled,
+        label: label ?? t.text_field.password.label,
+        hint: hint ?? t.text_field.password.hint,
+        keyboardType: TextInputType.emailAddress,
+        onValidationChanged: onValidationChanged,
+        validationType: ValidationType.password,
+        obscureText: obscureText,
       );
 
   @override
@@ -57,17 +81,7 @@ class AppTextField extends StatefulWidget {
 }
 
 class _AppTextFieldState extends State<AppTextField> {
-  bool _isValid = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  String? errorMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -102,26 +116,34 @@ class _AppTextFieldState extends State<AppTextField> {
         hintMaxLines: 1,
         border: AppInputBorder.to(context, enabled: widget.enabled),
       ),
+      obscureText: widget.obscureText,
       onChanged: (value) {
-        if (widget.keyboardType == TextInputType.emailAddress) {
-          _emailValidateAndNotify(value);
-        }
+        _validateAndNotify(value);
       },
     );
   }
 
-  void _emailValidateAndNotify(String value) {
+  void _validateAndNotify(String value) {
     if (widget.onValidationChanged != null) {
-      bool isCurrentlyValid = false;
+      String? newErrorMessage;
 
       if (value.isNotEmpty) {
-        final emailRegExp = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
-        isCurrentlyValid = emailRegExp.hasMatch(value);
+        switch (widget.validationType) {
+          case ValidationType.email:
+            if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(value)) {
+              newErrorMessage = t.text_field.email.validation_message;
+            }
+          case ValidationType.password:
+            if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$').hasMatch(value)) {
+              newErrorMessage = t.text_field.password.validation_message;
+            }
+          case ValidationType.none:
+            newErrorMessage = null;
+        }
       }
-
-      if (isCurrentlyValid != _isValid) {
-        _isValid = isCurrentlyValid;
-        widget.onValidationChanged!(_isValid);
+      if (newErrorMessage != errorMessage) {
+        errorMessage = newErrorMessage;
+        widget.onValidationChanged!(errorMessage);
       }
     }
   }
