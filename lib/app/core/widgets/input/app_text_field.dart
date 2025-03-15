@@ -5,13 +5,14 @@ import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/input/app_input_border.dart';
 import 'package:quiz/gen/strings.g.dart';
 
-class AppTextField extends StatelessWidget {
+class AppTextField extends StatefulWidget {
   const AppTextField({
     super.key,
     required this.enabled,
     this.label,
     this.hint,
     this.keyboardType,
+    this.onValidationChanged,
   });
 
   factory AppTextField.email({
@@ -19,6 +20,7 @@ class AppTextField extends StatelessWidget {
     required bool enabled,
     String? label,
     String? hint,
+    void Function(bool)? onValidationChanged,
   }) =>
       AppTextField(
         key: key,
@@ -26,49 +28,91 @@ class AppTextField extends StatelessWidget {
         label: label ?? t.text_field.email.label,
         hint: hint ?? t.text_field.email.hint,
         keyboardType: TextInputType.emailAddress,
+        onValidationChanged: onValidationChanged,
       );
 
   final bool enabled;
   final String? label;
   final String? hint;
   final TextInputType? keyboardType;
+  final void Function(bool)? onValidationChanged;
+
+  @override
+  State<AppTextField> createState() => _AppTextFieldState();
+}
+
+class _AppTextFieldState extends State<AppTextField> {
+  bool _isValid = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      enabled: enabled,
+      enabled: widget.enabled,
       style: context.textStyle.body16Regular,
       cursorColor: context.palette.textField.cursorColor,
-      keyboardType: keyboardType,
+      keyboardType: widget.keyboardType,
       textCapitalization: _textCapitalization,
       autocorrect: _autocorrect,
       inputFormatters: _inputFormatters,
       autovalidateMode: AutovalidateMode.disabled,
       decoration: InputDecoration(
-        label: label != null
+        label: widget.label != null
             ? ClipRRect(
                 borderRadius: BorderRadius.circular(4.0),
                 child: ColoredBox(
-                  color: enabled ? context.palette.textField.background : context.palette.textField.disabledBackground,
+                  color: widget.enabled
+                      ? context.palette.textField.background
+                      : context.palette.textField.disabledBackground,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-                    child: Text(label!),
+                    child: Text(widget.label!),
                   ),
                 ),
               )
             : null,
         labelStyle: context.textStyle.body16Regular.copyWith(color: context.palette.textField.labelColor),
         floatingLabelStyle: context.textStyle.body16Semibold.copyWith(color: context.palette.textField.labelColor),
-        hintText: hint,
+        hintText: widget.hint,
         hintStyle: context.textStyle.body14Regular.copyWith(color: context.palette.textField.hintColor),
         hintMaxLines: 1,
-        border: AppInputBorder.to(context, enabled: enabled),
+        border: AppInputBorder.to(context, enabled: widget.enabled),
       ),
+      onChanged: (value) {
+        if (widget.keyboardType == TextInputType.emailAddress) {
+          _emailValidateAndNotify(value);
+        }
+      },
     );
   }
 
+  void _emailValidateAndNotify(String value) {
+    if (widget.onValidationChanged != null) {
+      bool isCurrentlyValid = false;
+
+      if (value.isNotEmpty) {
+        final emailRegExp = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+        isCurrentlyValid = emailRegExp.hasMatch(value);
+      }
+
+      if (isCurrentlyValid != _isValid) {
+        _isValid = isCurrentlyValid;
+        widget.onValidationChanged!(_isValid);
+      }
+    }
+  }
+
   TextCapitalization get _textCapitalization {
-    switch (keyboardType) {
+    switch (widget.keyboardType) {
       case TextInputType.name:
       case TextInputType.streetAddress:
         return TextCapitalization.words;
@@ -85,7 +129,7 @@ class AppTextField extends StatelessWidget {
   }
 
   bool get _autocorrect {
-    switch (keyboardType) {
+    switch (widget.keyboardType) {
       case TextInputType.name:
       case TextInputType.emailAddress:
       case TextInputType.url:
@@ -100,7 +144,7 @@ class AppTextField extends StatelessWidget {
   }
 
   List<TextInputFormatter> get _inputFormatters {
-    switch (keyboardType) {
+    switch (widget.keyboardType) {
       case TextInputType.number:
       case TextInputType.phone:
         return [FilteringTextInputFormatter.digitsOnly];
