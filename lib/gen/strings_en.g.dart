@@ -79,6 +79,10 @@ class TranslationsAuthenticationEn {
 	// Translations
 	late final TranslationsAuthenticationSignInEn sign_in = TranslationsAuthenticationSignInEn._(_root);
 	late final TranslationsAuthenticationSignUpEn sign_up = TranslationsAuthenticationSignUpEn._(_root);
+	TextSpan agreement({required InlineSpanBuilder link}) => TextSpan(children: [
+		const TextSpan(text: 'By using the app, you accept '),
+		link('User Agreement'),
+	]);
 }
 
 // Path: text_field.email
@@ -146,6 +150,8 @@ class TranslationsAuthenticationSignInEn {
 	// Translations
 	late final TranslationsAuthenticationSignInNoAccountEn no_account = TranslationsAuthenticationSignInNoAccountEn._(_root);
 	String get button => 'Log in';
+	String get title => 'Log in to your account';
+	String get forget_password => 'I don\'t remember the password';
 }
 
 // Path: authentication.sign_up
@@ -212,8 +218,14 @@ extension on Translations {
 			case 'authentication.sign_in.no_account.text': return 'Don\'t have an account yet?';
 			case 'authentication.sign_in.no_account.sign_up': return 'Sign up';
 			case 'authentication.sign_in.button': return 'Log in';
+			case 'authentication.sign_in.title': return 'Log in to your account';
+			case 'authentication.sign_in.forget_password': return 'I don\'t remember the password';
 			case 'authentication.sign_up.no_account.text': return 'Already have an account?';
 			case 'authentication.sign_up.no_account.sign_in': return 'Log in';
+			case 'authentication.agreement': return ({required InlineSpanBuilder link}) => TextSpan(children: [
+				const TextSpan(text: 'By using the app, you accept '),
+				link('User Agreement'),
+			]);
 			default: return null;
 		}
 	}

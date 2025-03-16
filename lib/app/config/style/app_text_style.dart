@@ -57,6 +57,13 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
   /// fontWeight: 700
   final TextStyle heading18Bold;
 
+  /// fontSize: 20px
+  ///
+  /// height: 26px
+  ///
+  /// fontWeight: 700
+  final TextStyle heading20Bold;
+
   const AppTextStyle._({
     required this.body10Medium,
     required this.body12Regular,
@@ -66,6 +73,7 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
     required this.body16Regular,
     required this.body16Semibold,
     required this.heading18Bold,
+    required this.heading20Bold,
   });
 
   static const AppTextStyle base = AppTextStyle._(
@@ -77,6 +85,7 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
     body16Regular: TextStyle(fontSize: 16.0, height: 22 / 16, fontWeight: FontWeight.w400),
     body16Semibold: TextStyle(fontSize: 16.0, height: 22 / 16, fontWeight: FontWeight.w600),
     heading18Bold: TextStyle(fontSize: 18.0, height: 23 / 18, fontWeight: FontWeight.w700),
+    heading20Bold: TextStyle(fontSize: 20.0, height: 26 / 20, fontWeight: FontWeight.w700),
   );
   @override
   ThemeExtension<AppTextStyle> copyWith({
@@ -88,6 +97,7 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
     TextStyle? body16Regular,
     TextStyle? body16Semibold,
     TextStyle? heading18Bold,
+    TextStyle? heading20Bold,
   }) =>
       AppTextStyle._(
         body10Medium: body10Medium ?? this.body10Medium,
@@ -98,6 +108,7 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
         body16Regular: body16Regular ?? this.body16Regular,
         body16Semibold: body16Semibold ?? this.body16Semibold,
         heading18Bold: heading18Bold ?? this.heading18Bold,
+        heading20Bold: heading20Bold ?? this.heading20Bold,
       );
 
   @override
@@ -112,6 +123,7 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
         body16Regular: TextStyle.lerp(body16Regular, other.body16Regular, t)!,
         body16Semibold: TextStyle.lerp(body16Semibold, other.body16Semibold, t)!,
         heading18Bold: TextStyle.lerp(heading18Bold, other.heading18Bold, t)!,
+        heading20Bold: TextStyle.lerp(heading20Bold, other.heading20Bold, t)!,
       );
     }
     return this;

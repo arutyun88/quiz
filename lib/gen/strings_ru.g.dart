@@ -75,6 +75,10 @@ class _TranslationsAuthenticationRu implements TranslationsAuthenticationEn {
 	// Translations
 	@override late final _TranslationsAuthenticationSignInRu sign_in = _TranslationsAuthenticationSignInRu._(_root);
 	@override late final _TranslationsAuthenticationSignUpRu sign_up = _TranslationsAuthenticationSignUpRu._(_root);
+	@override TextSpan agreement({required InlineSpanBuilder link}) => TextSpan(children: [
+		const TextSpan(text: 'Используя приложение, вы принимаете '),
+		link('Пользовательское соглашение'),
+	]);
 }
 
 // Path: text_field.email
@@ -142,6 +146,8 @@ class _TranslationsAuthenticationSignInRu implements TranslationsAuthenticationS
 	// Translations
 	@override late final _TranslationsAuthenticationSignInNoAccountRu no_account = _TranslationsAuthenticationSignInNoAccountRu._(_root);
 	@override String get button => 'Войти';
+	@override String get title => 'Войти в аккаунт';
+	@override String get forget_password => 'Не помню пароль';
 }
 
 // Path: authentication.sign_up
@@ -208,8 +214,14 @@ extension on TranslationsRu {
 			case 'authentication.sign_in.no_account.text': return 'Нет аккаунта?';
 			case 'authentication.sign_in.no_account.sign_up': return 'Зарегистрироваться';
 			case 'authentication.sign_in.button': return 'Войти';
+			case 'authentication.sign_in.title': return 'Войти в аккаунт';
+			case 'authentication.sign_in.forget_password': return 'Не помню пароль';
 			case 'authentication.sign_up.no_account.text': return 'Есть аккаунт?';
 			case 'authentication.sign_up.no_account.sign_in': return 'Войти';
+			case 'authentication.agreement': return ({required InlineSpanBuilder link}) => TextSpan(children: [
+				const TextSpan(text: 'Используя приложение, вы принимаете '),
+				link('Пользовательское соглашение'),
+			]);
 			default: return null;
 		}
 	}

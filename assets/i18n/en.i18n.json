@@ -37,13 +37,16 @@
                 "text": "Don't have an account yet?",
                 "sign_up": "Sign up"
             },
-            "button": "Log in"
+            "button": "Log in",
+            "title": "Log in to your account",
+            "forget_password": "I don't remember the password"
         },
         "sign_up": {
             "no_account": {
                 "text": "Already have an account?",
                 "sign_in": "Log in"
             }
-        }
+        },
+        "agreement(rich)": "By using the app, you accept ${link(User Agreement)}"
     }
 }
