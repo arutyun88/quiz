@@ -10,7 +10,7 @@ class HomeFlow extends ConsumerWidget {
     return Scaffold(
       body: Center(
         child: Text(
-          ref.read(authenticationProvider).when(
+          ref.watch(authenticationProvider).when(
                 authenticated: (id) => id,
                 unauthenticated: (failure) => '$failure',
               ),
