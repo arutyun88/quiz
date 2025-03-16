@@ -36,7 +36,8 @@
             "no_account": {
                 "text": "Нет аккаунта?",
                 "sign_up": "Зарегистрироваться"
-            }
+            },
+            "button": "Войти"
         },
         "sign_up": {
             "no_account": {

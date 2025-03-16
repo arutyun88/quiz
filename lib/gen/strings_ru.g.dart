@@ -141,6 +141,7 @@ class _TranslationsAuthenticationSignInRu implements TranslationsAuthenticationS
 
 	// Translations
 	@override late final _TranslationsAuthenticationSignInNoAccountRu no_account = _TranslationsAuthenticationSignInNoAccountRu._(_root);
+	@override String get button => 'Войти';
 }
 
 // Path: authentication.sign_up
@@ -206,6 +207,7 @@ extension on TranslationsRu {
 			case 'profile.language.change': return 'Изменить язык';
 			case 'authentication.sign_in.no_account.text': return 'Нет аккаунта?';
 			case 'authentication.sign_in.no_account.sign_up': return 'Зарегистрироваться';
+			case 'authentication.sign_in.button': return 'Войти';
 			case 'authentication.sign_up.no_account.text': return 'Есть аккаунт?';
 			case 'authentication.sign_up.no_account.sign_in': return 'Войти';
 			default: return null;

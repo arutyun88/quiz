@@ -6,12 +6,14 @@ class Palette extends ThemeExtension<Palette> {
     required this.switchColor,
     required this.text,
     required this.textField,
+    required this.button,
   });
 
   final BackgroundColor background;
   final SwitchColor switchColor;
   final TextColor text;
   final TextFieldColor textField;
+  final ButtonColor button;
 
   static Palette light = Palette._(
     background: BackgroundColor(
@@ -33,6 +35,12 @@ class Palette extends ThemeExtension<Palette> {
       labelColor: Colors.grey.shade700,
       hintColor: Colors.grey.shade500,
       cursorColor: Colors.grey.shade700,
+    ),
+    button: ButtonColor(
+      background: Colors.lightGreen.shade50,
+      foreground: Colors.lightGreen.shade900,
+      disabledBackground: Colors.grey.shade50,
+      disabledForeground: Colors.grey.shade400,
     ),
   );
 
@@ -57,6 +65,12 @@ class Palette extends ThemeExtension<Palette> {
       hintColor: Colors.grey.shade400,
       cursorColor: Colors.grey.shade200,
     ),
+    button: ButtonColor(
+      background: Colors.green.shade900,
+      foreground: Colors.lightGreen.shade50,
+      disabledBackground: const Color.fromRGBO(48, 48, 48, 1),
+      disabledForeground: Colors.grey.shade700,
+    ),
   );
 
   @override
@@ -65,12 +79,14 @@ class Palette extends ThemeExtension<Palette> {
     SwitchColor? switchColor,
     TextColor? text,
     TextFieldColor? textField,
+    ButtonColor? button,
   }) {
     return Palette._(
       background: background ?? this.background,
       switchColor: switchColor ?? this.switchColor,
       text: text ?? this.text,
       textField: textField ?? this.textField,
+      button: button ?? this.button,
     );
   }
 
@@ -82,6 +98,7 @@ class Palette extends ThemeExtension<Palette> {
         switchColor: switchColor.lerp(other.switchColor, t),
         text: text.lerp(other.text, t),
         textField: textField.lerp(other.textField, t),
+        button: button.lerp(other.button, t),
       );
     }
     return this;
@@ -172,6 +189,31 @@ class TextFieldColor {
       labelColor: Color.lerp(labelColor, other.labelColor, t)!,
       hintColor: Color.lerp(hintColor, other.hintColor, t)!,
       cursorColor: Color.lerp(cursorColor, other.cursorColor, t)!,
+    );
+  }
+}
+
+class ButtonColor {
+  final Color background;
+  final Color foreground;
+  final Color disabledBackground;
+  final Color disabledForeground;
+
+  ButtonColor({
+    required this.background,
+    required this.foreground,
+    required this.disabledBackground,
+    required this.disabledForeground,
+  });
+
+  ButtonColor lerp(ButtonColor? other, double t) {
+    if (other == null) return this;
+
+    return ButtonColor(
+      background: Color.lerp(background, other.background, t)!,
+      foreground: Color.lerp(foreground, other.foreground, t)!,
+      disabledBackground: Color.lerp(disabledBackground, other.disabledBackground, t)!,
+      disabledForeground: Color.lerp(disabledForeground, other.disabledForeground, t)!,
     );
   }
 }

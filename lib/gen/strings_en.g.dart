@@ -145,6 +145,7 @@ class TranslationsAuthenticationSignInEn {
 
 	// Translations
 	late final TranslationsAuthenticationSignInNoAccountEn no_account = TranslationsAuthenticationSignInNoAccountEn._(_root);
+	String get button => 'Log in';
 }
 
 // Path: authentication.sign_up
@@ -210,6 +211,7 @@ extension on Translations {
 			case 'profile.language.change': return 'Choose language';
 			case 'authentication.sign_in.no_account.text': return 'Don\'t have an account yet?';
 			case 'authentication.sign_in.no_account.sign_up': return 'Sign up';
+			case 'authentication.sign_in.button': return 'Log in';
 			case 'authentication.sign_up.no_account.text': return 'Already have an account?';
 			case 'authentication.sign_up.no_account.sign_in': return 'Log in';
 			default: return null;

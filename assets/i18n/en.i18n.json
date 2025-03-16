@@ -36,7 +36,8 @@
             "no_account": {
                 "text": "Don't have an account yet?",
                 "sign_up": "Sign up"
-            }
+            },
+            "button": "Log in"
         },
         "sign_up": {
             "no_account": {
