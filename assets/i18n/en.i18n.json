@@ -12,7 +12,7 @@
         "password": {
             "label": "Password",
             "hint": "Minimum 8 characters, letters and numbers",
-            "validation_message": "Password must contain at least 8 characters, at least one uppercase and lowercase letter, as well as a number"
+            "validation_message": "8+ characters: 1 uppercase, 1 lowercase, 1 digit"
         },
         "confirm_password": {
             "label": "Confirm password",

@@ -98,7 +98,7 @@ class _TranslationsTextFieldPasswordRu implements TranslationsTextFieldPasswordE
 	// Translations
 	@override String get label => 'Пароль';
 	@override String get hint => 'Минимум 8 символов, буквы и цифры';
-	@override String get validation_message => 'Пароль должен содержать минимум 8 символов, хотя бы одну заглавную и строчную букву, а также цифру';
+	@override String get validation_message => '8+ символов: 1 заглавная, 1 строчная, 1 цифра';
 }
 
 // Path: text_field.confirm_password
@@ -197,7 +197,7 @@ extension on TranslationsRu {
 			case 'text_field.email.validation_message': return 'Неверный формат электронной почты';
 			case 'text_field.password.label': return 'Пароль';
 			case 'text_field.password.hint': return 'Минимум 8 символов, буквы и цифры';
-			case 'text_field.password.validation_message': return 'Пароль должен содержать минимум 8 символов, хотя бы одну заглавную и строчную букву, а также цифру';
+			case 'text_field.password.validation_message': return '8+ символов: 1 заглавная, 1 строчная, 1 цифра';
 			case 'text_field.confirm_password.label': return 'Подтвердите пароль';
 			case 'text_field.confirm_password.hint': return 'Повторите введенный пароль';
 			case 'profile.theme.title': return 'Тема оформления';

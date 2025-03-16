@@ -102,7 +102,7 @@ class TranslationsTextFieldPasswordEn {
 	// Translations
 	String get label => 'Password';
 	String get hint => 'Minimum 8 characters, letters and numbers';
-	String get validation_message => 'Password must contain at least 8 characters, at least one uppercase and lowercase letter, as well as a number';
+	String get validation_message => '8+ characters: 1 uppercase, 1 lowercase, 1 digit';
 }
 
 // Path: text_field.confirm_password
@@ -201,7 +201,7 @@ extension on Translations {
 			case 'text_field.email.validation_message': return 'Invalid email format';
 			case 'text_field.password.label': return 'Password';
 			case 'text_field.password.hint': return 'Minimum 8 characters, letters and numbers';
-			case 'text_field.password.validation_message': return 'Password must contain at least 8 characters, at least one uppercase and lowercase letter, as well as a number';
+			case 'text_field.password.validation_message': return '8+ characters: 1 uppercase, 1 lowercase, 1 digit';
 			case 'text_field.confirm_password.label': return 'Confirm password';
 			case 'text_field.confirm_password.hint': return 'Repeat the entered password';
 			case 'profile.theme.title': return 'Theme';

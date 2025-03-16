@@ -101,8 +101,14 @@ class _AppTextFieldState extends State<AppTextField> {
       textCapitalization: _textCapitalization,
       autocorrect: _autocorrect,
       inputFormatters: _inputFormatters,
-      autovalidateMode: AutovalidateMode.disabled,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) => _validateAndNotify(value ?? ''),
       decoration: InputDecoration(
+        errorMaxLines: 1,
+        errorStyle: context.textStyle.body10Medium,
+        isDense: true,
+        isCollapsed: true,
+        contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
         label: widget.label != null
             ? ClipRRect(
                 borderRadius: BorderRadius.circular(4.0),
@@ -132,7 +138,7 @@ class _AppTextFieldState extends State<AppTextField> {
     );
   }
 
-  void _validateAndNotify(String value) {
+  String? _validateAndNotify(String value) {
     if (widget.onValidationChanged != null) {
       String? newErrorMessage;
 
@@ -155,6 +161,7 @@ class _AppTextFieldState extends State<AppTextField> {
         widget.onValidationChanged!(errorMessage);
       }
     }
+    return errorMessage;
   }
 
   TextCapitalization get _textCapitalization {
