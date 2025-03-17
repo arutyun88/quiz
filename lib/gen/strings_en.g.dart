@@ -161,7 +161,10 @@ class TranslationsAuthenticationSignUpEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsAuthenticationSignUpNoAccountEn no_account = TranslationsAuthenticationSignUpNoAccountEn._(_root);
+	late final TranslationsAuthenticationSignUpHaveAccountEn have_account = TranslationsAuthenticationSignUpHaveAccountEn._(_root);
+	late final TranslationsAuthenticationSignUpConfirmPasswordEn confirm_password = TranslationsAuthenticationSignUpConfirmPasswordEn._(_root);
+	String get button => 'Sign up';
+	String get title => 'Sign up';
 }
 
 // Path: profile.theme.switcher
@@ -185,15 +188,27 @@ class TranslationsAuthenticationSignInNoAccountEn {
 	String get sign_up => 'Sign up';
 }
 
-// Path: authentication.sign_up.no_account
-class TranslationsAuthenticationSignUpNoAccountEn {
-	TranslationsAuthenticationSignUpNoAccountEn._(this._root);
+// Path: authentication.sign_up.have_account
+class TranslationsAuthenticationSignUpHaveAccountEn {
+	TranslationsAuthenticationSignUpHaveAccountEn._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get text => 'Already have an account?';
 	String get sign_in => 'Log in';
+}
+
+// Path: authentication.sign_up.confirm_password
+class TranslationsAuthenticationSignUpConfirmPasswordEn {
+	TranslationsAuthenticationSignUpConfirmPasswordEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get label => 'Confirm Password';
+	String get hint => 'Re-enter your password';
+	String get validation_message => 'Passwords do not match';
 }
 
 /// Flat map(s) containing all translations.
@@ -220,8 +235,13 @@ extension on Translations {
 			case 'authentication.sign_in.button': return 'Log in';
 			case 'authentication.sign_in.title': return 'Log in to your account';
 			case 'authentication.sign_in.forget_password': return 'I don\'t remember the password';
-			case 'authentication.sign_up.no_account.text': return 'Already have an account?';
-			case 'authentication.sign_up.no_account.sign_in': return 'Log in';
+			case 'authentication.sign_up.have_account.text': return 'Already have an account?';
+			case 'authentication.sign_up.have_account.sign_in': return 'Log in';
+			case 'authentication.sign_up.confirm_password.label': return 'Confirm Password';
+			case 'authentication.sign_up.confirm_password.hint': return 'Re-enter your password';
+			case 'authentication.sign_up.confirm_password.validation_message': return 'Passwords do not match';
+			case 'authentication.sign_up.button': return 'Sign up';
+			case 'authentication.sign_up.title': return 'Sign up';
 			case 'authentication.agreement': return ({required InlineSpanBuilder link}) => TextSpan(children: [
 				const TextSpan(text: 'By using the app, you accept '),
 				link('User Agreement'),

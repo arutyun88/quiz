@@ -16,6 +16,7 @@ class AppTextField extends StatefulWidget {
   final ValidationType validationType;
   final bool obscureText;
   final void Function(String)? onChanged;
+  final String? validationMessage;
 
   const AppTextField._({
     super.key,
@@ -27,6 +28,7 @@ class AppTextField extends StatefulWidget {
     this.validationType = ValidationType.none,
     this.obscureText = false,
     this.onChanged,
+    this.validationMessage,
   });
 
   factory AppTextField({
@@ -36,6 +38,7 @@ class AppTextField extends StatefulWidget {
     String? hint,
     TextInputType? keyboardType,
     void Function(String)? onChanged,
+    String? validationMessage,
   }) =>
       AppTextField._(
         key: key,
@@ -44,6 +47,7 @@ class AppTextField extends StatefulWidget {
         hint: hint,
         keyboardType: keyboardType,
         onChanged: onChanged,
+        validationMessage: validationMessage,
       );
 
   factory AppTextField.email({
@@ -53,6 +57,7 @@ class AppTextField extends StatefulWidget {
     String? hint,
     void Function(String?)? onValidationChanged,
     void Function(String)? onChanged,
+    String? validationMessage,
   }) =>
       AppTextField._(
         key: key,
@@ -63,6 +68,7 @@ class AppTextField extends StatefulWidget {
         onValidationChanged: onValidationChanged,
         validationType: ValidationType.email,
         onChanged: onChanged,
+        validationMessage: validationMessage,
       );
 
   factory AppTextField.password({
@@ -72,6 +78,7 @@ class AppTextField extends StatefulWidget {
     void Function(String?)? onValidationChanged,
     void Function(String)? onChanged,
     bool obscureText = true,
+    String? validationMessage,
   }) =>
       AppTextField._(
         enabled: enabled,
@@ -82,6 +89,7 @@ class AppTextField extends StatefulWidget {
         validationType: ValidationType.password,
         obscureText: obscureText,
         onChanged: onChanged,
+        validationMessage: validationMessage,
       );
 
   @override
@@ -102,7 +110,7 @@ class _AppTextFieldState extends State<AppTextField> {
       autocorrect: _autocorrect,
       inputFormatters: _inputFormatters,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (value) => _validateAndNotify(value ?? ''),
+      validator: (value) => widget.validationMessage ?? _validateAndNotify(value ?? ''),
       decoration: InputDecoration(
         errorMaxLines: 1,
         errorStyle: context.textStyle.body10Medium,
@@ -123,7 +131,9 @@ class _AppTextFieldState extends State<AppTextField> {
                 ),
               )
             : null,
-        labelStyle: context.textStyle.body16Regular.copyWith(color: context.palette.textField.labelColor),
+        labelStyle: context.textStyle.body16Regular.copyWith(
+          color: widget.enabled ? context.palette.textField.labelColor : context.palette.textField.hintColor,
+        ),
         floatingLabelStyle: context.textStyle.body14Semibold.copyWith(color: context.palette.textField.labelColor),
         hintText: widget.hint,
         hintStyle: context.textStyle.body14Regular.copyWith(color: context.palette.textField.hintColor),
@@ -143,17 +153,21 @@ class _AppTextFieldState extends State<AppTextField> {
       String? newErrorMessage;
 
       if (value.isNotEmpty) {
-        switch (widget.validationType) {
-          case ValidationType.email:
-            if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(value)) {
-              newErrorMessage = t.text_field.email.validation_message;
-            }
-          case ValidationType.password:
-            if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$').hasMatch(value)) {
-              newErrorMessage = t.text_field.password.validation_message;
-            }
-          case ValidationType.none:
-            newErrorMessage = null;
+        if (widget.validationMessage == null) {
+          switch (widget.validationType) {
+            case ValidationType.email:
+              if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(value)) {
+                newErrorMessage = t.text_field.email.validation_message;
+              }
+            case ValidationType.password:
+              if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$').hasMatch(value)) {
+                newErrorMessage = t.text_field.password.validation_message;
+              }
+            case ValidationType.none:
+              newErrorMessage = null;
+          }
+        } else {
+          newErrorMessage = widget.validationMessage;
         }
       }
       if (newErrorMessage != errorMessage) {

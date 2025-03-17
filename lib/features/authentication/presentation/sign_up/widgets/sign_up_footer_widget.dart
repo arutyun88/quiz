@@ -14,12 +14,12 @@ class SignUpFooterWidget extends StatelessWidget {
     return RichText(
       text: ThemedTextSpan(
         context,
-        text: t.authentication.sign_up.no_account.text,
+        text: t.authentication.sign_up.have_account.text,
         style: context.textStyle.body14Regular,
         children: [
           const TextSpan(text: ' '),
           TextSpan(
-            text: t.authentication.sign_up.no_account.sign_in,
+            text: t.authentication.sign_up.have_account.sign_in,
             style: context.textStyle.body14Bold.copyWith(
               color: context.palette.text.accent,
             ),

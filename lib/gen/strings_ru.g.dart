@@ -76,8 +76,8 @@ class _TranslationsAuthenticationRu implements TranslationsAuthenticationEn {
 	@override late final _TranslationsAuthenticationSignInRu sign_in = _TranslationsAuthenticationSignInRu._(_root);
 	@override late final _TranslationsAuthenticationSignUpRu sign_up = _TranslationsAuthenticationSignUpRu._(_root);
 	@override TextSpan agreement({required InlineSpanBuilder link}) => TextSpan(children: [
-		const TextSpan(text: 'Используя приложение, вы принимаете '),
-		link('Пользовательское соглашение'),
+		const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '),
+		link('Пользовательскому соглашению'),
 	]);
 }
 
@@ -157,7 +157,10 @@ class _TranslationsAuthenticationSignUpRu implements TranslationsAuthenticationS
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsAuthenticationSignUpNoAccountRu no_account = _TranslationsAuthenticationSignUpNoAccountRu._(_root);
+	@override late final _TranslationsAuthenticationSignUpHaveAccountRu have_account = _TranslationsAuthenticationSignUpHaveAccountRu._(_root);
+	@override late final _TranslationsAuthenticationSignUpConfirmPasswordRu confirm_password = _TranslationsAuthenticationSignUpConfirmPasswordRu._(_root);
+	@override String get button => 'Зарегистрироваться';
+	@override String get title => 'Зарегистрироваться';
 }
 
 // Path: profile.theme.switcher
@@ -181,15 +184,27 @@ class _TranslationsAuthenticationSignInNoAccountRu implements TranslationsAuthen
 	@override String get sign_up => 'Зарегистрироваться';
 }
 
-// Path: authentication.sign_up.no_account
-class _TranslationsAuthenticationSignUpNoAccountRu implements TranslationsAuthenticationSignUpNoAccountEn {
-	_TranslationsAuthenticationSignUpNoAccountRu._(this._root);
+// Path: authentication.sign_up.have_account
+class _TranslationsAuthenticationSignUpHaveAccountRu implements TranslationsAuthenticationSignUpHaveAccountEn {
+	_TranslationsAuthenticationSignUpHaveAccountRu._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
 	@override String get text => 'Есть аккаунт?';
 	@override String get sign_in => 'Войти';
+}
+
+// Path: authentication.sign_up.confirm_password
+class _TranslationsAuthenticationSignUpConfirmPasswordRu implements TranslationsAuthenticationSignUpConfirmPasswordEn {
+	_TranslationsAuthenticationSignUpConfirmPasswordRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Подтверждение пароля';
+	@override String get hint => 'Повторите пароль';
+	@override String get validation_message => 'Пароли не совпадают';
 }
 
 /// Flat map(s) containing all translations.
@@ -216,11 +231,16 @@ extension on TranslationsRu {
 			case 'authentication.sign_in.button': return 'Войти';
 			case 'authentication.sign_in.title': return 'Войти в аккаунт';
 			case 'authentication.sign_in.forget_password': return 'Не помню пароль';
-			case 'authentication.sign_up.no_account.text': return 'Есть аккаунт?';
-			case 'authentication.sign_up.no_account.sign_in': return 'Войти';
+			case 'authentication.sign_up.have_account.text': return 'Есть аккаунт?';
+			case 'authentication.sign_up.have_account.sign_in': return 'Войти';
+			case 'authentication.sign_up.confirm_password.label': return 'Подтверждение пароля';
+			case 'authentication.sign_up.confirm_password.hint': return 'Повторите пароль';
+			case 'authentication.sign_up.confirm_password.validation_message': return 'Пароли не совпадают';
+			case 'authentication.sign_up.button': return 'Зарегистрироваться';
+			case 'authentication.sign_up.title': return 'Зарегистрироваться';
 			case 'authentication.agreement': return ({required InlineSpanBuilder link}) => TextSpan(children: [
-				const TextSpan(text: 'Используя приложение, вы принимаете '),
-				link('Пользовательское соглашение'),
+				const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '),
+				link('Пользовательскому соглашению'),
 			]);
 			default: return null;
 		}

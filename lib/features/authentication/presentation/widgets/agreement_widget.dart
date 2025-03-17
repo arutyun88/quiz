@@ -14,12 +14,14 @@ class AgreementWidget extends StatelessWidget {
         link: (text) {
           return TextSpan(
             text: text,
-            style: TextStyle(color: context.palette.text.primary),
+            style: context.textStyle.body10Medium.copyWith(
+              color: context.palette.text.primary,
+            ),
             recognizer: TapGestureRecognizer()..onTap = () {},
           );
         },
       ),
-      style: context.textStyle.body10Medium.copyWith(
+      style: context.textStyle.body10Regular.copyWith(
         color: context.palette.text.secondary,
       ),
       textAlign: TextAlign.center,

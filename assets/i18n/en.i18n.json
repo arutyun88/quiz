@@ -42,10 +42,17 @@
             "forget_password": "I don't remember the password"
         },
         "sign_up": {
-            "no_account": {
+            "have_account": {
                 "text": "Already have an account?",
                 "sign_in": "Log in"
-            }
+            },
+            "confirm_password": {
+                "label": "Confirm Password",
+                "hint": "Re-enter your password",
+                "validation_message": "Passwords do not match"
+            },
+            "button": "Sign up",
+            "title": "Sign up"
         },
         "agreement(rich)": "By using the app, you accept ${link(User Agreement)}"
     }

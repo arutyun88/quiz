@@ -5,6 +5,13 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
   ///
   /// height: 14px
   ///
+  /// fontWeight: 400
+  final TextStyle body10Regular;
+
+  /// fontSize: 10px
+  ///
+  /// height: 14px
+  ///
   /// fontWeight: 500
   final TextStyle body10Medium;
 
@@ -65,6 +72,7 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
   final TextStyle heading20Bold;
 
   const AppTextStyle._({
+    required this.body10Regular,
     required this.body10Medium,
     required this.body12Regular,
     required this.body14Regular,
@@ -77,6 +85,7 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
   });
 
   static const AppTextStyle base = AppTextStyle._(
+    body10Regular: TextStyle(fontSize: 10.0, height: 1.4, fontWeight: FontWeight.w400),
     body10Medium: TextStyle(fontSize: 10.0, height: 1.4, fontWeight: FontWeight.w500),
     body12Regular: TextStyle(fontSize: 12.0, height: 16 / 12, fontWeight: FontWeight.w400),
     body14Regular: TextStyle(fontSize: 14.0, height: 20 / 14, fontWeight: FontWeight.w400),
@@ -89,6 +98,7 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
   );
   @override
   ThemeExtension<AppTextStyle> copyWith({
+    TextStyle? body10Regular,
     TextStyle? body10Medium,
     TextStyle? body12Regular,
     TextStyle? body14Regular,
@@ -100,6 +110,7 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
     TextStyle? heading20Bold,
   }) =>
       AppTextStyle._(
+        body10Regular: body10Regular ?? this.body10Regular,
         body10Medium: body10Medium ?? this.body10Medium,
         body12Regular: body12Regular ?? this.body12Regular,
         body14Regular: body14Regular ?? this.body14Regular,
@@ -115,6 +126,7 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
   ThemeExtension<AppTextStyle> lerp(covariant AppTextStyle? other, double t) {
     if (other case AppTextStyle other) {
       return AppTextStyle._(
+        body10Regular: TextStyle.lerp(body10Regular, other.body10Regular, t)!,
         body10Medium: TextStyle.lerp(body10Medium, other.body10Medium, t)!,
         body12Regular: TextStyle.lerp(body12Regular, other.body12Regular, t)!,
         body14Regular: TextStyle.lerp(body14Regular, other.body14Regular, t)!,
