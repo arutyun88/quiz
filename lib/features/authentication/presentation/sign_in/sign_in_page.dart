@@ -7,7 +7,7 @@ import 'package:quiz/app/core/widgets/input/app_text_field.dart';
 import 'package:quiz/features/authentication/presentation/sign_in/widgets/forget_password_widget.dart';
 import 'package:quiz/features/authentication/presentation/sign_in/widgets/sign_in_footer_widget.dart';
 import 'package:quiz/features/authentication/presentation/widgets/agreement_widget.dart';
-import 'package:quiz/features/authentication/provider/authentication_form/authentication_form_provider.dart';
+import 'package:quiz/features/authentication/presentation/sign_in/provider/sign_in_form_provider.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/gen/strings.g.dart';
 
@@ -18,8 +18,8 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
-  late final formProvider = StateNotifierProvider<AuthenticationFormProvider, AuthenticationFormState>(
-    (ref) => AuthenticationFormProvider(),
+  late final formProvider = StateNotifierProvider<SignInFormProvider, SignInFormState>(
+    (ref) => SignInFormProvider(),
   );
 
   @override
@@ -61,7 +61,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       onTap: isFormValid
                           ? () async {
                               final formState = ref.read(formProvider);
-                              await ref.read(authenticationProvider.notifier).registerWithEmail(
+                              await ref.read(authenticationProvider.notifier).signInWithEmail(
                                     email: formState.email,
                                     password: formState.password,
                                   );

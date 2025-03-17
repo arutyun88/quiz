@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-part 'authentication_form_state.dart';
+part 'sign_in_form_state.dart';
 
-class AuthenticationFormProvider extends StateNotifier<AuthenticationFormState> {
-  AuthenticationFormProvider() : super(const AuthenticationFormState());
+class SignInFormProvider extends StateNotifier<SignInFormState> {
+  SignInFormProvider() : super(const SignInFormState());
 
   void updateEmail(String value) => state = state.copyWith(email: value);
 

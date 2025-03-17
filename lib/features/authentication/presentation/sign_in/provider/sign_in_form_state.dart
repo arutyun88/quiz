@@ -1,12 +1,12 @@
-part of 'authentication_form_provider.dart';
+part of 'sign_in_form_provider.dart';
 
-class AuthenticationFormState {
+class SignInFormState {
   final String email;
   final String password;
   final bool isEmailValid;
   final bool isPasswordValid;
 
-  const AuthenticationFormState({
+  const SignInFormState({
     this.email = '',
     this.password = '',
     this.isEmailValid = false,
@@ -15,13 +15,13 @@ class AuthenticationFormState {
 
   bool get isFormValid => email.isNotEmpty && password.isNotEmpty && isEmailValid && isPasswordValid;
 
-  AuthenticationFormState copyWith({
+  SignInFormState copyWith({
     String? email,
     String? password,
     bool? isEmailValid,
     bool? isPasswordValid,
   }) {
-    return AuthenticationFormState(
+    return SignInFormState(
       email: email ?? this.email,
       password: password ?? this.password,
       isEmailValid: isEmailValid ?? this.isEmailValid,
