@@ -58,6 +58,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   children: [
                     const ForgetPasswordWidget(),
                     AppButton(
+                      expanded: false,
                       onTap: isFormValid
                           ? () async {
                               final formState = ref.read(formProvider);

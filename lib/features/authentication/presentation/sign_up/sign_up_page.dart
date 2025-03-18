@@ -65,6 +65,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                 Align(
                   alignment: AlignmentDirectional.centerEnd,
                   child: AppButton(
+                    expanded: false,
                     onTap: ref.watch(formProvider.select((state) => state.isFormValid))
                         ? () async {
                             final formState = ref.read(formProvider);
