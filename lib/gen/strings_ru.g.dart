@@ -64,6 +64,7 @@ class _TranslationsProfileRu implements TranslationsProfileEn {
 	@override late final _TranslationsProfileThemeRu theme = _TranslationsProfileThemeRu._(_root);
 	@override String get application => 'Приложение';
 	@override late final _TranslationsProfileLanguageRu language = _TranslationsProfileLanguageRu._(_root);
+	@override late final _TranslationsProfileSettingsRu settings = _TranslationsProfileSettingsRu._(_root);
 }
 
 // Path: authentication
@@ -135,6 +136,18 @@ class _TranslationsProfileLanguageRu implements TranslationsProfileLanguageEn {
 
 	// Translations
 	@override String get change => 'Изменить язык';
+}
+
+// Path: profile.settings
+class _TranslationsProfileSettingsRu implements TranslationsProfileSettingsEn {
+	_TranslationsProfileSettingsRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Настройки';
+	@override String get sign_out => 'Выйти из профиля';
+	@override String get sign_in => 'Войти или зарегистрироваться';
 }
 
 // Path: authentication.sign_in
@@ -226,6 +239,9 @@ extension on TranslationsRu {
 			case 'profile.theme.switcher.as_system': return 'Как в системе';
 			case 'profile.application': return 'Приложение';
 			case 'profile.language.change': return 'Изменить язык';
+			case 'profile.settings.title': return 'Настройки';
+			case 'profile.settings.sign_out': return 'Выйти из профиля';
+			case 'profile.settings.sign_in': return 'Войти или зарегистрироваться';
 			case 'authentication.sign_in.no_account.text': return 'Нет аккаунта?';
 			case 'authentication.sign_in.no_account.sign_up': return 'Зарегистрироваться';
 			case 'authentication.sign_in.button': return 'Войти';

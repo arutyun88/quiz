@@ -68,6 +68,7 @@ class TranslationsProfileEn {
 	late final TranslationsProfileThemeEn theme = TranslationsProfileThemeEn._(_root);
 	String get application => 'Application';
 	late final TranslationsProfileLanguageEn language = TranslationsProfileLanguageEn._(_root);
+	late final TranslationsProfileSettingsEn settings = TranslationsProfileSettingsEn._(_root);
 }
 
 // Path: authentication
@@ -139,6 +140,18 @@ class TranslationsProfileLanguageEn {
 
 	// Translations
 	String get change => 'Choose language';
+}
+
+// Path: profile.settings
+class TranslationsProfileSettingsEn {
+	TranslationsProfileSettingsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Settings';
+	String get sign_out => 'Log out of profile';
+	String get sign_in => 'Log in or register';
 }
 
 // Path: authentication.sign_in
@@ -230,6 +243,9 @@ extension on Translations {
 			case 'profile.theme.switcher.as_system': return 'As in the system';
 			case 'profile.application': return 'Application';
 			case 'profile.language.change': return 'Choose language';
+			case 'profile.settings.title': return 'Settings';
+			case 'profile.settings.sign_out': return 'Log out of profile';
+			case 'profile.settings.sign_in': return 'Log in or register';
 			case 'authentication.sign_in.no_account.text': return 'Don\'t have an account yet?';
 			case 'authentication.sign_in.no_account.sign_up': return 'Sign up';
 			case 'authentication.sign_in.button': return 'Log in';

@@ -29,6 +29,11 @@
         "application": "Приложение",
         "language": {
             "change": "Изменить язык"
+        },
+        "settings": {
+            "title": "Настройки",
+            "sign_out": "Выйти из профиля",
+            "sign_in": "Войти или зарегистрироваться"
         }
     },
     "authentication": {

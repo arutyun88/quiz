@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:quiz/app/config/style/text_style_ex.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 
+enum ButtonScope { primary, secondary }
+
 class AppButton extends StatefulWidget {
   const AppButton({
     super.key,
     required this.child,
     this.onTap,
     this.expanded = true,
+    this.scope = ButtonScope.primary,
   });
 
   final Widget child;
   final Function()? onTap;
   final bool expanded;
+  final ButtonScope scope;
 
   @override
   State<AppButton> createState() => _AppButtonState();
@@ -39,8 +43,14 @@ class _AppButtonState extends State<AppButton> {
                 },
           style: TextButton.styleFrom(
             textStyle: context.textStyle.body16Semibold,
-            backgroundColor: context.palette.button.background,
-            foregroundColor: context.palette.button.foreground,
+            backgroundColor: switch (widget.scope) {
+              ButtonScope.primary => context.palette.button.background,
+              ButtonScope.secondary => context.palette.button.background.withOpacity(.5),
+            },
+            foregroundColor: switch (widget.scope) {
+              ButtonScope.primary => context.palette.button.foreground,
+              ButtonScope.secondary => context.palette.button.foreground.withOpacity(.6),
+            },
             disabledBackgroundColor: context.palette.button.disabledBackground,
             disabledForegroundColor: context.palette.button.disabledForeground,
             padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
@@ -49,7 +59,7 @@ class _AppButtonState extends State<AppButton> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
-          ),
+          ).copyWith(),
           child: Stack(
             children: [
               AnimatedOpacity(

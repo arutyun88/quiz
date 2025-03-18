@@ -29,6 +29,11 @@
         "application": "Application",
         "language": {
             "change": "Choose language"
+        },
+        "settings": {
+            "title": "Settings",
+            "sign_out": "Log out of profile",
+            "sign_in": "Log in or register"
         }
     },
     "authentication": {
