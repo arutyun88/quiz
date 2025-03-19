@@ -48,7 +48,9 @@ class _SignInButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppButton(
-      onTap: () => context.push('/login'),
+      onTap: () async {
+        context.push('/login');
+      },
       child: Text(context.t.profile.settings.sign_in),
     );
   }
