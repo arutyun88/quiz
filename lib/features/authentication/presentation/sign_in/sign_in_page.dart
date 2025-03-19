@@ -56,7 +56,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const ForgetPasswordWidget(),
+                    ForgetPasswordWidget(email: ref.watch(formProvider).email),
                     AppButton(
                       expanded: false,
                       onTap: isFormValid

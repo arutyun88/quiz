@@ -17,6 +17,8 @@ import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import '../../features/authentication/di/di.dart' as _i415;
 import '../../features/authentication/domain/repository/authentication_repository.dart'
     as _i797;
+import '../../features/authentication/domain/repository/password_reset_gateway.dart'
+    as _i959;
 import '../core/localization/gateway/change_locale_gateway.dart' as _i309;
 import '../core/services/firebase_remote_config_service.dart' as _i307;
 import '../core/services/firestore_doc_service.dart' as _i141;
@@ -54,6 +56,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => firebaseConfigModule.firestoreDocService());
     gh.lazySingleton<_i797.AuthenticationRepository>(
         () => authenticationModule.repository());
+    gh.lazySingleton<_i959.PasswordResetGateway>(
+        () => authenticationModule.passwordResetGateway());
     await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(
       () => firebaseConfigModule
           .remoteConfigService(gh<_i627.FirebaseRemoteConfig>()),

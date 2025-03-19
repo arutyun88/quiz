@@ -61,6 +61,13 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
   ///
   /// height: 23px
   ///
+  /// fontWeight: 600
+  final TextStyle heading18Semibold;
+
+  /// fontSize: 18px
+  ///
+  /// height: 23px
+  ///
   /// fontWeight: 700
   final TextStyle heading18Bold;
 
@@ -80,6 +87,7 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
     required this.body14Semibold,
     required this.body16Regular,
     required this.body16Semibold,
+    required this.heading18Semibold,
     required this.heading18Bold,
     required this.heading20Bold,
   });
@@ -93,6 +101,7 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
     body14Semibold: TextStyle(fontSize: 14.0, height: 20 / 14, fontWeight: FontWeight.w600),
     body16Regular: TextStyle(fontSize: 16.0, height: 22 / 16, fontWeight: FontWeight.w400),
     body16Semibold: TextStyle(fontSize: 16.0, height: 22 / 16, fontWeight: FontWeight.w600),
+    heading18Semibold: TextStyle(fontSize: 18.0, height: 23 / 18, fontWeight: FontWeight.w600),
     heading18Bold: TextStyle(fontSize: 18.0, height: 23 / 18, fontWeight: FontWeight.w700),
     heading20Bold: TextStyle(fontSize: 20.0, height: 26 / 20, fontWeight: FontWeight.w700),
   );
@@ -106,6 +115,7 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
     TextStyle? body14Semibold,
     TextStyle? body16Regular,
     TextStyle? body16Semibold,
+    TextStyle? heading18Semibold,
     TextStyle? heading18Bold,
     TextStyle? heading20Bold,
   }) =>
@@ -118,6 +128,7 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
         body14Semibold: body14Semibold ?? this.body14Semibold,
         body16Regular: body16Regular ?? this.body16Regular,
         body16Semibold: body16Semibold ?? this.body16Semibold,
+        heading18Semibold: heading18Semibold ?? this.heading18Semibold,
         heading18Bold: heading18Bold ?? this.heading18Bold,
         heading20Bold: heading20Bold ?? this.heading20Bold,
       );
@@ -134,6 +145,7 @@ class AppTextStyle extends ThemeExtension<AppTextStyle> {
         body14Semibold: TextStyle.lerp(body14Semibold, other.body14Semibold, t)!,
         body16Regular: TextStyle.lerp(body16Regular, other.body16Regular, t)!,
         body16Semibold: TextStyle.lerp(body16Semibold, other.body16Semibold, t)!,
+        heading18Semibold: TextStyle.lerp(heading18Semibold, other.heading18Semibold, t)!,
         heading18Bold: TextStyle.lerp(heading18Bold, other.heading18Bold, t)!,
         heading20Bold: TextStyle.lerp(heading20Bold, other.heading20Bold, t)!,
       );

@@ -73,4 +73,17 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   Future<void> logout() async {
     await _auth.signOut();
   }
+
+  @override
+  Future<Result<void, Failure>> sendPasswordResetEmail(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(
+        email: email,
+      );
+
+      return const Result.ok(null);
+    } on FirebaseAuthException {
+      return const Result.failed(Failure.authentication(AuthenticationFailureType.credentials));
+    }
+  }
 }

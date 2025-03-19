@@ -164,7 +164,7 @@ class TranslationsAuthenticationSignInEn {
 	late final TranslationsAuthenticationSignInNoAccountEn no_account = TranslationsAuthenticationSignInNoAccountEn._(_root);
 	String get button => 'Log in';
 	String get title => 'Log in to your account';
-	String get forget_password => 'I don\'t remember the password';
+	late final TranslationsAuthenticationSignInForgetPasswordEn forget_password = TranslationsAuthenticationSignInForgetPasswordEn._(_root);
 }
 
 // Path: authentication.sign_up
@@ -201,6 +201,17 @@ class TranslationsAuthenticationSignInNoAccountEn {
 	String get sign_up => 'Sign up';
 }
 
+// Path: authentication.sign_in.forget_password
+class TranslationsAuthenticationSignInForgetPasswordEn {
+	TranslationsAuthenticationSignInForgetPasswordEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get button => 'I don\'t remember the password';
+	late final TranslationsAuthenticationSignInForgetPasswordDialogEn dialog = TranslationsAuthenticationSignInForgetPasswordDialogEn._(_root);
+}
+
 // Path: authentication.sign_up.have_account
 class TranslationsAuthenticationSignUpHaveAccountEn {
 	TranslationsAuthenticationSignUpHaveAccountEn._(this._root);
@@ -222,6 +233,52 @@ class TranslationsAuthenticationSignUpConfirmPasswordEn {
 	String get label => 'Confirm Password';
 	String get hint => 'Re-enter your password';
 	String get validation_message => 'Passwords do not match';
+}
+
+// Path: authentication.sign_in.forget_password.dialog
+class TranslationsAuthenticationSignInForgetPasswordDialogEn {
+	TranslationsAuthenticationSignInForgetPasswordDialogEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Password recovery';
+	late final TranslationsAuthenticationSignInForgetPasswordDialogValidEn valid = TranslationsAuthenticationSignInForgetPasswordDialogValidEn._(_root);
+	late final TranslationsAuthenticationSignInForgetPasswordDialogInvalidEn invalid = TranslationsAuthenticationSignInForgetPasswordDialogInvalidEn._(_root);
+	late final TranslationsAuthenticationSignInForgetPasswordDialogResultEn result = TranslationsAuthenticationSignInForgetPasswordDialogResultEn._(_root);
+}
+
+// Path: authentication.sign_in.forget_password.dialog.valid
+class TranslationsAuthenticationSignInForgetPasswordDialogValidEn {
+	TranslationsAuthenticationSignInForgetPasswordDialogValidEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get button => 'Reset';
+	String get description => 'Do you really want to reset the password?';
+}
+
+// Path: authentication.sign_in.forget_password.dialog.invalid
+class TranslationsAuthenticationSignInForgetPasswordDialogInvalidEn {
+	TranslationsAuthenticationSignInForgetPasswordDialogInvalidEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get button => 'OK';
+	String get description => 'Enter the correct email address.';
+}
+
+// Path: authentication.sign_in.forget_password.dialog.result
+class TranslationsAuthenticationSignInForgetPasswordDialogResultEn {
+	TranslationsAuthenticationSignInForgetPasswordDialogResultEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get success => 'The link to reset the password has been sent to your email. The link is valid for 1 hour.';
+	String get failed => 'The password reset link could not be sent. Please try again later.';
 }
 
 /// Flat map(s) containing all translations.
@@ -250,7 +307,14 @@ extension on Translations {
 			case 'authentication.sign_in.no_account.sign_up': return 'Sign up';
 			case 'authentication.sign_in.button': return 'Log in';
 			case 'authentication.sign_in.title': return 'Log in to your account';
-			case 'authentication.sign_in.forget_password': return 'I don\'t remember the password';
+			case 'authentication.sign_in.forget_password.button': return 'I don\'t remember the password';
+			case 'authentication.sign_in.forget_password.dialog.title': return 'Password recovery';
+			case 'authentication.sign_in.forget_password.dialog.valid.button': return 'Reset';
+			case 'authentication.sign_in.forget_password.dialog.valid.description': return 'Do you really want to reset the password?';
+			case 'authentication.sign_in.forget_password.dialog.invalid.button': return 'OK';
+			case 'authentication.sign_in.forget_password.dialog.invalid.description': return 'Enter the correct email address.';
+			case 'authentication.sign_in.forget_password.dialog.result.success': return 'The link to reset the password has been sent to your email. The link is valid for 1 hour.';
+			case 'authentication.sign_in.forget_password.dialog.result.failed': return 'The password reset link could not be sent. Please try again later.';
 			case 'authentication.sign_up.have_account.text': return 'Already have an account?';
 			case 'authentication.sign_up.have_account.sign_in': return 'Log in';
 			case 'authentication.sign_up.confirm_password.label': return 'Confirm Password';

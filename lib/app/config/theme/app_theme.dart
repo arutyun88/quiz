@@ -45,6 +45,15 @@ class AppTheme extends ThemeExtension<AppTheme> {
         bodyColor: theme.palette.text.primary,
         displayColor: theme.palette.text.primary,
       ),
+      dialogTheme: DialogTheme(
+        backgroundColor: theme.palette.background.static,
+        titleTextStyle: AppTextStyle.base.heading18Semibold.copyWith(color: theme.palette.text.primary),
+        contentTextStyle: AppTextStyle.base.body16Regular.copyWith(color: theme.palette.text.primary),
+      ),
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: theme.palette.background.dynamic,
+        contentTextStyle: AppTextStyle.base.body14Regular.copyWith(color: theme.palette.text.primary),
+      ),
     );
   }
 

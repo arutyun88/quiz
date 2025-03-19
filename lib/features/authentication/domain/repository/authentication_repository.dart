@@ -15,4 +15,6 @@ abstract interface class AuthenticationRepository {
   });
 
   Future<void> logout();
+
+  Future<Result<void, Failure>> sendPasswordResetEmail(String email);
 }

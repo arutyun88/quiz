@@ -44,7 +44,24 @@
             },
             "button": "Log in",
             "title": "Log in to your account",
-            "forget_password": "I don't remember the password"
+            "forget_password": {
+                "button": "I don't remember the password",
+                "dialog": {
+                    "title": "Password recovery",
+                    "valid": {
+                        "button": "Reset",
+                        "description": "Do you really want to reset the password?"
+                    },
+                    "invalid": {
+                        "button": "OK",
+                        "description": "Enter the correct email address."
+                    },
+                    "result": {
+                        "success": "The link to reset the password has been sent to your email. The link is valid for 1 hour.",
+                        "failed": "The password reset link could not be sent. Please try again later."
+                    }
+                }
+            }
         },
         "sign_up": {
             "have_account": {

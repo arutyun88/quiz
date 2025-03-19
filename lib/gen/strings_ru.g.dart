@@ -160,7 +160,7 @@ class _TranslationsAuthenticationSignInRu implements TranslationsAuthenticationS
 	@override late final _TranslationsAuthenticationSignInNoAccountRu no_account = _TranslationsAuthenticationSignInNoAccountRu._(_root);
 	@override String get button => 'Войти';
 	@override String get title => 'Войти в аккаунт';
-	@override String get forget_password => 'Не помню пароль';
+	@override late final _TranslationsAuthenticationSignInForgetPasswordRu forget_password = _TranslationsAuthenticationSignInForgetPasswordRu._(_root);
 }
 
 // Path: authentication.sign_up
@@ -197,6 +197,17 @@ class _TranslationsAuthenticationSignInNoAccountRu implements TranslationsAuthen
 	@override String get sign_up => 'Зарегистрироваться';
 }
 
+// Path: authentication.sign_in.forget_password
+class _TranslationsAuthenticationSignInForgetPasswordRu implements TranslationsAuthenticationSignInForgetPasswordEn {
+	_TranslationsAuthenticationSignInForgetPasswordRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get button => 'Не помню пароль';
+	@override late final _TranslationsAuthenticationSignInForgetPasswordDialogRu dialog = _TranslationsAuthenticationSignInForgetPasswordDialogRu._(_root);
+}
+
 // Path: authentication.sign_up.have_account
 class _TranslationsAuthenticationSignUpHaveAccountRu implements TranslationsAuthenticationSignUpHaveAccountEn {
 	_TranslationsAuthenticationSignUpHaveAccountRu._(this._root);
@@ -218,6 +229,52 @@ class _TranslationsAuthenticationSignUpConfirmPasswordRu implements Translations
 	@override String get label => 'Подтверждение пароля';
 	@override String get hint => 'Повторите пароль';
 	@override String get validation_message => 'Пароли не совпадают';
+}
+
+// Path: authentication.sign_in.forget_password.dialog
+class _TranslationsAuthenticationSignInForgetPasswordDialogRu implements TranslationsAuthenticationSignInForgetPasswordDialogEn {
+	_TranslationsAuthenticationSignInForgetPasswordDialogRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Восстановление пароля';
+	@override late final _TranslationsAuthenticationSignInForgetPasswordDialogValidRu valid = _TranslationsAuthenticationSignInForgetPasswordDialogValidRu._(_root);
+	@override late final _TranslationsAuthenticationSignInForgetPasswordDialogInvalidRu invalid = _TranslationsAuthenticationSignInForgetPasswordDialogInvalidRu._(_root);
+	@override late final _TranslationsAuthenticationSignInForgetPasswordDialogResultRu result = _TranslationsAuthenticationSignInForgetPasswordDialogResultRu._(_root);
+}
+
+// Path: authentication.sign_in.forget_password.dialog.valid
+class _TranslationsAuthenticationSignInForgetPasswordDialogValidRu implements TranslationsAuthenticationSignInForgetPasswordDialogValidEn {
+	_TranslationsAuthenticationSignInForgetPasswordDialogValidRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get button => 'Сбросить';
+	@override String get description => 'Вы действительно хотите сбросить пароль?';
+}
+
+// Path: authentication.sign_in.forget_password.dialog.invalid
+class _TranslationsAuthenticationSignInForgetPasswordDialogInvalidRu implements TranslationsAuthenticationSignInForgetPasswordDialogInvalidEn {
+	_TranslationsAuthenticationSignInForgetPasswordDialogInvalidRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get button => 'Хорошо';
+	@override String get description => 'Введите корректный адрес электронной почты.';
+}
+
+// Path: authentication.sign_in.forget_password.dialog.result
+class _TranslationsAuthenticationSignInForgetPasswordDialogResultRu implements TranslationsAuthenticationSignInForgetPasswordDialogResultEn {
+	_TranslationsAuthenticationSignInForgetPasswordDialogResultRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get success => 'Ссылка на сброс пароля отправлена на вашу почту. Ссылка действительна в течение 1 часа.';
+	@override String get failed => 'Не удалось отправить ссылку для сброса пароля. Пожалуйста, попробуйте позже.';
 }
 
 /// Flat map(s) containing all translations.
@@ -246,7 +303,14 @@ extension on TranslationsRu {
 			case 'authentication.sign_in.no_account.sign_up': return 'Зарегистрироваться';
 			case 'authentication.sign_in.button': return 'Войти';
 			case 'authentication.sign_in.title': return 'Войти в аккаунт';
-			case 'authentication.sign_in.forget_password': return 'Не помню пароль';
+			case 'authentication.sign_in.forget_password.button': return 'Не помню пароль';
+			case 'authentication.sign_in.forget_password.dialog.title': return 'Восстановление пароля';
+			case 'authentication.sign_in.forget_password.dialog.valid.button': return 'Сбросить';
+			case 'authentication.sign_in.forget_password.dialog.valid.description': return 'Вы действительно хотите сбросить пароль?';
+			case 'authentication.sign_in.forget_password.dialog.invalid.button': return 'Хорошо';
+			case 'authentication.sign_in.forget_password.dialog.invalid.description': return 'Введите корректный адрес электронной почты.';
+			case 'authentication.sign_in.forget_password.dialog.result.success': return 'Ссылка на сброс пароля отправлена на вашу почту. Ссылка действительна в течение 1 часа.';
+			case 'authentication.sign_in.forget_password.dialog.result.failed': return 'Не удалось отправить ссылку для сброса пароля. Пожалуйста, попробуйте позже.';
 			case 'authentication.sign_up.have_account.text': return 'Есть аккаунт?';
 			case 'authentication.sign_up.have_account.sign_in': return 'Войти';
 			case 'authentication.sign_up.confirm_password.label': return 'Подтверждение пароля';
