@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quiz/app/config/style/text_style_ex.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
+import 'package:quiz/app/core/utils/validation_exp_ex.dart';
 import 'package:quiz/app/core/widgets/input/app_input_border.dart';
 import 'package:quiz/gen/strings.g.dart';
 
@@ -156,11 +157,11 @@ class _AppTextFieldState extends State<AppTextField> {
         if (widget.validationMessage == null) {
           switch (widget.validationType) {
             case ValidationType.email:
-              if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(value)) {
+              if (!value.isValidEmail) {
                 newErrorMessage = t.text_field.email.validation_message;
               }
             case ValidationType.password:
-              if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$').hasMatch(value)) {
+              if (!value.isValidPassword) {
                 newErrorMessage = t.text_field.password.validation_message;
               }
             case ValidationType.none:
