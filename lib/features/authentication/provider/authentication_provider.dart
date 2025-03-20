@@ -28,7 +28,7 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
         _userRepository = userRepository,
         super(const AuthenticationState.unauthenticated());
 
-  void reload() async {
+  Future<void> reload() async {
     final result = _authenticationRepository.reload();
 
     state = switch (result) {

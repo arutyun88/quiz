@@ -34,6 +34,9 @@
             "title": "Settings",
             "sign_out": "Log out of profile",
             "sign_in": "Log in or register"
+        },
+        "edit": {
+            "title": "Edit profile"
         }
     },
     "authentication": {

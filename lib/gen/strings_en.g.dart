@@ -69,6 +69,7 @@ class TranslationsProfileEn {
 	String get application => 'Application';
 	late final TranslationsProfileLanguageEn language = TranslationsProfileLanguageEn._(_root);
 	late final TranslationsProfileSettingsEn settings = TranslationsProfileSettingsEn._(_root);
+	late final TranslationsProfileEditEn edit = TranslationsProfileEditEn._(_root);
 }
 
 // Path: authentication
@@ -153,6 +154,16 @@ class TranslationsProfileSettingsEn {
 	String get title => 'Settings';
 	String get sign_out => 'Log out of profile';
 	String get sign_in => 'Log in or register';
+}
+
+// Path: profile.edit
+class TranslationsProfileEditEn {
+	TranslationsProfileEditEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Edit profile';
 }
 
 // Path: authentication.failure
@@ -318,6 +329,7 @@ extension on Translations {
 			case 'profile.settings.title': return 'Settings';
 			case 'profile.settings.sign_out': return 'Log out of profile';
 			case 'profile.settings.sign_in': return 'Log in or register';
+			case 'profile.edit.title': return 'Edit profile';
 			case 'authentication.failure.invalid_credentials': return 'Invalid credentials. Check that the email and password you entered are correct.';
 			case 'authentication.failure.too_many_requests': return 'Too many login attempts. Try again later or reset your password.';
 			case 'authentication.failure.already_exist': return 'This email is already being used by another account.';

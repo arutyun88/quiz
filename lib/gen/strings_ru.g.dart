@@ -65,6 +65,7 @@ class _TranslationsProfileRu implements TranslationsProfileEn {
 	@override String get application => 'Приложение';
 	@override late final _TranslationsProfileLanguageRu language = _TranslationsProfileLanguageRu._(_root);
 	@override late final _TranslationsProfileSettingsRu settings = _TranslationsProfileSettingsRu._(_root);
+	@override late final _TranslationsProfileEditRu edit = _TranslationsProfileEditRu._(_root);
 }
 
 // Path: authentication
@@ -149,6 +150,16 @@ class _TranslationsProfileSettingsRu implements TranslationsProfileSettingsEn {
 	@override String get title => 'Настройки';
 	@override String get sign_out => 'Выйти из профиля';
 	@override String get sign_in => 'Войти или зарегистрироваться';
+}
+
+// Path: profile.edit
+class _TranslationsProfileEditRu implements TranslationsProfileEditEn {
+	_TranslationsProfileEditRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Редактировать профиль';
 }
 
 // Path: authentication.failure
@@ -314,6 +325,7 @@ extension on TranslationsRu {
 			case 'profile.settings.title': return 'Настройки';
 			case 'profile.settings.sign_out': return 'Выйти из профиля';
 			case 'profile.settings.sign_in': return 'Войти или зарегистрироваться';
+			case 'profile.edit.title': return 'Редактировать профиль';
 			case 'authentication.failure.invalid_credentials': return 'Неверные учетные данные. Проверьте правильность введенного email и пароля.';
 			case 'authentication.failure.too_many_requests': return 'Слишком много попыток входа. Попробуйте позже или сбросьте пароль.';
 			case 'authentication.failure.already_exist': return 'Этот email уже используется другим аккаунтом.';

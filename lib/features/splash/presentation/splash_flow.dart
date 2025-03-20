@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/splash/provider/initialization_provider.dart';
+import 'package:quiz/features/user/domain/entity/user_entity.dart';
 
 class SplashFlow extends ConsumerWidget {
   const SplashFlow({super.key});
@@ -13,8 +14,14 @@ class SplashFlow extends ConsumerWidget {
       initializationProvider,
       (_, state) => state.whenData(
         (_) {
-          context.go('/');
           ref.read(authenticationProvider).whenOrNull(
+                authenticated: (_, user) {
+                  if (user case UserEntity()) {
+                    context.goNamed('profile-edit');
+                  } else {
+                    context.go('/');
+                  }
+                },
                 unauthenticated: (_) => context.push('/login'),
               );
         },

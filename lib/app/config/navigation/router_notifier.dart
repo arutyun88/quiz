@@ -6,6 +6,7 @@ import 'package:quiz/app/main_layout.dart';
 import 'package:quiz/features/authentication/presentation/sign_in/sign_in_flow.dart';
 import 'package:quiz/features/authentication/presentation/sign_up/sign_up_flow.dart';
 import 'package:quiz/features/home/presentation/home_flow.dart';
+import 'package:quiz/features/profile/presentation/profile_edit_flow.dart';
 import 'package:quiz/features/profile/presentation/profile_flow.dart';
 import 'package:quiz/features/rating/presentation/rating_flow.dart';
 import 'package:quiz/features/settings/presentation/settings_flow.dart';
@@ -63,6 +64,13 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                       path: 'settings',
                       name: 'profile-settings',
                       builder: (context, state) => const SettingsFlow(),
+                      routes: [
+                        GoRoute(
+                          path: 'edit',
+                          name: 'profile-edit',
+                          builder: (context, state) => const ProfileEditFlow(),
+                        ),
+                      ],
                     ),
                   ],
                 ),

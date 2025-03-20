@@ -3,6 +3,6 @@ import 'package:quiz/features/authentication/provider/authentication_provider.da
 
 final initializationProvider = FutureProvider<void>((ref) async {
   await Future.microtask(() async {
-    ref.read(authenticationProvider.notifier).reload();
+    await ref.read(authenticationProvider.notifier).reload();
   });
 });
