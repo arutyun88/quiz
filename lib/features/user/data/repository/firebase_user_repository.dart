@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quiz/app/core/model/failure.dart';
+import 'package:quiz/app/core/model/json.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/core/services/firestore_doc_service.dart';
 import 'package:quiz/features/authentication/data/converter/user_converter.dart';
+import 'package:quiz/features/authentication/data/dto/user_dto.dart';
 import 'package:quiz/features/user/domain/entity/user_entity.dart';
 import 'package:quiz/features/user/domain/repository/user_repository.dart';
 
@@ -33,5 +35,19 @@ class FirebaseUserRepository implements UserRepository {
         );
 
     return const Result.ok(null);
+  }
+
+  @override
+  Future<Result<UserEntity, Failure>> fetchById(String id) async {
+    final fUser = await _firestore.user(id).get();
+
+    if (fUser.exists) {
+      if (fUser.data() case Json json) {
+        return Result.ok(_userConverter.convert(UserDto.fromJson(json)));
+      }
+    }
+    return const Result.failed(
+      Failure.authentication(AuthenticationFailureType.data),
+    );
   }
 }

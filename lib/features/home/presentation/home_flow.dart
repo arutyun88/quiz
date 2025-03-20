@@ -9,11 +9,20 @@ class HomeFlow extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Center(
-        child: Text(
-          ref.watch(authenticationProvider).when(
-                authenticated: (id) => id,
-                unauthenticated: (failure) => '$failure',
-              ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              ref.watch(authenticationProvider).map(
+                    authenticated: (state) => state.id,
+                    unauthenticated: (failure) => '$failure',
+                  ),
+            ),
+            ref.watch(authenticationProvider).mapOrNull(
+                      authenticated: (state) => Text(state.user?.name ?? 'user not found'),
+                    ) ??
+                const SizedBox(),
+          ],
         ),
       ),
     );

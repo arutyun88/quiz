@@ -28,7 +28,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
   Widget build(BuildContext context) {
     ref.listen(authenticationProvider, (previous, next) {
       next.when(
-        authenticated: (_) => context.pop(),
+        authenticated: (_, __) => context.pop(),
         unauthenticated: (failure) {
           if (failure case Failure failure when failure is AuthenticationFailure) {
             showAuthenticationFailureSnackBar(context, type: failure.type);

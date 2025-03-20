@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthenticationState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String id) authenticated,
+    required TResult Function(String id, UserEntity? user) authenticated,
     required TResult Function(Failure? failure) unauthenticated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String id)? authenticated,
+    TResult? Function(String id, UserEntity? user)? authenticated,
     TResult? Function(Failure? failure)? unauthenticated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id)? authenticated,
+    TResult Function(String id, UserEntity? user)? authenticated,
     TResult Function(Failure? failure)? unauthenticated,
     required TResult orElse(),
   }) =>
@@ -84,7 +84,9 @@ abstract class _$$UserAuthenticatedStateImplCopyWith<$Res> {
           $Res Function(_$UserAuthenticatedStateImpl) then) =
       __$$UserAuthenticatedStateImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String id});
+  $Res call({String id, UserEntity? user});
+
+  $UserEntityCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -103,27 +105,48 @@ class __$$UserAuthenticatedStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? user = freezed,
   }) {
     return _then(_$UserAuthenticatedStateImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserEntity?,
     ));
+  }
+
+  /// Create a copy of AuthenticationState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserEntityCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserEntityCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$UserAuthenticatedStateImpl extends _UserAuthenticatedState {
-  const _$UserAuthenticatedStateImpl({required this.id}) : super._();
+  const _$UserAuthenticatedStateImpl({required this.id, this.user}) : super._();
 
   @override
   final String id;
+  @override
+  final UserEntity? user;
 
   @override
   String toString() {
-    return 'AuthenticationState.authenticated(id: $id)';
+    return 'AuthenticationState.authenticated(id: $id, user: $user)';
   }
 
   @override
@@ -131,11 +154,12 @@ class _$UserAuthenticatedStateImpl extends _UserAuthenticatedState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserAuthenticatedStateImpl &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id);
+  int get hashCode => Object.hash(runtimeType, id, user);
 
   /// Create a copy of AuthenticationState
   /// with the given fields replaced by the non-null parameter values.
@@ -149,30 +173,30 @@ class _$UserAuthenticatedStateImpl extends _UserAuthenticatedState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String id) authenticated,
+    required TResult Function(String id, UserEntity? user) authenticated,
     required TResult Function(Failure? failure) unauthenticated,
   }) {
-    return authenticated(id);
+    return authenticated(id, user);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String id)? authenticated,
+    TResult? Function(String id, UserEntity? user)? authenticated,
     TResult? Function(Failure? failure)? unauthenticated,
   }) {
-    return authenticated?.call(id);
+    return authenticated?.call(id, user);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id)? authenticated,
+    TResult Function(String id, UserEntity? user)? authenticated,
     TResult Function(Failure? failure)? unauthenticated,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
-      return authenticated(id);
+      return authenticated(id, user);
     }
     return orElse();
   }
@@ -210,11 +234,13 @@ class _$UserAuthenticatedStateImpl extends _UserAuthenticatedState {
 }
 
 abstract class _UserAuthenticatedState extends AuthenticationState {
-  const factory _UserAuthenticatedState({required final String id}) =
-      _$UserAuthenticatedStateImpl;
+  const factory _UserAuthenticatedState(
+      {required final String id,
+      final UserEntity? user}) = _$UserAuthenticatedStateImpl;
   const _UserAuthenticatedState._() : super._();
 
   String get id;
+  UserEntity? get user;
 
   /// Create a copy of AuthenticationState
   /// with the given fields replaced by the non-null parameter values.
@@ -311,7 +337,7 @@ class _$UserUnauthenticatedStateImpl extends _UserUnauthenticatedState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String id) authenticated,
+    required TResult Function(String id, UserEntity? user) authenticated,
     required TResult Function(Failure? failure) unauthenticated,
   }) {
     return unauthenticated(failure);
@@ -320,7 +346,7 @@ class _$UserUnauthenticatedStateImpl extends _UserUnauthenticatedState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String id)? authenticated,
+    TResult? Function(String id, UserEntity? user)? authenticated,
     TResult? Function(Failure? failure)? unauthenticated,
   }) {
     return unauthenticated?.call(failure);
@@ -329,7 +355,7 @@ class _$UserUnauthenticatedStateImpl extends _UserUnauthenticatedState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id)? authenticated,
+    TResult Function(String id, UserEntity? user)? authenticated,
     TResult Function(Failure? failure)? unauthenticated,
     required TResult orElse(),
   }) {
