@@ -14,11 +14,15 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
+import '../../features/authentication/data/converter/user_converter.dart'
+    as _i252;
 import '../../features/authentication/di/di.dart' as _i415;
 import '../../features/authentication/domain/repository/authentication_repository.dart'
     as _i797;
 import '../../features/authentication/domain/repository/password_reset_gateway.dart'
     as _i959;
+import '../../features/user/di/di.dart' as _i527;
+import '../../features/user/domain/repository/user_repository.dart' as _i450;
 import '../core/localization/gateway/change_locale_gateway.dart' as _i309;
 import '../core/services/firebase_remote_config_service.dart' as _i307;
 import '../core/services/firestore_doc_service.dart' as _i141;
@@ -38,6 +42,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final firebaseConfigModule = _$FirebaseConfigModule();
     final localStorageModule = _$LocalStorageModule();
+    final userModule = _$UserModule();
     final authenticationModule = _$AuthenticationModule();
     final appSettingsModule = _$AppSettingsModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
@@ -52,6 +57,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => localStorageModule.sharedPreferences(),
       preResolve: true,
     );
+    gh.factory<_i450.UserRepository>(() => userModule.userRepository());
     gh.lazySingleton<_i141.FirestoreDocService>(
         () => firebaseConfigModule.firestoreDocService());
     gh.lazySingleton<_i797.AuthenticationRepository>(
@@ -65,6 +71,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i218.SettingsLocalStorageService>(() => localStorageModule
         .settingsLocalStorageService(gh<_i460.SharedPreferences>()));
+    gh.factory<_i252.UserConverter>(() => _i252.UserConverterImpl());
     gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
         .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
     return this;
@@ -74,6 +81,8 @@ extension GetItInjectableX on _i174.GetIt {
 class _$FirebaseConfigModule extends _i913.FirebaseConfigModule {}
 
 class _$LocalStorageModule extends _i913.LocalStorageModule {}
+
+class _$UserModule extends _i527.UserModule {}
 
 class _$AuthenticationModule extends _i415.AuthenticationModule {}
 
