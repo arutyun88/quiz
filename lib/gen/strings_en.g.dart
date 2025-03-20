@@ -255,7 +255,8 @@ class TranslationsAuthenticationSignInForgetPasswordDialogValidEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get button => 'Reset';
+	String get accept => 'Reset';
+	String get cancel => 'Cancel';
 	String get description => 'Do you really want to reset the password?';
 }
 
@@ -309,7 +310,8 @@ extension on Translations {
 			case 'authentication.sign_in.title': return 'Log in to your account';
 			case 'authentication.sign_in.forget_password.button': return 'I don\'t remember the password';
 			case 'authentication.sign_in.forget_password.dialog.title': return 'Password recovery';
-			case 'authentication.sign_in.forget_password.dialog.valid.button': return 'Reset';
+			case 'authentication.sign_in.forget_password.dialog.valid.accept': return 'Reset';
+			case 'authentication.sign_in.forget_password.dialog.valid.cancel': return 'Cancel';
 			case 'authentication.sign_in.forget_password.dialog.valid.description': return 'Do you really want to reset the password?';
 			case 'authentication.sign_in.forget_password.dialog.invalid.button': return 'OK';
 			case 'authentication.sign_in.forget_password.dialog.invalid.description': return 'Enter the correct email address.';

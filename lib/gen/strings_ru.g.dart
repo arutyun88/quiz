@@ -251,7 +251,8 @@ class _TranslationsAuthenticationSignInForgetPasswordDialogValidRu implements Tr
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get button => 'Сбросить';
+	@override String get accept => 'Сбросить';
+	@override String get cancel => 'Отмена';
 	@override String get description => 'Вы действительно хотите сбросить пароль?';
 }
 
@@ -305,7 +306,8 @@ extension on TranslationsRu {
 			case 'authentication.sign_in.title': return 'Войти в аккаунт';
 			case 'authentication.sign_in.forget_password.button': return 'Не помню пароль';
 			case 'authentication.sign_in.forget_password.dialog.title': return 'Восстановление пароля';
-			case 'authentication.sign_in.forget_password.dialog.valid.button': return 'Сбросить';
+			case 'authentication.sign_in.forget_password.dialog.valid.accept': return 'Сбросить';
+			case 'authentication.sign_in.forget_password.dialog.valid.cancel': return 'Отмена';
 			case 'authentication.sign_in.forget_password.dialog.valid.description': return 'Вы действительно хотите сбросить пароль?';
 			case 'authentication.sign_in.forget_password.dialog.invalid.button': return 'Хорошо';
 			case 'authentication.sign_in.forget_password.dialog.invalid.description': return 'Введите корректный адрес электронной почты.';

@@ -40,36 +40,39 @@ class ForgetPasswordWidget extends StatelessWidget {
                       : t.authentication.sign_in.forget_password.dialog.invalid.description,
                 ),
                 actionsPadding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                actionsOverflowButtonSpacing: 16.0,
                 actions: [
-                  AppButton(
-                    onTap: () async {
-                      if (!isEmailValid) {
-                        context.pop();
-                        return;
-                      }
-
-                      final result = await getIt<PasswordResetGateway>().sendPasswordResetEmail(email);
-                      if (!context.mounted) return;
-
-                      context.pop();
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            switch (result) {
-                              ResultOk() => t.authentication.sign_in.forget_password.dialog.result.success,
-                              ResultFailed() => t.authentication.sign_in.forget_password.dialog.result.failed,
-                            },
-                          ),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      isEmailValid
-                          ? t.authentication.sign_in.forget_password.dialog.valid.button
-                          : t.authentication.sign_in.forget_password.dialog.invalid.button,
+                  if (isEmailValid) ...[
+                    AppButton(
+                      scope: ButtonScope.secondary,
+                      onTap: context.pop,
+                      child: Text(t.authentication.sign_in.forget_password.dialog.valid.cancel),
                     ),
-                  ),
+                    AppButton(
+                      onTap: () async {
+                        final result = await getIt<PasswordResetGateway>().sendPasswordResetEmail(email);
+                        if (!context.mounted) return;
+
+                        context.pop();
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              switch (result) {
+                                ResultOk() => t.authentication.sign_in.forget_password.dialog.result.success,
+                                ResultFailed() => t.authentication.sign_in.forget_password.dialog.result.failed,
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                      child: Text(t.authentication.sign_in.forget_password.dialog.valid.accept),
+                    ),
+                  ] else
+                    AppButton(
+                      onTap: context.pop,
+                      child: Text(t.authentication.sign_in.forget_password.dialog.invalid.button),
+                    ),
                 ],
               );
             },
