@@ -39,10 +39,9 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
     if (state case _UserAuthenticatedState authState) {
       final userResult = await _userRepository.fetchById(authState.id);
 
-      state = switch (userResult) {
-        ResultOk(data: final user) => authState.copyWith(user: user),
-        ResultFailed(error: final failure) => AuthenticationState.unauthenticated(failure: failure),
-      };
+      if (userResult case ResultOk(data: final user)) {
+        state = authState.copyWith(user: user);
+      }
     }
   }
 
@@ -57,10 +56,9 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
     if (state case _UserAuthenticatedState authState) {
       final userResult = await _userRepository.fetchById(authState.id);
 
-      state = switch (userResult) {
-        ResultOk(data: final user) => authState.copyWith(user: user),
-        ResultFailed(error: final failure) => AuthenticationState.unauthenticated(failure: failure),
-      };
+      if (userResult case ResultOk(data: final user)) {
+        state = authState.copyWith(user: user);
+      }
     }
   }
 
