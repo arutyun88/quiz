@@ -37,6 +37,12 @@
         }
     },
     "authentication": {
+        "failure": {
+            "invalid_credentials": "Invalid credentials. Check that the email and password you entered are correct.",
+            "too_many_requests": "Too many login attempts. Try again later or reset your password.",
+            "already_exist": "This email is already being used by another account.",
+            "unknown": "An error occurred during authentication. Please try again."
+        },
         "sign_in": {
             "no_account": {
                 "text": "Don't have an account yet?",

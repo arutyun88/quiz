@@ -15,4 +15,4 @@ abstract class Failure with _$Failure {
   const factory Failure.authentication(AuthenticationFailureType type) = AuthenticationFailure;
 }
 
-enum AuthenticationFailureType { credentials, alreadyExist, data }
+enum AuthenticationFailureType { credentials, tooManyRequests, alreadyExist, data }

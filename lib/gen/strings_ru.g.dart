@@ -74,6 +74,7 @@ class _TranslationsAuthenticationRu implements TranslationsAuthenticationEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsAuthenticationFailureRu failure = _TranslationsAuthenticationFailureRu._(_root);
 	@override late final _TranslationsAuthenticationSignInRu sign_in = _TranslationsAuthenticationSignInRu._(_root);
 	@override late final _TranslationsAuthenticationSignUpRu sign_up = _TranslationsAuthenticationSignUpRu._(_root);
 	@override TextSpan agreement({required InlineSpanBuilder link}) => TextSpan(children: [
@@ -148,6 +149,19 @@ class _TranslationsProfileSettingsRu implements TranslationsProfileSettingsEn {
 	@override String get title => 'Настройки';
 	@override String get sign_out => 'Выйти из профиля';
 	@override String get sign_in => 'Войти или зарегистрироваться';
+}
+
+// Path: authentication.failure
+class _TranslationsAuthenticationFailureRu implements TranslationsAuthenticationFailureEn {
+	_TranslationsAuthenticationFailureRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get invalid_credentials => 'Неверные учетные данные. Проверьте правильность введенного email и пароля.';
+	@override String get too_many_requests => 'Слишком много попыток входа. Попробуйте позже или сбросьте пароль.';
+	@override String get already_exist => 'Этот email уже используется другим аккаунтом.';
+	@override String get unknown => 'Произошла ошибка при аутентификации. Пожалуйста, попробуйте снова.';
 }
 
 // Path: authentication.sign_in
@@ -300,6 +314,10 @@ extension on TranslationsRu {
 			case 'profile.settings.title': return 'Настройки';
 			case 'profile.settings.sign_out': return 'Выйти из профиля';
 			case 'profile.settings.sign_in': return 'Войти или зарегистрироваться';
+			case 'authentication.failure.invalid_credentials': return 'Неверные учетные данные. Проверьте правильность введенного email и пароля.';
+			case 'authentication.failure.too_many_requests': return 'Слишком много попыток входа. Попробуйте позже или сбросьте пароль.';
+			case 'authentication.failure.already_exist': return 'Этот email уже используется другим аккаунтом.';
+			case 'authentication.failure.unknown': return 'Произошла ошибка при аутентификации. Пожалуйста, попробуйте снова.';
 			case 'authentication.sign_in.no_account.text': return 'Нет аккаунта?';
 			case 'authentication.sign_in.no_account.sign_up': return 'Зарегистрироваться';
 			case 'authentication.sign_in.button': return 'Войти';

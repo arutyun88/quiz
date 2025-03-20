@@ -78,6 +78,7 @@ class TranslationsAuthenticationEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	late final TranslationsAuthenticationFailureEn failure = TranslationsAuthenticationFailureEn._(_root);
 	late final TranslationsAuthenticationSignInEn sign_in = TranslationsAuthenticationSignInEn._(_root);
 	late final TranslationsAuthenticationSignUpEn sign_up = TranslationsAuthenticationSignUpEn._(_root);
 	TextSpan agreement({required InlineSpanBuilder link}) => TextSpan(children: [
@@ -152,6 +153,19 @@ class TranslationsProfileSettingsEn {
 	String get title => 'Settings';
 	String get sign_out => 'Log out of profile';
 	String get sign_in => 'Log in or register';
+}
+
+// Path: authentication.failure
+class TranslationsAuthenticationFailureEn {
+	TranslationsAuthenticationFailureEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get invalid_credentials => 'Invalid credentials. Check that the email and password you entered are correct.';
+	String get too_many_requests => 'Too many login attempts. Try again later or reset your password.';
+	String get already_exist => 'This email is already being used by another account.';
+	String get unknown => 'An error occurred during authentication. Please try again.';
 }
 
 // Path: authentication.sign_in
@@ -304,6 +318,10 @@ extension on Translations {
 			case 'profile.settings.title': return 'Settings';
 			case 'profile.settings.sign_out': return 'Log out of profile';
 			case 'profile.settings.sign_in': return 'Log in or register';
+			case 'authentication.failure.invalid_credentials': return 'Invalid credentials. Check that the email and password you entered are correct.';
+			case 'authentication.failure.too_many_requests': return 'Too many login attempts. Try again later or reset your password.';
+			case 'authentication.failure.already_exist': return 'This email is already being used by another account.';
+			case 'authentication.failure.unknown': return 'An error occurred during authentication. Please try again.';
 			case 'authentication.sign_in.no_account.text': return 'Don\'t have an account yet?';
 			case 'authentication.sign_in.no_account.sign_up': return 'Sign up';
 			case 'authentication.sign_in.button': return 'Log in';

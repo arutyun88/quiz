@@ -37,14 +37,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
         Failure.authentication(AuthenticationFailureType.data),
       );
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
-        return const Result.failed(
-          Failure.authentication(AuthenticationFailureType.alreadyExist),
-        );
-      }
-      return const Result.failed(
-        Failure.authentication(AuthenticationFailureType.credentials),
-      );
+      return Result.failed(Failure.authentication(_mapAuthenticationExceptionCode(e.code)));
     }
   }
 
@@ -64,8 +57,8 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
       }
 
       return const Result.failed(Failure.authentication(AuthenticationFailureType.data));
-    } on FirebaseAuthException {
-      return const Result.failed(Failure.authentication(AuthenticationFailureType.credentials));
+    } on FirebaseAuthException catch (e) {
+      return Result.failed(Failure.authentication(_mapAuthenticationExceptionCode(e.code)));
     }
   }
 
@@ -82,8 +75,17 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
       );
 
       return const Result.ok(null);
-    } on FirebaseAuthException {
-      return const Result.failed(Failure.authentication(AuthenticationFailureType.credentials));
+    } on FirebaseAuthException catch (e) {
+      return Result.failed(Failure.authentication(_mapAuthenticationExceptionCode(e.code)));
     }
+  }
+
+  _mapAuthenticationExceptionCode(String code) {
+    return switch (code) {
+      'invalid-credential' => AuthenticationFailureType.credentials,
+      'too-many-requests' => AuthenticationFailureType.tooManyRequests,
+      'email-already-in-use' => AuthenticationFailureType.alreadyExist,
+      _ => AuthenticationFailureType.data,
+    };
   }
 }

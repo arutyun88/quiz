@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/app/config/style/text_style_ex.dart';
+import 'package:quiz/app/core/model/failure.dart';
+import 'package:quiz/app/core/utils/authentication_failure_snack_bar.dart';
 import 'package:quiz/app/core/widgets/button/app_button.dart';
 import 'package:quiz/app/core/widgets/input/app_text_field.dart';
 import 'package:quiz/features/authentication/presentation/sign_in/widgets/forget_password_widget.dart';
@@ -24,6 +26,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(authenticationProvider, (previous, next) {
+      next.when(
+        authenticated: (_) => context.pop(),
+        unauthenticated: (failure) {
+          if (failure case Failure failure when failure is AuthenticationFailure) {
+            showAuthenticationFailureSnackBar(context, type: failure.type);
+          }
+        },
+      );
+    });
+
     final isFormValid = ref.watch(formProvider.select((state) => state.isFormValid));
 
     return GestureDetector(
@@ -61,14 +74,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       expanded: false,
                       onTap: isFormValid
                           ? () async {
+                              FocusScope.of(context).unfocus();
+
                               final formState = ref.read(formProvider);
                               await ref.read(authenticationProvider.notifier).signInWithEmail(
                                     email: formState.email,
                                     password: formState.password,
                                   );
-                              if (context.mounted) {
-                                context.pop();
-                              }
                             }
                           : null,
                       child: Text(t.authentication.sign_in.button),

@@ -57,6 +57,7 @@ class ForgetPasswordWidget extends StatelessWidget {
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
+                            dismissDirection: DismissDirection.horizontal,
                             content: Text(
                               switch (result) {
                                 ResultOk() => t.authentication.sign_in.forget_password.dialog.result.success,

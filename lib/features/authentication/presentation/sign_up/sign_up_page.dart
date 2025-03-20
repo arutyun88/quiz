@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/app/config/style/text_style_ex.dart';
+import 'package:quiz/app/core/model/failure.dart';
+import 'package:quiz/app/core/utils/authentication_failure_snack_bar.dart';
 import 'package:quiz/app/core/widgets/button/app_button.dart';
 import 'package:quiz/app/core/widgets/input/app_text_field.dart';
 import 'package:quiz/features/authentication/presentation/sign_up/provider/sign_up_form_provider.dart';
@@ -24,6 +26,16 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(authenticationProvider, (previous, next) {
+      next.when(
+        authenticated: (_) => context.pop(),
+        unauthenticated: (failure) {
+          if (failure case Failure failure when failure is AuthenticationFailure) {
+            showAuthenticationFailureSnackBar(context, type: failure.type);
+          }
+        },
+      );
+    });
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Scaffold(
@@ -68,14 +80,13 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                     expanded: false,
                     onTap: ref.watch(formProvider.select((state) => state.isFormValid))
                         ? () async {
+                            FocusScope.of(context).unfocus();
+
                             final formState = ref.read(formProvider);
                             await ref.read(authenticationProvider.notifier).registerWithEmail(
                                   email: formState.email,
                                   password: formState.password,
                                 );
-                            if (context.mounted) {
-                              context.pop();
-                            }
                           }
                         : null,
                     child: Text(t.authentication.sign_up.button),
