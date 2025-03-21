@@ -21,6 +21,9 @@ import '../../features/authentication/domain/repository/authentication_repositor
     as _i797;
 import '../../features/authentication/domain/repository/password_reset_gateway.dart'
     as _i959;
+import '../../features/profile/di/di.dart' as _i1038;
+import '../../features/profile/domain/repository/user_update_repository.dart'
+    as _i422;
 import '../../features/user/di/di.dart' as _i527;
 import '../../features/user/domain/repository/user_repository.dart' as _i450;
 import '../core/localization/gateway/change_locale_gateway.dart' as _i309;
@@ -44,6 +47,7 @@ extension GetItInjectableX on _i174.GetIt {
     final localStorageModule = _$LocalStorageModule();
     final userModule = _$UserModule();
     final authenticationModule = _$AuthenticationModule();
+    final profileModule = _$ProfileModule();
     final appSettingsModule = _$AppSettingsModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
       () => firebaseConfigModule.firebase(),
@@ -64,6 +68,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => authenticationModule.repository());
     gh.lazySingleton<_i959.PasswordResetGateway>(
         () => authenticationModule.passwordResetGateway());
+    gh.lazySingleton<_i422.UserUpdateRepository>(
+        () => profileModule.userUpdateRepository());
     await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(
       () => firebaseConfigModule
           .remoteConfigService(gh<_i627.FirebaseRemoteConfig>()),
@@ -85,5 +91,7 @@ class _$LocalStorageModule extends _i913.LocalStorageModule {}
 class _$UserModule extends _i527.UserModule {}
 
 class _$AuthenticationModule extends _i415.AuthenticationModule {}
+
+class _$ProfileModule extends _i1038.ProfileModule {}
 
 class _$AppSettingsModule extends _i913.AppSettingsModule {}
