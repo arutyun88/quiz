@@ -45,6 +45,7 @@ class AppTheme extends ThemeExtension<AppTheme> {
         ),
         shadowColor: theme.palette.shadow,
         surfaceTintColor: Colors.transparent,
+        centerTitle: true,
       ),
       brightness: switch (theme.themeMode) {
         AppThemeMode.light => Brightness.light,
