@@ -32,7 +32,20 @@ class AppTheme extends ThemeExtension<AppTheme> {
   }) {
     return ThemeData(
       extensions: [theme, theme.palette, AppTextStyle.base],
-      scaffoldBackgroundColor: theme.palette.background.static,
+      scaffoldBackgroundColor: theme.palette.background.dynamic,
+      appBarTheme: AppBarTheme(
+        iconTheme: IconThemeData(
+          size: 16.0,
+          color: theme.palette.text.primary,
+        ),
+        titleTextStyle: AppTextStyle.base.body16Semibold.copyWith(color: theme.palette.text.primary),
+        backgroundColor: theme.palette.background.static,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(10.0)),
+        ),
+        shadowColor: theme.palette.shadow,
+        surfaceTintColor: Colors.transparent,
+      ),
       brightness: switch (theme.themeMode) {
         AppThemeMode.light => Brightness.light,
         AppThemeMode.dark => Brightness.dark,

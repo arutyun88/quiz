@@ -33,6 +33,7 @@ class AppSubheaderedScaffold extends StatelessWidget {
                 headerDecoration: headerDecoration,
                 headerSubColor: headerSubColor,
               ),
+            const SizedBox(height: 10.0),
             body
           ],
         ),
@@ -55,6 +56,8 @@ class AppSubheaderedScaffold extends StatelessWidget {
                 ),
               ),
             ),
+          if (header == null) //
+            const SliverToBoxAdapter(child: SizedBox(height: 10.0)),
           if (body case Column items)
             SliverList.list(
               children: items.children,
@@ -101,7 +104,7 @@ class _SubheaderWidget extends StatelessWidget {
           height: const Radius.circular(10).y,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              color: headerSubColor ?? context.palette.background.dynamic,
+              color: headerSubColor ?? context.palette.background.static,
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(10),
               ),

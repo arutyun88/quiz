@@ -8,6 +8,7 @@ class Palette extends ThemeExtension<Palette> {
     required this.textField,
     required this.button,
     required this.progress,
+    required this.shadow,
   });
 
   final BackgroundColor background;
@@ -16,6 +17,7 @@ class Palette extends ThemeExtension<Palette> {
   final TextFieldColor textField;
   final ButtonColor button;
   final Color progress;
+  final Color shadow;
 
   static Palette light = Palette._(
     background: BackgroundColor(
@@ -45,6 +47,7 @@ class Palette extends ThemeExtension<Palette> {
       disabledForeground: Colors.grey.shade400,
     ),
     progress: Colors.orange,
+    shadow: Colors.white,
   );
 
   static Palette dark = Palette._(
@@ -75,6 +78,7 @@ class Palette extends ThemeExtension<Palette> {
       disabledForeground: Colors.grey.shade700,
     ),
     progress: Colors.orange,
+    shadow: Colors.black,
   );
 
   @override
@@ -85,6 +89,7 @@ class Palette extends ThemeExtension<Palette> {
     TextFieldColor? textField,
     ButtonColor? button,
     Color? progress,
+    Color? shadow,
   }) {
     return Palette._(
       background: background ?? this.background,
@@ -93,6 +98,7 @@ class Palette extends ThemeExtension<Palette> {
       textField: textField ?? this.textField,
       button: button ?? this.button,
       progress: progress ?? this.progress,
+      shadow: shadow ?? this.shadow,
     );
   }
 
@@ -106,6 +112,7 @@ class Palette extends ThemeExtension<Palette> {
         textField: textField.lerp(other.textField, t),
         button: button.lerp(other.button, t),
         progress: Color.lerp(progress, other.progress, t)!,
+        shadow: Color.lerp(shadow, other.shadow, t)!,
       );
     }
     return this;
