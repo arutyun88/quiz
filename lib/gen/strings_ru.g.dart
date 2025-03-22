@@ -160,6 +160,7 @@ class _TranslationsProfileEditRu implements TranslationsProfileEditEn {
 
 	// Translations
 	@override String get title => 'Редактировать профиль';
+	@override late final _TranslationsProfileEditPasswordRu password = _TranslationsProfileEditPasswordRu._(_root);
 }
 
 // Path: authentication.failure
@@ -211,6 +212,22 @@ class _TranslationsProfileThemeSwitcherRu implements TranslationsProfileThemeSwi
 	@override String get as_system => 'Как в системе';
 }
 
+// Path: profile.edit.password
+class _TranslationsProfileEditPasswordRu implements TranslationsProfileEditPasswordEn {
+	_TranslationsProfileEditPasswordRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Изменить пароль';
+	@override String get old_password_hint => 'Введите старый пароль';
+	@override String get new_password_hint => 'Введите новый пароль';
+	@override String get new_confirm_password_hint => 'Повторите новый пароль';
+	@override String get confirm_password_validation_message => 'Пароли не совпадают';
+	@override String get button => 'Сохранить';
+	@override late final _TranslationsProfileEditPasswordResultRu result = _TranslationsProfileEditPasswordResultRu._(_root);
+}
+
 // Path: authentication.sign_in.no_account
 class _TranslationsAuthenticationSignInNoAccountRu implements TranslationsAuthenticationSignInNoAccountEn {
 	_TranslationsAuthenticationSignInNoAccountRu._(this._root);
@@ -254,6 +271,17 @@ class _TranslationsAuthenticationSignUpConfirmPasswordRu implements Translations
 	@override String get label => 'Подтверждение пароля';
 	@override String get hint => 'Повторите пароль';
 	@override String get validation_message => 'Пароли не совпадают';
+}
+
+// Path: profile.edit.password.result
+class _TranslationsProfileEditPasswordResultRu implements TranslationsProfileEditPasswordResultEn {
+	_TranslationsProfileEditPasswordResultRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get success => 'Пароль успешно изменен';
+	@override String get failed => 'Не удалось изменить пароль. Пожалуйста, проверьте введенные данные и попробуйте снова';
 }
 
 // Path: authentication.sign_in.forget_password.dialog
@@ -326,6 +354,14 @@ extension on TranslationsRu {
 			case 'profile.settings.sign_out': return 'Выйти из профиля';
 			case 'profile.settings.sign_in': return 'Войти или зарегистрироваться';
 			case 'profile.edit.title': return 'Редактировать профиль';
+			case 'profile.edit.password.title': return 'Изменить пароль';
+			case 'profile.edit.password.old_password_hint': return 'Введите старый пароль';
+			case 'profile.edit.password.new_password_hint': return 'Введите новый пароль';
+			case 'profile.edit.password.new_confirm_password_hint': return 'Повторите новый пароль';
+			case 'profile.edit.password.confirm_password_validation_message': return 'Пароли не совпадают';
+			case 'profile.edit.password.button': return 'Сохранить';
+			case 'profile.edit.password.result.success': return 'Пароль успешно изменен';
+			case 'profile.edit.password.result.failed': return 'Не удалось изменить пароль. Пожалуйста, проверьте введенные данные и попробуйте снова';
 			case 'authentication.failure.invalid_credentials': return 'Неверные учетные данные. Проверьте правильность введенного email и пароля.';
 			case 'authentication.failure.too_many_requests': return 'Слишком много попыток входа. Попробуйте позже или сбросьте пароль.';
 			case 'authentication.failure.already_exist': return 'Этот email уже используется другим аккаунтом.';

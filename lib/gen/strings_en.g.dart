@@ -164,6 +164,7 @@ class TranslationsProfileEditEn {
 
 	// Translations
 	String get title => 'Edit profile';
+	late final TranslationsProfileEditPasswordEn password = TranslationsProfileEditPasswordEn._(_root);
 }
 
 // Path: authentication.failure
@@ -215,6 +216,22 @@ class TranslationsProfileThemeSwitcherEn {
 	String get as_system => 'As in the system';
 }
 
+// Path: profile.edit.password
+class TranslationsProfileEditPasswordEn {
+	TranslationsProfileEditPasswordEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Change password';
+	String get old_password_hint => 'Enter old password';
+	String get new_password_hint => 'Enter new password';
+	String get new_confirm_password_hint => 'Repeat new password';
+	String get confirm_password_validation_message => 'Passwords don\'t match';
+	String get button => 'Save';
+	late final TranslationsProfileEditPasswordResultEn result = TranslationsProfileEditPasswordResultEn._(_root);
+}
+
 // Path: authentication.sign_in.no_account
 class TranslationsAuthenticationSignInNoAccountEn {
 	TranslationsAuthenticationSignInNoAccountEn._(this._root);
@@ -258,6 +275,17 @@ class TranslationsAuthenticationSignUpConfirmPasswordEn {
 	String get label => 'Confirm Password';
 	String get hint => 'Re-enter your password';
 	String get validation_message => 'Passwords do not match';
+}
+
+// Path: profile.edit.password.result
+class TranslationsProfileEditPasswordResultEn {
+	TranslationsProfileEditPasswordResultEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get success => 'Password successfully changed';
+	String get failed => 'The password could not be changed. Please check the entered data and try again';
 }
 
 // Path: authentication.sign_in.forget_password.dialog
@@ -330,6 +358,14 @@ extension on Translations {
 			case 'profile.settings.sign_out': return 'Log out of profile';
 			case 'profile.settings.sign_in': return 'Log in or register';
 			case 'profile.edit.title': return 'Edit profile';
+			case 'profile.edit.password.title': return 'Change password';
+			case 'profile.edit.password.old_password_hint': return 'Enter old password';
+			case 'profile.edit.password.new_password_hint': return 'Enter new password';
+			case 'profile.edit.password.new_confirm_password_hint': return 'Repeat new password';
+			case 'profile.edit.password.confirm_password_validation_message': return 'Passwords don\'t match';
+			case 'profile.edit.password.button': return 'Save';
+			case 'profile.edit.password.result.success': return 'Password successfully changed';
+			case 'profile.edit.password.result.failed': return 'The password could not be changed. Please check the entered data and try again';
 			case 'authentication.failure.invalid_credentials': return 'Invalid credentials. Check that the email and password you entered are correct.';
 			case 'authentication.failure.too_many_requests': return 'Too many login attempts. Try again later or reset your password.';
 			case 'authentication.failure.already_exist': return 'This email is already being used by another account.';

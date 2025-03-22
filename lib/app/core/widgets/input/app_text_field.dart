@@ -18,6 +18,7 @@ class AppTextField extends StatefulWidget {
   final bool obscureText;
   final void Function(String)? onChanged;
   final String? validationMessage;
+  final TextEditingController? controller;
 
   const AppTextField._({
     super.key,
@@ -30,6 +31,7 @@ class AppTextField extends StatefulWidget {
     this.obscureText = false,
     this.onChanged,
     this.validationMessage,
+    this.controller,
   });
 
   factory AppTextField({
@@ -40,6 +42,7 @@ class AppTextField extends StatefulWidget {
     TextInputType? keyboardType,
     void Function(String)? onChanged,
     String? validationMessage,
+    TextEditingController? controller,
   }) =>
       AppTextField._(
         key: key,
@@ -49,6 +52,7 @@ class AppTextField extends StatefulWidget {
         keyboardType: keyboardType,
         onChanged: onChanged,
         validationMessage: validationMessage,
+        controller: controller,
       );
 
   factory AppTextField.email({
@@ -59,6 +63,7 @@ class AppTextField extends StatefulWidget {
     void Function(String?)? onValidationChanged,
     void Function(String)? onChanged,
     String? validationMessage,
+    TextEditingController? controller,
   }) =>
       AppTextField._(
         key: key,
@@ -70,6 +75,7 @@ class AppTextField extends StatefulWidget {
         validationType: ValidationType.email,
         onChanged: onChanged,
         validationMessage: validationMessage,
+        controller: controller,
       );
 
   factory AppTextField.password({
@@ -80,6 +86,7 @@ class AppTextField extends StatefulWidget {
     void Function(String)? onChanged,
     bool obscureText = true,
     String? validationMessage,
+    TextEditingController? controller,
   }) =>
       AppTextField._(
         enabled: enabled,
@@ -91,6 +98,7 @@ class AppTextField extends StatefulWidget {
         obscureText: obscureText,
         onChanged: onChanged,
         validationMessage: validationMessage,
+        controller: controller,
       );
 
   @override
@@ -103,6 +111,7 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
       enabled: widget.enabled,
       style: context.textStyle.body16Regular,
       cursorColor: context.palette.textField.cursorColor,

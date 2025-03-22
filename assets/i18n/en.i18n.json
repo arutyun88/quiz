@@ -36,7 +36,19 @@
             "sign_in": "Log in or register"
         },
         "edit": {
-            "title": "Edit profile"
+            "title": "Edit profile",
+            "password": {
+                "title": "Change password",
+                "old_password_hint": "Enter old password",
+                "new_password_hint": "Enter new password",
+                "new_confirm_password_hint": "Repeat new password",
+                "confirm_password_validation_message": "Passwords don't match",
+                "button": "Save",
+                "result": {
+                    "success": "Password successfully changed",
+                    "failed": "The password could not be changed. Please check the entered data and try again"
+                }
+            }
         }
     },
     "authentication": {

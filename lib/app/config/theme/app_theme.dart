@@ -65,8 +65,10 @@ class AppTheme extends ThemeExtension<AppTheme> {
         contentTextStyle: AppTextStyle.base.body16Regular.copyWith(color: theme.palette.text.primary),
       ),
       snackBarTheme: SnackBarThemeData(
-        backgroundColor: theme.palette.background.dynamic,
+        backgroundColor: theme.palette.background.temporary,
         contentTextStyle: AppTextStyle.base.body14Regular.copyWith(color: theme.palette.text.primary),
+        dismissDirection: DismissDirection.horizontal,
+        behavior: SnackBarBehavior.fixed,
       ),
     );
   }

@@ -23,6 +23,8 @@ class Palette extends ThemeExtension<Palette> {
     background: BackgroundColor(
       static: const Color.fromRGBO(255, 255, 255, 1),
       dynamic: const Color.fromRGBO(240, 240, 240, 1),
+      temporary: Colors.grey,
+      danger: const Color.fromARGB(255, 255, 174, 167),
     ),
     switchColor: SwitchColor(
       active: Colors.black54,
@@ -54,6 +56,8 @@ class Palette extends ThemeExtension<Palette> {
     background: BackgroundColor(
       static: const Color(0xFF181818),
       dynamic: const Color.fromRGBO(0, 0, 0, 1),
+      temporary: Colors.grey,
+      danger: const Color.fromARGB(255, 255, 174, 167),
     ),
     switchColor: SwitchColor(
       active: Colors.white,
@@ -122,10 +126,14 @@ class Palette extends ThemeExtension<Palette> {
 class BackgroundColor {
   final Color static;
   final Color dynamic;
+  final Color temporary;
+  final Color danger;
 
   BackgroundColor({
     required this.static,
     required this.dynamic,
+    required this.temporary,
+    required this.danger,
   });
 
   BackgroundColor lerp(BackgroundColor? other, double t) {
@@ -134,6 +142,8 @@ class BackgroundColor {
     return BackgroundColor(
       static: Color.lerp(static, other.static, t)!,
       dynamic: Color.lerp(dynamic, other.dynamic, t)!,
+      temporary: Color.lerp(temporary, other.temporary, t)!,
+      danger: Color.lerp(danger, other.danger, t)!,
     );
   }
 }
