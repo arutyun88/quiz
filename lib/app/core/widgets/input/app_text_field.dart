@@ -63,8 +63,8 @@ class AppTextField extends StatefulWidget {
       AppTextField._(
         key: key,
         enabled: enabled,
-        label: label ?? t.text_field.email.label,
-        hint: hint ?? t.text_field.email.hint,
+        label: label,
+        hint: hint,
         keyboardType: TextInputType.emailAddress,
         onValidationChanged: onValidationChanged,
         validationType: ValidationType.email,
@@ -83,8 +83,8 @@ class AppTextField extends StatefulWidget {
   }) =>
       AppTextField._(
         enabled: enabled,
-        label: label ?? t.text_field.password.label,
-        hint: hint ?? t.text_field.password.hint,
+        label: label,
+        hint: hint,
         keyboardType: TextInputType.emailAddress,
         onValidationChanged: onValidationChanged,
         validationType: ValidationType.password,

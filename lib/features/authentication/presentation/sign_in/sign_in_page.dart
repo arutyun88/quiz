@@ -54,13 +54,15 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 ),
                 const SizedBox(height: 24.0),
                 AppTextField.email(
-                  enabled: true,
+                  label: t.text_field.email.label,
+                  hint: t.text_field.email.hint,
                   onValidationChanged: ref.read(formProvider.notifier).updateEmailValidity,
                   onChanged: ref.read(formProvider.notifier).updateEmail,
                 ),
                 const SizedBox(height: 16.0),
                 AppTextField.password(
-                  enabled: true,
+                  label: t.text_field.password.label,
+                  hint: t.text_field.password.hint,
                   onValidationChanged: ref.read(formProvider.notifier).updatePasswordValidity,
                   onChanged: ref.read(formProvider.notifier).updatePassword,
                 ),

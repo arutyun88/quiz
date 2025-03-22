@@ -40,33 +40,36 @@ class AppSubheaderedScaffold extends StatelessWidget {
       );
     }
 
-    return Scaffold(
-      appBar: appBar,
-      body: CustomScrollView(
-        clipBehavior: Clip.none,
-        slivers: [
-          if (header case Widget header)
-            SliverLayoutBuilder(
-              builder: (context, constraints) => SliverToBoxAdapter(
-                child: _SubheaderWidget(
-                  header: header,
-                  headerDecoration: headerDecoration,
-                  overscroll: constraints.viewportMainAxisExtent - constraints.remainingPaintExtent,
-                  headerSubColor: headerSubColor,
+    return GestureDetector(
+      onTap: FocusScope.of(context).unfocus,
+      child: Scaffold(
+        appBar: appBar,
+        body: CustomScrollView(
+          clipBehavior: Clip.none,
+          slivers: [
+            if (header case Widget header)
+              SliverLayoutBuilder(
+                builder: (context, constraints) => SliverToBoxAdapter(
+                  child: _SubheaderWidget(
+                    header: header,
+                    headerDecoration: headerDecoration,
+                    overscroll: constraints.viewportMainAxisExtent - constraints.remainingPaintExtent,
+                    headerSubColor: headerSubColor,
+                  ),
                 ),
               ),
-            ),
-          if (header == null) //
-            const SliverToBoxAdapter(child: SizedBox(height: 10.0)),
-          if (body case Column items)
-            SliverList.list(
-              children: items.children,
-            )
-          else
-            SliverToBoxAdapter(
-              child: body,
-            )
-        ],
+            if (header == null) //
+              const SliverToBoxAdapter(child: SizedBox(height: 10.0)),
+            if (body case Column items)
+              SliverList.list(
+                children: items.children,
+              )
+            else
+              SliverToBoxAdapter(
+                child: body,
+              )
+          ],
+        ),
       ),
     );
   }

@@ -5,9 +5,11 @@ class AppWidget extends StatelessWidget {
   const AppWidget({
     super.key,
     required this.child,
+    this.padding = const EdgeInsets.all(16.0),
   });
 
   final Widget child;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,10 @@ class AppWidget extends StatelessWidget {
         color: context.palette.background.static,
         borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       ),
-      child: child,
+      child: Padding(
+        padding: padding,
+        child: child,
+      ),
     );
   }
 }
