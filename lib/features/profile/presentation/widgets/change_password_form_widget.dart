@@ -6,7 +6,6 @@ import 'package:quiz/app/core/widgets/app_widget.dart';
 import 'package:quiz/app/core/widgets/button/app_button.dart';
 import 'package:quiz/app/core/widgets/input/app_text_field.dart';
 import 'package:quiz/app/di/di.dart';
-import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/profile/domain/repository/change_password_gateway.dart';
 import 'package:quiz/features/profile/presentation/provider/change_password_form_provider.dart';
 import 'package:quiz/gen/strings.g.dart';
@@ -115,15 +114,7 @@ class _ChangePasswordFormWidgetState extends ConsumerState<ChangePasswordFormWid
                   ? () async {
                       FocusScope.of(context).unfocus();
 
-                      final email =
-                          ref.read(authenticationProvider).mapOrNull(authenticated: (state) => state.user?.email);
-
-                      if (email == null) {
-                        return;
-                      }
-
                       final result = await ref.read(changePasswordFormProvider.notifier).changePassword(
-                            email: email,
                             oldPassword: _oldPasswordController.text,
                             newPassword: _newPasswordController.text,
                           );

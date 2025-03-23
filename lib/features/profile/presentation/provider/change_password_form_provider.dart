@@ -13,11 +13,10 @@ class ChangePasswordFormProvider extends StateNotifier<ChangePasswordFormState> 
         super(const ChangePasswordFormState());
 
   Future<bool> changePassword({
-    required String email,
     required String oldPassword,
     required String newPassword,
   }) async {
-    final result = await _gateway.call(email: email, oldPassword: oldPassword, newPassword: newPassword);
+    final result = await _gateway.call(oldPassword: oldPassword, newPassword: newPassword);
     return result is ResultOk;
   }
 

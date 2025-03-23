@@ -10,12 +10,10 @@ class ChangePasswordGateway {
   }) : _userUpdateRepository = userUpdateRepository;
 
   Future<Result<void, Failure>> call({
-    required String email,
     required String oldPassword,
     required String newPassword,
   }) async {
     return await _userUpdateRepository.changePassword(
-      email: email,
       oldPassword: oldPassword,
       newPassword: newPassword,
     );

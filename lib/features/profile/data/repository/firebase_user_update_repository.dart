@@ -11,21 +11,23 @@ class FirebaseUserUpdateRepository implements UserUpdateRepository {
   final FirebaseAuth _auth;
   @override
   Future<Result<void, Failure>> changePassword({
-    required String email,
     required String oldPassword,
     required String newPassword,
   }) async {
     try {
       final user = _auth.currentUser;
-      if (user != null) {
-        await user.reauthenticateWithCredential(
-          EmailAuthProvider.credential(email: email, password: oldPassword),
-        );
-        await _auth.currentUser?.updatePassword(newPassword);
-        return const Result.ok(null);
-      } else {
-        return const Result.failed(AuthenticationFailure(AuthenticationFailureType.data));
+
+      if (user case User user) {
+        if (user.email case String email) {
+          await user.reauthenticateWithCredential(
+            EmailAuthProvider.credential(email: email, password: oldPassword),
+          );
+          await _auth.currentUser?.updatePassword(newPassword);
+          return const Result.ok(null);
+        }
       }
+
+      return const Result.failed(AuthenticationFailure(AuthenticationFailureType.data));
     } on FirebaseAuthException catch (e) {
       return Result.failed(Failure.authentication(_mapAuthenticationExceptionCode(e.code)));
     }
