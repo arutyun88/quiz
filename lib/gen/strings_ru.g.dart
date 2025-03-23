@@ -161,6 +161,7 @@ class _TranslationsProfileEditRu implements TranslationsProfileEditEn {
 	// Translations
 	@override String get title => 'Редактировать профиль';
 	@override late final _TranslationsProfileEditPasswordRu password = _TranslationsProfileEditPasswordRu._(_root);
+	@override late final _TranslationsProfileEditMainRu main = _TranslationsProfileEditMainRu._(_root);
 }
 
 // Path: authentication.failure
@@ -228,6 +229,17 @@ class _TranslationsProfileEditPasswordRu implements TranslationsProfileEditPassw
 	@override late final _TranslationsProfileEditPasswordResultRu result = _TranslationsProfileEditPasswordResultRu._(_root);
 }
 
+// Path: profile.edit.main
+class _TranslationsProfileEditMainRu implements TranslationsProfileEditMainEn {
+	_TranslationsProfileEditMainRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Основная информация';
+	@override late final _TranslationsProfileEditMainNameRu name = _TranslationsProfileEditMainNameRu._(_root);
+}
+
 // Path: authentication.sign_in.no_account
 class _TranslationsAuthenticationSignInNoAccountRu implements TranslationsAuthenticationSignInNoAccountEn {
 	_TranslationsAuthenticationSignInNoAccountRu._(this._root);
@@ -284,6 +296,18 @@ class _TranslationsProfileEditPasswordResultRu implements TranslationsProfileEdi
 	@override String get failed => 'Не удалось изменить пароль. Пожалуйста, проверьте введенные данные и попробуйте снова';
 }
 
+// Path: profile.edit.main.name
+class _TranslationsProfileEditMainNameRu implements TranslationsProfileEditMainNameEn {
+	_TranslationsProfileEditMainNameRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Имя';
+	@override String get hint => 'Введите ваше имя';
+	@override late final _TranslationsProfileEditMainNameResultRu result = _TranslationsProfileEditMainNameResultRu._(_root);
+}
+
 // Path: authentication.sign_in.forget_password.dialog
 class _TranslationsAuthenticationSignInForgetPasswordDialogRu implements TranslationsAuthenticationSignInForgetPasswordDialogEn {
 	_TranslationsAuthenticationSignInForgetPasswordDialogRu._(this._root);
@@ -295,6 +319,17 @@ class _TranslationsAuthenticationSignInForgetPasswordDialogRu implements Transla
 	@override late final _TranslationsAuthenticationSignInForgetPasswordDialogValidRu valid = _TranslationsAuthenticationSignInForgetPasswordDialogValidRu._(_root);
 	@override late final _TranslationsAuthenticationSignInForgetPasswordDialogInvalidRu invalid = _TranslationsAuthenticationSignInForgetPasswordDialogInvalidRu._(_root);
 	@override late final _TranslationsAuthenticationSignInForgetPasswordDialogResultRu result = _TranslationsAuthenticationSignInForgetPasswordDialogResultRu._(_root);
+}
+
+// Path: profile.edit.main.name.result
+class _TranslationsProfileEditMainNameResultRu implements TranslationsProfileEditMainNameResultEn {
+	_TranslationsProfileEditMainNameResultRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get success => 'Имя успешно изменено';
+	@override String get failed => 'Не удалось изменить имя. Пожалуйста, проверьте введенные данные и попробуйте снова';
 }
 
 // Path: authentication.sign_in.forget_password.dialog.valid
@@ -362,6 +397,11 @@ extension on TranslationsRu {
 			case 'profile.edit.password.button': return 'Сохранить';
 			case 'profile.edit.password.result.success': return 'Пароль успешно изменен';
 			case 'profile.edit.password.result.failed': return 'Не удалось изменить пароль. Пожалуйста, проверьте введенные данные и попробуйте снова';
+			case 'profile.edit.main.title': return 'Основная информация';
+			case 'profile.edit.main.name.label': return 'Имя';
+			case 'profile.edit.main.name.hint': return 'Введите ваше имя';
+			case 'profile.edit.main.name.result.success': return 'Имя успешно изменено';
+			case 'profile.edit.main.name.result.failed': return 'Не удалось изменить имя. Пожалуйста, проверьте введенные данные и попробуйте снова';
 			case 'authentication.failure.invalid_credentials': return 'Неверные учетные данные. Проверьте правильность введенного email и пароля.';
 			case 'authentication.failure.too_many_requests': return 'Слишком много попыток входа. Попробуйте позже или сбросьте пароль.';
 			case 'authentication.failure.already_exist': return 'Этот email уже используется другим аккаунтом.';

@@ -165,6 +165,7 @@ class TranslationsProfileEditEn {
 	// Translations
 	String get title => 'Edit profile';
 	late final TranslationsProfileEditPasswordEn password = TranslationsProfileEditPasswordEn._(_root);
+	late final TranslationsProfileEditMainEn main = TranslationsProfileEditMainEn._(_root);
 }
 
 // Path: authentication.failure
@@ -232,6 +233,17 @@ class TranslationsProfileEditPasswordEn {
 	late final TranslationsProfileEditPasswordResultEn result = TranslationsProfileEditPasswordResultEn._(_root);
 }
 
+// Path: profile.edit.main
+class TranslationsProfileEditMainEn {
+	TranslationsProfileEditMainEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Basic information';
+	late final TranslationsProfileEditMainNameEn name = TranslationsProfileEditMainNameEn._(_root);
+}
+
 // Path: authentication.sign_in.no_account
 class TranslationsAuthenticationSignInNoAccountEn {
 	TranslationsAuthenticationSignInNoAccountEn._(this._root);
@@ -288,6 +300,18 @@ class TranslationsProfileEditPasswordResultEn {
 	String get failed => 'The password could not be changed. Please check the entered data and try again';
 }
 
+// Path: profile.edit.main.name
+class TranslationsProfileEditMainNameEn {
+	TranslationsProfileEditMainNameEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get label => 'Name';
+	String get hint => 'Enter your name';
+	late final TranslationsProfileEditMainNameResultEn result = TranslationsProfileEditMainNameResultEn._(_root);
+}
+
 // Path: authentication.sign_in.forget_password.dialog
 class TranslationsAuthenticationSignInForgetPasswordDialogEn {
 	TranslationsAuthenticationSignInForgetPasswordDialogEn._(this._root);
@@ -299,6 +323,17 @@ class TranslationsAuthenticationSignInForgetPasswordDialogEn {
 	late final TranslationsAuthenticationSignInForgetPasswordDialogValidEn valid = TranslationsAuthenticationSignInForgetPasswordDialogValidEn._(_root);
 	late final TranslationsAuthenticationSignInForgetPasswordDialogInvalidEn invalid = TranslationsAuthenticationSignInForgetPasswordDialogInvalidEn._(_root);
 	late final TranslationsAuthenticationSignInForgetPasswordDialogResultEn result = TranslationsAuthenticationSignInForgetPasswordDialogResultEn._(_root);
+}
+
+// Path: profile.edit.main.name.result
+class TranslationsProfileEditMainNameResultEn {
+	TranslationsProfileEditMainNameResultEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get success => 'Name successfully changed';
+	String get failed => 'The name could not be changed. Please check the entered data and try again';
 }
 
 // Path: authentication.sign_in.forget_password.dialog.valid
@@ -366,6 +401,11 @@ extension on Translations {
 			case 'profile.edit.password.button': return 'Save';
 			case 'profile.edit.password.result.success': return 'Password successfully changed';
 			case 'profile.edit.password.result.failed': return 'The password could not be changed. Please check the entered data and try again';
+			case 'profile.edit.main.title': return 'Basic information';
+			case 'profile.edit.main.name.label': return 'Name';
+			case 'profile.edit.main.name.hint': return 'Enter your name';
+			case 'profile.edit.main.name.result.success': return 'Name successfully changed';
+			case 'profile.edit.main.name.result.failed': return 'The name could not be changed. Please check the entered data and try again';
 			case 'authentication.failure.invalid_credentials': return 'Invalid credentials. Check that the email and password you entered are correct.';
 			case 'authentication.failure.too_many_requests': return 'Too many login attempts. Try again later or reset your password.';
 			case 'authentication.failure.already_exist': return 'This email is already being used by another account.';

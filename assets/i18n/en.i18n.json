@@ -48,6 +48,17 @@
                     "success": "Password successfully changed",
                     "failed": "The password could not be changed. Please check the entered data and try again"
                 }
+            },
+            "main": {
+                "title": "Basic information",
+                "name": {
+                    "label": "Name",
+                    "hint": "Enter your name",
+                    "result": {
+                        "success": "Name successfully changed",
+                        "failed": "The name could not be changed. Please check the entered data and try again"
+                    }
+                }
             }
         }
     },

@@ -19,6 +19,8 @@ class AppTextField extends StatefulWidget {
   final void Function(String)? onChanged;
   final String? validationMessage;
   final TextEditingController? controller;
+  final bool? autocorrect;
+  final TextCapitalization? textCapitalization;
 
   const AppTextField._({
     super.key,
@@ -32,6 +34,8 @@ class AppTextField extends StatefulWidget {
     this.onChanged,
     this.validationMessage,
     this.controller,
+    this.autocorrect,
+    this.textCapitalization,
   });
 
   factory AppTextField({
@@ -40,9 +44,11 @@ class AppTextField extends StatefulWidget {
     String? label,
     String? hint,
     TextInputType? keyboardType,
+    bool? autocorrect,
     void Function(String)? onChanged,
     String? validationMessage,
     TextEditingController? controller,
+    TextCapitalization? textCapitalization,
   }) =>
       AppTextField._(
         key: key,
@@ -53,6 +59,8 @@ class AppTextField extends StatefulWidget {
         onChanged: onChanged,
         validationMessage: validationMessage,
         controller: controller,
+        autocorrect: autocorrect,
+        textCapitalization: textCapitalization,
       );
 
   factory AppTextField.email({
@@ -116,8 +124,8 @@ class _AppTextFieldState extends State<AppTextField> {
       style: context.textStyle.body16Regular,
       cursorColor: context.palette.textField.cursorColor,
       keyboardType: widget.keyboardType,
-      textCapitalization: _textCapitalization,
-      autocorrect: _autocorrect,
+      textCapitalization: widget.textCapitalization ?? _textCapitalization,
+      autocorrect: widget.autocorrect ?? _autocorrect,
       inputFormatters: _inputFormatters,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) => widget.validationMessage ?? _validateAndNotify(value ?? ''),

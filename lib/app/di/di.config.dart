@@ -24,6 +24,8 @@ import '../../features/authentication/domain/repository/password_reset_gateway.d
 import '../../features/profile/di/di.dart' as _i1038;
 import '../../features/profile/domain/repository/change_password_gateway.dart'
     as _i646;
+import '../../features/profile/domain/repository/change_user_name_gateway.dart'
+    as _i432;
 import '../../features/profile/domain/repository/user_update_repository.dart'
     as _i422;
 import '../../features/user/di/di.dart' as _i527;
@@ -74,6 +76,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => profileModule.userUpdateRepository());
     gh.lazySingleton<_i646.ChangePasswordGateway>(
         () => profileModule.changePasswordGateway());
+    gh.lazySingleton<_i432.ChangeUserNameGateway>(
+        () => profileModule.changeUserNameGateway());
     await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(
       () => firebaseConfigModule
           .remoteConfigService(gh<_i627.FirebaseRemoteConfig>()),

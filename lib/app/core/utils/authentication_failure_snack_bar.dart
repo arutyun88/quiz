@@ -21,6 +21,6 @@ String _mapToText(AuthenticationFailureType type) {
     AuthenticationFailureType.credentials => t.authentication.failure.invalid_credentials,
     AuthenticationFailureType.tooManyRequests => t.authentication.failure.too_many_requests,
     AuthenticationFailureType.alreadyExist => t.authentication.failure.already_exist,
-    AuthenticationFailureType.data => t.authentication.failure.unknown,
+    AuthenticationFailureType.data || AuthenticationFailureType.unauthenticated => t.authentication.failure.unknown,
   };
 }
