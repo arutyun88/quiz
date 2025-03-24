@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quiz/app/config/style/app_text_style.dart';
 import 'package:quiz/app/config/theme/palette.dart';
@@ -69,6 +70,14 @@ class AppTheme extends ThemeExtension<AppTheme> {
         contentTextStyle: AppTextStyle.base.body14Regular.copyWith(color: theme.palette.text.primary),
         dismissDirection: DismissDirection.horizontal,
         behavior: SnackBarBehavior.fixed,
+      ),
+      cupertinoOverrideTheme: CupertinoThemeData(
+        textTheme: CupertinoTextThemeData(
+          dateTimePickerTextStyle: AppTextStyle.base.heading18Semibold.copyWith(color: theme.palette.text.primary),
+        ),
+      ),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: theme.palette.background.static,
       ),
     );
   }

@@ -21,7 +21,7 @@ abstract class ProfileModule {
       );
 
   @lazySingleton
-  ChangeUserNameGateway changeUserNameGateway() => ChangeUserNameGateway(
+  ChangeUserInfoGateway changeUserInfoGateway() => ChangeUserInfoGateway(
         userUpdateRepository: getIt<UserUpdateRepository>(),
       );
 }

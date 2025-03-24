@@ -51,8 +51,9 @@ class FirebaseUserUpdateRepository implements UserUpdateRepository {
   }
 
   @override
-  Future<Result<void, Failure>> changeName({
-    required String name,
+  Future<Result<void, Failure>> changeInfo({
+    String? name,
+    DateTime? birthDate,
   }) async {
     final id = _auth.currentUser?.uid;
     if (id case String id) {
@@ -64,13 +65,18 @@ class FirebaseUserUpdateRepository implements UserUpdateRepository {
           if (user.data() case Json json) {
             final dto = UserDto.fromJson(json);
             await userRef.update(
-              dto.copyWith(name: name).toJson() //
+              dto
+                  .copyWith(
+                    name: name ?? dto.name,
+                    birthDate: birthDate ?? dto.birthDate,
+                  )
+                  .toJson() //
                 ..['updated_at'] = FieldValue.serverTimestamp(),
             );
           }
         } else {
           await userRef.set(
-            UserDto(id: id, name: name).toJson()
+            UserDto(id: id, name: name, birthDate: birthDate).toJson()
               ..['created_at'] = FieldValue.serverTimestamp()
               ..['updated_at'] = FieldValue.serverTimestamp(),
           );

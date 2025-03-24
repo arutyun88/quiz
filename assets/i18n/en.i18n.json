@@ -53,11 +53,21 @@
                 "title": "Basic information",
                 "name": {
                     "label": "Name",
-                    "hint": "Enter your name",
-                    "result": {
-                        "success": "Name successfully changed",
-                        "failed": "The name could not be changed. Please check the entered data and try again"
+                    "hint": "Enter your name"
+                },
+                "date": {
+                    "hint": "Specify your date of birth",
+                    "picker": {
+                        "title": "Date of birth",
+                        "button": {
+                            "cancel": "Cancel",
+                            "apply": "Done"
+                        }
                     }
+                },
+                "result": {
+                    "success": "Information successfully changed",
+                    "failed": "Information could not be changed. Please check the entered data and try again"
                 }
             }
         }

@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:quiz/app/config/style/text_style_ex.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/model/result.dart';
+import 'package:quiz/app/core/widgets/app_bottom_sheet.dart';
 import 'package:quiz/app/core/widgets/app_widget.dart';
 import 'package:quiz/app/core/widgets/button/app_button.dart';
 import 'package:quiz/app/core/widgets/input/app_text_field.dart';
@@ -18,34 +22,60 @@ class ChangeMainInfoFormWidget extends ConsumerStatefulWidget {
 }
 
 class _ChangeNameFormWidgetState extends ConsumerState<ChangeMainInfoFormWidget> {
+  final locale = LocaleSettings.instance.currentLocale.languageCode;
+
   late final TextEditingController _nameController;
+  late final TextEditingController _dateController;
   late String? _initialName;
+  late DateTime? _initialDate;
   bool _isButtonEnabled = false;
 
   @override
   void initState() {
     super.initState();
-    _initialName = ref.read(authenticationProvider).mapOrNull(authenticated: (state) => state.user?.name);
+    ref.read(authenticationProvider).mapOrNull(authenticated: (state) {
+      _initialName = state.user?.name;
+      _initialDate = state.user?.birthDate;
+    });
 
     _nameController = TextEditingController(text: _initialName);
+    _dateController = TextEditingController(
+      text: _initialDate != null ? DateFormat.yMMMMd(locale).format(_initialDate!) : null,
+    );
+
     _nameController.addListener(_updateButtonState);
+    _dateController.addListener(_updateButtonState);
   }
 
   @override
   void dispose() {
     _nameController.removeListener(_updateButtonState);
+    _dateController.removeListener(_updateButtonState);
+
     _nameController.dispose();
+    _dateController.dispose();
 
     super.dispose();
   }
 
   void _updateButtonState() {
-    final bool newState = _nameController.text.isNotEmpty && _nameController.text != _initialName;
+    final bool newState = _isNameChanged || _isBirthDateChanged;
     if (newState != _isButtonEnabled) {
       setState(() {
         _isButtonEnabled = newState;
       });
     }
+  }
+
+  bool get _isNameChanged => _nameController.text.isNotEmpty && _nameController.text != _initialName;
+
+  bool get _isBirthDateChanged {
+    if (_dateController.text.isEmpty) return false;
+
+    final parcedDate = DateFormat.yMMMMd(locale).tryParse(_dateController.text);
+    return _initialDate?.year != parcedDate?.year ||
+        _initialDate?.month != parcedDate?.month ||
+        _initialDate?.day != parcedDate?.day;
   }
 
   @override
@@ -67,27 +97,45 @@ class _ChangeNameFormWidgetState extends ConsumerState<ChangeMainInfoFormWidget>
             textCapitalization: TextCapitalization.words,
           ),
           const SizedBox(height: 16.0),
+          AppTextField.date(
+            controller: _dateController,
+            hint: t.profile.edit.main.date.hint,
+            onTap: () async {
+              final date = await _showDatePickerBottomSheet(context, initialDate: _initialDate);
+
+              if (date != null) {
+                _dateController.text = DateFormat.yMMMMd(locale).format(date);
+              }
+            },
+          ),
+          const SizedBox(height: 16.0),
           AppButton(
             expanded: false,
             onTap: _isButtonEnabled
                 ? () async {
                     FocusScope.of(context).unfocus();
 
-                    final result = await getIt<ChangeUserNameGateway>().call(name: _nameController.text);
+                    final result = await getIt<ChangeUserInfoGateway>().call(
+                      name: _nameController.text,
+                      birthDate: DateFormat.yMMMMd(locale).tryParse(_dateController.text, true),
+                    );
 
                     switch (result) {
                       case ResultOk():
                         _showSnackBar(
-                          message: t.profile.edit.main.name.result.success,
+                          message: t.profile.edit.main.result.success,
                         );
 
                         _initialName = _nameController.text;
+                        _initialDate = DateFormat.yMMMMd(LocaleSettings.instance.currentLocale.languageCode)
+                            .tryParse(_dateController.text, true);
+
                         _updateButtonState();
                         await ref.read(authenticationProvider.notifier).reload();
                       case ResultFailed():
                         if (!context.mounted) return;
                         _showSnackBar(
-                          message: t.profile.edit.main.name.result.failed,
+                          message: t.profile.edit.main.result.failed,
                           backgroundColor: context.palette.background.danger,
                         );
                     }
@@ -110,4 +158,59 @@ class _ChangeNameFormWidgetState extends ConsumerState<ChangeMainInfoFormWidget>
           backgroundColor: backgroundColor,
         ),
       );
+
+  Future<DateTime?> _showDatePickerBottomSheet(
+    BuildContext context, {
+    required final DateTime? initialDate,
+  }) async {
+    final currentDate = DateTime.now();
+    DateTime selectedDate = initialDate ?? DateTime(currentDate.year - 18, currentDate.month, currentDate.day);
+
+    return await showAppBottomSheet(
+      context,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          children: [
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: Text(
+                t.profile.edit.main.date.picker.title,
+                style: context.textStyle.body16Semibold,
+              ),
+            ),
+            SizedBox(
+              height: 220,
+              child: CupertinoDatePicker(
+                itemExtent: 50,
+                initialDateTime: selectedDate,
+                mode: CupertinoDatePickerMode.date,
+                onDateTimeChanged: (date) {
+                  selectedDate = date;
+                },
+              ),
+            ),
+            Row(
+              children: [
+                Flexible(
+                  child: AppButton(
+                    scope: ButtonScope.secondary,
+                    onTap: () => context.pop(),
+                    child: Text(t.profile.edit.main.date.picker.button.cancel),
+                  ),
+                ),
+                const SizedBox(width: 16.0),
+                Flexible(
+                  child: AppButton(
+                    onTap: () => context.pop(selectedDate),
+                    child: Text(t.profile.edit.main.date.picker.button.apply),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

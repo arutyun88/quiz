@@ -242,6 +242,8 @@ class TranslationsProfileEditMainEn {
 	// Translations
 	String get title => 'Basic information';
 	late final TranslationsProfileEditMainNameEn name = TranslationsProfileEditMainNameEn._(_root);
+	late final TranslationsProfileEditMainDateEn date = TranslationsProfileEditMainDateEn._(_root);
+	late final TranslationsProfileEditMainResultEn result = TranslationsProfileEditMainResultEn._(_root);
 }
 
 // Path: authentication.sign_in.no_account
@@ -309,7 +311,28 @@ class TranslationsProfileEditMainNameEn {
 	// Translations
 	String get label => 'Name';
 	String get hint => 'Enter your name';
-	late final TranslationsProfileEditMainNameResultEn result = TranslationsProfileEditMainNameResultEn._(_root);
+}
+
+// Path: profile.edit.main.date
+class TranslationsProfileEditMainDateEn {
+	TranslationsProfileEditMainDateEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get hint => 'Specify your date of birth';
+	late final TranslationsProfileEditMainDatePickerEn picker = TranslationsProfileEditMainDatePickerEn._(_root);
+}
+
+// Path: profile.edit.main.result
+class TranslationsProfileEditMainResultEn {
+	TranslationsProfileEditMainResultEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get success => 'Information successfully changed';
+	String get failed => 'Information could not be changed. Please check the entered data and try again';
 }
 
 // Path: authentication.sign_in.forget_password.dialog
@@ -325,15 +348,15 @@ class TranslationsAuthenticationSignInForgetPasswordDialogEn {
 	late final TranslationsAuthenticationSignInForgetPasswordDialogResultEn result = TranslationsAuthenticationSignInForgetPasswordDialogResultEn._(_root);
 }
 
-// Path: profile.edit.main.name.result
-class TranslationsProfileEditMainNameResultEn {
-	TranslationsProfileEditMainNameResultEn._(this._root);
+// Path: profile.edit.main.date.picker
+class TranslationsProfileEditMainDatePickerEn {
+	TranslationsProfileEditMainDatePickerEn._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get success => 'Name successfully changed';
-	String get failed => 'The name could not be changed. Please check the entered data and try again';
+	String get title => 'Date of birth';
+	late final TranslationsProfileEditMainDatePickerButtonEn button = TranslationsProfileEditMainDatePickerButtonEn._(_root);
 }
 
 // Path: authentication.sign_in.forget_password.dialog.valid
@@ -370,6 +393,17 @@ class TranslationsAuthenticationSignInForgetPasswordDialogResultEn {
 	String get failed => 'The password reset link could not be sent. Please try again later.';
 }
 
+// Path: profile.edit.main.date.picker.button
+class TranslationsProfileEditMainDatePickerButtonEn {
+	TranslationsProfileEditMainDatePickerButtonEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get cancel => 'Cancel';
+	String get apply => 'Done';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 extension on Translations {
@@ -404,8 +438,12 @@ extension on Translations {
 			case 'profile.edit.main.title': return 'Basic information';
 			case 'profile.edit.main.name.label': return 'Name';
 			case 'profile.edit.main.name.hint': return 'Enter your name';
-			case 'profile.edit.main.name.result.success': return 'Name successfully changed';
-			case 'profile.edit.main.name.result.failed': return 'The name could not be changed. Please check the entered data and try again';
+			case 'profile.edit.main.date.hint': return 'Specify your date of birth';
+			case 'profile.edit.main.date.picker.title': return 'Date of birth';
+			case 'profile.edit.main.date.picker.button.cancel': return 'Cancel';
+			case 'profile.edit.main.date.picker.button.apply': return 'Done';
+			case 'profile.edit.main.result.success': return 'Information successfully changed';
+			case 'profile.edit.main.result.failed': return 'Information could not be changed. Please check the entered data and try again';
 			case 'authentication.failure.invalid_credentials': return 'Invalid credentials. Check that the email and password you entered are correct.';
 			case 'authentication.failure.too_many_requests': return 'Too many login attempts. Try again later or reset your password.';
 			case 'authentication.failure.already_exist': return 'This email is already being used by another account.';

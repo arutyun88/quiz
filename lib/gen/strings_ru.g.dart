@@ -238,6 +238,8 @@ class _TranslationsProfileEditMainRu implements TranslationsProfileEditMainEn {
 	// Translations
 	@override String get title => 'Основная информация';
 	@override late final _TranslationsProfileEditMainNameRu name = _TranslationsProfileEditMainNameRu._(_root);
+	@override late final _TranslationsProfileEditMainDateRu date = _TranslationsProfileEditMainDateRu._(_root);
+	@override late final _TranslationsProfileEditMainResultRu result = _TranslationsProfileEditMainResultRu._(_root);
 }
 
 // Path: authentication.sign_in.no_account
@@ -305,7 +307,28 @@ class _TranslationsProfileEditMainNameRu implements TranslationsProfileEditMainN
 	// Translations
 	@override String get label => 'Имя';
 	@override String get hint => 'Введите ваше имя';
-	@override late final _TranslationsProfileEditMainNameResultRu result = _TranslationsProfileEditMainNameResultRu._(_root);
+}
+
+// Path: profile.edit.main.date
+class _TranslationsProfileEditMainDateRu implements TranslationsProfileEditMainDateEn {
+	_TranslationsProfileEditMainDateRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get hint => 'Укажите дату вашего рождения';
+	@override late final _TranslationsProfileEditMainDatePickerRu picker = _TranslationsProfileEditMainDatePickerRu._(_root);
+}
+
+// Path: profile.edit.main.result
+class _TranslationsProfileEditMainResultRu implements TranslationsProfileEditMainResultEn {
+	_TranslationsProfileEditMainResultRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get success => 'Информация успешно изменена';
+	@override String get failed => 'Не удалось изменить информацию. Пожалуйста, проверьте введенные данные и попробуйте снова';
 }
 
 // Path: authentication.sign_in.forget_password.dialog
@@ -321,15 +344,15 @@ class _TranslationsAuthenticationSignInForgetPasswordDialogRu implements Transla
 	@override late final _TranslationsAuthenticationSignInForgetPasswordDialogResultRu result = _TranslationsAuthenticationSignInForgetPasswordDialogResultRu._(_root);
 }
 
-// Path: profile.edit.main.name.result
-class _TranslationsProfileEditMainNameResultRu implements TranslationsProfileEditMainNameResultEn {
-	_TranslationsProfileEditMainNameResultRu._(this._root);
+// Path: profile.edit.main.date.picker
+class _TranslationsProfileEditMainDatePickerRu implements TranslationsProfileEditMainDatePickerEn {
+	_TranslationsProfileEditMainDatePickerRu._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get success => 'Имя успешно изменено';
-	@override String get failed => 'Не удалось изменить имя. Пожалуйста, проверьте введенные данные и попробуйте снова';
+	@override String get title => 'Дата рождения';
+	@override late final _TranslationsProfileEditMainDatePickerButtonRu button = _TranslationsProfileEditMainDatePickerButtonRu._(_root);
 }
 
 // Path: authentication.sign_in.forget_password.dialog.valid
@@ -366,6 +389,17 @@ class _TranslationsAuthenticationSignInForgetPasswordDialogResultRu implements T
 	@override String get failed => 'Не удалось отправить ссылку для сброса пароля. Пожалуйста, попробуйте позже.';
 }
 
+// Path: profile.edit.main.date.picker.button
+class _TranslationsProfileEditMainDatePickerButtonRu implements TranslationsProfileEditMainDatePickerButtonEn {
+	_TranslationsProfileEditMainDatePickerButtonRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get cancel => 'Отмена';
+	@override String get apply => 'Готово';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 extension on TranslationsRu {
@@ -400,8 +434,12 @@ extension on TranslationsRu {
 			case 'profile.edit.main.title': return 'Основная информация';
 			case 'profile.edit.main.name.label': return 'Имя';
 			case 'profile.edit.main.name.hint': return 'Введите ваше имя';
-			case 'profile.edit.main.name.result.success': return 'Имя успешно изменено';
-			case 'profile.edit.main.name.result.failed': return 'Не удалось изменить имя. Пожалуйста, проверьте введенные данные и попробуйте снова';
+			case 'profile.edit.main.date.hint': return 'Укажите дату вашего рождения';
+			case 'profile.edit.main.date.picker.title': return 'Дата рождения';
+			case 'profile.edit.main.date.picker.button.cancel': return 'Отмена';
+			case 'profile.edit.main.date.picker.button.apply': return 'Готово';
+			case 'profile.edit.main.result.success': return 'Информация успешно изменена';
+			case 'profile.edit.main.result.failed': return 'Не удалось изменить информацию. Пожалуйста, проверьте введенные данные и попробуйте снова';
 			case 'authentication.failure.invalid_credentials': return 'Неверные учетные данные. Проверьте правильность введенного email и пароля.';
 			case 'authentication.failure.too_many_requests': return 'Слишком много попыток входа. Попробуйте позже или сбросьте пароль.';
 			case 'authentication.failure.already_exist': return 'Этот email уже используется другим аккаунтом.';

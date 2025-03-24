@@ -7,7 +7,8 @@ abstract interface class UserUpdateRepository {
     required String newPassword,
   });
 
-  Future<Result<void, Failure>> changeName({
-    required String name,
+  Future<Result<void, Failure>> changeInfo({
+    String? name,
+    DateTime? birthDate,
   });
 }

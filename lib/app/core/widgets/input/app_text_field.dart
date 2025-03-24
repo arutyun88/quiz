@@ -21,6 +21,8 @@ class AppTextField extends StatefulWidget {
   final TextEditingController? controller;
   final bool? autocorrect;
   final TextCapitalization? textCapitalization;
+  final bool? readOnly;
+  final VoidCallback? onTap;
 
   const AppTextField._({
     super.key,
@@ -36,6 +38,8 @@ class AppTextField extends StatefulWidget {
     this.controller,
     this.autocorrect,
     this.textCapitalization,
+    this.readOnly,
+    this.onTap,
   });
 
   factory AppTextField({
@@ -109,6 +113,20 @@ class AppTextField extends StatefulWidget {
         controller: controller,
       );
 
+  factory AppTextField.date({
+    String? label,
+    String? hint,
+    TextEditingController? controller,
+    VoidCallback? onTap,
+  }) =>
+      AppTextField._(
+        label: label,
+        hint: hint,
+        controller: controller,
+        readOnly: true,
+        onTap: onTap,
+      );
+
   @override
   State<AppTextField> createState() => _AppTextFieldState();
 }
@@ -119,6 +137,8 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: widget.readOnly ?? false,
+      onTap: widget.onTap,
       controller: widget.controller,
       enabled: widget.enabled,
       style: context.textStyle.body16Regular,

@@ -76,8 +76,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => profileModule.userUpdateRepository());
     gh.lazySingleton<_i646.ChangePasswordGateway>(
         () => profileModule.changePasswordGateway());
-    gh.lazySingleton<_i432.ChangeUserNameGateway>(
-        () => profileModule.changeUserNameGateway());
+    gh.lazySingleton<_i432.ChangeUserInfoGateway>(
+        () => profileModule.changeUserInfoGateway());
     await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(
       () => firebaseConfigModule
           .remoteConfigService(gh<_i627.FirebaseRemoteConfig>()),
