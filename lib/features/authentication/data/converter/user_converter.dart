@@ -13,7 +13,6 @@ final class UserConverterImpl extends UserConverter {
       id: dto.id,
       email: dto.email,
       name: dto.name,
-      gender: dto.gender,
       birthDate: dto.birthDate,
     );
   }
@@ -28,7 +27,6 @@ final class UserConverterImpl extends UserConverter {
       id: entity.id,
       name: entity.name,
       email: entity.email,
-      gender: entity.gender,
       birthDate: birthDate,
     );
   }

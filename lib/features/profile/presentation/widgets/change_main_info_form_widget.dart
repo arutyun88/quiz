@@ -115,9 +115,11 @@ class _ChangeNameFormWidgetState extends ConsumerState<ChangeMainInfoFormWidget>
                 ? () async {
                     FocusScope.of(context).unfocus();
 
+                    final parsedDate = DateFormat.yMMMMd(locale).tryParse(_dateController.text, true);
+
                     final result = await getIt<ChangeUserInfoGateway>().call(
                       name: _nameController.text,
-                      birthDate: DateFormat.yMMMMd(locale).tryParse(_dateController.text, true),
+                      birthDate: parsedDate,
                     );
 
                     switch (result) {
@@ -127,8 +129,7 @@ class _ChangeNameFormWidgetState extends ConsumerState<ChangeMainInfoFormWidget>
                         );
 
                         _initialName = _nameController.text;
-                        _initialDate = DateFormat.yMMMMd(LocaleSettings.instance.currentLocale.languageCode)
-                            .tryParse(_dateController.text, true);
+                        _initialDate = parsedDate;
 
                         _updateButtonState();
                         await ref.read(authenticationProvider.notifier).reload();

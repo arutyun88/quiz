@@ -23,7 +23,6 @@ mixin _$UserDto {
   String get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
-  Gender? get gender => throw _privateConstructorUsedError;
   @JsonKey(name: 'birth_date')
   @TimestampConverter()
   DateTime? get birthDate => throw _privateConstructorUsedError;
@@ -46,7 +45,6 @@ abstract class $UserDtoCopyWith<$Res> {
       {String id,
       String? name,
       String? email,
-      Gender? gender,
       @JsonKey(name: 'birth_date') @TimestampConverter() DateTime? birthDate});
 }
 
@@ -68,7 +66,6 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
     Object? id = null,
     Object? name = freezed,
     Object? email = freezed,
-    Object? gender = freezed,
     Object? birthDate = freezed,
   }) {
     return _then(_value.copyWith(
@@ -84,10 +81,6 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      gender: freezed == gender
-          ? _value.gender
-          : gender // ignore: cast_nullable_to_non_nullable
-              as Gender?,
       birthDate: freezed == birthDate
           ? _value.birthDate
           : birthDate // ignore: cast_nullable_to_non_nullable
@@ -109,7 +102,6 @@ abstract class _$$UserAuthenticatedEntityImplCopyWith<$Res>
       {String id,
       String? name,
       String? email,
-      Gender? gender,
       @JsonKey(name: 'birth_date') @TimestampConverter() DateTime? birthDate});
 }
 
@@ -130,7 +122,6 @@ class __$$UserAuthenticatedEntityImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = freezed,
     Object? email = freezed,
-    Object? gender = freezed,
     Object? birthDate = freezed,
   }) {
     return _then(_$UserAuthenticatedEntityImpl(
@@ -146,10 +137,6 @@ class __$$UserAuthenticatedEntityImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      gender: freezed == gender
-          ? _value.gender
-          : gender // ignore: cast_nullable_to_non_nullable
-              as Gender?,
       birthDate: freezed == birthDate
           ? _value.birthDate
           : birthDate // ignore: cast_nullable_to_non_nullable
@@ -165,7 +152,6 @@ class _$UserAuthenticatedEntityImpl implements _UserAuthenticatedEntity {
       {required this.id,
       this.name,
       this.email,
-      this.gender,
       @JsonKey(name: 'birth_date') @TimestampConverter() this.birthDate});
 
   factory _$UserAuthenticatedEntityImpl.fromJson(Map<String, dynamic> json) =>
@@ -178,15 +164,13 @@ class _$UserAuthenticatedEntityImpl implements _UserAuthenticatedEntity {
   @override
   final String? email;
   @override
-  final Gender? gender;
-  @override
   @JsonKey(name: 'birth_date')
   @TimestampConverter()
   final DateTime? birthDate;
 
   @override
   String toString() {
-    return 'UserDto(id: $id, name: $name, email: $email, gender: $gender, birthDate: $birthDate)';
+    return 'UserDto(id: $id, name: $name, email: $email, birthDate: $birthDate)';
   }
 
   @override
@@ -197,15 +181,13 @@ class _$UserAuthenticatedEntityImpl implements _UserAuthenticatedEntity {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.birthDate, birthDate) ||
                 other.birthDate == birthDate));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, email, gender, birthDate);
+  int get hashCode => Object.hash(runtimeType, id, name, email, birthDate);
 
   /// Create a copy of UserDto
   /// with the given fields replaced by the non-null parameter values.
@@ -229,7 +211,6 @@ abstract class _UserAuthenticatedEntity implements UserDto {
       {required final String id,
       final String? name,
       final String? email,
-      final Gender? gender,
       @JsonKey(name: 'birth_date')
       @TimestampConverter()
       final DateTime? birthDate}) = _$UserAuthenticatedEntityImpl;
@@ -243,8 +224,6 @@ abstract class _UserAuthenticatedEntity implements UserDto {
   String? get name;
   @override
   String? get email;
-  @override
-  Gender? get gender;
   @override
   @JsonKey(name: 'birth_date')
   @TimestampConverter()

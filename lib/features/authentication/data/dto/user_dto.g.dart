@@ -12,7 +12,6 @@ _$UserAuthenticatedEntityImpl _$$UserAuthenticatedEntityImplFromJson(
       id: json['id'] as String,
       name: json['name'] as String?,
       email: json['email'] as String?,
-      gender: $enumDecodeNullable(_$GenderEnumMap, json['gender']),
       birthDate: _$JsonConverterFromJson<Timestamp, DateTime>(
           json['birth_date'], const TimestampConverter().fromJson),
     );
@@ -23,15 +22,9 @@ Map<String, dynamic> _$$UserAuthenticatedEntityImplToJson(
       'id': instance.id,
       'name': instance.name,
       'email': instance.email,
-      'gender': _$GenderEnumMap[instance.gender],
       'birth_date': _$JsonConverterToJson<Timestamp, DateTime>(
           instance.birthDate, const TimestampConverter().toJson),
     };
-
-const _$GenderEnumMap = {
-  Gender.male: 'male',
-  Gender.female: 'female',
-};
 
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,
