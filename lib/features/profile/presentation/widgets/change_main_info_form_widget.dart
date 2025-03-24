@@ -180,6 +180,7 @@ class _ChangeNameFormWidgetState extends ConsumerState<ChangeMainInfoFormWidget>
                 style: context.textStyle.body16Semibold,
               ),
             ),
+            const SizedBox(height: 24.0),
             SizedBox(
               height: 220,
               child: CupertinoDatePicker(
@@ -191,6 +192,7 @@ class _ChangeNameFormWidgetState extends ConsumerState<ChangeMainInfoFormWidget>
                 },
               ),
             ),
+            const SizedBox(height: 24.0),
             Row(
               children: [
                 Flexible(
