@@ -19,7 +19,7 @@ class ChangeMainInfoFormWidget extends ConsumerStatefulWidget {
 
 class _ChangeNameFormWidgetState extends ConsumerState<ChangeMainInfoFormWidget> {
   late final TextEditingController _nameController;
-  late final String? _initialName;
+  late String? _initialName;
   bool _isButtonEnabled = false;
 
   @override
@@ -81,6 +81,8 @@ class _ChangeNameFormWidgetState extends ConsumerState<ChangeMainInfoFormWidget>
                           message: t.profile.edit.main.name.result.success,
                         );
 
+                        _initialName = _nameController.text;
+                        _updateButtonState();
                         await ref.read(authenticationProvider.notifier).reload();
                       case ResultFailed():
                         if (!context.mounted) return;
