@@ -29,56 +29,69 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
         super(const AuthenticationState.unauthenticated());
 
   Future<void> reload() async {
-    final result = _authenticationRepository.reload();
-
-    state = switch (result) {
+    final aResult = _authenticationRepository.reload();
+    final aState = switch (aResult) {
       ResultOk(data: final id) => AuthenticationState.authenticated(id: id),
-      ResultFailed() => const AuthenticationState.unauthenticated(),
+      ResultFailed(error: final failure) => AuthenticationState.unauthenticated(failure: failure),
     };
 
-    if (state case _UserAuthenticatedState authState) {
+    if (aState case _UserAuthenticatedState authState) {
       final userResult = await _userRepository.fetchById(authState.id);
 
       if (userResult case ResultOk(data: final user)) {
         state = authState.copyWith(user: user);
+        return;
       }
     }
+    state = aState;
   }
 
   Future<void> signInWithEmail({
     required String email,
     required String password,
   }) async {
-    _handleResult(
-      await _authenticationRepository.signInWithEmail(email: email, password: password),
-    );
+    final aResult = await _authenticationRepository.signInWithEmail(email: email, password: password);
+    final aState = switch (aResult) {
+      ResultOk(data: final id) => AuthenticationState.authenticated(id: id),
+      ResultFailed(error: final failure) => AuthenticationState.unauthenticated(failure: failure),
+    };
 
-    if (state case _UserAuthenticatedState authState) {
+    if (aState case _UserAuthenticatedState authState) {
       final userResult = await _userRepository.fetchById(authState.id);
 
       if (userResult case ResultOk(data: final user)) {
         state = authState.copyWith(user: user);
+        return;
       }
     }
+    state = aState;
   }
 
   Future<void> registerWithEmail({
     required String email,
     required String password,
-  }) async =>
-      _handleResult(
-        await _authenticationRepository.registerWithEmail(email: email, password: password),
-      );
+  }) async {
+    final aResult = await _authenticationRepository.registerWithEmail(email: email, password: password);
+    final aState = switch (aResult) {
+      ResultOk(data: final id) => AuthenticationState.authenticated(id: id),
+      ResultFailed(error: final failure) => AuthenticationState.unauthenticated(failure: failure),
+    };
+
+    if (aState case _UserAuthenticatedState authState) {
+      await _userRepository.createUser(UserEntity(id: authState.id, email: email, name: null, birthDate: null));
+
+      final userResult = await _userRepository.fetchById(authState.id);
+
+      if (userResult case ResultOk(data: final user)) {
+        state = authState.copyWith(user: user);
+        return;
+      }
+    }
+    state = aState;
+  }
 
   void logout() {
     _authenticationRepository.logout();
     state = const AuthenticationState.unauthenticated();
-  }
-
-  void _handleResult(Result<String, Failure> result) {
-    state = switch (result) {
-      ResultOk(data: final id) => AuthenticationState.authenticated(id: id),
-      ResultFailed(error: final failure) => AuthenticationState.unauthenticated(failure: failure),
-    };
   }
 }

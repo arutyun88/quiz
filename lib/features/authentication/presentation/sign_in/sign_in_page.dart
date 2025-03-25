@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/app/config/style/text_style_ex.dart';
-import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/utils/authentication_failure_snack_bar.dart';
 import 'package:quiz/app/core/widgets/app_back_button.dart';
@@ -30,7 +29,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Widget build(BuildContext context) {
     ref.listen(authenticationProvider, (previous, next) {
       next.when(
-        authenticated: (_, __) => context.pop(),
+        authenticated: (_, user) {
+          if (user?.name is! String || user?.birthDate is! DateTime) {
+            context.goNamed('profile-edit');
+          } else {
+            context.pop();
+          }
+        },
         unauthenticated: (failure) {
           if (failure case Failure failure when failure is AuthenticationFailure) {
             showAuthenticationFailureSnackBar(context, type: failure.type);

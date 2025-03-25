@@ -15,15 +15,18 @@ class SplashFlow extends ConsumerWidget {
       (_, state) => state.whenData(
         (_) {
           ref.read(authenticationProvider).whenOrNull(
-                authenticated: (_, user) {
-                  if (user case UserEntity()) {
-                    context.go('/');
-                  } else {
-                    context.goNamed('profile-edit');
-                  }
-                },
-                unauthenticated: (_) => context.push('/login'),
-              );
+            authenticated: (_, user) {
+              if (user case UserEntity()) {
+                context.go('/');
+              } else {
+                context.goNamed('profile-edit');
+              }
+            },
+            unauthenticated: (_) {
+              context.go('/');
+              context.push('/login');
+            },
+          );
         },
       ),
     );
