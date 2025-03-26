@@ -5,6 +5,7 @@ import 'package:quiz/app/core/widgets/app_widget.dart';
 import 'package:quiz/app/core/widgets/button/app_button.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/settings/presentation/widgets/application_settings_widget.dart';
+import 'package:quiz/features/settings/presentation/widgets/user_settings_widget.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -25,18 +26,10 @@ class SettingsPage extends ConsumerWidget {
           if (!isAuthenticated) ...[
             const AppWidget(child: _SignInButtonWidget()),
             const SizedBox(height: 10.0),
+          ] else ...[
+            const AppWidget(child: UserSettingsWidget()),
+            const SizedBox(height: 10.0),
           ],
-          if (isAuthenticated) ...[
-            AppButton(
-              onTap: () {
-                context.push('/profile/settings/edit');
-              },
-              child: const Text('to edit'),
-            ),
-            const SizedBox(height: 24.0),
-          ],
-          const Spacer(),
-          const SizedBox(height: 10.0),
           const AppWidget(child: ApplicationSettingsWidget()),
           const SizedBox(height: 10.0),
           if (isAuthenticated) ...[

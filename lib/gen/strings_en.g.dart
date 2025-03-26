@@ -66,7 +66,6 @@ class TranslationsProfileEn {
 
 	// Translations
 	late final TranslationsProfileThemeEn theme = TranslationsProfileThemeEn._(_root);
-	String get application => 'Application';
 	late final TranslationsProfileLanguageEn language = TranslationsProfileLanguageEn._(_root);
 	late final TranslationsProfileSettingsEn settings = TranslationsProfileSettingsEn._(_root);
 	late final TranslationsProfileEditEn edit = TranslationsProfileEditEn._(_root);
@@ -152,6 +151,8 @@ class TranslationsProfileSettingsEn {
 
 	// Translations
 	String get title => 'Settings';
+	late final TranslationsProfileSettingsUserEn user = TranslationsProfileSettingsUserEn._(_root);
+	late final TranslationsProfileSettingsApplicationEn application = TranslationsProfileSettingsApplicationEn._(_root);
 	String get sign_out => 'Log out of profile';
 	String get sign_in => 'Log in or register';
 }
@@ -215,6 +216,27 @@ class TranslationsProfileThemeSwitcherEn {
 
 	// Translations
 	String get as_system => 'As in the system';
+}
+
+// Path: profile.settings.user
+class TranslationsProfileSettingsUserEn {
+	TranslationsProfileSettingsUserEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Settings';
+	String get go_to_edit => 'Edit profile';
+}
+
+// Path: profile.settings.application
+class TranslationsProfileSettingsApplicationEn {
+	TranslationsProfileSettingsApplicationEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Application';
 }
 
 // Path: profile.edit.password
@@ -421,9 +443,11 @@ extension on Translations {
 			case 'text_field.confirm_password.hint': return 'Repeat the entered password';
 			case 'profile.theme.title': return 'Theme';
 			case 'profile.theme.switcher.as_system': return 'As in the system';
-			case 'profile.application': return 'Application';
 			case 'profile.language.change': return 'Choose language';
 			case 'profile.settings.title': return 'Settings';
+			case 'profile.settings.user.title': return 'Settings';
+			case 'profile.settings.user.go_to_edit': return 'Edit profile';
+			case 'profile.settings.application.title': return 'Application';
 			case 'profile.settings.sign_out': return 'Log out of profile';
 			case 'profile.settings.sign_in': return 'Log in or register';
 			case 'profile.edit.title': return 'Edit profile';

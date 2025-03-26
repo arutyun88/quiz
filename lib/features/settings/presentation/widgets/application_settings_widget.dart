@@ -14,7 +14,7 @@ class ApplicationSettingsWidget extends StatelessWidget {
       children: [
         Align(
           alignment: AlignmentDirectional.centerEnd,
-          child: Text(context.t.profile.application, style: context.textStyle.heading18Bold),
+          child: Text(context.t.profile.settings.application.title, style: context.textStyle.heading18Bold),
         ),
         const Divider(),
         const ProfileLocaleChangeWidget(),

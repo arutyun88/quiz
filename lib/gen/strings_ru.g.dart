@@ -62,7 +62,6 @@ class _TranslationsProfileRu implements TranslationsProfileEn {
 
 	// Translations
 	@override late final _TranslationsProfileThemeRu theme = _TranslationsProfileThemeRu._(_root);
-	@override String get application => 'Приложение';
 	@override late final _TranslationsProfileLanguageRu language = _TranslationsProfileLanguageRu._(_root);
 	@override late final _TranslationsProfileSettingsRu settings = _TranslationsProfileSettingsRu._(_root);
 	@override late final _TranslationsProfileEditRu edit = _TranslationsProfileEditRu._(_root);
@@ -148,6 +147,8 @@ class _TranslationsProfileSettingsRu implements TranslationsProfileSettingsEn {
 
 	// Translations
 	@override String get title => 'Настройки';
+	@override late final _TranslationsProfileSettingsUserRu user = _TranslationsProfileSettingsUserRu._(_root);
+	@override late final _TranslationsProfileSettingsApplicationRu application = _TranslationsProfileSettingsApplicationRu._(_root);
 	@override String get sign_out => 'Выйти из профиля';
 	@override String get sign_in => 'Войти или зарегистрироваться';
 }
@@ -211,6 +212,27 @@ class _TranslationsProfileThemeSwitcherRu implements TranslationsProfileThemeSwi
 
 	// Translations
 	@override String get as_system => 'Как в системе';
+}
+
+// Path: profile.settings.user
+class _TranslationsProfileSettingsUserRu implements TranslationsProfileSettingsUserEn {
+	_TranslationsProfileSettingsUserRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Настройки';
+	@override String get go_to_edit => 'Редактировать профиль';
+}
+
+// Path: profile.settings.application
+class _TranslationsProfileSettingsApplicationRu implements TranslationsProfileSettingsApplicationEn {
+	_TranslationsProfileSettingsApplicationRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Приложение';
 }
 
 // Path: profile.edit.password
@@ -417,9 +439,11 @@ extension on TranslationsRu {
 			case 'text_field.confirm_password.hint': return 'Повторите введенный пароль';
 			case 'profile.theme.title': return 'Тема оформления';
 			case 'profile.theme.switcher.as_system': return 'Как в системе';
-			case 'profile.application': return 'Приложение';
 			case 'profile.language.change': return 'Изменить язык';
 			case 'profile.settings.title': return 'Настройки';
+			case 'profile.settings.user.title': return 'Настройки';
+			case 'profile.settings.user.go_to_edit': return 'Редактировать профиль';
+			case 'profile.settings.application.title': return 'Приложение';
 			case 'profile.settings.sign_out': return 'Выйти из профиля';
 			case 'profile.settings.sign_in': return 'Войти или зарегистрироваться';
 			case 'profile.edit.title': return 'Редактировать профиль';

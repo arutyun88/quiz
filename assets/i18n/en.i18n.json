@@ -26,12 +26,18 @@
                 "as_system": "As in the system"
             }
         },
-        "application": "Application",
         "language": {
             "change": "Choose language"
         },
         "settings": {
             "title": "Settings",
+            "user": {
+                "title": "Settings",
+                "go_to_edit": "Edit profile"
+            },
+            "application": {
+                "title": "Application"
+            },
             "sign_out": "Log out of profile",
             "sign_in": "Log in or register"
         },
