@@ -227,6 +227,8 @@ class TranslationsProfileSettingsUserEn {
 	// Translations
 	String get title => 'Settings';
 	String get go_to_edit => 'Edit profile';
+	String get go_to_notifications_settings => 'Настройки уведомлений';
+	String get go_to_subscriptions => 'Управление подпиской';
 }
 
 // Path: profile.settings.application
@@ -237,6 +239,8 @@ class TranslationsProfileSettingsApplicationEn {
 
 	// Translations
 	String get title => 'Application';
+	String get go_to_storage_manager => 'Memory Manager';
+	String get go_to_about_app => 'About the application';
 }
 
 // Path: profile.edit.password
@@ -447,7 +451,11 @@ extension on Translations {
 			case 'profile.settings.title': return 'Settings';
 			case 'profile.settings.user.title': return 'Settings';
 			case 'profile.settings.user.go_to_edit': return 'Edit profile';
+			case 'profile.settings.user.go_to_notifications_settings': return 'Настройки уведомлений';
+			case 'profile.settings.user.go_to_subscriptions': return 'Управление подпиской';
 			case 'profile.settings.application.title': return 'Application';
+			case 'profile.settings.application.go_to_storage_manager': return 'Memory Manager';
+			case 'profile.settings.application.go_to_about_app': return 'About the application';
 			case 'profile.settings.sign_out': return 'Log out of profile';
 			case 'profile.settings.sign_in': return 'Log in or register';
 			case 'profile.edit.title': return 'Edit profile';

@@ -33,10 +33,14 @@
             "title": "Настройки",
             "user": {
                 "title": "Настройки",
-                "go_to_edit": "Редактировать профиль"
+                "go_to_edit": "Редактировать профиль",
+                "go_to_notifications_settings": "Настройки уведомлений",
+                "go_to_subscriptions": "Управление подпиской"
             },
             "application": {
-                "title": "Приложение"
+                "title": "Приложение",
+                "go_to_storage_manager": "Менеджер памяти",
+                "go_to_about_app": "О приложении"
             },
             "sign_out": "Выйти из профиля",
             "sign_in": "Войти или зарегистрироваться"

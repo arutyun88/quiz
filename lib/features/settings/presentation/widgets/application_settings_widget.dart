@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/app/config/style/text_style_ex.dart';
 import 'package:quiz/features/settings/presentation/widgets/locale_change_widget.dart';
+import 'package:quiz/features/settings/presentation/widgets/settings_item_widget.dart';
 import 'package:quiz/features/settings/presentation/widgets/theme_switch_widget.dart';
 import 'package:quiz/gen/strings.g.dart';
 
@@ -19,7 +20,17 @@ class ApplicationSettingsWidget extends StatelessWidget {
         const Divider(),
         const ProfileLocaleChangeWidget(),
         const Divider(),
-        const ProfileThemeSwitchWidget()
+        const ProfileThemeSwitchWidget(),
+        const Divider(),
+        SettingsItemWidget(
+          title: context.t.profile.settings.user.go_to_notifications_settings,
+          onTap: null,
+        ),
+        const Divider(),
+        SettingsItemWidget(
+          title: context.t.profile.settings.user.go_to_subscriptions,
+          onTap: null,
+        ),
       ],
     );
   }

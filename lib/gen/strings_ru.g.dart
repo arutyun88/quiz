@@ -223,6 +223,8 @@ class _TranslationsProfileSettingsUserRu implements TranslationsProfileSettingsU
 	// Translations
 	@override String get title => 'Настройки';
 	@override String get go_to_edit => 'Редактировать профиль';
+	@override String get go_to_notifications_settings => 'Настройки уведомлений';
+	@override String get go_to_subscriptions => 'Управление подпиской';
 }
 
 // Path: profile.settings.application
@@ -233,6 +235,8 @@ class _TranslationsProfileSettingsApplicationRu implements TranslationsProfileSe
 
 	// Translations
 	@override String get title => 'Приложение';
+	@override String get go_to_storage_manager => 'Менеджер памяти';
+	@override String get go_to_about_app => 'О приложении';
 }
 
 // Path: profile.edit.password
@@ -443,7 +447,11 @@ extension on TranslationsRu {
 			case 'profile.settings.title': return 'Настройки';
 			case 'profile.settings.user.title': return 'Настройки';
 			case 'profile.settings.user.go_to_edit': return 'Редактировать профиль';
+			case 'profile.settings.user.go_to_notifications_settings': return 'Настройки уведомлений';
+			case 'profile.settings.user.go_to_subscriptions': return 'Управление подпиской';
 			case 'profile.settings.application.title': return 'Приложение';
+			case 'profile.settings.application.go_to_storage_manager': return 'Менеджер памяти';
+			case 'profile.settings.application.go_to_about_app': return 'О приложении';
 			case 'profile.settings.sign_out': return 'Выйти из профиля';
 			case 'profile.settings.sign_in': return 'Войти или зарегистрироваться';
 			case 'profile.edit.title': return 'Редактировать профиль';

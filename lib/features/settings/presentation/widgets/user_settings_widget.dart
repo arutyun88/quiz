@@ -21,6 +21,16 @@ class UserSettingsWidget extends StatelessWidget {
           title: context.t.profile.settings.user.go_to_edit,
           onTap: () => context.push('/profile/settings/edit'),
         ),
+        const Divider(),
+        SettingsItemWidget(
+          title: context.t.profile.settings.user.go_to_notifications_settings,
+          onTap: null,
+        ),
+        const Divider(),
+        SettingsItemWidget(
+          title: context.t.profile.settings.user.go_to_subscriptions,
+          onTap: null,
+        ),
       ],
     );
   }
