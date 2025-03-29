@@ -32,6 +32,10 @@ dependencies:
 
   # Storage
   shared_preferences: ^2.5.2
+  drift: ^2.13.0
+  drift_flutter: ^0.2.4
+  path: ^1.9.0
+  path_provider: ^2.1.5
 
   # State
   flutter_riverpod: ^2.6.1
@@ -56,6 +60,9 @@ dev_dependencies:
 
   # DI
   injectable_generator: ^2.6.2
+
+  # Storage
+  drift_dev: ^2.13.0
 
 flutter:
   uses-material-design: true

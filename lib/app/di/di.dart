@@ -4,6 +4,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:quiz/app/config/firebase/firebase_options.dart';
+import 'package:quiz/app/core/database/app_database.dart';
 import 'package:quiz/app/core/localization/gateway/change_locale_gateway.dart';
 import 'package:quiz/app/core/services/firestore_doc_service.dart';
 import 'package:quiz/app/core/services/firebase_remote_config_service.dart';
@@ -16,6 +17,12 @@ final getIt = GetIt.instance;
 
 @InjectableInit(preferRelativeImports: true)
 Future<void> configureDependencies() async => await getIt.init();
+
+@module
+abstract class DatabaseModule {
+  @lazySingleton
+  AppDatabase database() => AppDatabase();
+}
 
 @module
 abstract class FirebaseConfigModule {

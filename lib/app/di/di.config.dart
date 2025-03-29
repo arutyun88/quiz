@@ -30,6 +30,7 @@ import '../../features/profile/domain/repository/user_update_repository.dart'
     as _i422;
 import '../../features/user/di/di.dart' as _i527;
 import '../../features/user/domain/repository/user_repository.dart' as _i450;
+import '../core/database/app_database.dart' as _i935;
 import '../core/localization/gateway/change_locale_gateway.dart' as _i309;
 import '../core/services/firebase_remote_config_service.dart' as _i307;
 import '../core/services/firestore_doc_service.dart' as _i141;
@@ -50,8 +51,9 @@ extension GetItInjectableX on _i174.GetIt {
     final firebaseConfigModule = _$FirebaseConfigModule();
     final localStorageModule = _$LocalStorageModule();
     final userModule = _$UserModule();
-    final authenticationModule = _$AuthenticationModule();
+    final databaseModule = _$DatabaseModule();
     final profileModule = _$ProfileModule();
+    final authenticationModule = _$AuthenticationModule();
     final appSettingsModule = _$AppSettingsModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
       () => firebaseConfigModule.firebase(),
@@ -66,18 +68,19 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.factory<_i450.UserRepository>(() => userModule.userRepository());
+    gh.lazySingleton<_i935.AppDatabase>(() => databaseModule.database());
     gh.lazySingleton<_i141.FirestoreDocService>(
         () => firebaseConfigModule.firestoreDocService());
-    gh.lazySingleton<_i797.AuthenticationRepository>(
-        () => authenticationModule.repository());
-    gh.lazySingleton<_i959.PasswordResetGateway>(
-        () => authenticationModule.passwordResetGateway());
     gh.lazySingleton<_i422.UserUpdateRepository>(
         () => profileModule.userUpdateRepository());
     gh.lazySingleton<_i646.ChangePasswordGateway>(
         () => profileModule.changePasswordGateway());
     gh.lazySingleton<_i432.ChangeUserInfoGateway>(
         () => profileModule.changeUserInfoGateway());
+    gh.lazySingleton<_i797.AuthenticationRepository>(
+        () => authenticationModule.repository());
+    gh.lazySingleton<_i959.PasswordResetGateway>(
+        () => authenticationModule.passwordResetGateway());
     await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(
       () => firebaseConfigModule
           .remoteConfigService(gh<_i627.FirebaseRemoteConfig>()),
@@ -98,8 +101,10 @@ class _$LocalStorageModule extends _i913.LocalStorageModule {}
 
 class _$UserModule extends _i527.UserModule {}
 
-class _$AuthenticationModule extends _i415.AuthenticationModule {}
+class _$DatabaseModule extends _i913.DatabaseModule {}
 
 class _$ProfileModule extends _i1038.ProfileModule {}
+
+class _$AuthenticationModule extends _i415.AuthenticationModule {}
 
 class _$AppSettingsModule extends _i913.AppSettingsModule {}
