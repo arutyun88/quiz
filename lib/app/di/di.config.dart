@@ -29,6 +29,8 @@ import '../../features/profile/domain/repository/change_user_name_gateway.dart'
 import '../../features/profile/domain/repository/user_update_repository.dart'
     as _i422;
 import '../../features/user/di/di.dart' as _i527;
+import '../../features/user/domain/repository/local_user_repository.dart'
+    as _i799;
 import '../../features/user/domain/repository/user_repository.dart' as _i450;
 import '../core/database/app_database.dart' as _i935;
 import '../core/localization/gateway/change_locale_gateway.dart' as _i309;
@@ -89,6 +91,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i218.SettingsLocalStorageService>(() => localStorageModule
         .settingsLocalStorageService(gh<_i460.SharedPreferences>()));
     gh.factory<_i252.UserConverter>(() => _i252.UserConverterImpl());
+    gh.lazySingleton<_i799.LocalUserRepository>(
+        () => userModule.cachedUserRepository(
+              gh<_i460.SharedPreferences>(),
+              gh<_i252.UserConverter>(),
+            ));
     gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
         .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
     return this;
