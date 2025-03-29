@@ -4,6 +4,7 @@ import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/authentication/data/converter/user_converter.dart';
 import 'package:quiz/features/user/data/repository/cached_user_repository.dart';
 import 'package:quiz/features/user/data/repository/firebase_user_repository.dart';
+import 'package:quiz/features/user/domain/repository/fetch_current_user_gateway.dart';
 import 'package:quiz/features/user/domain/repository/local_user_repository.dart';
 import 'package:quiz/features/user/domain/repository/user_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,5 +24,15 @@ abstract class UserModule {
       CachedUserRepository(
         storage: preferences,
         converter: converter,
+      );
+
+  @lazySingleton
+  FetchCurrentUserGateway fetchUserGateway(
+    UserRepository userRepository,
+    LocalUserRepository localUserRepository,
+  ) =>
+      FetchCurrentUserGateway(
+        userRepository: userRepository,
+        localUserRepository: localUserRepository,
       );
 }
