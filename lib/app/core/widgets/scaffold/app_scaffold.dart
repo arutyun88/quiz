@@ -32,9 +32,10 @@ class AppSubheaderedScaffold extends StatelessWidget {
                 header: header,
                 headerDecoration: headerDecoration,
                 headerSubColor: headerSubColor,
-              ),
-            const SizedBox(height: 10.0),
-            body
+              )
+            else
+              const SizedBox(height: 10.0),
+            Expanded(child: body)
           ],
         ),
       );
