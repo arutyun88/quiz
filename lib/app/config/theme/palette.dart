@@ -9,6 +9,7 @@ class Palette extends ThemeExtension<Palette> {
     required this.button,
     required this.progress,
     required this.shadow,
+    required this.answer,
   });
 
   final BackgroundColor background;
@@ -18,6 +19,7 @@ class Palette extends ThemeExtension<Palette> {
   final ButtonColor button;
   final Color progress;
   final Color shadow;
+  final AnswerColor answer;
 
   static Palette light = Palette._(
     background: BackgroundColor(
@@ -50,6 +52,11 @@ class Palette extends ThemeExtension<Palette> {
     ),
     progress: Colors.orange,
     shadow: Colors.white,
+    answer: AnswerColor(
+      failure: const Color.fromARGB(255, 253, 178, 178),
+      success: Colors.green.shade200,
+      select: Colors.blueGrey.shade200,
+    ),
   );
 
   static Palette dark = Palette._(
@@ -83,6 +90,11 @@ class Palette extends ThemeExtension<Palette> {
     ),
     progress: Colors.orange,
     shadow: Colors.black,
+    answer: AnswerColor(
+      failure: Colors.red.shade200,
+      success: Colors.green.shade100,
+      select: Colors.grey.shade200,
+    ),
   );
 
   @override
@@ -94,6 +106,7 @@ class Palette extends ThemeExtension<Palette> {
     ButtonColor? button,
     Color? progress,
     Color? shadow,
+    AnswerColor? answer,
   }) {
     return Palette._(
       background: background ?? this.background,
@@ -103,6 +116,7 @@ class Palette extends ThemeExtension<Palette> {
       button: button ?? this.button,
       progress: progress ?? this.progress,
       shadow: shadow ?? this.shadow,
+      answer: answer ?? this.answer,
     );
   }
 
@@ -117,6 +131,7 @@ class Palette extends ThemeExtension<Palette> {
         button: button.lerp(other.button, t),
         progress: Color.lerp(progress, other.progress, t)!,
         shadow: Color.lerp(shadow, other.shadow, t)!,
+        answer: answer.lerp(other.answer, t),
       );
     }
     return this;
@@ -238,6 +253,28 @@ class ButtonColor {
       foreground: Color.lerp(foreground, other.foreground, t)!,
       disabledBackground: Color.lerp(disabledBackground, other.disabledBackground, t)!,
       disabledForeground: Color.lerp(disabledForeground, other.disabledForeground, t)!,
+    );
+  }
+}
+
+class AnswerColor {
+  final Color failure;
+  final Color success;
+  final Color select;
+
+  AnswerColor({
+    required this.failure,
+    required this.success,
+    required this.select,
+  });
+
+  AnswerColor lerp(AnswerColor? other, double t) {
+    if (other == null) return this;
+
+    return AnswerColor(
+      failure: Color.lerp(failure, other.failure, t)!,
+      success: Color.lerp(success, other.success, t)!,
+      select: Color.lerp(select, other.select, t)!,
     );
   }
 }
