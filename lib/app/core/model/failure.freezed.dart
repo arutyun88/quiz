@@ -23,6 +23,7 @@ mixin _$Failure {
     required TResult Function() serverUnavailable,
     required TResult Function() conflict,
     required TResult Function(AuthenticationFailureType type) authentication,
+    required TResult Function(NetworkFailureReason reason) network,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -32,6 +33,7 @@ mixin _$Failure {
     TResult? Function()? serverUnavailable,
     TResult? Function()? conflict,
     TResult? Function(AuthenticationFailureType type)? authentication,
+    TResult? Function(NetworkFailureReason reason)? network,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,6 +43,7 @@ mixin _$Failure {
     TResult Function()? serverUnavailable,
     TResult Function()? conflict,
     TResult Function(AuthenticationFailureType type)? authentication,
+    TResult Function(NetworkFailureReason reason)? network,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -51,6 +54,7 @@ mixin _$Failure {
     required TResult Function(ServerUnavailableFailure value) serverUnavailable,
     required TResult Function(ConflictFailure value) conflict,
     required TResult Function(AuthenticationFailure value) authentication,
+    required TResult Function(NetworkFailure value) network,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,6 +64,7 @@ mixin _$Failure {
     TResult? Function(ServerUnavailableFailure value)? serverUnavailable,
     TResult? Function(ConflictFailure value)? conflict,
     TResult? Function(AuthenticationFailure value)? authentication,
+    TResult? Function(NetworkFailure value)? network,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -69,6 +74,7 @@ mixin _$Failure {
     TResult Function(ServerUnavailableFailure value)? serverUnavailable,
     TResult Function(ConflictFailure value)? conflict,
     TResult Function(AuthenticationFailure value)? authentication,
+    TResult Function(NetworkFailure value)? network,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -166,6 +172,7 @@ class _$UnknownFailureImpl implements UnknownFailure {
     required TResult Function() serverUnavailable,
     required TResult Function() conflict,
     required TResult Function(AuthenticationFailureType type) authentication,
+    required TResult Function(NetworkFailureReason reason) network,
   }) {
     return unknown(error);
   }
@@ -178,6 +185,7 @@ class _$UnknownFailureImpl implements UnknownFailure {
     TResult? Function()? serverUnavailable,
     TResult? Function()? conflict,
     TResult? Function(AuthenticationFailureType type)? authentication,
+    TResult? Function(NetworkFailureReason reason)? network,
   }) {
     return unknown?.call(error);
   }
@@ -190,6 +198,7 @@ class _$UnknownFailureImpl implements UnknownFailure {
     TResult Function()? serverUnavailable,
     TResult Function()? conflict,
     TResult Function(AuthenticationFailureType type)? authentication,
+    TResult Function(NetworkFailureReason reason)? network,
     required TResult orElse(),
   }) {
     if (unknown != null) {
@@ -206,6 +215,7 @@ class _$UnknownFailureImpl implements UnknownFailure {
     required TResult Function(ServerUnavailableFailure value) serverUnavailable,
     required TResult Function(ConflictFailure value) conflict,
     required TResult Function(AuthenticationFailure value) authentication,
+    required TResult Function(NetworkFailure value) network,
   }) {
     return unknown(this);
   }
@@ -218,6 +228,7 @@ class _$UnknownFailureImpl implements UnknownFailure {
     TResult? Function(ServerUnavailableFailure value)? serverUnavailable,
     TResult? Function(ConflictFailure value)? conflict,
     TResult? Function(AuthenticationFailure value)? authentication,
+    TResult? Function(NetworkFailure value)? network,
   }) {
     return unknown?.call(this);
   }
@@ -230,6 +241,7 @@ class _$UnknownFailureImpl implements UnknownFailure {
     TResult Function(ServerUnavailableFailure value)? serverUnavailable,
     TResult Function(ConflictFailure value)? conflict,
     TResult Function(AuthenticationFailure value)? authentication,
+    TResult Function(NetworkFailure value)? network,
     required TResult orElse(),
   }) {
     if (unknown != null) {
@@ -298,6 +310,7 @@ class _$NoConnectionFailureImpl implements NoConnectionFailure {
     required TResult Function() serverUnavailable,
     required TResult Function() conflict,
     required TResult Function(AuthenticationFailureType type) authentication,
+    required TResult Function(NetworkFailureReason reason) network,
   }) {
     return noConnection();
   }
@@ -310,6 +323,7 @@ class _$NoConnectionFailureImpl implements NoConnectionFailure {
     TResult? Function()? serverUnavailable,
     TResult? Function()? conflict,
     TResult? Function(AuthenticationFailureType type)? authentication,
+    TResult? Function(NetworkFailureReason reason)? network,
   }) {
     return noConnection?.call();
   }
@@ -322,6 +336,7 @@ class _$NoConnectionFailureImpl implements NoConnectionFailure {
     TResult Function()? serverUnavailable,
     TResult Function()? conflict,
     TResult Function(AuthenticationFailureType type)? authentication,
+    TResult Function(NetworkFailureReason reason)? network,
     required TResult orElse(),
   }) {
     if (noConnection != null) {
@@ -338,6 +353,7 @@ class _$NoConnectionFailureImpl implements NoConnectionFailure {
     required TResult Function(ServerUnavailableFailure value) serverUnavailable,
     required TResult Function(ConflictFailure value) conflict,
     required TResult Function(AuthenticationFailure value) authentication,
+    required TResult Function(NetworkFailure value) network,
   }) {
     return noConnection(this);
   }
@@ -350,6 +366,7 @@ class _$NoConnectionFailureImpl implements NoConnectionFailure {
     TResult? Function(ServerUnavailableFailure value)? serverUnavailable,
     TResult? Function(ConflictFailure value)? conflict,
     TResult? Function(AuthenticationFailure value)? authentication,
+    TResult? Function(NetworkFailure value)? network,
   }) {
     return noConnection?.call(this);
   }
@@ -362,6 +379,7 @@ class _$NoConnectionFailureImpl implements NoConnectionFailure {
     TResult Function(ServerUnavailableFailure value)? serverUnavailable,
     TResult Function(ConflictFailure value)? conflict,
     TResult Function(AuthenticationFailure value)? authentication,
+    TResult Function(NetworkFailure value)? network,
     required TResult orElse(),
   }) {
     if (noConnection != null) {
@@ -424,6 +442,7 @@ class _$ServerUnavailableFailureImpl implements ServerUnavailableFailure {
     required TResult Function() serverUnavailable,
     required TResult Function() conflict,
     required TResult Function(AuthenticationFailureType type) authentication,
+    required TResult Function(NetworkFailureReason reason) network,
   }) {
     return serverUnavailable();
   }
@@ -436,6 +455,7 @@ class _$ServerUnavailableFailureImpl implements ServerUnavailableFailure {
     TResult? Function()? serverUnavailable,
     TResult? Function()? conflict,
     TResult? Function(AuthenticationFailureType type)? authentication,
+    TResult? Function(NetworkFailureReason reason)? network,
   }) {
     return serverUnavailable?.call();
   }
@@ -448,6 +468,7 @@ class _$ServerUnavailableFailureImpl implements ServerUnavailableFailure {
     TResult Function()? serverUnavailable,
     TResult Function()? conflict,
     TResult Function(AuthenticationFailureType type)? authentication,
+    TResult Function(NetworkFailureReason reason)? network,
     required TResult orElse(),
   }) {
     if (serverUnavailable != null) {
@@ -464,6 +485,7 @@ class _$ServerUnavailableFailureImpl implements ServerUnavailableFailure {
     required TResult Function(ServerUnavailableFailure value) serverUnavailable,
     required TResult Function(ConflictFailure value) conflict,
     required TResult Function(AuthenticationFailure value) authentication,
+    required TResult Function(NetworkFailure value) network,
   }) {
     return serverUnavailable(this);
   }
@@ -476,6 +498,7 @@ class _$ServerUnavailableFailureImpl implements ServerUnavailableFailure {
     TResult? Function(ServerUnavailableFailure value)? serverUnavailable,
     TResult? Function(ConflictFailure value)? conflict,
     TResult? Function(AuthenticationFailure value)? authentication,
+    TResult? Function(NetworkFailure value)? network,
   }) {
     return serverUnavailable?.call(this);
   }
@@ -488,6 +511,7 @@ class _$ServerUnavailableFailureImpl implements ServerUnavailableFailure {
     TResult Function(ServerUnavailableFailure value)? serverUnavailable,
     TResult Function(ConflictFailure value)? conflict,
     TResult Function(AuthenticationFailure value)? authentication,
+    TResult Function(NetworkFailure value)? network,
     required TResult orElse(),
   }) {
     if (serverUnavailable != null) {
@@ -547,6 +571,7 @@ class _$ConflictFailureImpl implements ConflictFailure {
     required TResult Function() serverUnavailable,
     required TResult Function() conflict,
     required TResult Function(AuthenticationFailureType type) authentication,
+    required TResult Function(NetworkFailureReason reason) network,
   }) {
     return conflict();
   }
@@ -559,6 +584,7 @@ class _$ConflictFailureImpl implements ConflictFailure {
     TResult? Function()? serverUnavailable,
     TResult? Function()? conflict,
     TResult? Function(AuthenticationFailureType type)? authentication,
+    TResult? Function(NetworkFailureReason reason)? network,
   }) {
     return conflict?.call();
   }
@@ -571,6 +597,7 @@ class _$ConflictFailureImpl implements ConflictFailure {
     TResult Function()? serverUnavailable,
     TResult Function()? conflict,
     TResult Function(AuthenticationFailureType type)? authentication,
+    TResult Function(NetworkFailureReason reason)? network,
     required TResult orElse(),
   }) {
     if (conflict != null) {
@@ -587,6 +614,7 @@ class _$ConflictFailureImpl implements ConflictFailure {
     required TResult Function(ServerUnavailableFailure value) serverUnavailable,
     required TResult Function(ConflictFailure value) conflict,
     required TResult Function(AuthenticationFailure value) authentication,
+    required TResult Function(NetworkFailure value) network,
   }) {
     return conflict(this);
   }
@@ -599,6 +627,7 @@ class _$ConflictFailureImpl implements ConflictFailure {
     TResult? Function(ServerUnavailableFailure value)? serverUnavailable,
     TResult? Function(ConflictFailure value)? conflict,
     TResult? Function(AuthenticationFailure value)? authentication,
+    TResult? Function(NetworkFailure value)? network,
   }) {
     return conflict?.call(this);
   }
@@ -611,6 +640,7 @@ class _$ConflictFailureImpl implements ConflictFailure {
     TResult Function(ServerUnavailableFailure value)? serverUnavailable,
     TResult Function(ConflictFailure value)? conflict,
     TResult Function(AuthenticationFailure value)? authentication,
+    TResult Function(NetworkFailure value)? network,
     required TResult orElse(),
   }) {
     if (conflict != null) {
@@ -699,6 +729,7 @@ class _$AuthenticationFailureImpl implements AuthenticationFailure {
     required TResult Function() serverUnavailable,
     required TResult Function() conflict,
     required TResult Function(AuthenticationFailureType type) authentication,
+    required TResult Function(NetworkFailureReason reason) network,
   }) {
     return authentication(type);
   }
@@ -711,6 +742,7 @@ class _$AuthenticationFailureImpl implements AuthenticationFailure {
     TResult? Function()? serverUnavailable,
     TResult? Function()? conflict,
     TResult? Function(AuthenticationFailureType type)? authentication,
+    TResult? Function(NetworkFailureReason reason)? network,
   }) {
     return authentication?.call(type);
   }
@@ -723,6 +755,7 @@ class _$AuthenticationFailureImpl implements AuthenticationFailure {
     TResult Function()? serverUnavailable,
     TResult Function()? conflict,
     TResult Function(AuthenticationFailureType type)? authentication,
+    TResult Function(NetworkFailureReason reason)? network,
     required TResult orElse(),
   }) {
     if (authentication != null) {
@@ -739,6 +772,7 @@ class _$AuthenticationFailureImpl implements AuthenticationFailure {
     required TResult Function(ServerUnavailableFailure value) serverUnavailable,
     required TResult Function(ConflictFailure value) conflict,
     required TResult Function(AuthenticationFailure value) authentication,
+    required TResult Function(NetworkFailure value) network,
   }) {
     return authentication(this);
   }
@@ -751,6 +785,7 @@ class _$AuthenticationFailureImpl implements AuthenticationFailure {
     TResult? Function(ServerUnavailableFailure value)? serverUnavailable,
     TResult? Function(ConflictFailure value)? conflict,
     TResult? Function(AuthenticationFailure value)? authentication,
+    TResult? Function(NetworkFailure value)? network,
   }) {
     return authentication?.call(this);
   }
@@ -763,6 +798,7 @@ class _$AuthenticationFailureImpl implements AuthenticationFailure {
     TResult Function(ServerUnavailableFailure value)? serverUnavailable,
     TResult Function(ConflictFailure value)? conflict,
     TResult Function(AuthenticationFailure value)? authentication,
+    TResult Function(NetworkFailure value)? network,
     required TResult orElse(),
   }) {
     if (authentication != null) {
@@ -782,5 +818,935 @@ abstract class AuthenticationFailure implements Failure {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AuthenticationFailureImplCopyWith<_$AuthenticationFailureImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$NetworkFailureImplCopyWith<$Res> {
+  factory _$$NetworkFailureImplCopyWith(_$NetworkFailureImpl value,
+          $Res Function(_$NetworkFailureImpl) then) =
+      __$$NetworkFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({NetworkFailureReason reason});
+
+  $NetworkFailureReasonCopyWith<$Res> get reason;
+}
+
+/// @nodoc
+class __$$NetworkFailureImplCopyWithImpl<$Res>
+    extends _$FailureCopyWithImpl<$Res, _$NetworkFailureImpl>
+    implements _$$NetworkFailureImplCopyWith<$Res> {
+  __$$NetworkFailureImplCopyWithImpl(
+      _$NetworkFailureImpl _value, $Res Function(_$NetworkFailureImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Failure
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? reason = null,
+  }) {
+    return _then(_$NetworkFailureImpl(
+      null == reason
+          ? _value.reason
+          : reason // ignore: cast_nullable_to_non_nullable
+              as NetworkFailureReason,
+    ));
+  }
+
+  /// Create a copy of Failure
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $NetworkFailureReasonCopyWith<$Res> get reason {
+    return $NetworkFailureReasonCopyWith<$Res>(_value.reason, (value) {
+      return _then(_value.copyWith(reason: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$NetworkFailureImpl implements NetworkFailure {
+  const _$NetworkFailureImpl(this.reason);
+
+  @override
+  final NetworkFailureReason reason;
+
+  @override
+  String toString() {
+    return 'Failure.network(reason: $reason)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NetworkFailureImpl &&
+            (identical(other.reason, reason) || other.reason == reason));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reason);
+
+  /// Create a copy of Failure
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NetworkFailureImplCopyWith<_$NetworkFailureImpl> get copyWith =>
+      __$$NetworkFailureImplCopyWithImpl<_$NetworkFailureImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Object error) unknown,
+    required TResult Function() noConnection,
+    required TResult Function() serverUnavailable,
+    required TResult Function() conflict,
+    required TResult Function(AuthenticationFailureType type) authentication,
+    required TResult Function(NetworkFailureReason reason) network,
+  }) {
+    return network(reason);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Object error)? unknown,
+    TResult? Function()? noConnection,
+    TResult? Function()? serverUnavailable,
+    TResult? Function()? conflict,
+    TResult? Function(AuthenticationFailureType type)? authentication,
+    TResult? Function(NetworkFailureReason reason)? network,
+  }) {
+    return network?.call(reason);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Object error)? unknown,
+    TResult Function()? noConnection,
+    TResult Function()? serverUnavailable,
+    TResult Function()? conflict,
+    TResult Function(AuthenticationFailureType type)? authentication,
+    TResult Function(NetworkFailureReason reason)? network,
+    required TResult orElse(),
+  }) {
+    if (network != null) {
+      return network(reason);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(UnknownFailure value) unknown,
+    required TResult Function(NoConnectionFailure value) noConnection,
+    required TResult Function(ServerUnavailableFailure value) serverUnavailable,
+    required TResult Function(ConflictFailure value) conflict,
+    required TResult Function(AuthenticationFailure value) authentication,
+    required TResult Function(NetworkFailure value) network,
+  }) {
+    return network(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(UnknownFailure value)? unknown,
+    TResult? Function(NoConnectionFailure value)? noConnection,
+    TResult? Function(ServerUnavailableFailure value)? serverUnavailable,
+    TResult? Function(ConflictFailure value)? conflict,
+    TResult? Function(AuthenticationFailure value)? authentication,
+    TResult? Function(NetworkFailure value)? network,
+  }) {
+    return network?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(UnknownFailure value)? unknown,
+    TResult Function(NoConnectionFailure value)? noConnection,
+    TResult Function(ServerUnavailableFailure value)? serverUnavailable,
+    TResult Function(ConflictFailure value)? conflict,
+    TResult Function(AuthenticationFailure value)? authentication,
+    TResult Function(NetworkFailure value)? network,
+    required TResult orElse(),
+  }) {
+    if (network != null) {
+      return network(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NetworkFailure implements Failure {
+  const factory NetworkFailure(final NetworkFailureReason reason) =
+      _$NetworkFailureImpl;
+
+  NetworkFailureReason get reason;
+
+  /// Create a copy of Failure
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NetworkFailureImplCopyWith<_$NetworkFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$NetworkFailureReason {
+  String get message => throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String message) timeout,
+    required TResult Function(String message) badResponse,
+    required TResult Function(String message) cancelled,
+    required TResult Function(String message) server,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String message)? timeout,
+    TResult? Function(String message)? badResponse,
+    TResult? Function(String message)? cancelled,
+    TResult? Function(String message)? server,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String message)? timeout,
+    TResult Function(String message)? badResponse,
+    TResult Function(String message)? cancelled,
+    TResult Function(String message)? server,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(NetworkFailureTimeoutReason value) timeout,
+    required TResult Function(NetworkFailureBadResponseReason value)
+        badResponse,
+    required TResult Function(NetworkFailureCancelledReason value) cancelled,
+    required TResult Function(NetworkFailureServerReason value) server,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(NetworkFailureTimeoutReason value)? timeout,
+    TResult? Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult? Function(NetworkFailureCancelledReason value)? cancelled,
+    TResult? Function(NetworkFailureServerReason value)? server,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(NetworkFailureTimeoutReason value)? timeout,
+    TResult Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult Function(NetworkFailureCancelledReason value)? cancelled,
+    TResult Function(NetworkFailureServerReason value)? server,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $NetworkFailureReasonCopyWith<NetworkFailureReason> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $NetworkFailureReasonCopyWith<$Res> {
+  factory $NetworkFailureReasonCopyWith(NetworkFailureReason value,
+          $Res Function(NetworkFailureReason) then) =
+      _$NetworkFailureReasonCopyWithImpl<$Res, NetworkFailureReason>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class _$NetworkFailureReasonCopyWithImpl<$Res,
+        $Val extends NetworkFailureReason>
+    implements $NetworkFailureReasonCopyWith<$Res> {
+  _$NetworkFailureReasonCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_value.copyWith(
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$NetworkFailureTimeoutReasonImplCopyWith<$Res>
+    implements $NetworkFailureReasonCopyWith<$Res> {
+  factory _$$NetworkFailureTimeoutReasonImplCopyWith(
+          _$NetworkFailureTimeoutReasonImpl value,
+          $Res Function(_$NetworkFailureTimeoutReasonImpl) then) =
+      __$$NetworkFailureTimeoutReasonImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$NetworkFailureTimeoutReasonImplCopyWithImpl<$Res>
+    extends _$NetworkFailureReasonCopyWithImpl<$Res,
+        _$NetworkFailureTimeoutReasonImpl>
+    implements _$$NetworkFailureTimeoutReasonImplCopyWith<$Res> {
+  __$$NetworkFailureTimeoutReasonImplCopyWithImpl(
+      _$NetworkFailureTimeoutReasonImpl _value,
+      $Res Function(_$NetworkFailureTimeoutReasonImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$NetworkFailureTimeoutReasonImpl(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$NetworkFailureTimeoutReasonImpl implements NetworkFailureTimeoutReason {
+  const _$NetworkFailureTimeoutReasonImpl(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'NetworkFailureReason.timeout(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NetworkFailureTimeoutReasonImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NetworkFailureTimeoutReasonImplCopyWith<_$NetworkFailureTimeoutReasonImpl>
+      get copyWith => __$$NetworkFailureTimeoutReasonImplCopyWithImpl<
+          _$NetworkFailureTimeoutReasonImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String message) timeout,
+    required TResult Function(String message) badResponse,
+    required TResult Function(String message) cancelled,
+    required TResult Function(String message) server,
+  }) {
+    return timeout(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String message)? timeout,
+    TResult? Function(String message)? badResponse,
+    TResult? Function(String message)? cancelled,
+    TResult? Function(String message)? server,
+  }) {
+    return timeout?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String message)? timeout,
+    TResult Function(String message)? badResponse,
+    TResult Function(String message)? cancelled,
+    TResult Function(String message)? server,
+    required TResult orElse(),
+  }) {
+    if (timeout != null) {
+      return timeout(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(NetworkFailureTimeoutReason value) timeout,
+    required TResult Function(NetworkFailureBadResponseReason value)
+        badResponse,
+    required TResult Function(NetworkFailureCancelledReason value) cancelled,
+    required TResult Function(NetworkFailureServerReason value) server,
+  }) {
+    return timeout(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(NetworkFailureTimeoutReason value)? timeout,
+    TResult? Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult? Function(NetworkFailureCancelledReason value)? cancelled,
+    TResult? Function(NetworkFailureServerReason value)? server,
+  }) {
+    return timeout?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(NetworkFailureTimeoutReason value)? timeout,
+    TResult Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult Function(NetworkFailureCancelledReason value)? cancelled,
+    TResult Function(NetworkFailureServerReason value)? server,
+    required TResult orElse(),
+  }) {
+    if (timeout != null) {
+      return timeout(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NetworkFailureTimeoutReason implements NetworkFailureReason {
+  const factory NetworkFailureTimeoutReason(final String message) =
+      _$NetworkFailureTimeoutReasonImpl;
+
+  @override
+  String get message;
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NetworkFailureTimeoutReasonImplCopyWith<_$NetworkFailureTimeoutReasonImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$NetworkFailureBadResponseReasonImplCopyWith<$Res>
+    implements $NetworkFailureReasonCopyWith<$Res> {
+  factory _$$NetworkFailureBadResponseReasonImplCopyWith(
+          _$NetworkFailureBadResponseReasonImpl value,
+          $Res Function(_$NetworkFailureBadResponseReasonImpl) then) =
+      __$$NetworkFailureBadResponseReasonImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$NetworkFailureBadResponseReasonImplCopyWithImpl<$Res>
+    extends _$NetworkFailureReasonCopyWithImpl<$Res,
+        _$NetworkFailureBadResponseReasonImpl>
+    implements _$$NetworkFailureBadResponseReasonImplCopyWith<$Res> {
+  __$$NetworkFailureBadResponseReasonImplCopyWithImpl(
+      _$NetworkFailureBadResponseReasonImpl _value,
+      $Res Function(_$NetworkFailureBadResponseReasonImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$NetworkFailureBadResponseReasonImpl(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$NetworkFailureBadResponseReasonImpl
+    implements NetworkFailureBadResponseReason {
+  const _$NetworkFailureBadResponseReasonImpl(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'NetworkFailureReason.badResponse(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NetworkFailureBadResponseReasonImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NetworkFailureBadResponseReasonImplCopyWith<
+          _$NetworkFailureBadResponseReasonImpl>
+      get copyWith => __$$NetworkFailureBadResponseReasonImplCopyWithImpl<
+          _$NetworkFailureBadResponseReasonImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String message) timeout,
+    required TResult Function(String message) badResponse,
+    required TResult Function(String message) cancelled,
+    required TResult Function(String message) server,
+  }) {
+    return badResponse(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String message)? timeout,
+    TResult? Function(String message)? badResponse,
+    TResult? Function(String message)? cancelled,
+    TResult? Function(String message)? server,
+  }) {
+    return badResponse?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String message)? timeout,
+    TResult Function(String message)? badResponse,
+    TResult Function(String message)? cancelled,
+    TResult Function(String message)? server,
+    required TResult orElse(),
+  }) {
+    if (badResponse != null) {
+      return badResponse(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(NetworkFailureTimeoutReason value) timeout,
+    required TResult Function(NetworkFailureBadResponseReason value)
+        badResponse,
+    required TResult Function(NetworkFailureCancelledReason value) cancelled,
+    required TResult Function(NetworkFailureServerReason value) server,
+  }) {
+    return badResponse(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(NetworkFailureTimeoutReason value)? timeout,
+    TResult? Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult? Function(NetworkFailureCancelledReason value)? cancelled,
+    TResult? Function(NetworkFailureServerReason value)? server,
+  }) {
+    return badResponse?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(NetworkFailureTimeoutReason value)? timeout,
+    TResult Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult Function(NetworkFailureCancelledReason value)? cancelled,
+    TResult Function(NetworkFailureServerReason value)? server,
+    required TResult orElse(),
+  }) {
+    if (badResponse != null) {
+      return badResponse(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NetworkFailureBadResponseReason implements NetworkFailureReason {
+  const factory NetworkFailureBadResponseReason(final String message) =
+      _$NetworkFailureBadResponseReasonImpl;
+
+  @override
+  String get message;
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NetworkFailureBadResponseReasonImplCopyWith<
+          _$NetworkFailureBadResponseReasonImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$NetworkFailureCancelledReasonImplCopyWith<$Res>
+    implements $NetworkFailureReasonCopyWith<$Res> {
+  factory _$$NetworkFailureCancelledReasonImplCopyWith(
+          _$NetworkFailureCancelledReasonImpl value,
+          $Res Function(_$NetworkFailureCancelledReasonImpl) then) =
+      __$$NetworkFailureCancelledReasonImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$NetworkFailureCancelledReasonImplCopyWithImpl<$Res>
+    extends _$NetworkFailureReasonCopyWithImpl<$Res,
+        _$NetworkFailureCancelledReasonImpl>
+    implements _$$NetworkFailureCancelledReasonImplCopyWith<$Res> {
+  __$$NetworkFailureCancelledReasonImplCopyWithImpl(
+      _$NetworkFailureCancelledReasonImpl _value,
+      $Res Function(_$NetworkFailureCancelledReasonImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$NetworkFailureCancelledReasonImpl(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$NetworkFailureCancelledReasonImpl
+    implements NetworkFailureCancelledReason {
+  const _$NetworkFailureCancelledReasonImpl(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'NetworkFailureReason.cancelled(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NetworkFailureCancelledReasonImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NetworkFailureCancelledReasonImplCopyWith<
+          _$NetworkFailureCancelledReasonImpl>
+      get copyWith => __$$NetworkFailureCancelledReasonImplCopyWithImpl<
+          _$NetworkFailureCancelledReasonImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String message) timeout,
+    required TResult Function(String message) badResponse,
+    required TResult Function(String message) cancelled,
+    required TResult Function(String message) server,
+  }) {
+    return cancelled(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String message)? timeout,
+    TResult? Function(String message)? badResponse,
+    TResult? Function(String message)? cancelled,
+    TResult? Function(String message)? server,
+  }) {
+    return cancelled?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String message)? timeout,
+    TResult Function(String message)? badResponse,
+    TResult Function(String message)? cancelled,
+    TResult Function(String message)? server,
+    required TResult orElse(),
+  }) {
+    if (cancelled != null) {
+      return cancelled(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(NetworkFailureTimeoutReason value) timeout,
+    required TResult Function(NetworkFailureBadResponseReason value)
+        badResponse,
+    required TResult Function(NetworkFailureCancelledReason value) cancelled,
+    required TResult Function(NetworkFailureServerReason value) server,
+  }) {
+    return cancelled(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(NetworkFailureTimeoutReason value)? timeout,
+    TResult? Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult? Function(NetworkFailureCancelledReason value)? cancelled,
+    TResult? Function(NetworkFailureServerReason value)? server,
+  }) {
+    return cancelled?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(NetworkFailureTimeoutReason value)? timeout,
+    TResult Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult Function(NetworkFailureCancelledReason value)? cancelled,
+    TResult Function(NetworkFailureServerReason value)? server,
+    required TResult orElse(),
+  }) {
+    if (cancelled != null) {
+      return cancelled(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NetworkFailureCancelledReason implements NetworkFailureReason {
+  const factory NetworkFailureCancelledReason(final String message) =
+      _$NetworkFailureCancelledReasonImpl;
+
+  @override
+  String get message;
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NetworkFailureCancelledReasonImplCopyWith<
+          _$NetworkFailureCancelledReasonImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$NetworkFailureServerReasonImplCopyWith<$Res>
+    implements $NetworkFailureReasonCopyWith<$Res> {
+  factory _$$NetworkFailureServerReasonImplCopyWith(
+          _$NetworkFailureServerReasonImpl value,
+          $Res Function(_$NetworkFailureServerReasonImpl) then) =
+      __$$NetworkFailureServerReasonImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$NetworkFailureServerReasonImplCopyWithImpl<$Res>
+    extends _$NetworkFailureReasonCopyWithImpl<$Res,
+        _$NetworkFailureServerReasonImpl>
+    implements _$$NetworkFailureServerReasonImplCopyWith<$Res> {
+  __$$NetworkFailureServerReasonImplCopyWithImpl(
+      _$NetworkFailureServerReasonImpl _value,
+      $Res Function(_$NetworkFailureServerReasonImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$NetworkFailureServerReasonImpl(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$NetworkFailureServerReasonImpl implements NetworkFailureServerReason {
+  const _$NetworkFailureServerReasonImpl(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'NetworkFailureReason.server(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NetworkFailureServerReasonImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NetworkFailureServerReasonImplCopyWith<_$NetworkFailureServerReasonImpl>
+      get copyWith => __$$NetworkFailureServerReasonImplCopyWithImpl<
+          _$NetworkFailureServerReasonImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String message) timeout,
+    required TResult Function(String message) badResponse,
+    required TResult Function(String message) cancelled,
+    required TResult Function(String message) server,
+  }) {
+    return server(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String message)? timeout,
+    TResult? Function(String message)? badResponse,
+    TResult? Function(String message)? cancelled,
+    TResult? Function(String message)? server,
+  }) {
+    return server?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String message)? timeout,
+    TResult Function(String message)? badResponse,
+    TResult Function(String message)? cancelled,
+    TResult Function(String message)? server,
+    required TResult orElse(),
+  }) {
+    if (server != null) {
+      return server(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(NetworkFailureTimeoutReason value) timeout,
+    required TResult Function(NetworkFailureBadResponseReason value)
+        badResponse,
+    required TResult Function(NetworkFailureCancelledReason value) cancelled,
+    required TResult Function(NetworkFailureServerReason value) server,
+  }) {
+    return server(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(NetworkFailureTimeoutReason value)? timeout,
+    TResult? Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult? Function(NetworkFailureCancelledReason value)? cancelled,
+    TResult? Function(NetworkFailureServerReason value)? server,
+  }) {
+    return server?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(NetworkFailureTimeoutReason value)? timeout,
+    TResult Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult Function(NetworkFailureCancelledReason value)? cancelled,
+    TResult Function(NetworkFailureServerReason value)? server,
+    required TResult orElse(),
+  }) {
+    if (server != null) {
+      return server(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NetworkFailureServerReason implements NetworkFailureReason {
+  const factory NetworkFailureServerReason(final String message) =
+      _$NetworkFailureServerReasonImpl;
+
+  @override
+  String get message;
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NetworkFailureServerReasonImplCopyWith<_$NetworkFailureServerReasonImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

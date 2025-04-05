@@ -28,18 +28,23 @@ import '../../features/profile/domain/repository/change_user_name_gateway.dart'
     as _i432;
 import '../../features/profile/domain/repository/user_update_repository.dart'
     as _i422;
+import '../../features/question/di/di.dart' as _i906;
+import '../../features/question/domain/repository/question_repository.dart'
+    as _i240;
 import '../../features/user/di/di.dart' as _i527;
 import '../../features/user/domain/repository/fetch_current_user_gateway.dart'
     as _i678;
 import '../../features/user/domain/repository/local_user_repository.dart'
     as _i799;
 import '../../features/user/domain/repository/user_repository.dart' as _i450;
+import '../core/client/api_client.dart' as _i782;
 import '../core/database/app_database.dart' as _i935;
 import '../core/localization/gateway/change_locale_gateway.dart' as _i309;
 import '../core/services/firebase_remote_config_service.dart' as _i307;
 import '../core/services/firestore_doc_service.dart' as _i141;
 import '../core/services/settings_local_storage_service.dart' as _i218;
 import 'di.dart' as _i913;
+import 'network_module.dart' as _i567;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -55,7 +60,9 @@ extension GetItInjectableX on _i174.GetIt {
     final firebaseConfigModule = _$FirebaseConfigModule();
     final localStorageModule = _$LocalStorageModule();
     final userModule = _$UserModule();
+    final networkModule = _$NetworkModule();
     final databaseModule = _$DatabaseModule();
+    final questionModule = _$QuestionModule();
     final profileModule = _$ProfileModule();
     final authenticationModule = _$AuthenticationModule();
     final appSettingsModule = _$AppSettingsModule();
@@ -72,9 +79,12 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.factory<_i450.UserRepository>(() => userModule.userRepository());
+    gh.singleton<_i782.ApiClient>(() => networkModule.apiClient());
     gh.lazySingleton<_i935.AppDatabase>(() => databaseModule.database());
     gh.lazySingleton<_i141.FirestoreDocService>(
         () => firebaseConfigModule.firestoreDocService());
+    gh.lazySingleton<_i240.QuestionRepository>(
+        () => questionModule.questionRepository());
     gh.lazySingleton<_i422.UserUpdateRepository>(
         () => profileModule.userUpdateRepository());
     gh.lazySingleton<_i646.ChangePasswordGateway>(
@@ -115,7 +125,11 @@ class _$LocalStorageModule extends _i913.LocalStorageModule {}
 
 class _$UserModule extends _i527.UserModule {}
 
+class _$NetworkModule extends _i567.NetworkModule {}
+
 class _$DatabaseModule extends _i913.DatabaseModule {}
+
+class _$QuestionModule extends _i906.QuestionModule {}
 
 class _$ProfileModule extends _i1038.ProfileModule {}
 
