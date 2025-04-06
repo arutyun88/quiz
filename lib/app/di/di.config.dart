@@ -14,6 +14,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
+import '../../features/authentication/data/converter/token_converter.dart'
+    as _i1062;
 import '../../features/authentication/data/converter/user_converter.dart'
     as _i252;
 import '../../features/authentication/di/di.dart' as _i415;
@@ -36,10 +38,17 @@ import '../../features/user/domain/repository/fetch_current_user_gateway.dart'
     as _i678;
 import '../../features/user/domain/repository/local_user_repository.dart'
     as _i799;
+import '../../features/user/domain/repository/sign_in_with_email_gateway.dart'
+    as _i547;
+import '../../features/user/domain/repository/sign_up_with_email_gateway.dart'
+    as _i803;
+import '../../features/user/domain/repository/user_logout_gateway.dart'
+    as _i1052;
 import '../../features/user/domain/repository/user_repository.dart' as _i450;
 import '../core/client/api_client.dart' as _i782;
 import '../core/database/app_database.dart' as _i935;
 import '../core/localization/gateway/change_locale_gateway.dart' as _i309;
+import '../core/services/auth_token_service.dart' as _i422;
 import '../core/services/firebase_remote_config_service.dart' as _i307;
 import '../core/services/firestore_doc_service.dart' as _i141;
 import '../core/services/settings_local_storage_service.dart' as _i218;
@@ -91,8 +100,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => profileModule.changePasswordGateway());
     gh.lazySingleton<_i432.ChangeUserInfoGateway>(
         () => profileModule.changeUserInfoGateway());
-    gh.lazySingleton<_i797.AuthenticationRepository>(
-        () => authenticationModule.repository());
     gh.lazySingleton<_i959.PasswordResetGateway>(
         () => authenticationModule.passwordResetGateway());
     await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(
@@ -102,12 +109,34 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i218.SettingsLocalStorageService>(() => localStorageModule
         .settingsLocalStorageService(gh<_i460.SharedPreferences>()));
+    gh.factory<_i1062.TokenConverter>(() => _i1062.TokenConverterImpl());
     gh.factory<_i252.UserConverter>(() => _i252.UserConverterImpl());
+    gh.lazySingleton<_i797.AuthenticationRepository>(
+        () => authenticationModule.repository(
+              client: gh<_i782.ApiClient>(),
+              tokenConverter: gh<_i1062.TokenConverter>(),
+            ));
     gh.lazySingleton<_i799.LocalUserRepository>(
         () => userModule.cachedUserRepository(
               gh<_i460.SharedPreferences>(),
               gh<_i252.UserConverter>(),
             ));
+    gh.singleton<_i422.AuthTokenService>(() =>
+        _i422.AuthTokenServicePrefs(prefs: gh<_i460.SharedPreferences>()));
+    gh.lazySingleton<_i547.SignInWithEmailGateway>(
+        () => _i547.SignInWithEmailGateway(
+              authenticationRepository: gh<_i797.AuthenticationRepository>(),
+              tokenService: gh<_i422.AuthTokenService>(),
+            ));
+    gh.lazySingleton<_i803.SignUpWithEmailGateway>(
+        () => _i803.SignUpWithEmailGateway(
+              authenticationRepository: gh<_i797.AuthenticationRepository>(),
+              tokenService: gh<_i422.AuthTokenService>(),
+            ));
+    gh.lazySingleton<_i1052.UserLogoutGateway>(() => _i1052.UserLogoutGateway(
+          authenticationRepository: gh<_i797.AuthenticationRepository>(),
+          tokenService: gh<_i422.AuthTokenService>(),
+        ));
     gh.lazySingleton<_i678.FetchCurrentUserGateway>(
         () => userModule.fetchUserGateway(
               gh<_i450.UserRepository>(),

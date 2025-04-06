@@ -39,15 +39,22 @@ class FirebaseUserRepository implements UserRepository {
 
   @override
   Future<Result<UserEntity, Failure>> fetchById(String id) async {
-    final fUser = await _firestore.user(id).get();
+    try {
+      final fUser = await _firestore.user(id).get();
+      print(fUser);
 
-    if (fUser.exists) {
-      if (fUser.data() case Json json) {
-        return Result.ok(_userConverter.convert(UserDto.fromJson(json)));
+      if (fUser.exists) {
+        if (fUser.data() case Json json) {
+          return Result.ok(_userConverter.convert(UserDto.fromJson(json)));
+        }
       }
+      return const Result.failed(
+        Failure.authentication(AuthenticationFailureType.data),
+      );
+    } catch (e) {
+      return const Result.failed(
+        Failure.authentication(AuthenticationFailureType.data),
+      );
     }
-    return const Result.failed(
-      Failure.authentication(AuthenticationFailureType.data),
-    );
   }
 }

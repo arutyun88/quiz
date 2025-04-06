@@ -15,7 +15,7 @@ class SplashFlow extends ConsumerWidget {
       (_, state) => state.whenData(
         (_) {
           ref.read(authenticationProvider).whenOrNull(
-            authenticated: (_, user) {
+            authenticated: (user) {
               if (user case UserEntity()) {
                 context.go('/');
               } else {

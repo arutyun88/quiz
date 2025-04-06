@@ -1,15 +1,14 @@
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
+import 'package:quiz/features/authentication/domain/entity/token_entity.dart';
 
 abstract interface class AuthenticationRepository {
-  Result<String, Failure> reload();
-
-  Future<Result<String, Failure>> registerWithEmail({
+  Future<Result<TokenEntity, Failure>> registerWithEmail({
     required String email,
     required String password,
   });
 
-  Future<Result<String, Failure>> signInWithEmail({
+  Future<Result<TokenEntity, Failure>> signInWithEmail({
     required String email,
     required String password,
   });

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
-import 'package:quiz/app/core/widgets/app_back_button.dart';
 import 'package:quiz/app/core/widgets/app_widget.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
@@ -21,7 +20,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         centerTitle: false,
         title: Consumer(
           builder: (context, ref, child) {
-            final name = ref.read(authenticationProvider).whenOrNull(authenticated: (_, user) => user?.name);
+            final name = ref.read(authenticationProvider).whenOrNull(authenticated: (user) => user?.name);
             return AppBar(
               centerTitle: false,
               title: name != null ? Text(name) : null,

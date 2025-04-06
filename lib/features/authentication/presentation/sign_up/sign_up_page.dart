@@ -29,7 +29,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
   Widget build(BuildContext context) {
     ref.listen(authenticationProvider, (previous, next) {
       next.when(
-        authenticated: (_, user) {
+        authenticated: (user) {
           if (user?.name is! String || user?.birthDate is! DateTime) {
             context.goNamed('profile-edit');
           } else {

@@ -5,7 +5,6 @@ class AuthenticationState with _$AuthenticationState {
   const AuthenticationState._();
 
   const factory AuthenticationState.authenticated({
-    required String id,
     UserEntity? user,
   }) = _UserAuthenticatedState;
 

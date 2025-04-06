@@ -14,8 +14,9 @@ class FetchCurrentUserGateway {
   })  : _userRepository = userRepository,
         _localUserRepository = localUserRepository;
 
-  Future<Result<UserEntity, Failure>> call(String id) async {
-    final rUser = await _userRepository.fetchById(id);
+  Future<Result<UserEntity, Failure>> call() async {
+    // TODO переписать это когда будет готов бэк
+    final rUser = await _userRepository.fetchById('id');
 
     switch (rUser) {
       case ResultOk(data: final user):
