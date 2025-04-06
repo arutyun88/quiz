@@ -7,7 +7,7 @@ import 'package:quiz/app/core/client/api_client_config.dart';
 abstract class NetworkModule {
   @singleton
   ApiClient apiClient() {
-    final config = ApiClientConfig(baseUrl: 'localhost:8081/api/');
+    final config = ApiClientConfig(baseUrl: 'http://localhost:8081/api');
     return DioApiClient(config: config);
   }
 }
