@@ -31,6 +31,8 @@ abstract class NetworkFailureReason with _$NetworkFailureReason {
 
   const factory NetworkFailureReason.badResponse(String message) = NetworkFailureBadResponseReason;
 
+  const factory NetworkFailureReason.credential(String message) = NetworkFailureCredentialReason;
+
   const factory NetworkFailureReason.cancelled(String message) = NetworkFailureCancelledReason;
 
   const factory NetworkFailureReason.server(String message) = NetworkFailureServerReason;

@@ -1006,6 +1006,7 @@ mixin _$NetworkFailureReason {
   TResult when<TResult extends Object?>({
     required TResult Function(String message) timeout,
     required TResult Function(String message) badResponse,
+    required TResult Function(String message) credential,
     required TResult Function(String message) cancelled,
     required TResult Function(String message) server,
   }) =>
@@ -1014,6 +1015,7 @@ mixin _$NetworkFailureReason {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String message)? timeout,
     TResult? Function(String message)? badResponse,
+    TResult? Function(String message)? credential,
     TResult? Function(String message)? cancelled,
     TResult? Function(String message)? server,
   }) =>
@@ -1022,6 +1024,7 @@ mixin _$NetworkFailureReason {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String message)? timeout,
     TResult Function(String message)? badResponse,
+    TResult Function(String message)? credential,
     TResult Function(String message)? cancelled,
     TResult Function(String message)? server,
     required TResult orElse(),
@@ -1032,6 +1035,7 @@ mixin _$NetworkFailureReason {
     required TResult Function(NetworkFailureTimeoutReason value) timeout,
     required TResult Function(NetworkFailureBadResponseReason value)
         badResponse,
+    required TResult Function(NetworkFailureCredentialReason value) credential,
     required TResult Function(NetworkFailureCancelledReason value) cancelled,
     required TResult Function(NetworkFailureServerReason value) server,
   }) =>
@@ -1040,6 +1044,7 @@ mixin _$NetworkFailureReason {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NetworkFailureTimeoutReason value)? timeout,
     TResult? Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult? Function(NetworkFailureCredentialReason value)? credential,
     TResult? Function(NetworkFailureCancelledReason value)? cancelled,
     TResult? Function(NetworkFailureServerReason value)? server,
   }) =>
@@ -1048,6 +1053,7 @@ mixin _$NetworkFailureReason {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NetworkFailureTimeoutReason value)? timeout,
     TResult Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult Function(NetworkFailureCredentialReason value)? credential,
     TResult Function(NetworkFailureCancelledReason value)? cancelled,
     TResult Function(NetworkFailureServerReason value)? server,
     required TResult orElse(),
@@ -1173,6 +1179,7 @@ class _$NetworkFailureTimeoutReasonImpl implements NetworkFailureTimeoutReason {
   TResult when<TResult extends Object?>({
     required TResult Function(String message) timeout,
     required TResult Function(String message) badResponse,
+    required TResult Function(String message) credential,
     required TResult Function(String message) cancelled,
     required TResult Function(String message) server,
   }) {
@@ -1184,6 +1191,7 @@ class _$NetworkFailureTimeoutReasonImpl implements NetworkFailureTimeoutReason {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String message)? timeout,
     TResult? Function(String message)? badResponse,
+    TResult? Function(String message)? credential,
     TResult? Function(String message)? cancelled,
     TResult? Function(String message)? server,
   }) {
@@ -1195,6 +1203,7 @@ class _$NetworkFailureTimeoutReasonImpl implements NetworkFailureTimeoutReason {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String message)? timeout,
     TResult Function(String message)? badResponse,
+    TResult Function(String message)? credential,
     TResult Function(String message)? cancelled,
     TResult Function(String message)? server,
     required TResult orElse(),
@@ -1211,6 +1220,7 @@ class _$NetworkFailureTimeoutReasonImpl implements NetworkFailureTimeoutReason {
     required TResult Function(NetworkFailureTimeoutReason value) timeout,
     required TResult Function(NetworkFailureBadResponseReason value)
         badResponse,
+    required TResult Function(NetworkFailureCredentialReason value) credential,
     required TResult Function(NetworkFailureCancelledReason value) cancelled,
     required TResult Function(NetworkFailureServerReason value) server,
   }) {
@@ -1222,6 +1232,7 @@ class _$NetworkFailureTimeoutReasonImpl implements NetworkFailureTimeoutReason {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NetworkFailureTimeoutReason value)? timeout,
     TResult? Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult? Function(NetworkFailureCredentialReason value)? credential,
     TResult? Function(NetworkFailureCancelledReason value)? cancelled,
     TResult? Function(NetworkFailureServerReason value)? server,
   }) {
@@ -1233,6 +1244,7 @@ class _$NetworkFailureTimeoutReasonImpl implements NetworkFailureTimeoutReason {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NetworkFailureTimeoutReason value)? timeout,
     TResult Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult Function(NetworkFailureCredentialReason value)? credential,
     TResult Function(NetworkFailureCancelledReason value)? cancelled,
     TResult Function(NetworkFailureServerReason value)? server,
     required TResult orElse(),
@@ -1337,6 +1349,7 @@ class _$NetworkFailureBadResponseReasonImpl
   TResult when<TResult extends Object?>({
     required TResult Function(String message) timeout,
     required TResult Function(String message) badResponse,
+    required TResult Function(String message) credential,
     required TResult Function(String message) cancelled,
     required TResult Function(String message) server,
   }) {
@@ -1348,6 +1361,7 @@ class _$NetworkFailureBadResponseReasonImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String message)? timeout,
     TResult? Function(String message)? badResponse,
+    TResult? Function(String message)? credential,
     TResult? Function(String message)? cancelled,
     TResult? Function(String message)? server,
   }) {
@@ -1359,6 +1373,7 @@ class _$NetworkFailureBadResponseReasonImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String message)? timeout,
     TResult Function(String message)? badResponse,
+    TResult Function(String message)? credential,
     TResult Function(String message)? cancelled,
     TResult Function(String message)? server,
     required TResult orElse(),
@@ -1375,6 +1390,7 @@ class _$NetworkFailureBadResponseReasonImpl
     required TResult Function(NetworkFailureTimeoutReason value) timeout,
     required TResult Function(NetworkFailureBadResponseReason value)
         badResponse,
+    required TResult Function(NetworkFailureCredentialReason value) credential,
     required TResult Function(NetworkFailureCancelledReason value) cancelled,
     required TResult Function(NetworkFailureServerReason value) server,
   }) {
@@ -1386,6 +1402,7 @@ class _$NetworkFailureBadResponseReasonImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NetworkFailureTimeoutReason value)? timeout,
     TResult? Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult? Function(NetworkFailureCredentialReason value)? credential,
     TResult? Function(NetworkFailureCancelledReason value)? cancelled,
     TResult? Function(NetworkFailureServerReason value)? server,
   }) {
@@ -1397,6 +1414,7 @@ class _$NetworkFailureBadResponseReasonImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NetworkFailureTimeoutReason value)? timeout,
     TResult Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult Function(NetworkFailureCredentialReason value)? credential,
     TResult Function(NetworkFailureCancelledReason value)? cancelled,
     TResult Function(NetworkFailureServerReason value)? server,
     required TResult orElse(),
@@ -1421,6 +1439,177 @@ abstract class NetworkFailureBadResponseReason implements NetworkFailureReason {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NetworkFailureBadResponseReasonImplCopyWith<
           _$NetworkFailureBadResponseReasonImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$NetworkFailureCredentialReasonImplCopyWith<$Res>
+    implements $NetworkFailureReasonCopyWith<$Res> {
+  factory _$$NetworkFailureCredentialReasonImplCopyWith(
+          _$NetworkFailureCredentialReasonImpl value,
+          $Res Function(_$NetworkFailureCredentialReasonImpl) then) =
+      __$$NetworkFailureCredentialReasonImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$NetworkFailureCredentialReasonImplCopyWithImpl<$Res>
+    extends _$NetworkFailureReasonCopyWithImpl<$Res,
+        _$NetworkFailureCredentialReasonImpl>
+    implements _$$NetworkFailureCredentialReasonImplCopyWith<$Res> {
+  __$$NetworkFailureCredentialReasonImplCopyWithImpl(
+      _$NetworkFailureCredentialReasonImpl _value,
+      $Res Function(_$NetworkFailureCredentialReasonImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$NetworkFailureCredentialReasonImpl(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$NetworkFailureCredentialReasonImpl
+    implements NetworkFailureCredentialReason {
+  const _$NetworkFailureCredentialReasonImpl(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'NetworkFailureReason.credential(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NetworkFailureCredentialReasonImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NetworkFailureCredentialReasonImplCopyWith<
+          _$NetworkFailureCredentialReasonImpl>
+      get copyWith => __$$NetworkFailureCredentialReasonImplCopyWithImpl<
+          _$NetworkFailureCredentialReasonImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String message) timeout,
+    required TResult Function(String message) badResponse,
+    required TResult Function(String message) credential,
+    required TResult Function(String message) cancelled,
+    required TResult Function(String message) server,
+  }) {
+    return credential(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String message)? timeout,
+    TResult? Function(String message)? badResponse,
+    TResult? Function(String message)? credential,
+    TResult? Function(String message)? cancelled,
+    TResult? Function(String message)? server,
+  }) {
+    return credential?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String message)? timeout,
+    TResult Function(String message)? badResponse,
+    TResult Function(String message)? credential,
+    TResult Function(String message)? cancelled,
+    TResult Function(String message)? server,
+    required TResult orElse(),
+  }) {
+    if (credential != null) {
+      return credential(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(NetworkFailureTimeoutReason value) timeout,
+    required TResult Function(NetworkFailureBadResponseReason value)
+        badResponse,
+    required TResult Function(NetworkFailureCredentialReason value) credential,
+    required TResult Function(NetworkFailureCancelledReason value) cancelled,
+    required TResult Function(NetworkFailureServerReason value) server,
+  }) {
+    return credential(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(NetworkFailureTimeoutReason value)? timeout,
+    TResult? Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult? Function(NetworkFailureCredentialReason value)? credential,
+    TResult? Function(NetworkFailureCancelledReason value)? cancelled,
+    TResult? Function(NetworkFailureServerReason value)? server,
+  }) {
+    return credential?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(NetworkFailureTimeoutReason value)? timeout,
+    TResult Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult Function(NetworkFailureCredentialReason value)? credential,
+    TResult Function(NetworkFailureCancelledReason value)? cancelled,
+    TResult Function(NetworkFailureServerReason value)? server,
+    required TResult orElse(),
+  }) {
+    if (credential != null) {
+      return credential(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NetworkFailureCredentialReason implements NetworkFailureReason {
+  const factory NetworkFailureCredentialReason(final String message) =
+      _$NetworkFailureCredentialReasonImpl;
+
+  @override
+  String get message;
+
+  /// Create a copy of NetworkFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NetworkFailureCredentialReasonImplCopyWith<
+          _$NetworkFailureCredentialReasonImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1502,6 +1691,7 @@ class _$NetworkFailureCancelledReasonImpl
   TResult when<TResult extends Object?>({
     required TResult Function(String message) timeout,
     required TResult Function(String message) badResponse,
+    required TResult Function(String message) credential,
     required TResult Function(String message) cancelled,
     required TResult Function(String message) server,
   }) {
@@ -1513,6 +1703,7 @@ class _$NetworkFailureCancelledReasonImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String message)? timeout,
     TResult? Function(String message)? badResponse,
+    TResult? Function(String message)? credential,
     TResult? Function(String message)? cancelled,
     TResult? Function(String message)? server,
   }) {
@@ -1524,6 +1715,7 @@ class _$NetworkFailureCancelledReasonImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String message)? timeout,
     TResult Function(String message)? badResponse,
+    TResult Function(String message)? credential,
     TResult Function(String message)? cancelled,
     TResult Function(String message)? server,
     required TResult orElse(),
@@ -1540,6 +1732,7 @@ class _$NetworkFailureCancelledReasonImpl
     required TResult Function(NetworkFailureTimeoutReason value) timeout,
     required TResult Function(NetworkFailureBadResponseReason value)
         badResponse,
+    required TResult Function(NetworkFailureCredentialReason value) credential,
     required TResult Function(NetworkFailureCancelledReason value) cancelled,
     required TResult Function(NetworkFailureServerReason value) server,
   }) {
@@ -1551,6 +1744,7 @@ class _$NetworkFailureCancelledReasonImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NetworkFailureTimeoutReason value)? timeout,
     TResult? Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult? Function(NetworkFailureCredentialReason value)? credential,
     TResult? Function(NetworkFailureCancelledReason value)? cancelled,
     TResult? Function(NetworkFailureServerReason value)? server,
   }) {
@@ -1562,6 +1756,7 @@ class _$NetworkFailureCancelledReasonImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NetworkFailureTimeoutReason value)? timeout,
     TResult Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult Function(NetworkFailureCredentialReason value)? credential,
     TResult Function(NetworkFailureCancelledReason value)? cancelled,
     TResult Function(NetworkFailureServerReason value)? server,
     required TResult orElse(),
@@ -1665,6 +1860,7 @@ class _$NetworkFailureServerReasonImpl implements NetworkFailureServerReason {
   TResult when<TResult extends Object?>({
     required TResult Function(String message) timeout,
     required TResult Function(String message) badResponse,
+    required TResult Function(String message) credential,
     required TResult Function(String message) cancelled,
     required TResult Function(String message) server,
   }) {
@@ -1676,6 +1872,7 @@ class _$NetworkFailureServerReasonImpl implements NetworkFailureServerReason {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String message)? timeout,
     TResult? Function(String message)? badResponse,
+    TResult? Function(String message)? credential,
     TResult? Function(String message)? cancelled,
     TResult? Function(String message)? server,
   }) {
@@ -1687,6 +1884,7 @@ class _$NetworkFailureServerReasonImpl implements NetworkFailureServerReason {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String message)? timeout,
     TResult Function(String message)? badResponse,
+    TResult Function(String message)? credential,
     TResult Function(String message)? cancelled,
     TResult Function(String message)? server,
     required TResult orElse(),
@@ -1703,6 +1901,7 @@ class _$NetworkFailureServerReasonImpl implements NetworkFailureServerReason {
     required TResult Function(NetworkFailureTimeoutReason value) timeout,
     required TResult Function(NetworkFailureBadResponseReason value)
         badResponse,
+    required TResult Function(NetworkFailureCredentialReason value) credential,
     required TResult Function(NetworkFailureCancelledReason value) cancelled,
     required TResult Function(NetworkFailureServerReason value) server,
   }) {
@@ -1714,6 +1913,7 @@ class _$NetworkFailureServerReasonImpl implements NetworkFailureServerReason {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NetworkFailureTimeoutReason value)? timeout,
     TResult? Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult? Function(NetworkFailureCredentialReason value)? credential,
     TResult? Function(NetworkFailureCancelledReason value)? cancelled,
     TResult? Function(NetworkFailureServerReason value)? server,
   }) {
@@ -1725,6 +1925,7 @@ class _$NetworkFailureServerReasonImpl implements NetworkFailureServerReason {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NetworkFailureTimeoutReason value)? timeout,
     TResult Function(NetworkFailureBadResponseReason value)? badResponse,
+    TResult Function(NetworkFailureCredentialReason value)? credential,
     TResult Function(NetworkFailureCancelledReason value)? cancelled,
     TResult Function(NetworkFailureServerReason value)? server,
     required TResult orElse(),

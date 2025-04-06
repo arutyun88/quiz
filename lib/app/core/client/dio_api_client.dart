@@ -3,6 +3,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:quiz/app/core/client/api_client.dart';
 import 'package:quiz/app/core/client/api_client_config.dart';
 import 'package:quiz/app/core/model/failure.dart';
+import 'package:quiz/app/core/model/json.dart';
 import 'package:quiz/app/core/model/result.dart';
 
 class DioApiClient implements ApiClient {
@@ -41,10 +42,12 @@ class DioApiClient implements ApiClient {
   }
 
   @override
-  Future<Result<dynamic, Failure>> get(
+  Future<Result<TEntity, Failure>> get<TEntity, TDto>(
     String path, {
-    Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? headers,
+    Json? queryParameters,
+    Json? headers,
+    required JsonMapper<TDto> mapper,
+    required TEntity Function(TDto) converter,
   }) async {
     try {
       final result = await _dio.get(
@@ -52,18 +55,24 @@ class DioApiClient implements ApiClient {
         queryParameters: queryParameters,
         options: Options(headers: headers),
       );
-      return Result.ok(result.data);
+
+      final data = result.data['data'];
+      final mappedData = mapper(data);
+
+      return Result.ok(converter(mappedData));
     } on DioException catch (e) {
       return Result.failed(_handleError(e));
     }
   }
 
   @override
-  Future<Result<dynamic, Failure>> post(
+  Future<Result<TEntity, Failure>> post<TEntity, TDto>(
     String path, {
-    Map<String, dynamic>? body,
-    Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? headers,
+    required Json body,
+    Json? queryParameters,
+    Json? headers,
+    required JsonMapper<TDto> mapper,
+    required TEntity Function(TDto) converter,
   }) async {
     try {
       final result = await _dio.post(
@@ -72,7 +81,11 @@ class DioApiClient implements ApiClient {
         queryParameters: queryParameters,
         options: Options(headers: headers),
       );
-      return Result.ok(result.data);
+
+      final data = result.data['data'];
+      final mappedData = mapper(data);
+
+      return Result.ok(converter(mappedData));
     } on DioException catch (e) {
       return Result.failed(_handleError(e));
     }
@@ -83,8 +96,8 @@ class DioApiClient implements ApiClient {
     String url,
     String savePath, {
     OnProgressCallback? onReceiveProgress,
-    Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? headers,
+    Json? queryParameters,
+    Json? headers,
   }) async {
     try {
       final response = await _dio.download(
@@ -110,8 +123,17 @@ class DioApiClient implements ApiClient {
         );
       case DioExceptionType.badResponse:
         final data = exc.response?.data;
+        final error = data?['error'];
+        final message = data?['message'] ?? exc.message;
+
+        if (error == 'INVALID_USERNAME_OR_PASSWORD') {
+          return Failure.network(
+            NetworkFailureReason.credential(message ?? 'User credential error'),
+          );
+        }
+
         return Failure.network(
-          NetworkFailureReason.badResponse(data?['message'] ?? exc.message ?? 'Bad response error'),
+          NetworkFailureReason.badResponse(message ?? 'Bad response error'),
         );
       case DioExceptionType.cancel:
         return Failure.network(
