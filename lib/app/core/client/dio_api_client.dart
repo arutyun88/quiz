@@ -11,9 +11,10 @@ class DioApiClient implements ApiClient {
 
   DioApiClient({
     required ApiClientConfig config,
-  }) : _dio = _configurDio(config);
+    required String deviceId,
+  }) : _dio = _configurDio(config, deviceId);
 
-  static _configurDio(config) {
+  static _configurDio(ApiClientConfig config, String deviceId) {
     final dio = Dio(
       BaseOptions(
         baseUrl: config.baseUrl,
@@ -23,6 +24,7 @@ class DioApiClient implements ApiClient {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
+          'X-Device-ID': deviceId,
         },
       ),
     );

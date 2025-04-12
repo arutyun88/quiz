@@ -30,9 +30,6 @@ import '../../features/profile/domain/repository/change_user_name_gateway.dart'
     as _i432;
 import '../../features/profile/domain/repository/user_update_repository.dart'
     as _i422;
-import '../../features/question/di/di.dart' as _i906;
-import '../../features/question/domain/repository/question_repository.dart'
-    as _i240;
 import '../../features/user/di/di.dart' as _i527;
 import '../../features/user/domain/repository/fetch_current_user_gateway.dart'
     as _i678;
@@ -49,6 +46,7 @@ import '../core/client/api_client.dart' as _i782;
 import '../core/database/app_database.dart' as _i935;
 import '../core/localization/gateway/change_locale_gateway.dart' as _i309;
 import '../core/services/auth_token_service.dart' as _i422;
+import '../core/services/device_id_service.dart' as _i709;
 import '../core/services/firebase_remote_config_service.dart' as _i307;
 import '../core/services/firestore_doc_service.dart' as _i141;
 import '../core/services/settings_local_storage_service.dart' as _i218;
@@ -69,11 +67,10 @@ extension GetItInjectableX on _i174.GetIt {
     final firebaseConfigModule = _$FirebaseConfigModule();
     final localStorageModule = _$LocalStorageModule();
     final userModule = _$UserModule();
-    final networkModule = _$NetworkModule();
     final databaseModule = _$DatabaseModule();
-    final questionModule = _$QuestionModule();
     final profileModule = _$ProfileModule();
     final authenticationModule = _$AuthenticationModule();
+    final networkModule = _$NetworkModule();
     final appSettingsModule = _$AppSettingsModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
       () => firebaseConfigModule.firebase(),
@@ -88,12 +85,9 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.factory<_i450.UserRepository>(() => userModule.userRepository());
-    gh.singleton<_i782.ApiClient>(() => networkModule.apiClient());
     gh.lazySingleton<_i935.AppDatabase>(() => databaseModule.database());
     gh.lazySingleton<_i141.FirestoreDocService>(
         () => firebaseConfigModule.firestoreDocService());
-    gh.lazySingleton<_i240.QuestionRepository>(
-        () => questionModule.questionRepository());
     gh.lazySingleton<_i422.UserUpdateRepository>(
         () => profileModule.userUpdateRepository());
     gh.lazySingleton<_i646.ChangePasswordGateway>(
@@ -109,13 +103,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i218.SettingsLocalStorageService>(() => localStorageModule
         .settingsLocalStorageService(gh<_i460.SharedPreferences>()));
+    await gh.factoryAsync<_i709.DeviceIdService>(
+      () => networkModule.deviceService(gh<_i460.SharedPreferences>()),
+      preResolve: true,
+    );
     gh.factory<_i1062.TokenConverter>(() => _i1062.TokenConverterImpl());
     gh.factory<_i252.UserConverter>(() => _i252.UserConverterImpl());
-    gh.lazySingleton<_i797.AuthenticationRepository>(
-        () => authenticationModule.repository(
-              client: gh<_i782.ApiClient>(),
-              tokenConverter: gh<_i1062.TokenConverter>(),
-            ));
     gh.lazySingleton<_i799.LocalUserRepository>(
         () => userModule.cachedUserRepository(
               gh<_i460.SharedPreferences>(),
@@ -123,6 +116,20 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.singleton<_i422.AuthTokenService>(() =>
         _i422.AuthTokenServicePrefs(prefs: gh<_i460.SharedPreferences>()));
+    gh.lazySingleton<_i678.FetchCurrentUserGateway>(
+        () => userModule.fetchUserGateway(
+              gh<_i450.UserRepository>(),
+              gh<_i799.LocalUserRepository>(),
+            ));
+    gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
+        .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
+    gh.singleton<_i782.ApiClient>(
+        () => networkModule.apiClient(gh<_i709.DeviceIdService>()));
+    gh.lazySingleton<_i797.AuthenticationRepository>(
+        () => authenticationModule.repository(
+              client: gh<_i782.ApiClient>(),
+              tokenConverter: gh<_i1062.TokenConverter>(),
+            ));
     gh.lazySingleton<_i547.SignInWithEmailGateway>(
         () => _i547.SignInWithEmailGateway(
               authenticationRepository: gh<_i797.AuthenticationRepository>(),
@@ -137,13 +144,6 @@ extension GetItInjectableX on _i174.GetIt {
           authenticationRepository: gh<_i797.AuthenticationRepository>(),
           tokenService: gh<_i422.AuthTokenService>(),
         ));
-    gh.lazySingleton<_i678.FetchCurrentUserGateway>(
-        () => userModule.fetchUserGateway(
-              gh<_i450.UserRepository>(),
-              gh<_i799.LocalUserRepository>(),
-            ));
-    gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
-        .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
     return this;
   }
 }
@@ -154,14 +154,12 @@ class _$LocalStorageModule extends _i913.LocalStorageModule {}
 
 class _$UserModule extends _i527.UserModule {}
 
-class _$NetworkModule extends _i567.NetworkModule {}
-
 class _$DatabaseModule extends _i913.DatabaseModule {}
-
-class _$QuestionModule extends _i906.QuestionModule {}
 
 class _$ProfileModule extends _i1038.ProfileModule {}
 
 class _$AuthenticationModule extends _i415.AuthenticationModule {}
+
+class _$NetworkModule extends _i567.NetworkModule {}
 
 class _$AppSettingsModule extends _i913.AppSettingsModule {}
