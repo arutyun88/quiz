@@ -16,7 +16,8 @@ class SplashFlow extends ConsumerWidget {
         (_) {
           ref.read(authenticationProvider).whenOrNull(
             authenticated: (user) {
-              if (user case UserEntity()) {
+              if (user case UserEntity user
+                  when user.name is String && user.name!.isNotEmpty && user.birthDate is DateTime) {
                 context.go('/');
               } else {
                 context.goNamed('profile-edit');

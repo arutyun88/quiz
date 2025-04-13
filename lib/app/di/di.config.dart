@@ -65,11 +65,11 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final firebaseConfigModule = _$FirebaseConfigModule();
     final localStorageModule = _$LocalStorageModule();
-    final userModule = _$UserModule();
     final databaseModule = _$DatabaseModule();
     final profileModule = _$ProfileModule();
     final authenticationModule = _$AuthenticationModule();
     final networkModule = _$NetworkModule();
+    final userModule = _$UserModule();
     final appSettingsModule = _$AppSettingsModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
       () => firebaseConfigModule.firebase(),
@@ -83,7 +83,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => localStorageModule.sharedPreferences(),
       preResolve: true,
     );
-    gh.factory<_i450.UserRepository>(() => userModule.userRepository());
     gh.lazySingleton<_i935.AppDatabase>(() => databaseModule.database());
     gh.lazySingleton<_i141.FirestoreDocService>(
         () => firebaseConfigModule.firestoreDocService());
@@ -115,11 +114,6 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.singleton<_i422.AuthTokenService>(() =>
         _i422.AuthTokenServicePrefs(prefs: gh<_i460.SharedPreferences>()));
-    gh.lazySingleton<_i678.FetchCurrentUserGateway>(
-        () => userModule.fetchUserGateway(
-              gh<_i450.UserRepository>(),
-              gh<_i799.LocalUserRepository>(),
-            ));
     gh.singleton<_i782.ApiClient>(() => networkModule.apiClient(
           gh<_i709.DeviceIdService>(),
           gh<_i422.AuthTokenService>(),
@@ -146,6 +140,15 @@ extension GetItInjectableX on _i174.GetIt {
           authenticationRepository: gh<_i797.AuthenticationRepository>(),
           tokenService: gh<_i422.AuthTokenService>(),
         ));
+    gh.factory<_i450.UserRepository>(() => userModule.userRepository(
+          client: gh<_i782.ApiClient>(),
+          userConverter: gh<_i11.UserConverter>(),
+        ));
+    gh.lazySingleton<_i678.FetchCurrentUserGateway>(
+        () => userModule.fetchUserGateway(
+              gh<_i450.UserRepository>(),
+              gh<_i799.LocalUserRepository>(),
+            ));
     return this;
   }
 }
@@ -154,8 +157,6 @@ class _$FirebaseConfigModule extends _i913.FirebaseConfigModule {}
 
 class _$LocalStorageModule extends _i913.LocalStorageModule {}
 
-class _$UserModule extends _i527.UserModule {}
-
 class _$DatabaseModule extends _i913.DatabaseModule {}
 
 class _$ProfileModule extends _i1038.ProfileModule {}
@@ -163,5 +164,7 @@ class _$ProfileModule extends _i1038.ProfileModule {}
 class _$AuthenticationModule extends _i415.AuthenticationModule {}
 
 class _$NetworkModule extends _i567.NetworkModule {}
+
+class _$UserModule extends _i527.UserModule {}
 
 class _$AppSettingsModule extends _i913.AppSettingsModule {}
