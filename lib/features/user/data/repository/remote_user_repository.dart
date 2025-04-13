@@ -6,11 +6,11 @@ import 'package:quiz/features/user/data/dto/user_dto.dart';
 import 'package:quiz/features/user/domain/entity/user_entity.dart';
 import 'package:quiz/features/user/domain/repository/user_repository.dart';
 
-class FirebaseUserRepository implements UserRepository {
+class RemoteUserRepository implements UserRepository {
   final ApiClient _client;
   final UserConverter _userConverter;
 
-  const FirebaseUserRepository({
+  const RemoteUserRepository({
     required ApiClient client,
     required UserConverter userConverter,
   })  : _client = client,

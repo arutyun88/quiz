@@ -14,7 +14,7 @@ abstract class UserModule {
     required ApiClient client,
     required UserConverter userConverter,
   }) =>
-      FirebaseUserRepository(
+      RemoteUserRepository(
         client: client,
         userConverter: userConverter,
       );
