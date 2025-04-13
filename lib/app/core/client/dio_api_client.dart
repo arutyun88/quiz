@@ -2,9 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:quiz/app/core/client/api_client.dart';
 import 'package:quiz/app/core/client/api_client_config.dart';
+import 'package:quiz/app/core/client/auth_interceptor.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/json.dart';
 import 'package:quiz/app/core/model/result.dart';
+import 'package:quiz/app/core/services/auth_token_service.dart';
+import 'package:quiz/features/authentication/data/converter/token_converter.dart';
 
 class DioApiClient implements ApiClient {
   final Dio _dio;
@@ -12,9 +15,16 @@ class DioApiClient implements ApiClient {
   DioApiClient({
     required ApiClientConfig config,
     required String deviceId,
-  }) : _dio = _configurDio(config, deviceId);
+    required AuthTokenService tokenService,
+    required TokenConverter tokenConverter,
+  }) : _dio = _configurDio(config, deviceId, tokenService, tokenConverter);
 
-  static _configurDio(ApiClientConfig config, String deviceId) {
+  static _configurDio(
+    ApiClientConfig config,
+    String deviceId,
+    AuthTokenService tokenService,
+    TokenConverter tokenConverter,
+  ) {
     final dio = Dio(
       BaseOptions(
         baseUrl: config.baseUrl,
@@ -39,6 +49,15 @@ class DioApiClient implements ApiClient {
         ),
       );
     }
+
+    dio.interceptors.add(
+      AuthInterceptor(
+        tokenService: tokenService,
+        tokenConverter: tokenConverter,
+        refreshUrl: '/auth/refresh',
+        dio: dio,
+      ),
+    );
 
     return dio;
   }
