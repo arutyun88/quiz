@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:quiz/app/core/model/dto_converter.dart';
-import 'package:quiz/features/authentication/data/dto/user_dto.dart';
+import 'package:quiz/features/user/data/dto/user_dto.dart';
 import 'package:quiz/features/user/domain/entity/user_entity.dart';
 
 typedef UserConverter = DtoConverter<UserEntity, UserDto>;

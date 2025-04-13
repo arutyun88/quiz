@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:quiz/app/core/services/firestore_doc_service.dart';
 import 'package:quiz/app/di/di.dart';
-import 'package:quiz/features/authentication/data/converter/user_converter.dart';
+import 'package:quiz/features/user/data/converter/user_converter.dart';
 import 'package:quiz/features/user/data/repository/cached_user_repository.dart';
 import 'package:quiz/features/user/data/repository/firebase_user_repository.dart';
 import 'package:quiz/features/user/domain/repository/fetch_current_user_gateway.dart';

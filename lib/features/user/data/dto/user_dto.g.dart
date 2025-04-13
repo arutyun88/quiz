@@ -10,30 +10,18 @@ _$UserAuthenticatedEntityImpl _$$UserAuthenticatedEntityImplFromJson(
         Map<String, dynamic> json) =>
     _$UserAuthenticatedEntityImpl(
       id: json['id'] as String,
+      email: json['email'] as String,
       name: json['name'] as String?,
-      email: json['email'] as String?,
-      birthDate: _$JsonConverterFromJson<Timestamp, DateTime>(
-          json['birth_date'], const TimestampConverter().fromJson),
+      birthDate: json['birth_date'] == null
+          ? null
+          : DateTime.parse(json['birth_date'] as String),
     );
 
 Map<String, dynamic> _$$UserAuthenticatedEntityImplToJson(
         _$UserAuthenticatedEntityImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
       'email': instance.email,
-      'birth_date': _$JsonConverterToJson<Timestamp, DateTime>(
-          instance.birthDate, const TimestampConverter().toJson),
+      'name': instance.name,
+      'birth_date': instance.birthDate?.toIso8601String(),
     };
-
-Value? _$JsonConverterFromJson<Json, Value>(
-  Object? json,
-  Value? Function(Json json) fromJson,
-) =>
-    json == null ? null : fromJson(json as Json);
-
-Json? _$JsonConverterToJson<Json, Value>(
-  Value? value,
-  Json? Function(Value value) toJson,
-) =>
-    value == null ? null : toJson(value);

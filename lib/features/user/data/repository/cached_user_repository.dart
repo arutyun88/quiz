@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:quiz/features/authentication/data/converter/user_converter.dart';
-import 'package:quiz/features/authentication/data/dto/user_dto.dart';
+import 'package:quiz/features/user/data/converter/user_converter.dart';
+import 'package:quiz/features/user/data/dto/user_dto.dart';
 import 'package:quiz/features/user/domain/entity/user_entity.dart';
 import 'package:quiz/features/user/domain/repository/local_user_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';

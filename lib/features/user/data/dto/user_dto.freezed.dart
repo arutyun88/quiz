@@ -21,10 +21,9 @@ UserDto _$UserDtoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserDto {
   String get id => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
-  String? get email => throw _privateConstructorUsedError;
   @JsonKey(name: 'birth_date')
-  @TimestampConverter()
   DateTime? get birthDate => throw _privateConstructorUsedError;
 
   /// Serializes this UserDto to a JSON map.
@@ -43,9 +42,9 @@ abstract class $UserDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String email,
       String? name,
-      String? email,
-      @JsonKey(name: 'birth_date') @TimestampConverter() DateTime? birthDate});
+      @JsonKey(name: 'birth_date') DateTime? birthDate});
 }
 
 /// @nodoc
@@ -64,8 +63,8 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
   @override
   $Res call({
     Object? id = null,
+    Object? email = null,
     Object? name = freezed,
-    Object? email = freezed,
     Object? birthDate = freezed,
   }) {
     return _then(_value.copyWith(
@@ -73,13 +72,13 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
               as String?,
       birthDate: freezed == birthDate
           ? _value.birthDate
@@ -100,9 +99,9 @@ abstract class _$$UserAuthenticatedEntityImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
+      String email,
       String? name,
-      String? email,
-      @JsonKey(name: 'birth_date') @TimestampConverter() DateTime? birthDate});
+      @JsonKey(name: 'birth_date') DateTime? birthDate});
 }
 
 /// @nodoc
@@ -120,8 +119,8 @@ class __$$UserAuthenticatedEntityImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? email = null,
     Object? name = freezed,
-    Object? email = freezed,
     Object? birthDate = freezed,
   }) {
     return _then(_$UserAuthenticatedEntityImpl(
@@ -129,13 +128,13 @@ class __$$UserAuthenticatedEntityImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
               as String?,
       birthDate: freezed == birthDate
           ? _value.birthDate
@@ -150,9 +149,9 @@ class __$$UserAuthenticatedEntityImplCopyWithImpl<$Res>
 class _$UserAuthenticatedEntityImpl implements _UserAuthenticatedEntity {
   const _$UserAuthenticatedEntityImpl(
       {required this.id,
+      required this.email,
       this.name,
-      this.email,
-      @JsonKey(name: 'birth_date') @TimestampConverter() this.birthDate});
+      @JsonKey(name: 'birth_date') this.birthDate});
 
   factory _$UserAuthenticatedEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserAuthenticatedEntityImplFromJson(json);
@@ -160,17 +159,16 @@ class _$UserAuthenticatedEntityImpl implements _UserAuthenticatedEntity {
   @override
   final String id;
   @override
+  final String email;
+  @override
   final String? name;
   @override
-  final String? email;
-  @override
   @JsonKey(name: 'birth_date')
-  @TimestampConverter()
   final DateTime? birthDate;
 
   @override
   String toString() {
-    return 'UserDto(id: $id, name: $name, email: $email, birthDate: $birthDate)';
+    return 'UserDto(id: $id, email: $email, name: $name, birthDate: $birthDate)';
   }
 
   @override
@@ -179,15 +177,15 @@ class _$UserAuthenticatedEntityImpl implements _UserAuthenticatedEntity {
         (other.runtimeType == runtimeType &&
             other is _$UserAuthenticatedEntityImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.birthDate, birthDate) ||
                 other.birthDate == birthDate));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, email, birthDate);
+  int get hashCode => Object.hash(runtimeType, id, email, name, birthDate);
 
   /// Create a copy of UserDto
   /// with the given fields replaced by the non-null parameter values.
@@ -208,12 +206,11 @@ class _$UserAuthenticatedEntityImpl implements _UserAuthenticatedEntity {
 
 abstract class _UserAuthenticatedEntity implements UserDto {
   const factory _UserAuthenticatedEntity(
-      {required final String id,
-      final String? name,
-      final String? email,
-      @JsonKey(name: 'birth_date')
-      @TimestampConverter()
-      final DateTime? birthDate}) = _$UserAuthenticatedEntityImpl;
+          {required final String id,
+          required final String email,
+          final String? name,
+          @JsonKey(name: 'birth_date') final DateTime? birthDate}) =
+      _$UserAuthenticatedEntityImpl;
 
   factory _UserAuthenticatedEntity.fromJson(Map<String, dynamic> json) =
       _$UserAuthenticatedEntityImpl.fromJson;
@@ -221,12 +218,11 @@ abstract class _UserAuthenticatedEntity implements UserDto {
   @override
   String get id;
   @override
+  String get email;
+  @override
   String? get name;
   @override
-  String? get email;
-  @override
   @JsonKey(name: 'birth_date')
-  @TimestampConverter()
   DateTime? get birthDate;
 
   /// Create a copy of UserDto

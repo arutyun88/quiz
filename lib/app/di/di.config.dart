@@ -16,8 +16,6 @@ import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 import '../../features/authentication/data/converter/token_converter.dart'
     as _i1062;
-import '../../features/authentication/data/converter/user_converter.dart'
-    as _i252;
 import '../../features/authentication/di/di.dart' as _i415;
 import '../../features/authentication/domain/repository/authentication_repository.dart'
     as _i797;
@@ -30,6 +28,7 @@ import '../../features/profile/domain/repository/change_user_name_gateway.dart'
     as _i432;
 import '../../features/profile/domain/repository/user_update_repository.dart'
     as _i422;
+import '../../features/user/data/converter/user_converter.dart' as _i11;
 import '../../features/user/di/di.dart' as _i527;
 import '../../features/user/domain/repository/fetch_current_user_gateway.dart'
     as _i678;
@@ -108,11 +107,11 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.factory<_i1062.TokenConverter>(() => _i1062.TokenConverterImpl());
-    gh.factory<_i252.UserConverter>(() => _i252.UserConverterImpl());
+    gh.factory<_i11.UserConverter>(() => _i11.UserConverterImpl());
     gh.lazySingleton<_i799.LocalUserRepository>(
         () => userModule.cachedUserRepository(
               gh<_i460.SharedPreferences>(),
-              gh<_i252.UserConverter>(),
+              gh<_i11.UserConverter>(),
             ));
     gh.singleton<_i422.AuthTokenService>(() =>
         _i422.AuthTokenServicePrefs(prefs: gh<_i460.SharedPreferences>()));

@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$UserEntity {
   String get id => throw _privateConstructorUsedError;
-  String? get email => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   DateTime? get birthDate => throw _privateConstructorUsedError;
 
@@ -34,7 +34,7 @@ abstract class $UserEntityCopyWith<$Res> {
           UserEntity value, $Res Function(UserEntity) then) =
       _$UserEntityCopyWithImpl<$Res, UserEntity>;
   @useResult
-  $Res call({String id, String? email, String? name, DateTime? birthDate});
+  $Res call({String id, String email, String? name, DateTime? birthDate});
 }
 
 /// @nodoc
@@ -53,7 +53,7 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
   @override
   $Res call({
     Object? id = null,
-    Object? email = freezed,
+    Object? email = null,
     Object? name = freezed,
     Object? birthDate = freezed,
   }) {
@@ -62,10 +62,10 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      email: freezed == email
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -86,7 +86,7 @@ abstract class _$$UserEntityImplCopyWith<$Res>
       __$$UserEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String? email, String? name, DateTime? birthDate});
+  $Res call({String id, String email, String? name, DateTime? birthDate});
 }
 
 /// @nodoc
@@ -103,7 +103,7 @@ class __$$UserEntityImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? email = freezed,
+    Object? email = null,
     Object? name = freezed,
     Object? birthDate = freezed,
   }) {
@@ -112,10 +112,10 @@ class __$$UserEntityImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      email: freezed == email
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -140,7 +140,7 @@ class _$UserEntityImpl implements _UserEntity {
   @override
   final String id;
   @override
-  final String? email;
+  final String email;
   @override
   final String? name;
   @override
@@ -178,14 +178,14 @@ class _$UserEntityImpl implements _UserEntity {
 abstract class _UserEntity implements UserEntity {
   const factory _UserEntity(
       {required final String id,
-      required final String? email,
+      required final String email,
       required final String? name,
       required final DateTime? birthDate}) = _$UserEntityImpl;
 
   @override
   String get id;
   @override
-  String? get email;
+  String get email;
   @override
   String? get name;
   @override

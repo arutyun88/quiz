@@ -4,7 +4,7 @@ import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/json.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/core/services/firestore_doc_service.dart';
-import 'package:quiz/features/authentication/data/dto/user_dto.dart';
+import 'package:quiz/features/user/data/dto/user_dto.dart';
 import 'package:quiz/features/profile/domain/repository/user_update_repository.dart';
 
 class FirebaseUserUpdateRepository implements UserUpdateRepository {
@@ -75,11 +75,11 @@ class FirebaseUserUpdateRepository implements UserUpdateRepository {
             );
           }
         } else {
-          await userRef.set(
-            UserDto(id: id, name: name, birthDate: birthDate).toJson()
-              ..['created_at'] = FieldValue.serverTimestamp()
-              ..['updated_at'] = FieldValue.serverTimestamp(),
-          );
+          // await userRef.set(
+          //   UserDto(id: id, name: name, birthDate: birthDate).toJson()
+          //     ..['created_at'] = FieldValue.serverTimestamp()
+          //     ..['updated_at'] = FieldValue.serverTimestamp(),
+          // );
         }
         return const Result.ok(null);
       } catch (_) {
