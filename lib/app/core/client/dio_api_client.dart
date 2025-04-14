@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:quiz/app/core/client/api_client.dart';
@@ -98,7 +100,7 @@ class DioApiClient implements ApiClient {
     try {
       final result = await _dio.post(
         path,
-        data: body,
+        data: jsonEncode(body),
         queryParameters: queryParameters,
         options: Options(headers: headers),
       );

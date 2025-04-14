@@ -101,6 +101,7 @@ class AuthInterceptor extends Interceptor {
           receiveTimeout: const Duration(seconds: 3),
         ),
       );
+      client.interceptors.addAll(_dio.interceptors);
 
       final result = await client.post(
         _refreshUrl,
@@ -150,6 +151,7 @@ class AuthInterceptor extends Interceptor {
   Future<void> _processPendingRequests() async {
     if (_tokenService.accessToken case String token) {
       final client = Dio(_dio.options);
+      client.interceptors.addAll(_dio.interceptors);
       client.options.headers['Authorization'] = 'Bearer $token';
 
       for (final request in _pendingRequests) {
