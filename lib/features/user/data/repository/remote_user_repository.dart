@@ -22,4 +22,20 @@ class RemoteUserRepository implements UserRepository {
         mapper: UserDto.fromJson,
         converter: _userConverter.convert,
       );
+
+  @override
+  Future<Result<UserEntity, Failure>> update({
+    String? name,
+    DateTime? birthDate,
+  }) async {
+    return await _client.post(
+      '/user',
+      body: {
+        'name': name,
+        'birth_date': birthDate?.toString(),
+      },
+      mapper: UserDto.fromJson,
+      converter: _userConverter.convert,
+    );
+  }
 }

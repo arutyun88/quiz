@@ -3,6 +3,7 @@ import 'package:quiz/app/core/client/api_client.dart';
 import 'package:quiz/features/user/data/converter/user_converter.dart';
 import 'package:quiz/features/user/data/repository/cached_user_repository.dart';
 import 'package:quiz/features/user/data/repository/remote_user_repository.dart';
+import 'package:quiz/features/user/domain/repository/change_user_info_gateway.dart';
 import 'package:quiz/features/user/domain/repository/fetch_current_user_gateway.dart';
 import 'package:quiz/features/user/domain/repository/local_user_repository.dart';
 import 'package:quiz/features/user/domain/repository/user_repository.dart';
@@ -37,5 +38,13 @@ abstract class UserModule {
       FetchCurrentUserGateway(
         userRepository: userRepository,
         localUserRepository: localUserRepository,
+      );
+
+  @lazySingleton
+  ChangeUserInfoGateway changeUserInfoGateway(
+    UserRepository userRepository,
+  ) =>
+      ChangeUserInfoGateway(
+        userRepository: userRepository,
       );
 }

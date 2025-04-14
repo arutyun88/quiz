@@ -24,12 +24,12 @@ import '../../features/authentication/domain/repository/password_reset_gateway.d
 import '../../features/profile/di/di.dart' as _i1038;
 import '../../features/profile/domain/repository/change_password_gateway.dart'
     as _i646;
-import '../../features/profile/domain/repository/change_user_name_gateway.dart'
-    as _i432;
 import '../../features/profile/domain/repository/user_update_repository.dart'
     as _i422;
 import '../../features/user/data/converter/user_converter.dart' as _i11;
 import '../../features/user/di/di.dart' as _i527;
+import '../../features/user/domain/repository/change_user_info_gateway.dart'
+    as _i482;
 import '../../features/user/domain/repository/fetch_current_user_gateway.dart'
     as _i678;
 import '../../features/user/domain/repository/local_user_repository.dart'
@@ -90,8 +90,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => profileModule.userUpdateRepository());
     gh.lazySingleton<_i646.ChangePasswordGateway>(
         () => profileModule.changePasswordGateway());
-    gh.lazySingleton<_i432.ChangeUserInfoGateway>(
-        () => profileModule.changeUserInfoGateway());
     gh.lazySingleton<_i959.PasswordResetGateway>(
         () => authenticationModule.passwordResetGateway());
     await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(
@@ -149,6 +147,8 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i450.UserRepository>(),
               gh<_i799.LocalUserRepository>(),
             ));
+    gh.lazySingleton<_i482.ChangeUserInfoGateway>(
+        () => userModule.changeUserInfoGateway(gh<_i450.UserRepository>()));
     return this;
   }
 }

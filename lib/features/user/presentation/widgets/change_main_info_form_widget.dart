@@ -12,7 +12,7 @@ import 'package:quiz/app/core/widgets/button/app_button.dart';
 import 'package:quiz/app/core/widgets/input/app_text_field.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
-import 'package:quiz/features/profile/domain/repository/change_user_name_gateway.dart';
+import 'package:quiz/features/user/domain/repository/change_user_info_gateway.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class ChangeMainInfoFormWidget extends ConsumerStatefulWidget {
@@ -118,7 +118,9 @@ class _ChangeNameFormWidgetState extends ConsumerState<ChangeMainInfoFormWidget>
                     final parsedDate = DateFormat.yMMMMd(locale).tryParse(_dateController.text, true);
 
                     final result = await getIt<ChangeUserInfoGateway>().call(
-                      name: _nameController.text,
+                      name: _nameController.text.isNotEmpty && _initialName != _nameController.text
+                          ? _nameController.text
+                          : null,
                       birthDate: parsedDate,
                     );
 

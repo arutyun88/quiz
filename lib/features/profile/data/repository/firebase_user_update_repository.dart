@@ -1,21 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:quiz/app/core/model/failure.dart';
-import 'package:quiz/app/core/model/json.dart';
 import 'package:quiz/app/core/model/result.dart';
-import 'package:quiz/app/core/services/firestore_doc_service.dart';
-import 'package:quiz/features/user/data/dto/user_dto.dart';
 import 'package:quiz/features/profile/domain/repository/user_update_repository.dart';
 
 class FirebaseUserUpdateRepository implements UserUpdateRepository {
   const FirebaseUserUpdateRepository({
     required FirebaseAuth auth,
-    required FirestoreDocService firestore,
-  })  : _auth = auth,
-        _firestore = firestore;
+  }) : _auth = auth;
 
   final FirebaseAuth _auth;
-  final FirestoreDocService _firestore;
 
   @override
   Future<Result<void, Failure>> changePassword({
@@ -48,45 +41,5 @@ class FirebaseUserUpdateRepository implements UserUpdateRepository {
       'email-already-in-use' => AuthenticationFailureType.alreadyExist,
       _ => AuthenticationFailureType.data,
     };
-  }
-
-  @override
-  Future<Result<void, Failure>> changeInfo({
-    String? name,
-    DateTime? birthDate,
-  }) async {
-    final id = _auth.currentUser?.uid;
-    if (id case String id) {
-      final userRef = _firestore.user(id);
-      try {
-        final user = await userRef.get();
-
-        if (user.exists) {
-          if (user.data() case Json json) {
-            final dto = UserDto.fromJson(json);
-            await userRef.update(
-              dto
-                  .copyWith(
-                    name: name ?? dto.name,
-                    birthDate: birthDate ?? dto.birthDate,
-                  )
-                  .toJson() //
-                ..['updated_at'] = FieldValue.serverTimestamp(),
-            );
-          }
-        } else {
-          // await userRef.set(
-          //   UserDto(id: id, name: name, birthDate: birthDate).toJson()
-          //     ..['created_at'] = FieldValue.serverTimestamp()
-          //     ..['updated_at'] = FieldValue.serverTimestamp(),
-          // );
-        }
-        return const Result.ok(null);
-      } catch (_) {
-        return const Result.failed(Failure.authentication(AuthenticationFailureType.data));
-      }
-    }
-
-    return const Result.failed(Failure.authentication(AuthenticationFailureType.unauthenticated));
   }
 }
