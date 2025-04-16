@@ -21,7 +21,7 @@ abstract interface class ApiClient {
 
   Future<Result<TEntity, Failure>> post<TEntity, TDto>(
     String path, {
-    required Json body,
+    Json body,
     Json? queryParameters,
     Json? headers,
     JsonMapper<TDto>? mapper,

@@ -91,7 +91,7 @@ class DioApiClient implements ApiClient {
   @override
   Future<Result<TEntity, Failure>> post<TEntity, TDto>(
     String path, {
-    required Json body,
+    Json? body,
     Json? queryParameters,
     Json? headers,
     JsonMapper<TDto>? mapper,
@@ -105,7 +105,7 @@ class DioApiClient implements ApiClient {
     try {
       final result = await _dio.post(
         path,
-        data: jsonEncode(body),
+        data: body != null ? jsonEncode(body) : null,
         queryParameters: queryParameters,
         options: Options(headers: headers),
       );
