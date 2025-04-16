@@ -6,8 +6,8 @@ import 'package:quiz/app/core/widgets/app_widget.dart';
 import 'package:quiz/app/core/widgets/button/app_button.dart';
 import 'package:quiz/app/core/widgets/input/app_text_field.dart';
 import 'package:quiz/app/di/di.dart';
-import 'package:quiz/features/profile/domain/repository/change_password_gateway.dart';
-import 'package:quiz/features/profile/presentation/provider/change_password_form_provider.dart';
+import 'package:quiz/features/user/domain/repository/change_password_gateway.dart';
+import 'package:quiz/features/user/presentation/provider/change_password_form_provider.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class ChangePasswordFormWidget extends ConsumerStatefulWidget {

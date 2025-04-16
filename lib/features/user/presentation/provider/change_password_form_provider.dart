@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz/app/core/model/result.dart';
-import 'package:quiz/features/profile/domain/repository/change_password_gateway.dart';
+import 'package:quiz/features/user/domain/repository/change_password_gateway.dart';
 
 part 'change_password_form_state.dart';
 

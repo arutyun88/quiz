@@ -21,13 +21,10 @@ import '../../features/authentication/domain/repository/authentication_repositor
     as _i797;
 import '../../features/authentication/domain/repository/password_reset_gateway.dart'
     as _i959;
-import '../../features/profile/di/di.dart' as _i1038;
-import '../../features/profile/domain/repository/change_password_gateway.dart'
-    as _i646;
-import '../../features/profile/domain/repository/user_update_repository.dart'
-    as _i422;
 import '../../features/user/data/converter/user_converter.dart' as _i11;
 import '../../features/user/di/di.dart' as _i527;
+import '../../features/user/domain/repository/change_password_gateway.dart'
+    as _i885;
 import '../../features/user/domain/repository/change_user_info_gateway.dart'
     as _i482;
 import '../../features/user/domain/repository/fetch_current_user_gateway.dart'
@@ -66,7 +63,6 @@ extension GetItInjectableX on _i174.GetIt {
     final firebaseConfigModule = _$FirebaseConfigModule();
     final localStorageModule = _$LocalStorageModule();
     final databaseModule = _$DatabaseModule();
-    final profileModule = _$ProfileModule();
     final authenticationModule = _$AuthenticationModule();
     final networkModule = _$NetworkModule();
     final userModule = _$UserModule();
@@ -86,10 +82,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i935.AppDatabase>(() => databaseModule.database());
     gh.lazySingleton<_i141.FirestoreDocService>(
         () => firebaseConfigModule.firestoreDocService());
-    gh.lazySingleton<_i422.UserUpdateRepository>(
-        () => profileModule.userUpdateRepository());
-    gh.lazySingleton<_i646.ChangePasswordGateway>(
-        () => profileModule.changePasswordGateway());
     gh.lazySingleton<_i959.PasswordResetGateway>(
         () => authenticationModule.passwordResetGateway());
     await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(
@@ -149,6 +141,8 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.lazySingleton<_i482.ChangeUserInfoGateway>(
         () => userModule.changeUserInfoGateway(gh<_i450.UserRepository>()));
+    gh.lazySingleton<_i885.ChangePasswordGateway>(
+        () => userModule.changePasswordGateway(gh<_i450.UserRepository>()));
     return this;
   }
 }
@@ -158,8 +152,6 @@ class _$FirebaseConfigModule extends _i913.FirebaseConfigModule {}
 class _$LocalStorageModule extends _i913.LocalStorageModule {}
 
 class _$DatabaseModule extends _i913.DatabaseModule {}
-
-class _$ProfileModule extends _i1038.ProfileModule {}
 
 class _$AuthenticationModule extends _i415.AuthenticationModule {}
 

@@ -9,4 +9,9 @@ abstract interface class UserRepository {
     String? name,
     DateTime? birthDate,
   });
+
+  Future<Result<void, Failure>> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  });
 }

@@ -38,4 +38,18 @@ class RemoteUserRepository implements UserRepository {
       converter: _userConverter.convert,
     );
   }
+
+  @override
+  Future<Result<void, Failure>> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    return await _client.post(
+      '/user/password',
+      body: {
+        'old_password': oldPassword,
+        'new_password': newPassword,
+      },
+    );
+  }
 }
