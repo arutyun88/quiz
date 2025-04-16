@@ -24,8 +24,8 @@ abstract interface class ApiClient {
     required Json body,
     Json? queryParameters,
     Json? headers,
-    required JsonMapper<TDto> mapper,
-    required TEntity Function(TDto) converter,
+    JsonMapper<TDto>? mapper,
+    TEntity Function(TDto)? converter,
   });
 
   Future<Result<dynamic, Failure>> download(

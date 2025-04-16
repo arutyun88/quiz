@@ -94,9 +94,14 @@ class DioApiClient implements ApiClient {
     required Json body,
     Json? queryParameters,
     Json? headers,
-    required JsonMapper<TDto> mapper,
-    required TEntity Function(TDto) converter,
+    JsonMapper<TDto>? mapper,
+    TEntity Function(TDto)? converter,
   }) async {
+    assert(
+      (mapper == null) == (converter == null),
+      'Both mapper and converter must be either provided or null',
+    );
+
     try {
       final result = await _dio.post(
         path,
@@ -104,6 +109,10 @@ class DioApiClient implements ApiClient {
         queryParameters: queryParameters,
         options: Options(headers: headers),
       );
+
+      if (mapper == null || converter == null) {
+        return Result.ok(null as TEntity);
+      }
 
       final data = result.data['data'];
       final mappedData = mapper(data);
