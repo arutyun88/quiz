@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:quiz/app/core/model/auth_tokens.dart';
 import 'package:quiz/app/core/services/auth_token_service.dart';
 import 'package:quiz/features/authentication/data/converter/token_converter.dart';
@@ -101,7 +102,11 @@ class AuthInterceptor extends Interceptor {
           receiveTimeout: const Duration(seconds: 3),
         ),
       );
-      client.interceptors.addAll(_dio.interceptors);
+
+      final logger = _dio.interceptors.whereType<PrettyDioLogger>();
+      if (logger.isNotEmpty) {
+        client.interceptors.add(logger.first);
+      }
 
       final result = await client.post(
         _refreshUrl,
