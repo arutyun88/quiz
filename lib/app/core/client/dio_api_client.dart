@@ -41,6 +41,15 @@ class DioApiClient implements ApiClient {
       ),
     );
 
+    dio.interceptors.add(
+      AuthInterceptor(
+        tokenService: tokenService,
+        tokenConverter: tokenConverter,
+        refreshUrl: '/auth/refresh',
+        dio: dio,
+      ),
+    );
+
     if (config.enableLogging) {
       dio.interceptors.add(
         PrettyDioLogger(
@@ -51,15 +60,6 @@ class DioApiClient implements ApiClient {
         ),
       );
     }
-
-    dio.interceptors.add(
-      AuthInterceptor(
-        tokenService: tokenService,
-        tokenConverter: tokenConverter,
-        refreshUrl: '/auth/refresh',
-        dio: dio,
-      ),
-    );
 
     return dio;
   }
