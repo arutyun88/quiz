@@ -47,9 +47,7 @@ class RemoteAuthenticationRepository implements AuthenticationRepository {
       );
 
   @override
-  Future<void> logout() async {
-    // await _auth.signOut();
-  }
+  Future<void> logout() async => await _client.post('/auth/logout');
 
   @override
   Future<Result<void, Failure>> sendPasswordResetEmail(String email) async {
@@ -62,14 +60,5 @@ class RemoteAuthenticationRepository implements AuthenticationRepository {
     // } on FirebaseAuthException catch (e) {
     //   return Result.failed(Failure.authentication(_mapAuthenticationExceptionCode(e.code)));
     // }
-  }
-
-  _mapAuthenticationExceptionCode(String code) {
-    return switch (code) {
-      'invalid-credential' => AuthenticationFailureType.credentials,
-      'too-many-requests' => AuthenticationFailureType.tooManyRequests,
-      'email-already-in-use' => AuthenticationFailureType.alreadyExist,
-      _ => AuthenticationFailureType.data,
-    };
   }
 }

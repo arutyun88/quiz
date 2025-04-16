@@ -24,6 +24,10 @@ class FetchCurrentUserGateway {
         return Result.ok(user);
 
       case ResultFailed(error: final failure):
+        if (failure case NetworkFailure(:final reason) when reason is NetworkFailureBadResponseReason) {
+          return Result.failed(failure);
+        }
+
         final cUser = await _localUserRepository.fetchUser();
 
         if (cUser case UserEntity user) {

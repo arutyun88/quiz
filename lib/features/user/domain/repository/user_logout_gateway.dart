@@ -1,6 +1,4 @@
 import 'package:injectable/injectable.dart';
-import 'package:quiz/app/core/model/failure.dart';
-import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/core/services/auth_token_service.dart';
 import 'package:quiz/features/authentication/domain/repository/authentication_repository.dart';
 
