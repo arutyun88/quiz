@@ -48,7 +48,6 @@ import '../core/localization/gateway/change_locale_gateway.dart' as _i309;
 import '../core/services/auth_token_service.dart' as _i422;
 import '../core/services/device_id_service.dart' as _i709;
 import '../core/services/firebase_remote_config_service.dart' as _i307;
-import '../core/services/firestore_doc_service.dart' as _i141;
 import '../core/services/settings_local_storage_service.dart' as _i218;
 import 'di.dart' as _i913;
 import 'network_module.dart' as _i567;
@@ -84,8 +83,6 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.lazySingleton<_i935.AppDatabase>(() => databaseModule.database());
-    gh.lazySingleton<_i141.FirestoreDocService>(
-        () => firebaseConfigModule.firestoreDocService());
     gh.lazySingleton<_i959.PasswordResetGateway>(
         () => authenticationModule.passwordResetGateway());
     gh.factory<_i625.TopicConverter>(() => _i625.TopicConverterImpl());

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:get_it/get_it.dart';
@@ -6,7 +5,6 @@ import 'package:injectable/injectable.dart';
 import 'package:quiz/app/config/firebase/firebase_options.dart';
 import 'package:quiz/app/core/database/app_database.dart';
 import 'package:quiz/app/core/localization/gateway/change_locale_gateway.dart';
-import 'package:quiz/app/core/services/firestore_doc_service.dart';
 import 'package:quiz/app/core/services/firebase_remote_config_service.dart';
 import 'package:quiz/app/core/services/settings_local_storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -47,9 +45,6 @@ abstract class FirebaseConfigModule {
     await service.init();
     return service;
   }
-
-  @lazySingleton
-  FirestoreDocService firestoreDocService() => FirestoreDocService(firestore: FirebaseFirestore.instance);
 }
 
 @module
