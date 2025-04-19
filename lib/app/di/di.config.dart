@@ -21,6 +21,10 @@ import '../../features/authentication/domain/repository/authentication_repositor
     as _i797;
 import '../../features/authentication/domain/repository/password_reset_gateway.dart'
     as _i959;
+import '../../features/question/data/converter/answer_converter.dart' as _i498;
+import '../../features/question/data/converter/question_converter.dart'
+    as _i622;
+import '../../features/question/data/converter/topic_converter.dart' as _i625;
 import '../../features/user/data/converter/user_converter.dart' as _i11;
 import '../../features/user/di/di.dart' as _i527;
 import '../../features/user/domain/repository/change_password_gateway.dart'
@@ -84,6 +88,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => firebaseConfigModule.firestoreDocService());
     gh.lazySingleton<_i959.PasswordResetGateway>(
         () => authenticationModule.passwordResetGateway());
+    gh.factory<_i625.TopicConverter>(() => _i625.TopicConverterImpl());
+    gh.factory<_i498.AnswerConverter>(() => _i498.AnswerConverterImpl());
     await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(
       () => firebaseConfigModule
           .remoteConfigService(gh<_i627.FirebaseRemoteConfig>()),
@@ -96,6 +102,10 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.factory<_i1062.TokenConverter>(() => _i1062.TokenConverterImpl());
+    gh.factory<_i622.QuestionConverter>(() => _i622.QuestionConverterImpl(
+          topicConverter: gh<_i625.TopicConverter>(),
+          answerConverter: gh<_i498.AnswerConverter>(),
+        ));
     gh.factory<_i11.UserConverter>(() => _i11.UserConverterImpl());
     gh.lazySingleton<_i799.LocalUserRepository>(
         () => userModule.cachedUserRepository(
