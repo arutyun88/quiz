@@ -1,10 +1,12 @@
 import 'package:injectable/injectable.dart';
+import 'package:quiz/app/core/model/data_page/data_page_converter.dart';
 import 'package:quiz/app/core/model/dto_converter.dart';
 import 'package:quiz/features/question/data/converter/answer_converter.dart';
 import 'package:quiz/features/question/data/converter/topic_converter.dart';
 import 'package:quiz/features/question/data/dto/question_dto.dart';
 import 'package:quiz/features/question/domain/entity/question_entity.dart';
 
+typedef QuestionPageConverter = DataPageConverter<QuestionEntity, QuestionDto>;
 typedef QuestionConverter = DtoConverter<QuestionEntity, QuestionDto>;
 
 @Injectable(as: QuestionConverter)

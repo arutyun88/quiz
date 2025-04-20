@@ -25,6 +25,9 @@ import '../../features/question/data/converter/answer_converter.dart' as _i498;
 import '../../features/question/data/converter/question_converter.dart'
     as _i622;
 import '../../features/question/data/converter/topic_converter.dart' as _i625;
+import '../../features/question/di/di.dart' as _i906;
+import '../../features/question/domain/repository/question_repository.dart'
+    as _i240;
 import '../../features/user/data/converter/user_converter.dart' as _i11;
 import '../../features/user/di/di.dart' as _i527;
 import '../../features/user/domain/repository/change_password_gateway.dart'
@@ -70,6 +73,7 @@ extension GetItInjectableX on _i174.GetIt {
     final authenticationModule = _$AuthenticationModule();
     final networkModule = _$NetworkModule();
     final userModule = _$UserModule();
+    final questionModule = _$QuestionModule();
     final appSettingsModule = _$AppSettingsModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
       () => firebaseConfigModule.firebase(),
@@ -113,6 +117,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i724.PageInfoConverter>(() => _i724.PageInfoConverterImpl());
     gh.singleton<_i422.AuthTokenService>(() =>
         _i422.AuthTokenServicePrefs(prefs: gh<_i460.SharedPreferences>()));
+    gh.factory<_i622.QuestionPageConverter>(
+        () => questionModule.questionpageConverter(
+              gh<_i622.QuestionConverter>(),
+              gh<_i724.PageInfoConverter>(),
+            ));
     gh.singleton<_i782.ApiClient>(() => networkModule.apiClient(
           gh<_i709.DeviceIdService>(),
           gh<_i422.AuthTokenService>(),
@@ -148,6 +157,11 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i450.UserRepository>(),
               gh<_i799.LocalUserRepository>(),
             ));
+    gh.lazySingleton<_i240.QuestionRepository>(
+        () => questionModule.questionRepository(
+              client: gh<_i782.ApiClient>(),
+              questionpageConverter: gh<_i622.QuestionPageConverter>(),
+            ));
     gh.lazySingleton<_i482.ChangeUserInfoGateway>(
         () => userModule.changeUserInfoGateway(gh<_i450.UserRepository>()));
     gh.lazySingleton<_i885.ChangePasswordGateway>(
@@ -167,5 +181,7 @@ class _$AuthenticationModule extends _i415.AuthenticationModule {}
 class _$NetworkModule extends _i567.NetworkModule {}
 
 class _$UserModule extends _i527.UserModule {}
+
+class _$QuestionModule extends _i906.QuestionModule {}
 
 class _$AppSettingsModule extends _i913.AppSettingsModule {}
