@@ -45,6 +45,7 @@ import '../../features/user/domain/repository/user_repository.dart' as _i450;
 import '../core/client/api_client.dart' as _i782;
 import '../core/database/app_database.dart' as _i935;
 import '../core/localization/gateway/change_locale_gateway.dart' as _i309;
+import '../core/model/data_page/page_info_converter.dart' as _i724;
 import '../core/services/auth_token_service.dart' as _i422;
 import '../core/services/device_id_service.dart' as _i709;
 import '../core/services/firebase_remote_config_service.dart' as _i307;
@@ -109,6 +110,7 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i460.SharedPreferences>(),
               gh<_i11.UserConverter>(),
             ));
+    gh.singleton<_i724.PageInfoConverter>(() => _i724.PageInfoConverterImpl());
     gh.singleton<_i422.AuthTokenService>(() =>
         _i422.AuthTokenServicePrefs(prefs: gh<_i460.SharedPreferences>()));
     gh.singleton<_i782.ApiClient>(() => networkModule.apiClient(

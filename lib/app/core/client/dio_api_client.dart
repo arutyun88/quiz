@@ -79,8 +79,7 @@ class DioApiClient implements ApiClient {
         options: Options(headers: headers),
       );
 
-      final data = result.data['data'];
-      final mappedData = mapper(data);
+      final mappedData = mapper(result.data);
 
       return Result.ok(converter(mappedData));
     } on DioException catch (e) {
