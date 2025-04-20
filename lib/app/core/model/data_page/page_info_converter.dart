@@ -12,7 +12,7 @@ final class PageInfoConverterImpl extends PageInfoConverter {
     return PageInfo(
       page: dto.offset,
       limit: dto.limit,
-      hasNextPage: dto.total > dto.offset,
+      hasNextPage: dto.total > (dto.offset + dto.limit),
     );
   }
 }
