@@ -122,13 +122,14 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i622.QuestionConverter>(),
               gh<_i724.PageInfoConverter>(),
             ));
+    gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
+        .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
     gh.singleton<_i782.ApiClient>(() => networkModule.apiClient(
           gh<_i709.DeviceIdService>(),
           gh<_i422.AuthTokenService>(),
           gh<_i1062.TokenConverter>(),
+          gh<_i218.SettingsLocalStorageService>(),
         ));
-    gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
-        .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
     gh.lazySingleton<_i797.AuthenticationRepository>(
         () => authenticationModule.repository(
               client: gh<_i782.ApiClient>(),

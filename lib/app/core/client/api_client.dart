@@ -17,6 +17,7 @@ abstract interface class ApiClient {
     Map<String, dynamic>? headers,
     required JsonMapper<TDto> mapper,
     required TEntity Function(TDto) converter,
+    bool enableLocale = false,
   });
 
   Future<Result<TEntity, Failure>> post<TEntity, TDto>(
@@ -26,6 +27,7 @@ abstract interface class ApiClient {
     Json? headers,
     JsonMapper<TDto>? mapper,
     TEntity Function(TDto)? converter,
+    bool enableLocale = false,
   });
 
   Future<Result<dynamic, Failure>> download(

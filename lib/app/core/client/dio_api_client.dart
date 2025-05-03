@@ -9,17 +9,21 @@ import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/json.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/core/services/auth_token_service.dart';
+import 'package:quiz/app/core/services/settings_local_storage_service.dart';
 import 'package:quiz/features/authentication/data/converter/token_converter.dart';
 
 class DioApiClient implements ApiClient {
   final Dio _dio;
+  final SettingsLocalStorageService _settingsStorage;
 
   DioApiClient({
     required ApiClientConfig config,
     required String deviceId,
     required AuthTokenService tokenService,
     required TokenConverter tokenConverter,
-  }) : _dio = _configurDio(config, deviceId, tokenService, tokenConverter);
+    required SettingsLocalStorageService settingsStorage,
+  })  : _dio = _configurDio(config, deviceId, tokenService, tokenConverter),
+        _settingsStorage = settingsStorage;
 
   static _configurDio(
     ApiClientConfig config,
@@ -71,12 +75,14 @@ class DioApiClient implements ApiClient {
     Json? headers,
     required JsonMapper<TDto> mapper,
     required TEntity Function(TDto) converter,
+    bool enableLocale = false,
   }) async {
     try {
+      final requestHeaders = _prepareHeaders(headers, enableLocale);
       final result = await _dio.get(
         path,
         queryParameters: queryParameters,
-        options: Options(headers: headers),
+        options: Options(headers: requestHeaders),
       );
 
       final mappedData = mapper(result.data);
@@ -95,6 +101,7 @@ class DioApiClient implements ApiClient {
     Json? headers,
     JsonMapper<TDto>? mapper,
     TEntity Function(TDto)? converter,
+    bool enableLocale = false,
   }) async {
     assert(
       (mapper == null) == (converter == null),
@@ -102,11 +109,12 @@ class DioApiClient implements ApiClient {
     );
 
     try {
+      final requestHeaders = _prepareHeaders(headers, enableLocale);
       final result = await _dio.post(
         path,
         data: body != null ? jsonEncode(body) : null,
         queryParameters: queryParameters,
-        options: Options(headers: headers),
+        options: Options(headers: requestHeaders),
       );
 
       final data = result.data['data'];
@@ -176,5 +184,13 @@ class DioApiClient implements ApiClient {
           NetworkFailureReason.server('Network error occurred'),
         );
     }
+  }
+
+  Json _prepareHeaders(Json? headers, bool enableLocale) {
+    final requestHeaders = Map<String, dynamic>.from(headers ?? {});
+    if (enableLocale) {
+      requestHeaders['X-Lang'] = _settingsStorage.fetchLocale();
+    }
+    return requestHeaders;
   }
 }

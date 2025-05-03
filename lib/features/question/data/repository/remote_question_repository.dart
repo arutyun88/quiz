@@ -25,12 +25,11 @@ class RemoteQuestionRepository implements QuestionRepository {
   }) async =>
       await _client.get(
         '/questions',
-        // TODO replace it to lang interceptor
         headers: {
-          'X-Lang': 'ru',
           'X-Limit': limit,
         },
         mapper: (json) => DataPageDto.fromJson(json, (json) => QuestionDto.fromJson(json as Json)),
         converter: _questionPageConverter.convert,
+        enableLocale: true,
       );
 }
