@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:quiz/app/core/model/auth_tokens.dart';
+import 'package:quiz/app/core/model/data_page/data_dto.dart';
+import 'package:quiz/app/core/model/json.dart';
 import 'package:quiz/app/core/services/auth_token_service.dart';
 import 'package:quiz/features/authentication/data/converter/token_converter.dart';
 import 'package:quiz/features/authentication/data/dto/token_dto.dart';
@@ -115,8 +117,12 @@ class AuthInterceptor extends Interceptor {
         },
       );
 
-      final data = result.data['data'];
-      final tokens = _tokenConverter.convert(TokenDto.fromJson(data));
+      final tokens = _tokenConverter.convert(
+        DataDto.fromJson(
+          result.data,
+          (json) => TokenDto.fromJson(json as Json),
+        ),
+      );
 
       final authTokens = AuthTokens(
         accessToken: tokens.accessToken,

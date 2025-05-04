@@ -1,5 +1,7 @@
 import 'package:quiz/app/core/client/api_client.dart';
+import 'package:quiz/app/core/model/data_page/data_dto.dart';
 import 'package:quiz/app/core/model/failure.dart';
+import 'package:quiz/app/core/model/json.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/features/user/data/converter/user_converter.dart';
 import 'package:quiz/features/user/data/dto/user_dto.dart';
@@ -19,7 +21,7 @@ class RemoteUserRepository implements UserRepository {
   @override
   Future<Result<UserEntity, Failure>> fetch() async => await _client.get(
         '/user',
-        mapper: UserDto.fromJson,
+        mapper: (json) => DataDto.fromJson(json, (json) => UserDto.fromJson(json as Json)),
         converter: _userConverter.convert,
       );
 
@@ -34,7 +36,7 @@ class RemoteUserRepository implements UserRepository {
         'name': name,
         'birth_date': birthDate?.toString(),
       },
-      mapper: UserDto.fromJson,
+      mapper: (json) => DataDto.fromJson(json, (json) => UserDto.fromJson(json as Json)),
       converter: _userConverter.convert,
     );
   }

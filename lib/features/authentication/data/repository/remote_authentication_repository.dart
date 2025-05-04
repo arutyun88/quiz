@@ -1,5 +1,7 @@
 import 'package:quiz/app/core/client/api_client.dart';
+import 'package:quiz/app/core/model/data_page/data_dto.dart';
 import 'package:quiz/app/core/model/failure.dart';
+import 'package:quiz/app/core/model/json.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/features/authentication/data/converter/token_converter.dart';
 import 'package:quiz/features/authentication/data/dto/token_dto.dart';
@@ -27,7 +29,7 @@ class RemoteAuthenticationRepository implements AuthenticationRepository {
           "email": email,
           'password': password,
         },
-        mapper: TokenDto.fromJson,
+        mapper: (json) => DataDto.fromJson(json, (json) => TokenDto.fromJson(json as Json)),
         converter: _tokenConverter.convert,
       );
 
@@ -42,7 +44,7 @@ class RemoteAuthenticationRepository implements AuthenticationRepository {
           "email": email,
           'password': password,
         },
-        mapper: TokenDto.fromJson,
+        mapper: (json) => DataDto.fromJson(json, (json) => TokenDto.fromJson(json as Json)),
         converter: _tokenConverter.convert,
       );
 
