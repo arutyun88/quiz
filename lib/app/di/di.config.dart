@@ -29,6 +29,7 @@ import '../../features/question/di/di.dart' as _i906;
 import '../../features/question/domain/repository/question_repository.dart'
     as _i240;
 import '../../features/user/data/converter/user_converter.dart' as _i11;
+import '../../features/user/data/converter/user_dao_converter.dart' as _i812;
 import '../../features/user/di/di.dart' as _i527;
 import '../../features/user/domain/repository/change_password_gateway.dart'
     as _i885;
@@ -72,8 +73,8 @@ extension GetItInjectableX on _i174.GetIt {
     final databaseModule = _$DatabaseModule();
     final authenticationModule = _$AuthenticationModule();
     final networkModule = _$NetworkModule();
-    final userModule = _$UserModule();
     final questionModule = _$QuestionModule();
+    final userModule = _$UserModule();
     final appSettingsModule = _$AppSettingsModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
       () => firebaseConfigModule.firebase(),
@@ -108,12 +109,8 @@ extension GetItInjectableX on _i174.GetIt {
           topicConverter: gh<_i625.TopicConverter>(),
           answerConverter: gh<_i498.AnswerConverter>(),
         ));
+    gh.factory<_i812.UserDaoConverter>(() => _i812.UserDaoConverterImpl());
     gh.factory<_i11.UserConverter>(() => _i11.UserConverterImpl());
-    gh.lazySingleton<_i799.LocalUserRepository>(
-        () => userModule.cachedUserRepository(
-              gh<_i460.SharedPreferences>(),
-              gh<_i11.UserConverter>(),
-            ));
     gh.singleton<_i724.PageInfoConverter>(() => _i724.PageInfoConverterImpl());
     gh.singleton<_i422.AuthTokenService>(() =>
         _i422.AuthTokenServicePrefs(prefs: gh<_i460.SharedPreferences>()));
@@ -121,6 +118,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => questionModule.questionpageConverter(
               gh<_i622.QuestionConverter>(),
               gh<_i724.PageInfoConverter>(),
+            ));
+    gh.lazySingleton<_i799.LocalUserRepository>(
+        () => userModule.cachedUserRepository(
+              gh<_i460.SharedPreferences>(),
+              gh<_i812.UserDaoConverter>(),
             ));
     gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
         .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
@@ -181,8 +183,8 @@ class _$AuthenticationModule extends _i415.AuthenticationModule {}
 
 class _$NetworkModule extends _i567.NetworkModule {}
 
-class _$UserModule extends _i527.UserModule {}
-
 class _$QuestionModule extends _i906.QuestionModule {}
+
+class _$UserModule extends _i527.UserModule {}
 
 class _$AppSettingsModule extends _i913.AppSettingsModule {}

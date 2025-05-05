@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:quiz/app/core/client/api_client.dart';
 import 'package:quiz/features/user/data/converter/user_converter.dart';
+import 'package:quiz/features/user/data/converter/user_dao_converter.dart';
 import 'package:quiz/features/user/data/repository/cached_user_repository.dart';
 import 'package:quiz/features/user/data/repository/remote_user_repository.dart';
 import 'package:quiz/features/user/domain/repository/change_password_gateway.dart';
@@ -24,7 +25,7 @@ abstract class UserModule {
   @lazySingleton
   LocalUserRepository cachedUserRepository(
     SharedPreferences preferences,
-    UserConverter converter,
+    UserDaoConverter converter,
   ) =>
       CachedUserRepository(
         storage: preferences,
