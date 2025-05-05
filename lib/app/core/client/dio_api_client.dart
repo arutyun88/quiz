@@ -117,13 +117,11 @@ class DioApiClient implements ApiClient {
         options: Options(headers: requestHeaders),
       );
 
-      final data = result.data['data'];
-
-      if (mapper == null || converter == null || data == null || data is! Json) {
+      if (mapper == null || converter == null || result.data is! Json) {
         return Result.ok(null as TEntity);
       }
 
-      final mappedData = mapper(data);
+      final mappedData = mapper(result.data);
 
       return Result.ok(converter(mappedData));
     } on DioException catch (e) {
