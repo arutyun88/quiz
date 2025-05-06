@@ -4,10 +4,10 @@ import 'package:quiz/app/core/database/app_database.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/features/question/data/converter/question_db_converter.dart';
-import 'package:quiz/features/question/data/table/answer.dart';
-import 'package:quiz/features/question/data/table/question.dart';
+import 'package:quiz/app/core/database/schema/answer.dart';
+import 'package:quiz/app/core/database/schema/question.dart';
 import 'package:quiz/features/question/data/table/question_db_model.dart';
-import 'package:quiz/features/question/data/table/topic.dart';
+import 'package:quiz/app/core/database/schema/topic.dart';
 import 'package:quiz/features/question/domain/entity/question_entity.dart';
 
 part 'question_dao.g.dart';

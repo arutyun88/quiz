@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:quiz/features/question/data/table/question.dart';
+import 'package:quiz/app/core/database/schema/question.dart';
 
 class Answers extends Table {
   TextColumn get id => text()();
