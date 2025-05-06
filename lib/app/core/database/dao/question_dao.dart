@@ -14,7 +14,10 @@ part 'question_dao.g.dart';
 
 abstract interface class QuestionDao {
   Future<Result<QuestionEntity, Failure>> getRandomQuestion();
+
   Future<Result<QuestionEntity, Failure>> getQuestionById(String id);
+
+  Future<Result<void, Failure>> save(List<QuestionEntity> questionList);
 }
 
 @DriftAccessor(tables: [Questions, Answers, Topics])
@@ -61,5 +64,37 @@ class QuestionDaoImpl extends DatabaseAccessor<AppDatabase> with _$QuestionDaoIm
     );
 
     return Result.ok(_questionConverter.toEntity(question));
+  }
+
+  @override
+  Future<Result<void, Failure>> save(List<QuestionEntity> questionList) async {
+    try {
+      return await transaction(() async {
+        final questionsModels = _questionConverter.toDaoMultiple(questionList);
+
+        await batch(
+          (batch) => batch.insertAllOnConflictUpdate(
+            questions,
+            questionsModels.map((question) => question.question),
+          ),
+        );
+        await batch(
+          (batch) => batch.insertAllOnConflictUpdate(
+            topics,
+            questionsModels.map((question) => question.topic),
+          ),
+        );
+        await batch(
+          (batch) => batch.insertAllOnConflictUpdate(
+            answers,
+            questionsModels.expand((question) => question.answers),
+          ),
+        );
+
+        return Result.ok(null);
+      });
+    } catch (_) {
+      return Result.failed(Failure.question(QuestionFailureReason.save()));
+    }
   }
 }

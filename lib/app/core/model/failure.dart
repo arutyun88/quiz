@@ -43,4 +43,6 @@ abstract class NetworkFailureReason with _$NetworkFailureReason {
 @freezed
 abstract class QuestionFailureReason with _$QuestionFailureReason {
   const factory QuestionFailureReason.notFoundCached() = QuestionFailureNotFoundCachedReason;
+
+  const factory QuestionFailureReason.save() = QuestionFailureSaveReason;
 }

@@ -2183,16 +2183,19 @@ mixin _$QuestionFailureReason {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() notFoundCached,
+    required TResult Function() save,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notFoundCached,
+    TResult? Function()? save,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notFoundCached,
+    TResult Function()? save,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -2200,17 +2203,20 @@ mixin _$QuestionFailureReason {
   TResult map<TResult extends Object?>({
     required TResult Function(QuestionFailureNotFoundCachedReason value)
         notFoundCached,
+    required TResult Function(QuestionFailureSaveReason value) save,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(QuestionFailureNotFoundCachedReason value)?
         notFoundCached,
+    TResult? Function(QuestionFailureSaveReason value)? save,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
+    TResult Function(QuestionFailureSaveReason value)? save,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -2285,6 +2291,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() notFoundCached,
+    required TResult Function() save,
   }) {
     return notFoundCached();
   }
@@ -2293,6 +2300,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notFoundCached,
+    TResult? Function()? save,
   }) {
     return notFoundCached?.call();
   }
@@ -2301,6 +2309,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notFoundCached,
+    TResult Function()? save,
     required TResult orElse(),
   }) {
     if (notFoundCached != null) {
@@ -2314,6 +2323,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
   TResult map<TResult extends Object?>({
     required TResult Function(QuestionFailureNotFoundCachedReason value)
         notFoundCached,
+    required TResult Function(QuestionFailureSaveReason value) save,
   }) {
     return notFoundCached(this);
   }
@@ -2323,6 +2333,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(QuestionFailureNotFoundCachedReason value)?
         notFoundCached,
+    TResult? Function(QuestionFailureSaveReason value)? save,
   }) {
     return notFoundCached?.call(this);
   }
@@ -2331,6 +2342,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
+    TResult Function(QuestionFailureSaveReason value)? save,
     required TResult orElse(),
   }) {
     if (notFoundCached != null) {
@@ -2344,4 +2356,115 @@ abstract class QuestionFailureNotFoundCachedReason
     implements QuestionFailureReason {
   const factory QuestionFailureNotFoundCachedReason() =
       _$QuestionFailureNotFoundCachedReasonImpl;
+}
+
+/// @nodoc
+abstract class _$$QuestionFailureSaveReasonImplCopyWith<$Res> {
+  factory _$$QuestionFailureSaveReasonImplCopyWith(
+          _$QuestionFailureSaveReasonImpl value,
+          $Res Function(_$QuestionFailureSaveReasonImpl) then) =
+      __$$QuestionFailureSaveReasonImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$QuestionFailureSaveReasonImplCopyWithImpl<$Res>
+    extends _$QuestionFailureReasonCopyWithImpl<$Res,
+        _$QuestionFailureSaveReasonImpl>
+    implements _$$QuestionFailureSaveReasonImplCopyWith<$Res> {
+  __$$QuestionFailureSaveReasonImplCopyWithImpl(
+      _$QuestionFailureSaveReasonImpl _value,
+      $Res Function(_$QuestionFailureSaveReasonImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of QuestionFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$QuestionFailureSaveReasonImpl implements QuestionFailureSaveReason {
+  const _$QuestionFailureSaveReasonImpl();
+
+  @override
+  String toString() {
+    return 'QuestionFailureReason.save()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$QuestionFailureSaveReasonImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() notFoundCached,
+    required TResult Function() save,
+  }) {
+    return save();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? notFoundCached,
+    TResult? Function()? save,
+  }) {
+    return save?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? notFoundCached,
+    TResult Function()? save,
+    required TResult orElse(),
+  }) {
+    if (save != null) {
+      return save();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(QuestionFailureNotFoundCachedReason value)
+        notFoundCached,
+    required TResult Function(QuestionFailureSaveReason value) save,
+  }) {
+    return save(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(QuestionFailureNotFoundCachedReason value)?
+        notFoundCached,
+    TResult? Function(QuestionFailureSaveReason value)? save,
+  }) {
+    return save?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
+    TResult Function(QuestionFailureSaveReason value)? save,
+    required TResult orElse(),
+  }) {
+    if (save != null) {
+      return save(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class QuestionFailureSaveReason implements QuestionFailureReason {
+  const factory QuestionFailureSaveReason() = _$QuestionFailureSaveReasonImpl;
 }

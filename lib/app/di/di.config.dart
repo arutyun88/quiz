@@ -34,6 +34,8 @@ import '../../features/question/data/converter/topic_db_converter.dart'
 import '../../features/question/di/di.dart' as _i906;
 import '../../features/question/domain/repository/question_repository.dart'
     as _i240;
+import '../../features/question/domain/use_case/fetch_question_use_case.dart'
+    as _i1068;
 import '../../features/user/data/converter/user_converter.dart' as _i11;
 import '../../features/user/data/converter/user_dao_converter.dart' as _i812;
 import '../../features/user/di/di.dart' as _i527;
@@ -186,6 +188,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => userModule.changeUserInfoGateway(gh<_i450.UserRepository>()));
     gh.lazySingleton<_i885.ChangePasswordGateway>(
         () => userModule.changePasswordGateway(gh<_i450.UserRepository>()));
+    gh.factory<_i1068.FetchQuestionUseCase>(
+        () => _i1068.FetchQuestionUseCaseImpl(
+              questionRepository: gh<_i240.QuestionRepository>(),
+              questionDao: gh<_i265.QuestionDao>(),
+            ));
     return this;
   }
 }
