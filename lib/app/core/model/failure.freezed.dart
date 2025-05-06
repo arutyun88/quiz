@@ -24,6 +24,7 @@ mixin _$Failure {
     required TResult Function() conflict,
     required TResult Function(AuthenticationFailureType type) authentication,
     required TResult Function(NetworkFailureReason reason) network,
+    required TResult Function(QuestionFailureReason reason) question,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -34,6 +35,7 @@ mixin _$Failure {
     TResult? Function()? conflict,
     TResult? Function(AuthenticationFailureType type)? authentication,
     TResult? Function(NetworkFailureReason reason)? network,
+    TResult? Function(QuestionFailureReason reason)? question,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -44,6 +46,7 @@ mixin _$Failure {
     TResult Function()? conflict,
     TResult Function(AuthenticationFailureType type)? authentication,
     TResult Function(NetworkFailureReason reason)? network,
+    TResult Function(QuestionFailureReason reason)? question,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -55,6 +58,7 @@ mixin _$Failure {
     required TResult Function(ConflictFailure value) conflict,
     required TResult Function(AuthenticationFailure value) authentication,
     required TResult Function(NetworkFailure value) network,
+    required TResult Function(QuestionFailure value) question,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,6 +69,7 @@ mixin _$Failure {
     TResult? Function(ConflictFailure value)? conflict,
     TResult? Function(AuthenticationFailure value)? authentication,
     TResult? Function(NetworkFailure value)? network,
+    TResult? Function(QuestionFailure value)? question,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -75,6 +80,7 @@ mixin _$Failure {
     TResult Function(ConflictFailure value)? conflict,
     TResult Function(AuthenticationFailure value)? authentication,
     TResult Function(NetworkFailure value)? network,
+    TResult Function(QuestionFailure value)? question,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -173,6 +179,7 @@ class _$UnknownFailureImpl implements UnknownFailure {
     required TResult Function() conflict,
     required TResult Function(AuthenticationFailureType type) authentication,
     required TResult Function(NetworkFailureReason reason) network,
+    required TResult Function(QuestionFailureReason reason) question,
   }) {
     return unknown(error);
   }
@@ -186,6 +193,7 @@ class _$UnknownFailureImpl implements UnknownFailure {
     TResult? Function()? conflict,
     TResult? Function(AuthenticationFailureType type)? authentication,
     TResult? Function(NetworkFailureReason reason)? network,
+    TResult? Function(QuestionFailureReason reason)? question,
   }) {
     return unknown?.call(error);
   }
@@ -199,6 +207,7 @@ class _$UnknownFailureImpl implements UnknownFailure {
     TResult Function()? conflict,
     TResult Function(AuthenticationFailureType type)? authentication,
     TResult Function(NetworkFailureReason reason)? network,
+    TResult Function(QuestionFailureReason reason)? question,
     required TResult orElse(),
   }) {
     if (unknown != null) {
@@ -216,6 +225,7 @@ class _$UnknownFailureImpl implements UnknownFailure {
     required TResult Function(ConflictFailure value) conflict,
     required TResult Function(AuthenticationFailure value) authentication,
     required TResult Function(NetworkFailure value) network,
+    required TResult Function(QuestionFailure value) question,
   }) {
     return unknown(this);
   }
@@ -229,6 +239,7 @@ class _$UnknownFailureImpl implements UnknownFailure {
     TResult? Function(ConflictFailure value)? conflict,
     TResult? Function(AuthenticationFailure value)? authentication,
     TResult? Function(NetworkFailure value)? network,
+    TResult? Function(QuestionFailure value)? question,
   }) {
     return unknown?.call(this);
   }
@@ -242,6 +253,7 @@ class _$UnknownFailureImpl implements UnknownFailure {
     TResult Function(ConflictFailure value)? conflict,
     TResult Function(AuthenticationFailure value)? authentication,
     TResult Function(NetworkFailure value)? network,
+    TResult Function(QuestionFailure value)? question,
     required TResult orElse(),
   }) {
     if (unknown != null) {
@@ -311,6 +323,7 @@ class _$NoConnectionFailureImpl implements NoConnectionFailure {
     required TResult Function() conflict,
     required TResult Function(AuthenticationFailureType type) authentication,
     required TResult Function(NetworkFailureReason reason) network,
+    required TResult Function(QuestionFailureReason reason) question,
   }) {
     return noConnection();
   }
@@ -324,6 +337,7 @@ class _$NoConnectionFailureImpl implements NoConnectionFailure {
     TResult? Function()? conflict,
     TResult? Function(AuthenticationFailureType type)? authentication,
     TResult? Function(NetworkFailureReason reason)? network,
+    TResult? Function(QuestionFailureReason reason)? question,
   }) {
     return noConnection?.call();
   }
@@ -337,6 +351,7 @@ class _$NoConnectionFailureImpl implements NoConnectionFailure {
     TResult Function()? conflict,
     TResult Function(AuthenticationFailureType type)? authentication,
     TResult Function(NetworkFailureReason reason)? network,
+    TResult Function(QuestionFailureReason reason)? question,
     required TResult orElse(),
   }) {
     if (noConnection != null) {
@@ -354,6 +369,7 @@ class _$NoConnectionFailureImpl implements NoConnectionFailure {
     required TResult Function(ConflictFailure value) conflict,
     required TResult Function(AuthenticationFailure value) authentication,
     required TResult Function(NetworkFailure value) network,
+    required TResult Function(QuestionFailure value) question,
   }) {
     return noConnection(this);
   }
@@ -367,6 +383,7 @@ class _$NoConnectionFailureImpl implements NoConnectionFailure {
     TResult? Function(ConflictFailure value)? conflict,
     TResult? Function(AuthenticationFailure value)? authentication,
     TResult? Function(NetworkFailure value)? network,
+    TResult? Function(QuestionFailure value)? question,
   }) {
     return noConnection?.call(this);
   }
@@ -380,6 +397,7 @@ class _$NoConnectionFailureImpl implements NoConnectionFailure {
     TResult Function(ConflictFailure value)? conflict,
     TResult Function(AuthenticationFailure value)? authentication,
     TResult Function(NetworkFailure value)? network,
+    TResult Function(QuestionFailure value)? question,
     required TResult orElse(),
   }) {
     if (noConnection != null) {
@@ -443,6 +461,7 @@ class _$ServerUnavailableFailureImpl implements ServerUnavailableFailure {
     required TResult Function() conflict,
     required TResult Function(AuthenticationFailureType type) authentication,
     required TResult Function(NetworkFailureReason reason) network,
+    required TResult Function(QuestionFailureReason reason) question,
   }) {
     return serverUnavailable();
   }
@@ -456,6 +475,7 @@ class _$ServerUnavailableFailureImpl implements ServerUnavailableFailure {
     TResult? Function()? conflict,
     TResult? Function(AuthenticationFailureType type)? authentication,
     TResult? Function(NetworkFailureReason reason)? network,
+    TResult? Function(QuestionFailureReason reason)? question,
   }) {
     return serverUnavailable?.call();
   }
@@ -469,6 +489,7 @@ class _$ServerUnavailableFailureImpl implements ServerUnavailableFailure {
     TResult Function()? conflict,
     TResult Function(AuthenticationFailureType type)? authentication,
     TResult Function(NetworkFailureReason reason)? network,
+    TResult Function(QuestionFailureReason reason)? question,
     required TResult orElse(),
   }) {
     if (serverUnavailable != null) {
@@ -486,6 +507,7 @@ class _$ServerUnavailableFailureImpl implements ServerUnavailableFailure {
     required TResult Function(ConflictFailure value) conflict,
     required TResult Function(AuthenticationFailure value) authentication,
     required TResult Function(NetworkFailure value) network,
+    required TResult Function(QuestionFailure value) question,
   }) {
     return serverUnavailable(this);
   }
@@ -499,6 +521,7 @@ class _$ServerUnavailableFailureImpl implements ServerUnavailableFailure {
     TResult? Function(ConflictFailure value)? conflict,
     TResult? Function(AuthenticationFailure value)? authentication,
     TResult? Function(NetworkFailure value)? network,
+    TResult? Function(QuestionFailure value)? question,
   }) {
     return serverUnavailable?.call(this);
   }
@@ -512,6 +535,7 @@ class _$ServerUnavailableFailureImpl implements ServerUnavailableFailure {
     TResult Function(ConflictFailure value)? conflict,
     TResult Function(AuthenticationFailure value)? authentication,
     TResult Function(NetworkFailure value)? network,
+    TResult Function(QuestionFailure value)? question,
     required TResult orElse(),
   }) {
     if (serverUnavailable != null) {
@@ -572,6 +596,7 @@ class _$ConflictFailureImpl implements ConflictFailure {
     required TResult Function() conflict,
     required TResult Function(AuthenticationFailureType type) authentication,
     required TResult Function(NetworkFailureReason reason) network,
+    required TResult Function(QuestionFailureReason reason) question,
   }) {
     return conflict();
   }
@@ -585,6 +610,7 @@ class _$ConflictFailureImpl implements ConflictFailure {
     TResult? Function()? conflict,
     TResult? Function(AuthenticationFailureType type)? authentication,
     TResult? Function(NetworkFailureReason reason)? network,
+    TResult? Function(QuestionFailureReason reason)? question,
   }) {
     return conflict?.call();
   }
@@ -598,6 +624,7 @@ class _$ConflictFailureImpl implements ConflictFailure {
     TResult Function()? conflict,
     TResult Function(AuthenticationFailureType type)? authentication,
     TResult Function(NetworkFailureReason reason)? network,
+    TResult Function(QuestionFailureReason reason)? question,
     required TResult orElse(),
   }) {
     if (conflict != null) {
@@ -615,6 +642,7 @@ class _$ConflictFailureImpl implements ConflictFailure {
     required TResult Function(ConflictFailure value) conflict,
     required TResult Function(AuthenticationFailure value) authentication,
     required TResult Function(NetworkFailure value) network,
+    required TResult Function(QuestionFailure value) question,
   }) {
     return conflict(this);
   }
@@ -628,6 +656,7 @@ class _$ConflictFailureImpl implements ConflictFailure {
     TResult? Function(ConflictFailure value)? conflict,
     TResult? Function(AuthenticationFailure value)? authentication,
     TResult? Function(NetworkFailure value)? network,
+    TResult? Function(QuestionFailure value)? question,
   }) {
     return conflict?.call(this);
   }
@@ -641,6 +670,7 @@ class _$ConflictFailureImpl implements ConflictFailure {
     TResult Function(ConflictFailure value)? conflict,
     TResult Function(AuthenticationFailure value)? authentication,
     TResult Function(NetworkFailure value)? network,
+    TResult Function(QuestionFailure value)? question,
     required TResult orElse(),
   }) {
     if (conflict != null) {
@@ -730,6 +760,7 @@ class _$AuthenticationFailureImpl implements AuthenticationFailure {
     required TResult Function() conflict,
     required TResult Function(AuthenticationFailureType type) authentication,
     required TResult Function(NetworkFailureReason reason) network,
+    required TResult Function(QuestionFailureReason reason) question,
   }) {
     return authentication(type);
   }
@@ -743,6 +774,7 @@ class _$AuthenticationFailureImpl implements AuthenticationFailure {
     TResult? Function()? conflict,
     TResult? Function(AuthenticationFailureType type)? authentication,
     TResult? Function(NetworkFailureReason reason)? network,
+    TResult? Function(QuestionFailureReason reason)? question,
   }) {
     return authentication?.call(type);
   }
@@ -756,6 +788,7 @@ class _$AuthenticationFailureImpl implements AuthenticationFailure {
     TResult Function()? conflict,
     TResult Function(AuthenticationFailureType type)? authentication,
     TResult Function(NetworkFailureReason reason)? network,
+    TResult Function(QuestionFailureReason reason)? question,
     required TResult orElse(),
   }) {
     if (authentication != null) {
@@ -773,6 +806,7 @@ class _$AuthenticationFailureImpl implements AuthenticationFailure {
     required TResult Function(ConflictFailure value) conflict,
     required TResult Function(AuthenticationFailure value) authentication,
     required TResult Function(NetworkFailure value) network,
+    required TResult Function(QuestionFailure value) question,
   }) {
     return authentication(this);
   }
@@ -786,6 +820,7 @@ class _$AuthenticationFailureImpl implements AuthenticationFailure {
     TResult? Function(ConflictFailure value)? conflict,
     TResult? Function(AuthenticationFailure value)? authentication,
     TResult? Function(NetworkFailure value)? network,
+    TResult? Function(QuestionFailure value)? question,
   }) {
     return authentication?.call(this);
   }
@@ -799,6 +834,7 @@ class _$AuthenticationFailureImpl implements AuthenticationFailure {
     TResult Function(ConflictFailure value)? conflict,
     TResult Function(AuthenticationFailure value)? authentication,
     TResult Function(NetworkFailure value)? network,
+    TResult Function(QuestionFailure value)? question,
     required TResult orElse(),
   }) {
     if (authentication != null) {
@@ -908,6 +944,7 @@ class _$NetworkFailureImpl implements NetworkFailure {
     required TResult Function() conflict,
     required TResult Function(AuthenticationFailureType type) authentication,
     required TResult Function(NetworkFailureReason reason) network,
+    required TResult Function(QuestionFailureReason reason) question,
   }) {
     return network(reason);
   }
@@ -921,6 +958,7 @@ class _$NetworkFailureImpl implements NetworkFailure {
     TResult? Function()? conflict,
     TResult? Function(AuthenticationFailureType type)? authentication,
     TResult? Function(NetworkFailureReason reason)? network,
+    TResult? Function(QuestionFailureReason reason)? question,
   }) {
     return network?.call(reason);
   }
@@ -934,6 +972,7 @@ class _$NetworkFailureImpl implements NetworkFailure {
     TResult Function()? conflict,
     TResult Function(AuthenticationFailureType type)? authentication,
     TResult Function(NetworkFailureReason reason)? network,
+    TResult Function(QuestionFailureReason reason)? question,
     required TResult orElse(),
   }) {
     if (network != null) {
@@ -951,6 +990,7 @@ class _$NetworkFailureImpl implements NetworkFailure {
     required TResult Function(ConflictFailure value) conflict,
     required TResult Function(AuthenticationFailure value) authentication,
     required TResult Function(NetworkFailure value) network,
+    required TResult Function(QuestionFailure value) question,
   }) {
     return network(this);
   }
@@ -964,6 +1004,7 @@ class _$NetworkFailureImpl implements NetworkFailure {
     TResult? Function(ConflictFailure value)? conflict,
     TResult? Function(AuthenticationFailure value)? authentication,
     TResult? Function(NetworkFailure value)? network,
+    TResult? Function(QuestionFailure value)? question,
   }) {
     return network?.call(this);
   }
@@ -977,6 +1018,7 @@ class _$NetworkFailureImpl implements NetworkFailure {
     TResult Function(ConflictFailure value)? conflict,
     TResult Function(AuthenticationFailure value)? authentication,
     TResult Function(NetworkFailure value)? network,
+    TResult Function(QuestionFailure value)? question,
     required TResult orElse(),
   }) {
     if (network != null) {
@@ -996,6 +1038,190 @@ abstract class NetworkFailure implements Failure {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NetworkFailureImplCopyWith<_$NetworkFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$QuestionFailureImplCopyWith<$Res> {
+  factory _$$QuestionFailureImplCopyWith(_$QuestionFailureImpl value,
+          $Res Function(_$QuestionFailureImpl) then) =
+      __$$QuestionFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({QuestionFailureReason reason});
+
+  $QuestionFailureReasonCopyWith<$Res> get reason;
+}
+
+/// @nodoc
+class __$$QuestionFailureImplCopyWithImpl<$Res>
+    extends _$FailureCopyWithImpl<$Res, _$QuestionFailureImpl>
+    implements _$$QuestionFailureImplCopyWith<$Res> {
+  __$$QuestionFailureImplCopyWithImpl(
+      _$QuestionFailureImpl _value, $Res Function(_$QuestionFailureImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Failure
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? reason = null,
+  }) {
+    return _then(_$QuestionFailureImpl(
+      null == reason
+          ? _value.reason
+          : reason // ignore: cast_nullable_to_non_nullable
+              as QuestionFailureReason,
+    ));
+  }
+
+  /// Create a copy of Failure
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $QuestionFailureReasonCopyWith<$Res> get reason {
+    return $QuestionFailureReasonCopyWith<$Res>(_value.reason, (value) {
+      return _then(_value.copyWith(reason: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$QuestionFailureImpl implements QuestionFailure {
+  const _$QuestionFailureImpl(this.reason);
+
+  @override
+  final QuestionFailureReason reason;
+
+  @override
+  String toString() {
+    return 'Failure.question(reason: $reason)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$QuestionFailureImpl &&
+            (identical(other.reason, reason) || other.reason == reason));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reason);
+
+  /// Create a copy of Failure
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$QuestionFailureImplCopyWith<_$QuestionFailureImpl> get copyWith =>
+      __$$QuestionFailureImplCopyWithImpl<_$QuestionFailureImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Object error) unknown,
+    required TResult Function() noConnection,
+    required TResult Function() serverUnavailable,
+    required TResult Function() conflict,
+    required TResult Function(AuthenticationFailureType type) authentication,
+    required TResult Function(NetworkFailureReason reason) network,
+    required TResult Function(QuestionFailureReason reason) question,
+  }) {
+    return question(reason);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Object error)? unknown,
+    TResult? Function()? noConnection,
+    TResult? Function()? serverUnavailable,
+    TResult? Function()? conflict,
+    TResult? Function(AuthenticationFailureType type)? authentication,
+    TResult? Function(NetworkFailureReason reason)? network,
+    TResult? Function(QuestionFailureReason reason)? question,
+  }) {
+    return question?.call(reason);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Object error)? unknown,
+    TResult Function()? noConnection,
+    TResult Function()? serverUnavailable,
+    TResult Function()? conflict,
+    TResult Function(AuthenticationFailureType type)? authentication,
+    TResult Function(NetworkFailureReason reason)? network,
+    TResult Function(QuestionFailureReason reason)? question,
+    required TResult orElse(),
+  }) {
+    if (question != null) {
+      return question(reason);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(UnknownFailure value) unknown,
+    required TResult Function(NoConnectionFailure value) noConnection,
+    required TResult Function(ServerUnavailableFailure value) serverUnavailable,
+    required TResult Function(ConflictFailure value) conflict,
+    required TResult Function(AuthenticationFailure value) authentication,
+    required TResult Function(NetworkFailure value) network,
+    required TResult Function(QuestionFailure value) question,
+  }) {
+    return question(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(UnknownFailure value)? unknown,
+    TResult? Function(NoConnectionFailure value)? noConnection,
+    TResult? Function(ServerUnavailableFailure value)? serverUnavailable,
+    TResult? Function(ConflictFailure value)? conflict,
+    TResult? Function(AuthenticationFailure value)? authentication,
+    TResult? Function(NetworkFailure value)? network,
+    TResult? Function(QuestionFailure value)? question,
+  }) {
+    return question?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(UnknownFailure value)? unknown,
+    TResult Function(NoConnectionFailure value)? noConnection,
+    TResult Function(ServerUnavailableFailure value)? serverUnavailable,
+    TResult Function(ConflictFailure value)? conflict,
+    TResult Function(AuthenticationFailure value)? authentication,
+    TResult Function(NetworkFailure value)? network,
+    TResult Function(QuestionFailure value)? question,
+    required TResult orElse(),
+  }) {
+    if (question != null) {
+      return question(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class QuestionFailure implements Failure {
+  const factory QuestionFailure(final QuestionFailureReason reason) =
+      _$QuestionFailureImpl;
+
+  QuestionFailureReason get reason;
+
+  /// Create a copy of Failure
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$QuestionFailureImplCopyWith<_$QuestionFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1950,4 +2176,172 @@ abstract class NetworkFailureServerReason implements NetworkFailureReason {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NetworkFailureServerReasonImplCopyWith<_$NetworkFailureServerReasonImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$QuestionFailureReason {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() notFoundCached,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? notFoundCached,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? notFoundCached,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(QuestionFailureNotFoundCachedReason value)
+        notFoundCached,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(QuestionFailureNotFoundCachedReason value)?
+        notFoundCached,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $QuestionFailureReasonCopyWith<$Res> {
+  factory $QuestionFailureReasonCopyWith(QuestionFailureReason value,
+          $Res Function(QuestionFailureReason) then) =
+      _$QuestionFailureReasonCopyWithImpl<$Res, QuestionFailureReason>;
+}
+
+/// @nodoc
+class _$QuestionFailureReasonCopyWithImpl<$Res,
+        $Val extends QuestionFailureReason>
+    implements $QuestionFailureReasonCopyWith<$Res> {
+  _$QuestionFailureReasonCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of QuestionFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+abstract class _$$QuestionFailureNotFoundCachedReasonImplCopyWith<$Res> {
+  factory _$$QuestionFailureNotFoundCachedReasonImplCopyWith(
+          _$QuestionFailureNotFoundCachedReasonImpl value,
+          $Res Function(_$QuestionFailureNotFoundCachedReasonImpl) then) =
+      __$$QuestionFailureNotFoundCachedReasonImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$QuestionFailureNotFoundCachedReasonImplCopyWithImpl<$Res>
+    extends _$QuestionFailureReasonCopyWithImpl<$Res,
+        _$QuestionFailureNotFoundCachedReasonImpl>
+    implements _$$QuestionFailureNotFoundCachedReasonImplCopyWith<$Res> {
+  __$$QuestionFailureNotFoundCachedReasonImplCopyWithImpl(
+      _$QuestionFailureNotFoundCachedReasonImpl _value,
+      $Res Function(_$QuestionFailureNotFoundCachedReasonImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of QuestionFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$QuestionFailureNotFoundCachedReasonImpl
+    implements QuestionFailureNotFoundCachedReason {
+  const _$QuestionFailureNotFoundCachedReasonImpl();
+
+  @override
+  String toString() {
+    return 'QuestionFailureReason.notFoundCached()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$QuestionFailureNotFoundCachedReasonImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() notFoundCached,
+  }) {
+    return notFoundCached();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? notFoundCached,
+  }) {
+    return notFoundCached?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? notFoundCached,
+    required TResult orElse(),
+  }) {
+    if (notFoundCached != null) {
+      return notFoundCached();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(QuestionFailureNotFoundCachedReason value)
+        notFoundCached,
+  }) {
+    return notFoundCached(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(QuestionFailureNotFoundCachedReason value)?
+        notFoundCached,
+  }) {
+    return notFoundCached?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
+    required TResult orElse(),
+  }) {
+    if (notFoundCached != null) {
+      return notFoundCached(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class QuestionFailureNotFoundCachedReason
+    implements QuestionFailureReason {
+  const factory QuestionFailureNotFoundCachedReason() =
+      _$QuestionFailureNotFoundCachedReasonImpl;
 }

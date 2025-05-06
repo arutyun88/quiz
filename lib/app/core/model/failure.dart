@@ -15,6 +15,8 @@ abstract class Failure with _$Failure {
   const factory Failure.authentication(AuthenticationFailureType type) = AuthenticationFailure;
 
   const factory Failure.network(NetworkFailureReason reason) = NetworkFailure;
+
+  const factory Failure.question(QuestionFailureReason reason) = QuestionFailure;
 }
 
 enum AuthenticationFailureType {
@@ -36,4 +38,9 @@ abstract class NetworkFailureReason with _$NetworkFailureReason {
   const factory NetworkFailureReason.cancelled(String message) = NetworkFailureCancelledReason;
 
   const factory NetworkFailureReason.server(String message) = NetworkFailureServerReason;
+}
+
+@freezed
+abstract class QuestionFailureReason with _$QuestionFailureReason {
+  const factory QuestionFailureReason.notFoundCached() = QuestionFailureNotFoundCachedReason;
 }

@@ -4,11 +4,24 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:quiz/app/core/database/dao/question_dao.dart';
 import 'package:quiz/app/core/database/gen/schema_versions.dart';
+import 'package:quiz/features/question/data/table/answer.dart';
+import 'package:quiz/features/question/data/table/question.dart';
+import 'package:quiz/features/question/data/table/topic.dart';
 
 part 'app_database.g.dart';
 
-@DriftDatabase()
+@DriftDatabase(
+  tables: [
+    Questions,
+    Answers,
+    Topics,
+  ],
+  daos: [
+    QuestionDao,
+  ],
+)
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 

@@ -22,9 +22,15 @@ import '../../features/authentication/domain/repository/authentication_repositor
 import '../../features/authentication/domain/repository/password_reset_gateway.dart'
     as _i959;
 import '../../features/question/data/converter/answer_converter.dart' as _i498;
+import '../../features/question/data/converter/answer_db_converter.dart'
+    as _i692;
 import '../../features/question/data/converter/question_converter.dart'
     as _i622;
+import '../../features/question/data/converter/question_db_converter.dart'
+    as _i813;
 import '../../features/question/data/converter/topic_converter.dart' as _i625;
+import '../../features/question/data/converter/topic_db_converter.dart'
+    as _i952;
 import '../../features/question/di/di.dart' as _i906;
 import '../../features/question/domain/repository/question_repository.dart'
     as _i240;
@@ -48,6 +54,7 @@ import '../../features/user/domain/repository/user_logout_gateway.dart'
 import '../../features/user/domain/repository/user_repository.dart' as _i450;
 import '../core/client/api_client.dart' as _i782;
 import '../core/database/app_database.dart' as _i935;
+import '../core/database/dao/question_dao.dart' as _i265;
 import '../core/localization/gateway/change_locale_gateway.dart' as _i309;
 import '../core/model/data_page/page_info_converter.dart' as _i724;
 import '../core/services/auth_token_service.dart' as _i422;
@@ -104,6 +111,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => networkModule.deviceService(gh<_i460.SharedPreferences>()),
       preResolve: true,
     );
+    gh.factory<_i952.TopicDbConverter>(() => _i952.TopicDbConverterImpl());
     gh.factory<_i1062.TokenConverter>(() => _i1062.TokenConverterImpl());
     gh.factory<_i622.QuestionConverter>(() => _i622.QuestionConverterImpl(
           topicConverter: gh<_i625.TopicConverter>(),
@@ -111,6 +119,7 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i812.UserDaoConverter>(() => _i812.UserDaoConverterImpl());
     gh.factory<_i11.UserConverter>(() => _i11.UserConverterImpl());
+    gh.factory<_i692.AnswerDbConverter>(() => _i692.AnswerDbConverterImpl());
     gh.singleton<_i724.PageInfoConverter>(() => _i724.PageInfoConverterImpl());
     gh.singleton<_i422.AuthTokenService>(() =>
         _i422.AuthTokenServicePrefs(prefs: gh<_i460.SharedPreferences>()));
@@ -124,6 +133,10 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i460.SharedPreferences>(),
               gh<_i812.UserDaoConverter>(),
             ));
+    gh.factory<_i813.QuestionDbConverter>(() => _i813.QuestionDbConverterImpl(
+          answerConverter: gh<_i692.AnswerDbConverter>(),
+          topicConverter: gh<_i952.TopicDbConverter>(),
+        ));
     gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
         .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
     gh.singleton<_i782.ApiClient>(() => networkModule.apiClient(
@@ -154,6 +167,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i450.UserRepository>(() => userModule.userRepository(
           client: gh<_i782.ApiClient>(),
           userConverter: gh<_i11.UserConverter>(),
+        ));
+    gh.factory<_i265.QuestionDao>(() => _i265.QuestionDaoImpl(
+          gh<_i935.AppDatabase>(),
+          questionConverter: gh<_i813.QuestionDbConverter>(),
         ));
     gh.lazySingleton<_i678.FetchCurrentUserGateway>(
         () => userModule.fetchUserGateway(
