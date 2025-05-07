@@ -31,9 +31,13 @@ import '../../features/question/data/converter/question_db_converter.dart'
 import '../../features/question/data/converter/topic_converter.dart' as _i625;
 import '../../features/question/data/converter/topic_db_converter.dart'
     as _i952;
+import '../../features/question/data/service/question_id_service_prefs.dart'
+    as _i129;
 import '../../features/question/di/di.dart' as _i906;
 import '../../features/question/domain/repository/question_repository.dart'
     as _i240;
+import '../../features/question/domain/service/question_id_service.dart'
+    as _i841;
 import '../../features/question/domain/use_case/fetch_question_use_case.dart'
     as _i1068;
 import '../../features/user/data/converter/user_converter.dart' as _i11;
@@ -125,6 +129,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i724.PageInfoConverter>(() => _i724.PageInfoConverterImpl());
     gh.singleton<_i422.AuthTokenService>(() =>
         _i422.AuthTokenServicePrefs(prefs: gh<_i460.SharedPreferences>()));
+    gh.singleton<_i841.QuestionIdService>(() =>
+        _i129.QuestionIdServicePrefs(prefs: gh<_i460.SharedPreferences>()));
     gh.factory<_i622.QuestionPageConverter>(
         () => questionModule.questionpageConverter(
               gh<_i622.QuestionConverter>(),
