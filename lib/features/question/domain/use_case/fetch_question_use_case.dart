@@ -32,9 +32,11 @@ class FetchQuestionUseCaseImpl implements FetchQuestionUseCase {
           when failure.reason is QuestionFailureNotFoundCachedReason:
         final questions = await _questionRepository.fetch(limit: 10);
         switch (questions) {
-          case ResultOk(:final data):
+          case ResultOk(:final data) when data.items.isNotEmpty:
             await _questionDao.save(data.items);
             return await fetch();
+          case ResultOk():
+            return Result.failed(QuestionFailure(QuestionFailureReason.over()));
           case ResultFailed(:final error):
             return Result.failed(error);
         }

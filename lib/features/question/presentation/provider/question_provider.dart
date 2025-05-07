@@ -1,0 +1,19 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:quiz/app/core/model/failure.dart';
+import 'package:quiz/app/core/model/result.dart';
+import 'package:quiz/app/di/di.dart';
+import 'package:quiz/features/question/domain/entity/question_entity.dart';
+import 'package:quiz/features/question/domain/service/question_id_service.dart';
+import 'package:quiz/features/question/domain/use_case/fetch_question_use_case.dart';
+
+part 'question_notifier.dart';
+part 'question_state.dart';
+part 'question_provider.freezed.dart';
+
+final questionProvider = StateNotifierProvider<QuestionNotifier, QuestionState>(
+  (ref) => QuestionNotifier(
+    fetchQuestionUseCase: getIt<FetchQuestionUseCase>(),
+    questionIdService: getIt<QuestionIdService>(),
+  ),
+);
