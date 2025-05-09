@@ -42,6 +42,8 @@ import '../../features/question/domain/use_case/fetch_question_use_case.dart'
     as _i1068;
 import '../../features/user/data/converter/user_converter.dart' as _i11;
 import '../../features/user/data/converter/user_dao_converter.dart' as _i812;
+import '../../features/user/data/converter/user_statistics_converter.dart'
+    as _i740;
 import '../../features/user/di/di.dart' as _i527;
 import '../../features/user/domain/repository/change_password_gateway.dart'
     as _i885;
@@ -58,6 +60,8 @@ import '../../features/user/domain/repository/sign_up_with_email_gateway.dart'
 import '../../features/user/domain/repository/user_logout_gateway.dart'
     as _i1052;
 import '../../features/user/domain/repository/user_repository.dart' as _i450;
+import '../../features/user/domain/repository/user_statistics_repository.dart'
+    as _i632;
 import '../core/client/api_client.dart' as _i782;
 import '../core/database/app_database.dart' as _i935;
 import '../core/database/dao/question_dao.dart' as _i265;
@@ -118,6 +122,8 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.factory<_i952.TopicDbConverter>(() => _i952.TopicDbConverterImpl());
+    gh.factory<_i740.UserStatisticsConverter>(
+        () => _i740.UserStatisticsConverterImpl());
     gh.factory<_i1062.TokenConverter>(() => _i1062.TokenConverterImpl());
     gh.factory<_i622.QuestionConverter>(() => _i622.QuestionConverterImpl(
           topicConverter: gh<_i625.TopicConverter>(),
@@ -189,6 +195,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => questionModule.questionRepository(
               client: gh<_i782.ApiClient>(),
               questionpageConverter: gh<_i622.QuestionPageConverter>(),
+            ));
+    gh.lazySingleton<_i632.UserStatisticsRepository>(
+        () => userModule.userStatisticsRepository(
+              gh<_i782.ApiClient>(),
+              gh<_i740.UserStatisticsConverter>(),
             ));
     gh.lazySingleton<_i482.ChangeUserInfoGateway>(
         () => userModule.changeUserInfoGateway(gh<_i450.UserRepository>()));

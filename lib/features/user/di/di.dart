@@ -2,13 +2,16 @@ import 'package:injectable/injectable.dart';
 import 'package:quiz/app/core/client/api_client.dart';
 import 'package:quiz/features/user/data/converter/user_converter.dart';
 import 'package:quiz/features/user/data/converter/user_dao_converter.dart';
+import 'package:quiz/features/user/data/converter/user_statistics_converter.dart';
 import 'package:quiz/features/user/data/repository/cached_user_repository.dart';
 import 'package:quiz/features/user/data/repository/remote_user_repository.dart';
+import 'package:quiz/features/user/data/repository/remote_user_statistics_repository.dart';
 import 'package:quiz/features/user/domain/repository/change_password_gateway.dart';
 import 'package:quiz/features/user/domain/repository/change_user_info_gateway.dart';
 import 'package:quiz/features/user/domain/repository/fetch_current_user_gateway.dart';
 import 'package:quiz/features/user/domain/repository/local_user_repository.dart';
 import 'package:quiz/features/user/domain/repository/user_repository.dart';
+import 'package:quiz/features/user/domain/repository/user_statistics_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 @module
@@ -56,5 +59,15 @@ abstract class UserModule {
   ) =>
       ChangePasswordGateway(
         userRepository: userRepository,
+      );
+
+  @lazySingleton
+  UserStatisticsRepository userStatisticsRepository(
+    ApiClient client,
+    UserStatisticsConverter userStatisticsConverter,
+  ) =>
+      RemoteUserStatisticsRepository(
+        client: client,
+        userStatisticsConverter: userStatisticsConverter,
       );
 }
