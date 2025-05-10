@@ -102,6 +102,7 @@ class DioApiClient implements ApiClient {
     JsonMapper<TDto>? mapper,
     TEntity Function(TDto)? converter,
     bool enableLocale = false,
+    void Function(TEntity)? onSuccess,
   }) async {
     assert(
       (mapper == null) == (converter == null),
@@ -118,12 +119,15 @@ class DioApiClient implements ApiClient {
       );
 
       if (mapper == null || converter == null || result.data is! Json) {
+        onSuccess?.call(null as TEntity);
         return Result.ok(null as TEntity);
       }
 
       final mappedData = mapper(result.data);
+      final convertedData = converter(mappedData);
 
-      return Result.ok(converter(mappedData));
+      onSuccess?.call(convertedData);
+      return Result.ok(convertedData);
     } on DioException catch (e) {
       return Result.failed(_handleError(e));
     }

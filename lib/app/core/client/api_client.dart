@@ -28,6 +28,7 @@ abstract interface class ApiClient {
     JsonMapper<TDto>? mapper,
     TEntity Function(TDto)? converter,
     bool enableLocale = false,
+    void Function(TEntity)? onSuccess,
   });
 
   Future<Result<dynamic, Failure>> download(
