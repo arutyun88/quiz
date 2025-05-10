@@ -30,6 +30,8 @@ import '../../features/question/data/converter/question_converter.dart'
     as _i622;
 import '../../features/question/data/converter/question_db_converter.dart'
     as _i813;
+import '../../features/question/data/converter/question_state_dto_converter.dart'
+    as _i122;
 import '../../features/question/data/converter/topic_converter.dart' as _i625;
 import '../../features/question/data/converter/topic_db_converter.dart'
     as _i952;
@@ -42,6 +44,8 @@ import '../../features/question/domain/repository/question_repository.dart'
     as _i240;
 import '../../features/question/domain/service/question_id_service.dart'
     as _i841;
+import '../../features/question/domain/use_case/check_question_state_use_case.dart'
+    as _i137;
 import '../../features/question/domain/use_case/fetch_question_use_case.dart'
     as _i1068;
 import '../../features/user/data/converter/user_converter.dart' as _i11;
@@ -136,6 +140,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i812.UserDaoConverter>(() => _i812.UserDaoConverterImpl());
     gh.factory<_i11.UserConverter>(() => _i11.UserConverterImpl());
     gh.factory<_i692.AnswerDbConverter>(() => _i692.AnswerDbConverterImpl());
+    gh.factory<_i122.QuestionStateDtoConverter>(
+        () => _i122.QuestionStateDtoConverterImpl());
     gh.singleton<_i724.PageInfoConverter>(() => _i724.PageInfoConverterImpl());
     gh.singleton<_i422.AuthTokenService>(() =>
         _i422.AuthTokenServicePrefs(prefs: gh<_i460.SharedPreferences>()));
@@ -171,6 +177,12 @@ extension GetItInjectableX on _i174.GetIt {
               client: gh<_i782.ApiClient>(),
               tokenConverter: gh<_i1062.TokenConverter>(),
             ));
+    gh.lazySingleton<_i240.QuestionRepository>(
+        () => questionModule.questionRepository(
+              client: gh<_i782.ApiClient>(),
+              questionpageConverter: gh<_i622.QuestionPageConverter>(),
+              questionStateDtoConverter: gh<_i122.QuestionStateDtoConverter>(),
+            ));
     gh.lazySingleton<_i209.AnswerRepository>(
         () => questionModule.answerRepository(
               client: gh<_i782.ApiClient>(),
@@ -190,6 +202,9 @@ extension GetItInjectableX on _i174.GetIt {
           authenticationRepository: gh<_i797.AuthenticationRepository>(),
           tokenService: gh<_i422.AuthTokenService>(),
         ));
+    gh.factory<_i137.CheckQuestionStateUseCase>(() =>
+        _i137.CheckQuestionStateUseCaseImpl(
+            questionRepository: gh<_i240.QuestionRepository>()));
     gh.factory<_i450.UserRepository>(() => userModule.userRepository(
           client: gh<_i782.ApiClient>(),
           userConverter: gh<_i11.UserConverter>(),
@@ -203,10 +218,10 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i450.UserRepository>(),
               gh<_i799.LocalUserRepository>(),
             ));
-    gh.lazySingleton<_i240.QuestionRepository>(
-        () => questionModule.questionRepository(
-              client: gh<_i782.ApiClient>(),
-              questionpageConverter: gh<_i622.QuestionPageConverter>(),
+    gh.factory<_i1068.FetchQuestionUseCase>(
+        () => _i1068.FetchQuestionUseCaseImpl(
+              questionRepository: gh<_i240.QuestionRepository>(),
+              questionDao: gh<_i265.QuestionDao>(),
             ));
     gh.lazySingleton<_i632.UserStatisticsRepository>(
         () => userModule.userStatisticsRepository(
@@ -217,11 +232,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => userModule.changeUserInfoGateway(gh<_i450.UserRepository>()));
     gh.lazySingleton<_i885.ChangePasswordGateway>(
         () => userModule.changePasswordGateway(gh<_i450.UserRepository>()));
-    gh.factory<_i1068.FetchQuestionUseCase>(
-        () => _i1068.FetchQuestionUseCaseImpl(
-              questionRepository: gh<_i240.QuestionRepository>(),
-              questionDao: gh<_i265.QuestionDao>(),
-            ));
     return this;
   }
 }

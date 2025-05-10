@@ -4,6 +4,7 @@ import 'package:quiz/app/core/model/data_page/data_page_converter.dart';
 import 'package:quiz/app/core/model/data_page/page_info_converter.dart';
 import 'package:quiz/features/question/data/converter/answered_statistics_dto_converter.dart';
 import 'package:quiz/features/question/data/converter/question_converter.dart';
+import 'package:quiz/features/question/data/converter/question_state_dto_converter.dart';
 import 'package:quiz/features/question/data/repository/remote_answer_repository.dart';
 import 'package:quiz/features/question/data/repository/remote_question_repository.dart';
 import 'package:quiz/features/question/domain/repository/answer_repository.dart';
@@ -26,10 +27,12 @@ abstract class QuestionModule {
   QuestionRepository questionRepository({
     required ApiClient client,
     required QuestionPageConverter questionpageConverter,
+    required QuestionStateDtoConverter questionStateDtoConverter,
   }) =>
       RemoteQuestionRepository(
         client: client,
         questionPageConverter: questionpageConverter,
+        questionStateDtoConverter: questionStateDtoConverter,
       );
 
   @lazySingleton
