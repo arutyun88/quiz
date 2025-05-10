@@ -24,6 +24,8 @@ import '../../features/authentication/domain/repository/password_reset_gateway.d
 import '../../features/question/data/converter/answer_converter.dart' as _i498;
 import '../../features/question/data/converter/answer_db_converter.dart'
     as _i692;
+import '../../features/question/data/converter/answered_statistics_dto_converter.dart'
+    as _i1012;
 import '../../features/question/data/converter/question_converter.dart'
     as _i622;
 import '../../features/question/data/converter/question_db_converter.dart'
@@ -34,6 +36,8 @@ import '../../features/question/data/converter/topic_db_converter.dart'
 import '../../features/question/data/service/question_id_service_prefs.dart'
     as _i129;
 import '../../features/question/di/di.dart' as _i906;
+import '../../features/question/domain/repository/answer_repository.dart'
+    as _i209;
 import '../../features/question/domain/repository/question_repository.dart'
     as _i240;
 import '../../features/question/domain/service/question_id_service.dart'
@@ -151,6 +155,9 @@ extension GetItInjectableX on _i174.GetIt {
           answerConverter: gh<_i692.AnswerDbConverter>(),
           topicConverter: gh<_i952.TopicDbConverter>(),
         ));
+    gh.factory<_i1012.AnsweredStatisticsDtoConverter>(() =>
+        _i1012.AnsweredStatisticsDtoConverterImpl(
+            userStatisticsConverter: gh<_i740.UserStatisticsConverter>()));
     gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
         .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
     gh.singleton<_i782.ApiClient>(() => networkModule.apiClient(
@@ -163,6 +170,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => authenticationModule.repository(
               client: gh<_i782.ApiClient>(),
               tokenConverter: gh<_i1062.TokenConverter>(),
+            ));
+    gh.lazySingleton<_i209.AnswerRepository>(
+        () => questionModule.answerRepository(
+              client: gh<_i782.ApiClient>(),
+              answerConverter: gh<_i1012.AnsweredStatisticsDtoConverter>(),
             ));
     gh.lazySingleton<_i547.SignInWithEmailGateway>(
         () => _i547.SignInWithEmailGateway(
