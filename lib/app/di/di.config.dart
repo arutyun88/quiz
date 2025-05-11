@@ -48,6 +48,8 @@ import '../../features/question/domain/use_case/check_question_state_use_case.da
     as _i137;
 import '../../features/question/domain/use_case/fetch_question_use_case.dart'
     as _i1068;
+import '../../features/question/domain/use_case/send_answer_use_case.dart'
+    as _i694;
 import '../../features/user/data/converter/user_converter.dart' as _i11;
 import '../../features/user/data/converter/user_dao_converter.dart' as _i812;
 import '../../features/user/data/converter/user_statistics_converter.dart'
@@ -209,6 +211,8 @@ extension GetItInjectableX on _i174.GetIt {
           client: gh<_i782.ApiClient>(),
           userConverter: gh<_i11.UserConverter>(),
         ));
+    gh.factory<_i694.SendAnswerUseCase>(() => _i694.SendAnswerUseCaseImpl(
+        questionRepository: gh<_i240.QuestionRepository>()));
     gh.factory<_i265.QuestionDao>(() => _i265.QuestionDaoImpl(
           gh<_i935.AppDatabase>(),
           questionConverter: gh<_i813.QuestionDbConverter>(),
