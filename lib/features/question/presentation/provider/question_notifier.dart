@@ -159,8 +159,24 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
         answerState: QuestionAnswerState.sending(answer: answer),
       );
 
-      // TODO реализовать полную логику отправки с дальнейшим запросом нового вопроса
-      _sendAnswerUseCase.send();
+      final result = await _sendAnswerUseCase.send();
+
+      switch (result) {
+        case ResultOk(data: final isCorrect):
+          state = questionState.copyWith(
+            answerState: QuestionAnswerState.sent(
+              answer: answer,
+              isCorrect: isCorrect,
+            ),
+          );
+        case ResultFailed(error: final failure):
+          state = questionState.copyWith(
+            answerState: QuestionAnswerState.failed(
+              answer: answer,
+              failure: failure,
+            ),
+          );
+      }
     }
   }
 

@@ -715,6 +715,7 @@ mixin _$QuestionAnswerState {
         selected,
     required TResult Function(AnswerEntity answer) sending,
     required TResult Function(AnswerEntity answer, bool isCorrect) sent,
+    required TResult Function(AnswerEntity answer, Failure failure) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -724,6 +725,7 @@ mixin _$QuestionAnswerState {
         selected,
     TResult? Function(AnswerEntity answer)? sending,
     TResult? Function(AnswerEntity answer, bool isCorrect)? sent,
+    TResult? Function(AnswerEntity answer, Failure failure)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -733,6 +735,7 @@ mixin _$QuestionAnswerState {
         selected,
     TResult Function(AnswerEntity answer)? sending,
     TResult Function(AnswerEntity answer, bool isCorrect)? sent,
+    TResult Function(AnswerEntity answer, Failure failure)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -742,6 +745,7 @@ mixin _$QuestionAnswerState {
     required TResult Function(QuestionAnswerSelectedState value) selected,
     required TResult Function(QuestionAnswerSendingState value) sending,
     required TResult Function(QuestionAnswerSentState value) sent,
+    required TResult Function(QuestionAnswerFailedState value) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -750,6 +754,7 @@ mixin _$QuestionAnswerState {
     TResult? Function(QuestionAnswerSelectedState value)? selected,
     TResult? Function(QuestionAnswerSendingState value)? sending,
     TResult? Function(QuestionAnswerSentState value)? sent,
+    TResult? Function(QuestionAnswerFailedState value)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -758,6 +763,7 @@ mixin _$QuestionAnswerState {
     TResult Function(QuestionAnswerSelectedState value)? selected,
     TResult Function(QuestionAnswerSendingState value)? sending,
     TResult Function(QuestionAnswerSentState value)? sent,
+    TResult Function(QuestionAnswerFailedState value)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -834,6 +840,7 @@ class _$QuestionAnswerWaitingStateImpl implements QuestionAnswerWaitingState {
         selected,
     required TResult Function(AnswerEntity answer) sending,
     required TResult Function(AnswerEntity answer, bool isCorrect) sent,
+    required TResult Function(AnswerEntity answer, Failure failure) failed,
   }) {
     return wait();
   }
@@ -846,6 +853,7 @@ class _$QuestionAnswerWaitingStateImpl implements QuestionAnswerWaitingState {
         selected,
     TResult? Function(AnswerEntity answer)? sending,
     TResult? Function(AnswerEntity answer, bool isCorrect)? sent,
+    TResult? Function(AnswerEntity answer, Failure failure)? failed,
   }) {
     return wait?.call();
   }
@@ -858,6 +866,7 @@ class _$QuestionAnswerWaitingStateImpl implements QuestionAnswerWaitingState {
         selected,
     TResult Function(AnswerEntity answer)? sending,
     TResult Function(AnswerEntity answer, bool isCorrect)? sent,
+    TResult Function(AnswerEntity answer, Failure failure)? failed,
     required TResult orElse(),
   }) {
     if (wait != null) {
@@ -873,6 +882,7 @@ class _$QuestionAnswerWaitingStateImpl implements QuestionAnswerWaitingState {
     required TResult Function(QuestionAnswerSelectedState value) selected,
     required TResult Function(QuestionAnswerSendingState value) sending,
     required TResult Function(QuestionAnswerSentState value) sent,
+    required TResult Function(QuestionAnswerFailedState value) failed,
   }) {
     return wait(this);
   }
@@ -884,6 +894,7 @@ class _$QuestionAnswerWaitingStateImpl implements QuestionAnswerWaitingState {
     TResult? Function(QuestionAnswerSelectedState value)? selected,
     TResult? Function(QuestionAnswerSendingState value)? sending,
     TResult? Function(QuestionAnswerSentState value)? sent,
+    TResult? Function(QuestionAnswerFailedState value)? failed,
   }) {
     return wait?.call(this);
   }
@@ -895,6 +906,7 @@ class _$QuestionAnswerWaitingStateImpl implements QuestionAnswerWaitingState {
     TResult Function(QuestionAnswerSelectedState value)? selected,
     TResult Function(QuestionAnswerSendingState value)? sending,
     TResult Function(QuestionAnswerSentState value)? sent,
+    TResult Function(QuestionAnswerFailedState value)? failed,
     required TResult orElse(),
   }) {
     if (wait != null) {
@@ -1018,6 +1030,7 @@ class _$QuestionAnswerSelectedStateImpl implements QuestionAnswerSelectedState {
         selected,
     required TResult Function(AnswerEntity answer) sending,
     required TResult Function(AnswerEntity answer, bool isCorrect) sent,
+    required TResult Function(AnswerEntity answer, Failure failure) failed,
   }) {
     return selected(answer, timerState);
   }
@@ -1030,6 +1043,7 @@ class _$QuestionAnswerSelectedStateImpl implements QuestionAnswerSelectedState {
         selected,
     TResult? Function(AnswerEntity answer)? sending,
     TResult? Function(AnswerEntity answer, bool isCorrect)? sent,
+    TResult? Function(AnswerEntity answer, Failure failure)? failed,
   }) {
     return selected?.call(answer, timerState);
   }
@@ -1042,6 +1056,7 @@ class _$QuestionAnswerSelectedStateImpl implements QuestionAnswerSelectedState {
         selected,
     TResult Function(AnswerEntity answer)? sending,
     TResult Function(AnswerEntity answer, bool isCorrect)? sent,
+    TResult Function(AnswerEntity answer, Failure failure)? failed,
     required TResult orElse(),
   }) {
     if (selected != null) {
@@ -1057,6 +1072,7 @@ class _$QuestionAnswerSelectedStateImpl implements QuestionAnswerSelectedState {
     required TResult Function(QuestionAnswerSelectedState value) selected,
     required TResult Function(QuestionAnswerSendingState value) sending,
     required TResult Function(QuestionAnswerSentState value) sent,
+    required TResult Function(QuestionAnswerFailedState value) failed,
   }) {
     return selected(this);
   }
@@ -1068,6 +1084,7 @@ class _$QuestionAnswerSelectedStateImpl implements QuestionAnswerSelectedState {
     TResult? Function(QuestionAnswerSelectedState value)? selected,
     TResult? Function(QuestionAnswerSendingState value)? sending,
     TResult? Function(QuestionAnswerSentState value)? sent,
+    TResult? Function(QuestionAnswerFailedState value)? failed,
   }) {
     return selected?.call(this);
   }
@@ -1079,6 +1096,7 @@ class _$QuestionAnswerSelectedStateImpl implements QuestionAnswerSelectedState {
     TResult Function(QuestionAnswerSelectedState value)? selected,
     TResult Function(QuestionAnswerSendingState value)? sending,
     TResult Function(QuestionAnswerSentState value)? sent,
+    TResult Function(QuestionAnswerFailedState value)? failed,
     required TResult orElse(),
   }) {
     if (selected != null) {
@@ -1193,6 +1211,7 @@ class _$QuestionAnswerSendingStateImpl implements QuestionAnswerSendingState {
         selected,
     required TResult Function(AnswerEntity answer) sending,
     required TResult Function(AnswerEntity answer, bool isCorrect) sent,
+    required TResult Function(AnswerEntity answer, Failure failure) failed,
   }) {
     return sending(answer);
   }
@@ -1205,6 +1224,7 @@ class _$QuestionAnswerSendingStateImpl implements QuestionAnswerSendingState {
         selected,
     TResult? Function(AnswerEntity answer)? sending,
     TResult? Function(AnswerEntity answer, bool isCorrect)? sent,
+    TResult? Function(AnswerEntity answer, Failure failure)? failed,
   }) {
     return sending?.call(answer);
   }
@@ -1217,6 +1237,7 @@ class _$QuestionAnswerSendingStateImpl implements QuestionAnswerSendingState {
         selected,
     TResult Function(AnswerEntity answer)? sending,
     TResult Function(AnswerEntity answer, bool isCorrect)? sent,
+    TResult Function(AnswerEntity answer, Failure failure)? failed,
     required TResult orElse(),
   }) {
     if (sending != null) {
@@ -1232,6 +1253,7 @@ class _$QuestionAnswerSendingStateImpl implements QuestionAnswerSendingState {
     required TResult Function(QuestionAnswerSelectedState value) selected,
     required TResult Function(QuestionAnswerSendingState value) sending,
     required TResult Function(QuestionAnswerSentState value) sent,
+    required TResult Function(QuestionAnswerFailedState value) failed,
   }) {
     return sending(this);
   }
@@ -1243,6 +1265,7 @@ class _$QuestionAnswerSendingStateImpl implements QuestionAnswerSendingState {
     TResult? Function(QuestionAnswerSelectedState value)? selected,
     TResult? Function(QuestionAnswerSendingState value)? sending,
     TResult? Function(QuestionAnswerSentState value)? sent,
+    TResult? Function(QuestionAnswerFailedState value)? failed,
   }) {
     return sending?.call(this);
   }
@@ -1254,6 +1277,7 @@ class _$QuestionAnswerSendingStateImpl implements QuestionAnswerSendingState {
     TResult Function(QuestionAnswerSelectedState value)? selected,
     TResult Function(QuestionAnswerSendingState value)? sending,
     TResult Function(QuestionAnswerSentState value)? sent,
+    TResult Function(QuestionAnswerFailedState value)? failed,
     required TResult orElse(),
   }) {
     if (sending != null) {
@@ -1375,6 +1399,7 @@ class _$QuestionAnswerSentStateImpl implements QuestionAnswerSentState {
         selected,
     required TResult Function(AnswerEntity answer) sending,
     required TResult Function(AnswerEntity answer, bool isCorrect) sent,
+    required TResult Function(AnswerEntity answer, Failure failure) failed,
   }) {
     return sent(answer, isCorrect);
   }
@@ -1387,6 +1412,7 @@ class _$QuestionAnswerSentStateImpl implements QuestionAnswerSentState {
         selected,
     TResult? Function(AnswerEntity answer)? sending,
     TResult? Function(AnswerEntity answer, bool isCorrect)? sent,
+    TResult? Function(AnswerEntity answer, Failure failure)? failed,
   }) {
     return sent?.call(answer, isCorrect);
   }
@@ -1399,6 +1425,7 @@ class _$QuestionAnswerSentStateImpl implements QuestionAnswerSentState {
         selected,
     TResult Function(AnswerEntity answer)? sending,
     TResult Function(AnswerEntity answer, bool isCorrect)? sent,
+    TResult Function(AnswerEntity answer, Failure failure)? failed,
     required TResult orElse(),
   }) {
     if (sent != null) {
@@ -1414,6 +1441,7 @@ class _$QuestionAnswerSentStateImpl implements QuestionAnswerSentState {
     required TResult Function(QuestionAnswerSelectedState value) selected,
     required TResult Function(QuestionAnswerSendingState value) sending,
     required TResult Function(QuestionAnswerSentState value) sent,
+    required TResult Function(QuestionAnswerFailedState value) failed,
   }) {
     return sent(this);
   }
@@ -1425,6 +1453,7 @@ class _$QuestionAnswerSentStateImpl implements QuestionAnswerSentState {
     TResult? Function(QuestionAnswerSelectedState value)? selected,
     TResult? Function(QuestionAnswerSendingState value)? sending,
     TResult? Function(QuestionAnswerSentState value)? sent,
+    TResult? Function(QuestionAnswerFailedState value)? failed,
   }) {
     return sent?.call(this);
   }
@@ -1436,6 +1465,7 @@ class _$QuestionAnswerSentStateImpl implements QuestionAnswerSentState {
     TResult Function(QuestionAnswerSelectedState value)? selected,
     TResult Function(QuestionAnswerSendingState value)? sending,
     TResult Function(QuestionAnswerSentState value)? sent,
+    TResult Function(QuestionAnswerFailedState value)? failed,
     required TResult orElse(),
   }) {
     if (sent != null) {
@@ -1457,6 +1487,206 @@ abstract class QuestionAnswerSentState implements QuestionAnswerState {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$QuestionAnswerSentStateImplCopyWith<_$QuestionAnswerSentStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$QuestionAnswerFailedStateImplCopyWith<$Res> {
+  factory _$$QuestionAnswerFailedStateImplCopyWith(
+          _$QuestionAnswerFailedStateImpl value,
+          $Res Function(_$QuestionAnswerFailedStateImpl) then) =
+      __$$QuestionAnswerFailedStateImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AnswerEntity answer, Failure failure});
+
+  $AnswerEntityCopyWith<$Res> get answer;
+  $FailureCopyWith<$Res> get failure;
+}
+
+/// @nodoc
+class __$$QuestionAnswerFailedStateImplCopyWithImpl<$Res>
+    extends _$QuestionAnswerStateCopyWithImpl<$Res,
+        _$QuestionAnswerFailedStateImpl>
+    implements _$$QuestionAnswerFailedStateImplCopyWith<$Res> {
+  __$$QuestionAnswerFailedStateImplCopyWithImpl(
+      _$QuestionAnswerFailedStateImpl _value,
+      $Res Function(_$QuestionAnswerFailedStateImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of QuestionAnswerState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? answer = null,
+    Object? failure = null,
+  }) {
+    return _then(_$QuestionAnswerFailedStateImpl(
+      answer: null == answer
+          ? _value.answer
+          : answer // ignore: cast_nullable_to_non_nullable
+              as AnswerEntity,
+      failure: null == failure
+          ? _value.failure
+          : failure // ignore: cast_nullable_to_non_nullable
+              as Failure,
+    ));
+  }
+
+  /// Create a copy of QuestionAnswerState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AnswerEntityCopyWith<$Res> get answer {
+    return $AnswerEntityCopyWith<$Res>(_value.answer, (value) {
+      return _then(_value.copyWith(answer: value));
+    });
+  }
+
+  /// Create a copy of QuestionAnswerState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $FailureCopyWith<$Res> get failure {
+    return $FailureCopyWith<$Res>(_value.failure, (value) {
+      return _then(_value.copyWith(failure: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$QuestionAnswerFailedStateImpl implements QuestionAnswerFailedState {
+  const _$QuestionAnswerFailedStateImpl(
+      {required this.answer, required this.failure});
+
+  @override
+  final AnswerEntity answer;
+  @override
+  final Failure failure;
+
+  @override
+  String toString() {
+    return 'QuestionAnswerState.failed(answer: $answer, failure: $failure)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$QuestionAnswerFailedStateImpl &&
+            (identical(other.answer, answer) || other.answer == answer) &&
+            (identical(other.failure, failure) || other.failure == failure));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, answer, failure);
+
+  /// Create a copy of QuestionAnswerState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$QuestionAnswerFailedStateImplCopyWith<_$QuestionAnswerFailedStateImpl>
+      get copyWith => __$$QuestionAnswerFailedStateImplCopyWithImpl<
+          _$QuestionAnswerFailedStateImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() wait,
+    required TResult Function(AnswerEntity answer, AnswerTimerState timerState)
+        selected,
+    required TResult Function(AnswerEntity answer) sending,
+    required TResult Function(AnswerEntity answer, bool isCorrect) sent,
+    required TResult Function(AnswerEntity answer, Failure failure) failed,
+  }) {
+    return failed(answer, failure);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? wait,
+    TResult? Function(AnswerEntity answer, AnswerTimerState timerState)?
+        selected,
+    TResult? Function(AnswerEntity answer)? sending,
+    TResult? Function(AnswerEntity answer, bool isCorrect)? sent,
+    TResult? Function(AnswerEntity answer, Failure failure)? failed,
+  }) {
+    return failed?.call(answer, failure);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? wait,
+    TResult Function(AnswerEntity answer, AnswerTimerState timerState)?
+        selected,
+    TResult Function(AnswerEntity answer)? sending,
+    TResult Function(AnswerEntity answer, bool isCorrect)? sent,
+    TResult Function(AnswerEntity answer, Failure failure)? failed,
+    required TResult orElse(),
+  }) {
+    if (failed != null) {
+      return failed(answer, failure);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(QuestionAnswerWaitingState value) wait,
+    required TResult Function(QuestionAnswerSelectedState value) selected,
+    required TResult Function(QuestionAnswerSendingState value) sending,
+    required TResult Function(QuestionAnswerSentState value) sent,
+    required TResult Function(QuestionAnswerFailedState value) failed,
+  }) {
+    return failed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(QuestionAnswerWaitingState value)? wait,
+    TResult? Function(QuestionAnswerSelectedState value)? selected,
+    TResult? Function(QuestionAnswerSendingState value)? sending,
+    TResult? Function(QuestionAnswerSentState value)? sent,
+    TResult? Function(QuestionAnswerFailedState value)? failed,
+  }) {
+    return failed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(QuestionAnswerWaitingState value)? wait,
+    TResult Function(QuestionAnswerSelectedState value)? selected,
+    TResult Function(QuestionAnswerSendingState value)? sending,
+    TResult Function(QuestionAnswerSentState value)? sent,
+    TResult Function(QuestionAnswerFailedState value)? failed,
+    required TResult orElse(),
+  }) {
+    if (failed != null) {
+      return failed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class QuestionAnswerFailedState implements QuestionAnswerState {
+  const factory QuestionAnswerFailedState(
+      {required final AnswerEntity answer,
+      required final Failure failure}) = _$QuestionAnswerFailedStateImpl;
+
+  AnswerEntity get answer;
+  Failure get failure;
+
+  /// Create a copy of QuestionAnswerState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$QuestionAnswerFailedStateImplCopyWith<_$QuestionAnswerFailedStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 

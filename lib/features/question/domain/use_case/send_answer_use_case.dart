@@ -4,7 +4,7 @@ import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/features/question/domain/repository/question_repository.dart';
 
 abstract interface class SendAnswerUseCase {
-  Future<Result<void, Failure>> send();
+  Future<Result<bool, Failure>> send();
 }
 
 @Injectable(as: SendAnswerUseCase)
@@ -16,7 +16,7 @@ class SendAnswerUseCaseImpl implements SendAnswerUseCase {
   }) : _questionRepository = questionRepository;
 
   @override
-  Future<Result<void, Failure>> send() {
+  Future<Result<bool, Failure>> send() {
     // TODO: implement send
     throw UnimplementedError();
   }

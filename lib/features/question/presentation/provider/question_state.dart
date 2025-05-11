@@ -35,6 +35,11 @@ class QuestionAnswerState with _$QuestionAnswerState {
     required AnswerEntity answer,
     required bool isCorrect,
   }) = QuestionAnswerSentState;
+
+  const factory QuestionAnswerState.failed({
+    required AnswerEntity answer,
+    required Failure failure,
+  }) = QuestionAnswerFailedState;
 }
 
 @freezed
