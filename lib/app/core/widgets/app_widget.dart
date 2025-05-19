@@ -6,24 +6,30 @@ class AppWidget extends StatelessWidget {
     super.key,
     required this.child,
     this.padding = const EdgeInsets.all(16.0),
-    this.background,
+    this.backgroundColor,
+    this.duration,
   });
+
   const AppWidget.expand({
     super.key,
     this.child = const SizedBox.expand(),
     this.padding = const EdgeInsets.all(16.0),
-    this.background,
+    this.backgroundColor,
+    this.duration,
   });
 
   final Widget child;
   final EdgeInsets padding;
-  final Color? background;
+  final Color? backgroundColor;
+  final Duration? duration;
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
+    return AnimatedContainer(
+      duration: duration ?? Duration.zero,
+      curve: Curves.easeInOut,
       decoration: BoxDecoration(
-        color: background ?? context.palette.background.static,
+        color: backgroundColor ?? context.palette.background.static,
         borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       ),
       child: Padding(
