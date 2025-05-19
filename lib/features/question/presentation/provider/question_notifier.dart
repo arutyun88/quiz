@@ -159,7 +159,10 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
         answerState: QuestionAnswerState.sending(answer: answer),
       );
 
-      final result = await _sendAnswerUseCase.send();
+      final result = await _sendAnswerUseCase.send(
+        questionId: questionState.question.id,
+        answerId: answer.id,
+      );
 
       switch (result) {
         case ResultOk(data: final isCorrect):
