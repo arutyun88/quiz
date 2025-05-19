@@ -8,6 +8,12 @@ class AppWidget extends StatelessWidget {
     this.padding = const EdgeInsets.all(16.0),
     this.background,
   });
+  const AppWidget.expand({
+    super.key,
+    this.child = const SizedBox.expand(),
+    this.padding = const EdgeInsets.all(16.0),
+    this.background,
+  });
 
   final Widget child;
   final EdgeInsets padding;
