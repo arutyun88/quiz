@@ -21,23 +21,43 @@ class _AnswersWidgetState extends ConsumerState<AnswersWidget> {
           data: (question, answersState) => _AnswersDataWidget(
             answers: question.answers,
             onSelect: ref.read(questionProvider.notifier).select,
+            selectedAnswer: answersState.answer,
           ),
           orElse: () => AnswersLoadingWidget(),
         );
   }
 }
 
-class _AnswersDataWidget extends StatelessWidget {
+class _AnswersDataWidget extends ConsumerWidget {
   final List<AnswerEntity> answers;
   final Function(AnswerEntity) onSelect;
+  final AnswerEntity? selectedAnswer;
 
   const _AnswersDataWidget({
     required this.answers,
     required this.onSelect,
+    this.selectedAnswer,
   });
 
+  AnswerState answerState(AnswerEntity answer, WidgetRef ref) {
+    return ref.read(questionProvider).maybeMap(
+          data: (value) => value.answerState.maybeMap(
+            selected: (value) => value.answer.id == answer.id ? AnswerState.select : AnswerState.wait,
+            sending: (value) => value.answer.id == answer.id ? AnswerState.select : AnswerState.wait,
+            sent: (value) => value.answer.id == answer.id
+                ? value.isCorrect
+                    ? AnswerState.correct
+                    : AnswerState.failed
+                : AnswerState.wait,
+            failed: (value) => value.answer.id == answer.id ? AnswerState.select : AnswerState.wait,
+            orElse: () => AnswerState.wait,
+          ),
+          orElse: () => AnswerState.wait,
+        );
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
         Expanded(
@@ -48,6 +68,7 @@ class _AnswersDataWidget extends StatelessWidget {
                   child: PressableAnswerWidget(
                     answer: answers[0],
                     onSelect: onSelect,
+                    state: answerState(answers[0], ref),
                   ),
                 ),
               ),
@@ -57,6 +78,7 @@ class _AnswersDataWidget extends StatelessWidget {
                   child: PressableAnswerWidget(
                     answer: answers[1],
                     onSelect: onSelect,
+                    state: answerState(answers[1], ref),
                   ),
                 ),
               ),
@@ -72,6 +94,7 @@ class _AnswersDataWidget extends StatelessWidget {
                   child: PressableAnswerWidget(
                     answer: answers[2],
                     onSelect: onSelect,
+                    state: answerState(answers[2], ref),
                   ),
                 ),
               ),
@@ -81,6 +104,7 @@ class _AnswersDataWidget extends StatelessWidget {
                   child: PressableAnswerWidget(
                     answer: answers[3],
                     onSelect: onSelect,
+                    state: answerState(answers[3], ref),
                   ),
                 ),
               ),

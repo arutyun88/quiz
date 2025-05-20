@@ -20,6 +20,8 @@ class QuestionState with _$QuestionState {
 
 @freezed
 class QuestionAnswerState with _$QuestionAnswerState {
+  const QuestionAnswerState._();
+
   const factory QuestionAnswerState.wait() = QuestionAnswerWaitingState;
 
   const factory QuestionAnswerState.selected({
@@ -40,6 +42,15 @@ class QuestionAnswerState with _$QuestionAnswerState {
     required AnswerEntity answer,
     required Failure failure,
   }) = QuestionAnswerFailedState;
+
+  AnswerEntity? get answer => switch (this) {
+        QuestionAnswerSelectedState(:final answer) ||
+        QuestionAnswerSendingState(:final answer) ||
+        QuestionAnswerSentState(:final answer) ||
+        QuestionAnswerFailedState(:final answer) =>
+          answer,
+        _ => null,
+      };
 }
 
 @freezed

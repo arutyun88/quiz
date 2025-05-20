@@ -814,8 +814,8 @@ class __$$QuestionAnswerWaitingStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$QuestionAnswerWaitingStateImpl implements QuestionAnswerWaitingState {
-  const _$QuestionAnswerWaitingStateImpl();
+class _$QuestionAnswerWaitingStateImpl extends QuestionAnswerWaitingState {
+  const _$QuestionAnswerWaitingStateImpl() : super._();
 
   @override
   String toString() {
@@ -916,8 +916,9 @@ class _$QuestionAnswerWaitingStateImpl implements QuestionAnswerWaitingState {
   }
 }
 
-abstract class QuestionAnswerWaitingState implements QuestionAnswerState {
+abstract class QuestionAnswerWaitingState extends QuestionAnswerState {
   const factory QuestionAnswerWaitingState() = _$QuestionAnswerWaitingStateImpl;
+  const QuestionAnswerWaitingState._() : super._();
 }
 
 /// @nodoc
@@ -986,9 +987,10 @@ class __$$QuestionAnswerSelectedStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$QuestionAnswerSelectedStateImpl implements QuestionAnswerSelectedState {
+class _$QuestionAnswerSelectedStateImpl extends QuestionAnswerSelectedState {
   const _$QuestionAnswerSelectedStateImpl(
-      {required this.answer, required this.timerState});
+      {required this.answer, required this.timerState})
+      : super._();
 
   @override
   final AnswerEntity answer;
@@ -1106,11 +1108,12 @@ class _$QuestionAnswerSelectedStateImpl implements QuestionAnswerSelectedState {
   }
 }
 
-abstract class QuestionAnswerSelectedState implements QuestionAnswerState {
+abstract class QuestionAnswerSelectedState extends QuestionAnswerState {
   const factory QuestionAnswerSelectedState(
           {required final AnswerEntity answer,
           required final AnswerTimerState timerState}) =
       _$QuestionAnswerSelectedStateImpl;
+  const QuestionAnswerSelectedState._() : super._();
 
   AnswerEntity get answer;
   AnswerTimerState get timerState;
@@ -1172,8 +1175,8 @@ class __$$QuestionAnswerSendingStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$QuestionAnswerSendingStateImpl implements QuestionAnswerSendingState {
-  const _$QuestionAnswerSendingStateImpl({required this.answer});
+class _$QuestionAnswerSendingStateImpl extends QuestionAnswerSendingState {
+  const _$QuestionAnswerSendingStateImpl({required this.answer}) : super._();
 
   @override
   final AnswerEntity answer;
@@ -1287,9 +1290,10 @@ class _$QuestionAnswerSendingStateImpl implements QuestionAnswerSendingState {
   }
 }
 
-abstract class QuestionAnswerSendingState implements QuestionAnswerState {
+abstract class QuestionAnswerSendingState extends QuestionAnswerState {
   const factory QuestionAnswerSendingState(
       {required final AnswerEntity answer}) = _$QuestionAnswerSendingStateImpl;
+  const QuestionAnswerSendingState._() : super._();
 
   AnswerEntity get answer;
 
@@ -1355,9 +1359,10 @@ class __$$QuestionAnswerSentStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$QuestionAnswerSentStateImpl implements QuestionAnswerSentState {
+class _$QuestionAnswerSentStateImpl extends QuestionAnswerSentState {
   const _$QuestionAnswerSentStateImpl(
-      {required this.answer, required this.isCorrect});
+      {required this.answer, required this.isCorrect})
+      : super._();
 
   @override
   final AnswerEntity answer;
@@ -1475,10 +1480,11 @@ class _$QuestionAnswerSentStateImpl implements QuestionAnswerSentState {
   }
 }
 
-abstract class QuestionAnswerSentState implements QuestionAnswerState {
+abstract class QuestionAnswerSentState extends QuestionAnswerState {
   const factory QuestionAnswerSentState(
       {required final AnswerEntity answer,
       required final bool isCorrect}) = _$QuestionAnswerSentStateImpl;
+  const QuestionAnswerSentState._() : super._();
 
   AnswerEntity get answer;
   bool get isCorrect;
@@ -1556,9 +1562,10 @@ class __$$QuestionAnswerFailedStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$QuestionAnswerFailedStateImpl implements QuestionAnswerFailedState {
+class _$QuestionAnswerFailedStateImpl extends QuestionAnswerFailedState {
   const _$QuestionAnswerFailedStateImpl(
-      {required this.answer, required this.failure});
+      {required this.answer, required this.failure})
+      : super._();
 
   @override
   final AnswerEntity answer;
@@ -1675,10 +1682,11 @@ class _$QuestionAnswerFailedStateImpl implements QuestionAnswerFailedState {
   }
 }
 
-abstract class QuestionAnswerFailedState implements QuestionAnswerState {
+abstract class QuestionAnswerFailedState extends QuestionAnswerState {
   const factory QuestionAnswerFailedState(
       {required final AnswerEntity answer,
       required final Failure failure}) = _$QuestionAnswerFailedStateImpl;
+  const QuestionAnswerFailedState._() : super._();
 
   AnswerEntity get answer;
   Failure get failure;
