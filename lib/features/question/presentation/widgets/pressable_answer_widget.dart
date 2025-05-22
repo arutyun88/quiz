@@ -9,20 +9,20 @@ enum AnswerState { wait, select, correct, failed }
 
 class PressableAnswerWidget extends StatelessWidget {
   final AnswerEntity answer;
-  final Function(AnswerEntity) onSelect;
+  final Function(AnswerEntity)? onSelect;
   final AnswerState state;
 
   const PressableAnswerWidget({
     super.key,
     required this.answer,
-    required this.onSelect,
+    this.onSelect,
     required this.state,
   });
 
   @override
   Widget build(BuildContext context) {
     return PressableButton<AnswerEntity>(
-      onPressed: () => onSelect(answer),
+      onPressed: onSelect != null ? () => onSelect!(answer) : null,
       child: AppWidget(
         duration: const Duration(milliseconds: 250),
         backgroundColor: _color(context),

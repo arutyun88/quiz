@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 class PressableButton<T> extends StatefulWidget {
   final Widget child;
-  final FutureOr Function() onPressed;
+  final FutureOr Function()? onPressed;
   final Function(T)? onComplete;
   final Function(Object)? onError;
 
   const PressableButton({
     super.key,
     required this.child,
-    required this.onPressed,
+    this.onPressed,
     this.onComplete,
     this.onError,
   });
@@ -73,10 +73,12 @@ class _PressableButtonState<T> extends State<PressableButton<T>> with SingleTick
   }
 
   Future<void> _executeOnPressed() async {
+    if (widget.onPressed == null) return;
+
     setState(() => _isLoading = true);
 
     try {
-      final result = await widget.onPressed();
+      final result = await widget.onPressed!.call();
       widget.onComplete?.call(result);
     } catch (error) {
       widget.onError?.call(error);
@@ -90,8 +92,8 @@ class _PressableButtonState<T> extends State<PressableButton<T>> with SingleTick
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: _onTapDown,
-      onTapUp: _onTapUp,
+      onTapDown: widget.onPressed != null ? _onTapDown : null,
+      onTapUp: widget.onPressed != null ? _onTapUp : null,
       onTapCancel: _onTapCancel,
       child: AnimatedBuilder(
         animation: _scaleAnimation,

@@ -20,7 +20,9 @@ class _AnswersWidgetState extends ConsumerState<AnswersWidget> {
     return ref.watch(questionProvider).maybeWhen(
           data: (question, answersState) => _AnswersDataWidget(
             answers: question.answers,
-            onSelect: ref.read(questionProvider.notifier).select,
+            onSelect: answersState is QuestionAnswerWaitingState || answersState is QuestionAnswerSelectedState
+                ? ref.read(questionProvider.notifier).select
+                : null,
             selectedAnswer: answersState.answer,
           ),
           orElse: () => AnswersLoadingWidget(),
@@ -30,12 +32,12 @@ class _AnswersWidgetState extends ConsumerState<AnswersWidget> {
 
 class _AnswersDataWidget extends ConsumerWidget {
   final List<AnswerEntity> answers;
-  final Function(AnswerEntity) onSelect;
+  final Function(AnswerEntity)? onSelect;
   final AnswerEntity? selectedAnswer;
 
   const _AnswersDataWidget({
     required this.answers,
-    required this.onSelect,
+    this.onSelect,
     this.selectedAnswer,
   });
 
@@ -48,7 +50,9 @@ class _AnswersDataWidget extends ConsumerWidget {
                 ? value.isCorrect
                     ? AnswerState.correct
                     : AnswerState.failed
-                : AnswerState.wait,
+                : answer.isCorrect
+                    ? AnswerState.correct
+                    : AnswerState.wait,
             failed: (value) => value.answer.id == answer.id ? AnswerState.select : AnswerState.wait,
             orElse: () => AnswerState.wait,
           ),
