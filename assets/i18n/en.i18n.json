@@ -149,7 +149,7 @@
                     "The actual answer:"
                 ],
                 "prompt": [
-                    "No worries! Let's keep moving forward?",
+                    "No worries!\nLet's keep moving forward?",
                     "Shall we try the next question?"
                 ]
             },

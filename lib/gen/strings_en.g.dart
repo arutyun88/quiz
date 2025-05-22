@@ -381,7 +381,7 @@ class TranslationsQuestionDialogIncorrectEn {
 		'The actual answer:',
 	];
 	List<String> get prompt => [
-		'No worries! Let\'s keep moving forward?',
+		'No worries!\nLet\'s keep moving forward?',
 		'Shall we try the next question?',
 	];
 }
@@ -601,7 +601,7 @@ extension on Translations {
 			case 'question.dialog.correct.prompt.1': return 'Shall we move to the next question?';
 			case 'question.dialog.incorrect.header.0': return 'Correct answer:';
 			case 'question.dialog.incorrect.header.1': return 'The actual answer:';
-			case 'question.dialog.incorrect.prompt.0': return 'No worries! Let\'s keep moving forward?';
+			case 'question.dialog.incorrect.prompt.0': return 'No worries!\nLet\'s keep moving forward?';
 			case 'question.dialog.incorrect.prompt.1': return 'Shall we try the next question?';
 			case 'question.dialog.button': return 'Continue';
 			case 'question.error_snackbar.answered_on_another_device.text': return 'This question was already answered on another device. It won\'t appear again.';

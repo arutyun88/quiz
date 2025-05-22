@@ -377,7 +377,7 @@ class _TranslationsQuestionDialogIncorrectRu implements TranslationsQuestionDial
 		'На самом деле:',
 	];
 	@override List<String> get prompt => [
-		'Не переживайте! Давайте двигаться дальше?',
+		'Не переживайте!\nДавайте двигаться дальше?',
 		'Переходим к следующему вопросу?',
 	];
 }
@@ -597,7 +597,7 @@ extension on TranslationsRu {
 			case 'question.dialog.correct.prompt.1': return 'Переходим к следующему вопросу?';
 			case 'question.dialog.incorrect.header.0': return 'Правильный ответ:';
 			case 'question.dialog.incorrect.header.1': return 'На самом деле:';
-			case 'question.dialog.incorrect.prompt.0': return 'Не переживайте! Давайте двигаться дальше?';
+			case 'question.dialog.incorrect.prompt.0': return 'Не переживайте!\nДавайте двигаться дальше?';
 			case 'question.dialog.incorrect.prompt.1': return 'Переходим к следующему вопросу?';
 			case 'question.dialog.button': return 'Продолжить';
 			case 'question.error_snackbar.answered_on_another_device.text': return 'Этот вопрос уже был отвечен на другом устройстве. Он больше не повторится.';
