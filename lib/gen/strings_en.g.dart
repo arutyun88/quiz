@@ -44,6 +44,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsTextFieldEn text_field = TranslationsTextFieldEn._(_root);
 	late final TranslationsProfileEn profile = TranslationsProfileEn._(_root);
 	late final TranslationsAuthenticationEn authentication = TranslationsAuthenticationEn._(_root);
+	late final TranslationsQuestionEn question = TranslationsQuestionEn._(_root);
 }
 
 // Path: text_field
@@ -85,6 +86,17 @@ class TranslationsAuthenticationEn {
 		const TextSpan(text: 'By using the app, you accept '),
 		link('User Agreement'),
 	]);
+}
+
+// Path: question
+class TranslationsQuestionEn {
+	TranslationsQuestionEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsQuestionDialogEn dialog = TranslationsQuestionDialogEn._(_root);
+	late final TranslationsQuestionErrorSnackbarEn error_snackbar = TranslationsQuestionErrorSnackbarEn._(_root);
 }
 
 // Path: text_field.email
@@ -208,6 +220,29 @@ class TranslationsAuthenticationSignUpEn {
 	String get title => 'Sign up';
 }
 
+// Path: question.dialog
+class TranslationsQuestionDialogEn {
+	TranslationsQuestionDialogEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsQuestionDialogCorrectEn correct = TranslationsQuestionDialogCorrectEn._(_root);
+	late final TranslationsQuestionDialogIncorrectEn incorrect = TranslationsQuestionDialogIncorrectEn._(_root);
+	String get button => 'Continue';
+}
+
+// Path: question.error_snackbar
+class TranslationsQuestionErrorSnackbarEn {
+	TranslationsQuestionErrorSnackbarEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceEn answered_on_another_device = TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceEn._(_root);
+	late final TranslationsQuestionErrorSnackbarSaveFailedRetryLaterEn save_failed_retry_later = TranslationsQuestionErrorSnackbarSaveFailedRetryLaterEn._(_root);
+}
+
 // Path: profile.theme.switcher
 class TranslationsProfileThemeSwitcherEn {
 	TranslationsProfileThemeSwitcherEn._(this._root);
@@ -315,6 +350,62 @@ class TranslationsAuthenticationSignUpConfirmPasswordEn {
 	String get label => 'Confirm Password';
 	String get hint => 'Re-enter your password';
 	String get validation_message => 'Passwords do not match';
+}
+
+// Path: question.dialog.correct
+class TranslationsQuestionDialogCorrectEn {
+	TranslationsQuestionDialogCorrectEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	List<String> get header => [
+		'Great job! You\'re absolutely correct',
+		'Well done! That\'s right',
+	];
+	List<String> get prompt => [
+		'Ready to continue?',
+		'Shall we move to the next question?',
+	];
+}
+
+// Path: question.dialog.incorrect
+class TranslationsQuestionDialogIncorrectEn {
+	TranslationsQuestionDialogIncorrectEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	List<String> get header => [
+		'Correct answer:',
+		'The actual answer:',
+	];
+	List<String> get prompt => [
+		'No worries! Let\'s keep moving forward?',
+		'Shall we try the next question?',
+	];
+}
+
+// Path: question.error_snackbar.answered_on_another_device
+class TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceEn {
+	TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get text => 'This question was already answered on another device. It won\'t appear again.';
+	String get button => 'Got it';
+}
+
+// Path: question.error_snackbar.save_failed_retry_later
+class TranslationsQuestionErrorSnackbarSaveFailedRetryLaterEn {
+	TranslationsQuestionErrorSnackbarSaveFailedRetryLaterEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get text => 'Oops! Your answer wasn\'t saved, but this question will return later. You\'ll get another chance!';
+	String get button => 'Try again later';
 }
 
 // Path: profile.edit.password.result
@@ -504,6 +595,19 @@ extension on Translations {
 				const TextSpan(text: 'By using the app, you accept '),
 				link('User Agreement'),
 			]);
+			case 'question.dialog.correct.header.0': return 'Great job! You\'re absolutely correct';
+			case 'question.dialog.correct.header.1': return 'Well done! That\'s right';
+			case 'question.dialog.correct.prompt.0': return 'Ready to continue?';
+			case 'question.dialog.correct.prompt.1': return 'Shall we move to the next question?';
+			case 'question.dialog.incorrect.header.0': return 'Correct answer:';
+			case 'question.dialog.incorrect.header.1': return 'The actual answer:';
+			case 'question.dialog.incorrect.prompt.0': return 'No worries! Let\'s keep moving forward?';
+			case 'question.dialog.incorrect.prompt.1': return 'Shall we try the next question?';
+			case 'question.dialog.button': return 'Continue';
+			case 'question.error_snackbar.answered_on_another_device.text': return 'This question was already answered on another device. It won\'t appear again.';
+			case 'question.error_snackbar.answered_on_another_device.button': return 'Got it';
+			case 'question.error_snackbar.save_failed_retry_later.text': return 'Oops! Your answer wasn\'t saved, but this question will return later. You\'ll get another chance!';
+			case 'question.error_snackbar.save_failed_retry_later.button': return 'Try again later';
 			default: return null;
 		}
 	}

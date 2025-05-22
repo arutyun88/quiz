@@ -130,5 +130,40 @@
             "title": "Sign up"
         },
         "agreement(rich)": "By using the app, you accept ${link(User Agreement)}"
+    },
+    "question": {
+        "dialog": {
+            "correct": {
+                "header": [
+                    "Great job! You're absolutely correct",
+                    "Well done! That's right"
+                ],
+                "prompt": [
+                    "Ready to continue?",
+                    "Shall we move to the next question?"
+                ]
+            },
+            "incorrect": {
+                "header": [
+                    "Correct answer:",
+                    "The actual answer:"
+                ],
+                "prompt": [
+                    "No worries! Let's keep moving forward?",
+                    "Shall we try the next question?"
+                ]
+            },
+            "button": "Continue"
+        },
+        "error_snackbar": {
+            "answered_on_another_device": {
+                "text": "This question was already answered on another device. It won't appear again.",
+                "button": "Got it"
+            },
+            "save_failed_retry_later": {
+                "text": "Oops! Your answer wasn't saved, but this question will return later. You'll get another chance!",
+                "button": "Try again later"
+            }
+        }
     }
 }

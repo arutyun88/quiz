@@ -40,6 +40,7 @@ class TranslationsRu implements Translations {
 	@override late final _TranslationsTextFieldRu text_field = _TranslationsTextFieldRu._(_root);
 	@override late final _TranslationsProfileRu profile = _TranslationsProfileRu._(_root);
 	@override late final _TranslationsAuthenticationRu authentication = _TranslationsAuthenticationRu._(_root);
+	@override late final _TranslationsQuestionRu question = _TranslationsQuestionRu._(_root);
 }
 
 // Path: text_field
@@ -81,6 +82,17 @@ class _TranslationsAuthenticationRu implements TranslationsAuthenticationEn {
 		const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '),
 		link('Пользовательскому соглашению'),
 	]);
+}
+
+// Path: question
+class _TranslationsQuestionRu implements TranslationsQuestionEn {
+	_TranslationsQuestionRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsQuestionDialogRu dialog = _TranslationsQuestionDialogRu._(_root);
+	@override late final _TranslationsQuestionErrorSnackbarRu error_snackbar = _TranslationsQuestionErrorSnackbarRu._(_root);
 }
 
 // Path: text_field.email
@@ -204,6 +216,29 @@ class _TranslationsAuthenticationSignUpRu implements TranslationsAuthenticationS
 	@override String get title => 'Зарегистрироваться';
 }
 
+// Path: question.dialog
+class _TranslationsQuestionDialogRu implements TranslationsQuestionDialogEn {
+	_TranslationsQuestionDialogRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsQuestionDialogCorrectRu correct = _TranslationsQuestionDialogCorrectRu._(_root);
+	@override late final _TranslationsQuestionDialogIncorrectRu incorrect = _TranslationsQuestionDialogIncorrectRu._(_root);
+	@override String get button => 'Продолжить';
+}
+
+// Path: question.error_snackbar
+class _TranslationsQuestionErrorSnackbarRu implements TranslationsQuestionErrorSnackbarEn {
+	_TranslationsQuestionErrorSnackbarRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceRu answered_on_another_device = _TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceRu._(_root);
+	@override late final _TranslationsQuestionErrorSnackbarSaveFailedRetryLaterRu save_failed_retry_later = _TranslationsQuestionErrorSnackbarSaveFailedRetryLaterRu._(_root);
+}
+
 // Path: profile.theme.switcher
 class _TranslationsProfileThemeSwitcherRu implements TranslationsProfileThemeSwitcherEn {
 	_TranslationsProfileThemeSwitcherRu._(this._root);
@@ -311,6 +346,62 @@ class _TranslationsAuthenticationSignUpConfirmPasswordRu implements Translations
 	@override String get label => 'Подтверждение пароля';
 	@override String get hint => 'Повторите пароль';
 	@override String get validation_message => 'Пароли не совпадают';
+}
+
+// Path: question.dialog.correct
+class _TranslationsQuestionDialogCorrectRu implements TranslationsQuestionDialogCorrectEn {
+	_TranslationsQuestionDialogCorrectRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override List<String> get header => [
+		'Отлично, вы абсолютно правы',
+		'Верно, так держать',
+	];
+	@override List<String> get prompt => [
+		'Готовы продолжить?',
+		'Переходим к следующему вопросу?',
+	];
+}
+
+// Path: question.dialog.incorrect
+class _TranslationsQuestionDialogIncorrectRu implements TranslationsQuestionDialogIncorrectEn {
+	_TranslationsQuestionDialogIncorrectRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override List<String> get header => [
+		'Правильный ответ:',
+		'На самом деле:',
+	];
+	@override List<String> get prompt => [
+		'Не переживайте! Давайте двигаться дальше?',
+		'Переходим к следующему вопросу?',
+	];
+}
+
+// Path: question.error_snackbar.answered_on_another_device
+class _TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceRu implements TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceEn {
+	_TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get text => 'Этот вопрос уже был отвечен на другом устройстве. Он больше не повторится.';
+	@override String get button => 'Понятно';
+}
+
+// Path: question.error_snackbar.save_failed_retry_later
+class _TranslationsQuestionErrorSnackbarSaveFailedRetryLaterRu implements TranslationsQuestionErrorSnackbarSaveFailedRetryLaterEn {
+	_TranslationsQuestionErrorSnackbarSaveFailedRetryLaterRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get text => 'Упс! Ответ не сохранился, но вопрос вернётся позже. У вас будет ещё шанс!';
+	@override String get button => 'Попробую позже';
 }
 
 // Path: profile.edit.password.result
@@ -500,6 +591,19 @@ extension on TranslationsRu {
 				const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '),
 				link('Пользовательскому соглашению'),
 			]);
+			case 'question.dialog.correct.header.0': return 'Отлично, вы абсолютно правы';
+			case 'question.dialog.correct.header.1': return 'Верно, так держать';
+			case 'question.dialog.correct.prompt.0': return 'Готовы продолжить?';
+			case 'question.dialog.correct.prompt.1': return 'Переходим к следующему вопросу?';
+			case 'question.dialog.incorrect.header.0': return 'Правильный ответ:';
+			case 'question.dialog.incorrect.header.1': return 'На самом деле:';
+			case 'question.dialog.incorrect.prompt.0': return 'Не переживайте! Давайте двигаться дальше?';
+			case 'question.dialog.incorrect.prompt.1': return 'Переходим к следующему вопросу?';
+			case 'question.dialog.button': return 'Продолжить';
+			case 'question.error_snackbar.answered_on_another_device.text': return 'Этот вопрос уже был отвечен на другом устройстве. Он больше не повторится.';
+			case 'question.error_snackbar.answered_on_another_device.button': return 'Понятно';
+			case 'question.error_snackbar.save_failed_retry_later.text': return 'Упс! Ответ не сохранился, но вопрос вернётся позже. У вас будет ещё шанс!';
+			case 'question.error_snackbar.save_failed_retry_later.button': return 'Попробую позже';
 			default: return null;
 		}
 	}
