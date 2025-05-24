@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:quiz/app/core/database/dao/question_dao.dart';
 import 'package:quiz/app/core/database/gen/schema_versions.dart';
 import 'package:quiz/app/core/database/schema/answer.dart';
+import 'package:quiz/app/core/database/schema/answered_question.dart';
 import 'package:quiz/app/core/database/schema/question.dart';
 import 'package:quiz/app/core/database/schema/topic.dart';
 
@@ -17,6 +18,7 @@ part 'app_database.g.dart';
     Questions,
     Answers,
     Topics,
+    AnsweredQuestions,
   ],
   daos: [
     QuestionDao,

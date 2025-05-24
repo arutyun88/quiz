@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 import 'package:quiz/app/core/database/app_database.dart';
+import 'package:quiz/app/core/database/schema/answered_question.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/features/question/data/converter/question_db_converter.dart';
@@ -24,9 +25,13 @@ abstract interface class QuestionDao {
   Stream<int> watchQuestionsCount();
 
   Stream<List<Question>> watchAllQuestions();
+
+  Stream<int> watchAnsweredQuestionsCount();
+
+  Stream<List<AnsweredQuestion>> watchAnsweredQuestions();
 }
 
-@DriftAccessor(tables: [Questions, Answers, Topics])
+@DriftAccessor(tables: [Questions, Answers, Topics, AnsweredQuestions])
 @Injectable(as: QuestionDao)
 class QuestionDaoImpl extends DatabaseAccessor<AppDatabase> with _$QuestionDaoImplMixin implements QuestionDao {
   final QuestionDbConverter _questionConverter;
@@ -129,5 +134,17 @@ class QuestionDaoImpl extends DatabaseAccessor<AppDatabase> with _$QuestionDaoIm
   @override
   Stream<List<Question>> watchAllQuestions() {
     return select(questions).watch();
+  }
+
+  @override
+  Stream<int> watchAnsweredQuestionsCount() {
+    return (selectOnly(answeredQuestions)..addColumns([answeredQuestions.questionId.count()]))
+        .watchSingle()
+        .map((row) => row.read(answeredQuestions.questionId.count()) ?? 0);
+  }
+
+  @override
+  Stream<List<AnsweredQuestion>> watchAnsweredQuestions() {
+    return select(answeredQuestions).watch();
   }
 }

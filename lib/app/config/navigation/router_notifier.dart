@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:quiz/app/main_layout.dart';
 import 'package:quiz/features/authentication/presentation/sign_in/sign_in_flow.dart';
 import 'package:quiz/features/authentication/presentation/sign_up/sign_up_flow.dart';
+import 'package:quiz/features/debug/debug_answered_question_page.dart';
 import 'package:quiz/features/debug/debug_flow.dart';
 import 'package:quiz/features/debug/debug_question_page.dart';
 import 'package:quiz/features/home/presentation/home_flow.dart';
@@ -83,6 +84,11 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                           path: 'questions',
                           name: 'debug-questions',
                           builder: (context, state) => const DebugQuestionPage(),
+                        ),
+                        GoRoute(
+                          path: 'questions/answered',
+                          name: 'debug-answered-questions',
+                          builder: (context, state) => const DebugAnsweredQuestionPage(),
                         ),
                       ],
                     ),

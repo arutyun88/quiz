@@ -23,31 +23,68 @@ class DebugQuestionsWidget extends StatelessWidget {
           SliverPadding(
             padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8.0),
             sliver: SliverToBoxAdapter(
-              child: StreamBuilder(
-                stream: getIt<QuestionDao>().watchQuestionsCount(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  }
+              child: ListTile(
+                onTap: () => context.goNamed('debug-questions'),
+                leading: IconButton(
+                  onPressed: () => getIt<QuestionDao>().clearAllCache(),
+                  icon: Icon(Icons.delete),
+                ),
+                contentPadding: EdgeInsets.zero,
+                title: Text('Вопросов без ответов в БД'),
+                subtitle: StreamBuilder(
+                  stream: getIt<QuestionDao>().watchQuestionsCount(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    }
 
-                  if (snapshot.hasError) {
-                    return Center(child: Text('Ошибка получения данных'));
-                  }
+                    if (snapshot.hasError) {
+                      return Text('Ошибка получения данных');
+                    }
 
-                  final count = snapshot.data ?? 0;
+                    final count = snapshot.data ?? 0;
 
-                  return ListTile(
-                    onTap: () => context.goNamed('debug-questions'),
-                    leading: IconButton(
-                      onPressed: () => getIt<QuestionDao>().clearAllCache(),
-                      icon: Icon(Icons.delete),
-                    ),
-                    contentPadding: EdgeInsets.zero,
-                    title: Text('Вопросов без ответов в БД'),
-                    subtitle: Text('$count шт'),
-                    trailing: Icon(Icons.navigate_next, color: context.palette.text.secondary),
-                  );
-                },
+                    return Text('$count шт');
+                  },
+                ),
+                trailing: Icon(Icons.navigate_next, color: context.palette.text.secondary),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Divider(),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8.0),
+            sliver: SliverToBoxAdapter(
+              child: ListTile(
+                onTap: () => context.goNamed('debug-answered-questions'),
+                leading: IconButton(
+                  onPressed: () => getIt<QuestionDao>().clearAllCache(),
+                  icon: Icon(Icons.delete),
+                ),
+                contentPadding: EdgeInsets.zero,
+                title: Text('Вопросов c ответами в БД'),
+                subtitle: StreamBuilder(
+                  stream: getIt<QuestionDao>().watchAnsweredQuestionsCount(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+
+                    if (snapshot.hasError) {
+                      return Text('Ошибка получения данных');
+                    }
+
+                    final count = snapshot.data ?? 0;
+
+                    return Text('$count шт');
+                  },
+                ),
+                trailing: Icon(Icons.navigate_next, color: context.palette.text.secondary),
               ),
             ),
           ),

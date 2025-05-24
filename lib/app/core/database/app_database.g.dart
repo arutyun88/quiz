@@ -821,18 +821,338 @@ class AnswersCompanion extends UpdateCompanion<Answer> {
   }
 }
 
+class $AnsweredQuestionsTable extends AnsweredQuestions
+    with TableInfo<$AnsweredQuestionsTable, AnsweredQuestion> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AnsweredQuestionsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _questionIdMeta =
+      const VerificationMeta('questionId');
+  @override
+  late final GeneratedColumn<String> questionId = GeneratedColumn<String>(
+      'question_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _questionMeta =
+      const VerificationMeta('question');
+  @override
+  late final GeneratedColumn<String> question = GeneratedColumn<String>(
+      'question', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _answerIdMeta =
+      const VerificationMeta('answerId');
+  @override
+  late final GeneratedColumn<String> answerId = GeneratedColumn<String>(
+      'answer_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _answerMeta = const VerificationMeta('answer');
+  @override
+  late final GeneratedColumn<String> answer = GeneratedColumn<String>(
+      'answer', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _isCorrectMeta =
+      const VerificationMeta('isCorrect');
+  @override
+  late final GeneratedColumn<bool> isCorrect = GeneratedColumn<bool>(
+      'is_correct', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_correct" IN (0, 1))'));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [questionId, question, answerId, answer, isCorrect];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'answered_questions';
+  @override
+  VerificationContext validateIntegrity(Insertable<AnsweredQuestion> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('question_id')) {
+      context.handle(
+          _questionIdMeta,
+          questionId.isAcceptableOrUnknown(
+              data['question_id']!, _questionIdMeta));
+    } else if (isInserting) {
+      context.missing(_questionIdMeta);
+    }
+    if (data.containsKey('question')) {
+      context.handle(_questionMeta,
+          question.isAcceptableOrUnknown(data['question']!, _questionMeta));
+    } else if (isInserting) {
+      context.missing(_questionMeta);
+    }
+    if (data.containsKey('answer_id')) {
+      context.handle(_answerIdMeta,
+          answerId.isAcceptableOrUnknown(data['answer_id']!, _answerIdMeta));
+    } else if (isInserting) {
+      context.missing(_answerIdMeta);
+    }
+    if (data.containsKey('answer')) {
+      context.handle(_answerMeta,
+          answer.isAcceptableOrUnknown(data['answer']!, _answerMeta));
+    } else if (isInserting) {
+      context.missing(_answerMeta);
+    }
+    if (data.containsKey('is_correct')) {
+      context.handle(_isCorrectMeta,
+          isCorrect.isAcceptableOrUnknown(data['is_correct']!, _isCorrectMeta));
+    } else if (isInserting) {
+      context.missing(_isCorrectMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {questionId};
+  @override
+  AnsweredQuestion map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AnsweredQuestion(
+      questionId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}question_id'])!,
+      question: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}question'])!,
+      answerId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}answer_id'])!,
+      answer: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}answer'])!,
+      isCorrect: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_correct'])!,
+    );
+  }
+
+  @override
+  $AnsweredQuestionsTable createAlias(String alias) {
+    return $AnsweredQuestionsTable(attachedDatabase, alias);
+  }
+}
+
+class AnsweredQuestion extends DataClass
+    implements Insertable<AnsweredQuestion> {
+  final String questionId;
+  final String question;
+  final String answerId;
+  final String answer;
+  final bool isCorrect;
+  const AnsweredQuestion(
+      {required this.questionId,
+      required this.question,
+      required this.answerId,
+      required this.answer,
+      required this.isCorrect});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['question_id'] = Variable<String>(questionId);
+    map['question'] = Variable<String>(question);
+    map['answer_id'] = Variable<String>(answerId);
+    map['answer'] = Variable<String>(answer);
+    map['is_correct'] = Variable<bool>(isCorrect);
+    return map;
+  }
+
+  AnsweredQuestionsCompanion toCompanion(bool nullToAbsent) {
+    return AnsweredQuestionsCompanion(
+      questionId: Value(questionId),
+      question: Value(question),
+      answerId: Value(answerId),
+      answer: Value(answer),
+      isCorrect: Value(isCorrect),
+    );
+  }
+
+  factory AnsweredQuestion.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AnsweredQuestion(
+      questionId: serializer.fromJson<String>(json['questionId']),
+      question: serializer.fromJson<String>(json['question']),
+      answerId: serializer.fromJson<String>(json['answerId']),
+      answer: serializer.fromJson<String>(json['answer']),
+      isCorrect: serializer.fromJson<bool>(json['isCorrect']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'questionId': serializer.toJson<String>(questionId),
+      'question': serializer.toJson<String>(question),
+      'answerId': serializer.toJson<String>(answerId),
+      'answer': serializer.toJson<String>(answer),
+      'isCorrect': serializer.toJson<bool>(isCorrect),
+    };
+  }
+
+  AnsweredQuestion copyWith(
+          {String? questionId,
+          String? question,
+          String? answerId,
+          String? answer,
+          bool? isCorrect}) =>
+      AnsweredQuestion(
+        questionId: questionId ?? this.questionId,
+        question: question ?? this.question,
+        answerId: answerId ?? this.answerId,
+        answer: answer ?? this.answer,
+        isCorrect: isCorrect ?? this.isCorrect,
+      );
+  AnsweredQuestion copyWithCompanion(AnsweredQuestionsCompanion data) {
+    return AnsweredQuestion(
+      questionId:
+          data.questionId.present ? data.questionId.value : this.questionId,
+      question: data.question.present ? data.question.value : this.question,
+      answerId: data.answerId.present ? data.answerId.value : this.answerId,
+      answer: data.answer.present ? data.answer.value : this.answer,
+      isCorrect: data.isCorrect.present ? data.isCorrect.value : this.isCorrect,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AnsweredQuestion(')
+          ..write('questionId: $questionId, ')
+          ..write('question: $question, ')
+          ..write('answerId: $answerId, ')
+          ..write('answer: $answer, ')
+          ..write('isCorrect: $isCorrect')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(questionId, question, answerId, answer, isCorrect);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AnsweredQuestion &&
+          other.questionId == this.questionId &&
+          other.question == this.question &&
+          other.answerId == this.answerId &&
+          other.answer == this.answer &&
+          other.isCorrect == this.isCorrect);
+}
+
+class AnsweredQuestionsCompanion extends UpdateCompanion<AnsweredQuestion> {
+  final Value<String> questionId;
+  final Value<String> question;
+  final Value<String> answerId;
+  final Value<String> answer;
+  final Value<bool> isCorrect;
+  final Value<int> rowid;
+  const AnsweredQuestionsCompanion({
+    this.questionId = const Value.absent(),
+    this.question = const Value.absent(),
+    this.answerId = const Value.absent(),
+    this.answer = const Value.absent(),
+    this.isCorrect = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AnsweredQuestionsCompanion.insert({
+    required String questionId,
+    required String question,
+    required String answerId,
+    required String answer,
+    required bool isCorrect,
+    this.rowid = const Value.absent(),
+  })  : questionId = Value(questionId),
+        question = Value(question),
+        answerId = Value(answerId),
+        answer = Value(answer),
+        isCorrect = Value(isCorrect);
+  static Insertable<AnsweredQuestion> custom({
+    Expression<String>? questionId,
+    Expression<String>? question,
+    Expression<String>? answerId,
+    Expression<String>? answer,
+    Expression<bool>? isCorrect,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (questionId != null) 'question_id': questionId,
+      if (question != null) 'question': question,
+      if (answerId != null) 'answer_id': answerId,
+      if (answer != null) 'answer': answer,
+      if (isCorrect != null) 'is_correct': isCorrect,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AnsweredQuestionsCompanion copyWith(
+      {Value<String>? questionId,
+      Value<String>? question,
+      Value<String>? answerId,
+      Value<String>? answer,
+      Value<bool>? isCorrect,
+      Value<int>? rowid}) {
+    return AnsweredQuestionsCompanion(
+      questionId: questionId ?? this.questionId,
+      question: question ?? this.question,
+      answerId: answerId ?? this.answerId,
+      answer: answer ?? this.answer,
+      isCorrect: isCorrect ?? this.isCorrect,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (questionId.present) {
+      map['question_id'] = Variable<String>(questionId.value);
+    }
+    if (question.present) {
+      map['question'] = Variable<String>(question.value);
+    }
+    if (answerId.present) {
+      map['answer_id'] = Variable<String>(answerId.value);
+    }
+    if (answer.present) {
+      map['answer'] = Variable<String>(answer.value);
+    }
+    if (isCorrect.present) {
+      map['is_correct'] = Variable<bool>(isCorrect.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AnsweredQuestionsCompanion(')
+          ..write('questionId: $questionId, ')
+          ..write('question: $question, ')
+          ..write('answerId: $answerId, ')
+          ..write('answer: $answer, ')
+          ..write('isCorrect: $isCorrect, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $TopicsTable topics = $TopicsTable(this);
   late final $QuestionsTable questions = $QuestionsTable(this);
   late final $AnswersTable answers = $AnswersTable(this);
+  late final $AnsweredQuestionsTable answeredQuestions =
+      $AnsweredQuestionsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [topics, questions, answers];
+      [topics, questions, answers, answeredQuestions];
 }
 
 typedef $$TopicsTableCreateCompanionBuilder = TopicsCompanion Function({
@@ -1648,6 +1968,181 @@ typedef $$AnswersTableProcessedTableManager = ProcessedTableManager<
     (Answer, $$AnswersTableReferences),
     Answer,
     PrefetchHooks Function({bool questionId})>;
+typedef $$AnsweredQuestionsTableCreateCompanionBuilder
+    = AnsweredQuestionsCompanion Function({
+  required String questionId,
+  required String question,
+  required String answerId,
+  required String answer,
+  required bool isCorrect,
+  Value<int> rowid,
+});
+typedef $$AnsweredQuestionsTableUpdateCompanionBuilder
+    = AnsweredQuestionsCompanion Function({
+  Value<String> questionId,
+  Value<String> question,
+  Value<String> answerId,
+  Value<String> answer,
+  Value<bool> isCorrect,
+  Value<int> rowid,
+});
+
+class $$AnsweredQuestionsTableFilterComposer
+    extends Composer<_$AppDatabase, $AnsweredQuestionsTable> {
+  $$AnsweredQuestionsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get questionId => $composableBuilder(
+      column: $table.questionId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get question => $composableBuilder(
+      column: $table.question, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get answerId => $composableBuilder(
+      column: $table.answerId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get answer => $composableBuilder(
+      column: $table.answer, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isCorrect => $composableBuilder(
+      column: $table.isCorrect, builder: (column) => ColumnFilters(column));
+}
+
+class $$AnsweredQuestionsTableOrderingComposer
+    extends Composer<_$AppDatabase, $AnsweredQuestionsTable> {
+  $$AnsweredQuestionsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get questionId => $composableBuilder(
+      column: $table.questionId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get question => $composableBuilder(
+      column: $table.question, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get answerId => $composableBuilder(
+      column: $table.answerId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get answer => $composableBuilder(
+      column: $table.answer, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isCorrect => $composableBuilder(
+      column: $table.isCorrect, builder: (column) => ColumnOrderings(column));
+}
+
+class $$AnsweredQuestionsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $AnsweredQuestionsTable> {
+  $$AnsweredQuestionsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get questionId => $composableBuilder(
+      column: $table.questionId, builder: (column) => column);
+
+  GeneratedColumn<String> get question =>
+      $composableBuilder(column: $table.question, builder: (column) => column);
+
+  GeneratedColumn<String> get answerId =>
+      $composableBuilder(column: $table.answerId, builder: (column) => column);
+
+  GeneratedColumn<String> get answer =>
+      $composableBuilder(column: $table.answer, builder: (column) => column);
+
+  GeneratedColumn<bool> get isCorrect =>
+      $composableBuilder(column: $table.isCorrect, builder: (column) => column);
+}
+
+class $$AnsweredQuestionsTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $AnsweredQuestionsTable,
+    AnsweredQuestion,
+    $$AnsweredQuestionsTableFilterComposer,
+    $$AnsweredQuestionsTableOrderingComposer,
+    $$AnsweredQuestionsTableAnnotationComposer,
+    $$AnsweredQuestionsTableCreateCompanionBuilder,
+    $$AnsweredQuestionsTableUpdateCompanionBuilder,
+    (
+      AnsweredQuestion,
+      BaseReferences<_$AppDatabase, $AnsweredQuestionsTable, AnsweredQuestion>
+    ),
+    AnsweredQuestion,
+    PrefetchHooks Function()> {
+  $$AnsweredQuestionsTableTableManager(
+      _$AppDatabase db, $AnsweredQuestionsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AnsweredQuestionsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AnsweredQuestionsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AnsweredQuestionsTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> questionId = const Value.absent(),
+            Value<String> question = const Value.absent(),
+            Value<String> answerId = const Value.absent(),
+            Value<String> answer = const Value.absent(),
+            Value<bool> isCorrect = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              AnsweredQuestionsCompanion(
+            questionId: questionId,
+            question: question,
+            answerId: answerId,
+            answer: answer,
+            isCorrect: isCorrect,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String questionId,
+            required String question,
+            required String answerId,
+            required String answer,
+            required bool isCorrect,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              AnsweredQuestionsCompanion.insert(
+            questionId: questionId,
+            question: question,
+            answerId: answerId,
+            answer: answer,
+            isCorrect: isCorrect,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$AnsweredQuestionsTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $AnsweredQuestionsTable,
+    AnsweredQuestion,
+    $$AnsweredQuestionsTableFilterComposer,
+    $$AnsweredQuestionsTableOrderingComposer,
+    $$AnsweredQuestionsTableAnnotationComposer,
+    $$AnsweredQuestionsTableCreateCompanionBuilder,
+    $$AnsweredQuestionsTableUpdateCompanionBuilder,
+    (
+      AnsweredQuestion,
+      BaseReferences<_$AppDatabase, $AnsweredQuestionsTable, AnsweredQuestion>
+    ),
+    AnsweredQuestion,
+    PrefetchHooks Function()>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -1658,4 +2153,6 @@ class $AppDatabaseManager {
       $$QuestionsTableTableManager(_db, _db.questions);
   $$AnswersTableTableManager get answers =>
       $$AnswersTableTableManager(_db, _db.answers);
+  $$AnsweredQuestionsTableTableManager get answeredQuestions =>
+      $$AnsweredQuestionsTableTableManager(_db, _db.answeredQuestions);
 }
