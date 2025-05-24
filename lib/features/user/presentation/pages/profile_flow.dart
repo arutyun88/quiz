@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,6 +19,11 @@ class ProfileFlow extends StatelessWidget {
               icon: const Icon(Icons.settings),
             ),
           ),
+          if (kDebugMode)
+            IconButton(
+              onPressed: () => context.goNamed('debug'),
+              icon: Icon(Icons.add_moderator),
+            ),
         ],
       ),
       body: const Placeholder(),

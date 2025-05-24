@@ -39,6 +39,12 @@ class AppDatabase extends _$AppDatabase {
       },
     );
   }
+
+  void deleteDatabase() async {
+    final dbFolder = await getApplicationDocumentsDirectory();
+    final file = File(path.join(dbFolder.path, 'quiz.db'));
+    await file.delete();
+  }
 }
 
 LazyDatabase _openConnection() {
