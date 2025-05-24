@@ -32,9 +32,7 @@ class AppSubheaderedScaffold extends StatelessWidget {
                 header: header,
                 headerDecoration: headerDecoration,
                 headerSubColor: headerSubColor,
-              )
-            else
-              const SizedBox(height: 10.0),
+              ),
             Expanded(child: body)
           ],
         ),
@@ -62,8 +60,10 @@ class AppSubheaderedScaffold extends StatelessWidget {
             if (header == null) //
               const SliverToBoxAdapter(child: SizedBox(height: 10.0)),
             if (body case Column items)
-              SliverList.list(
-                children: items.children,
+              SliverList.separated(
+                separatorBuilder: (context, index) => SizedBox(height: items.spacing),
+                itemCount: items.children.length,
+                itemBuilder: (context, index) => items.children[index],
               )
             else
               SliverToBoxAdapter(
