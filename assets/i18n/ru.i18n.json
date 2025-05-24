@@ -20,15 +20,6 @@
         }
     },
     "profile": {
-        "theme": {
-            "title": "Тема оформления",
-            "switcher": {
-                "as_system": "Как в системе"
-            }
-        },
-        "language": {
-            "change": "Изменить язык"
-        },
         "settings": {
             "title": "Настройки",
             "user": {
@@ -39,6 +30,15 @@
             },
             "application": {
                 "title": "Приложение",
+                "language": {
+                    "change": "Изменить язык"
+                },
+                "theme": {
+                    "title": "Тема оформления",
+                    "switcher": {
+                        "as_system": "Как в системе"
+                    }
+                },
                 "go_to_storage_manager": "Менеджер памяти",
                 "go_to_about_app": "О приложении"
             },

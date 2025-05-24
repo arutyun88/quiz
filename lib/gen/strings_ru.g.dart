@@ -62,8 +62,6 @@ class _TranslationsProfileRu implements TranslationsProfileEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsProfileThemeRu theme = _TranslationsProfileThemeRu._(_root);
-	@override late final _TranslationsProfileLanguageRu language = _TranslationsProfileLanguageRu._(_root);
 	@override late final _TranslationsProfileSettingsRu settings = _TranslationsProfileSettingsRu._(_root);
 	@override late final _TranslationsProfileEditRu edit = _TranslationsProfileEditRu._(_root);
 }
@@ -128,27 +126,6 @@ class _TranslationsTextFieldConfirmPasswordRu implements TranslationsTextFieldCo
 	// Translations
 	@override String get label => 'Подтвердите пароль';
 	@override String get hint => 'Повторите введенный пароль';
-}
-
-// Path: profile.theme
-class _TranslationsProfileThemeRu implements TranslationsProfileThemeEn {
-	_TranslationsProfileThemeRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Тема оформления';
-	@override late final _TranslationsProfileThemeSwitcherRu switcher = _TranslationsProfileThemeSwitcherRu._(_root);
-}
-
-// Path: profile.language
-class _TranslationsProfileLanguageRu implements TranslationsProfileLanguageEn {
-	_TranslationsProfileLanguageRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get change => 'Изменить язык';
 }
 
 // Path: profile.settings
@@ -239,16 +216,6 @@ class _TranslationsQuestionErrorSnackbarRu implements TranslationsQuestionErrorS
 	@override late final _TranslationsQuestionErrorSnackbarSaveFailedRetryLaterRu save_failed_retry_later = _TranslationsQuestionErrorSnackbarSaveFailedRetryLaterRu._(_root);
 }
 
-// Path: profile.theme.switcher
-class _TranslationsProfileThemeSwitcherRu implements TranslationsProfileThemeSwitcherEn {
-	_TranslationsProfileThemeSwitcherRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get as_system => 'Как в системе';
-}
-
 // Path: profile.settings.user
 class _TranslationsProfileSettingsUserRu implements TranslationsProfileSettingsUserEn {
 	_TranslationsProfileSettingsUserRu._(this._root);
@@ -270,6 +237,8 @@ class _TranslationsProfileSettingsApplicationRu implements TranslationsProfileSe
 
 	// Translations
 	@override String get title => 'Приложение';
+	@override late final _TranslationsProfileSettingsApplicationLanguageRu language = _TranslationsProfileSettingsApplicationLanguageRu._(_root);
+	@override late final _TranslationsProfileSettingsApplicationThemeRu theme = _TranslationsProfileSettingsApplicationThemeRu._(_root);
 	@override String get go_to_storage_manager => 'Менеджер памяти';
 	@override String get go_to_about_app => 'О приложении';
 }
@@ -404,6 +373,27 @@ class _TranslationsQuestionErrorSnackbarSaveFailedRetryLaterRu implements Transl
 	@override String get button => 'Попробую позже';
 }
 
+// Path: profile.settings.application.language
+class _TranslationsProfileSettingsApplicationLanguageRu implements TranslationsProfileSettingsApplicationLanguageEn {
+	_TranslationsProfileSettingsApplicationLanguageRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get change => 'Изменить язык';
+}
+
+// Path: profile.settings.application.theme
+class _TranslationsProfileSettingsApplicationThemeRu implements TranslationsProfileSettingsApplicationThemeEn {
+	_TranslationsProfileSettingsApplicationThemeRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Тема оформления';
+	@override late final _TranslationsProfileSettingsApplicationThemeSwitcherRu switcher = _TranslationsProfileSettingsApplicationThemeSwitcherRu._(_root);
+}
+
 // Path: profile.edit.password.result
 class _TranslationsProfileEditPasswordResultRu implements TranslationsProfileEditPasswordResultEn {
 	_TranslationsProfileEditPasswordResultRu._(this._root);
@@ -459,6 +449,16 @@ class _TranslationsAuthenticationSignInForgetPasswordDialogRu implements Transla
 	@override late final _TranslationsAuthenticationSignInForgetPasswordDialogValidRu valid = _TranslationsAuthenticationSignInForgetPasswordDialogValidRu._(_root);
 	@override late final _TranslationsAuthenticationSignInForgetPasswordDialogInvalidRu invalid = _TranslationsAuthenticationSignInForgetPasswordDialogInvalidRu._(_root);
 	@override late final _TranslationsAuthenticationSignInForgetPasswordDialogResultRu result = _TranslationsAuthenticationSignInForgetPasswordDialogResultRu._(_root);
+}
+
+// Path: profile.settings.application.theme.switcher
+class _TranslationsProfileSettingsApplicationThemeSwitcherRu implements TranslationsProfileSettingsApplicationThemeSwitcherEn {
+	_TranslationsProfileSettingsApplicationThemeSwitcherRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get as_system => 'Как в системе';
 }
 
 // Path: profile.edit.main.date.picker
@@ -532,15 +532,15 @@ extension on TranslationsRu {
 			case 'text_field.password.validation_message': return '8+ символов: 1 заглавная, 1 строчная, 1 цифра';
 			case 'text_field.confirm_password.label': return 'Подтвердите пароль';
 			case 'text_field.confirm_password.hint': return 'Повторите введенный пароль';
-			case 'profile.theme.title': return 'Тема оформления';
-			case 'profile.theme.switcher.as_system': return 'Как в системе';
-			case 'profile.language.change': return 'Изменить язык';
 			case 'profile.settings.title': return 'Настройки';
 			case 'profile.settings.user.title': return 'Настройки';
 			case 'profile.settings.user.go_to_edit': return 'Редактировать профиль';
 			case 'profile.settings.user.go_to_notifications_settings': return 'Настройки уведомлений';
 			case 'profile.settings.user.go_to_subscriptions': return 'Управление подпиской';
 			case 'profile.settings.application.title': return 'Приложение';
+			case 'profile.settings.application.language.change': return 'Изменить язык';
+			case 'profile.settings.application.theme.title': return 'Тема оформления';
+			case 'profile.settings.application.theme.switcher.as_system': return 'Как в системе';
 			case 'profile.settings.application.go_to_storage_manager': return 'Менеджер памяти';
 			case 'profile.settings.application.go_to_about_app': return 'О приложении';
 			case 'profile.settings.sign_out': return 'Выйти из профиля';

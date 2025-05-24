@@ -20,15 +20,6 @@
         }
     },
     "profile": {
-        "theme": {
-            "title": "Theme",
-            "switcher": {
-                "as_system": "As in the system"
-            }
-        },
-        "language": {
-            "change": "Choose language"
-        },
         "settings": {
             "title": "Settings",
             "user": {
@@ -39,6 +30,15 @@
             },
             "application": {
                 "title": "Application",
+                "language": {
+                    "change": "Choose language"
+                },
+                "theme": {
+                    "title": "Theme",
+                    "switcher": {
+                        "as_system": "As in the system"
+                    }
+                },
                 "go_to_storage_manager": "Memory Manager",
                 "go_to_about_app": "About the application"
             },

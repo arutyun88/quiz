@@ -66,8 +66,6 @@ class TranslationsProfileEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsProfileThemeEn theme = TranslationsProfileThemeEn._(_root);
-	late final TranslationsProfileLanguageEn language = TranslationsProfileLanguageEn._(_root);
 	late final TranslationsProfileSettingsEn settings = TranslationsProfileSettingsEn._(_root);
 	late final TranslationsProfileEditEn edit = TranslationsProfileEditEn._(_root);
 }
@@ -132,27 +130,6 @@ class TranslationsTextFieldConfirmPasswordEn {
 	// Translations
 	String get label => 'Confirm password';
 	String get hint => 'Repeat the entered password';
-}
-
-// Path: profile.theme
-class TranslationsProfileThemeEn {
-	TranslationsProfileThemeEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get title => 'Theme';
-	late final TranslationsProfileThemeSwitcherEn switcher = TranslationsProfileThemeSwitcherEn._(_root);
-}
-
-// Path: profile.language
-class TranslationsProfileLanguageEn {
-	TranslationsProfileLanguageEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get change => 'Choose language';
 }
 
 // Path: profile.settings
@@ -243,16 +220,6 @@ class TranslationsQuestionErrorSnackbarEn {
 	late final TranslationsQuestionErrorSnackbarSaveFailedRetryLaterEn save_failed_retry_later = TranslationsQuestionErrorSnackbarSaveFailedRetryLaterEn._(_root);
 }
 
-// Path: profile.theme.switcher
-class TranslationsProfileThemeSwitcherEn {
-	TranslationsProfileThemeSwitcherEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get as_system => 'As in the system';
-}
-
 // Path: profile.settings.user
 class TranslationsProfileSettingsUserEn {
 	TranslationsProfileSettingsUserEn._(this._root);
@@ -274,6 +241,8 @@ class TranslationsProfileSettingsApplicationEn {
 
 	// Translations
 	String get title => 'Application';
+	late final TranslationsProfileSettingsApplicationLanguageEn language = TranslationsProfileSettingsApplicationLanguageEn._(_root);
+	late final TranslationsProfileSettingsApplicationThemeEn theme = TranslationsProfileSettingsApplicationThemeEn._(_root);
 	String get go_to_storage_manager => 'Memory Manager';
 	String get go_to_about_app => 'About the application';
 }
@@ -408,6 +377,27 @@ class TranslationsQuestionErrorSnackbarSaveFailedRetryLaterEn {
 	String get button => 'Try again later';
 }
 
+// Path: profile.settings.application.language
+class TranslationsProfileSettingsApplicationLanguageEn {
+	TranslationsProfileSettingsApplicationLanguageEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get change => 'Choose language';
+}
+
+// Path: profile.settings.application.theme
+class TranslationsProfileSettingsApplicationThemeEn {
+	TranslationsProfileSettingsApplicationThemeEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Theme';
+	late final TranslationsProfileSettingsApplicationThemeSwitcherEn switcher = TranslationsProfileSettingsApplicationThemeSwitcherEn._(_root);
+}
+
 // Path: profile.edit.password.result
 class TranslationsProfileEditPasswordResultEn {
 	TranslationsProfileEditPasswordResultEn._(this._root);
@@ -463,6 +453,16 @@ class TranslationsAuthenticationSignInForgetPasswordDialogEn {
 	late final TranslationsAuthenticationSignInForgetPasswordDialogValidEn valid = TranslationsAuthenticationSignInForgetPasswordDialogValidEn._(_root);
 	late final TranslationsAuthenticationSignInForgetPasswordDialogInvalidEn invalid = TranslationsAuthenticationSignInForgetPasswordDialogInvalidEn._(_root);
 	late final TranslationsAuthenticationSignInForgetPasswordDialogResultEn result = TranslationsAuthenticationSignInForgetPasswordDialogResultEn._(_root);
+}
+
+// Path: profile.settings.application.theme.switcher
+class TranslationsProfileSettingsApplicationThemeSwitcherEn {
+	TranslationsProfileSettingsApplicationThemeSwitcherEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get as_system => 'As in the system';
 }
 
 // Path: profile.edit.main.date.picker
@@ -536,15 +536,15 @@ extension on Translations {
 			case 'text_field.password.validation_message': return '8+ characters: 1 uppercase, 1 lowercase, 1 digit';
 			case 'text_field.confirm_password.label': return 'Confirm password';
 			case 'text_field.confirm_password.hint': return 'Repeat the entered password';
-			case 'profile.theme.title': return 'Theme';
-			case 'profile.theme.switcher.as_system': return 'As in the system';
-			case 'profile.language.change': return 'Choose language';
 			case 'profile.settings.title': return 'Settings';
 			case 'profile.settings.user.title': return 'Settings';
 			case 'profile.settings.user.go_to_edit': return 'Edit profile';
 			case 'profile.settings.user.go_to_notifications_settings': return 'Настройки уведомлений';
 			case 'profile.settings.user.go_to_subscriptions': return 'Управление подпиской';
 			case 'profile.settings.application.title': return 'Application';
+			case 'profile.settings.application.language.change': return 'Choose language';
+			case 'profile.settings.application.theme.title': return 'Theme';
+			case 'profile.settings.application.theme.switcher.as_system': return 'As in the system';
 			case 'profile.settings.application.go_to_storage_manager': return 'Memory Manager';
 			case 'profile.settings.application.go_to_about_app': return 'About the application';
 			case 'profile.settings.sign_out': return 'Log out of profile';

@@ -15,7 +15,10 @@ class ProfileLocaleChangeWidget extends StatelessWidget {
       onTap: () => _languageSheet(context),
       child: Row(
         children: [
-          Text(context.t.profile.language.change, style: context.textStyle.body14Regular),
+          Text(
+            context.t.profile.settings.application.language.change,
+            style: context.textStyle.body14Regular,
+          ),
           const Spacer(),
           Text(
             context.t.languages[LocaleSettings.instance.currentLocale.languageCode] ?? '',

@@ -23,12 +23,12 @@ class ApplicationSettingsWidget extends StatelessWidget {
         const ProfileThemeSwitchWidget(),
         const Divider(),
         SettingsItemWidget(
-          title: context.t.profile.settings.user.go_to_notifications_settings,
+          title: context.t.profile.settings.application.go_to_storage_manager,
           onTap: null,
         ),
         const Divider(),
         SettingsItemWidget(
-          title: context.t.profile.settings.user.go_to_subscriptions,
+          title: context.t.profile.settings.application.go_to_about_app,
           onTap: null,
         ),
       ],

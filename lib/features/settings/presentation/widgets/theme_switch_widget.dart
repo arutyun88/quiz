@@ -18,7 +18,7 @@ class ProfileThemeSwitchWidget extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          t.profile.theme.title,
+          t.profile.settings.application.theme.title,
           style: context.textStyle.body14Regular,
         ),
         const SizedBox(height: 4.0),
@@ -30,7 +30,7 @@ class ProfileThemeSwitchWidget extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    t.profile.theme.switcher.as_system,
+                    t.profile.settings.application.theme.switcher.as_system,
                     style: context.textStyle.body12Regular,
                   ),
                   const SizedBox(width: 4.0),
