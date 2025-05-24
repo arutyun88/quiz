@@ -11,6 +11,7 @@ import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/core/services/auth_token_service.dart';
 import 'package:quiz/app/core/services/settings_local_storage_service.dart';
 import 'package:quiz/features/authentication/data/converter/token_converter.dart';
+import 'package:quiz/gen/strings.g.dart';
 
 class DioApiClient implements ApiClient {
   final Dio _dio;
@@ -191,7 +192,7 @@ class DioApiClient implements ApiClient {
   Json _prepareHeaders(Json? headers, bool enableLocale) {
     final requestHeaders = Map<String, dynamic>.from(headers ?? {});
     if (enableLocale) {
-      requestHeaders['X-Lang'] = _settingsStorage.fetchLocale();
+      requestHeaders['X-Lang'] = _settingsStorage.fetchLocale() ?? LocaleSettings.currentLocale.languageCode;
     }
     return requestHeaders;
   }
