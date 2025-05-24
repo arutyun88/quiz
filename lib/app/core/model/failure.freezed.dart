@@ -2185,6 +2185,7 @@ mixin _$QuestionFailureReason {
     required TResult Function() notFoundCached,
     required TResult Function() save,
     required TResult Function() over,
+    required TResult Function() clearCache,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -2192,6 +2193,7 @@ mixin _$QuestionFailureReason {
     TResult? Function()? notFoundCached,
     TResult? Function()? save,
     TResult? Function()? over,
+    TResult? Function()? clearCache,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -2199,6 +2201,7 @@ mixin _$QuestionFailureReason {
     TResult Function()? notFoundCached,
     TResult Function()? save,
     TResult Function()? over,
+    TResult Function()? clearCache,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -2208,6 +2211,7 @@ mixin _$QuestionFailureReason {
         notFoundCached,
     required TResult Function(QuestionFailureSaveReason value) save,
     required TResult Function(QuestionFailureOverReason value) over,
+    required TResult Function(QuestionFailureClearCacheReason value) clearCache,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -2216,6 +2220,7 @@ mixin _$QuestionFailureReason {
         notFoundCached,
     TResult? Function(QuestionFailureSaveReason value)? save,
     TResult? Function(QuestionFailureOverReason value)? over,
+    TResult? Function(QuestionFailureClearCacheReason value)? clearCache,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -2223,6 +2228,7 @@ mixin _$QuestionFailureReason {
     TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
     TResult Function(QuestionFailureSaveReason value)? save,
     TResult Function(QuestionFailureOverReason value)? over,
+    TResult Function(QuestionFailureClearCacheReason value)? clearCache,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -2299,6 +2305,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
     required TResult Function() notFoundCached,
     required TResult Function() save,
     required TResult Function() over,
+    required TResult Function() clearCache,
   }) {
     return notFoundCached();
   }
@@ -2309,6 +2316,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
     TResult? Function()? notFoundCached,
     TResult? Function()? save,
     TResult? Function()? over,
+    TResult? Function()? clearCache,
   }) {
     return notFoundCached?.call();
   }
@@ -2319,6 +2327,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
     TResult Function()? notFoundCached,
     TResult Function()? save,
     TResult Function()? over,
+    TResult Function()? clearCache,
     required TResult orElse(),
   }) {
     if (notFoundCached != null) {
@@ -2334,6 +2343,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
         notFoundCached,
     required TResult Function(QuestionFailureSaveReason value) save,
     required TResult Function(QuestionFailureOverReason value) over,
+    required TResult Function(QuestionFailureClearCacheReason value) clearCache,
   }) {
     return notFoundCached(this);
   }
@@ -2345,6 +2355,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
         notFoundCached,
     TResult? Function(QuestionFailureSaveReason value)? save,
     TResult? Function(QuestionFailureOverReason value)? over,
+    TResult? Function(QuestionFailureClearCacheReason value)? clearCache,
   }) {
     return notFoundCached?.call(this);
   }
@@ -2355,6 +2366,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
     TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
     TResult Function(QuestionFailureSaveReason value)? save,
     TResult Function(QuestionFailureOverReason value)? over,
+    TResult Function(QuestionFailureClearCacheReason value)? clearCache,
     required TResult orElse(),
   }) {
     if (notFoundCached != null) {
@@ -2418,6 +2430,7 @@ class _$QuestionFailureSaveReasonImpl implements QuestionFailureSaveReason {
     required TResult Function() notFoundCached,
     required TResult Function() save,
     required TResult Function() over,
+    required TResult Function() clearCache,
   }) {
     return save();
   }
@@ -2428,6 +2441,7 @@ class _$QuestionFailureSaveReasonImpl implements QuestionFailureSaveReason {
     TResult? Function()? notFoundCached,
     TResult? Function()? save,
     TResult? Function()? over,
+    TResult? Function()? clearCache,
   }) {
     return save?.call();
   }
@@ -2438,6 +2452,7 @@ class _$QuestionFailureSaveReasonImpl implements QuestionFailureSaveReason {
     TResult Function()? notFoundCached,
     TResult Function()? save,
     TResult Function()? over,
+    TResult Function()? clearCache,
     required TResult orElse(),
   }) {
     if (save != null) {
@@ -2453,6 +2468,7 @@ class _$QuestionFailureSaveReasonImpl implements QuestionFailureSaveReason {
         notFoundCached,
     required TResult Function(QuestionFailureSaveReason value) save,
     required TResult Function(QuestionFailureOverReason value) over,
+    required TResult Function(QuestionFailureClearCacheReason value) clearCache,
   }) {
     return save(this);
   }
@@ -2464,6 +2480,7 @@ class _$QuestionFailureSaveReasonImpl implements QuestionFailureSaveReason {
         notFoundCached,
     TResult? Function(QuestionFailureSaveReason value)? save,
     TResult? Function(QuestionFailureOverReason value)? over,
+    TResult? Function(QuestionFailureClearCacheReason value)? clearCache,
   }) {
     return save?.call(this);
   }
@@ -2474,6 +2491,7 @@ class _$QuestionFailureSaveReasonImpl implements QuestionFailureSaveReason {
     TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
     TResult Function(QuestionFailureSaveReason value)? save,
     TResult Function(QuestionFailureOverReason value)? over,
+    TResult Function(QuestionFailureClearCacheReason value)? clearCache,
     required TResult orElse(),
   }) {
     if (save != null) {
@@ -2535,6 +2553,7 @@ class _$QuestionFailureOverReasonImpl implements QuestionFailureOverReason {
     required TResult Function() notFoundCached,
     required TResult Function() save,
     required TResult Function() over,
+    required TResult Function() clearCache,
   }) {
     return over();
   }
@@ -2545,6 +2564,7 @@ class _$QuestionFailureOverReasonImpl implements QuestionFailureOverReason {
     TResult? Function()? notFoundCached,
     TResult? Function()? save,
     TResult? Function()? over,
+    TResult? Function()? clearCache,
   }) {
     return over?.call();
   }
@@ -2555,6 +2575,7 @@ class _$QuestionFailureOverReasonImpl implements QuestionFailureOverReason {
     TResult Function()? notFoundCached,
     TResult Function()? save,
     TResult Function()? over,
+    TResult Function()? clearCache,
     required TResult orElse(),
   }) {
     if (over != null) {
@@ -2570,6 +2591,7 @@ class _$QuestionFailureOverReasonImpl implements QuestionFailureOverReason {
         notFoundCached,
     required TResult Function(QuestionFailureSaveReason value) save,
     required TResult Function(QuestionFailureOverReason value) over,
+    required TResult Function(QuestionFailureClearCacheReason value) clearCache,
   }) {
     return over(this);
   }
@@ -2581,6 +2603,7 @@ class _$QuestionFailureOverReasonImpl implements QuestionFailureOverReason {
         notFoundCached,
     TResult? Function(QuestionFailureSaveReason value)? save,
     TResult? Function(QuestionFailureOverReason value)? over,
+    TResult? Function(QuestionFailureClearCacheReason value)? clearCache,
   }) {
     return over?.call(this);
   }
@@ -2591,6 +2614,7 @@ class _$QuestionFailureOverReasonImpl implements QuestionFailureOverReason {
     TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
     TResult Function(QuestionFailureSaveReason value)? save,
     TResult Function(QuestionFailureOverReason value)? over,
+    TResult Function(QuestionFailureClearCacheReason value)? clearCache,
     required TResult orElse(),
   }) {
     if (over != null) {
@@ -2602,4 +2626,130 @@ class _$QuestionFailureOverReasonImpl implements QuestionFailureOverReason {
 
 abstract class QuestionFailureOverReason implements QuestionFailureReason {
   const factory QuestionFailureOverReason() = _$QuestionFailureOverReasonImpl;
+}
+
+/// @nodoc
+abstract class _$$QuestionFailureClearCacheReasonImplCopyWith<$Res> {
+  factory _$$QuestionFailureClearCacheReasonImplCopyWith(
+          _$QuestionFailureClearCacheReasonImpl value,
+          $Res Function(_$QuestionFailureClearCacheReasonImpl) then) =
+      __$$QuestionFailureClearCacheReasonImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$QuestionFailureClearCacheReasonImplCopyWithImpl<$Res>
+    extends _$QuestionFailureReasonCopyWithImpl<$Res,
+        _$QuestionFailureClearCacheReasonImpl>
+    implements _$$QuestionFailureClearCacheReasonImplCopyWith<$Res> {
+  __$$QuestionFailureClearCacheReasonImplCopyWithImpl(
+      _$QuestionFailureClearCacheReasonImpl _value,
+      $Res Function(_$QuestionFailureClearCacheReasonImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of QuestionFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$QuestionFailureClearCacheReasonImpl
+    implements QuestionFailureClearCacheReason {
+  const _$QuestionFailureClearCacheReasonImpl();
+
+  @override
+  String toString() {
+    return 'QuestionFailureReason.clearCache()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$QuestionFailureClearCacheReasonImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() notFoundCached,
+    required TResult Function() save,
+    required TResult Function() over,
+    required TResult Function() clearCache,
+  }) {
+    return clearCache();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? notFoundCached,
+    TResult? Function()? save,
+    TResult? Function()? over,
+    TResult? Function()? clearCache,
+  }) {
+    return clearCache?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? notFoundCached,
+    TResult Function()? save,
+    TResult Function()? over,
+    TResult Function()? clearCache,
+    required TResult orElse(),
+  }) {
+    if (clearCache != null) {
+      return clearCache();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(QuestionFailureNotFoundCachedReason value)
+        notFoundCached,
+    required TResult Function(QuestionFailureSaveReason value) save,
+    required TResult Function(QuestionFailureOverReason value) over,
+    required TResult Function(QuestionFailureClearCacheReason value) clearCache,
+  }) {
+    return clearCache(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(QuestionFailureNotFoundCachedReason value)?
+        notFoundCached,
+    TResult? Function(QuestionFailureSaveReason value)? save,
+    TResult? Function(QuestionFailureOverReason value)? over,
+    TResult? Function(QuestionFailureClearCacheReason value)? clearCache,
+  }) {
+    return clearCache?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
+    TResult Function(QuestionFailureSaveReason value)? save,
+    TResult Function(QuestionFailureOverReason value)? over,
+    TResult Function(QuestionFailureClearCacheReason value)? clearCache,
+    required TResult orElse(),
+  }) {
+    if (clearCache != null) {
+      return clearCache(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class QuestionFailureClearCacheReason
+    implements QuestionFailureReason {
+  const factory QuestionFailureClearCacheReason() =
+      _$QuestionFailureClearCacheReasonImpl;
 }

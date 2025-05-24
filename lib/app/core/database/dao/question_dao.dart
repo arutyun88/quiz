@@ -18,6 +18,12 @@ abstract interface class QuestionDao {
   Future<Result<QuestionEntity, Failure>> getQuestionById(String id);
 
   Future<Result<void, Failure>> save(List<QuestionEntity> questionList);
+
+  Future<Result<void, Failure>> clearAllCache();
+
+  Stream<int> watchQuestionsCount();
+
+  Stream<List<Question>> watchAllQuestions();
 }
 
 @DriftAccessor(tables: [Questions, Answers, Topics])
@@ -96,5 +102,32 @@ class QuestionDaoImpl extends DatabaseAccessor<AppDatabase> with _$QuestionDaoIm
     } catch (_) {
       return Result.failed(Failure.question(QuestionFailureReason.save()));
     }
+  }
+
+  @override
+  Future<Result<void, Failure>> clearAllCache() async {
+    try {
+      return await transaction(() async {
+        await delete(answers).go();
+        await delete(questions).go();
+        await delete(topics).go();
+
+        return Result.ok(null);
+      });
+    } catch (_) {
+      return Result.failed(Failure.question(QuestionFailureReason.clearCache()));
+    }
+  }
+
+  @override
+  Stream<int> watchQuestionsCount() {
+    return (selectOnly(questions)..addColumns([questions.id.count()]))
+        .watchSingle()
+        .map((row) => row.read(questions.id.count()) ?? 0);
+  }
+
+  @override
+  Stream<List<Question>> watchAllQuestions() {
+    return select(questions).watch();
   }
 }
