@@ -74,6 +74,7 @@ import '../../features/user/domain/repository/user_statistics_repository.dart'
     as _i632;
 import '../core/client/api_client.dart' as _i782;
 import '../core/database/app_database.dart' as _i935;
+import '../core/database/dao/answered_question_dao.dart' as _i426;
 import '../core/database/dao/question_dao.dart' as _i265;
 import '../core/localization/gateway/change_locale_gateway.dart' as _i309;
 import '../core/model/data_page/page_info_converter.dart' as _i724;
@@ -144,6 +145,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i692.AnswerDbConverter>(() => _i692.AnswerDbConverterImpl());
     gh.factory<_i122.QuestionStateDtoConverter>(
         () => _i122.QuestionStateDtoConverterImpl());
+    gh.factory<_i426.AnsweredQuestionDao>(
+        () => _i426.AnsweredQuestionDaoImpl(gh<_i935.AppDatabase>()));
     gh.singleton<_i724.PageInfoConverter>(() => _i724.PageInfoConverterImpl());
     gh.singleton<_i422.AuthTokenService>(() =>
         _i422.AuthTokenServicePrefs(prefs: gh<_i460.SharedPreferences>()));
@@ -204,9 +207,6 @@ extension GetItInjectableX on _i174.GetIt {
           authenticationRepository: gh<_i797.AuthenticationRepository>(),
           tokenService: gh<_i422.AuthTokenService>(),
         ));
-    gh.factory<_i137.CheckQuestionStateUseCase>(() =>
-        _i137.CheckQuestionStateUseCaseImpl(
-            questionRepository: gh<_i240.QuestionRepository>()));
     gh.factory<_i450.UserRepository>(() => userModule.userRepository(
           client: gh<_i782.ApiClient>(),
           userConverter: gh<_i11.UserConverter>(),
@@ -236,6 +236,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => userModule.changeUserInfoGateway(gh<_i450.UserRepository>()));
     gh.lazySingleton<_i885.ChangePasswordGateway>(
         () => userModule.changePasswordGateway(gh<_i450.UserRepository>()));
+    gh.factory<_i137.CheckQuestionStateUseCase>(
+        () => _i137.CheckQuestionStateUseCaseImpl(
+              questionRepository: gh<_i240.QuestionRepository>(),
+              tokenService: gh<_i422.AuthTokenService>(),
+              answeredQuestionDao: gh<_i426.AnsweredQuestionDao>(),
+            ));
     return this;
   }
 }

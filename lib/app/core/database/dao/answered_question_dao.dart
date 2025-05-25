@@ -2,6 +2,8 @@ import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 import 'package:quiz/app/core/database/app_database.dart';
 import 'package:quiz/app/core/database/schema/answered_question.dart';
+import 'package:quiz/app/core/model/failure.dart';
+import 'package:quiz/app/core/model/result.dart';
 
 part 'answered_question_dao.g.dart';
 
@@ -9,6 +11,8 @@ abstract interface class AnsweredQuestionDao {
   Stream<int> watchAnsweredQuestionsCount();
 
   Stream<List<AnsweredQuestion>> watchAnsweredQuestions();
+
+  Future<Result<bool, Failure>> checkQuestionStateById(String id);
 }
 
 @DriftAccessor(tables: [AnsweredQuestions])
@@ -28,5 +32,16 @@ class AnsweredQuestionDaoImpl extends DatabaseAccessor<AppDatabase>
   @override
   Stream<List<AnsweredQuestion>> watchAnsweredQuestions() {
     return select(answeredQuestions).watch();
+  }
+
+  @override
+  Future<Result<bool, Failure>> checkQuestionStateById(String id) async {
+    try {
+      final query = select(answeredQuestions)..where((question) => question.questionId.equals(id));
+      final result = (await query.getSingleOrNull());
+      return Result.ok(result?.isCorrect ?? true);
+    } catch (_) {
+      return Result.failed(Failure.question(QuestionFailureReason.checkState()));
+    }
   }
 }

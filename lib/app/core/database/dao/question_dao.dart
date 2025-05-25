@@ -1,7 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 import 'package:quiz/app/core/database/app_database.dart';
-import 'package:quiz/app/core/database/schema/answered_question.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/features/question/data/converter/question_db_converter.dart';

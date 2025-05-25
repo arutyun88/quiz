@@ -24,9 +24,13 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
     if (_questionIdService.questionId case String id) {
       final questionState = await _checkQuestionStateUseCase.checkById(id);
 
-      if (questionState case ResultOk(data: final questionState) when questionState.isAnswered) {
-        await _questionIdService.clean();
-        return await fetch();
+      switch (questionState) {
+        case ResultOk(data: final questionState) when questionState.isAnswered:
+        case ResultFailed(error: final NetworkFailure failure) when failure.reason is! NetworkFailureServerReason:
+        case ResultFailed(error: final QuestionFailure failure) when failure.reason is QuestionFailureCheckStateReason:
+          await _questionIdService.clean();
+          return await fetch();
+        default:
       }
 
       final result = await _fetchQuestionUseCase.fetchById(id);
