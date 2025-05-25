@@ -217,6 +217,7 @@ class TranslationsQuestionErrorSnackbarEn {
 
 	// Translations
 	late final TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceEn answered_on_another_device = TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceEn._(_root);
+	late final TranslationsQuestionErrorSnackbarAlreadyAnsweredEn already_answered = TranslationsQuestionErrorSnackbarAlreadyAnsweredEn._(_root);
 	late final TranslationsQuestionErrorSnackbarSaveFailedRetryLaterEn save_failed_retry_later = TranslationsQuestionErrorSnackbarSaveFailedRetryLaterEn._(_root);
 }
 
@@ -363,6 +364,17 @@ class TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceEn {
 
 	// Translations
 	String get text => 'This question was already answered on another device. It won\'t appear again.';
+	String get button => 'Got it';
+}
+
+// Path: question.error_snackbar.already_answered
+class TranslationsQuestionErrorSnackbarAlreadyAnsweredEn {
+	TranslationsQuestionErrorSnackbarAlreadyAnsweredEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get text => 'This question is already in your answer collection and won\'t be overwritten';
 	String get button => 'Got it';
 }
 
@@ -606,6 +618,8 @@ extension on Translations {
 			case 'question.dialog.button': return 'Continue';
 			case 'question.error_snackbar.answered_on_another_device.text': return 'This question was already answered on another device. It won\'t appear again.';
 			case 'question.error_snackbar.answered_on_another_device.button': return 'Got it';
+			case 'question.error_snackbar.already_answered.text': return 'This question is already in your answer collection and won\'t be overwritten';
+			case 'question.error_snackbar.already_answered.button': return 'Got it';
 			case 'question.error_snackbar.save_failed_retry_later.text': return 'Oops! Your answer wasn\'t saved, but this question will return later. You\'ll get another chance!';
 			case 'question.error_snackbar.save_failed_retry_later.button': return 'Try again later';
 			default: return null;

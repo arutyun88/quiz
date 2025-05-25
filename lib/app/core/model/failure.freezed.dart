@@ -2184,6 +2184,7 @@ mixin _$QuestionFailureReason {
   TResult when<TResult extends Object?>({
     required TResult Function() notFoundCached,
     required TResult Function() save,
+    required TResult Function() alreadySaved,
     required TResult Function() over,
     required TResult Function() clearCache,
     required TResult Function() checkState,
@@ -2194,6 +2195,7 @@ mixin _$QuestionFailureReason {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notFoundCached,
     TResult? Function()? save,
+    TResult? Function()? alreadySaved,
     TResult? Function()? over,
     TResult? Function()? clearCache,
     TResult? Function()? checkState,
@@ -2204,6 +2206,7 @@ mixin _$QuestionFailureReason {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notFoundCached,
     TResult Function()? save,
+    TResult Function()? alreadySaved,
     TResult Function()? over,
     TResult Function()? clearCache,
     TResult Function()? checkState,
@@ -2216,6 +2219,8 @@ mixin _$QuestionFailureReason {
     required TResult Function(QuestionFailureNotFoundCachedReason value)
         notFoundCached,
     required TResult Function(QuestionFailureSaveReason value) save,
+    required TResult Function(QuestionFailureAlreadySavedReason value)
+        alreadySaved,
     required TResult Function(QuestionFailureOverReason value) over,
     required TResult Function(QuestionFailureClearCacheReason value) clearCache,
     required TResult Function(QuestionFailureCheckStateReason value) checkState,
@@ -2228,6 +2233,7 @@ mixin _$QuestionFailureReason {
     TResult? Function(QuestionFailureNotFoundCachedReason value)?
         notFoundCached,
     TResult? Function(QuestionFailureSaveReason value)? save,
+    TResult? Function(QuestionFailureAlreadySavedReason value)? alreadySaved,
     TResult? Function(QuestionFailureOverReason value)? over,
     TResult? Function(QuestionFailureClearCacheReason value)? clearCache,
     TResult? Function(QuestionFailureCheckStateReason value)? checkState,
@@ -2239,6 +2245,7 @@ mixin _$QuestionFailureReason {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
     TResult Function(QuestionFailureSaveReason value)? save,
+    TResult Function(QuestionFailureAlreadySavedReason value)? alreadySaved,
     TResult Function(QuestionFailureOverReason value)? over,
     TResult Function(QuestionFailureClearCacheReason value)? clearCache,
     TResult Function(QuestionFailureCheckStateReason value)? checkState,
@@ -2318,6 +2325,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
   TResult when<TResult extends Object?>({
     required TResult Function() notFoundCached,
     required TResult Function() save,
+    required TResult Function() alreadySaved,
     required TResult Function() over,
     required TResult Function() clearCache,
     required TResult Function() checkState,
@@ -2331,6 +2339,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notFoundCached,
     TResult? Function()? save,
+    TResult? Function()? alreadySaved,
     TResult? Function()? over,
     TResult? Function()? clearCache,
     TResult? Function()? checkState,
@@ -2344,6 +2353,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notFoundCached,
     TResult Function()? save,
+    TResult Function()? alreadySaved,
     TResult Function()? over,
     TResult Function()? clearCache,
     TResult Function()? checkState,
@@ -2362,6 +2372,8 @@ class _$QuestionFailureNotFoundCachedReasonImpl
     required TResult Function(QuestionFailureNotFoundCachedReason value)
         notFoundCached,
     required TResult Function(QuestionFailureSaveReason value) save,
+    required TResult Function(QuestionFailureAlreadySavedReason value)
+        alreadySaved,
     required TResult Function(QuestionFailureOverReason value) over,
     required TResult Function(QuestionFailureClearCacheReason value) clearCache,
     required TResult Function(QuestionFailureCheckStateReason value) checkState,
@@ -2377,6 +2389,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
     TResult? Function(QuestionFailureNotFoundCachedReason value)?
         notFoundCached,
     TResult? Function(QuestionFailureSaveReason value)? save,
+    TResult? Function(QuestionFailureAlreadySavedReason value)? alreadySaved,
     TResult? Function(QuestionFailureOverReason value)? over,
     TResult? Function(QuestionFailureClearCacheReason value)? clearCache,
     TResult? Function(QuestionFailureCheckStateReason value)? checkState,
@@ -2391,6 +2404,7 @@ class _$QuestionFailureNotFoundCachedReasonImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
     TResult Function(QuestionFailureSaveReason value)? save,
+    TResult Function(QuestionFailureAlreadySavedReason value)? alreadySaved,
     TResult Function(QuestionFailureOverReason value)? over,
     TResult Function(QuestionFailureClearCacheReason value)? clearCache,
     TResult Function(QuestionFailureCheckStateReason value)? checkState,
@@ -2457,6 +2471,7 @@ class _$QuestionFailureSaveReasonImpl implements QuestionFailureSaveReason {
   TResult when<TResult extends Object?>({
     required TResult Function() notFoundCached,
     required TResult Function() save,
+    required TResult Function() alreadySaved,
     required TResult Function() over,
     required TResult Function() clearCache,
     required TResult Function() checkState,
@@ -2470,6 +2485,7 @@ class _$QuestionFailureSaveReasonImpl implements QuestionFailureSaveReason {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notFoundCached,
     TResult? Function()? save,
+    TResult? Function()? alreadySaved,
     TResult? Function()? over,
     TResult? Function()? clearCache,
     TResult? Function()? checkState,
@@ -2483,6 +2499,7 @@ class _$QuestionFailureSaveReasonImpl implements QuestionFailureSaveReason {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notFoundCached,
     TResult Function()? save,
+    TResult Function()? alreadySaved,
     TResult Function()? over,
     TResult Function()? clearCache,
     TResult Function()? checkState,
@@ -2501,6 +2518,8 @@ class _$QuestionFailureSaveReasonImpl implements QuestionFailureSaveReason {
     required TResult Function(QuestionFailureNotFoundCachedReason value)
         notFoundCached,
     required TResult Function(QuestionFailureSaveReason value) save,
+    required TResult Function(QuestionFailureAlreadySavedReason value)
+        alreadySaved,
     required TResult Function(QuestionFailureOverReason value) over,
     required TResult Function(QuestionFailureClearCacheReason value) clearCache,
     required TResult Function(QuestionFailureCheckStateReason value) checkState,
@@ -2516,6 +2535,7 @@ class _$QuestionFailureSaveReasonImpl implements QuestionFailureSaveReason {
     TResult? Function(QuestionFailureNotFoundCachedReason value)?
         notFoundCached,
     TResult? Function(QuestionFailureSaveReason value)? save,
+    TResult? Function(QuestionFailureAlreadySavedReason value)? alreadySaved,
     TResult? Function(QuestionFailureOverReason value)? over,
     TResult? Function(QuestionFailureClearCacheReason value)? clearCache,
     TResult? Function(QuestionFailureCheckStateReason value)? checkState,
@@ -2530,6 +2550,7 @@ class _$QuestionFailureSaveReasonImpl implements QuestionFailureSaveReason {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
     TResult Function(QuestionFailureSaveReason value)? save,
+    TResult Function(QuestionFailureAlreadySavedReason value)? alreadySaved,
     TResult Function(QuestionFailureOverReason value)? over,
     TResult Function(QuestionFailureClearCacheReason value)? clearCache,
     TResult Function(QuestionFailureCheckStateReason value)? checkState,
@@ -2545,6 +2566,153 @@ class _$QuestionFailureSaveReasonImpl implements QuestionFailureSaveReason {
 
 abstract class QuestionFailureSaveReason implements QuestionFailureReason {
   const factory QuestionFailureSaveReason() = _$QuestionFailureSaveReasonImpl;
+}
+
+/// @nodoc
+abstract class _$$QuestionFailureAlreadySavedReasonImplCopyWith<$Res> {
+  factory _$$QuestionFailureAlreadySavedReasonImplCopyWith(
+          _$QuestionFailureAlreadySavedReasonImpl value,
+          $Res Function(_$QuestionFailureAlreadySavedReasonImpl) then) =
+      __$$QuestionFailureAlreadySavedReasonImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$QuestionFailureAlreadySavedReasonImplCopyWithImpl<$Res>
+    extends _$QuestionFailureReasonCopyWithImpl<$Res,
+        _$QuestionFailureAlreadySavedReasonImpl>
+    implements _$$QuestionFailureAlreadySavedReasonImplCopyWith<$Res> {
+  __$$QuestionFailureAlreadySavedReasonImplCopyWithImpl(
+      _$QuestionFailureAlreadySavedReasonImpl _value,
+      $Res Function(_$QuestionFailureAlreadySavedReasonImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of QuestionFailureReason
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$QuestionFailureAlreadySavedReasonImpl
+    implements QuestionFailureAlreadySavedReason {
+  const _$QuestionFailureAlreadySavedReasonImpl();
+
+  @override
+  String toString() {
+    return 'QuestionFailureReason.alreadySaved()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$QuestionFailureAlreadySavedReasonImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() notFoundCached,
+    required TResult Function() save,
+    required TResult Function() alreadySaved,
+    required TResult Function() over,
+    required TResult Function() clearCache,
+    required TResult Function() checkState,
+    required TResult Function() markAsAnswered,
+  }) {
+    return alreadySaved();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? notFoundCached,
+    TResult? Function()? save,
+    TResult? Function()? alreadySaved,
+    TResult? Function()? over,
+    TResult? Function()? clearCache,
+    TResult? Function()? checkState,
+    TResult? Function()? markAsAnswered,
+  }) {
+    return alreadySaved?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? notFoundCached,
+    TResult Function()? save,
+    TResult Function()? alreadySaved,
+    TResult Function()? over,
+    TResult Function()? clearCache,
+    TResult Function()? checkState,
+    TResult Function()? markAsAnswered,
+    required TResult orElse(),
+  }) {
+    if (alreadySaved != null) {
+      return alreadySaved();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(QuestionFailureNotFoundCachedReason value)
+        notFoundCached,
+    required TResult Function(QuestionFailureSaveReason value) save,
+    required TResult Function(QuestionFailureAlreadySavedReason value)
+        alreadySaved,
+    required TResult Function(QuestionFailureOverReason value) over,
+    required TResult Function(QuestionFailureClearCacheReason value) clearCache,
+    required TResult Function(QuestionFailureCheckStateReason value) checkState,
+    required TResult Function(QuestionFailureMarkAsAnsweredReason value)
+        markAsAnswered,
+  }) {
+    return alreadySaved(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(QuestionFailureNotFoundCachedReason value)?
+        notFoundCached,
+    TResult? Function(QuestionFailureSaveReason value)? save,
+    TResult? Function(QuestionFailureAlreadySavedReason value)? alreadySaved,
+    TResult? Function(QuestionFailureOverReason value)? over,
+    TResult? Function(QuestionFailureClearCacheReason value)? clearCache,
+    TResult? Function(QuestionFailureCheckStateReason value)? checkState,
+    TResult? Function(QuestionFailureMarkAsAnsweredReason value)?
+        markAsAnswered,
+  }) {
+    return alreadySaved?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
+    TResult Function(QuestionFailureSaveReason value)? save,
+    TResult Function(QuestionFailureAlreadySavedReason value)? alreadySaved,
+    TResult Function(QuestionFailureOverReason value)? over,
+    TResult Function(QuestionFailureClearCacheReason value)? clearCache,
+    TResult Function(QuestionFailureCheckStateReason value)? checkState,
+    TResult Function(QuestionFailureMarkAsAnsweredReason value)? markAsAnswered,
+    required TResult orElse(),
+  }) {
+    if (alreadySaved != null) {
+      return alreadySaved(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class QuestionFailureAlreadySavedReason
+    implements QuestionFailureReason {
+  const factory QuestionFailureAlreadySavedReason() =
+      _$QuestionFailureAlreadySavedReasonImpl;
 }
 
 /// @nodoc
@@ -2594,6 +2762,7 @@ class _$QuestionFailureOverReasonImpl implements QuestionFailureOverReason {
   TResult when<TResult extends Object?>({
     required TResult Function() notFoundCached,
     required TResult Function() save,
+    required TResult Function() alreadySaved,
     required TResult Function() over,
     required TResult Function() clearCache,
     required TResult Function() checkState,
@@ -2607,6 +2776,7 @@ class _$QuestionFailureOverReasonImpl implements QuestionFailureOverReason {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notFoundCached,
     TResult? Function()? save,
+    TResult? Function()? alreadySaved,
     TResult? Function()? over,
     TResult? Function()? clearCache,
     TResult? Function()? checkState,
@@ -2620,6 +2790,7 @@ class _$QuestionFailureOverReasonImpl implements QuestionFailureOverReason {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notFoundCached,
     TResult Function()? save,
+    TResult Function()? alreadySaved,
     TResult Function()? over,
     TResult Function()? clearCache,
     TResult Function()? checkState,
@@ -2638,6 +2809,8 @@ class _$QuestionFailureOverReasonImpl implements QuestionFailureOverReason {
     required TResult Function(QuestionFailureNotFoundCachedReason value)
         notFoundCached,
     required TResult Function(QuestionFailureSaveReason value) save,
+    required TResult Function(QuestionFailureAlreadySavedReason value)
+        alreadySaved,
     required TResult Function(QuestionFailureOverReason value) over,
     required TResult Function(QuestionFailureClearCacheReason value) clearCache,
     required TResult Function(QuestionFailureCheckStateReason value) checkState,
@@ -2653,6 +2826,7 @@ class _$QuestionFailureOverReasonImpl implements QuestionFailureOverReason {
     TResult? Function(QuestionFailureNotFoundCachedReason value)?
         notFoundCached,
     TResult? Function(QuestionFailureSaveReason value)? save,
+    TResult? Function(QuestionFailureAlreadySavedReason value)? alreadySaved,
     TResult? Function(QuestionFailureOverReason value)? over,
     TResult? Function(QuestionFailureClearCacheReason value)? clearCache,
     TResult? Function(QuestionFailureCheckStateReason value)? checkState,
@@ -2667,6 +2841,7 @@ class _$QuestionFailureOverReasonImpl implements QuestionFailureOverReason {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
     TResult Function(QuestionFailureSaveReason value)? save,
+    TResult Function(QuestionFailureAlreadySavedReason value)? alreadySaved,
     TResult Function(QuestionFailureOverReason value)? over,
     TResult Function(QuestionFailureClearCacheReason value)? clearCache,
     TResult Function(QuestionFailureCheckStateReason value)? checkState,
@@ -2732,6 +2907,7 @@ class _$QuestionFailureClearCacheReasonImpl
   TResult when<TResult extends Object?>({
     required TResult Function() notFoundCached,
     required TResult Function() save,
+    required TResult Function() alreadySaved,
     required TResult Function() over,
     required TResult Function() clearCache,
     required TResult Function() checkState,
@@ -2745,6 +2921,7 @@ class _$QuestionFailureClearCacheReasonImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notFoundCached,
     TResult? Function()? save,
+    TResult? Function()? alreadySaved,
     TResult? Function()? over,
     TResult? Function()? clearCache,
     TResult? Function()? checkState,
@@ -2758,6 +2935,7 @@ class _$QuestionFailureClearCacheReasonImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notFoundCached,
     TResult Function()? save,
+    TResult Function()? alreadySaved,
     TResult Function()? over,
     TResult Function()? clearCache,
     TResult Function()? checkState,
@@ -2776,6 +2954,8 @@ class _$QuestionFailureClearCacheReasonImpl
     required TResult Function(QuestionFailureNotFoundCachedReason value)
         notFoundCached,
     required TResult Function(QuestionFailureSaveReason value) save,
+    required TResult Function(QuestionFailureAlreadySavedReason value)
+        alreadySaved,
     required TResult Function(QuestionFailureOverReason value) over,
     required TResult Function(QuestionFailureClearCacheReason value) clearCache,
     required TResult Function(QuestionFailureCheckStateReason value) checkState,
@@ -2791,6 +2971,7 @@ class _$QuestionFailureClearCacheReasonImpl
     TResult? Function(QuestionFailureNotFoundCachedReason value)?
         notFoundCached,
     TResult? Function(QuestionFailureSaveReason value)? save,
+    TResult? Function(QuestionFailureAlreadySavedReason value)? alreadySaved,
     TResult? Function(QuestionFailureOverReason value)? over,
     TResult? Function(QuestionFailureClearCacheReason value)? clearCache,
     TResult? Function(QuestionFailureCheckStateReason value)? checkState,
@@ -2805,6 +2986,7 @@ class _$QuestionFailureClearCacheReasonImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
     TResult Function(QuestionFailureSaveReason value)? save,
+    TResult Function(QuestionFailureAlreadySavedReason value)? alreadySaved,
     TResult Function(QuestionFailureOverReason value)? over,
     TResult Function(QuestionFailureClearCacheReason value)? clearCache,
     TResult Function(QuestionFailureCheckStateReason value)? checkState,
@@ -2872,6 +3054,7 @@ class _$QuestionFailureCheckStateReasonImpl
   TResult when<TResult extends Object?>({
     required TResult Function() notFoundCached,
     required TResult Function() save,
+    required TResult Function() alreadySaved,
     required TResult Function() over,
     required TResult Function() clearCache,
     required TResult Function() checkState,
@@ -2885,6 +3068,7 @@ class _$QuestionFailureCheckStateReasonImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notFoundCached,
     TResult? Function()? save,
+    TResult? Function()? alreadySaved,
     TResult? Function()? over,
     TResult? Function()? clearCache,
     TResult? Function()? checkState,
@@ -2898,6 +3082,7 @@ class _$QuestionFailureCheckStateReasonImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notFoundCached,
     TResult Function()? save,
+    TResult Function()? alreadySaved,
     TResult Function()? over,
     TResult Function()? clearCache,
     TResult Function()? checkState,
@@ -2916,6 +3101,8 @@ class _$QuestionFailureCheckStateReasonImpl
     required TResult Function(QuestionFailureNotFoundCachedReason value)
         notFoundCached,
     required TResult Function(QuestionFailureSaveReason value) save,
+    required TResult Function(QuestionFailureAlreadySavedReason value)
+        alreadySaved,
     required TResult Function(QuestionFailureOverReason value) over,
     required TResult Function(QuestionFailureClearCacheReason value) clearCache,
     required TResult Function(QuestionFailureCheckStateReason value) checkState,
@@ -2931,6 +3118,7 @@ class _$QuestionFailureCheckStateReasonImpl
     TResult? Function(QuestionFailureNotFoundCachedReason value)?
         notFoundCached,
     TResult? Function(QuestionFailureSaveReason value)? save,
+    TResult? Function(QuestionFailureAlreadySavedReason value)? alreadySaved,
     TResult? Function(QuestionFailureOverReason value)? over,
     TResult? Function(QuestionFailureClearCacheReason value)? clearCache,
     TResult? Function(QuestionFailureCheckStateReason value)? checkState,
@@ -2945,6 +3133,7 @@ class _$QuestionFailureCheckStateReasonImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
     TResult Function(QuestionFailureSaveReason value)? save,
+    TResult Function(QuestionFailureAlreadySavedReason value)? alreadySaved,
     TResult Function(QuestionFailureOverReason value)? over,
     TResult Function(QuestionFailureClearCacheReason value)? clearCache,
     TResult Function(QuestionFailureCheckStateReason value)? checkState,
@@ -3012,6 +3201,7 @@ class _$QuestionFailureMarkAsAnsweredReasonImpl
   TResult when<TResult extends Object?>({
     required TResult Function() notFoundCached,
     required TResult Function() save,
+    required TResult Function() alreadySaved,
     required TResult Function() over,
     required TResult Function() clearCache,
     required TResult Function() checkState,
@@ -3025,6 +3215,7 @@ class _$QuestionFailureMarkAsAnsweredReasonImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? notFoundCached,
     TResult? Function()? save,
+    TResult? Function()? alreadySaved,
     TResult? Function()? over,
     TResult? Function()? clearCache,
     TResult? Function()? checkState,
@@ -3038,6 +3229,7 @@ class _$QuestionFailureMarkAsAnsweredReasonImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? notFoundCached,
     TResult Function()? save,
+    TResult Function()? alreadySaved,
     TResult Function()? over,
     TResult Function()? clearCache,
     TResult Function()? checkState,
@@ -3056,6 +3248,8 @@ class _$QuestionFailureMarkAsAnsweredReasonImpl
     required TResult Function(QuestionFailureNotFoundCachedReason value)
         notFoundCached,
     required TResult Function(QuestionFailureSaveReason value) save,
+    required TResult Function(QuestionFailureAlreadySavedReason value)
+        alreadySaved,
     required TResult Function(QuestionFailureOverReason value) over,
     required TResult Function(QuestionFailureClearCacheReason value) clearCache,
     required TResult Function(QuestionFailureCheckStateReason value) checkState,
@@ -3071,6 +3265,7 @@ class _$QuestionFailureMarkAsAnsweredReasonImpl
     TResult? Function(QuestionFailureNotFoundCachedReason value)?
         notFoundCached,
     TResult? Function(QuestionFailureSaveReason value)? save,
+    TResult? Function(QuestionFailureAlreadySavedReason value)? alreadySaved,
     TResult? Function(QuestionFailureOverReason value)? over,
     TResult? Function(QuestionFailureClearCacheReason value)? clearCache,
     TResult? Function(QuestionFailureCheckStateReason value)? checkState,
@@ -3085,6 +3280,7 @@ class _$QuestionFailureMarkAsAnsweredReasonImpl
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QuestionFailureNotFoundCachedReason value)? notFoundCached,
     TResult Function(QuestionFailureSaveReason value)? save,
+    TResult Function(QuestionFailureAlreadySavedReason value)? alreadySaved,
     TResult Function(QuestionFailureOverReason value)? over,
     TResult Function(QuestionFailureClearCacheReason value)? clearCache,
     TResult Function(QuestionFailureCheckStateReason value)? checkState,

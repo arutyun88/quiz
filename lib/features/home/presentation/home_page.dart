@@ -118,31 +118,47 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               ),
             ).then((_) => ref.read(questionProvider.notifier).next());
+          case QuestionAnswerFailedState(:final QuestionFailure failure):
+            _showSnackBar(
+              text: failure.reason is QuestionFailureAlreadySavedReason
+                  ? t.question.error_snackbar.already_answered.text
+                  : t.question.error_snackbar.save_failed_retry_later.text,
+              button: failure.reason is QuestionFailureAlreadySavedReason
+                  ? t.question.error_snackbar.already_answered.button
+                  : t.question.error_snackbar.save_failed_retry_later.button,
+            );
           case QuestionAnswerFailedState(:final NetworkFailure failure):
-            ScaffoldMessenger.of(context)
-                .showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      failure.reason is NetworkFailureBadResponseReason
-                          ? t.question.error_snackbar.answered_on_another_device.text
-                          : t.question.error_snackbar.save_failed_retry_later.text,
-                    ),
-                    action: SnackBarAction(
-                      label: failure.reason is NetworkFailureBadResponseReason
-                          ? t.question.error_snackbar.answered_on_another_device.button
-                          : t.question.error_snackbar.save_failed_retry_later.button,
-                      onPressed: () {},
-                      textColor: context.palette.text.primary,
-                    ),
-                    backgroundColor: context.palette.background.danger,
-                  ),
-                )
-                .closed
-                .then(
-                  (value) => ref.read(questionProvider.notifier).next(),
-                );
+            _showSnackBar(
+              text: failure.reason is NetworkFailureBadResponseReason
+                  ? t.question.error_snackbar.answered_on_another_device.text
+                  : t.question.error_snackbar.save_failed_retry_later.text,
+              button: failure.reason is NetworkFailureBadResponseReason
+                  ? t.question.error_snackbar.answered_on_another_device.button
+                  : t.question.error_snackbar.save_failed_retry_later.button,
+            );
         }
       },
     );
   }
+
+  void _showSnackBar({
+    required String text,
+    required String button,
+  }) =>
+      ScaffoldMessenger.of(context)
+          .showSnackBar(
+            SnackBar(
+              content: Text(text),
+              action: SnackBarAction(
+                label: button,
+                onPressed: () {},
+                textColor: context.palette.text.primary,
+              ),
+              backgroundColor: context.palette.background.danger,
+            ),
+          )
+          .closed
+          .then(
+            (value) => ref.read(questionProvider.notifier).next(),
+          );
 }

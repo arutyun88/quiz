@@ -160,6 +160,10 @@
                 "text": "This question was already answered on another device. It won't appear again.",
                 "button": "Got it"
             },
+            "already_answered": {
+                "text": "This question is already in your answer collection and won't be overwritten",
+                "button": "Got it"
+            },
             "save_failed_retry_later": {
                 "text": "Oops! Your answer wasn't saved, but this question will return later. You'll get another chance!",
                 "button": "Try again later"

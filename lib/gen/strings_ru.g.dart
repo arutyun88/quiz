@@ -213,6 +213,7 @@ class _TranslationsQuestionErrorSnackbarRu implements TranslationsQuestionErrorS
 
 	// Translations
 	@override late final _TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceRu answered_on_another_device = _TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceRu._(_root);
+	@override late final _TranslationsQuestionErrorSnackbarAlreadyAnsweredRu already_answered = _TranslationsQuestionErrorSnackbarAlreadyAnsweredRu._(_root);
 	@override late final _TranslationsQuestionErrorSnackbarSaveFailedRetryLaterRu save_failed_retry_later = _TranslationsQuestionErrorSnackbarSaveFailedRetryLaterRu._(_root);
 }
 
@@ -359,6 +360,17 @@ class _TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceRu implements Tra
 
 	// Translations
 	@override String get text => 'Этот вопрос уже был отвечен на другом устройстве. Он больше не повторится.';
+	@override String get button => 'Понятно';
+}
+
+// Path: question.error_snackbar.already_answered
+class _TranslationsQuestionErrorSnackbarAlreadyAnsweredRu implements TranslationsQuestionErrorSnackbarAlreadyAnsweredEn {
+	_TranslationsQuestionErrorSnackbarAlreadyAnsweredRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get text => 'Этот вопрос у вас уже в копилке ответов и не будет перезаписан';
 	@override String get button => 'Понятно';
 }
 
@@ -602,6 +614,8 @@ extension on TranslationsRu {
 			case 'question.dialog.button': return 'Продолжить';
 			case 'question.error_snackbar.answered_on_another_device.text': return 'Этот вопрос уже был отвечен на другом устройстве. Он больше не повторится.';
 			case 'question.error_snackbar.answered_on_another_device.button': return 'Понятно';
+			case 'question.error_snackbar.already_answered.text': return 'Этот вопрос у вас уже в копилке ответов и не будет перезаписан';
+			case 'question.error_snackbar.already_answered.button': return 'Понятно';
 			case 'question.error_snackbar.save_failed_retry_later.text': return 'Упс! Ответ не сохранился, но вопрос вернётся позже. У вас будет ещё шанс!';
 			case 'question.error_snackbar.save_failed_retry_later.button': return 'Попробую позже';
 			default: return null;

@@ -46,6 +46,8 @@ abstract class QuestionFailureReason with _$QuestionFailureReason {
 
   const factory QuestionFailureReason.save() = QuestionFailureSaveReason;
 
+  const factory QuestionFailureReason.alreadySaved() = QuestionFailureAlreadySavedReason;
+
   const factory QuestionFailureReason.over() = QuestionFailureOverReason;
 
   const factory QuestionFailureReason.clearCache() = QuestionFailureClearCacheReason;

@@ -1,4 +1,6 @@
 import 'package:drift/drift.dart';
+import 'package:drift/isolate.dart';
+import 'package:drift/native.dart';
 import 'package:injectable/injectable.dart';
 import 'package:quiz/app/core/database/app_database.dart';
 import 'package:quiz/app/core/database/schema/answered_question.dart';
@@ -57,11 +59,18 @@ class AnsweredQuestionDaoImpl extends DatabaseAccessor<AppDatabase>
   @override
   Future<Result<void, Failure>> save(AnsweredQuestionEntity entity) async {
     try {
-      await into(answeredQuestions).insertOnConflictUpdate(
+      await into(answeredQuestions).insert(
         _answeredQuestionDbConverter.toDao(entity),
+        mode: InsertMode.insertOrAbort,
       );
       return Result.ok(null);
-    } catch (_) {
+    } catch (e) {
+      if (e case DriftRemoteException(:final remoteCause)) {
+        if (remoteCause case SqliteException(:final extendedResultCode)
+            when extendedResultCode == 1555 || extendedResultCode == 2067) {
+          return Result.failed(Failure.question(QuestionFailureReason.alreadySaved()));
+        }
+      }
       return Result.failed(Failure.question(QuestionFailureReason.save()));
     }
   }

@@ -30,11 +30,19 @@ class CachedQuestionServiceImpl implements CachedQuestionService {
       return await _database.transaction(() async {
         final answered = await _answeredQuestionDao.save(value);
         final question = await _questionDao.removeById(value.questionId);
-        if (answered is ResultOk && question is ResultOk) {
-          return Result.ok(null);
+
+        if (answered is ResultFailed) {
+          throw answered.error;
         }
-        return Result.failed(Failure.question(QuestionFailureReason.markAsAnswered()));
+
+        if (question is ResultFailed) {
+          throw question.error;
+        }
+
+        return Result.ok(null);
       });
+    } on Failure catch (error) {
+      return Result.failed(error);
     } catch (_) {
       return Result.failed(Failure.question(QuestionFailureReason.markAsAnswered()));
     }
