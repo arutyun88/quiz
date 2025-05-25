@@ -42,6 +42,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       ),
       body: Column(
         children: [
+          const SizedBox(height: 10.0),
           Expanded(
             flex: 2,
             child: QuestionWidget(),
