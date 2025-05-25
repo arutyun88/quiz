@@ -39,7 +39,7 @@ class AnsweredQuestionDaoImpl extends DatabaseAccessor<AppDatabase>
     try {
       final query = select(answeredQuestions)..where((question) => question.questionId.equals(id));
       final result = (await query.getSingleOrNull());
-      return Result.ok(result?.isCorrect ?? true);
+      return Result.ok(result != null);
     } catch (_) {
       return Result.failed(Failure.question(QuestionFailureReason.checkState()));
     }
