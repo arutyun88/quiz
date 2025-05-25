@@ -6,6 +6,7 @@ import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/question/domain/entity/answer_entity.dart';
+import 'package:quiz/features/question/domain/entity/answered_question_entity.dart';
 import 'package:quiz/features/question/domain/entity/question_entity.dart';
 import 'package:quiz/features/question/domain/service/question_id_service.dart';
 import 'package:quiz/features/question/domain/use_case/check_question_state_use_case.dart';

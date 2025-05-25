@@ -24,6 +24,8 @@ abstract interface class QuestionDao {
   Stream<int> watchQuestionsCount();
 
   Stream<List<Question>> watchAllQuestions();
+
+  Future<Result<void, Failure>> removeById(String questionId);
 }
 
 @DriftAccessor(tables: [Questions, Answers, Topics])
@@ -129,5 +131,18 @@ class QuestionDaoImpl extends DatabaseAccessor<AppDatabase> with _$QuestionDaoIm
   @override
   Stream<List<Question>> watchAllQuestions() {
     return select(questions).watch();
+  }
+
+  @override
+  Future<Result<void, Failure>> removeById(String questionId) async {
+    try {
+      return await transaction(() async {
+        await (delete(answers)..where((answer) => answer.questionId.equals(questionId))).go();
+        await (delete(questions)..where((question) => question.id.equals(questionId))).go();
+        return Result.ok(null);
+      });
+    } catch (_) {
+      return Result.failed(Failure.question(QuestionFailureReason.markAsAnswered()));
+    }
   }
 }

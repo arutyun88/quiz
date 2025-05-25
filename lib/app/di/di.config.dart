@@ -24,6 +24,8 @@ import '../../features/authentication/domain/repository/password_reset_gateway.d
 import '../../features/question/data/converter/answer_converter.dart' as _i498;
 import '../../features/question/data/converter/answer_db_converter.dart'
     as _i692;
+import '../../features/question/data/converter/answered_question_db_converter.dart'
+    as _i988;
 import '../../features/question/data/converter/answered_statistics_dto_converter.dart'
     as _i1012;
 import '../../features/question/data/converter/question_converter.dart'
@@ -42,6 +44,8 @@ import '../../features/question/domain/repository/answer_repository.dart'
     as _i209;
 import '../../features/question/domain/repository/question_repository.dart'
     as _i240;
+import '../../features/question/domain/service/cached_question_service.dart'
+    as _i847;
 import '../../features/question/domain/service/question_id_service.dart'
     as _i841;
 import '../../features/question/domain/use_case/check_question_state_use_case.dart'
@@ -126,6 +130,8 @@ extension GetItInjectableX on _i174.GetIt {
           .remoteConfigService(gh<_i627.FirebaseRemoteConfig>()),
       preResolve: true,
     );
+    gh.factory<_i988.AnsweredQuestionDbConverter>(
+        () => const _i988.AnsweredQuestionDbConverterImpl());
     gh.lazySingleton<_i218.SettingsLocalStorageService>(() => localStorageModule
         .settingsLocalStorageService(gh<_i460.SharedPreferences>()));
     await gh.factoryAsync<_i709.DeviceIdService>(
@@ -145,8 +151,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i692.AnswerDbConverter>(() => _i692.AnswerDbConverterImpl());
     gh.factory<_i122.QuestionStateDtoConverter>(
         () => _i122.QuestionStateDtoConverterImpl());
-    gh.factory<_i426.AnsweredQuestionDao>(
-        () => _i426.AnsweredQuestionDaoImpl(gh<_i935.AppDatabase>()));
     gh.singleton<_i724.PageInfoConverter>(() => _i724.PageInfoConverterImpl());
     gh.singleton<_i422.AuthTokenService>(() =>
         _i422.AuthTokenServicePrefs(prefs: gh<_i460.SharedPreferences>()));
@@ -165,6 +169,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i813.QuestionDbConverter>(() => _i813.QuestionDbConverterImpl(
           answerConverter: gh<_i692.AnswerDbConverter>(),
           topicConverter: gh<_i952.TopicDbConverter>(),
+        ));
+    gh.factory<_i426.AnsweredQuestionDao>(() => _i426.AnsweredQuestionDaoImpl(
+          gh<_i935.AppDatabase>(),
+          answeredQuestionDbConverter: gh<_i988.AnsweredQuestionDbConverter>(),
         ));
     gh.factory<_i1012.AnsweredStatisticsDtoConverter>(() =>
         _i1012.AnsweredStatisticsDtoConverterImpl(
@@ -211,8 +219,6 @@ extension GetItInjectableX on _i174.GetIt {
           client: gh<_i782.ApiClient>(),
           userConverter: gh<_i11.UserConverter>(),
         ));
-    gh.factory<_i694.SendAnswerUseCase>(() => _i694.SendAnswerUseCaseImpl(
-        questionRepository: gh<_i240.QuestionRepository>()));
     gh.factory<_i265.QuestionDao>(() => _i265.QuestionDaoImpl(
           gh<_i935.AppDatabase>(),
           questionConverter: gh<_i813.QuestionDbConverter>(),
@@ -226,6 +232,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1068.FetchQuestionUseCaseImpl(
               questionRepository: gh<_i240.QuestionRepository>(),
               questionDao: gh<_i265.QuestionDao>(),
+            ));
+    gh.factory<_i847.CachedQuestionService>(
+        () => _i847.CachedQuestionServiceImpl(
+              database: gh<_i935.AppDatabase>(),
+              questionDao: gh<_i265.QuestionDao>(),
+              answeredQuestionDao: gh<_i426.AnsweredQuestionDao>(),
             ));
     gh.lazySingleton<_i632.UserStatisticsRepository>(
         () => userModule.userStatisticsRepository(
@@ -242,6 +254,11 @@ extension GetItInjectableX on _i174.GetIt {
               tokenService: gh<_i422.AuthTokenService>(),
               answeredQuestionDao: gh<_i426.AnsweredQuestionDao>(),
             ));
+    gh.factory<_i694.SendAnswerUseCase>(() => _i694.SendAnswerUseCaseImpl(
+          answerRepository: gh<_i209.AnswerRepository>(),
+          tokenService: gh<_i422.AuthTokenService>(),
+          cachedQuestionService: gh<_i847.CachedQuestionService>(),
+        ));
     return this;
   }
 }

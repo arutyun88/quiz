@@ -4,6 +4,8 @@ import 'package:quiz/app/core/database/app_database.dart';
 import 'package:quiz/app/core/database/schema/answered_question.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
+import 'package:quiz/features/question/data/converter/answered_question_db_converter.dart';
+import 'package:quiz/features/question/domain/entity/answered_question_entity.dart';
 
 part 'answered_question_dao.g.dart';
 
@@ -13,6 +15,8 @@ abstract interface class AnsweredQuestionDao {
   Stream<List<AnsweredQuestion>> watchAnsweredQuestions();
 
   Future<Result<bool, Failure>> checkQuestionStateById(String id);
+
+  Future<Result<void, Failure>> save(AnsweredQuestionEntity entity);
 }
 
 @DriftAccessor(tables: [AnsweredQuestions])
@@ -20,7 +24,12 @@ abstract interface class AnsweredQuestionDao {
 class AnsweredQuestionDaoImpl extends DatabaseAccessor<AppDatabase>
     with _$AnsweredQuestionDaoImplMixin
     implements AnsweredQuestionDao {
-  AnsweredQuestionDaoImpl(super.attachedDatabase);
+  final AnsweredQuestionDbConverter _answeredQuestionDbConverter;
+
+  AnsweredQuestionDaoImpl(
+    super.attachedDatabase, {
+    required AnsweredQuestionDbConverter answeredQuestionDbConverter,
+  }) : _answeredQuestionDbConverter = answeredQuestionDbConverter;
 
   @override
   Stream<int> watchAnsweredQuestionsCount() {
@@ -42,6 +51,18 @@ class AnsweredQuestionDaoImpl extends DatabaseAccessor<AppDatabase>
       return Result.ok(result != null);
     } catch (_) {
       return Result.failed(Failure.question(QuestionFailureReason.checkState()));
+    }
+  }
+
+  @override
+  Future<Result<void, Failure>> save(AnsweredQuestionEntity entity) async {
+    try {
+      await into(answeredQuestions).insertOnConflictUpdate(
+        _answeredQuestionDbConverter.toDao(entity),
+      );
+      return Result.ok(null);
+    } catch (_) {
+      return Result.failed(Failure.question(QuestionFailureReason.save()));
     }
   }
 }

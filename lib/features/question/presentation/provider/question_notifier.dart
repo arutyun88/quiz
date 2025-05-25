@@ -86,6 +86,8 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
   Future<void> next() async {
     state = QuestionState.loading();
 
+    await _questionIdService.clean();
+
     await fetch();
   }
 
@@ -164,8 +166,13 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
       );
 
       final result = await _sendAnswerUseCase.send(
-        questionId: questionState.question.id,
-        answerId: answer.id,
+        AnsweredQuestionEntity(
+          questionId: questionState.question.id,
+          question: questionState.question.question,
+          answerId: answer.id,
+          answer: answer.text,
+          isCorrect: answer.isCorrect,
+        ),
       );
 
       switch (result) {
