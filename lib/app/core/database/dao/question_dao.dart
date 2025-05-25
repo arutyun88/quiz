@@ -25,13 +25,9 @@ abstract interface class QuestionDao {
   Stream<int> watchQuestionsCount();
 
   Stream<List<Question>> watchAllQuestions();
-
-  Stream<int> watchAnsweredQuestionsCount();
-
-  Stream<List<AnsweredQuestion>> watchAnsweredQuestions();
 }
 
-@DriftAccessor(tables: [Questions, Answers, Topics, AnsweredQuestions])
+@DriftAccessor(tables: [Questions, Answers, Topics])
 @Injectable(as: QuestionDao)
 class QuestionDaoImpl extends DatabaseAccessor<AppDatabase> with _$QuestionDaoImplMixin implements QuestionDao {
   final QuestionDbConverter _questionConverter;
@@ -134,17 +130,5 @@ class QuestionDaoImpl extends DatabaseAccessor<AppDatabase> with _$QuestionDaoIm
   @override
   Stream<List<Question>> watchAllQuestions() {
     return select(questions).watch();
-  }
-
-  @override
-  Stream<int> watchAnsweredQuestionsCount() {
-    return (selectOnly(answeredQuestions)..addColumns([answeredQuestions.questionId.count()]))
-        .watchSingle()
-        .map((row) => row.read(answeredQuestions.questionId.count()) ?? 0);
-  }
-
-  @override
-  Stream<List<AnsweredQuestion>> watchAnsweredQuestions() {
-    return select(answeredQuestions).watch();
   }
 }

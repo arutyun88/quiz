@@ -7,6 +7,4 @@ mixin _$QuestionDaoImplMixin on DatabaseAccessor<AppDatabase> {
   $TopicsTable get topics => attachedDatabase.topics;
   $QuestionsTable get questions => attachedDatabase.questions;
   $AnswersTable get answers => attachedDatabase.answers;
-  $AnsweredQuestionsTable get answeredQuestions =>
-      attachedDatabase.answeredQuestions;
 }

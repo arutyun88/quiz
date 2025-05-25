@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/app/config/style/text_style_ex.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
+import 'package:quiz/app/core/database/dao/answered_question_dao.dart';
 import 'package:quiz/app/core/database/dao/question_dao.dart';
 import 'package:quiz/app/core/widgets/app_widget.dart';
 import 'package:quiz/app/di/di.dart';
@@ -69,7 +70,7 @@ class DebugQuestionsWidget extends StatelessWidget {
                 contentPadding: EdgeInsets.zero,
                 title: Text('Вопросов c ответами в БД'),
                 subtitle: StreamBuilder(
-                  stream: getIt<QuestionDao>().watchAnsweredQuestionsCount(),
+                  stream: getIt<AnsweredQuestionDao>().watchAnsweredQuestionsCount(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());

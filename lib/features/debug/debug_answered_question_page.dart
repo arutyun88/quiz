@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz/app/core/database/dao/question_dao.dart';
+import 'package:quiz/app/core/database/dao/answered_question_dao.dart';
 import 'package:quiz/app/core/widgets/app_widget.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
 import 'package:quiz/app/di/di.dart';
@@ -13,7 +13,7 @@ class DebugAnsweredQuestionPage extends StatelessWidget {
     return AppSubheaderedScaffold(
       appBar: AppBar(title: Text('Debug - Answered Questions')),
       body: StreamBuilder(
-        stream: getIt<QuestionDao>().watchAnsweredQuestions(),
+        stream: getIt<AnsweredQuestionDao>().watchAnsweredQuestions(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Padding(
