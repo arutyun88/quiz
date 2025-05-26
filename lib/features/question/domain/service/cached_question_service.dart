@@ -12,7 +12,6 @@ abstract class CachedQuestionService {
 
 @Injectable(as: CachedQuestionService)
 class CachedQuestionServiceImpl implements CachedQuestionService {
-  final AppDatabase _database;
   final QuestionDao _questionDao;
   final AnsweredQuestionDao _answeredQuestionDao;
 
@@ -20,27 +19,24 @@ class CachedQuestionServiceImpl implements CachedQuestionService {
     required AppDatabase database,
     required QuestionDao questionDao,
     required AnsweredQuestionDao answeredQuestionDao,
-  })  : _database = database,
-        _questionDao = questionDao,
+  })  : _questionDao = questionDao,
         _answeredQuestionDao = answeredQuestionDao;
 
   @override
   Future<Result<void, Failure>> markAsAnswered(AnsweredQuestionEntity value) async {
     try {
-      return await _database.transaction(() async {
-        final answered = await _answeredQuestionDao.save(value);
-        final question = await _questionDao.removeById(value.questionId);
+      final answered = await _answeredQuestionDao.save(value);
+      final question = await _questionDao.removeById(value.questionId);
 
-        if (answered is ResultFailed) {
-          throw answered.error;
-        }
+      if (answered is ResultFailed) {
+        throw answered.error;
+      }
 
-        if (question is ResultFailed) {
-          throw question.error;
-        }
+      if (question is ResultFailed) {
+        throw question.error;
+      }
 
-        return Result.ok(null);
-      });
+      return Result.ok(null);
     } on Failure catch (error) {
       return Result.failed(error);
     } catch (_) {
