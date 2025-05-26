@@ -64,7 +64,7 @@ class DebugQuestionsWidget extends StatelessWidget {
               child: ListTile(
                 onTap: () => context.goNamed('debug-answered-questions'),
                 leading: IconButton(
-                  onPressed: () => getIt<QuestionDao>().clearAllCache(),
+                  onPressed: () => getIt<AnsweredQuestionDao>().clearAllCache(),
                   icon: Icon(Icons.delete),
                 ),
                 contentPadding: EdgeInsets.zero,

@@ -19,6 +19,8 @@ abstract interface class AnsweredQuestionDao {
   Future<Result<bool, Failure>> checkQuestionStateById(String id);
 
   Future<Result<void, Failure>> save(AnsweredQuestionEntity entity);
+
+  Future<Result<void, Failure>> clearAllCache();
 }
 
 @DriftAccessor(tables: [AnsweredQuestions])
@@ -72,6 +74,16 @@ class AnsweredQuestionDaoImpl extends DatabaseAccessor<AppDatabase>
         }
       }
       return Result.failed(Failure.question(QuestionFailureReason.save()));
+    }
+  }
+
+  @override
+  Future<Result<void, Failure>> clearAllCache() async {
+    try {
+      await delete(answeredQuestions).go();
+      return Result.ok(null);
+    } catch (_) {
+      return Result.failed(Failure.question(QuestionFailureReason.clearCache()));
     }
   }
 }
