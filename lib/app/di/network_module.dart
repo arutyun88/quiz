@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:quiz/app/core/client/api_client.dart';
 import 'package:quiz/app/core/client/dio_api_client.dart';
 import 'package:quiz/app/core/client/api_client_config.dart';
@@ -13,6 +14,9 @@ abstract class NetworkModule {
   @preResolve
   Future<DeviceIdService> deviceService(SharedPreferences preferences) async =>
       await DeviceIdServicePrefs.init(preferences);
+
+  @singleton
+  InternetConnection get internetConnection => InternetConnection();
 
   @singleton
   ApiClient apiClient(

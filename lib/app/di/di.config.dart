@@ -12,6 +12,8 @@ import 'package:firebase_core/firebase_core.dart' as _i982;
 import 'package:firebase_remote_config/firebase_remote_config.dart' as _i627;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart'
+    as _i161;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 import '../../features/authentication/data/converter/token_converter.dart'
@@ -83,6 +85,7 @@ import '../core/database/dao/question_dao.dart' as _i265;
 import '../core/localization/gateway/change_locale_gateway.dart' as _i309;
 import '../core/model/data_page/page_info_converter.dart' as _i724;
 import '../core/services/auth_token_service.dart' as _i422;
+import '../core/services/connectivity_service.dart' as _i786;
 import '../core/services/device_id_service.dart' as _i709;
 import '../core/services/firebase_remote_config_service.dart' as _i307;
 import '../core/services/settings_local_storage_service.dart' as _i218;
@@ -102,9 +105,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final firebaseConfigModule = _$FirebaseConfigModule();
     final localStorageModule = _$LocalStorageModule();
+    final networkModule = _$NetworkModule();
     final databaseModule = _$DatabaseModule();
     final authenticationModule = _$AuthenticationModule();
-    final networkModule = _$NetworkModule();
     final questionModule = _$QuestionModule();
     final userModule = _$UserModule();
     final appSettingsModule = _$AppSettingsModule();
@@ -120,6 +123,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => localStorageModule.sharedPreferences(),
       preResolve: true,
     );
+    gh.singleton<_i161.InternetConnection>(
+        () => networkModule.internetConnection);
     gh.lazySingleton<_i935.AppDatabase>(() => databaseModule.database());
     gh.lazySingleton<_i959.PasswordResetGateway>(
         () => authenticationModule.passwordResetGateway());
@@ -161,6 +166,8 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i622.QuestionConverter>(),
               gh<_i724.PageInfoConverter>(),
             ));
+    gh.singleton<_i786.ConnectivityService>(() => _i786.ConnectivityServiceImpl(
+        internetConnection: gh<_i161.InternetConnection>()));
     gh.lazySingleton<_i799.LocalUserRepository>(
         () => userModule.cachedUserRepository(
               gh<_i460.SharedPreferences>(),
@@ -267,11 +274,11 @@ class _$FirebaseConfigModule extends _i913.FirebaseConfigModule {}
 
 class _$LocalStorageModule extends _i913.LocalStorageModule {}
 
+class _$NetworkModule extends _i567.NetworkModule {}
+
 class _$DatabaseModule extends _i913.DatabaseModule {}
 
 class _$AuthenticationModule extends _i415.AuthenticationModule {}
-
-class _$NetworkModule extends _i567.NetworkModule {}
 
 class _$QuestionModule extends _i906.QuestionModule {}
 
