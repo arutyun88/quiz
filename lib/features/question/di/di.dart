@@ -9,6 +9,7 @@ import 'package:quiz/features/question/data/repository/remote_answer_repository.
 import 'package:quiz/features/question/data/repository/remote_question_repository.dart';
 import 'package:quiz/features/question/domain/repository/answer_repository.dart';
 import 'package:quiz/features/question/domain/repository/question_repository.dart';
+import 'package:quiz/features/user/data/converter/user_statistics_converter.dart';
 
 @module
 abstract class QuestionModule {
@@ -39,9 +40,11 @@ abstract class QuestionModule {
   AnswerRepository answerRepository({
     required ApiClient client,
     required AnsweredStatisticsDtoConverter answerConverter,
+    required UserStatisticsConverter userStatisticsConverter,
   }) =>
       RemoteAnswerRepository(
         client: client,
         answerConverter: answerConverter,
+        userStatisticsConverter: userStatisticsConverter,
       );
 }

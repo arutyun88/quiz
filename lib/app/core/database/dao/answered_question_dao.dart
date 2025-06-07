@@ -20,6 +20,8 @@ abstract interface class AnsweredQuestionDao {
 
   Future<Result<void, Failure>> save(AnsweredQuestionEntity entity);
 
+  Future<Result<List<AnsweredQuestionEntity>, Failure>> getAllAnsweredQuestions();
+
   Future<Result<void, Failure>> clearAllCache();
 }
 
@@ -84,6 +86,18 @@ class AnsweredQuestionDaoImpl extends DatabaseAccessor<AppDatabase>
       return Result.ok(null);
     } catch (_) {
       return Result.failed(Failure.question(QuestionFailureReason.clearCache()));
+    }
+  }
+
+  @override
+  Future<Result<List<AnsweredQuestionEntity>, Failure>> getAllAnsweredQuestions() async {
+    try {
+      final questions = await select(answeredQuestions).get();
+      return Result.ok(
+        _answeredQuestionDbConverter.toEntityMultiple(questions).toList(),
+      );
+    } catch (_) {
+      return Result.failed(Failure.question(QuestionFailureReason.notFoundCached()));
     }
   }
 }
