@@ -251,6 +251,17 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i782.ApiClient>(),
               gh<_i740.UserStatisticsConverter>(),
             ));
+    gh.factory<_i694.SendAnswerUseCase>(() => _i694.SendAnswerUseCaseImpl(
+          answerRepository: gh<_i209.AnswerRepository>(),
+          tokenService: gh<_i422.AuthTokenService>(),
+          cachedQuestionService: gh<_i847.CachedQuestionService>(),
+          connectivityService: gh<_i786.ConnectivityService>(),
+        ));
+    gh.factory<_i953.SyncCachedAnswersUseCase>(
+        () => _i953.SyncCachedAnswersUseCaseImpl(
+              cachedQuestionService: gh<_i847.CachedQuestionService>(),
+              answerRepository: gh<_i209.AnswerRepository>(),
+            ));
     gh.lazySingleton<_i482.ChangeUserInfoGateway>(
         () => userModule.changeUserInfoGateway(gh<_i450.UserRepository>()));
     gh.lazySingleton<_i885.ChangePasswordGateway>(
@@ -261,11 +272,6 @@ extension GetItInjectableX on _i174.GetIt {
               tokenService: gh<_i422.AuthTokenService>(),
               answeredQuestionDao: gh<_i426.AnsweredQuestionDao>(),
             ));
-    gh.factory<_i694.SendAnswerUseCase>(() => _i694.SendAnswerUseCaseImpl(
-          answerRepository: gh<_i209.AnswerRepository>(),
-          tokenService: gh<_i422.AuthTokenService>(),
-          cachedQuestionService: gh<_i847.CachedQuestionService>(),
-        ));
     return this;
   }
 }

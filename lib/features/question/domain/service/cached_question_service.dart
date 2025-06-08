@@ -8,6 +8,10 @@ import 'package:quiz/features/question/domain/entity/answered_question_entity.da
 
 abstract class CachedQuestionService {
   Future<Result<void, Failure>> markAsAnswered(AnsweredQuestionEntity value);
+
+  Future<Result<void, Failure>> deleteById(String id);
+
+  Future<Result<List<AnsweredQuestionEntity>, Failure>> fetchAllCachedAnsweredQuestions();
 }
 
 @Injectable(as: CachedQuestionService)
@@ -42,5 +46,27 @@ class CachedQuestionServiceImpl implements CachedQuestionService {
     } catch (_) {
       return Result.failed(Failure.question(QuestionFailureReason.markAsAnswered()));
     }
+  }
+
+  @override
+  Future<Result<void, Failure>> deleteById(String id) async {
+    try {
+      final question = await _questionDao.removeById(id);
+
+      if (question is ResultFailed) {
+        throw question.error;
+      }
+
+      return Result.ok(null);
+    } on Failure catch (error) {
+      return Result.failed(error);
+    } catch (_) {
+      return Result.failed(Failure.question(QuestionFailureReason.markAsAnswered()));
+    }
+  }
+
+  @override
+  Future<Result<List<AnsweredQuestionEntity>, Failure>> fetchAllCachedAnsweredQuestions() async {
+    return await _answeredQuestionDao.getAllAnsweredQuestions();
   }
 }
