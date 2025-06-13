@@ -17,6 +17,7 @@ final class AnsweredQuestionDbConverterImpl extends AnsweredQuestionDbConverter 
       answerId: entity.answerId,
       answer: entity.answer,
       isCorrect: entity.isCorrect,
+      answeredAt: entity.answeredAt,
     );
   }
 
@@ -28,6 +29,7 @@ final class AnsweredQuestionDbConverterImpl extends AnsweredQuestionDbConverter 
       answerId: dao.answerId,
       answer: dao.answer,
       isCorrect: dao.isCorrect,
+      answeredAt: dao.answeredAt,
     );
   }
 }

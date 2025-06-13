@@ -11,6 +11,9 @@ _$AnsweredQuestionDtoImpl _$$AnsweredQuestionDtoImplFromJson(
     _$AnsweredQuestionDtoImpl(
       questionId: json['question_id'] as String,
       answerId: json['answer_id'] as String,
+      answeredAt: json['answered_at'] == null
+          ? null
+          : DateTime.parse(json['answered_at'] as String),
     );
 
 Map<String, dynamic> _$$AnsweredQuestionDtoImplToJson(
@@ -18,4 +21,5 @@ Map<String, dynamic> _$$AnsweredQuestionDtoImplToJson(
     <String, dynamic>{
       'question_id': instance.questionId,
       'answer_id': instance.answerId,
+      'answered_at': instance.answeredAt?.toIso8601String(),
     };

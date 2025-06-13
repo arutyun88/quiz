@@ -10,5 +10,6 @@ class AnsweredQuestionEntity with _$AnsweredQuestionEntity {
     required String answerId,
     required String answer,
     required bool isCorrect,
+    required DateTime answeredAt,
   }) = _AnsweredQuestionEntity;
 }

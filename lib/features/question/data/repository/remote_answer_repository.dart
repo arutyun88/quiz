@@ -40,7 +40,10 @@ class RemoteAnswerRepository implements AnswerRepository {
   }) async =>
       await _client.post(
         '/questions/answer',
-        body: AnsweredQuestionDto(questionId: questionId, answerId: answerId).toJson(),
+        body: AnsweredQuestionDto(
+          questionId: questionId,
+          answerId: answerId,
+        ).toJson(),
         mapper: (json) => DataDto.fromJson(json, (json) => AnsweredStatisticsDto.fromJson(json as Json)),
         converter: _answerConverter.convert,
         onSuccess: (answer) => _statisticsController.add(answer.statistics),
@@ -52,7 +55,11 @@ class RemoteAnswerRepository implements AnswerRepository {
         '/questions/answers',
         body: {
           'questions': answers
-              .map((answer) => AnsweredQuestionDto(questionId: answer.questionId, answerId: answer.answerId).toJson())
+              .map((answer) => AnsweredQuestionDto(
+                    questionId: answer.questionId,
+                    answerId: answer.answerId,
+                    answeredAt: answer.answeredAt,
+                  ).toJson())
               .toList()
         },
         mapper: (json) => DataDto.fromJson(json, (json) => UserStatisticsDto.fromJson(json as Json)),

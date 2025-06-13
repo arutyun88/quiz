@@ -21,6 +21,7 @@ mixin _$AnsweredQuestionEntity {
   String get answerId => throw _privateConstructorUsedError;
   String get answer => throw _privateConstructorUsedError;
   bool get isCorrect => throw _privateConstructorUsedError;
+  DateTime get answeredAt => throw _privateConstructorUsedError;
 
   /// Create a copy of AnsweredQuestionEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -40,7 +41,8 @@ abstract class $AnsweredQuestionEntityCopyWith<$Res> {
       String question,
       String answerId,
       String answer,
-      bool isCorrect});
+      bool isCorrect,
+      DateTime answeredAt});
 }
 
 /// @nodoc
@@ -64,6 +66,7 @@ class _$AnsweredQuestionEntityCopyWithImpl<$Res,
     Object? answerId = null,
     Object? answer = null,
     Object? isCorrect = null,
+    Object? answeredAt = null,
   }) {
     return _then(_value.copyWith(
       questionId: null == questionId
@@ -86,6 +89,10 @@ class _$AnsweredQuestionEntityCopyWithImpl<$Res,
           ? _value.isCorrect
           : isCorrect // ignore: cast_nullable_to_non_nullable
               as bool,
+      answeredAt: null == answeredAt
+          ? _value.answeredAt
+          : answeredAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -104,7 +111,8 @@ abstract class _$$AnsweredQuestionEntityImplCopyWith<$Res>
       String question,
       String answerId,
       String answer,
-      bool isCorrect});
+      bool isCorrect,
+      DateTime answeredAt});
 }
 
 /// @nodoc
@@ -127,6 +135,7 @@ class __$$AnsweredQuestionEntityImplCopyWithImpl<$Res>
     Object? answerId = null,
     Object? answer = null,
     Object? isCorrect = null,
+    Object? answeredAt = null,
   }) {
     return _then(_$AnsweredQuestionEntityImpl(
       questionId: null == questionId
@@ -149,6 +158,10 @@ class __$$AnsweredQuestionEntityImplCopyWithImpl<$Res>
           ? _value.isCorrect
           : isCorrect // ignore: cast_nullable_to_non_nullable
               as bool,
+      answeredAt: null == answeredAt
+          ? _value.answeredAt
+          : answeredAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -161,7 +174,8 @@ class _$AnsweredQuestionEntityImpl implements _AnsweredQuestionEntity {
       required this.question,
       required this.answerId,
       required this.answer,
-      required this.isCorrect});
+      required this.isCorrect,
+      required this.answeredAt});
 
   @override
   final String questionId;
@@ -173,10 +187,12 @@ class _$AnsweredQuestionEntityImpl implements _AnsweredQuestionEntity {
   final String answer;
   @override
   final bool isCorrect;
+  @override
+  final DateTime answeredAt;
 
   @override
   String toString() {
-    return 'AnsweredQuestionEntity(questionId: $questionId, question: $question, answerId: $answerId, answer: $answer, isCorrect: $isCorrect)';
+    return 'AnsweredQuestionEntity(questionId: $questionId, question: $question, answerId: $answerId, answer: $answer, isCorrect: $isCorrect, answeredAt: $answeredAt)';
   }
 
   @override
@@ -192,12 +208,14 @@ class _$AnsweredQuestionEntityImpl implements _AnsweredQuestionEntity {
                 other.answerId == answerId) &&
             (identical(other.answer, answer) || other.answer == answer) &&
             (identical(other.isCorrect, isCorrect) ||
-                other.isCorrect == isCorrect));
+                other.isCorrect == isCorrect) &&
+            (identical(other.answeredAt, answeredAt) ||
+                other.answeredAt == answeredAt));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, questionId, question, answerId, answer, isCorrect);
+  int get hashCode => Object.hash(runtimeType, questionId, question, answerId,
+      answer, isCorrect, answeredAt);
 
   /// Create a copy of AnsweredQuestionEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -215,7 +233,8 @@ abstract class _AnsweredQuestionEntity implements AnsweredQuestionEntity {
       required final String question,
       required final String answerId,
       required final String answer,
-      required final bool isCorrect}) = _$AnsweredQuestionEntityImpl;
+      required final bool isCorrect,
+      required final DateTime answeredAt}) = _$AnsweredQuestionEntityImpl;
 
   @override
   String get questionId;
@@ -227,6 +246,8 @@ abstract class _AnsweredQuestionEntity implements AnsweredQuestionEntity {
   String get answer;
   @override
   bool get isCorrect;
+  @override
+  DateTime get answeredAt;
 
   /// Create a copy of AnsweredQuestionEntity
   /// with the given fields replaced by the non-null parameter values.

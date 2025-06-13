@@ -24,6 +24,8 @@ mixin _$AnsweredQuestionDto {
   String get questionId => throw _privateConstructorUsedError;
   @JsonKey(name: 'answer_id')
   String get answerId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'answered_at')
+  DateTime? get answeredAt => throw _privateConstructorUsedError;
 
   /// Serializes this AnsweredQuestionDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,7 +45,8 @@ abstract class $AnsweredQuestionDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'question_id') String questionId,
-      @JsonKey(name: 'answer_id') String answerId});
+      @JsonKey(name: 'answer_id') String answerId,
+      @JsonKey(name: 'answered_at') DateTime? answeredAt});
 }
 
 /// @nodoc
@@ -63,6 +66,7 @@ class _$AnsweredQuestionDtoCopyWithImpl<$Res, $Val extends AnsweredQuestionDto>
   $Res call({
     Object? questionId = null,
     Object? answerId = null,
+    Object? answeredAt = freezed,
   }) {
     return _then(_value.copyWith(
       questionId: null == questionId
@@ -73,6 +77,10 @@ class _$AnsweredQuestionDtoCopyWithImpl<$Res, $Val extends AnsweredQuestionDto>
           ? _value.answerId
           : answerId // ignore: cast_nullable_to_non_nullable
               as String,
+      answeredAt: freezed == answeredAt
+          ? _value.answeredAt
+          : answeredAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -87,7 +95,8 @@ abstract class _$$AnsweredQuestionDtoImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'question_id') String questionId,
-      @JsonKey(name: 'answer_id') String answerId});
+      @JsonKey(name: 'answer_id') String answerId,
+      @JsonKey(name: 'answered_at') DateTime? answeredAt});
 }
 
 /// @nodoc
@@ -105,6 +114,7 @@ class __$$AnsweredQuestionDtoImplCopyWithImpl<$Res>
   $Res call({
     Object? questionId = null,
     Object? answerId = null,
+    Object? answeredAt = freezed,
   }) {
     return _then(_$AnsweredQuestionDtoImpl(
       questionId: null == questionId
@@ -115,6 +125,10 @@ class __$$AnsweredQuestionDtoImplCopyWithImpl<$Res>
           ? _value.answerId
           : answerId // ignore: cast_nullable_to_non_nullable
               as String,
+      answeredAt: freezed == answeredAt
+          ? _value.answeredAt
+          : answeredAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -124,7 +138,8 @@ class __$$AnsweredQuestionDtoImplCopyWithImpl<$Res>
 class _$AnsweredQuestionDtoImpl implements _AnsweredQuestionDto {
   const _$AnsweredQuestionDtoImpl(
       {@JsonKey(name: 'question_id') required this.questionId,
-      @JsonKey(name: 'answer_id') required this.answerId});
+      @JsonKey(name: 'answer_id') required this.answerId,
+      @JsonKey(name: 'answered_at') this.answeredAt});
 
   factory _$AnsweredQuestionDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$AnsweredQuestionDtoImplFromJson(json);
@@ -135,10 +150,13 @@ class _$AnsweredQuestionDtoImpl implements _AnsweredQuestionDto {
   @override
   @JsonKey(name: 'answer_id')
   final String answerId;
+  @override
+  @JsonKey(name: 'answered_at')
+  final DateTime? answeredAt;
 
   @override
   String toString() {
-    return 'AnsweredQuestionDto(questionId: $questionId, answerId: $answerId)';
+    return 'AnsweredQuestionDto(questionId: $questionId, answerId: $answerId, answeredAt: $answeredAt)';
   }
 
   @override
@@ -149,12 +167,15 @@ class _$AnsweredQuestionDtoImpl implements _AnsweredQuestionDto {
             (identical(other.questionId, questionId) ||
                 other.questionId == questionId) &&
             (identical(other.answerId, answerId) ||
-                other.answerId == answerId));
+                other.answerId == answerId) &&
+            (identical(other.answeredAt, answeredAt) ||
+                other.answeredAt == answeredAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, questionId, answerId);
+  int get hashCode =>
+      Object.hash(runtimeType, questionId, answerId, answeredAt);
 
   /// Create a copy of AnsweredQuestionDto
   /// with the given fields replaced by the non-null parameter values.
@@ -176,7 +197,8 @@ class _$AnsweredQuestionDtoImpl implements _AnsweredQuestionDto {
 abstract class _AnsweredQuestionDto implements AnsweredQuestionDto {
   const factory _AnsweredQuestionDto(
           {@JsonKey(name: 'question_id') required final String questionId,
-          @JsonKey(name: 'answer_id') required final String answerId}) =
+          @JsonKey(name: 'answer_id') required final String answerId,
+          @JsonKey(name: 'answered_at') final DateTime? answeredAt}) =
       _$AnsweredQuestionDtoImpl;
 
   factory _AnsweredQuestionDto.fromJson(Map<String, dynamic> json) =
@@ -188,6 +210,9 @@ abstract class _AnsweredQuestionDto implements AnsweredQuestionDto {
   @override
   @JsonKey(name: 'answer_id')
   String get answerId;
+  @override
+  @JsonKey(name: 'answered_at')
+  DateTime? get answeredAt;
 
   /// Create a copy of AnsweredQuestionDto
   /// with the given fields replaced by the non-null parameter values.

@@ -56,6 +56,8 @@ import '../../features/question/domain/use_case/fetch_question_use_case.dart'
     as _i1068;
 import '../../features/question/domain/use_case/send_answer_use_case.dart'
     as _i694;
+import '../../features/question/domain/use_case/sync_cached_answers_use_case.dart'
+    as _i953;
 import '../../features/user/data/converter/user_converter.dart' as _i11;
 import '../../features/user/data/converter/user_dao_converter.dart' as _i812;
 import '../../features/user/data/converter/user_statistics_converter.dart'
@@ -192,6 +194,12 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i1062.TokenConverter>(),
           gh<_i218.SettingsLocalStorageService>(),
         ));
+    gh.lazySingleton<_i209.AnswerRepository>(
+        () => questionModule.answerRepository(
+              client: gh<_i782.ApiClient>(),
+              answerConverter: gh<_i1012.AnsweredStatisticsDtoConverter>(),
+              userStatisticsConverter: gh<_i740.UserStatisticsConverter>(),
+            ));
     gh.lazySingleton<_i797.AuthenticationRepository>(
         () => authenticationModule.repository(
               client: gh<_i782.ApiClient>(),
@@ -202,11 +210,6 @@ extension GetItInjectableX on _i174.GetIt {
               client: gh<_i782.ApiClient>(),
               questionpageConverter: gh<_i622.QuestionPageConverter>(),
               questionStateDtoConverter: gh<_i122.QuestionStateDtoConverter>(),
-            ));
-    gh.lazySingleton<_i209.AnswerRepository>(
-        () => questionModule.answerRepository(
-              client: gh<_i782.ApiClient>(),
-              answerConverter: gh<_i1012.AnsweredStatisticsDtoConverter>(),
             ));
     gh.lazySingleton<_i547.SignInWithEmailGateway>(
         () => _i547.SignInWithEmailGateway(

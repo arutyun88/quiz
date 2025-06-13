@@ -4,6 +4,7 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:quiz/app/core/database/converter/db_date_time_utc_converter.dart';
 import 'package:quiz/app/core/database/dao/answered_question_dao.dart';
 import 'package:quiz/app/core/database/dao/question_dao.dart';
 import 'package:quiz/app/core/database/gen/schema_versions.dart';

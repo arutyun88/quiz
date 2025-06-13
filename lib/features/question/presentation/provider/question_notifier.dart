@@ -172,6 +172,7 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
           answerId: answer.id,
           answer: answer.text,
           isCorrect: answer.isCorrect,
+          answeredAt: DateTime.now().toUtc(),
         ),
       );
 
