@@ -12,6 +12,8 @@ abstract class CachedQuestionService {
   Future<Result<void, Failure>> deleteById(String id);
 
   Future<Result<List<AnsweredQuestionEntity>, Failure>> fetchAllCachedAnsweredQuestions();
+
+  Future<Result<void, Failure>> clear();
 }
 
 @Injectable(as: CachedQuestionService)
@@ -68,5 +70,10 @@ class CachedQuestionServiceImpl implements CachedQuestionService {
   @override
   Future<Result<List<AnsweredQuestionEntity>, Failure>> fetchAllCachedAnsweredQuestions() async {
     return await _answeredQuestionDao.getAllAnsweredQuestions();
+  }
+
+  @override
+  Future<Result<void, Failure>> clear() async {
+    return await _answeredQuestionDao.clearAllCache();
   }
 }
