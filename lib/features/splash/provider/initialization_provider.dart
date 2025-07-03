@@ -11,7 +11,7 @@ final initializationProvider = FutureProvider<void>((ref) async {
       (_, current) {
         if (current.isAuthenticated) {
           ref.read(userStatisticsProvider.notifier).fetch();
-          ref.read(syncProvider.notifier);
+          ref.read(syncProvider.notifier).sync();
         }
       },
     );

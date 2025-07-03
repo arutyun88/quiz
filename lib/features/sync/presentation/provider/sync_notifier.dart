@@ -31,7 +31,7 @@ class SyncNotifier extends StateNotifier<SyncState> {
       final isConnected = status == InternetStatus.connected;
 
       if (isConnected && _wasDisconnected) {
-        _sync();
+        sync();
         _wasDisconnected = false;
       } else if (!isConnected) {
         _wasDisconnected = true;
@@ -46,7 +46,7 @@ class SyncNotifier extends StateNotifier<SyncState> {
     super.dispose();
   }
 
-  Future<void> _sync() async {
+  Future<void> sync() async {
     state = state.copyWith(status: SyncStatus.syncing);
 
     final answersSyncResult = await _syncCachedAnswersUseCase.sync();

@@ -26,9 +26,11 @@ class SyncCachedAnswersUseCaseImpl implements SyncCachedAnswersUseCase {
     switch (answers) {
       case ResultOk(:final data) when data.isNotEmpty:
         final result = await _answerRepository.sendAllAnswered(data);
-        if (result case ResultOk()) {
-          await _cachedQuestionService.clear();
-          return Result.ok(null);
+        switch (result) {
+          case ResultFailed(error: final failure):
+            return Result.failed(failure);
+          case ResultOk():
+            await _cachedQuestionService.clear();
         }
       default:
     }
