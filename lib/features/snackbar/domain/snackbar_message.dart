@@ -491,7 +491,7 @@ class BasicSnackbarMessage extends SnackbarMessage {
   ///   duration: Duration(seconds: 3),
   /// );
   /// ```
-  BasicSnackbarMessage({
+  const BasicSnackbarMessage({
     required super.id,
     required super.message,
     required super.type,

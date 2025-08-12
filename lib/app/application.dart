@@ -3,7 +3,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz/app/config/navigation/router.dart';
 import 'package:quiz/app/core/theme/provider/theme_provider.dart';
-import 'package:quiz/features/sync/presentation/widgets/sync_snackbar_overlay.dart';
+import 'package:quiz/features/snackbar/adapters/snackbar_adapter_sets.dart';
+import 'package:quiz/features/snackbar/widgets/snackbar_overlay.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class Application extends ConsumerWidget {
@@ -21,7 +22,8 @@ class Application extends ConsumerWidget {
       locale: TranslationProvider.of(context).flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      builder: (context, child) => SyncSnackbarOverlay(
+      builder: (context, child) => SnackbarOverlay(
+        adapters: SnackbarAdapterSets.basic,
         child: child ?? SizedBox.shrink(),
       ),
     );

@@ -242,12 +242,6 @@ class _SnackbarOverlayState extends ConsumerState<SnackbarOverlay> {
   final Set<String> _initializedAdapters = {};
 
   @override
-  void initState() {
-    super.initState();
-    _initializeAdapters();
-  }
-
-  @override
   void didUpdateWidget(covariant SnackbarOverlay oldWidget) {
     super.didUpdateWidget(oldWidget);
 
@@ -263,8 +257,6 @@ class _SnackbarOverlayState extends ConsumerState<SnackbarOverlay> {
 
   /// Инициализирует все адаптеры после построения виджета.
   ///
-  /// Выполняется в `addPostFrameCallback` для гарантии того,
-  /// что виджет полностью построен и context доступен.
   /// Обрабатывает ошибки инициализации без прерывания работы.
   ///
   /// Процесс инициализации:
@@ -279,8 +271,6 @@ class _SnackbarOverlayState extends ConsumerState<SnackbarOverlay> {
   ///
   /// Initializes all adapters after widget build.
   ///
-  /// Executed in `addPostFrameCallback` to ensure
-  /// widget is fully built and context is available.
   /// Handles initialization errors without breaking functionality.
   ///
   /// Initialization process:
@@ -291,21 +281,17 @@ class _SnackbarOverlayState extends ConsumerState<SnackbarOverlay> {
   /// 5. Add ID to initialized set
   /// 6. Log results
   void _initializeAdapters() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        for (final adapter in widget.adapters) {
-          if (!_initializedAdapters.contains(adapter.id)) {
-            try {
-              adapter.initialize(ref);
-              _initializedAdapters.add(adapter.id);
-              debugPrint('Adapter ${adapter.id} initialized');
-            } catch (e) {
-              debugPrint('Adapter ${adapter.id} initialization error: $e');
-            }
-          }
+    for (final adapter in widget.adapters) {
+      if (!_initializedAdapters.contains(adapter.id)) {
+        try {
+          adapter.initialize(ref);
+          _initializedAdapters.add(adapter.id);
+          debugPrint('Adapter ${adapter.id} initialized');
+        } catch (e) {
+          debugPrint('Adapter ${adapter.id} initialization error: $e');
         }
       }
-    });
+    }
   }
 
   /// Переинициализирует адаптеры при изменении их списка.
@@ -341,11 +327,12 @@ class _SnackbarOverlayState extends ConsumerState<SnackbarOverlay> {
     }
 
     _initializedAdapters.clear();
-    _initializeAdapters();
   }
 
   @override
   Widget build(BuildContext context) {
+    _initializeAdapters();
+
     ref.listen<SnackbarState>(
       snackbarProvider,
       (previous, current) => WidgetsBinding.instance.addPostFrameCallback((_) {
