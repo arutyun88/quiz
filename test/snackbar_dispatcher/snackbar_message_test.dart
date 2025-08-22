@@ -8,13 +8,13 @@ import 'package:quiz/packages/snackbar_dispatcher/snackbar_type.dart';
 void main() {
   group('SnackbarMessage', () {
     group('constructor and properties', () {
-      test('should create message with custom values', () {
+      test('should create message with all custom values', () {
         final customIcon = const Icon(Icons.star);
         final actions = [
           SnackbarAction(label: 'Action', onPressed: () {}),
         ];
 
-        final message = _TestSnackbarMessage(
+        final message = BasicSnackbarMessage(
           id: 'test_id',
           message: 'Test message',
           type: SnackbarType.info,
@@ -26,6 +26,7 @@ void main() {
           groupId: 'test_group',
         );
 
+        // Verify all properties
         expect(message.id, equals('test_id'));
         expect(message.message, equals('Test message'));
         expect(message.type, equals(SnackbarType.info));
@@ -36,7 +37,7 @@ void main() {
       });
 
       test('should use default values when not specified', () {
-        const message = _TestSnackbarMessage(
+        const message = BasicSnackbarMessage(
           id: 'default_test',
           message: 'Default message',
           type: SnackbarType.info,
@@ -49,87 +50,60 @@ void main() {
       });
     });
 
-    group('duration getter', () {
-      test('should return custom duration when provided', () {
+    group('duration and icon getters', () {
+      test('should return custom values when provided', () {
         const customDuration = Duration(seconds: 15);
-        const message = _TestSnackbarMessage(
+        const customIcon = Icon(Icons.favorite);
+        
+        const message = BasicSnackbarMessage(
           id: 'test',
           message: 'Test',
           type: SnackbarType.info,
           duration: customDuration,
-        );
-        expect(message.duration, equals(customDuration));
-      });
-
-      test('should return default duration for each type', () {
-        const testCases = [
-          (SnackbarType.info, Duration(seconds: 2)),
-          (SnackbarType.success, Duration(seconds: 2)),
-          (SnackbarType.warning, Duration(seconds: 3)),
-          (SnackbarType.error, Duration(seconds: 4)),
-          (SnackbarType.processing, null),
-        ];
-
-        for (final (type, expectedDuration) in testCases) {
-          final message = _TestSnackbarMessage(
-            id: 'test_${type.name}',
-            message: 'Test message',
-            type: type,
-          );
-          expect(message.duration, equals(expectedDuration));
-        }
-      });
-    });
-
-    group('icon getter', () {
-      test('should return custom icon when provided', () {
-        const customIcon = Icon(Icons.favorite);
-        const message = _TestSnackbarMessage(
-          id: 'test',
-          message: 'Test',
-          type: SnackbarType.info,
           icon: customIcon,
         );
+        
+        expect(message.duration, equals(customDuration));
         expect(message.icon, equals(customIcon));
       });
 
-      test('should return default icon for each type', () {
-        const iconTestCases = [
-          (SnackbarType.info, Icons.info),
-          (SnackbarType.success, Icons.check_circle),
-          (SnackbarType.warning, Icons.warning),
-          (SnackbarType.error, Icons.error),
+      test('should return default values for each type', () {
+        const testCases = [
+          (SnackbarType.info, Duration(seconds: 2), Icons.info),
+          (SnackbarType.success, Duration(seconds: 2), Icons.check_circle),
+          (SnackbarType.warning, Duration(seconds: 3), Icons.warning),
+          (SnackbarType.error, Duration(seconds: 4), Icons.error),
+          (SnackbarType.processing, null, null), // null duration, CircularProgressIndicator icon
         ];
 
-        for (final (type, expectedIconData) in iconTestCases) {
-          final message = _TestSnackbarMessage(
+        for (final (type, expectedDuration, expectedIconData) in testCases) {
+          final message = BasicSnackbarMessage(
             id: 'test_${type.name}',
             message: 'Test message',
             type: type,
           );
-          expect(message.icon, isA<Icon>());
-          final icon = message.icon as Icon;
-          expect(icon.icon, equals(expectedIconData));
+          
+          expect(message.duration, equals(expectedDuration));
+          
+          if (type == SnackbarType.processing) {
+            expect(message.icon, isA<CircularProgressIndicator>());
+          } else {
+            expect(message.icon, isA<Icon>());
+            final icon = message.icon as Icon;
+            expect(icon.icon, equals(expectedIconData));
+          }
         }
-
-        // Processing type has CircularProgressIndicator
-        const processingMessage = _TestSnackbarMessage(
-          id: 'test_processing',
-          message: 'Processing...',
-          type: SnackbarType.processing,
-        );
-        expect(processingMessage.icon, isA<CircularProgressIndicator>());
       });
     });
 
-    group('real-world usage', () {
-      test('should handle network error with actions', () {
+    group('real-world scenarios', () {
+      test('should handle network error with actions and grouping', () {
         final actions = [
           SnackbarAction(label: 'Retry', onPressed: () {}),
           SnackbarAction(label: 'Cancel', onPressed: () {}),
         ];
 
-        final message = _TestSnackbarMessage(
+        final message = BasicSnackbarMessage(
           id: 'network_error',
           message: 'Network connection failed',
           type: SnackbarType.error,
@@ -140,10 +114,12 @@ void main() {
 
         expect(message.actions, hasLength(2));
         expect(message.groupId, equals('network'));
+        expect(message.priority, equals(SnackbarPriority.high));
+        expect(message.type, equals(SnackbarType.error));
       });
 
-      test('should handle processing message', () {
-        const message = _TestSnackbarMessage(
+      test('should handle processing message with persistence', () {
+        const message = BasicSnackbarMessage(
           id: 'sync_progress',
           message: 'Syncing data...',
           type: SnackbarType.processing,
@@ -153,22 +129,24 @@ void main() {
 
         expect(message.persistent, isTrue);
         expect(message.groupId, equals('sync'));
+        expect(message.type, equals(SnackbarType.processing));
+        expect(message.duration, isNull); // processing type has infinite duration
       });
     });
   });
-}
 
-/// Test implementation of SnackbarMessage for testing purposes
-class _TestSnackbarMessage extends SnackbarMessage {
-  const _TestSnackbarMessage({
-    required super.id,
-    required super.message,
-    required super.type,
-    super.duration,
-    super.icon,
-    super.priority = SnackbarPriority.normal,
-    super.persistent = false,
-    super.actions,
-    super.groupId,
+  group('BasicSnackbarMessage', () {
+    test('should inherit from SnackbarMessage and work correctly', () {
+      const message = BasicSnackbarMessage(
+        id: 'test',
+        message: 'Test message',
+        type: SnackbarType.info,
+      );
+
+      expect(message, isA<SnackbarMessage>());
+      expect(message.id, equals('test'));
+      expect(message.message, equals('Test message'));
+      expect(message.type, equals(SnackbarType.info));
+    });
   });
 }

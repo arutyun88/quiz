@@ -296,3 +296,37 @@ abstract class SnackbarMessage {
   })  : _duration = duration,
         _icon = icon;
 }
+
+/// Basic [SnackbarMessage] implementation for simple notifications.
+///
+/// Provides concrete implementation without additional logic.
+/// Suitable for regular notifications when specialized behavior is not required.
+///
+/// ---
+///
+/// Базовая реализация [SnackbarMessage] для простых уведомлений.
+///
+/// Предоставляет конкретную реализацию без дополнительной логики.
+/// Подходит для обычных уведомлений без специализированного поведения.
+class BasicSnackbarMessage extends SnackbarMessage {
+  /// Creates basic snackbar message.
+  ///
+  /// Accepts all parent class parameters and passes them unchanged.
+  ///
+  /// ---
+  ///
+  /// Создает базовое снэкбар-сообщение.
+  ///
+  /// Принимает все параметры родительского класса и передает их без изменений.
+  const BasicSnackbarMessage({
+    required super.id,
+    required super.message,
+    required super.type,
+    super.duration,
+    super.icon,
+    super.priority,
+    super.persistent,
+    super.actions,
+    super.groupId,
+  });
+}
