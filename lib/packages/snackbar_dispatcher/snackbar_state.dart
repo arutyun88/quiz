@@ -24,7 +24,7 @@ class SnackbarState {
   /// Используется для предотвращения слишком частого показа дублирующихся сообщений
   final Map<String, DateTime> lastShownTimes;
 
-  SnackbarState({
+  const SnackbarState({
     this.messages = const [],
     this.lastShownTimes = const {},
   });
