@@ -6,7 +6,7 @@ import 'package:quiz/app/core/client/api_client_config.dart';
 import 'package:quiz/app/core/services/auth_token_service.dart';
 import 'package:quiz/app/core/services/device_id_service.dart';
 import 'package:quiz/app/core/services/settings_local_storage_service.dart';
-import 'package:quiz/features/authentication/data/converter/token_converter.dart';
+import 'package:quiz/app/core/services/unauthorized_event_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 @module
@@ -22,7 +22,7 @@ abstract class NetworkModule {
   ApiClient apiClient(
     DeviceIdService deviceService,
     AuthTokenService tokenService,
-    TokenConverter tokenConverter,
+    UnauthorizedEventService unauthorizedEventService,
     SettingsLocalStorageService settingsStorage,
   ) {
     final config = ApiClientConfig(baseUrl: 'http://localhost:8081/api');
@@ -30,7 +30,7 @@ abstract class NetworkModule {
       config: config,
       deviceId: deviceService.deviceId,
       tokenService: tokenService,
-      tokenConverter: tokenConverter,
+      unauthorizedEventService: unauthorizedEventService,
       settingsStorage: settingsStorage,
     );
   }

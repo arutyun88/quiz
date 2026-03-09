@@ -30,7 +30,6 @@ class SignUpWithEmailGateway {
         await _tokenService.save(
           AuthTokens(
             accessToken: tokens.accessToken,
-            refreshToken: tokens.refreshToken,
           ),
         );
         return const Result.ok(null);

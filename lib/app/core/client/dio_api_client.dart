@@ -10,7 +10,7 @@ import 'package:quiz/app/core/model/json.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/core/services/auth_token_service.dart';
 import 'package:quiz/app/core/services/settings_local_storage_service.dart';
-import 'package:quiz/features/authentication/data/converter/token_converter.dart';
+import 'package:quiz/app/core/services/unauthorized_event_service.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class DioApiClient implements ApiClient {
@@ -21,16 +21,16 @@ class DioApiClient implements ApiClient {
     required ApiClientConfig config,
     required String deviceId,
     required AuthTokenService tokenService,
-    required TokenConverter tokenConverter,
+    required UnauthorizedEventService unauthorizedEventService,
     required SettingsLocalStorageService settingsStorage,
-  })  : _dio = _configurDio(config, deviceId, tokenService, tokenConverter),
+  })  : _dio = _configurDio(config, deviceId, tokenService, unauthorizedEventService),
         _settingsStorage = settingsStorage;
 
   static _configurDio(
     ApiClientConfig config,
     String deviceId,
     AuthTokenService tokenService,
-    TokenConverter tokenConverter,
+    UnauthorizedEventService unauthorizedEventService,
   ) {
     final dio = Dio(
       BaseOptions(
@@ -49,9 +49,7 @@ class DioApiClient implements ApiClient {
     dio.interceptors.add(
       AuthInterceptor(
         tokenService: tokenService,
-        tokenConverter: tokenConverter,
-        refreshUrl: '/auth/refresh',
-        dio: dio,
+        unauthorizedEventService: unauthorizedEventService,
       ),
     );
 

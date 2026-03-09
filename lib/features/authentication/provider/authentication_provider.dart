@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/core/services/auth_token_service.dart';
+import 'package:quiz/app/core/services/unauthorized_event_service.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/user/domain/entity/user_entity.dart';
 import 'package:quiz/features/user/domain/repository/fetch_current_user_gateway.dart';
@@ -14,13 +17,18 @@ part 'authentication_state.dart';
 part 'authentication_provider.freezed.dart';
 
 final authenticationProvider = StateNotifierProvider<AuthenticationNotifier, AuthenticationState>(
-  (ref) => AuthenticationNotifier(
-    tokenService: getIt<AuthTokenService>(),
-    fetchCurrentUserGateway: getIt<FetchCurrentUserGateway>(),
-    signInWithEmailGateway: getIt<SignInWithEmailGateway>(),
-    signUpWithEmailGateway: getIt<SignUpWithEmailGateway>(),
-    userLogoutGateway: getIt<UserLogoutGateway>(),
-  ),
+  (ref) {
+    final notifier = AuthenticationNotifier(
+      tokenService: getIt<AuthTokenService>(),
+      fetchCurrentUserGateway: getIt<FetchCurrentUserGateway>(),
+      signInWithEmailGateway: getIt<SignInWithEmailGateway>(),
+      signUpWithEmailGateway: getIt<SignUpWithEmailGateway>(),
+      userLogoutGateway: getIt<UserLogoutGateway>(),
+      unauthorizedEventService: getIt<UnauthorizedEventService>(),
+    );
+    ref.onDispose(() => notifier.dispose());
+    return notifier;
+  },
 );
 
 class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
@@ -29,6 +37,8 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
   final SignInWithEmailGateway _signInWithEmailGateway;
   final SignUpWithEmailGateway _signUpWithEmailGateway;
   final UserLogoutGateway _userLogoutGateway;
+  final UnauthorizedEventService _unauthorizedEventService;
+  StreamSubscription<void>? _unauthorizedSubscription;
 
   AuthenticationNotifier({
     required AuthTokenService tokenService,
@@ -36,12 +46,24 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
     required SignInWithEmailGateway signInWithEmailGateway,
     required SignUpWithEmailGateway signUpWithEmailGateway,
     required UserLogoutGateway userLogoutGateway,
+    required UnauthorizedEventService unauthorizedEventService,
   })  : _tokenService = tokenService,
         _fetchCurrentUserGateway = fetchCurrentUserGateway,
         _signInWithEmailGateway = signInWithEmailGateway,
         _signUpWithEmailGateway = signUpWithEmailGateway,
         _userLogoutGateway = userLogoutGateway,
-        super(const AuthenticationState.unauthenticated());
+        _unauthorizedEventService = unauthorizedEventService,
+        super(const AuthenticationState.unauthenticated()) {
+    _unauthorizedSubscription = _unauthorizedEventService.stream.listen(
+      (_) => state = const AuthenticationState.unauthenticated(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _unauthorizedSubscription?.cancel();
+    super.dispose();
+  }
 
   Future<void> reload() async {
     if (_tokenService.accessToken != null) {

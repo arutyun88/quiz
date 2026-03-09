@@ -22,8 +22,6 @@ TokenDto _$TokenDtoFromJson(Map<String, dynamic> json) {
 mixin _$TokenDto {
   @JsonKey(name: 'access_token')
   String get accessToken => throw _privateConstructorUsedError;
-  @JsonKey(name: 'refresh_token')
-  String get refreshToken => throw _privateConstructorUsedError;
 
   /// Serializes this TokenDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,9 +38,7 @@ abstract class $TokenDtoCopyWith<$Res> {
   factory $TokenDtoCopyWith(TokenDto value, $Res Function(TokenDto) then) =
       _$TokenDtoCopyWithImpl<$Res, TokenDto>;
   @useResult
-  $Res call(
-      {@JsonKey(name: 'access_token') String accessToken,
-      @JsonKey(name: 'refresh_token') String refreshToken});
+  $Res call({@JsonKey(name: 'access_token') String accessToken});
 }
 
 /// @nodoc
@@ -61,16 +57,11 @@ class _$TokenDtoCopyWithImpl<$Res, $Val extends TokenDto>
   @override
   $Res call({
     Object? accessToken = null,
-    Object? refreshToken = null,
   }) {
     return _then(_value.copyWith(
       accessToken: null == accessToken
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      refreshToken: null == refreshToken
-          ? _value.refreshToken
-          : refreshToken // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -84,9 +75,7 @@ abstract class _$$TokenDtoImplCopyWith<$Res>
       __$$TokenDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@JsonKey(name: 'access_token') String accessToken,
-      @JsonKey(name: 'refresh_token') String refreshToken});
+  $Res call({@JsonKey(name: 'access_token') String accessToken});
 }
 
 /// @nodoc
@@ -103,16 +92,11 @@ class __$$TokenDtoImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? accessToken = null,
-    Object? refreshToken = null,
   }) {
     return _then(_$TokenDtoImpl(
       accessToken: null == accessToken
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      refreshToken: null == refreshToken
-          ? _value.refreshToken
-          : refreshToken // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -122,8 +106,7 @@ class __$$TokenDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TokenDtoImpl implements _TokenDto {
   const _$TokenDtoImpl(
-      {@JsonKey(name: 'access_token') required this.accessToken,
-      @JsonKey(name: 'refresh_token') required this.refreshToken});
+      {@JsonKey(name: 'access_token') required this.accessToken});
 
   factory _$TokenDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$TokenDtoImplFromJson(json);
@@ -131,13 +114,10 @@ class _$TokenDtoImpl implements _TokenDto {
   @override
   @JsonKey(name: 'access_token')
   final String accessToken;
-  @override
-  @JsonKey(name: 'refresh_token')
-  final String refreshToken;
 
   @override
   String toString() {
-    return 'TokenDto(accessToken: $accessToken, refreshToken: $refreshToken)';
+    return 'TokenDto(accessToken: $accessToken)';
   }
 
   @override
@@ -146,14 +126,12 @@ class _$TokenDtoImpl implements _TokenDto {
         (other.runtimeType == runtimeType &&
             other is _$TokenDtoImpl &&
             (identical(other.accessToken, accessToken) ||
-                other.accessToken == accessToken) &&
-            (identical(other.refreshToken, refreshToken) ||
-                other.refreshToken == refreshToken));
+                other.accessToken == accessToken));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, accessToken, refreshToken);
+  int get hashCode => Object.hash(runtimeType, accessToken);
 
   /// Create a copy of TokenDto
   /// with the given fields replaced by the non-null parameter values.
@@ -173,8 +151,7 @@ class _$TokenDtoImpl implements _TokenDto {
 
 abstract class _TokenDto implements TokenDto {
   const factory _TokenDto(
-          {@JsonKey(name: 'access_token') required final String accessToken,
-          @JsonKey(name: 'refresh_token') required final String refreshToken}) =
+          {@JsonKey(name: 'access_token') required final String accessToken}) =
       _$TokenDtoImpl;
 
   factory _TokenDto.fromJson(Map<String, dynamic> json) =
@@ -183,9 +160,6 @@ abstract class _TokenDto implements TokenDto {
   @override
   @JsonKey(name: 'access_token')
   String get accessToken;
-  @override
-  @JsonKey(name: 'refresh_token')
-  String get refreshToken;
 
   /// Create a copy of TokenDto
   /// with the given fields replaced by the non-null parameter values.

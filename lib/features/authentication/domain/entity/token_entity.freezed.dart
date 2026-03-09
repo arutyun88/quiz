@@ -17,7 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$TokenEntity {
   String get accessToken => throw _privateConstructorUsedError;
-  String get refreshToken => throw _privateConstructorUsedError;
 
   /// Create a copy of TokenEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -32,7 +31,7 @@ abstract class $TokenEntityCopyWith<$Res> {
           TokenEntity value, $Res Function(TokenEntity) then) =
       _$TokenEntityCopyWithImpl<$Res, TokenEntity>;
   @useResult
-  $Res call({String accessToken, String refreshToken});
+  $Res call({String accessToken});
 }
 
 /// @nodoc
@@ -51,16 +50,11 @@ class _$TokenEntityCopyWithImpl<$Res, $Val extends TokenEntity>
   @override
   $Res call({
     Object? accessToken = null,
-    Object? refreshToken = null,
   }) {
     return _then(_value.copyWith(
       accessToken: null == accessToken
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      refreshToken: null == refreshToken
-          ? _value.refreshToken
-          : refreshToken // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -74,7 +68,7 @@ abstract class _$$TokenEntityImplCopyWith<$Res>
       __$$TokenEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String accessToken, String refreshToken});
+  $Res call({String accessToken});
 }
 
 /// @nodoc
@@ -91,16 +85,11 @@ class __$$TokenEntityImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? accessToken = null,
-    Object? refreshToken = null,
   }) {
     return _then(_$TokenEntityImpl(
       accessToken: null == accessToken
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      refreshToken: null == refreshToken
-          ? _value.refreshToken
-          : refreshToken // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -109,17 +98,14 @@ class __$$TokenEntityImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$TokenEntityImpl implements _TokenEntity {
-  const _$TokenEntityImpl(
-      {required this.accessToken, required this.refreshToken});
+  const _$TokenEntityImpl({required this.accessToken});
 
   @override
   final String accessToken;
-  @override
-  final String refreshToken;
 
   @override
   String toString() {
-    return 'TokenEntity(accessToken: $accessToken, refreshToken: $refreshToken)';
+    return 'TokenEntity(accessToken: $accessToken)';
   }
 
   @override
@@ -128,13 +114,11 @@ class _$TokenEntityImpl implements _TokenEntity {
         (other.runtimeType == runtimeType &&
             other is _$TokenEntityImpl &&
             (identical(other.accessToken, accessToken) ||
-                other.accessToken == accessToken) &&
-            (identical(other.refreshToken, refreshToken) ||
-                other.refreshToken == refreshToken));
+                other.accessToken == accessToken));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, accessToken, refreshToken);
+  int get hashCode => Object.hash(runtimeType, accessToken);
 
   /// Create a copy of TokenEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -146,14 +130,11 @@ class _$TokenEntityImpl implements _TokenEntity {
 }
 
 abstract class _TokenEntity implements TokenEntity {
-  const factory _TokenEntity(
-      {required final String accessToken,
-      required final String refreshToken}) = _$TokenEntityImpl;
+  const factory _TokenEntity({required final String accessToken}) =
+      _$TokenEntityImpl;
 
   @override
   String get accessToken;
-  @override
-  String get refreshToken;
 
   /// Create a copy of TokenEntity
   /// with the given fields replaced by the non-null parameter values.

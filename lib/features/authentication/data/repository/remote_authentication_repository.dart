@@ -3,7 +3,6 @@ import 'package:quiz/app/core/model/data_page/data_dto.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/json.dart';
 import 'package:quiz/app/core/model/result.dart';
-import 'package:quiz/features/authentication/data/converter/token_converter.dart';
 import 'package:quiz/features/authentication/data/dto/token_dto.dart';
 import 'package:quiz/features/authentication/domain/entity/token_entity.dart';
 import 'package:quiz/features/authentication/domain/repository/authentication_repository.dart';
@@ -11,12 +10,9 @@ import 'package:quiz/features/authentication/domain/repository/authentication_re
 class RemoteAuthenticationRepository implements AuthenticationRepository {
   const RemoteAuthenticationRepository({
     required ApiClient client,
-    required TokenConverter tokenConverter,
-  })  : _client = client,
-        _tokenConverter = tokenConverter;
+  }) : _client = client;
 
   final ApiClient _client;
-  final TokenConverter _tokenConverter;
 
   @override
   Future<Result<TokenEntity, Failure>> registerWithEmail({
@@ -30,7 +26,7 @@ class RemoteAuthenticationRepository implements AuthenticationRepository {
           'password': password,
         },
         mapper: (json) => DataDto.fromJson(json, (json) => TokenDto.fromJson(json as Json)),
-        converter: _tokenConverter.convert,
+        converter: (dto) => TokenEntity(accessToken: dto.data.accessToken),
       );
 
   @override
@@ -45,7 +41,7 @@ class RemoteAuthenticationRepository implements AuthenticationRepository {
           'password': password,
         },
         mapper: (json) => DataDto.fromJson(json, (json) => TokenDto.fromJson(json as Json)),
-        converter: _tokenConverter.convert,
+        converter: (dto) => TokenEntity(accessToken: dto.data.accessToken),
       );
 
   @override

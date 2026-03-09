@@ -9,11 +9,9 @@ part of 'token_dto.dart';
 _$TokenDtoImpl _$$TokenDtoImplFromJson(Map<String, dynamic> json) =>
     _$TokenDtoImpl(
       accessToken: json['access_token'] as String,
-      refreshToken: json['refresh_token'] as String,
     );
 
 Map<String, dynamic> _$$TokenDtoImplToJson(_$TokenDtoImpl instance) =>
     <String, dynamic>{
       'access_token': instance.accessToken,
-      'refresh_token': instance.refreshToken,
     };

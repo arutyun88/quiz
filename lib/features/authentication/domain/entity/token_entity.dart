@@ -6,6 +6,5 @@ part 'token_entity.freezed.dart';
 class TokenEntity with _$TokenEntity {
   const factory TokenEntity({
     required String accessToken,
-    required String refreshToken,
   }) = _TokenEntity;
 }
