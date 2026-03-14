@@ -859,8 +859,6 @@ class $AnsweredQuestionsTable extends AnsweredQuestions
       requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('CHECK ("is_correct" IN (0, 1))'));
-  static const VerificationMeta _answeredAtMeta =
-      const VerificationMeta('answeredAt');
   @override
   late final GeneratedColumnWithTypeConverter<DateTime, DateTime> answeredAt =
       GeneratedColumn<DateTime>('answered_at', aliasedName, false,
@@ -912,7 +910,6 @@ class $AnsweredQuestionsTable extends AnsweredQuestions
     } else if (isInserting) {
       context.missing(_isCorrectMeta);
     }
-    context.handle(_answeredAtMeta, const VerificationResult.success());
     return context;
   }
 
@@ -1222,7 +1219,7 @@ final class $$TopicsTableReferences
 
   $$QuestionsTableProcessedTableManager get questionsRefs {
     final manager = $$QuestionsTableTableManager($_db, $_db.questions)
-        .filter((f) => f.topicId.id($_item.id));
+        .filter((f) => f.topicId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_questionsRefsTable($_db));
     return ProcessedTableManager(
@@ -1387,7 +1384,7 @@ class $$TopicsTableTableManager extends RootTableManager<
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (questionsRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Topic, $TopicsTable, Question>(
                         currentTable: table,
                         referencedTable:
                             $$TopicsTableReferences._questionsRefsTable(db),
@@ -1442,8 +1439,10 @@ final class $$QuestionsTableReferences
       .createAlias($_aliasNameGenerator(db.questions.topicId, db.topics.id));
 
   $$TopicsTableProcessedTableManager get topicId {
+    final $_column = $_itemColumn<String>('topic_id')!;
+
     final manager = $$TopicsTableTableManager($_db, $_db.topics)
-        .filter((f) => f.id($_item.topicId));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_topicIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -1458,7 +1457,7 @@ final class $$QuestionsTableReferences
 
   $$AnswersTableProcessedTableManager get answersRefs {
     final manager = $$AnswersTableTableManager($_db, $_db.answers)
-        .filter((f) => f.questionId.id($_item.id));
+        .filter((f) => f.questionId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_answersRefsTable($_db));
     return ProcessedTableManager(
@@ -1727,7 +1726,8 @@ class $$QuestionsTableTableManager extends RootTableManager<
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (answersRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Question, $QuestionsTable,
+                            Answer>(
                         currentTable: table,
                         referencedTable:
                             $$QuestionsTableReferences._answersRefsTable(db),
@@ -1781,8 +1781,10 @@ final class $$AnswersTableReferences
           $_aliasNameGenerator(db.answers.questionId, db.questions.id));
 
   $$QuestionsTableProcessedTableManager get questionId {
+    final $_column = $_itemColumn<String>('question_id')!;
+
     final manager = $$QuestionsTableTableManager($_db, $_db.questions)
-        .filter((f) => f.id($_item.questionId));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_questionIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
