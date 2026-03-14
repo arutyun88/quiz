@@ -18,7 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$QuestionEntity {
   String get id => throw _privateConstructorUsedError;
   String get question => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
   TopicEntity get topic => throw _privateConstructorUsedError;
   String get hint => throw _privateConstructorUsedError;
   List<AnswerEntity> get answers => throw _privateConstructorUsedError;
@@ -39,7 +38,6 @@ abstract class $QuestionEntityCopyWith<$Res> {
   $Res call(
       {String id,
       String question,
-      String description,
       TopicEntity topic,
       String hint,
       List<AnswerEntity> answers});
@@ -64,7 +62,6 @@ class _$QuestionEntityCopyWithImpl<$Res, $Val extends QuestionEntity>
   $Res call({
     Object? id = null,
     Object? question = null,
-    Object? description = null,
     Object? topic = null,
     Object? hint = null,
     Object? answers = null,
@@ -77,10 +74,6 @@ class _$QuestionEntityCopyWithImpl<$Res, $Val extends QuestionEntity>
       question: null == question
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
               as String,
       topic: null == topic
           ? _value.topic
@@ -119,7 +112,6 @@ abstract class _$$QuestionEntityImplCopyWith<$Res>
   $Res call(
       {String id,
       String question,
-      String description,
       TopicEntity topic,
       String hint,
       List<AnswerEntity> answers});
@@ -143,7 +135,6 @@ class __$$QuestionEntityImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? question = null,
-    Object? description = null,
     Object? topic = null,
     Object? hint = null,
     Object? answers = null,
@@ -156,10 +147,6 @@ class __$$QuestionEntityImplCopyWithImpl<$Res>
       question: null == question
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
               as String,
       topic: null == topic
           ? _value.topic
@@ -183,7 +170,6 @@ class _$QuestionEntityImpl implements _QuestionEntity {
   const _$QuestionEntityImpl(
       {required this.id,
       required this.question,
-      required this.description,
       required this.topic,
       required this.hint,
       required final List<AnswerEntity> answers})
@@ -193,8 +179,6 @@ class _$QuestionEntityImpl implements _QuestionEntity {
   final String id;
   @override
   final String question;
-  @override
-  final String description;
   @override
   final TopicEntity topic;
   @override
@@ -209,7 +193,7 @@ class _$QuestionEntityImpl implements _QuestionEntity {
 
   @override
   String toString() {
-    return 'QuestionEntity(id: $id, question: $question, description: $description, topic: $topic, hint: $hint, answers: $answers)';
+    return 'QuestionEntity(id: $id, question: $question, topic: $topic, hint: $hint, answers: $answers)';
   }
 
   @override
@@ -220,16 +204,14 @@ class _$QuestionEntityImpl implements _QuestionEntity {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.question, question) ||
                 other.question == question) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
             (identical(other.topic, topic) || other.topic == topic) &&
             (identical(other.hint, hint) || other.hint == hint) &&
             const DeepCollectionEquality().equals(other._answers, _answers));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, question, description, topic,
-      hint, const DeepCollectionEquality().hash(_answers));
+  int get hashCode => Object.hash(runtimeType, id, question, topic, hint,
+      const DeepCollectionEquality().hash(_answers));
 
   /// Create a copy of QuestionEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -245,7 +227,6 @@ abstract class _QuestionEntity implements QuestionEntity {
   const factory _QuestionEntity(
       {required final String id,
       required final String question,
-      required final String description,
       required final TopicEntity topic,
       required final String hint,
       required final List<AnswerEntity> answers}) = _$QuestionEntityImpl;
@@ -254,8 +235,6 @@ abstract class _QuestionEntity implements QuestionEntity {
   String get id;
   @override
   String get question;
-  @override
-  String get description;
   @override
   TopicEntity get topic;
   @override

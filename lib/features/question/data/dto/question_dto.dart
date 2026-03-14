@@ -10,7 +10,6 @@ class QuestionDto with _$QuestionDto {
   const factory QuestionDto({
     required String id,
     required String question,
-    required String description,
     required TopicDto topic,
     required String hint,
     required List<AnswerDto> answers,

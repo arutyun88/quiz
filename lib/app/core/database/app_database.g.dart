@@ -249,12 +249,6 @@ class $QuestionsTable extends Questions
   late final GeneratedColumn<String> question = GeneratedColumn<String>(
       'question', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _descriptionMeta =
-      const VerificationMeta('description');
-  @override
-  late final GeneratedColumn<String> description = GeneratedColumn<String>(
-      'description', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _hintMeta = const VerificationMeta('hint');
   @override
   late final GeneratedColumn<String> hint = GeneratedColumn<String>(
@@ -270,8 +264,7 @@ class $QuestionsTable extends Questions
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES topics (id)'));
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, question, description, hint, topicId];
+  List<GeneratedColumn> get $columns => [id, question, hint, topicId];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -292,14 +285,6 @@ class $QuestionsTable extends Questions
           question.isAcceptableOrUnknown(data['question']!, _questionMeta));
     } else if (isInserting) {
       context.missing(_questionMeta);
-    }
-    if (data.containsKey('description')) {
-      context.handle(
-          _descriptionMeta,
-          description.isAcceptableOrUnknown(
-              data['description']!, _descriptionMeta));
-    } else if (isInserting) {
-      context.missing(_descriptionMeta);
     }
     if (data.containsKey('hint')) {
       context.handle(
@@ -326,8 +311,6 @@ class $QuestionsTable extends Questions
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       question: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}question'])!,
-      description: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
       hint: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}hint'])!,
       topicId: attachedDatabase.typeMapping
@@ -344,13 +327,11 @@ class $QuestionsTable extends Questions
 class Question extends DataClass implements Insertable<Question> {
   final String id;
   final String question;
-  final String description;
   final String hint;
   final String topicId;
   const Question(
       {required this.id,
       required this.question,
-      required this.description,
       required this.hint,
       required this.topicId});
   @override
@@ -358,7 +339,6 @@ class Question extends DataClass implements Insertable<Question> {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
     map['question'] = Variable<String>(question);
-    map['description'] = Variable<String>(description);
     map['hint'] = Variable<String>(hint);
     map['topic_id'] = Variable<String>(topicId);
     return map;
@@ -368,7 +348,6 @@ class Question extends DataClass implements Insertable<Question> {
     return QuestionsCompanion(
       id: Value(id),
       question: Value(question),
-      description: Value(description),
       hint: Value(hint),
       topicId: Value(topicId),
     );
@@ -380,7 +359,6 @@ class Question extends DataClass implements Insertable<Question> {
     return Question(
       id: serializer.fromJson<String>(json['id']),
       question: serializer.fromJson<String>(json['question']),
-      description: serializer.fromJson<String>(json['description']),
       hint: serializer.fromJson<String>(json['hint']),
       topicId: serializer.fromJson<String>(json['topicId']),
     );
@@ -391,22 +369,16 @@ class Question extends DataClass implements Insertable<Question> {
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'question': serializer.toJson<String>(question),
-      'description': serializer.toJson<String>(description),
       'hint': serializer.toJson<String>(hint),
       'topicId': serializer.toJson<String>(topicId),
     };
   }
 
   Question copyWith(
-          {String? id,
-          String? question,
-          String? description,
-          String? hint,
-          String? topicId}) =>
+          {String? id, String? question, String? hint, String? topicId}) =>
       Question(
         id: id ?? this.id,
         question: question ?? this.question,
-        description: description ?? this.description,
         hint: hint ?? this.hint,
         topicId: topicId ?? this.topicId,
       );
@@ -414,8 +386,6 @@ class Question extends DataClass implements Insertable<Question> {
     return Question(
       id: data.id.present ? data.id.value : this.id,
       question: data.question.present ? data.question.value : this.question,
-      description:
-          data.description.present ? data.description.value : this.description,
       hint: data.hint.present ? data.hint.value : this.hint,
       topicId: data.topicId.present ? data.topicId.value : this.topicId,
     );
@@ -426,7 +396,6 @@ class Question extends DataClass implements Insertable<Question> {
     return (StringBuffer('Question(')
           ..write('id: $id, ')
           ..write('question: $question, ')
-          ..write('description: $description, ')
           ..write('hint: $hint, ')
           ..write('topicId: $topicId')
           ..write(')'))
@@ -434,14 +403,13 @@ class Question extends DataClass implements Insertable<Question> {
   }
 
   @override
-  int get hashCode => Object.hash(id, question, description, hint, topicId);
+  int get hashCode => Object.hash(id, question, hint, topicId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Question &&
           other.id == this.id &&
           other.question == this.question &&
-          other.description == this.description &&
           other.hint == this.hint &&
           other.topicId == this.topicId);
 }
@@ -449,14 +417,12 @@ class Question extends DataClass implements Insertable<Question> {
 class QuestionsCompanion extends UpdateCompanion<Question> {
   final Value<String> id;
   final Value<String> question;
-  final Value<String> description;
   final Value<String> hint;
   final Value<String> topicId;
   final Value<int> rowid;
   const QuestionsCompanion({
     this.id = const Value.absent(),
     this.question = const Value.absent(),
-    this.description = const Value.absent(),
     this.hint = const Value.absent(),
     this.topicId = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -464,19 +430,16 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
   QuestionsCompanion.insert({
     required String id,
     required String question,
-    required String description,
     required String hint,
     required String topicId,
     this.rowid = const Value.absent(),
   })  : id = Value(id),
         question = Value(question),
-        description = Value(description),
         hint = Value(hint),
         topicId = Value(topicId);
   static Insertable<Question> custom({
     Expression<String>? id,
     Expression<String>? question,
-    Expression<String>? description,
     Expression<String>? hint,
     Expression<String>? topicId,
     Expression<int>? rowid,
@@ -484,7 +447,6 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (question != null) 'question': question,
-      if (description != null) 'description': description,
       if (hint != null) 'hint': hint,
       if (topicId != null) 'topic_id': topicId,
       if (rowid != null) 'rowid': rowid,
@@ -494,14 +456,12 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
   QuestionsCompanion copyWith(
       {Value<String>? id,
       Value<String>? question,
-      Value<String>? description,
       Value<String>? hint,
       Value<String>? topicId,
       Value<int>? rowid}) {
     return QuestionsCompanion(
       id: id ?? this.id,
       question: question ?? this.question,
-      description: description ?? this.description,
       hint: hint ?? this.hint,
       topicId: topicId ?? this.topicId,
       rowid: rowid ?? this.rowid,
@@ -516,9 +476,6 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
     }
     if (question.present) {
       map['question'] = Variable<String>(question.value);
-    }
-    if (description.present) {
-      map['description'] = Variable<String>(description.value);
     }
     if (hint.present) {
       map['hint'] = Variable<String>(hint.value);
@@ -537,7 +494,6 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
     return (StringBuffer('QuestionsCompanion(')
           ..write('id: $id, ')
           ..write('question: $question, ')
-          ..write('description: $description, ')
           ..write('hint: $hint, ')
           ..write('topicId: $topicId, ')
           ..write('rowid: $rowid')
@@ -1417,7 +1373,6 @@ typedef $$TopicsTableProcessedTableManager = ProcessedTableManager<
 typedef $$QuestionsTableCreateCompanionBuilder = QuestionsCompanion Function({
   required String id,
   required String question,
-  required String description,
   required String hint,
   required String topicId,
   Value<int> rowid,
@@ -1425,7 +1380,6 @@ typedef $$QuestionsTableCreateCompanionBuilder = QuestionsCompanion Function({
 typedef $$QuestionsTableUpdateCompanionBuilder = QuestionsCompanion Function({
   Value<String> id,
   Value<String> question,
-  Value<String> description,
   Value<String> hint,
   Value<String> topicId,
   Value<int> rowid,
@@ -1479,9 +1433,6 @@ class $$QuestionsTableFilterComposer
 
   ColumnFilters<String> get question => $composableBuilder(
       column: $table.question, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get hint => $composableBuilder(
       column: $table.hint, builder: (column) => ColumnFilters(column));
@@ -1543,9 +1494,6 @@ class $$QuestionsTableOrderingComposer
   ColumnOrderings<String> get question => $composableBuilder(
       column: $table.question, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => ColumnOrderings(column));
-
   ColumnOrderings<String> get hint => $composableBuilder(
       column: $table.hint, builder: (column) => ColumnOrderings(column));
 
@@ -1584,9 +1532,6 @@ class $$QuestionsTableAnnotationComposer
 
   GeneratedColumn<String> get question =>
       $composableBuilder(column: $table.question, builder: (column) => column);
-
-  GeneratedColumn<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => column);
 
   GeneratedColumn<String> get hint =>
       $composableBuilder(column: $table.hint, builder: (column) => column);
@@ -1658,7 +1603,6 @@ class $$QuestionsTableTableManager extends RootTableManager<
           updateCompanionCallback: ({
             Value<String> id = const Value.absent(),
             Value<String> question = const Value.absent(),
-            Value<String> description = const Value.absent(),
             Value<String> hint = const Value.absent(),
             Value<String> topicId = const Value.absent(),
             Value<int> rowid = const Value.absent(),
@@ -1666,7 +1610,6 @@ class $$QuestionsTableTableManager extends RootTableManager<
               QuestionsCompanion(
             id: id,
             question: question,
-            description: description,
             hint: hint,
             topicId: topicId,
             rowid: rowid,
@@ -1674,7 +1617,6 @@ class $$QuestionsTableTableManager extends RootTableManager<
           createCompanionCallback: ({
             required String id,
             required String question,
-            required String description,
             required String hint,
             required String topicId,
             Value<int> rowid = const Value.absent(),
@@ -1682,7 +1624,6 @@ class $$QuestionsTableTableManager extends RootTableManager<
               QuestionsCompanion.insert(
             id: id,
             question: question,
-            description: description,
             hint: hint,
             topicId: topicId,
             rowid: rowid,

@@ -95,7 +95,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ),
                     ),
                     Text(
-                      question.description,
+                      'question.description',
                       textAlign: TextAlign.start,
                     ),
                     Align(
