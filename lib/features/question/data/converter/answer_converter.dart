@@ -11,7 +11,6 @@ final class AnswerConverterImpl extends AnswerConverter {
   AnswerEntity convert(AnswerDto dto) {
     return AnswerEntity(
       id: dto.id,
-      isCorrect: dto.isCorrect,
       text: dto.answer,
     );
   }

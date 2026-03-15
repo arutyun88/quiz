@@ -61,9 +61,6 @@ class DebugAnsweredQuestionPage extends StatelessWidget {
                         Text(data[index].answeredAt.toString()),
                       ],
                     ),
-                    trailing: data[index].isCorrect
-                        ? Icon(CupertinoIcons.add, color: Colors.green)
-                        : Icon(CupertinoIcons.minus, color: Colors.red),
                   ),
                 ),
               ),

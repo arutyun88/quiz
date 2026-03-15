@@ -517,15 +517,6 @@ class $AnswersTable extends Answers with TableInfo<$AnswersTable, Answer> {
   late final GeneratedColumn<String> answer = GeneratedColumn<String>(
       'answer', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _isCorrectMeta =
-      const VerificationMeta('isCorrect');
-  @override
-  late final GeneratedColumn<bool> isCorrect = GeneratedColumn<bool>(
-      'is_correct', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("is_correct" IN (0, 1))'));
   static const VerificationMeta _questionIdMeta =
       const VerificationMeta('questionId');
   @override
@@ -536,7 +527,7 @@ class $AnswersTable extends Answers with TableInfo<$AnswersTable, Answer> {
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES questions (id)'));
   @override
-  List<GeneratedColumn> get $columns => [id, answer, isCorrect, questionId];
+  List<GeneratedColumn> get $columns => [id, answer, questionId];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -557,12 +548,6 @@ class $AnswersTable extends Answers with TableInfo<$AnswersTable, Answer> {
           answer.isAcceptableOrUnknown(data['answer']!, _answerMeta));
     } else if (isInserting) {
       context.missing(_answerMeta);
-    }
-    if (data.containsKey('is_correct')) {
-      context.handle(_isCorrectMeta,
-          isCorrect.isAcceptableOrUnknown(data['is_correct']!, _isCorrectMeta));
-    } else if (isInserting) {
-      context.missing(_isCorrectMeta);
     }
     if (data.containsKey('question_id')) {
       context.handle(
@@ -585,8 +570,6 @@ class $AnswersTable extends Answers with TableInfo<$AnswersTable, Answer> {
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       answer: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}answer'])!,
-      isCorrect: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_correct'])!,
       questionId: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}question_id'])!,
     );
@@ -601,19 +584,14 @@ class $AnswersTable extends Answers with TableInfo<$AnswersTable, Answer> {
 class Answer extends DataClass implements Insertable<Answer> {
   final String id;
   final String answer;
-  final bool isCorrect;
   final String questionId;
   const Answer(
-      {required this.id,
-      required this.answer,
-      required this.isCorrect,
-      required this.questionId});
+      {required this.id, required this.answer, required this.questionId});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
     map['answer'] = Variable<String>(answer);
-    map['is_correct'] = Variable<bool>(isCorrect);
     map['question_id'] = Variable<String>(questionId);
     return map;
   }
@@ -622,7 +600,6 @@ class Answer extends DataClass implements Insertable<Answer> {
     return AnswersCompanion(
       id: Value(id),
       answer: Value(answer),
-      isCorrect: Value(isCorrect),
       questionId: Value(questionId),
     );
   }
@@ -633,7 +610,6 @@ class Answer extends DataClass implements Insertable<Answer> {
     return Answer(
       id: serializer.fromJson<String>(json['id']),
       answer: serializer.fromJson<String>(json['answer']),
-      isCorrect: serializer.fromJson<bool>(json['isCorrect']),
       questionId: serializer.fromJson<String>(json['questionId']),
     );
   }
@@ -643,24 +619,19 @@ class Answer extends DataClass implements Insertable<Answer> {
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'answer': serializer.toJson<String>(answer),
-      'isCorrect': serializer.toJson<bool>(isCorrect),
       'questionId': serializer.toJson<String>(questionId),
     };
   }
 
-  Answer copyWith(
-          {String? id, String? answer, bool? isCorrect, String? questionId}) =>
-      Answer(
+  Answer copyWith({String? id, String? answer, String? questionId}) => Answer(
         id: id ?? this.id,
         answer: answer ?? this.answer,
-        isCorrect: isCorrect ?? this.isCorrect,
         questionId: questionId ?? this.questionId,
       );
   Answer copyWithCompanion(AnswersCompanion data) {
     return Answer(
       id: data.id.present ? data.id.value : this.id,
       answer: data.answer.present ? data.answer.value : this.answer,
-      isCorrect: data.isCorrect.present ? data.isCorrect.value : this.isCorrect,
       questionId:
           data.questionId.present ? data.questionId.value : this.questionId,
     );
@@ -671,58 +642,50 @@ class Answer extends DataClass implements Insertable<Answer> {
     return (StringBuffer('Answer(')
           ..write('id: $id, ')
           ..write('answer: $answer, ')
-          ..write('isCorrect: $isCorrect, ')
           ..write('questionId: $questionId')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, answer, isCorrect, questionId);
+  int get hashCode => Object.hash(id, answer, questionId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Answer &&
           other.id == this.id &&
           other.answer == this.answer &&
-          other.isCorrect == this.isCorrect &&
           other.questionId == this.questionId);
 }
 
 class AnswersCompanion extends UpdateCompanion<Answer> {
   final Value<String> id;
   final Value<String> answer;
-  final Value<bool> isCorrect;
   final Value<String> questionId;
   final Value<int> rowid;
   const AnswersCompanion({
     this.id = const Value.absent(),
     this.answer = const Value.absent(),
-    this.isCorrect = const Value.absent(),
     this.questionId = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   AnswersCompanion.insert({
     required String id,
     required String answer,
-    required bool isCorrect,
     required String questionId,
     this.rowid = const Value.absent(),
   })  : id = Value(id),
         answer = Value(answer),
-        isCorrect = Value(isCorrect),
         questionId = Value(questionId);
   static Insertable<Answer> custom({
     Expression<String>? id,
     Expression<String>? answer,
-    Expression<bool>? isCorrect,
     Expression<String>? questionId,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (answer != null) 'answer': answer,
-      if (isCorrect != null) 'is_correct': isCorrect,
       if (questionId != null) 'question_id': questionId,
       if (rowid != null) 'rowid': rowid,
     });
@@ -731,13 +694,11 @@ class AnswersCompanion extends UpdateCompanion<Answer> {
   AnswersCompanion copyWith(
       {Value<String>? id,
       Value<String>? answer,
-      Value<bool>? isCorrect,
       Value<String>? questionId,
       Value<int>? rowid}) {
     return AnswersCompanion(
       id: id ?? this.id,
       answer: answer ?? this.answer,
-      isCorrect: isCorrect ?? this.isCorrect,
       questionId: questionId ?? this.questionId,
       rowid: rowid ?? this.rowid,
     );
@@ -751,9 +712,6 @@ class AnswersCompanion extends UpdateCompanion<Answer> {
     }
     if (answer.present) {
       map['answer'] = Variable<String>(answer.value);
-    }
-    if (isCorrect.present) {
-      map['is_correct'] = Variable<bool>(isCorrect.value);
     }
     if (questionId.present) {
       map['question_id'] = Variable<String>(questionId.value);
@@ -769,7 +727,6 @@ class AnswersCompanion extends UpdateCompanion<Answer> {
     return (StringBuffer('AnswersCompanion(')
           ..write('id: $id, ')
           ..write('answer: $answer, ')
-          ..write('isCorrect: $isCorrect, ')
           ..write('questionId: $questionId, ')
           ..write('rowid: $rowid')
           ..write(')'))
@@ -806,15 +763,6 @@ class $AnsweredQuestionsTable extends AnsweredQuestions
   late final GeneratedColumn<String> answer = GeneratedColumn<String>(
       'answer', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _isCorrectMeta =
-      const VerificationMeta('isCorrect');
-  @override
-  late final GeneratedColumn<bool> isCorrect = GeneratedColumn<bool>(
-      'is_correct', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("is_correct" IN (0, 1))'));
   @override
   late final GeneratedColumnWithTypeConverter<DateTime, DateTime> answeredAt =
       GeneratedColumn<DateTime>('answered_at', aliasedName, false,
@@ -823,7 +771,7 @@ class $AnsweredQuestionsTable extends AnsweredQuestions
               $AnsweredQuestionsTable.$converteransweredAt);
   @override
   List<GeneratedColumn> get $columns =>
-      [questionId, question, answerId, answer, isCorrect, answeredAt];
+      [questionId, question, answerId, answer, answeredAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -860,12 +808,6 @@ class $AnsweredQuestionsTable extends AnsweredQuestions
     } else if (isInserting) {
       context.missing(_answerMeta);
     }
-    if (data.containsKey('is_correct')) {
-      context.handle(_isCorrectMeta,
-          isCorrect.isAcceptableOrUnknown(data['is_correct']!, _isCorrectMeta));
-    } else if (isInserting) {
-      context.missing(_isCorrectMeta);
-    }
     return context;
   }
 
@@ -883,8 +825,6 @@ class $AnsweredQuestionsTable extends AnsweredQuestions
           .read(DriftSqlType.string, data['${effectivePrefix}answer_id'])!,
       answer: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}answer'])!,
-      isCorrect: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_correct'])!,
       answeredAt: $AnsweredQuestionsTable.$converteransweredAt.fromSql(
           attachedDatabase.typeMapping.read(
               DriftSqlType.dateTime, data['${effectivePrefix}answered_at'])!),
@@ -906,14 +846,12 @@ class AnsweredQuestion extends DataClass
   final String question;
   final String answerId;
   final String answer;
-  final bool isCorrect;
   final DateTime answeredAt;
   const AnsweredQuestion(
       {required this.questionId,
       required this.question,
       required this.answerId,
       required this.answer,
-      required this.isCorrect,
       required this.answeredAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -922,7 +860,6 @@ class AnsweredQuestion extends DataClass
     map['question'] = Variable<String>(question);
     map['answer_id'] = Variable<String>(answerId);
     map['answer'] = Variable<String>(answer);
-    map['is_correct'] = Variable<bool>(isCorrect);
     {
       map['answered_at'] = Variable<DateTime>(
           $AnsweredQuestionsTable.$converteransweredAt.toSql(answeredAt));
@@ -936,7 +873,6 @@ class AnsweredQuestion extends DataClass
       question: Value(question),
       answerId: Value(answerId),
       answer: Value(answer),
-      isCorrect: Value(isCorrect),
       answeredAt: Value(answeredAt),
     );
   }
@@ -949,7 +885,6 @@ class AnsweredQuestion extends DataClass
       question: serializer.fromJson<String>(json['question']),
       answerId: serializer.fromJson<String>(json['answerId']),
       answer: serializer.fromJson<String>(json['answer']),
-      isCorrect: serializer.fromJson<bool>(json['isCorrect']),
       answeredAt: serializer.fromJson<DateTime>(json['answeredAt']),
     );
   }
@@ -961,7 +896,6 @@ class AnsweredQuestion extends DataClass
       'question': serializer.toJson<String>(question),
       'answerId': serializer.toJson<String>(answerId),
       'answer': serializer.toJson<String>(answer),
-      'isCorrect': serializer.toJson<bool>(isCorrect),
       'answeredAt': serializer.toJson<DateTime>(answeredAt),
     };
   }
@@ -971,14 +905,12 @@ class AnsweredQuestion extends DataClass
           String? question,
           String? answerId,
           String? answer,
-          bool? isCorrect,
           DateTime? answeredAt}) =>
       AnsweredQuestion(
         questionId: questionId ?? this.questionId,
         question: question ?? this.question,
         answerId: answerId ?? this.answerId,
         answer: answer ?? this.answer,
-        isCorrect: isCorrect ?? this.isCorrect,
         answeredAt: answeredAt ?? this.answeredAt,
       );
   AnsweredQuestion copyWithCompanion(AnsweredQuestionsCompanion data) {
@@ -988,7 +920,6 @@ class AnsweredQuestion extends DataClass
       question: data.question.present ? data.question.value : this.question,
       answerId: data.answerId.present ? data.answerId.value : this.answerId,
       answer: data.answer.present ? data.answer.value : this.answer,
-      isCorrect: data.isCorrect.present ? data.isCorrect.value : this.isCorrect,
       answeredAt:
           data.answeredAt.present ? data.answeredAt.value : this.answeredAt,
     );
@@ -1001,15 +932,14 @@ class AnsweredQuestion extends DataClass
           ..write('question: $question, ')
           ..write('answerId: $answerId, ')
           ..write('answer: $answer, ')
-          ..write('isCorrect: $isCorrect, ')
           ..write('answeredAt: $answeredAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-      questionId, question, answerId, answer, isCorrect, answeredAt);
+  int get hashCode =>
+      Object.hash(questionId, question, answerId, answer, answeredAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1018,7 +948,6 @@ class AnsweredQuestion extends DataClass
           other.question == this.question &&
           other.answerId == this.answerId &&
           other.answer == this.answer &&
-          other.isCorrect == this.isCorrect &&
           other.answeredAt == this.answeredAt);
 }
 
@@ -1027,7 +956,6 @@ class AnsweredQuestionsCompanion extends UpdateCompanion<AnsweredQuestion> {
   final Value<String> question;
   final Value<String> answerId;
   final Value<String> answer;
-  final Value<bool> isCorrect;
   final Value<DateTime> answeredAt;
   final Value<int> rowid;
   const AnsweredQuestionsCompanion({
@@ -1035,7 +963,6 @@ class AnsweredQuestionsCompanion extends UpdateCompanion<AnsweredQuestion> {
     this.question = const Value.absent(),
     this.answerId = const Value.absent(),
     this.answer = const Value.absent(),
-    this.isCorrect = const Value.absent(),
     this.answeredAt = const Value.absent(),
     this.rowid = const Value.absent(),
   });
@@ -1044,21 +971,18 @@ class AnsweredQuestionsCompanion extends UpdateCompanion<AnsweredQuestion> {
     required String question,
     required String answerId,
     required String answer,
-    required bool isCorrect,
     required DateTime answeredAt,
     this.rowid = const Value.absent(),
   })  : questionId = Value(questionId),
         question = Value(question),
         answerId = Value(answerId),
         answer = Value(answer),
-        isCorrect = Value(isCorrect),
         answeredAt = Value(answeredAt);
   static Insertable<AnsweredQuestion> custom({
     Expression<String>? questionId,
     Expression<String>? question,
     Expression<String>? answerId,
     Expression<String>? answer,
-    Expression<bool>? isCorrect,
     Expression<DateTime>? answeredAt,
     Expression<int>? rowid,
   }) {
@@ -1067,7 +991,6 @@ class AnsweredQuestionsCompanion extends UpdateCompanion<AnsweredQuestion> {
       if (question != null) 'question': question,
       if (answerId != null) 'answer_id': answerId,
       if (answer != null) 'answer': answer,
-      if (isCorrect != null) 'is_correct': isCorrect,
       if (answeredAt != null) 'answered_at': answeredAt,
       if (rowid != null) 'rowid': rowid,
     });
@@ -1078,7 +1001,6 @@ class AnsweredQuestionsCompanion extends UpdateCompanion<AnsweredQuestion> {
       Value<String>? question,
       Value<String>? answerId,
       Value<String>? answer,
-      Value<bool>? isCorrect,
       Value<DateTime>? answeredAt,
       Value<int>? rowid}) {
     return AnsweredQuestionsCompanion(
@@ -1086,7 +1008,6 @@ class AnsweredQuestionsCompanion extends UpdateCompanion<AnsweredQuestion> {
       question: question ?? this.question,
       answerId: answerId ?? this.answerId,
       answer: answer ?? this.answer,
-      isCorrect: isCorrect ?? this.isCorrect,
       answeredAt: answeredAt ?? this.answeredAt,
       rowid: rowid ?? this.rowid,
     );
@@ -1107,9 +1028,6 @@ class AnsweredQuestionsCompanion extends UpdateCompanion<AnsweredQuestion> {
     if (answer.present) {
       map['answer'] = Variable<String>(answer.value);
     }
-    if (isCorrect.present) {
-      map['is_correct'] = Variable<bool>(isCorrect.value);
-    }
     if (answeredAt.present) {
       map['answered_at'] = Variable<DateTime>(
           $AnsweredQuestionsTable.$converteransweredAt.toSql(answeredAt.value));
@@ -1127,7 +1045,6 @@ class AnsweredQuestionsCompanion extends UpdateCompanion<AnsweredQuestion> {
           ..write('question: $question, ')
           ..write('answerId: $answerId, ')
           ..write('answer: $answer, ')
-          ..write('isCorrect: $isCorrect, ')
           ..write('answeredAt: $answeredAt, ')
           ..write('rowid: $rowid')
           ..write(')'))
@@ -1701,14 +1618,12 @@ typedef $$QuestionsTableProcessedTableManager = ProcessedTableManager<
 typedef $$AnswersTableCreateCompanionBuilder = AnswersCompanion Function({
   required String id,
   required String answer,
-  required bool isCorrect,
   required String questionId,
   Value<int> rowid,
 });
 typedef $$AnswersTableUpdateCompanionBuilder = AnswersCompanion Function({
   Value<String> id,
   Value<String> answer,
-  Value<bool> isCorrect,
   Value<String> questionId,
   Value<int> rowid,
 });
@@ -1748,9 +1663,6 @@ class $$AnswersTableFilterComposer
   ColumnFilters<String> get answer => $composableBuilder(
       column: $table.answer, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<bool> get isCorrect => $composableBuilder(
-      column: $table.isCorrect, builder: (column) => ColumnFilters(column));
-
   $$QuestionsTableFilterComposer get questionId {
     final $$QuestionsTableFilterComposer composer = $composerBuilder(
         composer: this,
@@ -1787,9 +1699,6 @@ class $$AnswersTableOrderingComposer
   ColumnOrderings<String> get answer => $composableBuilder(
       column: $table.answer, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<bool> get isCorrect => $composableBuilder(
-      column: $table.isCorrect, builder: (column) => ColumnOrderings(column));
-
   $$QuestionsTableOrderingComposer get questionId {
     final $$QuestionsTableOrderingComposer composer = $composerBuilder(
         composer: this,
@@ -1825,9 +1734,6 @@ class $$AnswersTableAnnotationComposer
 
   GeneratedColumn<String> get answer =>
       $composableBuilder(column: $table.answer, builder: (column) => column);
-
-  GeneratedColumn<bool> get isCorrect =>
-      $composableBuilder(column: $table.isCorrect, builder: (column) => column);
 
   $$QuestionsTableAnnotationComposer get questionId {
     final $$QuestionsTableAnnotationComposer composer = $composerBuilder(
@@ -1875,28 +1781,24 @@ class $$AnswersTableTableManager extends RootTableManager<
           updateCompanionCallback: ({
             Value<String> id = const Value.absent(),
             Value<String> answer = const Value.absent(),
-            Value<bool> isCorrect = const Value.absent(),
             Value<String> questionId = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               AnswersCompanion(
             id: id,
             answer: answer,
-            isCorrect: isCorrect,
             questionId: questionId,
             rowid: rowid,
           ),
           createCompanionCallback: ({
             required String id,
             required String answer,
-            required bool isCorrect,
             required String questionId,
             Value<int> rowid = const Value.absent(),
           }) =>
               AnswersCompanion.insert(
             id: id,
             answer: answer,
-            isCorrect: isCorrect,
             questionId: questionId,
             rowid: rowid,
           ),
@@ -1960,7 +1862,6 @@ typedef $$AnsweredQuestionsTableCreateCompanionBuilder
   required String question,
   required String answerId,
   required String answer,
-  required bool isCorrect,
   required DateTime answeredAt,
   Value<int> rowid,
 });
@@ -1970,7 +1871,6 @@ typedef $$AnsweredQuestionsTableUpdateCompanionBuilder
   Value<String> question,
   Value<String> answerId,
   Value<String> answer,
-  Value<bool> isCorrect,
   Value<DateTime> answeredAt,
   Value<int> rowid,
 });
@@ -1995,9 +1895,6 @@ class $$AnsweredQuestionsTableFilterComposer
 
   ColumnFilters<String> get answer => $composableBuilder(
       column: $table.answer, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<bool> get isCorrect => $composableBuilder(
-      column: $table.isCorrect, builder: (column) => ColumnFilters(column));
 
   ColumnWithTypeConverterFilters<DateTime, DateTime, DateTime> get answeredAt =>
       $composableBuilder(
@@ -2026,9 +1923,6 @@ class $$AnsweredQuestionsTableOrderingComposer
   ColumnOrderings<String> get answer => $composableBuilder(
       column: $table.answer, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<bool> get isCorrect => $composableBuilder(
-      column: $table.isCorrect, builder: (column) => ColumnOrderings(column));
-
   ColumnOrderings<DateTime> get answeredAt => $composableBuilder(
       column: $table.answeredAt, builder: (column) => ColumnOrderings(column));
 }
@@ -2053,9 +1947,6 @@ class $$AnsweredQuestionsTableAnnotationComposer
 
   GeneratedColumn<String> get answer =>
       $composableBuilder(column: $table.answer, builder: (column) => column);
-
-  GeneratedColumn<bool> get isCorrect =>
-      $composableBuilder(column: $table.isCorrect, builder: (column) => column);
 
   GeneratedColumnWithTypeConverter<DateTime, DateTime> get answeredAt =>
       $composableBuilder(
@@ -2094,7 +1985,6 @@ class $$AnsweredQuestionsTableTableManager extends RootTableManager<
             Value<String> question = const Value.absent(),
             Value<String> answerId = const Value.absent(),
             Value<String> answer = const Value.absent(),
-            Value<bool> isCorrect = const Value.absent(),
             Value<DateTime> answeredAt = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
@@ -2103,7 +1993,6 @@ class $$AnsweredQuestionsTableTableManager extends RootTableManager<
             question: question,
             answerId: answerId,
             answer: answer,
-            isCorrect: isCorrect,
             answeredAt: answeredAt,
             rowid: rowid,
           ),
@@ -2112,7 +2001,6 @@ class $$AnsweredQuestionsTableTableManager extends RootTableManager<
             required String question,
             required String answerId,
             required String answer,
-            required bool isCorrect,
             required DateTime answeredAt,
             Value<int> rowid = const Value.absent(),
           }) =>
@@ -2121,7 +2009,6 @@ class $$AnsweredQuestionsTableTableManager extends RootTableManager<
             question: question,
             answerId: answerId,
             answer: answer,
-            isCorrect: isCorrect,
             answeredAt: answeredAt,
             rowid: rowid,
           ),

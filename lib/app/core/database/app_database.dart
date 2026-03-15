@@ -25,7 +25,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration {
@@ -34,7 +34,13 @@ class AppDatabase extends _$AppDatabase {
         return m.createAll();
       },
       onUpgrade: (Migrator m, int from, int to) async {
-        return stepByStep()(m, from, to);
+        return stepByStep(
+          from1To2: (Migrator m, Schema2 schema) async {
+            await m.database.customStatement('ALTER TABLE questions DROP COLUMN description');
+            await m.database.customStatement('ALTER TABLE answers DROP COLUMN is_correct');
+            await m.database.customStatement('ALTER TABLE answered_questions DROP COLUMN is_correct');
+          },
+        )(m, from, to);
       },
     );
   }

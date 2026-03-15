@@ -7,7 +7,6 @@ part 'answer_dto.g.dart';
 class AnswerDto with _$AnswerDto {
   const factory AnswerDto({
     required String id,
-    @JsonKey(name: 'is_correct') required bool isCorrect,
     required String answer,
   }) = _AnswerDto;
 
