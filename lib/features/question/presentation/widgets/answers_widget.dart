@@ -50,7 +50,7 @@ class _AnswersDataWidget extends ConsumerWidget {
                 ? value.isCorrect
                     ? AnswerState.correct
                     : AnswerState.failed
-                : answer.isCorrect
+                : answer.id == value.correctAnswerId
                     ? AnswerState.correct
                     : AnswerState.wait,
             failed: (value) => value.answer.id == answer.id ? AnswerState.select : AnswerState.wait,
