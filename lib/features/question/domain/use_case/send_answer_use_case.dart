@@ -3,12 +3,13 @@ import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/core/services/auth_token_service.dart';
 import 'package:quiz/app/core/services/connectivity_service.dart';
+import 'package:quiz/features/question/domain/entity/answer_result_entity.dart';
 import 'package:quiz/features/question/domain/entity/answered_question_entity.dart';
 import 'package:quiz/features/question/domain/repository/answer_repository.dart';
 import 'package:quiz/features/question/domain/service/cached_question_service.dart';
 
 abstract interface class SendAnswerUseCase {
-  Future<Result<bool, Failure>> send(AnsweredQuestionEntity value);
+  Future<Result<AnswerResultEntity?, Failure>> send(AnsweredQuestionEntity value);
 }
 
 @Injectable(as: SendAnswerUseCase)
@@ -29,11 +30,15 @@ class SendAnswerUseCaseImpl implements SendAnswerUseCase {
         _connectivityService = connectivityService;
 
   @override
-  Future<Result<bool, Failure>> send(AnsweredQuestionEntity value) async {
+  Future<Result<AnswerResultEntity?, Failure>> send(AnsweredQuestionEntity value) async {
     final hasInternet = await _connectivityService.hasInternetConnection();
 
     if (_tokenService.accessToken == null || !hasInternet) {
-      return await _markAsCached(value);
+      final cachedResult = await _markAsCached(value);
+      return switch (cachedResult) {
+        ResultOk() => Result.ok(null),
+        ResultFailed(error: final failure) => Result.failed(failure),
+      };
     }
 
     final result = await _answerRepository.send(
@@ -42,22 +47,26 @@ class SendAnswerUseCaseImpl implements SendAnswerUseCase {
     );
 
     switch (result) {
-      case ResultOk(data: final entity):
+      case ResultOk():
         await _cachedQuestionService.deleteById(value.questionId);
-        return Result.ok(entity.lastIsCorrect);
+        return result;
       case ResultFailed(error: final failure):
         if (failure is NetworkFailure) {
-          return await _markAsCached(value);
+          final cachedResult = await _markAsCached(value);
+          return switch (cachedResult) {
+            ResultOk() => result,
+            ResultFailed(error: final failure) => Result.failed(failure),
+          };
         }
         return Result.failed(failure);
     }
   }
 
-  Future<Result<bool, Failure>> _markAsCached(AnsweredQuestionEntity answer) async {
+  Future<Result<void, Failure>> _markAsCached(AnsweredQuestionEntity answer) async {
     final result = await _cachedQuestionService.markAsAnswered(answer);
 
     return switch (result) {
-      ResultOk() => Result.ok(answer.isCorrect),
+      ResultOk() => Result.ok(null),
       ResultFailed(error: final failure) => Result.failed(failure),
     };
   }
