@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quiz/app/core/database/dao/answered_question_dao.dart';
 import 'package:quiz/app/core/widgets/app_widget.dart';
