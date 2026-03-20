@@ -1,4 +1,5 @@
 name: Verify
+
 on:
   pull_request:
     branches: [master]
@@ -14,7 +15,53 @@ jobs:
           cache: true
       - name: Install dependencies
         run: flutter pub get
+      - name: Install lcov
+        run: sudo apt-get update && sudo apt-get install -y lcov
       - name: Analyze
         run: flutter analyze
-      - name: Run tests
-        run: flutter test
+
+      - name: Unit tests + coverage (≥80%)
+        run: |
+          set -euo pipefail
+          flutter test test/unit --coverage
+          cp coverage/lcov.info coverage/lcov-unit.raw.info
+
+          lcov --remove coverage/lcov-unit.raw.info \
+            '**/*.g.dart' \
+            '**/*.freezed.dart' \
+            '**/generated/**' \
+            -o coverage/lcov-unit.info
+
+          LINE_PCT=$(lcov --summary coverage/lcov-unit.info 2>&1 \
+            | grep -E '^\s+lines\.\.\.\.+:' \
+            | head -1 \
+            | sed -E 's/.*: ([0-9.]+)%.*/\1/')
+
+          echo "Unit line coverage: ${LINE_PCT}% (min 80%)"
+          awk -v p="$LINE_PCT" 'BEGIN { exit !(p >= 80) }' || {
+            echo "Unit coverage ${LINE_PCT}% is below 80%"
+            exit 1
+          }
+
+      - name: Widget tests + coverage (≥70%)
+        run: |
+          set -euo pipefail
+          flutter test test/widget --coverage
+          cp coverage/lcov.info coverage/lcov-widget.raw.info
+
+          lcov --remove coverage/lcov-widget.raw.info \
+            '**/*.g.dart' \
+            '**/*.freezed.dart' \
+            '**/generated/**' \
+            -o coverage/lcov-widget.info
+
+          LINE_PCT=$(lcov --summary coverage/lcov-widget.info 2>&1 \
+            | grep -E '^\s+lines\.\.\.\.+:' \
+            | head -1 \
+            | sed -E 's/.*: ([0-9.]+)%.*/\1/')
+
+          echo "Widget line coverage: ${LINE_PCT}% (min 70%)"
+          awk -v p="$LINE_PCT" 'BEGIN { exit !(p >= 70) }' || {
+            echo "Widget coverage ${LINE_PCT}% is below 70%"
+            exit 1
+          }
