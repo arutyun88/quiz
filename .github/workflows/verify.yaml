@@ -30,7 +30,8 @@ jobs:
             '**/*.g.dart' \
             '**/*.freezed.dart' \
             '**/generated/**' \
-            -o coverage/lcov-unit.info
+            -o coverage/lcov-unit.info \
+            --ignore-errors unused
 
           LINE_PCT=$(lcov --summary coverage/lcov-unit.info 2>&1 \
             | grep -E '^\s+lines\.\.\.\.+:' \
@@ -53,7 +54,8 @@ jobs:
             '**/*.g.dart' \
             '**/*.freezed.dart' \
             '**/generated/**' \
-            -o coverage/lcov-widget.info
+            -o coverage/lcov-widget.info \
+            --ignore-errors unused
 
           LINE_PCT=$(lcov --summary coverage/lcov-widget.info 2>&1 \
             | grep -E '^\s+lines\.\.\.\.+:' \
