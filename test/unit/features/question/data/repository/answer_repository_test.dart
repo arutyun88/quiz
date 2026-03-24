@@ -35,7 +35,6 @@ final _answeredQuestion = AnsweredQuestionEntity(
 void main() {
   late AnswerRepository answerRepository;
   late MockApiClient apiClient;
-  late AnswerResultConverter answerConverter;
 
   setUpAll(() {
     registerFallbackValue(<String, dynamic>{});
@@ -43,10 +42,9 @@ void main() {
 
   setUp(() {
     apiClient = MockApiClient();
-    answerConverter = AnswerResultConverterImpl();
     answerRepository = RemoteAnswerRepository(
       client: apiClient,
-      answerConverter: answerConverter,
+      answerConverter: AnswerResultConverterImpl(),
       userStatisticsConverter: UserStatisticsConverterImpl(),
     );
   });
