@@ -10,7 +10,6 @@ _$QuestionDtoImpl _$$QuestionDtoImplFromJson(Map<String, dynamic> json) =>
     _$QuestionDtoImpl(
       id: json['id'] as String,
       question: json['question'] as String,
-      description: json['description'] as String,
       topic: TopicDto.fromJson(json['topic'] as Map<String, dynamic>),
       hint: json['hint'] as String,
       answers: (json['answers'] as List<dynamic>)
@@ -22,7 +21,6 @@ Map<String, dynamic> _$$QuestionDtoImplToJson(_$QuestionDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'question': instance.question,
-      'description': instance.description,
       'topic': instance.topic,
       'hint': instance.hint,
       'answers': instance.answers,

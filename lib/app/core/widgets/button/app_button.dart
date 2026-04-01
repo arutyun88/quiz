@@ -44,11 +44,11 @@ class _AppButtonState extends State<AppButton> {
           textStyle: context.textStyle.body16Semibold,
           backgroundColor: switch (widget.scope) {
             ButtonScope.primary => context.palette.button.background,
-            ButtonScope.secondary => context.palette.button.background.withOpacity(.5),
+            ButtonScope.secondary => context.palette.button.background.withValues(alpha: .5),
           },
           foregroundColor: switch (widget.scope) {
             ButtonScope.primary => context.palette.button.foreground,
-            ButtonScope.secondary => context.palette.button.foreground.withOpacity(.6),
+            ButtonScope.secondary => context.palette.button.foreground.withValues(alpha: .6),
           },
           disabledBackgroundColor: context.palette.button.disabledBackground,
           disabledForegroundColor: context.palette.button.disabledForeground,

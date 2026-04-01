@@ -12,7 +12,6 @@ final class AnswerDbConverterImpl extends AnswerDbConverter {
   Answer toDao(QuestionAnswer entity) {
     return Answer(
       id: entity.answer.id,
-      isCorrect: entity.answer.isCorrect,
       answer: entity.answer.text,
       questionId: entity.question,
     );
@@ -23,7 +22,6 @@ final class AnswerDbConverterImpl extends AnswerDbConverter {
     return QuestionAnswer(
       answer: AnswerEntity(
         id: dao.id,
-        isCorrect: dao.isCorrect,
         text: dao.answer,
       ),
       question: dao.questionId,

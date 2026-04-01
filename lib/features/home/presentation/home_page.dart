@@ -94,10 +94,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                         style: context.textStyle.body16Semibold,
                       ),
                     ),
-                    Text(
-                      question.description,
-                      textAlign: TextAlign.start,
-                    ),
+                    if (answerState.description case String description?)
+                      Text(
+                        description,
+                        textAlign: TextAlign.start,
+                      ),
                     Align(
                       alignment: AlignmentDirectional.centerEnd,
                       child: Text(

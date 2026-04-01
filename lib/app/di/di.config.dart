@@ -25,10 +25,10 @@ import '../../features/authentication/domain/repository/password_reset_gateway.d
 import '../../features/question/data/converter/answer_converter.dart' as _i498;
 import '../../features/question/data/converter/answer_db_converter.dart'
     as _i692;
+import '../../features/question/data/converter/answer_result_converter.dart'
+    as _i1044;
 import '../../features/question/data/converter/answered_question_db_converter.dart'
     as _i988;
-import '../../features/question/data/converter/answered_statistics_dto_converter.dart'
-    as _i1012;
 import '../../features/question/data/converter/question_converter.dart'
     as _i622;
 import '../../features/question/data/converter/question_db_converter.dart'
@@ -155,6 +155,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i812.UserDaoConverter>(() => _i812.UserDaoConverterImpl());
     gh.factory<_i11.UserConverter>(() => _i11.UserConverterImpl());
     gh.factory<_i692.AnswerDbConverter>(() => _i692.AnswerDbConverterImpl());
+    gh.factory<_i1044.AnswerResultConverter>(
+        () => _i1044.AnswerResultConverterImpl());
     gh.singleton<_i941.UnauthorizedEventService>(
         () => _i941.UnauthorizedEventServiceImpl());
     gh.factory<_i122.QuestionStateDtoConverter>(
@@ -179,6 +181,12 @@ extension GetItInjectableX on _i174.GetIt {
           client: gh<_i782.ApiClient>(),
           userConverter: gh<_i11.UserConverter>(),
         ));
+    gh.lazySingleton<_i209.AnswerRepository>(
+        () => questionModule.answerRepository(
+              client: gh<_i782.ApiClient>(),
+              answerConverter: gh<_i1044.AnswerResultConverter>(),
+              userStatisticsConverter: gh<_i740.UserStatisticsConverter>(),
+            ));
     gh.singleton<_i786.ConnectivityService>(() => _i786.ConnectivityServiceImpl(
         internetConnection: gh<_i161.InternetConnection>()));
     gh.lazySingleton<_i799.LocalUserRepository>(
@@ -204,21 +212,12 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i782.ApiClient>(),
               gh<_i740.UserStatisticsConverter>(),
             ));
-    gh.factory<_i1012.AnsweredStatisticsDtoConverter>(() =>
-        _i1012.AnsweredStatisticsDtoConverterImpl(
-            userStatisticsConverter: gh<_i740.UserStatisticsConverter>()));
     gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
         .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
     gh.lazySingleton<_i482.ChangeUserInfoGateway>(
         () => userModule.changeUserInfoGateway(gh<_i450.UserRepository>()));
     gh.lazySingleton<_i885.ChangePasswordGateway>(
         () => userModule.changePasswordGateway(gh<_i450.UserRepository>()));
-    gh.lazySingleton<_i209.AnswerRepository>(
-        () => questionModule.answerRepository(
-              client: gh<_i782.ApiClient>(),
-              answerConverter: gh<_i1012.AnsweredStatisticsDtoConverter>(),
-              userStatisticsConverter: gh<_i740.UserStatisticsConverter>(),
-            ));
     gh.lazySingleton<_i240.QuestionRepository>(
         () => questionModule.questionRepository(
               client: gh<_i782.ApiClient>(),

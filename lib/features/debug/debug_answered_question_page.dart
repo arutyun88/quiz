@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quiz/app/core/database/dao/answered_question_dao.dart';
 import 'package:quiz/app/core/widgets/app_widget.dart';
@@ -61,9 +60,6 @@ class DebugAnsweredQuestionPage extends StatelessWidget {
                         Text(data[index].answeredAt.toString()),
                       ],
                     ),
-                    trailing: data[index].isCorrect
-                        ? Icon(CupertinoIcons.add, color: Colors.green)
-                        : Icon(CupertinoIcons.minus, color: Colors.red),
                   ),
                 ),
               ),

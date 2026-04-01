@@ -5,11 +5,11 @@ import 'package:quiz/app/core/model/data_page/data_dto.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/json.dart';
 import 'package:quiz/app/core/model/result.dart';
-import 'package:quiz/features/question/data/converter/answered_statistics_dto_converter.dart';
+import 'package:quiz/features/question/data/converter/answer_result_converter.dart';
+import 'package:quiz/features/question/data/dto/answer_result_dto.dart';
 import 'package:quiz/features/question/data/dto/answered_question_dto.dart';
-import 'package:quiz/features/question/data/dto/answered_statistics_dto.dart';
+import 'package:quiz/features/question/domain/entity/answer_result_entity.dart';
 import 'package:quiz/features/question/domain/entity/answered_question_entity.dart';
-import 'package:quiz/features/question/domain/entity/answered_statistics_entity.dart';
 import 'package:quiz/features/question/domain/repository/answer_repository.dart';
 import 'package:quiz/features/user/data/converter/user_statistics_converter.dart';
 import 'package:quiz/features/user/data/dto/user_statistics_dto.dart';
@@ -17,14 +17,14 @@ import 'package:quiz/features/user/domain/entity/user_statistics_entity.dart';
 
 class RemoteAnswerRepository implements AnswerRepository {
   final ApiClient _client;
-  final AnsweredStatisticsDtoConverter _answerConverter;
+  final AnswerResultConverter _answerConverter;
   final UserStatisticsConverter _userStatisticsConverter;
 
   final _statisticsController = StreamController<UserStatisticsEntity>.broadcast();
 
   RemoteAnswerRepository({
     required ApiClient client,
-    required AnsweredStatisticsDtoConverter answerConverter,
+    required AnswerResultConverter answerConverter,
     required UserStatisticsConverter userStatisticsConverter,
   })  : _client = client,
         _answerConverter = answerConverter,
@@ -34,7 +34,7 @@ class RemoteAnswerRepository implements AnswerRepository {
   Stream<UserStatisticsEntity> get statistics => _statisticsController.stream;
 
   @override
-  Future<Result<AnsweredStatisticsEntity, Failure>> send({
+  Future<Result<AnswerResultEntity, Failure>> send({
     required String questionId,
     required String answerId,
   }) async =>
@@ -44,9 +44,9 @@ class RemoteAnswerRepository implements AnswerRepository {
           questionId: questionId,
           answerId: answerId,
         ).toJson(),
-        mapper: (json) => DataDto.fromJson(json, (json) => AnsweredStatisticsDto.fromJson(json as Json)),
+        enableLocale: true,
+        mapper: (json) => DataDto.fromJson(json, (json) => AnswerResultDto.fromJson(json as Json)),
         converter: _answerConverter.convert,
-        onSuccess: (answer) => _statisticsController.add(answer.statistics),
       );
 
   @override

@@ -17,7 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AnswerEntity {
   String get id => throw _privateConstructorUsedError;
-  bool get isCorrect => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
 
   /// Create a copy of AnswerEntity
@@ -33,7 +32,7 @@ abstract class $AnswerEntityCopyWith<$Res> {
           AnswerEntity value, $Res Function(AnswerEntity) then) =
       _$AnswerEntityCopyWithImpl<$Res, AnswerEntity>;
   @useResult
-  $Res call({String id, bool isCorrect, String text});
+  $Res call({String id, String text});
 }
 
 /// @nodoc
@@ -52,7 +51,6 @@ class _$AnswerEntityCopyWithImpl<$Res, $Val extends AnswerEntity>
   @override
   $Res call({
     Object? id = null,
-    Object? isCorrect = null,
     Object? text = null,
   }) {
     return _then(_value.copyWith(
@@ -60,10 +58,6 @@ class _$AnswerEntityCopyWithImpl<$Res, $Val extends AnswerEntity>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      isCorrect: null == isCorrect
-          ? _value.isCorrect
-          : isCorrect // ignore: cast_nullable_to_non_nullable
-              as bool,
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -80,7 +74,7 @@ abstract class _$$AnswerEntityImplCopyWith<$Res>
       __$$AnswerEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, bool isCorrect, String text});
+  $Res call({String id, String text});
 }
 
 /// @nodoc
@@ -97,7 +91,6 @@ class __$$AnswerEntityImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? isCorrect = null,
     Object? text = null,
   }) {
     return _then(_$AnswerEntityImpl(
@@ -105,10 +98,6 @@ class __$$AnswerEntityImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      isCorrect: null == isCorrect
-          ? _value.isCorrect
-          : isCorrect // ignore: cast_nullable_to_non_nullable
-              as bool,
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -120,19 +109,16 @@ class __$$AnswerEntityImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AnswerEntityImpl implements _AnswerEntity {
-  const _$AnswerEntityImpl(
-      {required this.id, required this.isCorrect, required this.text});
+  const _$AnswerEntityImpl({required this.id, required this.text});
 
   @override
   final String id;
-  @override
-  final bool isCorrect;
   @override
   final String text;
 
   @override
   String toString() {
-    return 'AnswerEntity(id: $id, isCorrect: $isCorrect, text: $text)';
+    return 'AnswerEntity(id: $id, text: $text)';
   }
 
   @override
@@ -141,13 +127,11 @@ class _$AnswerEntityImpl implements _AnswerEntity {
         (other.runtimeType == runtimeType &&
             other is _$AnswerEntityImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.isCorrect, isCorrect) ||
-                other.isCorrect == isCorrect) &&
             (identical(other.text, text) || other.text == text));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, isCorrect, text);
+  int get hashCode => Object.hash(runtimeType, id, text);
 
   /// Create a copy of AnswerEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -161,13 +145,10 @@ class _$AnswerEntityImpl implements _AnswerEntity {
 abstract class _AnswerEntity implements AnswerEntity {
   const factory _AnswerEntity(
       {required final String id,
-      required final bool isCorrect,
       required final String text}) = _$AnswerEntityImpl;
 
   @override
   String get id;
-  @override
-  bool get isCorrect;
   @override
   String get text;
 
