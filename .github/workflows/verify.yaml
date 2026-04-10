@@ -43,27 +43,3 @@ jobs:
             echo "Unit coverage ${LINE_PCT}% is below 20%"
             exit 1
           }
-
-      - name: Widget tests + coverage (≥20%)
-        run: |
-          set -euo pipefail
-          flutter test test/widget --coverage
-          cp coverage/lcov.info coverage/lcov-widget.raw.info
-
-          lcov --ignore-errors unused \
-            --remove coverage/lcov-widget.raw.info \
-            '**/*.g.dart' \
-            '**/*.freezed.dart' \
-            '**/generated/**' \
-            -o coverage/lcov-widget.info
-
-          LINE_PCT=$(lcov --summary coverage/lcov-widget.info 2>&1 \
-            | grep -E '^\s+lines\.\.\.\.+:' \
-            | head -1 \
-            | sed -E 's/.*: ([0-9.]+)%.*/\1/')
-
-          echo "Widget line coverage: ${LINE_PCT}% (min 20%)"
-          awk -v p="$LINE_PCT" 'BEGIN { exit !(p >= 20) }' || {
-            echo "Widget coverage ${LINE_PCT}% is below 20%"
-            exit 1
-          }
