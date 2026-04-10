@@ -26,7 +26,6 @@ final class QuestionDbConverterImpl extends QuestionDbConverter {
       question: Question(
         id: entity.id,
         question: entity.question,
-        description: entity.description,
         hint: entity.hint,
         topicId: entity.topic.id,
       ),
@@ -42,7 +41,6 @@ final class QuestionDbConverterImpl extends QuestionDbConverter {
     return QuestionEntity(
       id: dao.question.id,
       question: dao.question.question,
-      description: dao.question.description,
       hint: dao.question.hint,
       topic: _topicConverter.toEntity(dao.topic),
       answers: _answerConverter.toEntityMultiple(dao.answers).map((answer) => answer.answer).toList(),

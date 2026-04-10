@@ -6,7 +6,6 @@ class AnsweredQuestions extends Table {
   TextColumn get question => text()();
   TextColumn get answerId => text()();
   TextColumn get answer => text()();
-  BoolColumn get isCorrect => boolean()();
   DateTimeColumn get answeredAt => dateTime().map(DBDateTimeUtcConverter())();
 
   @override

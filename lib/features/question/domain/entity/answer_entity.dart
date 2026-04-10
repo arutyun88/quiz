@@ -6,7 +6,6 @@ part 'answer_entity.freezed.dart';
 class AnswerEntity with _$AnswerEntity {
   const factory AnswerEntity({
     required String id,
-    required bool isCorrect,
     required String text,
   }) = _AnswerEntity;
 }

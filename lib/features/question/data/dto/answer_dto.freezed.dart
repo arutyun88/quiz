@@ -21,8 +21,6 @@ AnswerDto _$AnswerDtoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AnswerDto {
   String get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_correct')
-  bool get isCorrect => throw _privateConstructorUsedError;
   String get answer => throw _privateConstructorUsedError;
 
   /// Serializes this AnswerDto to a JSON map.
@@ -40,8 +38,7 @@ abstract class $AnswerDtoCopyWith<$Res> {
   factory $AnswerDtoCopyWith(AnswerDto value, $Res Function(AnswerDto) then) =
       _$AnswerDtoCopyWithImpl<$Res, AnswerDto>;
   @useResult
-  $Res call(
-      {String id, @JsonKey(name: 'is_correct') bool isCorrect, String answer});
+  $Res call({String id, String answer});
 }
 
 /// @nodoc
@@ -60,7 +57,6 @@ class _$AnswerDtoCopyWithImpl<$Res, $Val extends AnswerDto>
   @override
   $Res call({
     Object? id = null,
-    Object? isCorrect = null,
     Object? answer = null,
   }) {
     return _then(_value.copyWith(
@@ -68,10 +64,6 @@ class _$AnswerDtoCopyWithImpl<$Res, $Val extends AnswerDto>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      isCorrect: null == isCorrect
-          ? _value.isCorrect
-          : isCorrect // ignore: cast_nullable_to_non_nullable
-              as bool,
       answer: null == answer
           ? _value.answer
           : answer // ignore: cast_nullable_to_non_nullable
@@ -88,8 +80,7 @@ abstract class _$$AnswerDtoImplCopyWith<$Res>
       __$$AnswerDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id, @JsonKey(name: 'is_correct') bool isCorrect, String answer});
+  $Res call({String id, String answer});
 }
 
 /// @nodoc
@@ -106,7 +97,6 @@ class __$$AnswerDtoImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? isCorrect = null,
     Object? answer = null,
   }) {
     return _then(_$AnswerDtoImpl(
@@ -114,10 +104,6 @@ class __$$AnswerDtoImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      isCorrect: null == isCorrect
-          ? _value.isCorrect
-          : isCorrect // ignore: cast_nullable_to_non_nullable
-              as bool,
       answer: null == answer
           ? _value.answer
           : answer // ignore: cast_nullable_to_non_nullable
@@ -129,10 +115,7 @@ class __$$AnswerDtoImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$AnswerDtoImpl implements _AnswerDto {
-  const _$AnswerDtoImpl(
-      {required this.id,
-      @JsonKey(name: 'is_correct') required this.isCorrect,
-      required this.answer});
+  const _$AnswerDtoImpl({required this.id, required this.answer});
 
   factory _$AnswerDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$AnswerDtoImplFromJson(json);
@@ -140,14 +123,11 @@ class _$AnswerDtoImpl implements _AnswerDto {
   @override
   final String id;
   @override
-  @JsonKey(name: 'is_correct')
-  final bool isCorrect;
-  @override
   final String answer;
 
   @override
   String toString() {
-    return 'AnswerDto(id: $id, isCorrect: $isCorrect, answer: $answer)';
+    return 'AnswerDto(id: $id, answer: $answer)';
   }
 
   @override
@@ -156,14 +136,12 @@ class _$AnswerDtoImpl implements _AnswerDto {
         (other.runtimeType == runtimeType &&
             other is _$AnswerDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.isCorrect, isCorrect) ||
-                other.isCorrect == isCorrect) &&
             (identical(other.answer, answer) || other.answer == answer));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, isCorrect, answer);
+  int get hashCode => Object.hash(runtimeType, id, answer);
 
   /// Create a copy of AnswerDto
   /// with the given fields replaced by the non-null parameter values.
@@ -184,7 +162,6 @@ class _$AnswerDtoImpl implements _AnswerDto {
 abstract class _AnswerDto implements AnswerDto {
   const factory _AnswerDto(
       {required final String id,
-      @JsonKey(name: 'is_correct') required final bool isCorrect,
       required final String answer}) = _$AnswerDtoImpl;
 
   factory _AnswerDto.fromJson(Map<String, dynamic> json) =
@@ -192,9 +169,6 @@ abstract class _AnswerDto implements AnswerDto {
 
   @override
   String get id;
-  @override
-  @JsonKey(name: 'is_correct')
-  bool get isCorrect;
   @override
   String get answer;
 

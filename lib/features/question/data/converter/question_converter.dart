@@ -25,7 +25,6 @@ final class QuestionConverterImpl extends QuestionConverter {
     return QuestionEntity(
       id: dto.id,
       question: dto.question,
-      description: dto.description,
       hint: dto.hint,
       topic: _topicConverter.convert(dto.topic),
       answers: _answerConverter.convertMultiple(dto.answers).toList(),
