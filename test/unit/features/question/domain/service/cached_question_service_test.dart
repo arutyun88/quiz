@@ -7,7 +7,7 @@ import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/features/question/domain/entity/answered_question_entity.dart';
 import 'package:quiz/features/question/domain/service/cached_question_service.dart';
 
-import '../../../../../features/question/domain/use_case/check_question_state_use_case_test.dart';
+import '../../../../../support/mock_answered_question_dao.dart';
 import '../../../../../support/mock_app_database.dart';
 import '../../../../../support/mock_question_dao.dart';
 
