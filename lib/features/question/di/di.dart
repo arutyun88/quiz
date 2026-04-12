@@ -2,7 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:quiz/app/core/client/api_client.dart';
 import 'package:quiz/app/core/model/data_page/data_page_converter.dart';
 import 'package:quiz/app/core/model/data_page/page_info_converter.dart';
-import 'package:quiz/features/question/data/converter/answered_statistics_dto_converter.dart';
+import 'package:quiz/features/question/data/converter/answer_result_converter.dart';
 import 'package:quiz/features/question/data/converter/question_converter.dart';
 import 'package:quiz/features/question/data/converter/question_state_dto_converter.dart';
 import 'package:quiz/features/question/data/repository/remote_answer_repository.dart';
@@ -39,7 +39,7 @@ abstract class QuestionModule {
   @lazySingleton
   AnswerRepository answerRepository({
     required ApiClient client,
-    required AnsweredStatisticsDtoConverter answerConverter,
+    required AnswerResultConverter answerConverter,
     required UserStatisticsConverter userStatisticsConverter,
   }) =>
       RemoteAnswerRepository(

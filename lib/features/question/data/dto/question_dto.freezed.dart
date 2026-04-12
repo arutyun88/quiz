@@ -22,7 +22,6 @@ QuestionDto _$QuestionDtoFromJson(Map<String, dynamic> json) {
 mixin _$QuestionDto {
   String get id => throw _privateConstructorUsedError;
   String get question => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
   TopicDto get topic => throw _privateConstructorUsedError;
   String get hint => throw _privateConstructorUsedError;
   List<AnswerDto> get answers => throw _privateConstructorUsedError;
@@ -46,7 +45,6 @@ abstract class $QuestionDtoCopyWith<$Res> {
   $Res call(
       {String id,
       String question,
-      String description,
       TopicDto topic,
       String hint,
       List<AnswerDto> answers});
@@ -71,7 +69,6 @@ class _$QuestionDtoCopyWithImpl<$Res, $Val extends QuestionDto>
   $Res call({
     Object? id = null,
     Object? question = null,
-    Object? description = null,
     Object? topic = null,
     Object? hint = null,
     Object? answers = null,
@@ -84,10 +81,6 @@ class _$QuestionDtoCopyWithImpl<$Res, $Val extends QuestionDto>
       question: null == question
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
               as String,
       topic: null == topic
           ? _value.topic
@@ -126,7 +119,6 @@ abstract class _$$QuestionDtoImplCopyWith<$Res>
   $Res call(
       {String id,
       String question,
-      String description,
       TopicDto topic,
       String hint,
       List<AnswerDto> answers});
@@ -150,7 +142,6 @@ class __$$QuestionDtoImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? question = null,
-    Object? description = null,
     Object? topic = null,
     Object? hint = null,
     Object? answers = null,
@@ -163,10 +154,6 @@ class __$$QuestionDtoImplCopyWithImpl<$Res>
       question: null == question
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
               as String,
       topic: null == topic
           ? _value.topic
@@ -190,7 +177,6 @@ class _$QuestionDtoImpl implements _QuestionDto {
   const _$QuestionDtoImpl(
       {required this.id,
       required this.question,
-      required this.description,
       required this.topic,
       required this.hint,
       required final List<AnswerDto> answers})
@@ -203,8 +189,6 @@ class _$QuestionDtoImpl implements _QuestionDto {
   final String id;
   @override
   final String question;
-  @override
-  final String description;
   @override
   final TopicDto topic;
   @override
@@ -219,7 +203,7 @@ class _$QuestionDtoImpl implements _QuestionDto {
 
   @override
   String toString() {
-    return 'QuestionDto(id: $id, question: $question, description: $description, topic: $topic, hint: $hint, answers: $answers)';
+    return 'QuestionDto(id: $id, question: $question, topic: $topic, hint: $hint, answers: $answers)';
   }
 
   @override
@@ -230,8 +214,6 @@ class _$QuestionDtoImpl implements _QuestionDto {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.question, question) ||
                 other.question == question) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
             (identical(other.topic, topic) || other.topic == topic) &&
             (identical(other.hint, hint) || other.hint == hint) &&
             const DeepCollectionEquality().equals(other._answers, _answers));
@@ -239,8 +221,8 @@ class _$QuestionDtoImpl implements _QuestionDto {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, question, description, topic,
-      hint, const DeepCollectionEquality().hash(_answers));
+  int get hashCode => Object.hash(runtimeType, id, question, topic, hint,
+      const DeepCollectionEquality().hash(_answers));
 
   /// Create a copy of QuestionDto
   /// with the given fields replaced by the non-null parameter values.
@@ -262,7 +244,6 @@ abstract class _QuestionDto implements QuestionDto {
   const factory _QuestionDto(
       {required final String id,
       required final String question,
-      required final String description,
       required final TopicDto topic,
       required final String hint,
       required final List<AnswerDto> answers}) = _$QuestionDtoImpl;
@@ -274,8 +255,6 @@ abstract class _QuestionDto implements QuestionDto {
   String get id;
   @override
   String get question;
-  @override
-  String get description;
   @override
   TopicDto get topic;
   @override

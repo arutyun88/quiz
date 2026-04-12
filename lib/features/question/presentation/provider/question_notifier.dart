@@ -171,17 +171,17 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
           question: questionState.question.question,
           answerId: answer.id,
           answer: answer.text,
-          isCorrect: answer.isCorrect,
           answeredAt: DateTime.now().toUtc(),
         ),
       );
 
       switch (result) {
-        case ResultOk(data: final isCorrect):
+        case ResultOk(:final data) when data != null:
           state = questionState.copyWith(
             answerState: QuestionAnswerState.sent(
               answer: answer,
-              isCorrect: isCorrect,
+              correctAnswerId: data.correctAnswerId,
+              description: data.description,
             ),
           );
         case ResultFailed(error: final failure):
@@ -191,6 +191,7 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
               failure: failure,
             ),
           );
+        default:
       }
     }
   }

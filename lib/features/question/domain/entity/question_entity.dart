@@ -9,7 +9,6 @@ class QuestionEntity with _$QuestionEntity {
   const factory QuestionEntity({
     required String id,
     required String question,
-    required String description,
     required TopicEntity topic,
     required String hint,
     required List<AnswerEntity> answers,

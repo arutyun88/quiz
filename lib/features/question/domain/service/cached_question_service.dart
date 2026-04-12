@@ -32,11 +32,12 @@ class CachedQuestionServiceImpl implements CachedQuestionService {
   Future<Result<void, Failure>> markAsAnswered(AnsweredQuestionEntity value) async {
     try {
       final answered = await _answeredQuestionDao.save(value);
-      final question = await _questionDao.removeById(value.questionId);
 
       if (answered is ResultFailed) {
         throw answered.error;
       }
+
+      final question = await _questionDao.removeById(value.questionId);
 
       if (question is ResultFailed) {
         throw question.error;

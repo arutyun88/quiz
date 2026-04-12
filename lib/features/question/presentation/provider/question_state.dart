@@ -35,7 +35,8 @@ class QuestionAnswerState with _$QuestionAnswerState {
 
   const factory QuestionAnswerState.sent({
     required AnswerEntity answer,
-    required bool isCorrect,
+    String? correctAnswerId,
+    String? description,
   }) = QuestionAnswerSentState;
 
   const factory QuestionAnswerState.failed({
@@ -51,6 +52,10 @@ class QuestionAnswerState with _$QuestionAnswerState {
           answer,
         _ => null,
       };
+}
+
+extension QuestionAnswerSentStateX on QuestionAnswerSentState {
+  bool get isCorrect => answer.id == correctAnswerId;
 }
 
 @freezed
