@@ -1,5 +1,4 @@
 import 'package:quiz/app/core/client/api_client.dart';
-import 'package:quiz/app/core/model/data_page/data_dto.dart';
 import 'package:quiz/app/core/model/data_page/data_page_dto.dart';
 import 'package:quiz/app/core/model/data_page/page_entity.dart';
 import 'package:quiz/app/core/model/failure.dart';
