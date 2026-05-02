@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:quiz/app/config/style/text_style_ex.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
@@ -35,7 +37,16 @@ class _AppButtonState extends State<AppButton> {
                 setState(() {
                   _loading = true;
                 });
-                await widget.onTap?.call();
+                try {
+                  await widget.onTap?.call();
+                } catch (e, s) {
+                  log(
+                    'AppButton: async onTap callback threw (loading reset)',
+                    name: 'AppButton',
+                    error: e,
+                    stackTrace: s,
+                  );
+                }
                 setState(() {
                   _loading = false;
                 });
