@@ -17,6 +17,11 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
     as _i161;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
+import '../../features/achievements/data/converter/user_achievement_converter.dart'
+    as _i606;
+import '../../features/achievements/di/di.dart' as _i134;
+import '../../features/achievements/domain/repository/user_achievement_repository.dart'
+    as _i518;
 import '../../features/authentication/di/di.dart' as _i415;
 import '../../features/authentication/domain/repository/authentication_repository.dart'
     as _i797;
@@ -113,6 +118,7 @@ extension GetItInjectableX on _i174.GetIt {
     final questionModule = _$QuestionModule();
     final userModule = _$UserModule();
     final appSettingsModule = _$AppSettingsModule();
+    final achievementsModule = _$AchievementsModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
       () => firebaseConfigModule.firebase(),
       preResolve: true,
@@ -132,6 +138,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => authenticationModule.passwordResetGateway());
     gh.factory<_i625.TopicConverter>(() => _i625.TopicConverterImpl());
     gh.factory<_i498.AnswerConverter>(() => _i498.AnswerConverterImpl());
+    gh.factory<_i606.UserAchievementConverter>(
+        () => _i606.UserAchievementConverterImpl());
     await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(
       () => firebaseConfigModule
           .remoteConfigService(gh<_i627.FirebaseRemoteConfig>()),
@@ -218,6 +226,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => userModule.changeUserInfoGateway(gh<_i450.UserRepository>()));
     gh.lazySingleton<_i885.ChangePasswordGateway>(
         () => userModule.changePasswordGateway(gh<_i450.UserRepository>()));
+    gh.factory<_i606.UserAchievementPageConverter>(
+        () => achievementsModule.userAchievementPageConverter(
+              gh<_i606.UserAchievementConverter>(),
+              gh<_i724.PageInfoConverter>(),
+            ));
     gh.lazySingleton<_i240.QuestionRepository>(
         () => questionModule.questionRepository(
               client: gh<_i782.ApiClient>(),
@@ -248,6 +261,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1068.FetchQuestionUseCaseImpl(
               questionRepository: gh<_i240.QuestionRepository>(),
               questionDao: gh<_i265.QuestionDao>(),
+            ));
+    gh.lazySingleton<_i518.UserAchievementRepository>(
+        () => achievementsModule.userAchievementRepository(
+              client: gh<_i782.ApiClient>(),
+              userAchievementPageConverter:
+                  gh<_i606.UserAchievementPageConverter>(),
             ));
     gh.factory<_i847.CachedQuestionService>(
         () => _i847.CachedQuestionServiceImpl(
@@ -291,3 +310,5 @@ class _$QuestionModule extends _i906.QuestionModule {}
 class _$UserModule extends _i527.UserModule {}
 
 class _$AppSettingsModule extends _i913.AppSettingsModule {}
+
+class _$AchievementsModule extends _i134.AchievementsModule {}
