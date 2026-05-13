@@ -114,6 +114,9 @@ class TranslationsGamificationEn {
 	/// en: '$current / $total XP'
 	String xp({required Object current, required Object total}) => '${current} / ${total} XP';
 
+	/// en: '$remaining XP left'
+	String xp_remaining({required Object remaining}) => '${remaining} XP left';
+
 	/// en: '(one) {$n day streak} (other) {$n days streak}'
 	String streak({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		one: '${n} day streak',
@@ -131,6 +134,21 @@ class TranslationsGamificationEn {
 
 	/// en: 'Achievements'
 	String get achievements_link => 'Achievements';
+
+	/// en: 'Day streak'
+	String get streak_days => 'Day streak';
+
+	/// en: 'Questions'
+	String get questions_answered => 'Questions';
+
+	/// en: 'Correct'
+	String get correct_answers => 'Correct';
+
+	/// en: 'Points'
+	String get points_label => 'Points';
+
+	/// en: 'Accuracy'
+	String get accuracy_label => 'Accuracy';
 }
 
 // Path: achievements
@@ -853,10 +871,16 @@ extension on Translations {
 			'gamification.level' => ({required Object level}) => 'Level ${level}',
 			'gamification.level_short' => ({required Object level}) => 'Lvl ${level}',
 			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',
+			'gamification.xp_remaining' => ({required Object remaining}) => '${remaining} XP left',
 			'gamification.streak' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} day streak', other: '${n} days streak', ), 
 			'gamification.points' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} pt', other: '${n} pts', ), 
 			'gamification.accuracy' => ({required Object value}) => '${value}% accuracy',
 			'gamification.achievements_link' => 'Achievements',
+			'gamification.streak_days' => 'Day streak',
+			'gamification.questions_answered' => 'Questions',
+			'gamification.correct_answers' => 'Correct',
+			'gamification.points_label' => 'Points',
+			'gamification.accuracy_label' => 'Accuracy',
 			'achievements.title' => 'Achievements',
 			'achievements.categories.beginner' => 'Beginner',
 			'achievements.categories.progress' => 'Progress',

@@ -24,15 +24,15 @@ mixin _$UserLevelDto {
   int get level => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: 0)
   int get experience => throw _privateConstructorUsedError;
-  @JsonKey(name: 'total_points', defaultValue: 0)
+  @JsonKey(defaultValue: 0)
   int get totalPoints => throw _privateConstructorUsedError;
-  @JsonKey(name: 'questions_answered', defaultValue: 0)
+  @JsonKey(defaultValue: 0)
   int get questionsAnswered => throw _privateConstructorUsedError;
-  @JsonKey(name: 'correct_answers', defaultValue: 0)
+  @JsonKey(defaultValue: 0)
   int get correctAnswers => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: 0.0)
   double get accuracy => throw _privateConstructorUsedError;
-  @JsonKey(name: 'streak_days', defaultValue: 0)
+  @JsonKey(defaultValue: 0)
   int get streakDays => throw _privateConstructorUsedError;
 
   /// Serializes this UserLevelDto to a JSON map.
@@ -54,12 +54,11 @@ abstract class $UserLevelDtoCopyWith<$Res> {
   $Res call(
       {@JsonKey(defaultValue: 1) int level,
       @JsonKey(defaultValue: 0) int experience,
-      @JsonKey(name: 'total_points', defaultValue: 0) int totalPoints,
-      @JsonKey(name: 'questions_answered', defaultValue: 0)
-      int questionsAnswered,
-      @JsonKey(name: 'correct_answers', defaultValue: 0) int correctAnswers,
+      @JsonKey(defaultValue: 0) int totalPoints,
+      @JsonKey(defaultValue: 0) int questionsAnswered,
+      @JsonKey(defaultValue: 0) int correctAnswers,
       @JsonKey(defaultValue: 0.0) double accuracy,
-      @JsonKey(name: 'streak_days', defaultValue: 0) int streakDays});
+      @JsonKey(defaultValue: 0) int streakDays});
 }
 
 /// @nodoc
@@ -129,12 +128,11 @@ abstract class _$$UserLevelDtoImplCopyWith<$Res>
   $Res call(
       {@JsonKey(defaultValue: 1) int level,
       @JsonKey(defaultValue: 0) int experience,
-      @JsonKey(name: 'total_points', defaultValue: 0) int totalPoints,
-      @JsonKey(name: 'questions_answered', defaultValue: 0)
-      int questionsAnswered,
-      @JsonKey(name: 'correct_answers', defaultValue: 0) int correctAnswers,
+      @JsonKey(defaultValue: 0) int totalPoints,
+      @JsonKey(defaultValue: 0) int questionsAnswered,
+      @JsonKey(defaultValue: 0) int correctAnswers,
       @JsonKey(defaultValue: 0.0) double accuracy,
-      @JsonKey(name: 'streak_days', defaultValue: 0) int streakDays});
+      @JsonKey(defaultValue: 0) int streakDays});
 }
 
 /// @nodoc
@@ -197,13 +195,11 @@ class _$UserLevelDtoImpl implements _UserLevelDto {
   const _$UserLevelDtoImpl(
       {@JsonKey(defaultValue: 1) required this.level,
       @JsonKey(defaultValue: 0) required this.experience,
-      @JsonKey(name: 'total_points', defaultValue: 0) required this.totalPoints,
-      @JsonKey(name: 'questions_answered', defaultValue: 0)
-      required this.questionsAnswered,
-      @JsonKey(name: 'correct_answers', defaultValue: 0)
-      required this.correctAnswers,
+      @JsonKey(defaultValue: 0) required this.totalPoints,
+      @JsonKey(defaultValue: 0) required this.questionsAnswered,
+      @JsonKey(defaultValue: 0) required this.correctAnswers,
       @JsonKey(defaultValue: 0.0) required this.accuracy,
-      @JsonKey(name: 'streak_days', defaultValue: 0) required this.streakDays});
+      @JsonKey(defaultValue: 0) required this.streakDays});
 
   factory _$UserLevelDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserLevelDtoImplFromJson(json);
@@ -215,19 +211,19 @@ class _$UserLevelDtoImpl implements _UserLevelDto {
   @JsonKey(defaultValue: 0)
   final int experience;
   @override
-  @JsonKey(name: 'total_points', defaultValue: 0)
+  @JsonKey(defaultValue: 0)
   final int totalPoints;
   @override
-  @JsonKey(name: 'questions_answered', defaultValue: 0)
+  @JsonKey(defaultValue: 0)
   final int questionsAnswered;
   @override
-  @JsonKey(name: 'correct_answers', defaultValue: 0)
+  @JsonKey(defaultValue: 0)
   final int correctAnswers;
   @override
   @JsonKey(defaultValue: 0.0)
   final double accuracy;
   @override
-  @JsonKey(name: 'streak_days', defaultValue: 0)
+  @JsonKey(defaultValue: 0)
   final int streakDays;
 
   @override
@@ -278,17 +274,14 @@ class _$UserLevelDtoImpl implements _UserLevelDto {
 
 abstract class _UserLevelDto implements UserLevelDto {
   const factory _UserLevelDto(
-      {@JsonKey(defaultValue: 1) required final int level,
-      @JsonKey(defaultValue: 0) required final int experience,
-      @JsonKey(name: 'total_points', defaultValue: 0)
-      required final int totalPoints,
-      @JsonKey(name: 'questions_answered', defaultValue: 0)
-      required final int questionsAnswered,
-      @JsonKey(name: 'correct_answers', defaultValue: 0)
-      required final int correctAnswers,
-      @JsonKey(defaultValue: 0.0) required final double accuracy,
-      @JsonKey(name: 'streak_days', defaultValue: 0)
-      required final int streakDays}) = _$UserLevelDtoImpl;
+          {@JsonKey(defaultValue: 1) required final int level,
+          @JsonKey(defaultValue: 0) required final int experience,
+          @JsonKey(defaultValue: 0) required final int totalPoints,
+          @JsonKey(defaultValue: 0) required final int questionsAnswered,
+          @JsonKey(defaultValue: 0) required final int correctAnswers,
+          @JsonKey(defaultValue: 0.0) required final double accuracy,
+          @JsonKey(defaultValue: 0) required final int streakDays}) =
+      _$UserLevelDtoImpl;
 
   factory _UserLevelDto.fromJson(Map<String, dynamic> json) =
       _$UserLevelDtoImpl.fromJson;
@@ -300,19 +293,19 @@ abstract class _UserLevelDto implements UserLevelDto {
   @JsonKey(defaultValue: 0)
   int get experience;
   @override
-  @JsonKey(name: 'total_points', defaultValue: 0)
+  @JsonKey(defaultValue: 0)
   int get totalPoints;
   @override
-  @JsonKey(name: 'questions_answered', defaultValue: 0)
+  @JsonKey(defaultValue: 0)
   int get questionsAnswered;
   @override
-  @JsonKey(name: 'correct_answers', defaultValue: 0)
+  @JsonKey(defaultValue: 0)
   int get correctAnswers;
   @override
   @JsonKey(defaultValue: 0.0)
   double get accuracy;
   @override
-  @JsonKey(name: 'streak_days', defaultValue: 0)
+  @JsonKey(defaultValue: 0)
   int get streakDays;
 
   /// Create a copy of UserLevelDto

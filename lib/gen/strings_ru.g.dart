@@ -99,6 +99,7 @@ class _TranslationsGamificationRu implements TranslationsGamificationEn {
 	@override String level({required Object level}) => 'Уровень ${level}';
 	@override String level_short({required Object level}) => 'Ур. ${level}';
 	@override String xp({required Object current, required Object total}) => '${current} / ${total} XP';
+	@override String xp_remaining({required Object remaining}) => 'ещё ${remaining} XP';
 	@override String streak({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
 		one: '${n} день подряд',
 		few: '${n} дня подряд',
@@ -113,6 +114,11 @@ class _TranslationsGamificationRu implements TranslationsGamificationEn {
 	);
 	@override String accuracy({required Object value}) => '${value}% точность';
 	@override String get achievements_link => 'Достижения';
+	@override String get streak_days => 'Дней подряд';
+	@override String get questions_answered => 'Вопросов';
+	@override String get correct_answers => 'Правильных';
+	@override String get points_label => 'Очков';
+	@override String get accuracy_label => 'Точность';
 }
 
 // Path: achievements
@@ -667,10 +673,16 @@ extension on TranslationsRu {
 			'gamification.level' => ({required Object level}) => 'Уровень ${level}',
 			'gamification.level_short' => ({required Object level}) => 'Ур. ${level}',
 			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',
+			'gamification.xp_remaining' => ({required Object remaining}) => 'ещё ${remaining} XP',
 			'gamification.streak' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} день подряд', few: '${n} дня подряд', many: '${n} дней подряд', other: '${n} дней подряд', ), 
 			'gamification.points' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} очко', few: '${n} очка', many: '${n} очков', other: '${n} очков', ), 
 			'gamification.accuracy' => ({required Object value}) => '${value}% точность',
 			'gamification.achievements_link' => 'Достижения',
+			'gamification.streak_days' => 'Дней подряд',
+			'gamification.questions_answered' => 'Вопросов',
+			'gamification.correct_answers' => 'Правильных',
+			'gamification.points_label' => 'Очков',
+			'gamification.accuracy_label' => 'Точность',
 			'achievements.title' => 'Достижения',
 			'achievements.categories.beginner' => 'Начинающий',
 			'achievements.categories.progress' => 'Прогресс',

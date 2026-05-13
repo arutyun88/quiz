@@ -136,6 +136,7 @@
         "level": "Level $level",
         "level_short": "Lvl $level",
         "xp": "$current / $total XP",
+        "xp_remaining": "$remaining XP left",
         "streak(n)": {
             "one": "$n day streak",
             "other": "$n days streak"
@@ -145,7 +146,12 @@
             "other": "$n pts"
         },
         "accuracy": "$value% accuracy",
-        "achievements_link": "Achievements"
+        "achievements_link": "Achievements",
+        "streak_days": "Day streak",
+        "questions_answered": "Questions",
+        "correct_answers": "Correct",
+        "points_label": "Points",
+        "accuracy_label": "Accuracy"
     },
     "achievements": {
         "title": "Achievements",

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
+import 'package:quiz/features/gamification/presentation/widgets/user_stats_widget.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -30,7 +31,9 @@ class ProfilePage extends StatelessWidget {
         ],
       ),
       body: const Column(
-        children: [],
+        children: [
+          UserStatsWidget(),
+        ],
       ),
     );
   }

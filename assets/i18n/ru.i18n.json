@@ -136,6 +136,7 @@
         "level": "Уровень $level",
         "level_short": "Ур. $level",
         "xp": "$current / $total XP",
+        "xp_remaining": "ещё $remaining XP",
         "streak(n)": {
             "one": "$n день подряд",
             "few": "$n дня подряд",
@@ -149,7 +150,12 @@
             "other": "$n очков"
         },
         "accuracy": "$value% точность",
-        "achievements_link": "Достижения"
+        "achievements_link": "Достижения",
+        "streak_days": "Дней подряд",
+        "questions_answered": "Вопросов",
+        "correct_answers": "Правильных",
+        "points_label": "Очков",
+        "accuracy_label": "Точность"
     },
     "achievements": {
         "title": "Достижения",
