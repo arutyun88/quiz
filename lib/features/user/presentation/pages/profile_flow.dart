@@ -1,32 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:quiz/features/user/presentation/pages/profile_page.dart';
 
 class ProfileFlow extends StatelessWidget {
   const ProfileFlow({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-        centerTitle: true,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: IconButton(
-              onPressed: () => context.push('/profile/settings'),
-              icon: const Icon(Icons.settings),
-            ),
-          ),
-          if (kDebugMode)
-            IconButton(
-              onPressed: () => context.goNamed('debug'),
-              icon: Icon(Icons.add_moderator),
-            ),
-        ],
-      ),
-      body: const Placeholder(),
-    );
+    return const ProfilePage();
   }
 }

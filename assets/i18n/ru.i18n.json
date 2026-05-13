@@ -20,6 +20,7 @@
         }
     },
     "profile": {
+        "title": "Профиль",
         "settings": {
             "title": "Настройки",
             "user": {
@@ -130,6 +131,37 @@
             "title": "Зарегистрироваться"
         },
         "agreement(rich)": "Используя приложение, вы соглашаетесь на обработку персональных данных согласно ${link(Пользовательскому соглашению)}"
+    },
+    "gamification": {
+        "level": "Уровень $level",
+        "level_short": "Ур. $level",
+        "xp": "$current / $total XP",
+        "streak(n)": {
+            "one": "$n день подряд",
+            "few": "$n дня подряд",
+            "many": "$n дней подряд",
+            "other": "$n дней подряд"
+        },
+        "points(n)": {
+            "one": "$n очко",
+            "few": "$n очка",
+            "many": "$n очков",
+            "other": "$n очков"
+        },
+        "accuracy": "$value% точность",
+        "achievements_link": "Достижения"
+    },
+    "achievements": {
+        "title": "Достижения",
+        "categories": {
+            "beginner": "Начинающий",
+            "progress": "Прогресс",
+            "accuracy": "Точность",
+            "streak": "Серия",
+            "points": "Очки"
+        },
+        "error": "Не удалось загрузить",
+        "retry": "Повторить"
     },
     "question": {
         "dialog": {

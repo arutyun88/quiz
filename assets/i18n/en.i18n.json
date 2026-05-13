@@ -20,6 +20,7 @@
         }
     },
     "profile": {
+        "title": "Profile",
         "settings": {
             "title": "Settings",
             "user": {
@@ -130,6 +131,33 @@
             "title": "Sign up"
         },
         "agreement(rich)": "By using the app, you accept ${link(User Agreement)}"
+    },
+    "gamification": {
+        "level": "Level $level",
+        "level_short": "Lvl $level",
+        "xp": "$current / $total XP",
+        "streak(n)": {
+            "one": "$n day streak",
+            "other": "$n days streak"
+        },
+        "points(n)": {
+            "one": "$n pt",
+            "other": "$n pts"
+        },
+        "accuracy": "$value% accuracy",
+        "achievements_link": "Achievements"
+    },
+    "achievements": {
+        "title": "Achievements",
+        "categories": {
+            "beginner": "Beginner",
+            "progress": "Progress",
+            "accuracy": "Accuracy",
+            "streak": "Streak",
+            "points": "Points"
+        },
+        "error": "Failed to load",
+        "retry": "Retry"
     },
     "question": {
         "dialog": {

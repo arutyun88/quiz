@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/app/main_layout.dart';
+import 'package:quiz/features/achievements/presentation/achievements_flow.dart';
 import 'package:quiz/features/authentication/presentation/sign_in/sign_in_flow.dart';
 import 'package:quiz/features/authentication/presentation/sign_up/sign_up_flow.dart';
 import 'package:quiz/features/debug/debug_answered_question_page.dart';
@@ -63,6 +64,11 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                   name: 'profile',
                   builder: (context, state) => const ProfileFlow(),
                   routes: [
+                    GoRoute(
+                      path: 'achievements',
+                      name: 'profile-achievements',
+                      builder: (context, state) => const AchievementsFlow(),
+                    ),
                     GoRoute(
                       path: 'settings',
                       name: 'profile-settings',

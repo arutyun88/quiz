@@ -27,6 +27,11 @@ import '../../features/authentication/domain/repository/authentication_repositor
     as _i797;
 import '../../features/authentication/domain/repository/password_reset_gateway.dart'
     as _i959;
+import '../../features/gamification/data/converter/user_level_converter.dart'
+    as _i508;
+import '../../features/gamification/di/di.dart' as _i941;
+import '../../features/gamification/domain/repository/gamification_repository.dart'
+    as _i31;
 import '../../features/question/data/converter/answer_converter.dart' as _i498;
 import '../../features/question/data/converter/answer_db_converter.dart'
     as _i692;
@@ -119,6 +124,7 @@ extension GetItInjectableX on _i174.GetIt {
     final userModule = _$UserModule();
     final appSettingsModule = _$AppSettingsModule();
     final achievementsModule = _$AchievementsModule();
+    final gamificationModule = _$GamificationModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
       () => firebaseConfigModule.firebase(),
       preResolve: true,
@@ -153,6 +159,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => networkModule.deviceService(gh<_i460.SharedPreferences>()),
       preResolve: true,
     );
+    gh.factory<_i508.UserLevelConverter>(() => _i508.UserLevelConverterImpl());
     gh.factory<_i952.TopicDbConverter>(() => _i952.TopicDbConverterImpl());
     gh.factory<_i740.UserStatisticsConverter>(
         () => _i740.UserStatisticsConverterImpl());
@@ -230,6 +237,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => achievementsModule.userAchievementPageConverter(
               gh<_i606.UserAchievementConverter>(),
               gh<_i724.PageInfoConverter>(),
+            ));
+    gh.lazySingleton<_i31.GamificationRepository>(
+        () => gamificationModule.gamificationRepository(
+              gh<_i782.ApiClient>(),
+              gh<_i508.UserLevelConverter>(),
             ));
     gh.lazySingleton<_i240.QuestionRepository>(
         () => questionModule.questionRepository(
@@ -312,3 +324,5 @@ class _$UserModule extends _i527.UserModule {}
 class _$AppSettingsModule extends _i913.AppSettingsModule {}
 
 class _$AchievementsModule extends _i134.AchievementsModule {}
+
+class _$GamificationModule extends _i941.GamificationModule {}

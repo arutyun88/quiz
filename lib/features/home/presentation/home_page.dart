@@ -11,6 +11,7 @@ import 'package:quiz/app/core/widgets/button/app_button.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/question/presentation/provider/question_provider.dart';
+import 'package:quiz/features/gamification/presentation/widgets/level_badge_widget.dart';
 import 'package:quiz/features/question/presentation/widgets/answers_widget.dart';
 import 'package:quiz/features/question/presentation/widgets/question_widget.dart';
 import 'package:quiz/gen/strings.g.dart';
@@ -27,18 +28,16 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     _listenQuestionAnswerResult();
 
+    final name = ref.watch(authenticationProvider).whenOrNull(authenticated: (user) => user?.name);
+
     return AppSubheaderedScaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Consumer(
-          builder: (context, ref, child) {
-            final name = ref.watch(authenticationProvider).whenOrNull(authenticated: (user) => user?.name);
-            return AppBar(
-              centerTitle: false,
-              title: name != null ? Text(name) : null,
-            );
-          },
-        ),
+        title: name != null ? Text(name) : null,
+        actions: const [
+          LevelBadgeWidget(),
+          SizedBox(width: 16.0),
+        ],
       ),
       body: Column(
         children: [
