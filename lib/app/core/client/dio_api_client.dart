@@ -164,8 +164,8 @@ class DioApiClient implements ApiClient {
         );
       case DioExceptionType.badResponse:
         final data = exc.response?.data;
-        final error = data?['error'];
-        final message = data?['message'] ?? exc.message;
+        final error = data is Map ? data['error'] : null;
+        final message = (data is Map ? data['message'] : null) ?? exc.message;
 
         if (error == 'INVALID_USERNAME_OR_PASSWORD') {
           return Failure.network(
