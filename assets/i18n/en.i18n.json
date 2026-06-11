@@ -132,6 +132,17 @@
         },
         "agreement(rich)": "By using the app, you accept ${link(User Agreement)}"
     },
+    "leaderboard": {
+        "title": "Leaderboard",
+        "my_position": "My position",
+        "empty": "No activity yet for this period",
+        "periods": {
+            "daily":   "today",
+            "weekly":  "this week",
+            "monthly": "this month",
+            "yearly":  "this year"
+        }
+    },
     "gamification": {
         "level": "Level $level",
         "level_short": "Lvl $level",

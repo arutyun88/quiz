@@ -47,6 +47,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsTextFieldEn text_field = TranslationsTextFieldEn._(_root);
 	late final TranslationsProfileEn profile = TranslationsProfileEn._(_root);
 	late final TranslationsAuthenticationEn authentication = TranslationsAuthenticationEn._(_root);
+	late final TranslationsLeaderboardEn leaderboard = TranslationsLeaderboardEn._(_root);
 	late final TranslationsGamificationEn gamification = TranslationsGamificationEn._(_root);
 	late final TranslationsAchievementsEn achievements = TranslationsAchievementsEn._(_root);
 	late final TranslationsQuestionEn question = TranslationsQuestionEn._(_root);
@@ -95,6 +96,26 @@ class TranslationsAuthenticationEn {
 		const TextSpan(text: 'By using the app, you accept '),
 		link('User Agreement'),
 	]);
+}
+
+// Path: leaderboard
+class TranslationsLeaderboardEn {
+	TranslationsLeaderboardEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Leaderboard'
+	String get title => 'Leaderboard';
+
+	/// en: 'My position'
+	String get my_position => 'My position';
+
+	/// en: 'No activity yet for this period'
+	String get empty => 'No activity yet for this period';
+
+	late final TranslationsLeaderboardPeriodsEn periods = TranslationsLeaderboardPeriodsEn._(_root);
 }
 
 // Path: gamification
@@ -323,6 +344,27 @@ class TranslationsAuthenticationSignUpEn {
 
 	/// en: 'Sign up'
 	String get title => 'Sign up';
+}
+
+// Path: leaderboard.periods
+class TranslationsLeaderboardPeriodsEn {
+	TranslationsLeaderboardPeriodsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'today'
+	String get daily => 'today';
+
+	/// en: 'this week'
+	String get weekly => 'this week';
+
+	/// en: 'this month'
+	String get monthly => 'this month';
+
+	/// en: 'this year'
+	String get yearly => 'this year';
 }
 
 // Path: achievements.categories
@@ -868,6 +910,13 @@ extension on Translations {
 			'authentication.sign_up.button' => 'Sign up',
 			'authentication.sign_up.title' => 'Sign up',
 			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'By using the app, you accept '), link('User Agreement'), ]), 
+			'leaderboard.title' => 'Leaderboard',
+			'leaderboard.my_position' => 'My position',
+			'leaderboard.empty' => 'No activity yet for this period',
+			'leaderboard.periods.daily' => 'today',
+			'leaderboard.periods.weekly' => 'this week',
+			'leaderboard.periods.monthly' => 'this month',
+			'leaderboard.periods.yearly' => 'this year',
 			'gamification.level' => ({required Object level}) => 'Level ${level}',
 			'gamification.level_short' => ({required Object level}) => 'Lvl ${level}',
 			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',

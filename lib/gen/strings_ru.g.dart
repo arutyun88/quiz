@@ -44,6 +44,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsTextFieldRu text_field = _TranslationsTextFieldRu._(_root);
 	@override late final _TranslationsProfileRu profile = _TranslationsProfileRu._(_root);
 	@override late final _TranslationsAuthenticationRu authentication = _TranslationsAuthenticationRu._(_root);
+	@override late final _TranslationsLeaderboardRu leaderboard = _TranslationsLeaderboardRu._(_root);
 	@override late final _TranslationsGamificationRu gamification = _TranslationsGamificationRu._(_root);
 	@override late final _TranslationsAchievementsRu achievements = _TranslationsAchievementsRu._(_root);
 	@override late final _TranslationsQuestionRu question = _TranslationsQuestionRu._(_root);
@@ -87,6 +88,19 @@ class _TranslationsAuthenticationRu implements TranslationsAuthenticationEn {
 		const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '),
 		link('Пользовательскому соглашению'),
 	]);
+}
+
+// Path: leaderboard
+class _TranslationsLeaderboardRu implements TranslationsLeaderboardEn {
+	_TranslationsLeaderboardRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Рейтинг';
+	@override String get my_position => 'Моя позиция';
+	@override String get empty => 'Нет активности за этот период';
+	@override late final _TranslationsLeaderboardPeriodsRu periods = _TranslationsLeaderboardPeriodsRu._(_root);
 }
 
 // Path: gamification
@@ -243,6 +257,19 @@ class _TranslationsAuthenticationSignUpRu implements TranslationsAuthenticationS
 	@override late final _TranslationsAuthenticationSignUpConfirmPasswordRu confirm_password = _TranslationsAuthenticationSignUpConfirmPasswordRu._(_root);
 	@override String get button => 'Зарегистрироваться';
 	@override String get title => 'Зарегистрироваться';
+}
+
+// Path: leaderboard.periods
+class _TranslationsLeaderboardPeriodsRu implements TranslationsLeaderboardPeriodsEn {
+	_TranslationsLeaderboardPeriodsRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get daily => 'дня';
+	@override String get weekly => 'недели';
+	@override String get monthly => 'месяца';
+	@override String get yearly => 'года';
 }
 
 // Path: achievements.categories
@@ -670,6 +697,13 @@ extension on TranslationsRu {
 			'authentication.sign_up.button' => 'Зарегистрироваться',
 			'authentication.sign_up.title' => 'Зарегистрироваться',
 			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '), link('Пользовательскому соглашению'), ]), 
+			'leaderboard.title' => 'Рейтинг',
+			'leaderboard.my_position' => 'Моя позиция',
+			'leaderboard.empty' => 'Нет активности за этот период',
+			'leaderboard.periods.daily' => 'дня',
+			'leaderboard.periods.weekly' => 'недели',
+			'leaderboard.periods.monthly' => 'месяца',
+			'leaderboard.periods.yearly' => 'года',
 			'gamification.level' => ({required Object level}) => 'Уровень ${level}',
 			'gamification.level_short' => ({required Object level}) => 'Ур. ${level}',
 			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',
