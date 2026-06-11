@@ -23,9 +23,12 @@ class LeaderboardAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final elevation = isScrolledUnder ? _scrolledUnderElevation : 0.0;
+
     return AppBar(
       centerTitle: false,
-      scrolledUnderElevation: isScrolledUnder ? _scrolledUnderElevation : 0.0,
+      elevation: elevation,
+      scrolledUnderElevation: elevation,
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
