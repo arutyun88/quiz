@@ -6,6 +6,7 @@ import 'package:quiz/app/config/theme/theme_ex.dart';
 
 enum ButtonScope { primary, secondary }
 
+@Deprecated('Use Button from widgets/button/button.dart instead')
 class AppButton extends StatefulWidget {
   const AppButton({
     super.key,

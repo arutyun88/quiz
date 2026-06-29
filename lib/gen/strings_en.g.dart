@@ -3,13 +3,12 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
-// dart format off
 
 part of 'strings.g.dart';
 
 // Path: <root>
 typedef TranslationsEn = Translations; // ignore: unused_element
-class Translations with BaseTranslations<AppLocale, Translations> {
+class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// Returns the current translations of the given [context].
 	///
 	/// Usage:
@@ -18,9 +17,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  $meta = TranslationMetadata(
 		    locale: AppLocale.en,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
@@ -37,8 +36,6 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	late final Translations _root = this; // ignore: unused_field
 
-	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
-
 	// Translations
 	Map<String, String> get languages => {
 		'en': 'English',
@@ -51,6 +48,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsGamificationEn gamification = TranslationsGamificationEn._(_root);
 	late final TranslationsAchievementsEn achievements = TranslationsAchievementsEn._(_root);
 	late final TranslationsQuestionEn question = TranslationsQuestionEn._(_root);
+	late final TranslationsNavEn nav = TranslationsNavEn._(_root);
 }
 
 // Path: text_field
@@ -72,10 +70,7 @@ class TranslationsProfileEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Profile'
 	String get title => 'Profile';
-
 	late final TranslationsProfileSettingsEn settings = TranslationsProfileSettingsEn._(_root);
 	late final TranslationsProfileEditEn edit = TranslationsProfileEditEn._(_root);
 }
@@ -90,8 +85,6 @@ class TranslationsAuthenticationEn {
 	late final TranslationsAuthenticationFailureEn failure = TranslationsAuthenticationFailureEn._(_root);
 	late final TranslationsAuthenticationSignInEn sign_in = TranslationsAuthenticationSignInEn._(_root);
 	late final TranslationsAuthenticationSignUpEn sign_up = TranslationsAuthenticationSignUpEn._(_root);
-
-	/// en: 'By using the app, you accept ${link(User Agreement)}'
 	TextSpan agreement({required InlineSpanBuilder link}) => TextSpan(children: [
 		const TextSpan(text: 'By using the app, you accept '),
 		link('User Agreement'),
@@ -105,16 +98,9 @@ class TranslationsLeaderboardEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Leaderboard'
 	String get title => 'Leaderboard';
-
-	/// en: 'My position'
 	String get my_position => 'My position';
-
-	/// en: 'No activity yet for this period'
 	String get empty => 'No activity yet for this period';
-
 	late final TranslationsLeaderboardPeriodsEn periods = TranslationsLeaderboardPeriodsEn._(_root);
 }
 
@@ -125,50 +111,24 @@ class TranslationsGamificationEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Level $level'
 	String level({required Object level}) => 'Level ${level}';
-
-	/// en: 'Lvl $level'
 	String level_short({required Object level}) => 'Lvl ${level}';
-
-	/// en: '$current / $total XP'
 	String xp({required Object current, required Object total}) => '${current} / ${total} XP';
-
-	/// en: '$remaining XP left'
 	String xp_remaining({required Object remaining}) => '${remaining} XP left';
-
-	/// en: '(one) {$n day streak} (other) {$n days streak}'
 	String streak({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		one: '${n} day streak',
 		other: '${n} days streak',
 	);
-
-	/// en: '(one) {$n pt} (other) {$n pts}'
 	String points({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		one: '${n} pt',
 		other: '${n} pts',
 	);
-
-	/// en: '$value% accuracy'
 	String accuracy({required Object value}) => '${value}% accuracy';
-
-	/// en: 'Achievements'
 	String get achievements_link => 'Achievements';
-
-	/// en: 'Day streak'
 	String get streak_days => 'Day streak';
-
-	/// en: 'Questions'
 	String get questions_answered => 'Questions';
-
-	/// en: 'Correct'
 	String get correct_answers => 'Correct';
-
-	/// en: 'Points'
 	String get points_label => 'Points';
-
-	/// en: 'Accuracy'
 	String get accuracy_label => 'Accuracy';
 }
 
@@ -179,16 +139,9 @@ class TranslationsAchievementsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Achievements'
 	String get title => 'Achievements';
-
 	late final TranslationsAchievementsCategoriesEn categories = TranslationsAchievementsCategoriesEn._(_root);
-
-	/// en: 'Failed to load'
 	String get error => 'Failed to load';
-
-	/// en: 'Retry'
 	String get retry => 'Retry';
 }
 
@@ -203,6 +156,18 @@ class TranslationsQuestionEn {
 	late final TranslationsQuestionErrorSnackbarEn error_snackbar = TranslationsQuestionErrorSnackbarEn._(_root);
 }
 
+// Path: nav
+class TranslationsNavEn {
+	TranslationsNavEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get game => 'GAME';
+	String get leaderboard => 'RANK';
+	String get profile => 'PROFILE';
+}
+
 // Path: text_field.email
 class TranslationsTextFieldEmailEn {
 	TranslationsTextFieldEmailEn._(this._root);
@@ -210,14 +175,8 @@ class TranslationsTextFieldEmailEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Email'
 	String get label => 'Email';
-
-	/// en: 'Enter your email'
 	String get hint => 'Enter your email';
-
-	/// en: 'Invalid email format'
 	String get validation_message => 'Invalid email format';
 }
 
@@ -228,14 +187,8 @@ class TranslationsTextFieldPasswordEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Password'
 	String get label => 'Password';
-
-	/// en: 'Minimum 8 characters, letters and numbers'
 	String get hint => 'Minimum 8 characters, letters and numbers';
-
-	/// en: '8+ characters: 1 uppercase, 1 lowercase, 1 digit'
 	String get validation_message => '8+ characters: 1 uppercase, 1 lowercase, 1 digit';
 }
 
@@ -246,11 +199,7 @@ class TranslationsTextFieldConfirmPasswordEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Confirm password'
 	String get label => 'Confirm password';
-
-	/// en: 'Repeat the entered password'
 	String get hint => 'Repeat the entered password';
 }
 
@@ -261,17 +210,10 @@ class TranslationsProfileSettingsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Settings'
 	String get title => 'Settings';
-
 	late final TranslationsProfileSettingsUserEn user = TranslationsProfileSettingsUserEn._(_root);
 	late final TranslationsProfileSettingsApplicationEn application = TranslationsProfileSettingsApplicationEn._(_root);
-
-	/// en: 'Log out of profile'
 	String get sign_out => 'Log out of profile';
-
-	/// en: 'Log in or register'
 	String get sign_in => 'Log in or register';
 }
 
@@ -282,10 +224,7 @@ class TranslationsProfileEditEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Edit profile'
 	String get title => 'Edit profile';
-
 	late final TranslationsProfileEditPasswordEn password = TranslationsProfileEditPasswordEn._(_root);
 	late final TranslationsProfileEditMainEn main = TranslationsProfileEditMainEn._(_root);
 }
@@ -297,17 +236,9 @@ class TranslationsAuthenticationFailureEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Invalid credentials. Check that the email and password you entered are correct.'
 	String get invalid_credentials => 'Invalid credentials. Check that the email and password you entered are correct.';
-
-	/// en: 'Too many login attempts. Try again later or reset your password.'
 	String get too_many_requests => 'Too many login attempts. Try again later or reset your password.';
-
-	/// en: 'This email is already being used by another account.'
 	String get already_exist => 'This email is already being used by another account.';
-
-	/// en: 'An error occurred during authentication. Please try again.'
 	String get unknown => 'An error occurred during authentication. Please try again.';
 }
 
@@ -319,13 +250,8 @@ class TranslationsAuthenticationSignInEn {
 
 	// Translations
 	late final TranslationsAuthenticationSignInNoAccountEn no_account = TranslationsAuthenticationSignInNoAccountEn._(_root);
-
-	/// en: 'Log in'
 	String get button => 'Log in';
-
-	/// en: 'Log in to your account'
 	String get title => 'Log in to your account';
-
 	late final TranslationsAuthenticationSignInForgetPasswordEn forget_password = TranslationsAuthenticationSignInForgetPasswordEn._(_root);
 }
 
@@ -338,11 +264,7 @@ class TranslationsAuthenticationSignUpEn {
 	// Translations
 	late final TranslationsAuthenticationSignUpHaveAccountEn have_account = TranslationsAuthenticationSignUpHaveAccountEn._(_root);
 	late final TranslationsAuthenticationSignUpConfirmPasswordEn confirm_password = TranslationsAuthenticationSignUpConfirmPasswordEn._(_root);
-
-	/// en: 'Sign up'
 	String get button => 'Sign up';
-
-	/// en: 'Sign up'
 	String get title => 'Sign up';
 }
 
@@ -353,17 +275,9 @@ class TranslationsLeaderboardPeriodsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'today'
 	String get daily => 'today';
-
-	/// en: 'this week'
 	String get weekly => 'this week';
-
-	/// en: 'this month'
 	String get monthly => 'this month';
-
-	/// en: 'this year'
 	String get yearly => 'this year';
 }
 
@@ -374,20 +288,10 @@ class TranslationsAchievementsCategoriesEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Beginner'
 	String get beginner => 'Beginner';
-
-	/// en: 'Progress'
 	String get progress => 'Progress';
-
-	/// en: 'Accuracy'
 	String get accuracy => 'Accuracy';
-
-	/// en: 'Streak'
 	String get streak => 'Streak';
-
-	/// en: 'Points'
 	String get points => 'Points';
 }
 
@@ -400,8 +304,6 @@ class TranslationsQuestionDialogEn {
 	// Translations
 	late final TranslationsQuestionDialogCorrectEn correct = TranslationsQuestionDialogCorrectEn._(_root);
 	late final TranslationsQuestionDialogIncorrectEn incorrect = TranslationsQuestionDialogIncorrectEn._(_root);
-
-	/// en: 'Continue'
 	String get button => 'Continue';
 }
 
@@ -424,17 +326,9 @@ class TranslationsProfileSettingsUserEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Settings'
 	String get title => 'Settings';
-
-	/// en: 'Edit profile'
 	String get go_to_edit => 'Edit profile';
-
-	/// en: 'Настройки уведомлений'
 	String get go_to_notifications_settings => 'Настройки уведомлений';
-
-	/// en: 'Управление подпиской'
 	String get go_to_subscriptions => 'Управление подпиской';
 }
 
@@ -445,17 +339,10 @@ class TranslationsProfileSettingsApplicationEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Application'
 	String get title => 'Application';
-
 	late final TranslationsProfileSettingsApplicationLanguageEn language = TranslationsProfileSettingsApplicationLanguageEn._(_root);
 	late final TranslationsProfileSettingsApplicationThemeEn theme = TranslationsProfileSettingsApplicationThemeEn._(_root);
-
-	/// en: 'Memory Manager'
 	String get go_to_storage_manager => 'Memory Manager';
-
-	/// en: 'About the application'
 	String get go_to_about_app => 'About the application';
 }
 
@@ -466,25 +353,12 @@ class TranslationsProfileEditPasswordEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Change password'
 	String get title => 'Change password';
-
-	/// en: 'Enter old password'
 	String get old_password_hint => 'Enter old password';
-
-	/// en: 'Enter new password'
 	String get new_password_hint => 'Enter new password';
-
-	/// en: 'Repeat new password'
 	String get new_confirm_password_hint => 'Repeat new password';
-
-	/// en: 'Passwords don't match'
 	String get confirm_password_validation_message => 'Passwords don\'t match';
-
-	/// en: 'Save'
 	String get button => 'Save';
-
 	late final TranslationsProfileEditPasswordResultEn result = TranslationsProfileEditPasswordResultEn._(_root);
 }
 
@@ -495,10 +369,7 @@ class TranslationsProfileEditMainEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Basic information'
 	String get title => 'Basic information';
-
 	late final TranslationsProfileEditMainNameEn name = TranslationsProfileEditMainNameEn._(_root);
 	late final TranslationsProfileEditMainDateEn date = TranslationsProfileEditMainDateEn._(_root);
 	late final TranslationsProfileEditMainResultEn result = TranslationsProfileEditMainResultEn._(_root);
@@ -511,11 +382,7 @@ class TranslationsAuthenticationSignInNoAccountEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Don't have an account yet?'
 	String get text => 'Don\'t have an account yet?';
-
-	/// en: 'Sign up'
 	String get sign_up => 'Sign up';
 }
 
@@ -526,10 +393,7 @@ class TranslationsAuthenticationSignInForgetPasswordEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'I don't remember the password'
 	String get button => 'I don\'t remember the password';
-
 	late final TranslationsAuthenticationSignInForgetPasswordDialogEn dialog = TranslationsAuthenticationSignInForgetPasswordDialogEn._(_root);
 }
 
@@ -540,11 +404,7 @@ class TranslationsAuthenticationSignUpHaveAccountEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Already have an account?'
 	String get text => 'Already have an account?';
-
-	/// en: 'Log in'
 	String get sign_in => 'Log in';
 }
 
@@ -555,14 +415,8 @@ class TranslationsAuthenticationSignUpConfirmPasswordEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Confirm Password'
 	String get label => 'Confirm Password';
-
-	/// en: 'Re-enter your password'
 	String get hint => 'Re-enter your password';
-
-	/// en: 'Passwords do not match'
 	String get validation_message => 'Passwords do not match';
 }
 
@@ -607,11 +461,7 @@ class TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'This question was already answered on another device. It won't appear again.'
 	String get text => 'This question was already answered on another device. It won\'t appear again.';
-
-	/// en: 'Got it'
 	String get button => 'Got it';
 }
 
@@ -622,11 +472,7 @@ class TranslationsQuestionErrorSnackbarAlreadyAnsweredEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'This question is already in your answer collection and won't be overwritten'
 	String get text => 'This question is already in your answer collection and won\'t be overwritten';
-
-	/// en: 'Got it'
 	String get button => 'Got it';
 }
 
@@ -637,11 +483,7 @@ class TranslationsQuestionErrorSnackbarSaveFailedRetryLaterEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Oops! Your answer wasn't saved, but this question will return later. You'll get another chance!'
 	String get text => 'Oops! Your answer wasn\'t saved, but this question will return later. You\'ll get another chance!';
-
-	/// en: 'Try again later'
 	String get button => 'Try again later';
 }
 
@@ -652,8 +494,6 @@ class TranslationsProfileSettingsApplicationLanguageEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Choose language'
 	String get change => 'Choose language';
 }
 
@@ -664,10 +504,7 @@ class TranslationsProfileSettingsApplicationThemeEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Theme'
 	String get title => 'Theme';
-
 	late final TranslationsProfileSettingsApplicationThemeSwitcherEn switcher = TranslationsProfileSettingsApplicationThemeSwitcherEn._(_root);
 }
 
@@ -678,11 +515,7 @@ class TranslationsProfileEditPasswordResultEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Password successfully changed'
 	String get success => 'Password successfully changed';
-
-	/// en: 'The password could not be changed. Please check the entered data and try again'
 	String get failed => 'The password could not be changed. Please check the entered data and try again';
 }
 
@@ -693,11 +526,7 @@ class TranslationsProfileEditMainNameEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Name'
 	String get label => 'Name';
-
-	/// en: 'Enter your name'
 	String get hint => 'Enter your name';
 }
 
@@ -708,10 +537,7 @@ class TranslationsProfileEditMainDateEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Specify your date of birth'
 	String get hint => 'Specify your date of birth';
-
 	late final TranslationsProfileEditMainDatePickerEn picker = TranslationsProfileEditMainDatePickerEn._(_root);
 }
 
@@ -722,11 +548,7 @@ class TranslationsProfileEditMainResultEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Information successfully changed'
 	String get success => 'Information successfully changed';
-
-	/// en: 'Information could not be changed. Please check the entered data and try again'
 	String get failed => 'Information could not be changed. Please check the entered data and try again';
 }
 
@@ -737,10 +559,7 @@ class TranslationsAuthenticationSignInForgetPasswordDialogEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Password recovery'
 	String get title => 'Password recovery';
-
 	late final TranslationsAuthenticationSignInForgetPasswordDialogValidEn valid = TranslationsAuthenticationSignInForgetPasswordDialogValidEn._(_root);
 	late final TranslationsAuthenticationSignInForgetPasswordDialogInvalidEn invalid = TranslationsAuthenticationSignInForgetPasswordDialogInvalidEn._(_root);
 	late final TranslationsAuthenticationSignInForgetPasswordDialogResultEn result = TranslationsAuthenticationSignInForgetPasswordDialogResultEn._(_root);
@@ -753,8 +572,6 @@ class TranslationsProfileSettingsApplicationThemeSwitcherEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'As in the system'
 	String get as_system => 'As in the system';
 }
 
@@ -765,10 +582,7 @@ class TranslationsProfileEditMainDatePickerEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Date of birth'
 	String get title => 'Date of birth';
-
 	late final TranslationsProfileEditMainDatePickerButtonEn button = TranslationsProfileEditMainDatePickerButtonEn._(_root);
 }
 
@@ -779,14 +593,8 @@ class TranslationsAuthenticationSignInForgetPasswordDialogValidEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Reset'
 	String get accept => 'Reset';
-
-	/// en: 'Cancel'
 	String get cancel => 'Cancel';
-
-	/// en: 'Do you really want to reset the password?'
 	String get description => 'Do you really want to reset the password?';
 }
 
@@ -797,11 +605,7 @@ class TranslationsAuthenticationSignInForgetPasswordDialogInvalidEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'OK'
 	String get button => 'OK';
-
-	/// en: 'Enter the correct email address.'
 	String get description => 'Enter the correct email address.';
 }
 
@@ -812,11 +616,7 @@ class TranslationsAuthenticationSignInForgetPasswordDialogResultEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'The link to reset the password has been sent to your email. The link is valid for 1 hour.'
 	String get success => 'The link to reset the password has been sent to your email. The link is valid for 1 hour.';
-
-	/// en: 'The password reset link could not be sent. Please try again later.'
 	String get failed => 'The password reset link could not be sent. Please try again later.';
 }
 
@@ -827,133 +627,139 @@ class TranslationsProfileEditMainDatePickerButtonEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// en: 'Cancel'
 	String get cancel => 'Cancel';
-
-	/// en: 'Done'
 	String get apply => 'Done';
 }
 
-/// The flat map containing all translations for locale <en>.
+/// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
-///
-/// The Dart AOT compiler has issues with very large switch statements,
-/// so the map is split into smaller functions (512 entries each).
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
-		return switch (path) {
-			'languages.en' => 'English',
-			'languages.ru' => 'Русский',
-			'text_field.email.label' => 'Email',
-			'text_field.email.hint' => 'Enter your email',
-			'text_field.email.validation_message' => 'Invalid email format',
-			'text_field.password.label' => 'Password',
-			'text_field.password.hint' => 'Minimum 8 characters, letters and numbers',
-			'text_field.password.validation_message' => '8+ characters: 1 uppercase, 1 lowercase, 1 digit',
-			'text_field.confirm_password.label' => 'Confirm password',
-			'text_field.confirm_password.hint' => 'Repeat the entered password',
-			'profile.title' => 'Profile',
-			'profile.settings.title' => 'Settings',
-			'profile.settings.user.title' => 'Settings',
-			'profile.settings.user.go_to_edit' => 'Edit profile',
-			'profile.settings.user.go_to_notifications_settings' => 'Настройки уведомлений',
-			'profile.settings.user.go_to_subscriptions' => 'Управление подпиской',
-			'profile.settings.application.title' => 'Application',
-			'profile.settings.application.language.change' => 'Choose language',
-			'profile.settings.application.theme.title' => 'Theme',
-			'profile.settings.application.theme.switcher.as_system' => 'As in the system',
-			'profile.settings.application.go_to_storage_manager' => 'Memory Manager',
-			'profile.settings.application.go_to_about_app' => 'About the application',
-			'profile.settings.sign_out' => 'Log out of profile',
-			'profile.settings.sign_in' => 'Log in or register',
-			'profile.edit.title' => 'Edit profile',
-			'profile.edit.password.title' => 'Change password',
-			'profile.edit.password.old_password_hint' => 'Enter old password',
-			'profile.edit.password.new_password_hint' => 'Enter new password',
-			'profile.edit.password.new_confirm_password_hint' => 'Repeat new password',
-			'profile.edit.password.confirm_password_validation_message' => 'Passwords don\'t match',
-			'profile.edit.password.button' => 'Save',
-			'profile.edit.password.result.success' => 'Password successfully changed',
-			'profile.edit.password.result.failed' => 'The password could not be changed. Please check the entered data and try again',
-			'profile.edit.main.title' => 'Basic information',
-			'profile.edit.main.name.label' => 'Name',
-			'profile.edit.main.name.hint' => 'Enter your name',
-			'profile.edit.main.date.hint' => 'Specify your date of birth',
-			'profile.edit.main.date.picker.title' => 'Date of birth',
-			'profile.edit.main.date.picker.button.cancel' => 'Cancel',
-			'profile.edit.main.date.picker.button.apply' => 'Done',
-			'profile.edit.main.result.success' => 'Information successfully changed',
-			'profile.edit.main.result.failed' => 'Information could not be changed. Please check the entered data and try again',
-			'authentication.failure.invalid_credentials' => 'Invalid credentials. Check that the email and password you entered are correct.',
-			'authentication.failure.too_many_requests' => 'Too many login attempts. Try again later or reset your password.',
-			'authentication.failure.already_exist' => 'This email is already being used by another account.',
-			'authentication.failure.unknown' => 'An error occurred during authentication. Please try again.',
-			'authentication.sign_in.no_account.text' => 'Don\'t have an account yet?',
-			'authentication.sign_in.no_account.sign_up' => 'Sign up',
-			'authentication.sign_in.button' => 'Log in',
-			'authentication.sign_in.title' => 'Log in to your account',
-			'authentication.sign_in.forget_password.button' => 'I don\'t remember the password',
-			'authentication.sign_in.forget_password.dialog.title' => 'Password recovery',
-			'authentication.sign_in.forget_password.dialog.valid.accept' => 'Reset',
-			'authentication.sign_in.forget_password.dialog.valid.cancel' => 'Cancel',
-			'authentication.sign_in.forget_password.dialog.valid.description' => 'Do you really want to reset the password?',
-			'authentication.sign_in.forget_password.dialog.invalid.button' => 'OK',
-			'authentication.sign_in.forget_password.dialog.invalid.description' => 'Enter the correct email address.',
-			'authentication.sign_in.forget_password.dialog.result.success' => 'The link to reset the password has been sent to your email. The link is valid for 1 hour.',
-			'authentication.sign_in.forget_password.dialog.result.failed' => 'The password reset link could not be sent. Please try again later.',
-			'authentication.sign_up.have_account.text' => 'Already have an account?',
-			'authentication.sign_up.have_account.sign_in' => 'Log in',
-			'authentication.sign_up.confirm_password.label' => 'Confirm Password',
-			'authentication.sign_up.confirm_password.hint' => 'Re-enter your password',
-			'authentication.sign_up.confirm_password.validation_message' => 'Passwords do not match',
-			'authentication.sign_up.button' => 'Sign up',
-			'authentication.sign_up.title' => 'Sign up',
-			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'By using the app, you accept '), link('User Agreement'), ]), 
-			'leaderboard.title' => 'Leaderboard',
-			'leaderboard.my_position' => 'My position',
-			'leaderboard.empty' => 'No activity yet for this period',
-			'leaderboard.periods.daily' => 'today',
-			'leaderboard.periods.weekly' => 'this week',
-			'leaderboard.periods.monthly' => 'this month',
-			'leaderboard.periods.yearly' => 'this year',
-			'gamification.level' => ({required Object level}) => 'Level ${level}',
-			'gamification.level_short' => ({required Object level}) => 'Lvl ${level}',
-			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',
-			'gamification.xp_remaining' => ({required Object remaining}) => '${remaining} XP left',
-			'gamification.streak' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} day streak', other: '${n} days streak', ), 
-			'gamification.points' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} pt', other: '${n} pts', ), 
-			'gamification.accuracy' => ({required Object value}) => '${value}% accuracy',
-			'gamification.achievements_link' => 'Achievements',
-			'gamification.streak_days' => 'Day streak',
-			'gamification.questions_answered' => 'Questions',
-			'gamification.correct_answers' => 'Correct',
-			'gamification.points_label' => 'Points',
-			'gamification.accuracy_label' => 'Accuracy',
-			'achievements.title' => 'Achievements',
-			'achievements.categories.beginner' => 'Beginner',
-			'achievements.categories.progress' => 'Progress',
-			'achievements.categories.accuracy' => 'Accuracy',
-			'achievements.categories.streak' => 'Streak',
-			'achievements.categories.points' => 'Points',
-			'achievements.error' => 'Failed to load',
-			'achievements.retry' => 'Retry',
-			'question.dialog.correct.header.0' => 'Great job! You\'re absolutely correct',
-			'question.dialog.correct.header.1' => 'Well done! That\'s right',
-			'question.dialog.correct.prompt.0' => 'Ready to continue?',
-			'question.dialog.correct.prompt.1' => 'Shall we move to the next question?',
-			'question.dialog.incorrect.header.0' => 'Correct answer:',
-			'question.dialog.incorrect.header.1' => 'The actual answer:',
-			'question.dialog.incorrect.prompt.0' => 'No worries!\nLet\'s keep moving forward?',
-			'question.dialog.incorrect.prompt.1' => 'Shall we try the next question?',
-			'question.dialog.button' => 'Continue',
-			'question.error_snackbar.answered_on_another_device.text' => 'This question was already answered on another device. It won\'t appear again.',
-			'question.error_snackbar.answered_on_another_device.button' => 'Got it',
-			'question.error_snackbar.already_answered.text' => 'This question is already in your answer collection and won\'t be overwritten',
-			'question.error_snackbar.already_answered.button' => 'Got it',
-			'question.error_snackbar.save_failed_retry_later.text' => 'Oops! Your answer wasn\'t saved, but this question will return later. You\'ll get another chance!',
-			'question.error_snackbar.save_failed_retry_later.button' => 'Try again later',
-			_ => null,
-		};
+		switch (path) {
+			case 'languages.en': return 'English';
+			case 'languages.ru': return 'Русский';
+			case 'text_field.email.label': return 'Email';
+			case 'text_field.email.hint': return 'Enter your email';
+			case 'text_field.email.validation_message': return 'Invalid email format';
+			case 'text_field.password.label': return 'Password';
+			case 'text_field.password.hint': return 'Minimum 8 characters, letters and numbers';
+			case 'text_field.password.validation_message': return '8+ characters: 1 uppercase, 1 lowercase, 1 digit';
+			case 'text_field.confirm_password.label': return 'Confirm password';
+			case 'text_field.confirm_password.hint': return 'Repeat the entered password';
+			case 'profile.title': return 'Profile';
+			case 'profile.settings.title': return 'Settings';
+			case 'profile.settings.user.title': return 'Settings';
+			case 'profile.settings.user.go_to_edit': return 'Edit profile';
+			case 'profile.settings.user.go_to_notifications_settings': return 'Настройки уведомлений';
+			case 'profile.settings.user.go_to_subscriptions': return 'Управление подпиской';
+			case 'profile.settings.application.title': return 'Application';
+			case 'profile.settings.application.language.change': return 'Choose language';
+			case 'profile.settings.application.theme.title': return 'Theme';
+			case 'profile.settings.application.theme.switcher.as_system': return 'As in the system';
+			case 'profile.settings.application.go_to_storage_manager': return 'Memory Manager';
+			case 'profile.settings.application.go_to_about_app': return 'About the application';
+			case 'profile.settings.sign_out': return 'Log out of profile';
+			case 'profile.settings.sign_in': return 'Log in or register';
+			case 'profile.edit.title': return 'Edit profile';
+			case 'profile.edit.password.title': return 'Change password';
+			case 'profile.edit.password.old_password_hint': return 'Enter old password';
+			case 'profile.edit.password.new_password_hint': return 'Enter new password';
+			case 'profile.edit.password.new_confirm_password_hint': return 'Repeat new password';
+			case 'profile.edit.password.confirm_password_validation_message': return 'Passwords don\'t match';
+			case 'profile.edit.password.button': return 'Save';
+			case 'profile.edit.password.result.success': return 'Password successfully changed';
+			case 'profile.edit.password.result.failed': return 'The password could not be changed. Please check the entered data and try again';
+			case 'profile.edit.main.title': return 'Basic information';
+			case 'profile.edit.main.name.label': return 'Name';
+			case 'profile.edit.main.name.hint': return 'Enter your name';
+			case 'profile.edit.main.date.hint': return 'Specify your date of birth';
+			case 'profile.edit.main.date.picker.title': return 'Date of birth';
+			case 'profile.edit.main.date.picker.button.cancel': return 'Cancel';
+			case 'profile.edit.main.date.picker.button.apply': return 'Done';
+			case 'profile.edit.main.result.success': return 'Information successfully changed';
+			case 'profile.edit.main.result.failed': return 'Information could not be changed. Please check the entered data and try again';
+			case 'authentication.failure.invalid_credentials': return 'Invalid credentials. Check that the email and password you entered are correct.';
+			case 'authentication.failure.too_many_requests': return 'Too many login attempts. Try again later or reset your password.';
+			case 'authentication.failure.already_exist': return 'This email is already being used by another account.';
+			case 'authentication.failure.unknown': return 'An error occurred during authentication. Please try again.';
+			case 'authentication.sign_in.no_account.text': return 'Don\'t have an account yet?';
+			case 'authentication.sign_in.no_account.sign_up': return 'Sign up';
+			case 'authentication.sign_in.button': return 'Log in';
+			case 'authentication.sign_in.title': return 'Log in to your account';
+			case 'authentication.sign_in.forget_password.button': return 'I don\'t remember the password';
+			case 'authentication.sign_in.forget_password.dialog.title': return 'Password recovery';
+			case 'authentication.sign_in.forget_password.dialog.valid.accept': return 'Reset';
+			case 'authentication.sign_in.forget_password.dialog.valid.cancel': return 'Cancel';
+			case 'authentication.sign_in.forget_password.dialog.valid.description': return 'Do you really want to reset the password?';
+			case 'authentication.sign_in.forget_password.dialog.invalid.button': return 'OK';
+			case 'authentication.sign_in.forget_password.dialog.invalid.description': return 'Enter the correct email address.';
+			case 'authentication.sign_in.forget_password.dialog.result.success': return 'The link to reset the password has been sent to your email. The link is valid for 1 hour.';
+			case 'authentication.sign_in.forget_password.dialog.result.failed': return 'The password reset link could not be sent. Please try again later.';
+			case 'authentication.sign_up.have_account.text': return 'Already have an account?';
+			case 'authentication.sign_up.have_account.sign_in': return 'Log in';
+			case 'authentication.sign_up.confirm_password.label': return 'Confirm Password';
+			case 'authentication.sign_up.confirm_password.hint': return 'Re-enter your password';
+			case 'authentication.sign_up.confirm_password.validation_message': return 'Passwords do not match';
+			case 'authentication.sign_up.button': return 'Sign up';
+			case 'authentication.sign_up.title': return 'Sign up';
+			case 'authentication.agreement': return ({required InlineSpanBuilder link}) => TextSpan(children: [
+				const TextSpan(text: 'By using the app, you accept '),
+				link('User Agreement'),
+			]);
+			case 'leaderboard.title': return 'Leaderboard';
+			case 'leaderboard.my_position': return 'My position';
+			case 'leaderboard.empty': return 'No activity yet for this period';
+			case 'leaderboard.periods.daily': return 'today';
+			case 'leaderboard.periods.weekly': return 'this week';
+			case 'leaderboard.periods.monthly': return 'this month';
+			case 'leaderboard.periods.yearly': return 'this year';
+			case 'gamification.level': return ({required Object level}) => 'Level ${level}';
+			case 'gamification.level_short': return ({required Object level}) => 'Lvl ${level}';
+			case 'gamification.xp': return ({required Object current, required Object total}) => '${current} / ${total} XP';
+			case 'gamification.xp_remaining': return ({required Object remaining}) => '${remaining} XP left';
+			case 'gamification.streak': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+				one: '${n} day streak',
+				other: '${n} days streak',
+			);
+			case 'gamification.points': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+				one: '${n} pt',
+				other: '${n} pts',
+			);
+			case 'gamification.accuracy': return ({required Object value}) => '${value}% accuracy';
+			case 'gamification.achievements_link': return 'Achievements';
+			case 'gamification.streak_days': return 'Day streak';
+			case 'gamification.questions_answered': return 'Questions';
+			case 'gamification.correct_answers': return 'Correct';
+			case 'gamification.points_label': return 'Points';
+			case 'gamification.accuracy_label': return 'Accuracy';
+			case 'achievements.title': return 'Achievements';
+			case 'achievements.categories.beginner': return 'Beginner';
+			case 'achievements.categories.progress': return 'Progress';
+			case 'achievements.categories.accuracy': return 'Accuracy';
+			case 'achievements.categories.streak': return 'Streak';
+			case 'achievements.categories.points': return 'Points';
+			case 'achievements.error': return 'Failed to load';
+			case 'achievements.retry': return 'Retry';
+			case 'question.dialog.correct.header.0': return 'Great job! You\'re absolutely correct';
+			case 'question.dialog.correct.header.1': return 'Well done! That\'s right';
+			case 'question.dialog.correct.prompt.0': return 'Ready to continue?';
+			case 'question.dialog.correct.prompt.1': return 'Shall we move to the next question?';
+			case 'question.dialog.incorrect.header.0': return 'Correct answer:';
+			case 'question.dialog.incorrect.header.1': return 'The actual answer:';
+			case 'question.dialog.incorrect.prompt.0': return 'No worries!\nLet\'s keep moving forward?';
+			case 'question.dialog.incorrect.prompt.1': return 'Shall we try the next question?';
+			case 'question.dialog.button': return 'Continue';
+			case 'question.error_snackbar.answered_on_another_device.text': return 'This question was already answered on another device. It won\'t appear again.';
+			case 'question.error_snackbar.answered_on_another_device.button': return 'Got it';
+			case 'question.error_snackbar.already_answered.text': return 'This question is already in your answer collection and won\'t be overwritten';
+			case 'question.error_snackbar.already_answered.button': return 'Got it';
+			case 'question.error_snackbar.save_failed_retry_later.text': return 'Oops! Your answer wasn\'t saved, but this question will return later. You\'ll get another chance!';
+			case 'question.error_snackbar.save_failed_retry_later.button': return 'Try again later';
+			case 'nav.game': return 'GAME';
+			case 'nav.leaderboard': return 'RANK';
+			case 'nav.profile': return 'PROFILE';
+			default: return null;
+		}
 	}
 }
+

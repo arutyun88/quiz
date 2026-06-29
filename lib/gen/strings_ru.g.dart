@@ -3,7 +3,6 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
-// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -11,12 +10,12 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsRu with BaseTranslations<AppLocale, Translations> implements Translations {
+class TranslationsRu implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	TranslationsRu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+	TranslationsRu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  $meta = TranslationMetadata(
 		    locale: AppLocale.ru,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
@@ -33,9 +32,6 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 
 	late final TranslationsRu _root = this; // ignore: unused_field
 
-	@override 
-	TranslationsRu $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsRu(meta: meta ?? this.$meta);
-
 	// Translations
 	@override Map<String, String> get languages => {
 		'en': 'English',
@@ -48,6 +44,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsGamificationRu gamification = _TranslationsGamificationRu._(_root);
 	@override late final _TranslationsAchievementsRu achievements = _TranslationsAchievementsRu._(_root);
 	@override late final _TranslationsQuestionRu question = _TranslationsQuestionRu._(_root);
+	@override late final _TranslationsNavRu nav = _TranslationsNavRu._(_root);
 }
 
 // Path: text_field
@@ -157,6 +154,18 @@ class _TranslationsQuestionRu implements TranslationsQuestionEn {
 	// Translations
 	@override late final _TranslationsQuestionDialogRu dialog = _TranslationsQuestionDialogRu._(_root);
 	@override late final _TranslationsQuestionErrorSnackbarRu error_snackbar = _TranslationsQuestionErrorSnackbarRu._(_root);
+}
+
+// Path: nav
+class _TranslationsNavRu implements TranslationsNavEn {
+	_TranslationsNavRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get game => 'ИГРА';
+	@override String get leaderboard => 'РЕЙТИНГ';
+	@override String get profile => 'ПРОФИЛЬ';
 }
 
 // Path: text_field.email
@@ -622,125 +631,139 @@ class _TranslationsProfileEditMainDatePickerButtonRu implements TranslationsProf
 	@override String get apply => 'Готово';
 }
 
-/// The flat map containing all translations for locale <ru>.
+/// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
-///
-/// The Dart AOT compiler has issues with very large switch statements,
-/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsRu {
 	dynamic _flatMapFunction(String path) {
-		return switch (path) {
-			'languages.en' => 'English',
-			'languages.ru' => 'Русский',
-			'text_field.email.label' => 'Email',
-			'text_field.email.hint' => 'Введите ваш email-адрес',
-			'text_field.email.validation_message' => 'Неверный формат электронной почты',
-			'text_field.password.label' => 'Пароль',
-			'text_field.password.hint' => 'Минимум 8 символов, буквы и цифры',
-			'text_field.password.validation_message' => '8+ символов: 1 заглавная, 1 строчная, 1 цифра',
-			'text_field.confirm_password.label' => 'Подтвердите пароль',
-			'text_field.confirm_password.hint' => 'Повторите введенный пароль',
-			'profile.title' => 'Профиль',
-			'profile.settings.title' => 'Настройки',
-			'profile.settings.user.title' => 'Настройки',
-			'profile.settings.user.go_to_edit' => 'Редактировать профиль',
-			'profile.settings.user.go_to_notifications_settings' => 'Настройки уведомлений',
-			'profile.settings.user.go_to_subscriptions' => 'Управление подпиской',
-			'profile.settings.application.title' => 'Приложение',
-			'profile.settings.application.language.change' => 'Изменить язык',
-			'profile.settings.application.theme.title' => 'Тема оформления',
-			'profile.settings.application.theme.switcher.as_system' => 'Как в системе',
-			'profile.settings.application.go_to_storage_manager' => 'Менеджер памяти',
-			'profile.settings.application.go_to_about_app' => 'О приложении',
-			'profile.settings.sign_out' => 'Выйти из профиля',
-			'profile.settings.sign_in' => 'Войти или зарегистрироваться',
-			'profile.edit.title' => 'Редактировать профиль',
-			'profile.edit.password.title' => 'Изменить пароль',
-			'profile.edit.password.old_password_hint' => 'Введите старый пароль',
-			'profile.edit.password.new_password_hint' => 'Введите новый пароль',
-			'profile.edit.password.new_confirm_password_hint' => 'Повторите новый пароль',
-			'profile.edit.password.confirm_password_validation_message' => 'Пароли не совпадают',
-			'profile.edit.password.button' => 'Сохранить',
-			'profile.edit.password.result.success' => 'Пароль успешно изменен',
-			'profile.edit.password.result.failed' => 'Не удалось изменить пароль. Пожалуйста, проверьте введенные данные и попробуйте снова',
-			'profile.edit.main.title' => 'Основная информация',
-			'profile.edit.main.name.label' => 'Имя',
-			'profile.edit.main.name.hint' => 'Введите ваше имя',
-			'profile.edit.main.date.hint' => 'Укажите дату вашего рождения',
-			'profile.edit.main.date.picker.title' => 'Дата рождения',
-			'profile.edit.main.date.picker.button.cancel' => 'Отмена',
-			'profile.edit.main.date.picker.button.apply' => 'Готово',
-			'profile.edit.main.result.success' => 'Информация успешно изменена',
-			'profile.edit.main.result.failed' => 'Не удалось изменить информацию. Пожалуйста, проверьте введенные данные и попробуйте снова',
-			'authentication.failure.invalid_credentials' => 'Неверные учетные данные. Проверьте правильность введенного email и пароля.',
-			'authentication.failure.too_many_requests' => 'Слишком много попыток входа. Попробуйте позже или сбросьте пароль.',
-			'authentication.failure.already_exist' => 'Этот email уже используется другим аккаунтом.',
-			'authentication.failure.unknown' => 'Произошла ошибка при аутентификации. Пожалуйста, попробуйте снова.',
-			'authentication.sign_in.no_account.text' => 'Нет аккаунта?',
-			'authentication.sign_in.no_account.sign_up' => 'Зарегистрироваться',
-			'authentication.sign_in.button' => 'Войти',
-			'authentication.sign_in.title' => 'Войти в аккаунт',
-			'authentication.sign_in.forget_password.button' => 'Не помню пароль',
-			'authentication.sign_in.forget_password.dialog.title' => 'Восстановление пароля',
-			'authentication.sign_in.forget_password.dialog.valid.accept' => 'Сбросить',
-			'authentication.sign_in.forget_password.dialog.valid.cancel' => 'Отмена',
-			'authentication.sign_in.forget_password.dialog.valid.description' => 'Вы действительно хотите сбросить пароль?',
-			'authentication.sign_in.forget_password.dialog.invalid.button' => 'Хорошо',
-			'authentication.sign_in.forget_password.dialog.invalid.description' => 'Введите корректный адрес электронной почты.',
-			'authentication.sign_in.forget_password.dialog.result.success' => 'Ссылка на сброс пароля отправлена на вашу почту. Ссылка действительна в течение 1 часа.',
-			'authentication.sign_in.forget_password.dialog.result.failed' => 'Не удалось отправить ссылку для сброса пароля. Пожалуйста, попробуйте позже.',
-			'authentication.sign_up.have_account.text' => 'Есть аккаунт?',
-			'authentication.sign_up.have_account.sign_in' => 'Войти',
-			'authentication.sign_up.confirm_password.label' => 'Подтверждение пароля',
-			'authentication.sign_up.confirm_password.hint' => 'Повторите пароль',
-			'authentication.sign_up.confirm_password.validation_message' => 'Пароли не совпадают',
-			'authentication.sign_up.button' => 'Зарегистрироваться',
-			'authentication.sign_up.title' => 'Зарегистрироваться',
-			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '), link('Пользовательскому соглашению'), ]), 
-			'leaderboard.title' => 'Рейтинг',
-			'leaderboard.my_position' => 'Моя позиция',
-			'leaderboard.empty' => 'Нет активности за этот период',
-			'leaderboard.periods.daily' => 'дня',
-			'leaderboard.periods.weekly' => 'недели',
-			'leaderboard.periods.monthly' => 'месяца',
-			'leaderboard.periods.yearly' => 'года',
-			'gamification.level' => ({required Object level}) => 'Уровень ${level}',
-			'gamification.level_short' => ({required Object level}) => 'Ур. ${level}',
-			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',
-			'gamification.xp_remaining' => ({required Object remaining}) => 'ещё ${remaining} XP',
-			'gamification.streak' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} день подряд', few: '${n} дня подряд', many: '${n} дней подряд', other: '${n} дней подряд', ), 
-			'gamification.points' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} очко', few: '${n} очка', many: '${n} очков', other: '${n} очков', ), 
-			'gamification.accuracy' => ({required Object value}) => '${value}% точность',
-			'gamification.achievements_link' => 'Достижения',
-			'gamification.streak_days' => 'Дней подряд',
-			'gamification.questions_answered' => 'Вопросов',
-			'gamification.correct_answers' => 'Правильных',
-			'gamification.points_label' => 'Очков',
-			'gamification.accuracy_label' => 'Точность',
-			'achievements.title' => 'Достижения',
-			'achievements.categories.beginner' => 'Начинающий',
-			'achievements.categories.progress' => 'Прогресс',
-			'achievements.categories.accuracy' => 'Точность',
-			'achievements.categories.streak' => 'Серия',
-			'achievements.categories.points' => 'Очки',
-			'achievements.error' => 'Не удалось загрузить',
-			'achievements.retry' => 'Повторить',
-			'question.dialog.correct.header.0' => 'Отлично, вы абсолютно правы',
-			'question.dialog.correct.header.1' => 'Верно, так держать',
-			'question.dialog.correct.prompt.0' => 'Готовы продолжить?',
-			'question.dialog.correct.prompt.1' => 'Переходим к следующему вопросу?',
-			'question.dialog.incorrect.header.0' => 'Правильный ответ:',
-			'question.dialog.incorrect.header.1' => 'На самом деле:',
-			'question.dialog.incorrect.prompt.0' => 'Не переживайте!\nДавайте двигаться дальше?',
-			'question.dialog.incorrect.prompt.1' => 'Переходим к следующему вопросу?',
-			'question.dialog.button' => 'Продолжить',
-			'question.error_snackbar.answered_on_another_device.text' => 'Этот вопрос уже был отвечен на другом устройстве. Он больше не повторится.',
-			'question.error_snackbar.answered_on_another_device.button' => 'Понятно',
-			'question.error_snackbar.already_answered.text' => 'Этот вопрос у вас уже в копилке ответов и не будет перезаписан',
-			'question.error_snackbar.already_answered.button' => 'Понятно',
-			'question.error_snackbar.save_failed_retry_later.text' => 'Упс! Ответ не сохранился, но вопрос вернётся позже. У вас будет ещё шанс!',
-			'question.error_snackbar.save_failed_retry_later.button' => 'Попробую позже',
-			_ => null,
-		};
+		switch (path) {
+			case 'languages.en': return 'English';
+			case 'languages.ru': return 'Русский';
+			case 'text_field.email.label': return 'Email';
+			case 'text_field.email.hint': return 'Введите ваш email-адрес';
+			case 'text_field.email.validation_message': return 'Неверный формат электронной почты';
+			case 'text_field.password.label': return 'Пароль';
+			case 'text_field.password.hint': return 'Минимум 8 символов, буквы и цифры';
+			case 'text_field.password.validation_message': return '8+ символов: 1 заглавная, 1 строчная, 1 цифра';
+			case 'text_field.confirm_password.label': return 'Подтвердите пароль';
+			case 'text_field.confirm_password.hint': return 'Повторите введенный пароль';
+			case 'profile.title': return 'Профиль';
+			case 'profile.settings.title': return 'Настройки';
+			case 'profile.settings.user.title': return 'Настройки';
+			case 'profile.settings.user.go_to_edit': return 'Редактировать профиль';
+			case 'profile.settings.user.go_to_notifications_settings': return 'Настройки уведомлений';
+			case 'profile.settings.user.go_to_subscriptions': return 'Управление подпиской';
+			case 'profile.settings.application.title': return 'Приложение';
+			case 'profile.settings.application.language.change': return 'Изменить язык';
+			case 'profile.settings.application.theme.title': return 'Тема оформления';
+			case 'profile.settings.application.theme.switcher.as_system': return 'Как в системе';
+			case 'profile.settings.application.go_to_storage_manager': return 'Менеджер памяти';
+			case 'profile.settings.application.go_to_about_app': return 'О приложении';
+			case 'profile.settings.sign_out': return 'Выйти из профиля';
+			case 'profile.settings.sign_in': return 'Войти или зарегистрироваться';
+			case 'profile.edit.title': return 'Редактировать профиль';
+			case 'profile.edit.password.title': return 'Изменить пароль';
+			case 'profile.edit.password.old_password_hint': return 'Введите старый пароль';
+			case 'profile.edit.password.new_password_hint': return 'Введите новый пароль';
+			case 'profile.edit.password.new_confirm_password_hint': return 'Повторите новый пароль';
+			case 'profile.edit.password.confirm_password_validation_message': return 'Пароли не совпадают';
+			case 'profile.edit.password.button': return 'Сохранить';
+			case 'profile.edit.password.result.success': return 'Пароль успешно изменен';
+			case 'profile.edit.password.result.failed': return 'Не удалось изменить пароль. Пожалуйста, проверьте введенные данные и попробуйте снова';
+			case 'profile.edit.main.title': return 'Основная информация';
+			case 'profile.edit.main.name.label': return 'Имя';
+			case 'profile.edit.main.name.hint': return 'Введите ваше имя';
+			case 'profile.edit.main.date.hint': return 'Укажите дату вашего рождения';
+			case 'profile.edit.main.date.picker.title': return 'Дата рождения';
+			case 'profile.edit.main.date.picker.button.cancel': return 'Отмена';
+			case 'profile.edit.main.date.picker.button.apply': return 'Готово';
+			case 'profile.edit.main.result.success': return 'Информация успешно изменена';
+			case 'profile.edit.main.result.failed': return 'Не удалось изменить информацию. Пожалуйста, проверьте введенные данные и попробуйте снова';
+			case 'authentication.failure.invalid_credentials': return 'Неверные учетные данные. Проверьте правильность введенного email и пароля.';
+			case 'authentication.failure.too_many_requests': return 'Слишком много попыток входа. Попробуйте позже или сбросьте пароль.';
+			case 'authentication.failure.already_exist': return 'Этот email уже используется другим аккаунтом.';
+			case 'authentication.failure.unknown': return 'Произошла ошибка при аутентификации. Пожалуйста, попробуйте снова.';
+			case 'authentication.sign_in.no_account.text': return 'Нет аккаунта?';
+			case 'authentication.sign_in.no_account.sign_up': return 'Зарегистрироваться';
+			case 'authentication.sign_in.button': return 'Войти';
+			case 'authentication.sign_in.title': return 'Войти в аккаунт';
+			case 'authentication.sign_in.forget_password.button': return 'Не помню пароль';
+			case 'authentication.sign_in.forget_password.dialog.title': return 'Восстановление пароля';
+			case 'authentication.sign_in.forget_password.dialog.valid.accept': return 'Сбросить';
+			case 'authentication.sign_in.forget_password.dialog.valid.cancel': return 'Отмена';
+			case 'authentication.sign_in.forget_password.dialog.valid.description': return 'Вы действительно хотите сбросить пароль?';
+			case 'authentication.sign_in.forget_password.dialog.invalid.button': return 'Хорошо';
+			case 'authentication.sign_in.forget_password.dialog.invalid.description': return 'Введите корректный адрес электронной почты.';
+			case 'authentication.sign_in.forget_password.dialog.result.success': return 'Ссылка на сброс пароля отправлена на вашу почту. Ссылка действительна в течение 1 часа.';
+			case 'authentication.sign_in.forget_password.dialog.result.failed': return 'Не удалось отправить ссылку для сброса пароля. Пожалуйста, попробуйте позже.';
+			case 'authentication.sign_up.have_account.text': return 'Есть аккаунт?';
+			case 'authentication.sign_up.have_account.sign_in': return 'Войти';
+			case 'authentication.sign_up.confirm_password.label': return 'Подтверждение пароля';
+			case 'authentication.sign_up.confirm_password.hint': return 'Повторите пароль';
+			case 'authentication.sign_up.confirm_password.validation_message': return 'Пароли не совпадают';
+			case 'authentication.sign_up.button': return 'Зарегистрироваться';
+			case 'authentication.sign_up.title': return 'Зарегистрироваться';
+			case 'authentication.agreement': return ({required InlineSpanBuilder link}) => TextSpan(children: [
+				const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '),
+				link('Пользовательскому соглашению'),
+			]);
+			case 'leaderboard.title': return 'Рейтинг';
+			case 'leaderboard.my_position': return 'Моя позиция';
+			case 'leaderboard.empty': return 'Нет активности за этот период';
+			case 'leaderboard.periods.daily': return 'дня';
+			case 'leaderboard.periods.weekly': return 'недели';
+			case 'leaderboard.periods.monthly': return 'месяца';
+			case 'leaderboard.periods.yearly': return 'года';
+			case 'gamification.level': return ({required Object level}) => 'Уровень ${level}';
+			case 'gamification.level_short': return ({required Object level}) => 'Ур. ${level}';
+			case 'gamification.xp': return ({required Object current, required Object total}) => '${current} / ${total} XP';
+			case 'gamification.xp_remaining': return ({required Object remaining}) => 'ещё ${remaining} XP';
+			case 'gamification.streak': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+				one: '${n} день подряд',
+				few: '${n} дня подряд',
+				many: '${n} дней подряд',
+				other: '${n} дней подряд',
+			);
+			case 'gamification.points': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+				one: '${n} очко',
+				few: '${n} очка',
+				many: '${n} очков',
+				other: '${n} очков',
+			);
+			case 'gamification.accuracy': return ({required Object value}) => '${value}% точность';
+			case 'gamification.achievements_link': return 'Достижения';
+			case 'gamification.streak_days': return 'Дней подряд';
+			case 'gamification.questions_answered': return 'Вопросов';
+			case 'gamification.correct_answers': return 'Правильных';
+			case 'gamification.points_label': return 'Очков';
+			case 'gamification.accuracy_label': return 'Точность';
+			case 'achievements.title': return 'Достижения';
+			case 'achievements.categories.beginner': return 'Начинающий';
+			case 'achievements.categories.progress': return 'Прогресс';
+			case 'achievements.categories.accuracy': return 'Точность';
+			case 'achievements.categories.streak': return 'Серия';
+			case 'achievements.categories.points': return 'Очки';
+			case 'achievements.error': return 'Не удалось загрузить';
+			case 'achievements.retry': return 'Повторить';
+			case 'question.dialog.correct.header.0': return 'Отлично, вы абсолютно правы';
+			case 'question.dialog.correct.header.1': return 'Верно, так держать';
+			case 'question.dialog.correct.prompt.0': return 'Готовы продолжить?';
+			case 'question.dialog.correct.prompt.1': return 'Переходим к следующему вопросу?';
+			case 'question.dialog.incorrect.header.0': return 'Правильный ответ:';
+			case 'question.dialog.incorrect.header.1': return 'На самом деле:';
+			case 'question.dialog.incorrect.prompt.0': return 'Не переживайте!\nДавайте двигаться дальше?';
+			case 'question.dialog.incorrect.prompt.1': return 'Переходим к следующему вопросу?';
+			case 'question.dialog.button': return 'Продолжить';
+			case 'question.error_snackbar.answered_on_another_device.text': return 'Этот вопрос уже был отвечен на другом устройстве. Он больше не повторится.';
+			case 'question.error_snackbar.answered_on_another_device.button': return 'Понятно';
+			case 'question.error_snackbar.already_answered.text': return 'Этот вопрос у вас уже в копилке ответов и не будет перезаписан';
+			case 'question.error_snackbar.already_answered.button': return 'Понятно';
+			case 'question.error_snackbar.save_failed_retry_later.text': return 'Упс! Ответ не сохранился, но вопрос вернётся позже. У вас будет ещё шанс!';
+			case 'question.error_snackbar.save_failed_retry_later.button': return 'Попробую позже';
+			case 'nav.game': return 'ИГРА';
+			case 'nav.leaderboard': return 'РЕЙТИНГ';
+			case 'nav.profile': return 'ПРОФИЛЬ';
+			default: return null;
+		}
 	}
 }
+

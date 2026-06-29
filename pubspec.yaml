@@ -14,6 +14,7 @@ dependencies:
   # Style
   shimmer: ^3.0.0
   cupertino_icons: ^1.0.8
+  google_fonts: ^8.1.0
 
   # Info
   device_info_plus: ^11.3.0

@@ -33,7 +33,7 @@ class AppTheme extends ThemeExtension<AppTheme> {
   }) {
     return ThemeData(
       extensions: [theme, theme.palette, AppTextStyle.base],
-      scaffoldBackgroundColor: theme.palette.background.dynamic,
+      scaffoldBackgroundColor: theme.palette.background.static,
       appBarTheme: AppBarTheme(
         iconTheme: IconThemeData(
           size: 16.0,

@@ -9,9 +9,12 @@ class Palette extends ThemeExtension<Palette> {
     required this.button,
     required this.progress,
     required this.shadow,
+    required this.divider,
     required this.answer,
+    required this.base,
   });
 
+  // TODO: rename background.static → background.main and background.dynamic → background.surface once the redesign is complete
   final BackgroundColor background;
   final SwitchColor switchColor;
   final TextColor text;
@@ -19,12 +22,14 @@ class Palette extends ThemeExtension<Palette> {
   final ButtonColor button;
   final Color progress;
   final Color shadow;
+  final Color divider;
   final AnswerColor answer;
+  final BaseColor base;
 
   static Palette light = Palette._(
     background: BackgroundColor(
-      static: const Color.fromRGBO(255, 255, 255, 1),
-      dynamic: const Color.fromRGBO(240, 240, 240, 1),
+      static: const Color(0xFFF3EFE6),
+      dynamic: const Color(0xFFE1DACB),
       temporary: Colors.grey,
       danger: const Color.fromARGB(255, 255, 174, 167),
     ),
@@ -33,9 +38,9 @@ class Palette extends ThemeExtension<Palette> {
       inactive: Colors.grey.shade400,
     ),
     text: TextColor(
-      primary: Colors.black,
-      secondary: Colors.grey.shade600,
-      accent: Colors.orange,
+      primary: const Color(0xFF18160F),
+      secondary: const Color(0xFF6E6A5C),
+      accent: const Color(0xFF2A39DE),
     ),
     textField: TextFieldColor(
       background: Colors.grey.shade100,
@@ -52,17 +57,24 @@ class Palette extends ThemeExtension<Palette> {
     ),
     progress: Colors.orange,
     shadow: Colors.white,
+    divider: const Color(0xFFD7D0C1),
     answer: AnswerColor(
       failure: const Color.fromARGB(255, 253, 178, 178),
-      success: Colors.green.shade200,
+      success: const Color(0xFF1E7A48),
+      successMint: const Color(0xFF8DE0AE),
       select: Colors.blueGrey.shade200,
+    ),
+    base: BaseColor(
+      gold: const Color(0xFFBC8A2E),
+      silver: const Color(0xFF8C8678),
+      bronze: const Color(0xFFA26A3C),
     ),
   );
 
   static Palette dark = Palette._(
     background: BackgroundColor(
-      static: const Color(0xFF181818),
-      dynamic: const Color.fromRGBO(0, 0, 0, 1),
+      static: const Color(0xFF18160F),
+      dynamic: const Color(0xFF2A2720),
       temporary: Colors.grey,
       danger: const Color.fromARGB(255, 255, 174, 167),
     ),
@@ -71,9 +83,9 @@ class Palette extends ThemeExtension<Palette> {
       inactive: Colors.grey.shade600,
     ),
     text: TextColor(
-      primary: Colors.white,
-      secondary: Colors.grey.shade400,
-      accent: Colors.orange,
+      primary: const Color(0xFFF3EFE6),
+      secondary: const Color(0xFF8A8678),
+      accent: const Color(0xFF7C84FF),
     ),
     textField: TextFieldColor(
       background: const Color.fromRGBO(48, 48, 48, 1),
@@ -90,10 +102,17 @@ class Palette extends ThemeExtension<Palette> {
     ),
     progress: Colors.orange,
     shadow: Colors.black,
+    divider: const Color(0xFF3A372E),
     answer: AnswerColor(
       failure: Colors.red.shade200,
-      success: Colors.green.shade100,
+      success: const Color(0xFF1E7A48),
+      successMint: const Color(0xFF8DE0AE),
       select: Colors.grey.shade200,
+    ),
+    base: BaseColor(
+      gold: const Color(0xFFBC8A2E),
+      silver: const Color(0xFF8C8678),
+      bronze: const Color(0xFFA26A3C),
     ),
   );
 
@@ -106,7 +125,9 @@ class Palette extends ThemeExtension<Palette> {
     ButtonColor? button,
     Color? progress,
     Color? shadow,
+    Color? divider,
     AnswerColor? answer,
+    BaseColor? base,
   }) {
     return Palette._(
       background: background ?? this.background,
@@ -116,7 +137,9 @@ class Palette extends ThemeExtension<Palette> {
       button: button ?? this.button,
       progress: progress ?? this.progress,
       shadow: shadow ?? this.shadow,
+      divider: divider ?? this.divider,
       answer: answer ?? this.answer,
+      base: base ?? this.base,
     );
   }
 
@@ -131,7 +154,9 @@ class Palette extends ThemeExtension<Palette> {
         button: button.lerp(other.button, t),
         progress: Color.lerp(progress, other.progress, t)!,
         shadow: Color.lerp(shadow, other.shadow, t)!,
+        divider: Color.lerp(divider, other.divider, t)!,
         answer: answer.lerp(other.answer, t),
+        base: base.lerp(other.base, t),
       );
     }
     return this;
@@ -153,7 +178,6 @@ class BackgroundColor {
 
   BackgroundColor lerp(BackgroundColor? other, double t) {
     if (other == null) return this;
-
     return BackgroundColor(
       static: Color.lerp(static, other.static, t)!,
       dynamic: Color.lerp(dynamic, other.dynamic, t)!,
@@ -167,14 +191,10 @@ class SwitchColor {
   final Color active;
   final Color inactive;
 
-  SwitchColor({
-    required this.active,
-    required this.inactive,
-  });
+  SwitchColor({required this.active, required this.inactive});
 
   SwitchColor lerp(SwitchColor? other, double t) {
     if (other == null) return this;
-
     return SwitchColor(
       active: Color.lerp(active, other.active, t)!,
       inactive: Color.lerp(inactive, other.inactive, t)!,
@@ -187,15 +207,10 @@ class TextColor {
   final Color secondary;
   final Color accent;
 
-  TextColor({
-    required this.primary,
-    required this.secondary,
-    required this.accent,
-  });
+  TextColor({required this.primary, required this.secondary, required this.accent});
 
   TextColor lerp(TextColor? other, double t) {
     if (other == null) return this;
-
     return TextColor(
       primary: Color.lerp(primary, other.primary, t)!,
       secondary: Color.lerp(secondary, other.secondary, t)!,
@@ -221,7 +236,6 @@ class TextFieldColor {
 
   TextFieldColor lerp(TextFieldColor? other, double t) {
     if (other == null) return this;
-
     return TextFieldColor(
       background: Color.lerp(background, other.background, t)!,
       disabledBackground: Color.lerp(disabledBackground, other.disabledBackground, t)!,
@@ -247,7 +261,6 @@ class ButtonColor {
 
   ButtonColor lerp(ButtonColor? other, double t) {
     if (other == null) return this;
-
     return ButtonColor(
       background: Color.lerp(background, other.background, t)!,
       foreground: Color.lerp(foreground, other.foreground, t)!,
@@ -260,21 +273,44 @@ class ButtonColor {
 class AnswerColor {
   final Color failure;
   final Color success;
+  final Color successMint;
   final Color select;
 
   AnswerColor({
     required this.failure,
     required this.success,
+    required this.successMint,
     required this.select,
   });
 
   AnswerColor lerp(AnswerColor? other, double t) {
     if (other == null) return this;
-
     return AnswerColor(
       failure: Color.lerp(failure, other.failure, t)!,
       success: Color.lerp(success, other.success, t)!,
+      successMint: Color.lerp(successMint, other.successMint, t)!,
       select: Color.lerp(select, other.select, t)!,
+    );
+  }
+}
+
+class BaseColor {
+  final Color gold;
+  final Color silver;
+  final Color bronze;
+
+  BaseColor({
+    required this.gold,
+    required this.silver,
+    required this.bronze,
+  });
+
+  BaseColor lerp(BaseColor? other, double t) {
+    if (other == null) return this;
+    return BaseColor(
+      gold: Color.lerp(gold, other.gold, t)!,
+      silver: Color.lerp(silver, other.silver, t)!,
+      bronze: Color.lerp(bronze, other.bronze, t)!,
     );
   }
 }
