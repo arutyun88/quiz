@@ -9,25 +9,33 @@ class AppTextFieldV2 extends StatefulWidget {
     required this.label,
     this.hint,
     this.controller,
+    this.focusNode,
     this.onChanged,
     this.keyboardType,
+    this.textInputAction,
     this.obscureText = false,
     this.enabled = true,
     this.readOnly = false,
     this.onTap,
+    this.onSubmitted,
     this.inputFormatters,
+    this.autofillHints,
   });
 
   final String label;
   final String? hint;
   final TextEditingController? controller;
+  final FocusNode? focusNode;
   final ValueChanged<String>? onChanged;
   final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
   final bool obscureText;
   final bool enabled;
   final bool readOnly;
   final VoidCallback? onTap;
+  final ValueChanged<String>? onSubmitted;
   final List<TextInputFormatter>? inputFormatters;
+  final Iterable<String>? autofillHints;
 
   @override
   State<AppTextFieldV2> createState() => _AppTextFieldV2State();
@@ -88,9 +96,13 @@ class _AppTextFieldV2State extends State<AppTextFieldV2> {
               Expanded(
                 child: TextField(
                   controller: widget.controller,
+                  focusNode: widget.focusNode,
                   onChanged: widget.onChanged,
                   onTap: widget.onTap,
+                  onSubmitted: widget.onSubmitted,
                   keyboardType: widget.keyboardType,
+                  textInputAction: widget.textInputAction,
+                  autofillHints: widget.autofillHints,
                   obscureText: obscureActive,
                   enabled: widget.enabled,
                   readOnly: widget.readOnly,
