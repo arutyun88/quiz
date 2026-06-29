@@ -10,6 +10,7 @@ import 'package:quiz/features/debug/debug_answered_question_page.dart';
 import 'package:quiz/features/debug/debug_flow.dart';
 import 'package:quiz/features/debug/debug_question_page.dart';
 import 'package:quiz/features/home/presentation/home_flow.dart';
+import 'package:quiz/features/onboarding/presentation/onboarding_flow.dart';
 import 'package:quiz/features/user/presentation/pages/edit/profile_edit_flow.dart';
 import 'package:quiz/features/user/presentation/pages/profile_flow.dart';
 import 'package:quiz/features/rating/presentation/rating_flow.dart';
@@ -25,6 +26,11 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
         GoRoute(
           path: '/splash',
           builder: (context, state) => const SplashFlow(),
+        ),
+        GoRoute(
+          path: '/onboarding',
+          name: 'onboarding',
+          builder: (context, state) => const OnboardingFlow(),
         ),
         GoRoute(
           path: '/login',

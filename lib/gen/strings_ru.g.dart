@@ -44,6 +44,7 @@ class TranslationsRu implements Translations {
 	@override late final _TranslationsGamificationRu gamification = _TranslationsGamificationRu._(_root);
 	@override late final _TranslationsAchievementsRu achievements = _TranslationsAchievementsRu._(_root);
 	@override late final _TranslationsQuestionRu question = _TranslationsQuestionRu._(_root);
+	@override late final _TranslationsOnboardingRu onboarding = _TranslationsOnboardingRu._(_root);
 	@override late final _TranslationsNavRu nav = _TranslationsNavRu._(_root);
 }
 
@@ -154,6 +155,23 @@ class _TranslationsQuestionRu implements TranslationsQuestionEn {
 	// Translations
 	@override late final _TranslationsQuestionDialogRu dialog = _TranslationsQuestionDialogRu._(_root);
 	@override late final _TranslationsQuestionErrorSnackbarRu error_snackbar = _TranslationsQuestionErrorSnackbarRu._(_root);
+}
+
+// Path: onboarding
+class _TranslationsOnboardingRu implements TranslationsOnboardingEn {
+	_TranslationsOnboardingRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get daily_issue => 'ЕЖЕДНЕВНЫЙ ВЫПУСК';
+	@override String issue_number({required Object n}) => 'ВЫПУСК № ${n}';
+	@override String get headline => 'Десять\nвопросов.\nКаждый день.';
+	@override String get subtitle => 'Одна игра в день — и ты в общем рейтинге.';
+	@override late final _TranslationsOnboardingFeaturesRu features = _TranslationsOnboardingFeaturesRu._(_root);
+	@override String get start_free => 'НАЧАТЬ БЕСПЛАТНО';
+	@override String get already_played => 'УЖЕ ИГРАЛИ?';
+	@override String get sign_in_link => 'ВОЙТИ';
 }
 
 // Path: nav
@@ -317,6 +335,19 @@ class _TranslationsQuestionErrorSnackbarRu implements TranslationsQuestionErrorS
 	@override late final _TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceRu answered_on_another_device = _TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceRu._(_root);
 	@override late final _TranslationsQuestionErrorSnackbarAlreadyAnsweredRu already_answered = _TranslationsQuestionErrorSnackbarAlreadyAnsweredRu._(_root);
 	@override late final _TranslationsQuestionErrorSnackbarSaveFailedRetryLaterRu save_failed_retry_later = _TranslationsQuestionErrorSnackbarSaveFailedRetryLaterRu._(_root);
+}
+
+// Path: onboarding.features
+class _TranslationsOnboardingFeaturesRu implements TranslationsOnboardingFeaturesEn {
+	_TranslationsOnboardingFeaturesRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get f1 => 'Ежедневный выпуск: 10 вопросов — или больше с Quiz+';
+	@override String get f2 => 'Узнаете не только что правильно, но и почему';
+	@override String get f3 => 'Поможем заполнить пробелы — вопросы, где ошиблись, вернутся';
+	@override String get f4 => 'Соревнуйтесь, собирайте серии, открывайте достижения';
 }
 
 // Path: profile.settings.user
@@ -759,6 +790,17 @@ extension on TranslationsRu {
 			case 'question.error_snackbar.already_answered.button': return 'Понятно';
 			case 'question.error_snackbar.save_failed_retry_later.text': return 'Упс! Ответ не сохранился, но вопрос вернётся позже. У вас будет ещё шанс!';
 			case 'question.error_snackbar.save_failed_retry_later.button': return 'Попробую позже';
+			case 'onboarding.daily_issue': return 'ЕЖЕДНЕВНЫЙ ВЫПУСК';
+			case 'onboarding.issue_number': return ({required Object n}) => 'ВЫПУСК № ${n}';
+			case 'onboarding.headline': return 'Десять\nвопросов.\nКаждый день.';
+			case 'onboarding.subtitle': return 'Одна игра в день — и ты в общем рейтинге.';
+			case 'onboarding.features.f1': return 'Ежедневный выпуск: 10 вопросов — или больше с Quiz+';
+			case 'onboarding.features.f2': return 'Узнаете не только что правильно, но и почему';
+			case 'onboarding.features.f3': return 'Поможем заполнить пробелы — вопросы, где ошиблись, вернутся';
+			case 'onboarding.features.f4': return 'Соревнуйтесь, собирайте серии, открывайте достижения';
+			case 'onboarding.start_free': return 'НАЧАТЬ БЕСПЛАТНО';
+			case 'onboarding.already_played': return 'УЖЕ ИГРАЛИ?';
+			case 'onboarding.sign_in_link': return 'ВОЙТИ';
 			case 'nav.game': return 'ИГРА';
 			case 'nav.leaderboard': return 'РЕЙТИНГ';
 			case 'nav.profile': return 'ПРОФИЛЬ';

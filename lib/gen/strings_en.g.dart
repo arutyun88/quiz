@@ -48,6 +48,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsGamificationEn gamification = TranslationsGamificationEn._(_root);
 	late final TranslationsAchievementsEn achievements = TranslationsAchievementsEn._(_root);
 	late final TranslationsQuestionEn question = TranslationsQuestionEn._(_root);
+	late final TranslationsOnboardingEn onboarding = TranslationsOnboardingEn._(_root);
 	late final TranslationsNavEn nav = TranslationsNavEn._(_root);
 }
 
@@ -154,6 +155,23 @@ class TranslationsQuestionEn {
 	// Translations
 	late final TranslationsQuestionDialogEn dialog = TranslationsQuestionDialogEn._(_root);
 	late final TranslationsQuestionErrorSnackbarEn error_snackbar = TranslationsQuestionErrorSnackbarEn._(_root);
+}
+
+// Path: onboarding
+class TranslationsOnboardingEn {
+	TranslationsOnboardingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get daily_issue => 'DAILY EDITION';
+	String issue_number({required Object n}) => 'EDITION № ${n}';
+	String get headline => 'Ten\nquestions.\nEvery day.';
+	String get subtitle => 'One game a day — and you\'re in the leaderboard.';
+	late final TranslationsOnboardingFeaturesEn features = TranslationsOnboardingFeaturesEn._(_root);
+	String get start_free => 'START FOR FREE';
+	String get already_played => 'PLAYED BEFORE?';
+	String get sign_in_link => 'SIGN IN';
 }
 
 // Path: nav
@@ -317,6 +335,19 @@ class TranslationsQuestionErrorSnackbarEn {
 	late final TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceEn answered_on_another_device = TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceEn._(_root);
 	late final TranslationsQuestionErrorSnackbarAlreadyAnsweredEn already_answered = TranslationsQuestionErrorSnackbarAlreadyAnsweredEn._(_root);
 	late final TranslationsQuestionErrorSnackbarSaveFailedRetryLaterEn save_failed_retry_later = TranslationsQuestionErrorSnackbarSaveFailedRetryLaterEn._(_root);
+}
+
+// Path: onboarding.features
+class TranslationsOnboardingFeaturesEn {
+	TranslationsOnboardingFeaturesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get f1 => 'Daily edition: 10 questions — or more with Quiz+';
+	String get f2 => 'Learn not just what\'s right, but why';
+	String get f3 => 'We fill the gaps — questions you missed will come back';
+	String get f4 => 'Compete, build streaks, unlock achievements';
 }
 
 // Path: profile.settings.user
@@ -755,6 +786,17 @@ extension on Translations {
 			case 'question.error_snackbar.already_answered.button': return 'Got it';
 			case 'question.error_snackbar.save_failed_retry_later.text': return 'Oops! Your answer wasn\'t saved, but this question will return later. You\'ll get another chance!';
 			case 'question.error_snackbar.save_failed_retry_later.button': return 'Try again later';
+			case 'onboarding.daily_issue': return 'DAILY EDITION';
+			case 'onboarding.issue_number': return ({required Object n}) => 'EDITION № ${n}';
+			case 'onboarding.headline': return 'Ten\nquestions.\nEvery day.';
+			case 'onboarding.subtitle': return 'One game a day — and you\'re in the leaderboard.';
+			case 'onboarding.features.f1': return 'Daily edition: 10 questions — or more with Quiz+';
+			case 'onboarding.features.f2': return 'Learn not just what\'s right, but why';
+			case 'onboarding.features.f3': return 'We fill the gaps — questions you missed will come back';
+			case 'onboarding.features.f4': return 'Compete, build streaks, unlock achievements';
+			case 'onboarding.start_free': return 'START FOR FREE';
+			case 'onboarding.already_played': return 'PLAYED BEFORE?';
+			case 'onboarding.sign_in_link': return 'SIGN IN';
 			case 'nav.game': return 'GAME';
 			case 'nav.leaderboard': return 'RANK';
 			case 'nav.profile': return 'PROFILE';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/app/core/database/app_database.dart';
+import 'package:quiz/app/core/services/settings_local_storage_service.dart';
 import 'package:quiz/app/core/widgets/app_widget.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
 import 'package:quiz/app/di/di.dart';
@@ -32,6 +33,18 @@ class DebugFlow extends StatelessWidget {
                     contentPadding: EdgeInsets.zero,
                     title: Text('Синхронизировать'),
                     onTap: () => getIt<SyncCachedAnswersUseCase>().sync(),
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text('Сбросить онбординг'),
+                    onTap: () async {
+                      await getIt<SettingsLocalStorageService>().resetOnboardingSeen();
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Онбординг сброшен')),
+                        );
+                      }
+                    },
                   ),
                 ],
               ),

@@ -137,10 +137,10 @@
         "my_position": "My position",
         "empty": "No activity yet for this period",
         "periods": {
-            "daily":   "today",
-            "weekly":  "this week",
+            "daily": "today",
+            "weekly": "this week",
             "monthly": "this month",
-            "yearly":  "this year"
+            "yearly": "this year"
         }
     },
     "gamification": {
@@ -214,5 +214,25 @@
                 "button": "Try again later"
             }
         }
+    },
+    "onboarding": {
+        "daily_issue": "DAILY EDITION",
+        "issue_number": "EDITION № ${n}",
+        "headline": "Ten\nquestions.\nEvery day.",
+        "subtitle": "One game a day — and you're in the leaderboard.",
+        "features": {
+            "f1": "Daily edition: 10 questions — or more with Quiz+",
+            "f2": "Learn not just what's right, but why",
+            "f3": "We fill the gaps — questions you missed will come back",
+            "f4": "Compete, build streaks, unlock achievements"
+        },
+        "start_free": "START FOR FREE",
+        "already_played": "PLAYED BEFORE?",
+        "sign_in_link": "SIGN IN"
+    },
+    "nav": {
+        "game": "GAME",
+        "leaderboard": "RANK",
+        "profile": "PROFILE"
     }
 }

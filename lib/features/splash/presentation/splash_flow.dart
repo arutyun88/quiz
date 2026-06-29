@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quiz/app/core/services/settings_local_storage_service.dart';
+import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/splash/provider/initialization_provider.dart';
 import 'package:quiz/features/user/domain/entity/user_entity.dart';
@@ -24,8 +26,14 @@ class SplashFlow extends ConsumerWidget {
               }
             },
             unauthenticated: (_) {
-              context.go('/');
-              context.push('/login');
+              final storage = getIt<SettingsLocalStorageService>();
+              if (storage.isOnboardingSeen) {
+                context.go('/');
+                context.push('/login');
+              } else {
+                storage.markOnboardingSeen();
+                context.go('/onboarding');
+              }
             },
           );
         },
