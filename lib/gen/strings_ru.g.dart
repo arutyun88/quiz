@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,12 +11,12 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsRu implements Translations {
+class TranslationsRu with BaseTranslations<AppLocale, Translations> implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	TranslationsRu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	TranslationsRu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = TranslationMetadata(
+		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.ru,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
@@ -32,56 +33,59 @@ class TranslationsRu implements Translations {
 
 	late final TranslationsRu _root = this; // ignore: unused_field
 
+	@override 
+	TranslationsRu $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsRu(meta: meta ?? this.$meta);
+
 	// Translations
 	@override Map<String, String> get languages => {
 		'en': 'English',
 		'ru': 'Русский',
 	};
-	@override late final _TranslationsTextFieldRu text_field = _TranslationsTextFieldRu._(_root);
-	@override late final _TranslationsProfileRu profile = _TranslationsProfileRu._(_root);
-	@override late final _TranslationsAuthenticationRu authentication = _TranslationsAuthenticationRu._(_root);
-	@override late final _TranslationsLeaderboardRu leaderboard = _TranslationsLeaderboardRu._(_root);
-	@override late final _TranslationsGamificationRu gamification = _TranslationsGamificationRu._(_root);
-	@override late final _TranslationsAchievementsRu achievements = _TranslationsAchievementsRu._(_root);
-	@override late final _TranslationsQuestionRu question = _TranslationsQuestionRu._(_root);
-	@override late final _TranslationsOnboardingRu onboarding = _TranslationsOnboardingRu._(_root);
-	@override late final _TranslationsNavRu nav = _TranslationsNavRu._(_root);
+	@override late final _Translations$text_field$ru text_field = _Translations$text_field$ru._(_root);
+	@override late final _Translations$profile$ru profile = _Translations$profile$ru._(_root);
+	@override late final _Translations$authentication$ru authentication = _Translations$authentication$ru._(_root);
+	@override late final _Translations$leaderboard$ru leaderboard = _Translations$leaderboard$ru._(_root);
+	@override late final _Translations$gamification$ru gamification = _Translations$gamification$ru._(_root);
+	@override late final _Translations$achievements$ru achievements = _Translations$achievements$ru._(_root);
+	@override late final _Translations$question$ru question = _Translations$question$ru._(_root);
+	@override late final _Translations$onboarding$ru onboarding = _Translations$onboarding$ru._(_root);
+	@override late final _Translations$nav$ru nav = _Translations$nav$ru._(_root);
 }
 
 // Path: text_field
-class _TranslationsTextFieldRu implements TranslationsTextFieldEn {
-	_TranslationsTextFieldRu._(this._root);
+class _Translations$text_field$ru implements Translations$text_field$en {
+	_Translations$text_field$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsTextFieldEmailRu email = _TranslationsTextFieldEmailRu._(_root);
-	@override late final _TranslationsTextFieldPasswordRu password = _TranslationsTextFieldPasswordRu._(_root);
-	@override late final _TranslationsTextFieldConfirmPasswordRu confirm_password = _TranslationsTextFieldConfirmPasswordRu._(_root);
+	@override late final _Translations$text_field$email$ru email = _Translations$text_field$email$ru._(_root);
+	@override late final _Translations$text_field$password$ru password = _Translations$text_field$password$ru._(_root);
+	@override late final _Translations$text_field$confirm_password$ru confirm_password = _Translations$text_field$confirm_password$ru._(_root);
 }
 
 // Path: profile
-class _TranslationsProfileRu implements TranslationsProfileEn {
-	_TranslationsProfileRu._(this._root);
+class _Translations$profile$ru implements Translations$profile$en {
+	_Translations$profile$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Профиль';
-	@override late final _TranslationsProfileSettingsRu settings = _TranslationsProfileSettingsRu._(_root);
-	@override late final _TranslationsProfileEditRu edit = _TranslationsProfileEditRu._(_root);
+	@override late final _Translations$profile$settings$ru settings = _Translations$profile$settings$ru._(_root);
+	@override late final _Translations$profile$edit$ru edit = _Translations$profile$edit$ru._(_root);
 }
 
 // Path: authentication
-class _TranslationsAuthenticationRu implements TranslationsAuthenticationEn {
-	_TranslationsAuthenticationRu._(this._root);
+class _Translations$authentication$ru implements Translations$authentication$en {
+	_Translations$authentication$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsAuthenticationFailureRu failure = _TranslationsAuthenticationFailureRu._(_root);
-	@override late final _TranslationsAuthenticationSignInRu sign_in = _TranslationsAuthenticationSignInRu._(_root);
-	@override late final _TranslationsAuthenticationSignUpRu sign_up = _TranslationsAuthenticationSignUpRu._(_root);
+	@override late final _Translations$authentication$failure$ru failure = _Translations$authentication$failure$ru._(_root);
+	@override late final _Translations$authentication$sign_in$ru sign_in = _Translations$authentication$sign_in$ru._(_root);
+	@override late final _Translations$authentication$sign_up$ru sign_up = _Translations$authentication$sign_up$ru._(_root);
 	@override TextSpan agreement({required InlineSpanBuilder link}) => TextSpan(children: [
 		const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '),
 		link('Пользовательскому соглашению'),
@@ -89,8 +93,8 @@ class _TranslationsAuthenticationRu implements TranslationsAuthenticationEn {
 }
 
 // Path: leaderboard
-class _TranslationsLeaderboardRu implements TranslationsLeaderboardEn {
-	_TranslationsLeaderboardRu._(this._root);
+class _Translations$leaderboard$ru implements Translations$leaderboard$en {
+	_Translations$leaderboard$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -98,12 +102,12 @@ class _TranslationsLeaderboardRu implements TranslationsLeaderboardEn {
 	@override String get title => 'Рейтинг';
 	@override String get my_position => 'Моя позиция';
 	@override String get empty => 'Нет активности за этот период';
-	@override late final _TranslationsLeaderboardPeriodsRu periods = _TranslationsLeaderboardPeriodsRu._(_root);
+	@override late final _Translations$leaderboard$periods$ru periods = _Translations$leaderboard$periods$ru._(_root);
 }
 
 // Path: gamification
-class _TranslationsGamificationRu implements TranslationsGamificationEn {
-	_TranslationsGamificationRu._(this._root);
+class _Translations$gamification$ru implements Translations$gamification$en {
+	_Translations$gamification$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -134,32 +138,32 @@ class _TranslationsGamificationRu implements TranslationsGamificationEn {
 }
 
 // Path: achievements
-class _TranslationsAchievementsRu implements TranslationsAchievementsEn {
-	_TranslationsAchievementsRu._(this._root);
+class _Translations$achievements$ru implements Translations$achievements$en {
+	_Translations$achievements$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Достижения';
-	@override late final _TranslationsAchievementsCategoriesRu categories = _TranslationsAchievementsCategoriesRu._(_root);
+	@override late final _Translations$achievements$categories$ru categories = _Translations$achievements$categories$ru._(_root);
 	@override String get error => 'Не удалось загрузить';
 	@override String get retry => 'Повторить';
 }
 
 // Path: question
-class _TranslationsQuestionRu implements TranslationsQuestionEn {
-	_TranslationsQuestionRu._(this._root);
+class _Translations$question$ru implements Translations$question$en {
+	_Translations$question$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsQuestionDialogRu dialog = _TranslationsQuestionDialogRu._(_root);
-	@override late final _TranslationsQuestionErrorSnackbarRu error_snackbar = _TranslationsQuestionErrorSnackbarRu._(_root);
+	@override late final _Translations$question$dialog$ru dialog = _Translations$question$dialog$ru._(_root);
+	@override late final _Translations$question$error_snackbar$ru error_snackbar = _Translations$question$error_snackbar$ru._(_root);
 }
 
 // Path: onboarding
-class _TranslationsOnboardingRu implements TranslationsOnboardingEn {
-	_TranslationsOnboardingRu._(this._root);
+class _Translations$onboarding$ru implements Translations$onboarding$en {
+	_Translations$onboarding$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -168,15 +172,15 @@ class _TranslationsOnboardingRu implements TranslationsOnboardingEn {
 	@override String issue_number({required Object n}) => 'ВЫПУСК № ${n}';
 	@override String get headline => 'Десять\nвопросов.\nКаждый день.';
 	@override String get subtitle => 'Одна игра в день — и ты в общем рейтинге.';
-	@override late final _TranslationsOnboardingFeaturesRu features = _TranslationsOnboardingFeaturesRu._(_root);
+	@override late final _Translations$onboarding$features$ru features = _Translations$onboarding$features$ru._(_root);
 	@override String get start_free => 'НАЧАТЬ БЕСПЛАТНО';
 	@override String get already_played => 'УЖЕ ИГРАЛИ?';
 	@override String get sign_in_link => 'ВОЙТИ';
 }
 
 // Path: nav
-class _TranslationsNavRu implements TranslationsNavEn {
-	_TranslationsNavRu._(this._root);
+class _Translations$nav$ru implements Translations$nav$en {
+	_Translations$nav$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -187,8 +191,8 @@ class _TranslationsNavRu implements TranslationsNavEn {
 }
 
 // Path: text_field.email
-class _TranslationsTextFieldEmailRu implements TranslationsTextFieldEmailEn {
-	_TranslationsTextFieldEmailRu._(this._root);
+class _Translations$text_field$email$ru implements Translations$text_field$email$en {
+	_Translations$text_field$email$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -199,8 +203,8 @@ class _TranslationsTextFieldEmailRu implements TranslationsTextFieldEmailEn {
 }
 
 // Path: text_field.password
-class _TranslationsTextFieldPasswordRu implements TranslationsTextFieldPasswordEn {
-	_TranslationsTextFieldPasswordRu._(this._root);
+class _Translations$text_field$password$ru implements Translations$text_field$password$en {
+	_Translations$text_field$password$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -211,8 +215,8 @@ class _TranslationsTextFieldPasswordRu implements TranslationsTextFieldPasswordE
 }
 
 // Path: text_field.confirm_password
-class _TranslationsTextFieldConfirmPasswordRu implements TranslationsTextFieldConfirmPasswordEn {
-	_TranslationsTextFieldConfirmPasswordRu._(this._root);
+class _Translations$text_field$confirm_password$ru implements Translations$text_field$confirm_password$en {
+	_Translations$text_field$confirm_password$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -222,34 +226,34 @@ class _TranslationsTextFieldConfirmPasswordRu implements TranslationsTextFieldCo
 }
 
 // Path: profile.settings
-class _TranslationsProfileSettingsRu implements TranslationsProfileSettingsEn {
-	_TranslationsProfileSettingsRu._(this._root);
+class _Translations$profile$settings$ru implements Translations$profile$settings$en {
+	_Translations$profile$settings$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Настройки';
-	@override late final _TranslationsProfileSettingsUserRu user = _TranslationsProfileSettingsUserRu._(_root);
-	@override late final _TranslationsProfileSettingsApplicationRu application = _TranslationsProfileSettingsApplicationRu._(_root);
+	@override late final _Translations$profile$settings$user$ru user = _Translations$profile$settings$user$ru._(_root);
+	@override late final _Translations$profile$settings$application$ru application = _Translations$profile$settings$application$ru._(_root);
 	@override String get sign_out => 'Выйти из профиля';
 	@override String get sign_in => 'Войти или зарегистрироваться';
 }
 
 // Path: profile.edit
-class _TranslationsProfileEditRu implements TranslationsProfileEditEn {
-	_TranslationsProfileEditRu._(this._root);
+class _Translations$profile$edit$ru implements Translations$profile$edit$en {
+	_Translations$profile$edit$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Редактировать профиль';
-	@override late final _TranslationsProfileEditPasswordRu password = _TranslationsProfileEditPasswordRu._(_root);
-	@override late final _TranslationsProfileEditMainRu main = _TranslationsProfileEditMainRu._(_root);
+	@override late final _Translations$profile$edit$password$ru password = _Translations$profile$edit$password$ru._(_root);
+	@override late final _Translations$profile$edit$main$ru main = _Translations$profile$edit$main$ru._(_root);
 }
 
 // Path: authentication.failure
-class _TranslationsAuthenticationFailureRu implements TranslationsAuthenticationFailureEn {
-	_TranslationsAuthenticationFailureRu._(this._root);
+class _Translations$authentication$failure$ru implements Translations$authentication$failure$en {
+	_Translations$authentication$failure$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -261,34 +265,34 @@ class _TranslationsAuthenticationFailureRu implements TranslationsAuthentication
 }
 
 // Path: authentication.sign_in
-class _TranslationsAuthenticationSignInRu implements TranslationsAuthenticationSignInEn {
-	_TranslationsAuthenticationSignInRu._(this._root);
+class _Translations$authentication$sign_in$ru implements Translations$authentication$sign_in$en {
+	_Translations$authentication$sign_in$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsAuthenticationSignInNoAccountRu no_account = _TranslationsAuthenticationSignInNoAccountRu._(_root);
+	@override late final _Translations$authentication$sign_in$no_account$ru no_account = _Translations$authentication$sign_in$no_account$ru._(_root);
 	@override String get button => 'Войти';
 	@override String get title => 'Войти в аккаунт';
-	@override late final _TranslationsAuthenticationSignInForgetPasswordRu forget_password = _TranslationsAuthenticationSignInForgetPasswordRu._(_root);
+	@override late final _Translations$authentication$sign_in$forget_password$ru forget_password = _Translations$authentication$sign_in$forget_password$ru._(_root);
 }
 
 // Path: authentication.sign_up
-class _TranslationsAuthenticationSignUpRu implements TranslationsAuthenticationSignUpEn {
-	_TranslationsAuthenticationSignUpRu._(this._root);
+class _Translations$authentication$sign_up$ru implements Translations$authentication$sign_up$en {
+	_Translations$authentication$sign_up$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsAuthenticationSignUpHaveAccountRu have_account = _TranslationsAuthenticationSignUpHaveAccountRu._(_root);
-	@override late final _TranslationsAuthenticationSignUpConfirmPasswordRu confirm_password = _TranslationsAuthenticationSignUpConfirmPasswordRu._(_root);
+	@override late final _Translations$authentication$sign_up$have_account$ru have_account = _Translations$authentication$sign_up$have_account$ru._(_root);
+	@override late final _Translations$authentication$sign_up$confirm_password$ru confirm_password = _Translations$authentication$sign_up$confirm_password$ru._(_root);
 	@override String get button => 'Зарегистрироваться';
 	@override String get title => 'Зарегистрироваться';
 }
 
 // Path: leaderboard.periods
-class _TranslationsLeaderboardPeriodsRu implements TranslationsLeaderboardPeriodsEn {
-	_TranslationsLeaderboardPeriodsRu._(this._root);
+class _Translations$leaderboard$periods$ru implements Translations$leaderboard$periods$en {
+	_Translations$leaderboard$periods$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -300,8 +304,8 @@ class _TranslationsLeaderboardPeriodsRu implements TranslationsLeaderboardPeriod
 }
 
 // Path: achievements.categories
-class _TranslationsAchievementsCategoriesRu implements TranslationsAchievementsCategoriesEn {
-	_TranslationsAchievementsCategoriesRu._(this._root);
+class _Translations$achievements$categories$ru implements Translations$achievements$categories$en {
+	_Translations$achievements$categories$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -314,32 +318,32 @@ class _TranslationsAchievementsCategoriesRu implements TranslationsAchievementsC
 }
 
 // Path: question.dialog
-class _TranslationsQuestionDialogRu implements TranslationsQuestionDialogEn {
-	_TranslationsQuestionDialogRu._(this._root);
+class _Translations$question$dialog$ru implements Translations$question$dialog$en {
+	_Translations$question$dialog$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsQuestionDialogCorrectRu correct = _TranslationsQuestionDialogCorrectRu._(_root);
-	@override late final _TranslationsQuestionDialogIncorrectRu incorrect = _TranslationsQuestionDialogIncorrectRu._(_root);
+	@override late final _Translations$question$dialog$correct$ru correct = _Translations$question$dialog$correct$ru._(_root);
+	@override late final _Translations$question$dialog$incorrect$ru incorrect = _Translations$question$dialog$incorrect$ru._(_root);
 	@override String get button => 'Продолжить';
 }
 
 // Path: question.error_snackbar
-class _TranslationsQuestionErrorSnackbarRu implements TranslationsQuestionErrorSnackbarEn {
-	_TranslationsQuestionErrorSnackbarRu._(this._root);
+class _Translations$question$error_snackbar$ru implements Translations$question$error_snackbar$en {
+	_Translations$question$error_snackbar$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceRu answered_on_another_device = _TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceRu._(_root);
-	@override late final _TranslationsQuestionErrorSnackbarAlreadyAnsweredRu already_answered = _TranslationsQuestionErrorSnackbarAlreadyAnsweredRu._(_root);
-	@override late final _TranslationsQuestionErrorSnackbarSaveFailedRetryLaterRu save_failed_retry_later = _TranslationsQuestionErrorSnackbarSaveFailedRetryLaterRu._(_root);
+	@override late final _Translations$question$error_snackbar$answered_on_another_device$ru answered_on_another_device = _Translations$question$error_snackbar$answered_on_another_device$ru._(_root);
+	@override late final _Translations$question$error_snackbar$already_answered$ru already_answered = _Translations$question$error_snackbar$already_answered$ru._(_root);
+	@override late final _Translations$question$error_snackbar$save_failed_retry_later$ru save_failed_retry_later = _Translations$question$error_snackbar$save_failed_retry_later$ru._(_root);
 }
 
 // Path: onboarding.features
-class _TranslationsOnboardingFeaturesRu implements TranslationsOnboardingFeaturesEn {
-	_TranslationsOnboardingFeaturesRu._(this._root);
+class _Translations$onboarding$features$ru implements Translations$onboarding$features$en {
+	_Translations$onboarding$features$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -351,8 +355,8 @@ class _TranslationsOnboardingFeaturesRu implements TranslationsOnboardingFeature
 }
 
 // Path: profile.settings.user
-class _TranslationsProfileSettingsUserRu implements TranslationsProfileSettingsUserEn {
-	_TranslationsProfileSettingsUserRu._(this._root);
+class _Translations$profile$settings$user$ru implements Translations$profile$settings$user$en {
+	_Translations$profile$settings$user$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -364,22 +368,22 @@ class _TranslationsProfileSettingsUserRu implements TranslationsProfileSettingsU
 }
 
 // Path: profile.settings.application
-class _TranslationsProfileSettingsApplicationRu implements TranslationsProfileSettingsApplicationEn {
-	_TranslationsProfileSettingsApplicationRu._(this._root);
+class _Translations$profile$settings$application$ru implements Translations$profile$settings$application$en {
+	_Translations$profile$settings$application$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Приложение';
-	@override late final _TranslationsProfileSettingsApplicationLanguageRu language = _TranslationsProfileSettingsApplicationLanguageRu._(_root);
-	@override late final _TranslationsProfileSettingsApplicationThemeRu theme = _TranslationsProfileSettingsApplicationThemeRu._(_root);
+	@override late final _Translations$profile$settings$application$language$ru language = _Translations$profile$settings$application$language$ru._(_root);
+	@override late final _Translations$profile$settings$application$theme$ru theme = _Translations$profile$settings$application$theme$ru._(_root);
 	@override String get go_to_storage_manager => 'Менеджер памяти';
 	@override String get go_to_about_app => 'О приложении';
 }
 
 // Path: profile.edit.password
-class _TranslationsProfileEditPasswordRu implements TranslationsProfileEditPasswordEn {
-	_TranslationsProfileEditPasswordRu._(this._root);
+class _Translations$profile$edit$password$ru implements Translations$profile$edit$password$en {
+	_Translations$profile$edit$password$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -390,25 +394,25 @@ class _TranslationsProfileEditPasswordRu implements TranslationsProfileEditPassw
 	@override String get new_confirm_password_hint => 'Повторите новый пароль';
 	@override String get confirm_password_validation_message => 'Пароли не совпадают';
 	@override String get button => 'Сохранить';
-	@override late final _TranslationsProfileEditPasswordResultRu result = _TranslationsProfileEditPasswordResultRu._(_root);
+	@override late final _Translations$profile$edit$password$result$ru result = _Translations$profile$edit$password$result$ru._(_root);
 }
 
 // Path: profile.edit.main
-class _TranslationsProfileEditMainRu implements TranslationsProfileEditMainEn {
-	_TranslationsProfileEditMainRu._(this._root);
+class _Translations$profile$edit$main$ru implements Translations$profile$edit$main$en {
+	_Translations$profile$edit$main$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Основная информация';
-	@override late final _TranslationsProfileEditMainNameRu name = _TranslationsProfileEditMainNameRu._(_root);
-	@override late final _TranslationsProfileEditMainDateRu date = _TranslationsProfileEditMainDateRu._(_root);
-	@override late final _TranslationsProfileEditMainResultRu result = _TranslationsProfileEditMainResultRu._(_root);
+	@override late final _Translations$profile$edit$main$name$ru name = _Translations$profile$edit$main$name$ru._(_root);
+	@override late final _Translations$profile$edit$main$date$ru date = _Translations$profile$edit$main$date$ru._(_root);
+	@override late final _Translations$profile$edit$main$result$ru result = _Translations$profile$edit$main$result$ru._(_root);
 }
 
 // Path: authentication.sign_in.no_account
-class _TranslationsAuthenticationSignInNoAccountRu implements TranslationsAuthenticationSignInNoAccountEn {
-	_TranslationsAuthenticationSignInNoAccountRu._(this._root);
+class _Translations$authentication$sign_in$no_account$ru implements Translations$authentication$sign_in$no_account$en {
+	_Translations$authentication$sign_in$no_account$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -418,19 +422,19 @@ class _TranslationsAuthenticationSignInNoAccountRu implements TranslationsAuthen
 }
 
 // Path: authentication.sign_in.forget_password
-class _TranslationsAuthenticationSignInForgetPasswordRu implements TranslationsAuthenticationSignInForgetPasswordEn {
-	_TranslationsAuthenticationSignInForgetPasswordRu._(this._root);
+class _Translations$authentication$sign_in$forget_password$ru implements Translations$authentication$sign_in$forget_password$en {
+	_Translations$authentication$sign_in$forget_password$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
 	@override String get button => 'Не помню пароль';
-	@override late final _TranslationsAuthenticationSignInForgetPasswordDialogRu dialog = _TranslationsAuthenticationSignInForgetPasswordDialogRu._(_root);
+	@override late final _Translations$authentication$sign_in$forget_password$dialog$ru dialog = _Translations$authentication$sign_in$forget_password$dialog$ru._(_root);
 }
 
 // Path: authentication.sign_up.have_account
-class _TranslationsAuthenticationSignUpHaveAccountRu implements TranslationsAuthenticationSignUpHaveAccountEn {
-	_TranslationsAuthenticationSignUpHaveAccountRu._(this._root);
+class _Translations$authentication$sign_up$have_account$ru implements Translations$authentication$sign_up$have_account$en {
+	_Translations$authentication$sign_up$have_account$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -440,8 +444,8 @@ class _TranslationsAuthenticationSignUpHaveAccountRu implements TranslationsAuth
 }
 
 // Path: authentication.sign_up.confirm_password
-class _TranslationsAuthenticationSignUpConfirmPasswordRu implements TranslationsAuthenticationSignUpConfirmPasswordEn {
-	_TranslationsAuthenticationSignUpConfirmPasswordRu._(this._root);
+class _Translations$authentication$sign_up$confirm_password$ru implements Translations$authentication$sign_up$confirm_password$en {
+	_Translations$authentication$sign_up$confirm_password$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -452,8 +456,8 @@ class _TranslationsAuthenticationSignUpConfirmPasswordRu implements Translations
 }
 
 // Path: question.dialog.correct
-class _TranslationsQuestionDialogCorrectRu implements TranslationsQuestionDialogCorrectEn {
-	_TranslationsQuestionDialogCorrectRu._(this._root);
+class _Translations$question$dialog$correct$ru implements Translations$question$dialog$correct$en {
+	_Translations$question$dialog$correct$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -469,8 +473,8 @@ class _TranslationsQuestionDialogCorrectRu implements TranslationsQuestionDialog
 }
 
 // Path: question.dialog.incorrect
-class _TranslationsQuestionDialogIncorrectRu implements TranslationsQuestionDialogIncorrectEn {
-	_TranslationsQuestionDialogIncorrectRu._(this._root);
+class _Translations$question$dialog$incorrect$ru implements Translations$question$dialog$incorrect$en {
+	_Translations$question$dialog$incorrect$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -486,8 +490,8 @@ class _TranslationsQuestionDialogIncorrectRu implements TranslationsQuestionDial
 }
 
 // Path: question.error_snackbar.answered_on_another_device
-class _TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceRu implements TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceEn {
-	_TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceRu._(this._root);
+class _Translations$question$error_snackbar$answered_on_another_device$ru implements Translations$question$error_snackbar$answered_on_another_device$en {
+	_Translations$question$error_snackbar$answered_on_another_device$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -497,8 +501,8 @@ class _TranslationsQuestionErrorSnackbarAnsweredOnAnotherDeviceRu implements Tra
 }
 
 // Path: question.error_snackbar.already_answered
-class _TranslationsQuestionErrorSnackbarAlreadyAnsweredRu implements TranslationsQuestionErrorSnackbarAlreadyAnsweredEn {
-	_TranslationsQuestionErrorSnackbarAlreadyAnsweredRu._(this._root);
+class _Translations$question$error_snackbar$already_answered$ru implements Translations$question$error_snackbar$already_answered$en {
+	_Translations$question$error_snackbar$already_answered$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -508,8 +512,8 @@ class _TranslationsQuestionErrorSnackbarAlreadyAnsweredRu implements Translation
 }
 
 // Path: question.error_snackbar.save_failed_retry_later
-class _TranslationsQuestionErrorSnackbarSaveFailedRetryLaterRu implements TranslationsQuestionErrorSnackbarSaveFailedRetryLaterEn {
-	_TranslationsQuestionErrorSnackbarSaveFailedRetryLaterRu._(this._root);
+class _Translations$question$error_snackbar$save_failed_retry_later$ru implements Translations$question$error_snackbar$save_failed_retry_later$en {
+	_Translations$question$error_snackbar$save_failed_retry_later$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -519,8 +523,8 @@ class _TranslationsQuestionErrorSnackbarSaveFailedRetryLaterRu implements Transl
 }
 
 // Path: profile.settings.application.language
-class _TranslationsProfileSettingsApplicationLanguageRu implements TranslationsProfileSettingsApplicationLanguageEn {
-	_TranslationsProfileSettingsApplicationLanguageRu._(this._root);
+class _Translations$profile$settings$application$language$ru implements Translations$profile$settings$application$language$en {
+	_Translations$profile$settings$application$language$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -529,19 +533,19 @@ class _TranslationsProfileSettingsApplicationLanguageRu implements TranslationsP
 }
 
 // Path: profile.settings.application.theme
-class _TranslationsProfileSettingsApplicationThemeRu implements TranslationsProfileSettingsApplicationThemeEn {
-	_TranslationsProfileSettingsApplicationThemeRu._(this._root);
+class _Translations$profile$settings$application$theme$ru implements Translations$profile$settings$application$theme$en {
+	_Translations$profile$settings$application$theme$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Тема оформления';
-	@override late final _TranslationsProfileSettingsApplicationThemeSwitcherRu switcher = _TranslationsProfileSettingsApplicationThemeSwitcherRu._(_root);
+	@override late final _Translations$profile$settings$application$theme$switcher$ru switcher = _Translations$profile$settings$application$theme$switcher$ru._(_root);
 }
 
 // Path: profile.edit.password.result
-class _TranslationsProfileEditPasswordResultRu implements TranslationsProfileEditPasswordResultEn {
-	_TranslationsProfileEditPasswordResultRu._(this._root);
+class _Translations$profile$edit$password$result$ru implements Translations$profile$edit$password$result$en {
+	_Translations$profile$edit$password$result$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -551,8 +555,8 @@ class _TranslationsProfileEditPasswordResultRu implements TranslationsProfileEdi
 }
 
 // Path: profile.edit.main.name
-class _TranslationsProfileEditMainNameRu implements TranslationsProfileEditMainNameEn {
-	_TranslationsProfileEditMainNameRu._(this._root);
+class _Translations$profile$edit$main$name$ru implements Translations$profile$edit$main$name$en {
+	_Translations$profile$edit$main$name$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -562,19 +566,19 @@ class _TranslationsProfileEditMainNameRu implements TranslationsProfileEditMainN
 }
 
 // Path: profile.edit.main.date
-class _TranslationsProfileEditMainDateRu implements TranslationsProfileEditMainDateEn {
-	_TranslationsProfileEditMainDateRu._(this._root);
+class _Translations$profile$edit$main$date$ru implements Translations$profile$edit$main$date$en {
+	_Translations$profile$edit$main$date$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
 	@override String get hint => 'Укажите дату вашего рождения';
-	@override late final _TranslationsProfileEditMainDatePickerRu picker = _TranslationsProfileEditMainDatePickerRu._(_root);
+	@override late final _Translations$profile$edit$main$date$picker$ru picker = _Translations$profile$edit$main$date$picker$ru._(_root);
 }
 
 // Path: profile.edit.main.result
-class _TranslationsProfileEditMainResultRu implements TranslationsProfileEditMainResultEn {
-	_TranslationsProfileEditMainResultRu._(this._root);
+class _Translations$profile$edit$main$result$ru implements Translations$profile$edit$main$result$en {
+	_Translations$profile$edit$main$result$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -584,21 +588,21 @@ class _TranslationsProfileEditMainResultRu implements TranslationsProfileEditMai
 }
 
 // Path: authentication.sign_in.forget_password.dialog
-class _TranslationsAuthenticationSignInForgetPasswordDialogRu implements TranslationsAuthenticationSignInForgetPasswordDialogEn {
-	_TranslationsAuthenticationSignInForgetPasswordDialogRu._(this._root);
+class _Translations$authentication$sign_in$forget_password$dialog$ru implements Translations$authentication$sign_in$forget_password$dialog$en {
+	_Translations$authentication$sign_in$forget_password$dialog$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Восстановление пароля';
-	@override late final _TranslationsAuthenticationSignInForgetPasswordDialogValidRu valid = _TranslationsAuthenticationSignInForgetPasswordDialogValidRu._(_root);
-	@override late final _TranslationsAuthenticationSignInForgetPasswordDialogInvalidRu invalid = _TranslationsAuthenticationSignInForgetPasswordDialogInvalidRu._(_root);
-	@override late final _TranslationsAuthenticationSignInForgetPasswordDialogResultRu result = _TranslationsAuthenticationSignInForgetPasswordDialogResultRu._(_root);
+	@override late final _Translations$authentication$sign_in$forget_password$dialog$valid$ru valid = _Translations$authentication$sign_in$forget_password$dialog$valid$ru._(_root);
+	@override late final _Translations$authentication$sign_in$forget_password$dialog$invalid$ru invalid = _Translations$authentication$sign_in$forget_password$dialog$invalid$ru._(_root);
+	@override late final _Translations$authentication$sign_in$forget_password$dialog$result$ru result = _Translations$authentication$sign_in$forget_password$dialog$result$ru._(_root);
 }
 
 // Path: profile.settings.application.theme.switcher
-class _TranslationsProfileSettingsApplicationThemeSwitcherRu implements TranslationsProfileSettingsApplicationThemeSwitcherEn {
-	_TranslationsProfileSettingsApplicationThemeSwitcherRu._(this._root);
+class _Translations$profile$settings$application$theme$switcher$ru implements Translations$profile$settings$application$theme$switcher$en {
+	_Translations$profile$settings$application$theme$switcher$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -607,19 +611,19 @@ class _TranslationsProfileSettingsApplicationThemeSwitcherRu implements Translat
 }
 
 // Path: profile.edit.main.date.picker
-class _TranslationsProfileEditMainDatePickerRu implements TranslationsProfileEditMainDatePickerEn {
-	_TranslationsProfileEditMainDatePickerRu._(this._root);
+class _Translations$profile$edit$main$date$picker$ru implements Translations$profile$edit$main$date$picker$en {
+	_Translations$profile$edit$main$date$picker$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Дата рождения';
-	@override late final _TranslationsProfileEditMainDatePickerButtonRu button = _TranslationsProfileEditMainDatePickerButtonRu._(_root);
+	@override late final _Translations$profile$edit$main$date$picker$button$ru button = _Translations$profile$edit$main$date$picker$button$ru._(_root);
 }
 
 // Path: authentication.sign_in.forget_password.dialog.valid
-class _TranslationsAuthenticationSignInForgetPasswordDialogValidRu implements TranslationsAuthenticationSignInForgetPasswordDialogValidEn {
-	_TranslationsAuthenticationSignInForgetPasswordDialogValidRu._(this._root);
+class _Translations$authentication$sign_in$forget_password$dialog$valid$ru implements Translations$authentication$sign_in$forget_password$dialog$valid$en {
+	_Translations$authentication$sign_in$forget_password$dialog$valid$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -630,8 +634,8 @@ class _TranslationsAuthenticationSignInForgetPasswordDialogValidRu implements Tr
 }
 
 // Path: authentication.sign_in.forget_password.dialog.invalid
-class _TranslationsAuthenticationSignInForgetPasswordDialogInvalidRu implements TranslationsAuthenticationSignInForgetPasswordDialogInvalidEn {
-	_TranslationsAuthenticationSignInForgetPasswordDialogInvalidRu._(this._root);
+class _Translations$authentication$sign_in$forget_password$dialog$invalid$ru implements Translations$authentication$sign_in$forget_password$dialog$invalid$en {
+	_Translations$authentication$sign_in$forget_password$dialog$invalid$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -641,8 +645,8 @@ class _TranslationsAuthenticationSignInForgetPasswordDialogInvalidRu implements 
 }
 
 // Path: authentication.sign_in.forget_password.dialog.result
-class _TranslationsAuthenticationSignInForgetPasswordDialogResultRu implements TranslationsAuthenticationSignInForgetPasswordDialogResultEn {
-	_TranslationsAuthenticationSignInForgetPasswordDialogResultRu._(this._root);
+class _Translations$authentication$sign_in$forget_password$dialog$result$ru implements Translations$authentication$sign_in$forget_password$dialog$result$en {
+	_Translations$authentication$sign_in$forget_password$dialog$result$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -652,8 +656,8 @@ class _TranslationsAuthenticationSignInForgetPasswordDialogResultRu implements T
 }
 
 // Path: profile.edit.main.date.picker.button
-class _TranslationsProfileEditMainDatePickerButtonRu implements TranslationsProfileEditMainDatePickerButtonEn {
-	_TranslationsProfileEditMainDatePickerButtonRu._(this._root);
+class _Translations$profile$edit$main$date$picker$button$ru implements Translations$profile$edit$main$date$picker$button$en {
+	_Translations$profile$edit$main$date$picker$button$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
@@ -662,150 +666,139 @@ class _TranslationsProfileEditMainDatePickerButtonRu implements TranslationsProf
 	@override String get apply => 'Готово';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <ru>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsRu {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'languages.en': return 'English';
-			case 'languages.ru': return 'Русский';
-			case 'text_field.email.label': return 'Email';
-			case 'text_field.email.hint': return 'Введите ваш email-адрес';
-			case 'text_field.email.validation_message': return 'Неверный формат электронной почты';
-			case 'text_field.password.label': return 'Пароль';
-			case 'text_field.password.hint': return 'Минимум 8 символов, буквы и цифры';
-			case 'text_field.password.validation_message': return '8+ символов: 1 заглавная, 1 строчная, 1 цифра';
-			case 'text_field.confirm_password.label': return 'Подтвердите пароль';
-			case 'text_field.confirm_password.hint': return 'Повторите введенный пароль';
-			case 'profile.title': return 'Профиль';
-			case 'profile.settings.title': return 'Настройки';
-			case 'profile.settings.user.title': return 'Настройки';
-			case 'profile.settings.user.go_to_edit': return 'Редактировать профиль';
-			case 'profile.settings.user.go_to_notifications_settings': return 'Настройки уведомлений';
-			case 'profile.settings.user.go_to_subscriptions': return 'Управление подпиской';
-			case 'profile.settings.application.title': return 'Приложение';
-			case 'profile.settings.application.language.change': return 'Изменить язык';
-			case 'profile.settings.application.theme.title': return 'Тема оформления';
-			case 'profile.settings.application.theme.switcher.as_system': return 'Как в системе';
-			case 'profile.settings.application.go_to_storage_manager': return 'Менеджер памяти';
-			case 'profile.settings.application.go_to_about_app': return 'О приложении';
-			case 'profile.settings.sign_out': return 'Выйти из профиля';
-			case 'profile.settings.sign_in': return 'Войти или зарегистрироваться';
-			case 'profile.edit.title': return 'Редактировать профиль';
-			case 'profile.edit.password.title': return 'Изменить пароль';
-			case 'profile.edit.password.old_password_hint': return 'Введите старый пароль';
-			case 'profile.edit.password.new_password_hint': return 'Введите новый пароль';
-			case 'profile.edit.password.new_confirm_password_hint': return 'Повторите новый пароль';
-			case 'profile.edit.password.confirm_password_validation_message': return 'Пароли не совпадают';
-			case 'profile.edit.password.button': return 'Сохранить';
-			case 'profile.edit.password.result.success': return 'Пароль успешно изменен';
-			case 'profile.edit.password.result.failed': return 'Не удалось изменить пароль. Пожалуйста, проверьте введенные данные и попробуйте снова';
-			case 'profile.edit.main.title': return 'Основная информация';
-			case 'profile.edit.main.name.label': return 'Имя';
-			case 'profile.edit.main.name.hint': return 'Введите ваше имя';
-			case 'profile.edit.main.date.hint': return 'Укажите дату вашего рождения';
-			case 'profile.edit.main.date.picker.title': return 'Дата рождения';
-			case 'profile.edit.main.date.picker.button.cancel': return 'Отмена';
-			case 'profile.edit.main.date.picker.button.apply': return 'Готово';
-			case 'profile.edit.main.result.success': return 'Информация успешно изменена';
-			case 'profile.edit.main.result.failed': return 'Не удалось изменить информацию. Пожалуйста, проверьте введенные данные и попробуйте снова';
-			case 'authentication.failure.invalid_credentials': return 'Неверные учетные данные. Проверьте правильность введенного email и пароля.';
-			case 'authentication.failure.too_many_requests': return 'Слишком много попыток входа. Попробуйте позже или сбросьте пароль.';
-			case 'authentication.failure.already_exist': return 'Этот email уже используется другим аккаунтом.';
-			case 'authentication.failure.unknown': return 'Произошла ошибка при аутентификации. Пожалуйста, попробуйте снова.';
-			case 'authentication.sign_in.no_account.text': return 'Нет аккаунта?';
-			case 'authentication.sign_in.no_account.sign_up': return 'Зарегистрироваться';
-			case 'authentication.sign_in.button': return 'Войти';
-			case 'authentication.sign_in.title': return 'Войти в аккаунт';
-			case 'authentication.sign_in.forget_password.button': return 'Не помню пароль';
-			case 'authentication.sign_in.forget_password.dialog.title': return 'Восстановление пароля';
-			case 'authentication.sign_in.forget_password.dialog.valid.accept': return 'Сбросить';
-			case 'authentication.sign_in.forget_password.dialog.valid.cancel': return 'Отмена';
-			case 'authentication.sign_in.forget_password.dialog.valid.description': return 'Вы действительно хотите сбросить пароль?';
-			case 'authentication.sign_in.forget_password.dialog.invalid.button': return 'Хорошо';
-			case 'authentication.sign_in.forget_password.dialog.invalid.description': return 'Введите корректный адрес электронной почты.';
-			case 'authentication.sign_in.forget_password.dialog.result.success': return 'Ссылка на сброс пароля отправлена на вашу почту. Ссылка действительна в течение 1 часа.';
-			case 'authentication.sign_in.forget_password.dialog.result.failed': return 'Не удалось отправить ссылку для сброса пароля. Пожалуйста, попробуйте позже.';
-			case 'authentication.sign_up.have_account.text': return 'Есть аккаунт?';
-			case 'authentication.sign_up.have_account.sign_in': return 'Войти';
-			case 'authentication.sign_up.confirm_password.label': return 'Подтверждение пароля';
-			case 'authentication.sign_up.confirm_password.hint': return 'Повторите пароль';
-			case 'authentication.sign_up.confirm_password.validation_message': return 'Пароли не совпадают';
-			case 'authentication.sign_up.button': return 'Зарегистрироваться';
-			case 'authentication.sign_up.title': return 'Зарегистрироваться';
-			case 'authentication.agreement': return ({required InlineSpanBuilder link}) => TextSpan(children: [
-				const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '),
-				link('Пользовательскому соглашению'),
-			]);
-			case 'leaderboard.title': return 'Рейтинг';
-			case 'leaderboard.my_position': return 'Моя позиция';
-			case 'leaderboard.empty': return 'Нет активности за этот период';
-			case 'leaderboard.periods.daily': return 'дня';
-			case 'leaderboard.periods.weekly': return 'недели';
-			case 'leaderboard.periods.monthly': return 'месяца';
-			case 'leaderboard.periods.yearly': return 'года';
-			case 'gamification.level': return ({required Object level}) => 'Уровень ${level}';
-			case 'gamification.level_short': return ({required Object level}) => 'Ур. ${level}';
-			case 'gamification.xp': return ({required Object current, required Object total}) => '${current} / ${total} XP';
-			case 'gamification.xp_remaining': return ({required Object remaining}) => 'ещё ${remaining} XP';
-			case 'gamification.streak': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
-				one: '${n} день подряд',
-				few: '${n} дня подряд',
-				many: '${n} дней подряд',
-				other: '${n} дней подряд',
-			);
-			case 'gamification.points': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
-				one: '${n} очко',
-				few: '${n} очка',
-				many: '${n} очков',
-				other: '${n} очков',
-			);
-			case 'gamification.accuracy': return ({required Object value}) => '${value}% точность';
-			case 'gamification.achievements_link': return 'Достижения';
-			case 'gamification.streak_days': return 'Дней подряд';
-			case 'gamification.questions_answered': return 'Вопросов';
-			case 'gamification.correct_answers': return 'Правильных';
-			case 'gamification.points_label': return 'Очков';
-			case 'gamification.accuracy_label': return 'Точность';
-			case 'achievements.title': return 'Достижения';
-			case 'achievements.categories.beginner': return 'Начинающий';
-			case 'achievements.categories.progress': return 'Прогресс';
-			case 'achievements.categories.accuracy': return 'Точность';
-			case 'achievements.categories.streak': return 'Серия';
-			case 'achievements.categories.points': return 'Очки';
-			case 'achievements.error': return 'Не удалось загрузить';
-			case 'achievements.retry': return 'Повторить';
-			case 'question.dialog.correct.header.0': return 'Отлично, вы абсолютно правы';
-			case 'question.dialog.correct.header.1': return 'Верно, так держать';
-			case 'question.dialog.correct.prompt.0': return 'Готовы продолжить?';
-			case 'question.dialog.correct.prompt.1': return 'Переходим к следующему вопросу?';
-			case 'question.dialog.incorrect.header.0': return 'Правильный ответ:';
-			case 'question.dialog.incorrect.header.1': return 'На самом деле:';
-			case 'question.dialog.incorrect.prompt.0': return 'Не переживайте!\nДавайте двигаться дальше?';
-			case 'question.dialog.incorrect.prompt.1': return 'Переходим к следующему вопросу?';
-			case 'question.dialog.button': return 'Продолжить';
-			case 'question.error_snackbar.answered_on_another_device.text': return 'Этот вопрос уже был отвечен на другом устройстве. Он больше не повторится.';
-			case 'question.error_snackbar.answered_on_another_device.button': return 'Понятно';
-			case 'question.error_snackbar.already_answered.text': return 'Этот вопрос у вас уже в копилке ответов и не будет перезаписан';
-			case 'question.error_snackbar.already_answered.button': return 'Понятно';
-			case 'question.error_snackbar.save_failed_retry_later.text': return 'Упс! Ответ не сохранился, но вопрос вернётся позже. У вас будет ещё шанс!';
-			case 'question.error_snackbar.save_failed_retry_later.button': return 'Попробую позже';
-			case 'onboarding.daily_issue': return 'ЕЖЕДНЕВНЫЙ ВЫПУСК';
-			case 'onboarding.issue_number': return ({required Object n}) => 'ВЫПУСК № ${n}';
-			case 'onboarding.headline': return 'Десять\nвопросов.\nКаждый день.';
-			case 'onboarding.subtitle': return 'Одна игра в день — и ты в общем рейтинге.';
-			case 'onboarding.features.f1': return 'Ежедневный выпуск: 10 вопросов — или больше с Quiz+';
-			case 'onboarding.features.f2': return 'Узнаете не только что правильно, но и почему';
-			case 'onboarding.features.f3': return 'Поможем заполнить пробелы — вопросы, где ошиблись, вернутся';
-			case 'onboarding.features.f4': return 'Соревнуйтесь, собирайте серии, открывайте достижения';
-			case 'onboarding.start_free': return 'НАЧАТЬ БЕСПЛАТНО';
-			case 'onboarding.already_played': return 'УЖЕ ИГРАЛИ?';
-			case 'onboarding.sign_in_link': return 'ВОЙТИ';
-			case 'nav.game': return 'ИГРА';
-			case 'nav.leaderboard': return 'РЕЙТИНГ';
-			case 'nav.profile': return 'ПРОФИЛЬ';
-			default: return null;
-		}
+		return switch (path) {
+			'languages.en' => 'English',
+			'languages.ru' => 'Русский',
+			'text_field.email.label' => 'Email',
+			'text_field.email.hint' => 'Введите ваш email-адрес',
+			'text_field.email.validation_message' => 'Неверный формат электронной почты',
+			'text_field.password.label' => 'Пароль',
+			'text_field.password.hint' => 'Минимум 8 символов, буквы и цифры',
+			'text_field.password.validation_message' => '8+ символов: 1 заглавная, 1 строчная, 1 цифра',
+			'text_field.confirm_password.label' => 'Подтвердите пароль',
+			'text_field.confirm_password.hint' => 'Повторите введенный пароль',
+			'profile.title' => 'Профиль',
+			'profile.settings.title' => 'Настройки',
+			'profile.settings.user.title' => 'Настройки',
+			'profile.settings.user.go_to_edit' => 'Редактировать профиль',
+			'profile.settings.user.go_to_notifications_settings' => 'Настройки уведомлений',
+			'profile.settings.user.go_to_subscriptions' => 'Управление подпиской',
+			'profile.settings.application.title' => 'Приложение',
+			'profile.settings.application.language.change' => 'Изменить язык',
+			'profile.settings.application.theme.title' => 'Тема оформления',
+			'profile.settings.application.theme.switcher.as_system' => 'Как в системе',
+			'profile.settings.application.go_to_storage_manager' => 'Менеджер памяти',
+			'profile.settings.application.go_to_about_app' => 'О приложении',
+			'profile.settings.sign_out' => 'Выйти из профиля',
+			'profile.settings.sign_in' => 'Войти или зарегистрироваться',
+			'profile.edit.title' => 'Редактировать профиль',
+			'profile.edit.password.title' => 'Изменить пароль',
+			'profile.edit.password.old_password_hint' => 'Введите старый пароль',
+			'profile.edit.password.new_password_hint' => 'Введите новый пароль',
+			'profile.edit.password.new_confirm_password_hint' => 'Повторите новый пароль',
+			'profile.edit.password.confirm_password_validation_message' => 'Пароли не совпадают',
+			'profile.edit.password.button' => 'Сохранить',
+			'profile.edit.password.result.success' => 'Пароль успешно изменен',
+			'profile.edit.password.result.failed' => 'Не удалось изменить пароль. Пожалуйста, проверьте введенные данные и попробуйте снова',
+			'profile.edit.main.title' => 'Основная информация',
+			'profile.edit.main.name.label' => 'Имя',
+			'profile.edit.main.name.hint' => 'Введите ваше имя',
+			'profile.edit.main.date.hint' => 'Укажите дату вашего рождения',
+			'profile.edit.main.date.picker.title' => 'Дата рождения',
+			'profile.edit.main.date.picker.button.cancel' => 'Отмена',
+			'profile.edit.main.date.picker.button.apply' => 'Готово',
+			'profile.edit.main.result.success' => 'Информация успешно изменена',
+			'profile.edit.main.result.failed' => 'Не удалось изменить информацию. Пожалуйста, проверьте введенные данные и попробуйте снова',
+			'authentication.failure.invalid_credentials' => 'Неверные учетные данные. Проверьте правильность введенного email и пароля.',
+			'authentication.failure.too_many_requests' => 'Слишком много попыток входа. Попробуйте позже или сбросьте пароль.',
+			'authentication.failure.already_exist' => 'Этот email уже используется другим аккаунтом.',
+			'authentication.failure.unknown' => 'Произошла ошибка при аутентификации. Пожалуйста, попробуйте снова.',
+			'authentication.sign_in.no_account.text' => 'Нет аккаунта?',
+			'authentication.sign_in.no_account.sign_up' => 'Зарегистрироваться',
+			'authentication.sign_in.button' => 'Войти',
+			'authentication.sign_in.title' => 'Войти в аккаунт',
+			'authentication.sign_in.forget_password.button' => 'Не помню пароль',
+			'authentication.sign_in.forget_password.dialog.title' => 'Восстановление пароля',
+			'authentication.sign_in.forget_password.dialog.valid.accept' => 'Сбросить',
+			'authentication.sign_in.forget_password.dialog.valid.cancel' => 'Отмена',
+			'authentication.sign_in.forget_password.dialog.valid.description' => 'Вы действительно хотите сбросить пароль?',
+			'authentication.sign_in.forget_password.dialog.invalid.button' => 'Хорошо',
+			'authentication.sign_in.forget_password.dialog.invalid.description' => 'Введите корректный адрес электронной почты.',
+			'authentication.sign_in.forget_password.dialog.result.success' => 'Ссылка на сброс пароля отправлена на вашу почту. Ссылка действительна в течение 1 часа.',
+			'authentication.sign_in.forget_password.dialog.result.failed' => 'Не удалось отправить ссылку для сброса пароля. Пожалуйста, попробуйте позже.',
+			'authentication.sign_up.have_account.text' => 'Есть аккаунт?',
+			'authentication.sign_up.have_account.sign_in' => 'Войти',
+			'authentication.sign_up.confirm_password.label' => 'Подтверждение пароля',
+			'authentication.sign_up.confirm_password.hint' => 'Повторите пароль',
+			'authentication.sign_up.confirm_password.validation_message' => 'Пароли не совпадают',
+			'authentication.sign_up.button' => 'Зарегистрироваться',
+			'authentication.sign_up.title' => 'Зарегистрироваться',
+			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '), link('Пользовательскому соглашению'), ]), 
+			'leaderboard.title' => 'Рейтинг',
+			'leaderboard.my_position' => 'Моя позиция',
+			'leaderboard.empty' => 'Нет активности за этот период',
+			'leaderboard.periods.daily' => 'дня',
+			'leaderboard.periods.weekly' => 'недели',
+			'leaderboard.periods.monthly' => 'месяца',
+			'leaderboard.periods.yearly' => 'года',
+			'gamification.level' => ({required Object level}) => 'Уровень ${level}',
+			'gamification.level_short' => ({required Object level}) => 'Ур. ${level}',
+			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',
+			'gamification.xp_remaining' => ({required Object remaining}) => 'ещё ${remaining} XP',
+			'gamification.streak' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} день подряд', few: '${n} дня подряд', many: '${n} дней подряд', other: '${n} дней подряд', ), 
+			'gamification.points' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} очко', few: '${n} очка', many: '${n} очков', other: '${n} очков', ), 
+			'gamification.accuracy' => ({required Object value}) => '${value}% точность',
+			'gamification.achievements_link' => 'Достижения',
+			'gamification.streak_days' => 'Дней подряд',
+			'gamification.questions_answered' => 'Вопросов',
+			'gamification.correct_answers' => 'Правильных',
+			'gamification.points_label' => 'Очков',
+			'gamification.accuracy_label' => 'Точность',
+			'achievements.title' => 'Достижения',
+			'achievements.categories.beginner' => 'Начинающий',
+			'achievements.categories.progress' => 'Прогресс',
+			'achievements.categories.accuracy' => 'Точность',
+			'achievements.categories.streak' => 'Серия',
+			'achievements.categories.points' => 'Очки',
+			'achievements.error' => 'Не удалось загрузить',
+			'achievements.retry' => 'Повторить',
+			'question.dialog.correct.header.0' => 'Отлично, вы абсолютно правы',
+			'question.dialog.correct.header.1' => 'Верно, так держать',
+			'question.dialog.correct.prompt.0' => 'Готовы продолжить?',
+			'question.dialog.correct.prompt.1' => 'Переходим к следующему вопросу?',
+			'question.dialog.incorrect.header.0' => 'Правильный ответ:',
+			'question.dialog.incorrect.header.1' => 'На самом деле:',
+			'question.dialog.incorrect.prompt.0' => 'Не переживайте!\nДавайте двигаться дальше?',
+			'question.dialog.incorrect.prompt.1' => 'Переходим к следующему вопросу?',
+			'question.dialog.button' => 'Продолжить',
+			'question.error_snackbar.answered_on_another_device.text' => 'Этот вопрос уже был отвечен на другом устройстве. Он больше не повторится.',
+			'question.error_snackbar.answered_on_another_device.button' => 'Понятно',
+			'question.error_snackbar.already_answered.text' => 'Этот вопрос у вас уже в копилке ответов и не будет перезаписан',
+			'question.error_snackbar.already_answered.button' => 'Понятно',
+			'question.error_snackbar.save_failed_retry_later.text' => 'Упс! Ответ не сохранился, но вопрос вернётся позже. У вас будет ещё шанс!',
+			'question.error_snackbar.save_failed_retry_later.button' => 'Попробую позже',
+			'onboarding.daily_issue' => 'ЕЖЕДНЕВНЫЙ ВЫПУСК',
+			'onboarding.issue_number' => ({required Object n}) => 'ВЫПУСК № ${n}',
+			'onboarding.headline' => 'Десять\nвопросов.\nКаждый день.',
+			'onboarding.subtitle' => 'Одна игра в день — и ты в общем рейтинге.',
+			'onboarding.features.f1' => 'Ежедневный выпуск: 10 вопросов — или больше с Quiz+',
+			'onboarding.features.f2' => 'Узнаете не только что правильно, но и почему',
+			'onboarding.features.f3' => 'Поможем заполнить пробелы — вопросы, где ошиблись, вернутся',
+			'onboarding.features.f4' => 'Соревнуйтесь, собирайте серии, открывайте достижения',
+			'onboarding.start_free' => 'НАЧАТЬ БЕСПЛАТНО',
+			'onboarding.already_played' => 'УЖЕ ИГРАЛИ?',
+			'onboarding.sign_in_link' => 'ВОЙТИ',
+			'nav.game' => 'ИГРА',
+			'nav.leaderboard' => 'РЕЙТИНГ',
+			'nav.profile' => 'ПРОФИЛЬ',
+			_ => null,
+		};
 	}
 }
-
