@@ -64,6 +64,15 @@ class _AppTextFieldV2State extends State<AppTextFieldV2> {
     return TextCapitalization.sentences;
   }
 
+  List<TextInputFormatter> get _defaultFormatters {
+    final t = widget.keyboardType;
+    final denyWhitespace = widget.obscureText ||
+        t == TextInputType.emailAddress ||
+        t == TextInputType.url ||
+        t == TextInputType.phone;
+    return denyWhitespace ? [FilteringTextInputFormatter.deny(RegExp(r'\s'))] : const [];
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = context.palette;
@@ -108,7 +117,7 @@ class _AppTextFieldV2State extends State<AppTextFieldV2> {
                   readOnly: widget.readOnly,
                   autocorrect: _autocorrect,
                   textCapitalization: _textCapitalization,
-                  inputFormatters: widget.inputFormatters,
+                  inputFormatters: [..._defaultFormatters, ...?widget.inputFormatters],
                   style: GoogleFonts.spectral(
                     fontSize: 18,
                     color: widget.enabled ? colors.text.primary : colors.text.secondary,
