@@ -49,6 +49,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$achievements$ru achievements = _Translations$achievements$ru._(_root);
 	@override late final _Translations$question$ru question = _Translations$question$ru._(_root);
 	@override late final _Translations$onboarding$ru onboarding = _Translations$onboarding$ru._(_root);
+	@override late final _Translations$forgot_password$ru forgot_password = _Translations$forgot_password$ru._(_root);
 	@override late final _Translations$nav$ru nav = _Translations$nav$ru._(_root);
 }
 
@@ -176,6 +177,23 @@ class _Translations$onboarding$ru implements Translations$onboarding$en {
 	@override String get start_free => 'НАЧАТЬ БЕСПЛАТНО';
 	@override String get already_played => 'УЖЕ ИГРАЛИ?';
 	@override String get sign_in_link => 'ВОЙТИ';
+}
+
+// Path: forgot_password
+class _Translations$forgot_password$ru implements Translations$forgot_password$en {
+	_Translations$forgot_password$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Забыли\nпароль?';
+	@override String get subtitle => 'Введите email — пришлём ссылку для сброса пароля.';
+	@override String get email_label => 'EMAIL';
+	@override String get submit => 'ОТПРАВИТЬ ССЫЛКУ';
+	@override String get submitting => 'ОТПРАВКА...';
+	@override String get hint => 'Ссылка действует 15 минут. Проверьте папку «Спам», если письмо не пришло.';
+	@override String get success => 'Ссылка отправлена. Проверьте почту.';
+	@override String get error => 'Не удалось отправить ссылку. Попробуйте позже.';
 }
 
 // Path: nav
@@ -795,6 +813,14 @@ extension on TranslationsRu {
 			'onboarding.start_free' => 'НАЧАТЬ БЕСПЛАТНО',
 			'onboarding.already_played' => 'УЖЕ ИГРАЛИ?',
 			'onboarding.sign_in_link' => 'ВОЙТИ',
+			'forgot_password.title' => 'Забыли\nпароль?',
+			'forgot_password.subtitle' => 'Введите email — пришлём ссылку для сброса пароля.',
+			'forgot_password.email_label' => 'EMAIL',
+			'forgot_password.submit' => 'ОТПРАВИТЬ ССЫЛКУ',
+			'forgot_password.submitting' => 'ОТПРАВКА...',
+			'forgot_password.hint' => 'Ссылка действует 15 минут. Проверьте папку «Спам», если письмо не пришло.',
+			'forgot_password.success' => 'Ссылка отправлена. Проверьте почту.',
+			'forgot_password.error' => 'Не удалось отправить ссылку. Попробуйте позже.',
 			'nav.game' => 'ИГРА',
 			'nav.leaderboard' => 'РЕЙТИНГ',
 			'nav.profile' => 'ПРОФИЛЬ',

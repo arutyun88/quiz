@@ -52,6 +52,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$achievements$en achievements = Translations$achievements$en._(_root);
 	late final Translations$question$en question = Translations$question$en._(_root);
 	late final Translations$onboarding$en onboarding = Translations$onboarding$en._(_root);
+	late final Translations$forgot_password$en forgot_password = Translations$forgot_password$en._(_root);
 	late final Translations$nav$en nav = Translations$nav$en._(_root);
 }
 
@@ -235,6 +236,39 @@ class Translations$onboarding$en {
 
 	/// ru: 'ВОЙТИ'
 	String get sign_in_link => 'SIGN IN';
+}
+
+// Path: forgot_password
+class Translations$forgot_password$en {
+	Translations$forgot_password$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Забыли пароль?'
+	String get title => 'Forgot\npassword?';
+
+	/// ru: 'Введите email — пришлём ссылку для сброса пароля.'
+	String get subtitle => 'Enter your email — we\'ll send a reset link.';
+
+	/// ru: 'EMAIL'
+	String get email_label => 'EMAIL';
+
+	/// ru: 'ОТПРАВИТЬ ССЫЛКУ'
+	String get submit => 'SEND LINK';
+
+	/// ru: 'ОТПРАВКА...'
+	String get submitting => 'SENDING...';
+
+	/// ru: 'Ссылка действует 15 минут. Проверьте папку «Спам», если письмо не пришло.'
+	String get hint => 'Link is valid for 15 minutes. Check your Spam folder if the email doesn\'t arrive.';
+
+	/// ru: 'Ссылка отправлена. Проверьте почту.'
+	String get success => 'Link sent. Check your inbox.';
+
+	/// ru: 'Не удалось отправить ссылку. Попробуйте позже.'
+	String get error => 'Failed to send the link. Please try again later.';
 }
 
 // Path: nav
@@ -1037,6 +1071,14 @@ extension on Translations {
 			'onboarding.start_free' => 'START FOR FREE',
 			'onboarding.already_played' => 'PLAYED BEFORE?',
 			'onboarding.sign_in_link' => 'SIGN IN',
+			'forgot_password.title' => 'Forgot\npassword?',
+			'forgot_password.subtitle' => 'Enter your email — we\'ll send a reset link.',
+			'forgot_password.email_label' => 'EMAIL',
+			'forgot_password.submit' => 'SEND LINK',
+			'forgot_password.submitting' => 'SENDING...',
+			'forgot_password.hint' => 'Link is valid for 15 minutes. Check your Spam folder if the email doesn\'t arrive.',
+			'forgot_password.success' => 'Link sent. Check your inbox.',
+			'forgot_password.error' => 'Failed to send the link. Please try again later.',
 			'nav.game' => 'GAME',
 			'nav.leaderboard' => 'RANK',
 			'nav.profile' => 'PROFILE',

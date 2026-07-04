@@ -230,6 +230,16 @@
         "already_played": "PLAYED BEFORE?",
         "sign_in_link": "SIGN IN"
     },
+    "forgot_password": {
+        "title": "Forgot\npassword?",
+        "subtitle": "Enter your email — we'll send a reset link.",
+        "email_label": "EMAIL",
+        "submit": "SEND LINK",
+        "submitting": "SENDING...",
+        "hint": "Link is valid for 15 minutes. Check your Spam folder if the email doesn't arrive.",
+        "success": "Link sent. Check your inbox.",
+        "error": "Failed to send the link. Please try again later."
+    },
     "nav": {
         "game": "GAME",
         "leaderboard": "RANK",
