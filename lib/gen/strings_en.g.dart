@@ -52,6 +52,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$achievements$en achievements = Translations$achievements$en._(_root);
 	late final Translations$question$en question = Translations$question$en._(_root);
 	late final Translations$onboarding$en onboarding = Translations$onboarding$en._(_root);
+	late final Translations$sign_in$en sign_in = Translations$sign_in$en._(_root);
+	late final Translations$sign_up$en sign_up = Translations$sign_up$en._(_root);
 	late final Translations$forgot_password$en forgot_password = Translations$forgot_password$en._(_root);
 	late final Translations$nav$en nav = Translations$nav$en._(_root);
 }
@@ -236,6 +238,66 @@ class Translations$onboarding$en {
 
 	/// ru: 'ВОЙТИ'
 	String get sign_in_link => 'SIGN IN';
+}
+
+// Path: sign_in
+class Translations$sign_in$en {
+	Translations$sign_in$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Добро пожаловать'
+	String get title => 'Welcome\nback';
+
+	/// ru: 'EMAIL'
+	String get email_label => 'EMAIL';
+
+	/// ru: 'ПАРОЛЬ'
+	String get password_label => 'PASSWORD';
+
+	/// ru: 'Забыли пароль?'
+	String get forgot_password => 'Forgot password?';
+
+	/// ru: 'ВОЙТИ'
+	String get submit => 'SIGN IN';
+
+	/// ru: 'Нет аккаунта?'
+	String get no_account => 'No account?';
+
+	/// ru: 'Зарегистрироваться'
+	String get register_link => 'Register';
+}
+
+// Path: sign_up
+class Translations$sign_up$en {
+	Translations$sign_up$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Создать аккаунт'
+	String get title => 'Create\naccount';
+
+	/// ru: 'ИМЯ'
+	String get name_label => 'NAME';
+
+	/// ru: 'EMAIL'
+	String get email_label => 'EMAIL';
+
+	/// ru: 'ПАРОЛЬ'
+	String get password_label => 'PASSWORD';
+
+	/// ru: 'СОЗДАТЬ АККАУНТ'
+	String get submit => 'CREATE ACCOUNT';
+
+	/// ru: 'Уже есть аккаунт?'
+	String get have_account => 'Already have an account?';
+
+	/// ru: 'Войти'
+	String get sign_in_link => 'Sign in';
 }
 
 // Path: forgot_password
@@ -1071,6 +1133,20 @@ extension on Translations {
 			'onboarding.start_free' => 'START FOR FREE',
 			'onboarding.already_played' => 'PLAYED BEFORE?',
 			'onboarding.sign_in_link' => 'SIGN IN',
+			'sign_in.title' => 'Welcome\nback',
+			'sign_in.email_label' => 'EMAIL',
+			'sign_in.password_label' => 'PASSWORD',
+			'sign_in.forgot_password' => 'Forgot password?',
+			'sign_in.submit' => 'SIGN IN',
+			'sign_in.no_account' => 'No account?',
+			'sign_in.register_link' => 'Register',
+			'sign_up.title' => 'Create\naccount',
+			'sign_up.name_label' => 'NAME',
+			'sign_up.email_label' => 'EMAIL',
+			'sign_up.password_label' => 'PASSWORD',
+			'sign_up.submit' => 'CREATE ACCOUNT',
+			'sign_up.have_account' => 'Already have an account?',
+			'sign_up.sign_in_link' => 'Sign in',
 			'forgot_password.title' => 'Forgot\npassword?',
 			'forgot_password.subtitle' => 'Enter your email — we\'ll send a reset link.',
 			'forgot_password.email_label' => 'EMAIL',

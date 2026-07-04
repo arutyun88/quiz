@@ -49,6 +49,8 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$achievements$ru achievements = _Translations$achievements$ru._(_root);
 	@override late final _Translations$question$ru question = _Translations$question$ru._(_root);
 	@override late final _Translations$onboarding$ru onboarding = _Translations$onboarding$ru._(_root);
+	@override late final _Translations$sign_in$ru sign_in = _Translations$sign_in$ru._(_root);
+	@override late final _Translations$sign_up$ru sign_up = _Translations$sign_up$ru._(_root);
 	@override late final _Translations$forgot_password$ru forgot_password = _Translations$forgot_password$ru._(_root);
 	@override late final _Translations$nav$ru nav = _Translations$nav$ru._(_root);
 }
@@ -177,6 +179,38 @@ class _Translations$onboarding$ru implements Translations$onboarding$en {
 	@override String get start_free => 'НАЧАТЬ БЕСПЛАТНО';
 	@override String get already_played => 'УЖЕ ИГРАЛИ?';
 	@override String get sign_in_link => 'ВОЙТИ';
+}
+
+// Path: sign_in
+class _Translations$sign_in$ru implements Translations$sign_in$en {
+	_Translations$sign_in$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Добро\nпожаловать';
+	@override String get email_label => 'EMAIL';
+	@override String get password_label => 'ПАРОЛЬ';
+	@override String get forgot_password => 'Забыли пароль?';
+	@override String get submit => 'ВОЙТИ';
+	@override String get no_account => 'Нет аккаунта?';
+	@override String get register_link => 'Зарегистрироваться';
+}
+
+// Path: sign_up
+class _Translations$sign_up$ru implements Translations$sign_up$en {
+	_Translations$sign_up$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Создать\nаккаунт';
+	@override String get name_label => 'ИМЯ';
+	@override String get email_label => 'EMAIL';
+	@override String get password_label => 'ПАРОЛЬ';
+	@override String get submit => 'СОЗДАТЬ АККАУНТ';
+	@override String get have_account => 'Уже есть аккаунт?';
+	@override String get sign_in_link => 'Войти';
 }
 
 // Path: forgot_password
@@ -813,6 +847,20 @@ extension on TranslationsRu {
 			'onboarding.start_free' => 'НАЧАТЬ БЕСПЛАТНО',
 			'onboarding.already_played' => 'УЖЕ ИГРАЛИ?',
 			'onboarding.sign_in_link' => 'ВОЙТИ',
+			'sign_in.title' => 'Добро\nпожаловать',
+			'sign_in.email_label' => 'EMAIL',
+			'sign_in.password_label' => 'ПАРОЛЬ',
+			'sign_in.forgot_password' => 'Забыли пароль?',
+			'sign_in.submit' => 'ВОЙТИ',
+			'sign_in.no_account' => 'Нет аккаунта?',
+			'sign_in.register_link' => 'Зарегистрироваться',
+			'sign_up.title' => 'Создать\nаккаунт',
+			'sign_up.name_label' => 'ИМЯ',
+			'sign_up.email_label' => 'EMAIL',
+			'sign_up.password_label' => 'ПАРОЛЬ',
+			'sign_up.submit' => 'СОЗДАТЬ АККАУНТ',
+			'sign_up.have_account' => 'Уже есть аккаунт?',
+			'sign_up.sign_in_link' => 'Войти',
 			'forgot_password.title' => 'Забыли\nпароль?',
 			'forgot_password.subtitle' => 'Введите email — пришлём ссылку для сброса пароля.',
 			'forgot_password.email_label' => 'EMAIL',

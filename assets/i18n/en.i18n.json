@@ -230,6 +230,24 @@
         "already_played": "PLAYED BEFORE?",
         "sign_in_link": "SIGN IN"
     },
+    "sign_in": {
+        "title": "Welcome\nback",
+        "email_label": "EMAIL",
+        "password_label": "PASSWORD",
+        "forgot_password": "Forgot password?",
+        "submit": "SIGN IN",
+        "no_account": "No account?",
+        "register_link": "Register"
+    },
+    "sign_up": {
+        "title": "Create\naccount",
+        "name_label": "NAME",
+        "email_label": "EMAIL",
+        "password_label": "PASSWORD",
+        "submit": "CREATE ACCOUNT",
+        "have_account": "Already have an account?",
+        "sign_in_link": "Sign in"
+    },
     "forgot_password": {
         "title": "Forgot\npassword?",
         "subtitle": "Enter your email — we'll send a reset link.",

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:quiz/app/config/style/text_style_ex.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/utils/authentication_failure_snack_bar.dart';
-import 'package:quiz/app/core/widgets/app_back_button.dart';
-import 'package:quiz/app/core/widgets/button/app_button.dart';
-import 'package:quiz/app/core/widgets/input/app_text_field.dart';
+import 'package:quiz/app/core/utils/validation_exp_ex.dart';
+import 'package:quiz/app/core/widgets/app_divider.dart';
+import 'package:quiz/app/core/widgets/button/app_button_v2.dart';
+import 'package:quiz/app/core/widgets/input/app_text_field_v2.dart';
 import 'package:quiz/features/authentication/presentation/sign_up/provider/sign_up_form_provider.dart';
-import 'package:quiz/features/authentication/presentation/sign_up/widgets/sign_up_footer_widget.dart';
-import 'package:quiz/features/authentication/presentation/widgets/agreement_widget.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/gen/strings.g.dart';
 
@@ -21,13 +21,35 @@ class SignUpPage extends ConsumerStatefulWidget {
 }
 
 class _SignUpPageState extends ConsumerState<SignUpPage> {
-  late final formProvider = StateNotifierProvider<SignUpFormProvider, SignUpFormState>(
+  late final formProvider =
+      StateNotifierProvider<SignUpFormProvider, SignUpFormState>(
     (ref) => SignUpFormProvider(),
   );
 
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _nameFocus = FocusNode();
+  final _emailFocus = FocusNode();
+  final _passwordFocus = FocusNode();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _nameFocus.dispose();
+    _emailFocus.dispose();
+    _passwordFocus.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    ref.listen(authenticationProvider, (previous, next) {
+    final colors = context.palette;
+    final t = context.t.sign_up;
+
+    ref.listen(authenticationProvider, (_, next) {
       next.when(
         authenticated: (user) {
           if (user?.name is! String || user?.birthDate is! DateTime) {
@@ -37,82 +59,150 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
           }
         },
         unauthenticated: (failure) {
-          if (failure case Failure failure when failure is AuthenticationFailure) {
+          if (failure case Failure failure
+              when failure is AuthenticationFailure) {
             showAuthenticationFailureSnackBar(context, type: failure.type);
           }
         },
       );
     });
+
+    final isFormValid = ref.watch(formProvider.select((s) => s.isFormValid));
+
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Scaffold(
+        backgroundColor: colors.background.static,
         body: SafeArea(
-          child: Stack(
+          child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
+                padding: const EdgeInsets.fromLTRB(22, 16, 22, 14),
+                child: Row(
                   children: [
-                    const Spacer(flex: 4),
+                    GestureDetector(
+                      onTap: context.pop,
+                      child: Icon(Icons.arrow_back,
+                          size: 22, color: colors.text.primary),
+                    ),
+                    const SizedBox(width: 12),
                     Text(
-                      t.authentication.sign_up.title,
-                      style: context.textStyle.heading20Bold,
-                    ),
-                    const SizedBox(height: 24.0),
-                    AppTextField.email(
-                      label: t.text_field.email.label,
-                      hint: t.text_field.email.hint,
-                      onValidationChanged: ref.read(formProvider.notifier).updateEmailValidity,
-                      onChanged: ref.read(formProvider.notifier).updateEmail,
-                    ),
-                    const SizedBox(height: 16.0),
-                    AppTextField.password(
-                      label: t.text_field.password.label,
-                      hint: t.text_field.password.hint,
-                      onValidationChanged: ref.read(formProvider.notifier).updatePasswordValidity,
-                      onChanged: ref.read(formProvider.notifier).updatePassword,
-                    ),
-                    const SizedBox(height: 16.0),
-                    AppTextField.password(
-                      label: t.authentication.sign_up.confirm_password.label,
-                      hint: t.authentication.sign_up.confirm_password.hint,
-                      enabled: ref.watch(formProvider.select((state) => state.isPasswordConfirm)),
-                      onChanged: ref.read(formProvider.notifier).updateConfirmPassword,
-                      validationMessage: ref.watch(formProvider.select((state) => state.isConfirmedPassword))
-                          ? null
-                          : t.authentication.sign_up.confirm_password.validation_message,
-                    ),
-                    const SizedBox(height: 4.0),
-                    const AgreementWidget(),
-                    const SizedBox(height: 16.0),
-                    Align(
-                      alignment: AlignmentDirectional.centerEnd,
-                      child: AppButton(
-                        expanded: false,
-                        onTap: ref.watch(formProvider.select((state) => state.isFormValid))
-                            ? () async {
-                                FocusScope.of(context).unfocus();
-
-                                final formState = ref.read(formProvider);
-                                await ref.read(authenticationProvider.notifier).registerWithEmail(
-                                      email: formState.email,
-                                      password: formState.password,
-                                    );
-                              }
-                            : null,
-                        child: Text(t.authentication.sign_up.button),
+                      'QUIZ.',
+                      style: GoogleFonts.unbounded(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w800,
+                        color: colors.text.primary,
                       ),
                     ),
-                    const Spacer(flex: 3),
-                    const SizedBox(height: 8.0),
-                    const SignUpFooterWidget(),
-                    const SizedBox(height: 8.0),
                   ],
                 ),
               ),
-              const Align(
-                alignment: Alignment.topLeft,
-                child: AppBackButton(),
+              const AppDivider(indent: 22, endIndent: 22),
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.fromLTRB(22, 28, 22, 0),
+                  child: AutofillGroup(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          t.title,
+                          style: GoogleFonts.unbounded(
+                            fontSize: 36,
+                            fontWeight: FontWeight.w800,
+                            color: colors.text.primary,
+                            height: 0.95,
+                            letterSpacing: -0.5,
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+                        AppTextFieldV2(
+                          label: t.name_label,
+                          controller: _nameController,
+                          focusNode: _nameFocus,
+                          keyboardType: TextInputType.name,
+                          textInputAction: TextInputAction.next,
+                          autofillHints: const [AutofillHints.name],
+                          onSubmitted: (_) => _emailFocus.requestFocus(),
+                          onChanged: (_) {},
+                        ),
+                        const SizedBox(height: 8),
+                        AppTextFieldV2(
+                          label: t.email_label,
+                          controller: _emailController,
+                          focusNode: _emailFocus,
+                          keyboardType: TextInputType.emailAddress,
+                          textInputAction: TextInputAction.next,
+                          autofillHints: const [
+                            AutofillHints.username,
+                            AutofillHints.email
+                          ],
+                          onSubmitted: (_) => _passwordFocus.requestFocus(),
+                          onChanged: (v) {
+                            ref.read(formProvider.notifier).updateEmail(v);
+                            ref.read(formProvider.notifier).updateEmailValidity(
+                                v.isValidEmail ? null : '');
+                          },
+                        ),
+                        const SizedBox(height: 8),
+                        AppTextFieldV2(
+                          label: t.password_label,
+                          controller: _passwordController,
+                          focusNode: _passwordFocus,
+                          obscureText: true,
+                          textInputAction: TextInputAction.done,
+                          autofillHints: const [AutofillHints.newPassword],
+                          onChanged: (v) {
+                            ref.read(formProvider.notifier).updatePassword(v);
+                            ref
+                                .read(formProvider.notifier)
+                                .updatePasswordValidity(
+                                    v.isValidPassword ? null : '');
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(22, 0, 22, 8),
+                child: AppButtonV2(
+                  label: t.submit,
+                  onTap: isFormValid
+                      ? (complete) async {
+                          FocusScope.of(context).unfocus();
+                          final s = ref.read(formProvider);
+                          await ref
+                              .read(authenticationProvider.notifier)
+                              .registerWithEmail(
+                                  email: s.email, password: s.password);
+                          complete();
+                        }
+                      : null,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: GestureDetector(
+                  onTap: () => context.pushNamed('login'),
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '${t.have_account} ',
+                          style: GoogleFonts.spectral(
+                              fontSize: 14, color: colors.text.secondary),
+                        ),
+                        TextSpan(
+                          text: t.sign_in_link,
+                          style: GoogleFonts.spectral(
+                              fontSize: 14, color: colors.text.accent),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

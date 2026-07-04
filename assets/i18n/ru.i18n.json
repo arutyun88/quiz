@@ -234,6 +234,24 @@
         "already_played": "УЖЕ ИГРАЛИ?",
         "sign_in_link": "ВОЙТИ"
     },
+    "sign_in": {
+        "title": "Добро\nпожаловать",
+        "email_label": "EMAIL",
+        "password_label": "ПАРОЛЬ",
+        "forgot_password": "Забыли пароль?",
+        "submit": "ВОЙТИ",
+        "no_account": "Нет аккаунта?",
+        "register_link": "Зарегистрироваться"
+    },
+    "sign_up": {
+        "title": "Создать\nаккаунт",
+        "name_label": "ИМЯ",
+        "email_label": "EMAIL",
+        "password_label": "ПАРОЛЬ",
+        "submit": "СОЗДАТЬ АККАУНТ",
+        "have_account": "Уже есть аккаунт?",
+        "sign_in_link": "Войти"
+    },
     "forgot_password": {
         "title": "Забыли\nпароль?",
         "subtitle": "Введите email — пришлём ссылку для сброса пароля.",
