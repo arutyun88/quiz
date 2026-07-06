@@ -9,9 +9,11 @@ import 'package:quiz/app/core/model/data_page/page_info_converter.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/features/question/data/converter/answer_converter.dart';
+import 'package:quiz/features/question/data/converter/answered_today_dto_converter.dart';
 import 'package:quiz/features/question/data/converter/question_converter.dart';
 import 'package:quiz/features/question/data/converter/question_state_dto_converter.dart';
 import 'package:quiz/features/question/data/converter/topic_converter.dart';
+import 'package:quiz/features/question/data/dto/answered_today_dto.dart';
 import 'package:quiz/features/question/data/dto/question_dto.dart';
 import 'package:quiz/features/question/data/dto/question_state_dto.dart';
 import 'package:quiz/features/question/data/repository/remote_question_repository.dart';
@@ -61,6 +63,7 @@ void main() {
         ),
       ),
       questionStateDtoConverter: QuestionStateDtoConverterImpl(),
+      answeredTodayDtoConverter: AnsweredTodayDtoConverterImpl(),
     );
   });
 
@@ -173,6 +176,34 @@ void main() {
         });
       });
     });
+
+    group('checkAnsweredToday', () {
+      group('when GET succeeds', () {
+        test('calls GET /questions/answered-today and returns Result.ok', () async {
+          when(() => _getAnsweredToday(apiClient)).thenAnswer(
+            (_) async => Result.ok(true),
+          );
+
+          final result = await repository.checkAnsweredToday();
+
+          expect(result, isA<ResultOk<bool, Failure>>());
+          expect((result as ResultOk<bool, Failure>).data, true);
+
+          verify(() => _getAnsweredToday(apiClient)).called(1);
+        });
+      });
+      group('when GET fails', () {
+        test('returns Result.failed with NetworkFailure', () async {
+          final failure = NetworkFailure(NetworkFailureReason.server('500'));
+          when(() => _getAnsweredToday(apiClient)).thenAnswer((_) async => Result.failed(failure));
+
+          final result = await repository.checkAnsweredToday();
+
+          expect(result, isA<ResultFailed<bool, Failure>>());
+          expect((result as ResultFailed<bool, Failure>).error, failure);
+        });
+      });
+    });
   });
 }
 
@@ -189,6 +220,17 @@ Future<Result<PageEntity<QuestionEntity>, Failure>> _getQuestions(MockApiClient 
 Future<Result<QuestionStateEntity, Failure>> _getQuestionStateById(MockApiClient apiClient, String id) {
   return apiClient.get<QuestionStateEntity, DataDto<QuestionStateDto>>(
     '/questions/$id/state',
+    queryParameters: any(named: 'queryParameters'),
+    headers: any(named: 'headers'),
+    mapper: any(named: 'mapper'),
+    converter: any(named: 'converter'),
+    enableLocale: any(named: 'enableLocale'),
+  );
+}
+
+Future<Result<bool, Failure>> _getAnsweredToday(MockApiClient apiClient) {
+  return apiClient.get<bool, DataDto<AnsweredTodayDto>>(
+    '/questions/answered-today',
     queryParameters: any(named: 'queryParameters'),
     headers: any(named: 'headers'),
     mapper: any(named: 'mapper'),

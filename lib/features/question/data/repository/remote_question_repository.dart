@@ -5,8 +5,10 @@ import 'package:quiz/app/core/model/data_page/page_entity.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/json.dart';
 import 'package:quiz/app/core/model/result.dart';
+import 'package:quiz/features/question/data/converter/answered_today_dto_converter.dart';
 import 'package:quiz/features/question/data/converter/question_converter.dart';
 import 'package:quiz/features/question/data/converter/question_state_dto_converter.dart';
+import 'package:quiz/features/question/data/dto/answered_today_dto.dart';
 import 'package:quiz/features/question/data/dto/question_dto.dart';
 import 'package:quiz/features/question/data/dto/question_state_dto.dart';
 import 'package:quiz/features/question/domain/entity/question_entity.dart';
@@ -17,14 +19,17 @@ class RemoteQuestionRepository implements QuestionRepository {
   final ApiClient _client;
   final QuestionPageConverter _questionPageConverter;
   final QuestionStateDtoConverter _questionStateDtoConverter;
+  final AnsweredTodayDtoConverter _answeredTodayDtoConverter;
 
   const RemoteQuestionRepository({
     required ApiClient client,
     required QuestionPageConverter questionPageConverter,
     required QuestionStateDtoConverter questionStateDtoConverter,
+    required AnsweredTodayDtoConverter answeredTodayDtoConverter,
   })  : _client = client,
         _questionPageConverter = questionPageConverter,
-        _questionStateDtoConverter = questionStateDtoConverter;
+        _questionStateDtoConverter = questionStateDtoConverter,
+        _answeredTodayDtoConverter = answeredTodayDtoConverter;
 
   @override
   Future<Result<PageEntity<QuestionEntity>, Failure>> fetch({
@@ -46,6 +51,15 @@ class RemoteQuestionRepository implements QuestionRepository {
       '/questions/$id/state',
       mapper: (json) => DataDto.fromJson(json, (json) => QuestionStateDto.fromJson(json as Json)),
       converter: _questionStateDtoConverter.convert,
+    );
+  }
+
+  @override
+  Future<Result<bool, Failure>> checkAnsweredToday() async {
+    return await _client.get(
+      '/questions/answered-today',
+      mapper: (json) => DataDto.fromJson(json, (json) => AnsweredTodayDto.fromJson(json as Json)),
+      converter: _answeredTodayDtoConverter.convert,
     );
   }
 }

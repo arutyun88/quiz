@@ -10,4 +10,6 @@ abstract interface class QuestionRepository {
   });
 
   Future<Result<QuestionStateEntity, Failure>> checkQuestionStateById(String id);
+
+  Future<Result<bool, Failure>> checkAnsweredToday();
 }
