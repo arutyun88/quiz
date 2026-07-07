@@ -133,6 +133,8 @@ class _Translations$gamification$ru implements Translations$gamification$en {
 	);
 	@override String accuracy({required Object value}) => '${value}% точность';
 	@override String get achievements_link => 'Достижения';
+	@override String get streak_badge_label => 'СЕРИЯ';
+	@override String get level_badge_label => 'УР.';
 	@override String get streak_days => 'Дней подряд';
 	@override String get questions_answered => 'Вопросов';
 	@override String get correct_answers => 'Правильных';
@@ -808,6 +810,8 @@ extension on TranslationsRu {
 			'gamification.points' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} очко', few: '${n} очка', many: '${n} очков', other: '${n} очков', ), 
 			'gamification.accuracy' => ({required Object value}) => '${value}% точность',
 			'gamification.achievements_link' => 'Достижения',
+			'gamification.streak_badge_label' => 'СЕРИЯ',
+			'gamification.level_badge_label' => 'УР.',
 			'gamification.streak_days' => 'Дней подряд',
 			'gamification.questions_answered' => 'Вопросов',
 			'gamification.correct_answers' => 'Правильных',

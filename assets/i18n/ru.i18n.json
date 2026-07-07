@@ -162,6 +162,8 @@
         },
         "accuracy": "$value% точность",
         "achievements_link": "Достижения",
+        "streak_badge_label": "СЕРИЯ",
+        "level_badge_label": "УР.",
         "streak_days": "Дней подряд",
         "questions_answered": "Вопросов",
         "correct_answers": "Правильных",

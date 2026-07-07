@@ -161,6 +161,12 @@ class Translations$gamification$en {
 	/// ru: 'Достижения'
 	String get achievements_link => 'Achievements';
 
+	/// ru: 'СЕРИЯ'
+	String get streak_badge_label => 'STREAK';
+
+	/// ru: 'УР.'
+	String get level_badge_label => 'LVL';
+
 	/// ru: 'Дней подряд'
 	String get streak_days => 'Day streak';
 
@@ -1094,6 +1100,8 @@ extension on Translations {
 			'gamification.points' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} pt', other: '${n} pts', ), 
 			'gamification.accuracy' => ({required Object value}) => '${value}% accuracy',
 			'gamification.achievements_link' => 'Achievements',
+			'gamification.streak_badge_label' => 'STREAK',
+			'gamification.level_badge_label' => 'LVL',
 			'gamification.streak_days' => 'Day streak',
 			'gamification.questions_answered' => 'Questions',
 			'gamification.correct_answers' => 'Correct',

@@ -158,6 +158,8 @@
         },
         "accuracy": "$value% accuracy",
         "achievements_link": "Achievements",
+        "streak_badge_label": "STREAK",
+        "level_badge_label": "LVL",
         "streak_days": "Day streak",
         "questions_answered": "Questions",
         "correct_answers": "Correct",
