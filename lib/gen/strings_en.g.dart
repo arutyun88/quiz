@@ -211,6 +211,13 @@ class Translations$question$en {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	List<String> get answer_letters => [
+		'A',
+		'B',
+		'C',
+		'D',
+	];
+	late final Translations$question$answer_reveal$en answer_reveal = Translations$question$answer_reveal$en._(_root);
 	late final Translations$question$dialog$en dialog = Translations$question$dialog$en._(_root);
 	late final Translations$question$error_snackbar$en error_snackbar = Translations$question$error_snackbar$en._(_root);
 }
@@ -589,6 +596,33 @@ class Translations$achievements$categories$en {
 
 	/// ru: 'Очки'
 	String get points => 'Points';
+}
+
+// Path: question.answer_reveal
+class Translations$question$answer_reveal$en {
+	Translations$question$answer_reveal$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'ВЕРНО'
+	String get correct => 'CORRECT';
+
+	/// ru: 'НЕВЕРНО'
+	String get incorrect => 'INCORRECT';
+
+	/// ru: '+$xp XP'
+	String xp_bonus({required Object xp}) => '+${xp} XP';
+
+	/// ru: '(one) {+$n СЕРИЯ} (few) {+$n СЕРИИ} (many) {+$n СЕРИЙ} (other) {+$n СЕРИИ}'
+	String streak_bonus({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: '+${n} STREAK',
+		other: '+${n} STREAK',
+	);
+
+	/// ru: 'СЛЕДУЮЩИЙ ВОПРОС'
+	String get next_question => 'NEXT QUESTION';
 }
 
 // Path: question.dialog
@@ -1161,6 +1195,15 @@ extension on Translations {
 			'achievements.categories.points' => 'Points',
 			'achievements.error' => 'Failed to load',
 			'achievements.retry' => 'Retry',
+			'question.answer_letters.0' => 'A',
+			'question.answer_letters.1' => 'B',
+			'question.answer_letters.2' => 'C',
+			'question.answer_letters.3' => 'D',
+			'question.answer_reveal.correct' => 'CORRECT',
+			'question.answer_reveal.incorrect' => 'INCORRECT',
+			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',
+			'question.answer_reveal.streak_bonus' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '+${n} STREAK', other: '+${n} STREAK', ), 
+			'question.answer_reveal.next_question' => 'NEXT QUESTION',
 			'question.dialog.correct.header.0' => 'Great job! You\'re absolutely correct',
 			'question.dialog.correct.header.1' => 'Well done! That\'s right',
 			'question.dialog.correct.prompt.0' => 'Ready to continue?',

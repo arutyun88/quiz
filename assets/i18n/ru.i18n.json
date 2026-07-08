@@ -183,6 +183,24 @@
         "retry": "Повторить"
     },
     "question": {
+        "answer_letters": [
+            "А",
+            "Б",
+            "В",
+            "Г"
+        ],
+        "answer_reveal": {
+            "correct": "ВЕРНО",
+            "incorrect": "НЕВЕРНО",
+            "xp_bonus": "+$xp XP",
+            "streak_bonus(n)": {
+                "one": "+$n СЕРИЯ",
+                "few": "+$n СЕРИИ",
+                "many": "+$n СЕРИЙ",
+                "other": "+$n СЕРИИ"
+            },
+            "next_question": "СЛЕДУЮЩИЙ ВОПРОС"
+        },
         "dialog": {
             "correct": {
                 "header": [

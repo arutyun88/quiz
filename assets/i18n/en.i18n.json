@@ -179,6 +179,22 @@
         "retry": "Retry"
     },
     "question": {
+        "answer_letters": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "answer_reveal": {
+            "correct": "CORRECT",
+            "incorrect": "INCORRECT",
+            "xp_bonus": "+$xp XP",
+            "streak_bonus(n)": {
+                "one": "+$n STREAK",
+                "other": "+$n STREAK"
+            },
+            "next_question": "NEXT QUESTION"
+        },
         "dialog": {
             "correct": {
                 "header": [

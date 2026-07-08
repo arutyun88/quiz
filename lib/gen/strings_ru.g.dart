@@ -163,6 +163,13 @@ class _Translations$question$ru implements Translations$question$en {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
+	@override List<String> get answer_letters => [
+		'А',
+		'Б',
+		'В',
+		'Г',
+	];
+	@override late final _Translations$question$answer_reveal$ru answer_reveal = _Translations$question$answer_reveal$ru._(_root);
 	@override late final _Translations$question$dialog$ru dialog = _Translations$question$dialog$ru._(_root);
 	@override late final _Translations$question$error_snackbar$ru error_snackbar = _Translations$question$error_snackbar$ru._(_root);
 }
@@ -401,6 +408,25 @@ class _Translations$achievements$categories$ru implements Translations$achieveme
 	@override String get accuracy => 'Точность';
 	@override String get streak => 'Серия';
 	@override String get points => 'Очки';
+}
+
+// Path: question.answer_reveal
+class _Translations$question$answer_reveal$ru implements Translations$question$answer_reveal$en {
+	_Translations$question$answer_reveal$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get correct => 'ВЕРНО';
+	@override String get incorrect => 'НЕВЕРНО';
+	@override String xp_bonus({required Object xp}) => '+${xp} XP';
+	@override String streak_bonus({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+		one: '+${n} СЕРИЯ',
+		few: '+${n} СЕРИИ',
+		many: '+${n} СЕРИЙ',
+		other: '+${n} СЕРИИ',
+	);
+	@override String get next_question => 'СЛЕДУЮЩИЙ ВОПРОС';
 }
 
 // Path: question.dialog
@@ -857,6 +883,15 @@ extension on TranslationsRu {
 			'achievements.categories.points' => 'Очки',
 			'achievements.error' => 'Не удалось загрузить',
 			'achievements.retry' => 'Повторить',
+			'question.answer_letters.0' => 'А',
+			'question.answer_letters.1' => 'Б',
+			'question.answer_letters.2' => 'В',
+			'question.answer_letters.3' => 'Г',
+			'question.answer_reveal.correct' => 'ВЕРНО',
+			'question.answer_reveal.incorrect' => 'НЕВЕРНО',
+			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',
+			'question.answer_reveal.streak_bonus' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '+${n} СЕРИЯ', few: '+${n} СЕРИИ', many: '+${n} СЕРИЙ', other: '+${n} СЕРИИ', ), 
+			'question.answer_reveal.next_question' => 'СЛЕДУЮЩИЙ ВОПРОС',
 			'question.dialog.correct.header.0' => 'Отлично, вы абсолютно правы',
 			'question.dialog.correct.header.1' => 'Верно, так держать',
 			'question.dialog.correct.prompt.0' => 'Готовы продолжить?',
