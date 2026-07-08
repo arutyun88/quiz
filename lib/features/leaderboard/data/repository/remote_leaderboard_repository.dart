@@ -51,4 +51,18 @@ class RemoteLeaderboardRepository implements LeaderboardRepository {
         ),
         converter: (dto) => _converter.convert(dto.data),
       );
+
+  @override
+  Future<Result<LeaderboardEntity, Failure>> fetchMyLastPeriodEntry(
+    LeaderboardPeriod period,
+  ) async =>
+      await _client.get(
+        '/gamification/leaderboard/me/history',
+        queryParameters: {'period': period.toApiValue()},
+        mapper: (json) => DataDto.fromJson(
+          json,
+          (json) => LeaderboardDto.fromJson(json as Json),
+        ),
+        converter: (dto) => _converter.convert(dto.data),
+      );
 }

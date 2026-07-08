@@ -55,6 +55,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$sign_in$en sign_in = Translations$sign_in$en._(_root);
 	late final Translations$sign_up$en sign_up = Translations$sign_up$en._(_root);
 	late final Translations$forgot_password$en forgot_password = Translations$forgot_password$en._(_root);
+	late final Translations$start_day$en start_day = Translations$start_day$en._(_root);
 	late final Translations$nav$en nav = Translations$nav$en._(_root);
 }
 
@@ -337,6 +338,51 @@ class Translations$forgot_password$en {
 
 	/// ru: 'Не удалось отправить ссылку. Попробуйте позже.'
 	String get error => 'Failed to send the link. Please try again later.';
+}
+
+// Path: start_day
+class Translations$start_day$en {
+	Translations$start_day$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'НАЧАТЬ ВЫПУСК'
+	String get start_button => 'START EDITION';
+
+	/// ru: 'ВЫПУСК ДНЯ ГОТОВ'
+	String get ready_title => 'DAILY EDITION READY';
+
+	/// ru: 'ПОСЛЕДНИЙ ВЫПУСК'
+	String get last_session_stats_title => 'LAST EDITION';
+
+	/// ru: 'В РЕЙТИНГЕ'
+	String get rank_label => 'RANK';
+
+	/// ru: 'ОЧКОВ'
+	String get points_label => 'POINTS';
+
+	/// ru: 'ТОЧНОСТЬ'
+	String get accuracy_label => 'ACCURACY';
+
+	/// ru: '(one) {вопрос} (few) {вопроса} (many) {вопросов} (other) {вопросов}'
+	String question_count_label({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: 'question',
+		other: 'questions',
+	);
+
+	/// ru: '(one) {~ $n МИНУТА} (few) {~ $n МИНУТЫ} (many) {~ $n МИНУТ} (other) {~ $n МИНУТ}'
+	String estimated_time({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: '~ ${n} MINUTE',
+		other: '~ ${n} MINUTES',
+	);
+
+	/// ru: 'Сыграйте сегодня, чтобы ${accent(не потерять серию)}'
+	TextSpan streak_warning({required InlineSpanBuilder accent}) => TextSpan(children: [
+		const TextSpan(text: 'Play today to '),
+		accent('keep your streak'),
+	]);
 }
 
 // Path: nav
@@ -1163,6 +1209,15 @@ extension on Translations {
 			'forgot_password.hint' => 'Link is valid for 15 minutes. Check your Spam folder if the email doesn\'t arrive.',
 			'forgot_password.success' => 'Link sent. Check your inbox.',
 			'forgot_password.error' => 'Failed to send the link. Please try again later.',
+			'start_day.start_button' => 'START EDITION',
+			'start_day.ready_title' => 'DAILY EDITION READY',
+			'start_day.last_session_stats_title' => 'LAST EDITION',
+			'start_day.rank_label' => 'RANK',
+			'start_day.points_label' => 'POINTS',
+			'start_day.accuracy_label' => 'ACCURACY',
+			'start_day.question_count_label' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'question', other: 'questions', ), 
+			'start_day.estimated_time' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '~ ${n} MINUTE', other: '~ ${n} MINUTES', ), 
+			'start_day.streak_warning' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today to '), accent('keep your streak'), ]), 
 			'nav.game' => 'GAME',
 			'nav.leaderboard' => 'RANK',
 			'nav.profile' => 'PROFILE',

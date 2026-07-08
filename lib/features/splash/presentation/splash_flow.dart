@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/app/core/services/settings_local_storage_service.dart';
+import 'package:quiz/app/core/utils/route_authenticated_user.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/splash/provider/initialization_provider.dart';
-import 'package:quiz/features/user/domain/entity/user_entity.dart';
 
 class SplashFlow extends ConsumerWidget {
   const SplashFlow({super.key});
@@ -17,14 +17,7 @@ class SplashFlow extends ConsumerWidget {
       (_, state) => state.whenData(
         (_) {
           ref.read(authenticationProvider).whenOrNull(
-            authenticated: (user) {
-              if (user case UserEntity user
-                  when user.name is String && user.name!.isNotEmpty && user.birthDate is DateTime) {
-                context.go('/');
-              } else {
-                context.goNamed('profile-edit');
-              }
-            },
+            authenticated: (user) => routeAuthenticatedUser(context, user),
             unauthenticated: (_) {
               final storage = getIt<SettingsLocalStorageService>();
               if (storage.isOnboardingSeen) {

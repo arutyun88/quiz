@@ -260,6 +260,23 @@
         "success": "Link sent. Check your inbox.",
         "error": "Failed to send the link. Please try again later."
     },
+    "start_day": {
+        "start_button": "START EDITION",
+        "ready_title": "DAILY EDITION READY",
+        "last_session_stats_title": "LAST EDITION",
+        "rank_label": "RANK",
+        "points_label": "POINTS",
+        "accuracy_label": "ACCURACY",
+        "question_count_label(n)": {
+            "one": "question",
+            "other": "questions"
+        },
+        "estimated_time(n)": {
+            "one": "~ $n MINUTE",
+            "other": "~ $n MINUTES"
+        },
+        "streak_warning(rich)": "Play today to ${accent(keep your streak)}"
+    },
     "nav": {
         "game": "GAME",
         "leaderboard": "RANK",

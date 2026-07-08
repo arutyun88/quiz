@@ -44,6 +44,8 @@ import '../../features/question/data/converter/answer_result_converter.dart'
     as _i1044;
 import '../../features/question/data/converter/answered_question_db_converter.dart'
     as _i988;
+import '../../features/question/data/converter/answered_today_dto_converter.dart'
+    as _i60;
 import '../../features/question/data/converter/question_converter.dart'
     as _i622;
 import '../../features/question/data/converter/question_db_converter.dart'
@@ -157,6 +159,8 @@ extension GetItInjectableX on _i174.GetIt {
           .remoteConfigService(gh<_i627.FirebaseRemoteConfig>()),
       preResolve: true,
     );
+    gh.factory<_i60.AnsweredTodayDtoConverter>(
+        () => _i60.AnsweredTodayDtoConverterImpl());
     gh.factory<_i988.AnsweredQuestionDbConverter>(
         () => const _i988.AnsweredQuestionDbConverterImpl());
     gh.lazySingleton<_i218.SettingsLocalStorageService>(() => localStorageModule
@@ -240,6 +244,13 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i782.ApiClient>(),
               gh<_i740.UserStatisticsConverter>(),
             ));
+    gh.lazySingleton<_i240.QuestionRepository>(
+        () => questionModule.questionRepository(
+              client: gh<_i782.ApiClient>(),
+              questionpageConverter: gh<_i622.QuestionPageConverter>(),
+              questionStateDtoConverter: gh<_i122.QuestionStateDtoConverter>(),
+              answeredTodayDtoConverter: gh<_i60.AnsweredTodayDtoConverter>(),
+            ));
     gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
         .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
     gh.lazySingleton<_i482.ChangeUserInfoGateway>(
@@ -257,16 +268,16 @@ extension GetItInjectableX on _i174.GetIt {
               pageConverter: gh<_i1065.LeaderboardPageConverter>(),
               converter: gh<_i1065.LeaderboardConverter>(),
             ));
+    gh.factory<_i137.CheckQuestionStateUseCase>(
+        () => _i137.CheckQuestionStateUseCaseImpl(
+              questionRepository: gh<_i240.QuestionRepository>(),
+              tokenService: gh<_i422.AuthTokenService>(),
+              answeredQuestionDao: gh<_i426.AnsweredQuestionDao>(),
+            ));
     gh.lazySingleton<_i31.GamificationRepository>(
         () => gamificationModule.gamificationRepository(
               gh<_i782.ApiClient>(),
               gh<_i508.UserLevelConverter>(),
-            ));
-    gh.lazySingleton<_i240.QuestionRepository>(
-        () => questionModule.questionRepository(
-              client: gh<_i782.ApiClient>(),
-              questionpageConverter: gh<_i622.QuestionPageConverter>(),
-              questionStateDtoConverter: gh<_i122.QuestionStateDtoConverter>(),
             ));
     gh.lazySingleton<_i797.AuthenticationRepository>(
         () => authenticationModule.repository(client: gh<_i782.ApiClient>()));
@@ -315,12 +326,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i953.SyncCachedAnswersUseCaseImpl(
               cachedQuestionService: gh<_i847.CachedQuestionService>(),
               answerRepository: gh<_i209.AnswerRepository>(),
-            ));
-    gh.factory<_i137.CheckQuestionStateUseCase>(
-        () => _i137.CheckQuestionStateUseCaseImpl(
-              questionRepository: gh<_i240.QuestionRepository>(),
-              tokenService: gh<_i422.AuthTokenService>(),
-              answeredQuestionDao: gh<_i426.AnsweredQuestionDao>(),
             ));
     return this;
   }

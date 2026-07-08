@@ -52,6 +52,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$sign_in$ru sign_in = _Translations$sign_in$ru._(_root);
 	@override late final _Translations$sign_up$ru sign_up = _Translations$sign_up$ru._(_root);
 	@override late final _Translations$forgot_password$ru forgot_password = _Translations$forgot_password$ru._(_root);
+	@override late final _Translations$start_day$ru start_day = _Translations$start_day$ru._(_root);
 	@override late final _Translations$nav$ru nav = _Translations$nav$ru._(_root);
 }
 
@@ -230,6 +231,37 @@ class _Translations$forgot_password$ru implements Translations$forgot_password$e
 	@override String get hint => 'Ссылка действует 15 минут. Проверьте папку «Спам», если письмо не пришло.';
 	@override String get success => 'Ссылка отправлена. Проверьте почту.';
 	@override String get error => 'Не удалось отправить ссылку. Попробуйте позже.';
+}
+
+// Path: start_day
+class _Translations$start_day$ru implements Translations$start_day$en {
+	_Translations$start_day$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get start_button => 'НАЧАТЬ ВЫПУСК';
+	@override String get ready_title => 'ВЫПУСК ДНЯ ГОТОВ';
+	@override String get last_session_stats_title => 'ПОСЛЕДНИЙ ВЫПУСК';
+	@override String get rank_label => 'В РЕЙТИНГЕ';
+	@override String get points_label => 'ОЧКОВ';
+	@override String get accuracy_label => 'ТОЧНОСТЬ';
+	@override String question_count_label({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+		one: 'вопрос',
+		few: 'вопроса',
+		many: 'вопросов',
+		other: 'вопросов',
+	);
+	@override String estimated_time({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+		one: '~ ${n} МИНУТА',
+		few: '~ ${n} МИНУТЫ',
+		many: '~ ${n} МИНУТ',
+		other: '~ ${n} МИНУТ',
+	);
+	@override TextSpan streak_warning({required InlineSpanBuilder accent}) => TextSpan(children: [
+		const TextSpan(text: 'Сыграйте сегодня, чтобы '),
+		accent('не потерять серию'),
+	]);
 }
 
 // Path: nav
@@ -873,6 +905,15 @@ extension on TranslationsRu {
 			'forgot_password.hint' => 'Ссылка действует 15 минут. Проверьте папку «Спам», если письмо не пришло.',
 			'forgot_password.success' => 'Ссылка отправлена. Проверьте почту.',
 			'forgot_password.error' => 'Не удалось отправить ссылку. Попробуйте позже.',
+			'start_day.start_button' => 'НАЧАТЬ ВЫПУСК',
+			'start_day.ready_title' => 'ВЫПУСК ДНЯ ГОТОВ',
+			'start_day.last_session_stats_title' => 'ПОСЛЕДНИЙ ВЫПУСК',
+			'start_day.rank_label' => 'В РЕЙТИНГЕ',
+			'start_day.points_label' => 'ОЧКОВ',
+			'start_day.accuracy_label' => 'ТОЧНОСТЬ',
+			'start_day.question_count_label' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'вопрос', few: 'вопроса', many: 'вопросов', other: 'вопросов', ), 
+			'start_day.estimated_time' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '~ ${n} МИНУТА', few: '~ ${n} МИНУТЫ', many: '~ ${n} МИНУТ', other: '~ ${n} МИНУТ', ), 
+			'start_day.streak_warning' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Сыграйте сегодня, чтобы '), accent('не потерять серию'), ]), 
 			'nav.game' => 'ИГРА',
 			'nav.leaderboard' => 'РЕЙТИНГ',
 			'nav.profile' => 'ПРОФИЛЬ',

@@ -8,4 +8,6 @@ abstract interface class LeaderboardRepository {
   Future<Result<PageEntity<LeaderboardEntity>, Failure>> fetchBoard(LeaderboardPeriod period);
 
   Future<Result<LeaderboardEntity, Failure>> fetchMyEntry(LeaderboardPeriod period);
+
+  Future<Result<LeaderboardEntity, Failure>> fetchMyLastPeriodEntry(LeaderboardPeriod period);
 }

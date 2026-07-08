@@ -264,6 +264,27 @@
         "success": "Ссылка отправлена. Проверьте почту.",
         "error": "Не удалось отправить ссылку. Попробуйте позже."
     },
+    "start_day": {
+        "start_button": "НАЧАТЬ ВЫПУСК",
+        "ready_title": "ВЫПУСК ДНЯ ГОТОВ",
+        "last_session_stats_title": "ПОСЛЕДНИЙ ВЫПУСК",
+        "rank_label": "В РЕЙТИНГЕ",
+        "points_label": "ОЧКОВ",
+        "accuracy_label": "ТОЧНОСТЬ",
+        "question_count_label(n)": {
+            "one": "вопрос",
+            "few": "вопроса",
+            "many": "вопросов",
+            "other": "вопросов"
+        },
+        "estimated_time(n)": {
+            "one": "~ $n МИНУТА",
+            "few": "~ $n МИНУТЫ",
+            "many": "~ $n МИНУТ",
+            "other": "~ $n МИНУТ"
+        },
+        "streak_warning(rich)": "Сыграйте сегодня, чтобы ${accent(не потерять серию)}"
+    },
     "nav": {
         "game": "ИГРА",
         "leaderboard": "РЕЙТИНГ",
