@@ -12,6 +12,7 @@ class Palette extends ThemeExtension<Palette> {
     required this.divider,
     required this.answer,
     required this.base,
+    required this.bottomSheet,
   });
 
   // TODO: rename background.static → background.main and background.dynamic → background.surface once the redesign is complete
@@ -25,6 +26,7 @@ class Palette extends ThemeExtension<Palette> {
   final Color divider;
   final AnswerColor answer;
   final BaseColor base;
+  final BottomSheetColor bottomSheet;
 
   static Palette light = Palette._(
     background: BackgroundColor(
@@ -68,6 +70,15 @@ class Palette extends ThemeExtension<Palette> {
       gold: const Color(0xFFBC8A2E),
       silver: const Color(0xFF8C8678),
       bronze: const Color(0xFFA26A3C),
+    ),
+    bottomSheet: BottomSheetColor(
+      background: const Color(0xFFF3EFE6),
+      foreground: const Color(0xFF18160F),
+      scrim: const Color(0xFF18160F).withValues(alpha: 0.18),
+      headerBackground: const Color(0xFF18160F),
+      headerForeground: const Color(0xFFF3EFE6),
+      buttonBackground: const Color(0xFF18160F),
+      buttonForeground: const Color(0xFFF3EFE6),
     ),
   );
 
@@ -114,6 +125,15 @@ class Palette extends ThemeExtension<Palette> {
       silver: const Color(0xFF8C8678),
       bronze: const Color(0xFFA26A3C),
     ),
+    bottomSheet: BottomSheetColor(
+      background: const Color(0xFF2A2720),
+      foreground: const Color(0xFFF3EFE6),
+      scrim: const Color(0xFFF3EFE6).withValues(alpha: 0.04),
+      headerBackground: const Color(0xFF2A2720),
+      headerForeground: const Color(0xFFF3EFE6),
+      buttonBackground: const Color(0xFF3A372E),
+      buttonForeground: const Color(0xFFF3EFE6),
+    ),
   );
 
   @override
@@ -128,6 +148,7 @@ class Palette extends ThemeExtension<Palette> {
     Color? divider,
     AnswerColor? answer,
     BaseColor? base,
+    BottomSheetColor? bottomSheet,
   }) {
     return Palette._(
       background: background ?? this.background,
@@ -140,6 +161,7 @@ class Palette extends ThemeExtension<Palette> {
       divider: divider ?? this.divider,
       answer: answer ?? this.answer,
       base: base ?? this.base,
+      bottomSheet: bottomSheet ?? this.bottomSheet,
     );
   }
 
@@ -157,6 +179,7 @@ class Palette extends ThemeExtension<Palette> {
         divider: Color.lerp(divider, other.divider, t)!,
         answer: answer.lerp(other.answer, t),
         base: base.lerp(other.base, t),
+        bottomSheet: bottomSheet.lerp(other.bottomSheet, t),
       );
     }
     return this;
@@ -207,7 +230,8 @@ class TextColor {
   final Color secondary;
   final Color accent;
 
-  TextColor({required this.primary, required this.secondary, required this.accent});
+  TextColor(
+      {required this.primary, required this.secondary, required this.accent});
 
   TextColor lerp(TextColor? other, double t) {
     if (other == null) return this;
@@ -238,7 +262,8 @@ class TextFieldColor {
     if (other == null) return this;
     return TextFieldColor(
       background: Color.lerp(background, other.background, t)!,
-      disabledBackground: Color.lerp(disabledBackground, other.disabledBackground, t)!,
+      disabledBackground:
+          Color.lerp(disabledBackground, other.disabledBackground, t)!,
       labelColor: Color.lerp(labelColor, other.labelColor, t)!,
       hintColor: Color.lerp(hintColor, other.hintColor, t)!,
       cursorColor: Color.lerp(cursorColor, other.cursorColor, t)!,
@@ -264,8 +289,10 @@ class ButtonColor {
     return ButtonColor(
       background: Color.lerp(background, other.background, t)!,
       foreground: Color.lerp(foreground, other.foreground, t)!,
-      disabledBackground: Color.lerp(disabledBackground, other.disabledBackground, t)!,
-      disabledForeground: Color.lerp(disabledForeground, other.disabledForeground, t)!,
+      disabledBackground:
+          Color.lerp(disabledBackground, other.disabledBackground, t)!,
+      disabledForeground:
+          Color.lerp(disabledForeground, other.disabledForeground, t)!,
     );
   }
 }
@@ -311,6 +338,43 @@ class BaseColor {
       gold: Color.lerp(gold, other.gold, t)!,
       silver: Color.lerp(silver, other.silver, t)!,
       bronze: Color.lerp(bronze, other.bronze, t)!,
+    );
+  }
+}
+
+class BottomSheetColor {
+  final Color background;
+  final Color foreground;
+  final Color scrim;
+  final Color headerBackground;
+  final Color headerForeground;
+  final Color buttonBackground;
+  final Color buttonForeground;
+
+  BottomSheetColor({
+    required this.background,
+    required this.foreground,
+    required this.scrim,
+    required this.headerBackground,
+    required this.headerForeground,
+    required this.buttonBackground,
+    required this.buttonForeground,
+  });
+
+  BottomSheetColor lerp(BottomSheetColor? other, double t) {
+    if (other == null) return this;
+    return BottomSheetColor(
+      background: Color.lerp(background, other.background, t)!,
+      foreground: Color.lerp(foreground, other.foreground, t)!,
+      scrim: Color.lerp(scrim, other.scrim, t)!,
+      headerBackground:
+          Color.lerp(headerBackground, other.headerBackground, t)!,
+      headerForeground:
+          Color.lerp(headerForeground, other.headerForeground, t)!,
+      buttonBackground:
+          Color.lerp(buttonBackground, other.buttonBackground, t)!,
+      buttonForeground:
+          Color.lerp(buttonForeground, other.buttonForeground, t)!,
     );
   }
 }

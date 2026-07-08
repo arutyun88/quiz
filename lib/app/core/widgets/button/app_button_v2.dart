@@ -11,6 +11,10 @@ class AppButtonV2 extends StatefulWidget {
     super.key,
     required this.label,
     this.onTap,
+    this.backgroundColor,
+    this.foregroundColor,
+    this.disabledBackgroundColor,
+    this.disabledForegroundColor,
   });
 
   final String label;
@@ -18,6 +22,10 @@ class AppButtonV2 extends StatefulWidget {
   /// Receives [complete] — call it to trigger the completion animation and
   /// return the button to its idle state.
   final FutureOr<void> Function(VoidCallback complete)? onTap;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final Color? disabledBackgroundColor;
+  final Color? disabledForegroundColor;
 
   bool get isEnabled => onTap != null;
 
@@ -25,7 +33,8 @@ class AppButtonV2 extends StatefulWidget {
   State<AppButtonV2> createState() => _AppButtonV2State();
 }
 
-class _AppButtonV2State extends State<AppButtonV2> with SingleTickerProviderStateMixin {
+class _AppButtonV2State extends State<AppButtonV2>
+    with SingleTickerProviderStateMixin {
   bool _loading = false;
   bool _completing = false;
   bool _pressed = false;
@@ -99,6 +108,12 @@ class _AppButtonV2State extends State<AppButtonV2> with SingleTickerProviderStat
     final colors = context.palette;
 
     final interactive = widget.isEnabled && !_loading;
+    final backgroundColor = widget.isEnabled
+        ? widget.backgroundColor ?? colors.text.primary
+        : widget.disabledBackgroundColor ?? colors.text.secondary;
+    final foregroundColor = widget.isEnabled
+        ? widget.foregroundColor ?? colors.background.static
+        : widget.disabledForegroundColor ?? colors.background.static;
 
     return GestureDetector(
       onTap: interactive ? _handleTap : null,
@@ -109,7 +124,7 @@ class _AppButtonV2State extends State<AppButtonV2> with SingleTickerProviderStat
         opacity: _pressed ? 0.7 : 1.0,
         duration: const Duration(milliseconds: 80),
         child: Container(
-          color: widget.isEnabled ? colors.text.primary : colors.text.secondary,
+          color: backgroundColor,
           padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -120,7 +135,7 @@ class _AppButtonV2State extends State<AppButtonV2> with SingleTickerProviderStat
                   fontSize: 13,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 1.5,
-                  color: colors.background.static,
+                  color: foregroundColor,
                 ),
               ),
               SizedBox.square(
@@ -131,28 +146,30 @@ class _AppButtonV2State extends State<AppButtonV2> with SingleTickerProviderStat
                       ? _completing
                           ? FadeTransition(
                               key: const ValueKey('completing'),
-                              opacity: Tween(begin: 1.0, end: 0.0).animate(_completeController),
+                              opacity: Tween(begin: 1.0, end: 0.0)
+                                  .animate(_completeController),
                               child: ScaleTransition(
-                                scale: Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
+                                scale: Tween(begin: 1.0, end: 0.0)
+                                    .animate(CurvedAnimation(
                                   parent: _completeController,
                                   curve: Curves.easeIn,
                                 )),
                                 child: CircularProgressIndicator(
-                                  color: colors.background.static,
+                                  color: foregroundColor,
                                   strokeWidth: 2,
                                 ),
                               ),
                             )
                           : CircularProgressIndicator(
                               key: const ValueKey('loading'),
-                              color: colors.background.static,
+                              color: foregroundColor,
                               strokeWidth: 2,
                             )
                       : Icon(
                           key: const ValueKey('arrow'),
                           Icons.arrow_forward,
                           size: 20,
-                          color: colors.background.static,
+                          color: foregroundColor,
                         ),
                 ),
               ),
