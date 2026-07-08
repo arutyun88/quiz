@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/utils/authentication_failure_snack_bar.dart';
+import 'package:quiz/app/core/utils/route_authenticated_user.dart';
 import 'package:quiz/app/core/utils/validation_exp_ex.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
 import 'package:quiz/app/core/widgets/button/app_button_v2.dart';
@@ -46,13 +47,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     ref.listen(authenticationProvider, (_, next) {
       next.when(
-        authenticated: (user) {
-          if (user?.name is! String || user?.birthDate is! DateTime) {
-            context.goNamed('profile-edit');
-          } else {
-            context.pop();
-          }
-        },
+        authenticated: (user) => routeAuthenticatedUser(context, user),
         unauthenticated: (failure) {
           if (failure case Failure failure when failure is AuthenticationFailure) {
             showAuthenticationFailureSnackBar(context, type: failure.type);
@@ -73,11 +68,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 padding: const EdgeInsets.fromLTRB(22, 16, 22, 14),
                 child: Row(
                   children: [
-                    GestureDetector(
-                      onTap: context.pop,
-                      child: Icon(Icons.arrow_back, size: 22, color: colors.text.primary),
-                    ),
-                    const SizedBox(width: 12),
+                    if (context.canPop()) ...[
+                      GestureDetector(
+                        onTap: context.pop,
+                        child: Icon(Icons.arrow_back, size: 22, color: colors.text.primary),
+                      ),
+                      const SizedBox(width: 12),
+                    ],
                     Text(
                       'QUIZ.',
                       style: GoogleFonts.unbounded(
