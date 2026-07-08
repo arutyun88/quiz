@@ -6,7 +6,7 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
   final SendAnswerUseCase _sendAnswerUseCase;
   final QuestionIdService _questionIdService;
 
-  static const Duration _timerDuration = Duration(seconds: 5);
+  static const Duration _timerDuration = Duration(seconds: 3);
   Timer? _timer;
 
   QuestionNotifier({
@@ -182,6 +182,8 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
               answer: answer,
               correctAnswerId: data.correctAnswerId,
               description: data.description,
+              xp: data.xp,
+              streakDelta: data.streakDelta,
             ),
           );
         case ResultFailed(error: final failure):

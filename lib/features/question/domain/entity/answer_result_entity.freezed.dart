@@ -20,6 +20,8 @@ mixin _$AnswerResultEntity {
   String get correctAnswerId => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   bool get isCorrect => throw _privateConstructorUsedError;
+  int get xp => throw _privateConstructorUsedError;
+  int get streakDelta => throw _privateConstructorUsedError;
 
   /// Create a copy of AnswerResultEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -38,7 +40,9 @@ abstract class $AnswerResultEntityCopyWith<$Res> {
       {String answerId,
       String correctAnswerId,
       String description,
-      bool isCorrect});
+      bool isCorrect,
+      int xp,
+      int streakDelta});
 }
 
 /// @nodoc
@@ -60,6 +64,8 @@ class _$AnswerResultEntityCopyWithImpl<$Res, $Val extends AnswerResultEntity>
     Object? correctAnswerId = null,
     Object? description = null,
     Object? isCorrect = null,
+    Object? xp = null,
+    Object? streakDelta = null,
   }) {
     return _then(_value.copyWith(
       answerId: null == answerId
@@ -78,6 +84,14 @@ class _$AnswerResultEntityCopyWithImpl<$Res, $Val extends AnswerResultEntity>
           ? _value.isCorrect
           : isCorrect // ignore: cast_nullable_to_non_nullable
               as bool,
+      xp: null == xp
+          ? _value.xp
+          : xp // ignore: cast_nullable_to_non_nullable
+              as int,
+      streakDelta: null == streakDelta
+          ? _value.streakDelta
+          : streakDelta // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -94,7 +108,9 @@ abstract class _$$AnswerResultEntityImplCopyWith<$Res>
       {String answerId,
       String correctAnswerId,
       String description,
-      bool isCorrect});
+      bool isCorrect,
+      int xp,
+      int streakDelta});
 }
 
 /// @nodoc
@@ -114,6 +130,8 @@ class __$$AnswerResultEntityImplCopyWithImpl<$Res>
     Object? correctAnswerId = null,
     Object? description = null,
     Object? isCorrect = null,
+    Object? xp = null,
+    Object? streakDelta = null,
   }) {
     return _then(_$AnswerResultEntityImpl(
       answerId: null == answerId
@@ -132,6 +150,14 @@ class __$$AnswerResultEntityImplCopyWithImpl<$Res>
           ? _value.isCorrect
           : isCorrect // ignore: cast_nullable_to_non_nullable
               as bool,
+      xp: null == xp
+          ? _value.xp
+          : xp // ignore: cast_nullable_to_non_nullable
+              as int,
+      streakDelta: null == streakDelta
+          ? _value.streakDelta
+          : streakDelta // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -143,7 +169,9 @@ class _$AnswerResultEntityImpl implements _AnswerResultEntity {
       {required this.answerId,
       required this.correctAnswerId,
       required this.description,
-      required this.isCorrect});
+      required this.isCorrect,
+      required this.xp,
+      required this.streakDelta});
 
   @override
   final String answerId;
@@ -153,10 +181,14 @@ class _$AnswerResultEntityImpl implements _AnswerResultEntity {
   final String description;
   @override
   final bool isCorrect;
+  @override
+  final int xp;
+  @override
+  final int streakDelta;
 
   @override
   String toString() {
-    return 'AnswerResultEntity(answerId: $answerId, correctAnswerId: $correctAnswerId, description: $description, isCorrect: $isCorrect)';
+    return 'AnswerResultEntity(answerId: $answerId, correctAnswerId: $correctAnswerId, description: $description, isCorrect: $isCorrect, xp: $xp, streakDelta: $streakDelta)';
   }
 
   @override
@@ -171,12 +203,15 @@ class _$AnswerResultEntityImpl implements _AnswerResultEntity {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.isCorrect, isCorrect) ||
-                other.isCorrect == isCorrect));
+                other.isCorrect == isCorrect) &&
+            (identical(other.xp, xp) || other.xp == xp) &&
+            (identical(other.streakDelta, streakDelta) ||
+                other.streakDelta == streakDelta));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, answerId, correctAnswerId, description, isCorrect);
+  int get hashCode => Object.hash(runtimeType, answerId, correctAnswerId,
+      description, isCorrect, xp, streakDelta);
 
   /// Create a copy of AnswerResultEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -193,7 +228,9 @@ abstract class _AnswerResultEntity implements AnswerResultEntity {
       {required final String answerId,
       required final String correctAnswerId,
       required final String description,
-      required final bool isCorrect}) = _$AnswerResultEntityImpl;
+      required final bool isCorrect,
+      required final int xp,
+      required final int streakDelta}) = _$AnswerResultEntityImpl;
 
   @override
   String get answerId;
@@ -203,6 +240,10 @@ abstract class _AnswerResultEntity implements AnswerResultEntity {
   String get description;
   @override
   bool get isCorrect;
+  @override
+  int get xp;
+  @override
+  int get streakDelta;
 
   /// Create a copy of AnswerResultEntity
   /// with the given fields replaced by the non-null parameter values.

@@ -10,6 +10,8 @@ class AnswerResultDto with _$AnswerResultDto {
     @JsonKey(name: 'correct_answer_id') required String correctAnswerId,
     required String description,
     @JsonKey(name: 'is_correct') required bool isCorrect,
+    @JsonKey(defaultValue: 0) required int xp,
+    @JsonKey(name: 'streak_delta', defaultValue: 0) required int streakDelta,
   }) = _AnswerResultDto;
 
   factory AnswerResultDto.fromJson(Map<String, dynamic> json) => _$AnswerResultDtoFromJson(json);

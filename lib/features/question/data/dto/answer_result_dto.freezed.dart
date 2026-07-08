@@ -27,6 +27,10 @@ mixin _$AnswerResultDto {
   String get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_correct')
   bool get isCorrect => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: 0)
+  int get xp => throw _privateConstructorUsedError;
+  @JsonKey(name: 'streak_delta', defaultValue: 0)
+  int get streakDelta => throw _privateConstructorUsedError;
 
   /// Serializes this AnswerResultDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,7 +52,9 @@ abstract class $AnswerResultDtoCopyWith<$Res> {
       {@JsonKey(name: 'answer_id') String userAnswerId,
       @JsonKey(name: 'correct_answer_id') String correctAnswerId,
       String description,
-      @JsonKey(name: 'is_correct') bool isCorrect});
+      @JsonKey(name: 'is_correct') bool isCorrect,
+      @JsonKey(defaultValue: 0) int xp,
+      @JsonKey(name: 'streak_delta', defaultValue: 0) int streakDelta});
 }
 
 /// @nodoc
@@ -70,6 +76,8 @@ class _$AnswerResultDtoCopyWithImpl<$Res, $Val extends AnswerResultDto>
     Object? correctAnswerId = null,
     Object? description = null,
     Object? isCorrect = null,
+    Object? xp = null,
+    Object? streakDelta = null,
   }) {
     return _then(_value.copyWith(
       userAnswerId: null == userAnswerId
@@ -88,6 +96,14 @@ class _$AnswerResultDtoCopyWithImpl<$Res, $Val extends AnswerResultDto>
           ? _value.isCorrect
           : isCorrect // ignore: cast_nullable_to_non_nullable
               as bool,
+      xp: null == xp
+          ? _value.xp
+          : xp // ignore: cast_nullable_to_non_nullable
+              as int,
+      streakDelta: null == streakDelta
+          ? _value.streakDelta
+          : streakDelta // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -104,7 +120,9 @@ abstract class _$$AnswerResultDtoImplCopyWith<$Res>
       {@JsonKey(name: 'answer_id') String userAnswerId,
       @JsonKey(name: 'correct_answer_id') String correctAnswerId,
       String description,
-      @JsonKey(name: 'is_correct') bool isCorrect});
+      @JsonKey(name: 'is_correct') bool isCorrect,
+      @JsonKey(defaultValue: 0) int xp,
+      @JsonKey(name: 'streak_delta', defaultValue: 0) int streakDelta});
 }
 
 /// @nodoc
@@ -124,6 +142,8 @@ class __$$AnswerResultDtoImplCopyWithImpl<$Res>
     Object? correctAnswerId = null,
     Object? description = null,
     Object? isCorrect = null,
+    Object? xp = null,
+    Object? streakDelta = null,
   }) {
     return _then(_$AnswerResultDtoImpl(
       userAnswerId: null == userAnswerId
@@ -142,6 +162,14 @@ class __$$AnswerResultDtoImplCopyWithImpl<$Res>
           ? _value.isCorrect
           : isCorrect // ignore: cast_nullable_to_non_nullable
               as bool,
+      xp: null == xp
+          ? _value.xp
+          : xp // ignore: cast_nullable_to_non_nullable
+              as int,
+      streakDelta: null == streakDelta
+          ? _value.streakDelta
+          : streakDelta // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -153,7 +181,10 @@ class _$AnswerResultDtoImpl implements _AnswerResultDto {
       {@JsonKey(name: 'answer_id') required this.userAnswerId,
       @JsonKey(name: 'correct_answer_id') required this.correctAnswerId,
       required this.description,
-      @JsonKey(name: 'is_correct') required this.isCorrect});
+      @JsonKey(name: 'is_correct') required this.isCorrect,
+      @JsonKey(defaultValue: 0) required this.xp,
+      @JsonKey(name: 'streak_delta', defaultValue: 0)
+      required this.streakDelta});
 
   factory _$AnswerResultDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$AnswerResultDtoImplFromJson(json);
@@ -169,10 +200,16 @@ class _$AnswerResultDtoImpl implements _AnswerResultDto {
   @override
   @JsonKey(name: 'is_correct')
   final bool isCorrect;
+  @override
+  @JsonKey(defaultValue: 0)
+  final int xp;
+  @override
+  @JsonKey(name: 'streak_delta', defaultValue: 0)
+  final int streakDelta;
 
   @override
   String toString() {
-    return 'AnswerResultDto(userAnswerId: $userAnswerId, correctAnswerId: $correctAnswerId, description: $description, isCorrect: $isCorrect)';
+    return 'AnswerResultDto(userAnswerId: $userAnswerId, correctAnswerId: $correctAnswerId, description: $description, isCorrect: $isCorrect, xp: $xp, streakDelta: $streakDelta)';
   }
 
   @override
@@ -187,13 +224,16 @@ class _$AnswerResultDtoImpl implements _AnswerResultDto {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.isCorrect, isCorrect) ||
-                other.isCorrect == isCorrect));
+                other.isCorrect == isCorrect) &&
+            (identical(other.xp, xp) || other.xp == xp) &&
+            (identical(other.streakDelta, streakDelta) ||
+                other.streakDelta == streakDelta));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, userAnswerId, correctAnswerId, description, isCorrect);
+  int get hashCode => Object.hash(runtimeType, userAnswerId, correctAnswerId,
+      description, isCorrect, xp, streakDelta);
 
   /// Create a copy of AnswerResultDto
   /// with the given fields replaced by the non-null parameter values.
@@ -217,8 +257,10 @@ abstract class _AnswerResultDto implements AnswerResultDto {
       {@JsonKey(name: 'answer_id') required final String userAnswerId,
       @JsonKey(name: 'correct_answer_id') required final String correctAnswerId,
       required final String description,
-      @JsonKey(name: 'is_correct')
-      required final bool isCorrect}) = _$AnswerResultDtoImpl;
+      @JsonKey(name: 'is_correct') required final bool isCorrect,
+      @JsonKey(defaultValue: 0) required final int xp,
+      @JsonKey(name: 'streak_delta', defaultValue: 0)
+      required final int streakDelta}) = _$AnswerResultDtoImpl;
 
   factory _AnswerResultDto.fromJson(Map<String, dynamic> json) =
       _$AnswerResultDtoImpl.fromJson;
@@ -234,6 +276,12 @@ abstract class _AnswerResultDto implements AnswerResultDto {
   @override
   @JsonKey(name: 'is_correct')
   bool get isCorrect;
+  @override
+  @JsonKey(defaultValue: 0)
+  int get xp;
+  @override
+  @JsonKey(name: 'streak_delta', defaultValue: 0)
+  int get streakDelta;
 
   /// Create a copy of AnswerResultDto
   /// with the given fields replaced by the non-null parameter values.

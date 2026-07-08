@@ -9,5 +9,7 @@ class AnswerResultEntity with _$AnswerResultEntity {
     required String correctAnswerId,
     required String description,
     required bool isCorrect,
+    required int xp,
+    required int streakDelta,
   }) = _AnswerResultEntity;
 }

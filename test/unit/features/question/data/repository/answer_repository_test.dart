@@ -20,6 +20,8 @@ final _answerResult = AnswerResultEntity(
   correctAnswerId: 'a2',
   description: 'Correct',
   isCorrect: true,
+  xp: 10,
+  streakDelta: 1,
 );
 
 final _userStatistics = UserStatisticsEntity(rightCount: 5, wrongCount: 2);

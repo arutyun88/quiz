@@ -15,6 +15,8 @@ final class AnswerResultConverterImpl extends AnswerResultConverter {
       correctAnswerId: dto.data.correctAnswerId,
       description: dto.data.description,
       isCorrect: dto.data.isCorrect,
+      xp: dto.data.xp,
+      streakDelta: dto.data.streakDelta,
     );
   }
 }

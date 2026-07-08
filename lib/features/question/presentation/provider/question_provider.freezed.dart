@@ -714,8 +714,8 @@ mixin _$QuestionAnswerState {
     required TResult Function(AnswerEntity answer, AnswerTimerState timerState)
         selected,
     required TResult Function(AnswerEntity answer) sending,
-    required TResult Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)
+    required TResult Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)
         sent,
     required TResult Function(AnswerEntity answer, Failure failure) failed,
   }) =>
@@ -726,8 +726,8 @@ mixin _$QuestionAnswerState {
     TResult? Function(AnswerEntity answer, AnswerTimerState timerState)?
         selected,
     TResult? Function(AnswerEntity answer)? sending,
-    TResult? Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)?
+    TResult? Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)?
         sent,
     TResult? Function(AnswerEntity answer, Failure failure)? failed,
   }) =>
@@ -738,8 +738,8 @@ mixin _$QuestionAnswerState {
     TResult Function(AnswerEntity answer, AnswerTimerState timerState)?
         selected,
     TResult Function(AnswerEntity answer)? sending,
-    TResult Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)?
+    TResult Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)?
         sent,
     TResult Function(AnswerEntity answer, Failure failure)? failed,
     required TResult orElse(),
@@ -845,8 +845,8 @@ class _$QuestionAnswerWaitingStateImpl extends QuestionAnswerWaitingState {
     required TResult Function(AnswerEntity answer, AnswerTimerState timerState)
         selected,
     required TResult Function(AnswerEntity answer) sending,
-    required TResult Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)
+    required TResult Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)
         sent,
     required TResult Function(AnswerEntity answer, Failure failure) failed,
   }) {
@@ -860,8 +860,8 @@ class _$QuestionAnswerWaitingStateImpl extends QuestionAnswerWaitingState {
     TResult? Function(AnswerEntity answer, AnswerTimerState timerState)?
         selected,
     TResult? Function(AnswerEntity answer)? sending,
-    TResult? Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)?
+    TResult? Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)?
         sent,
     TResult? Function(AnswerEntity answer, Failure failure)? failed,
   }) {
@@ -875,8 +875,8 @@ class _$QuestionAnswerWaitingStateImpl extends QuestionAnswerWaitingState {
     TResult Function(AnswerEntity answer, AnswerTimerState timerState)?
         selected,
     TResult Function(AnswerEntity answer)? sending,
-    TResult Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)?
+    TResult Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)?
         sent,
     TResult Function(AnswerEntity answer, Failure failure)? failed,
     required TResult orElse(),
@@ -1043,8 +1043,8 @@ class _$QuestionAnswerSelectedStateImpl extends QuestionAnswerSelectedState {
     required TResult Function(AnswerEntity answer, AnswerTimerState timerState)
         selected,
     required TResult Function(AnswerEntity answer) sending,
-    required TResult Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)
+    required TResult Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)
         sent,
     required TResult Function(AnswerEntity answer, Failure failure) failed,
   }) {
@@ -1058,8 +1058,8 @@ class _$QuestionAnswerSelectedStateImpl extends QuestionAnswerSelectedState {
     TResult? Function(AnswerEntity answer, AnswerTimerState timerState)?
         selected,
     TResult? Function(AnswerEntity answer)? sending,
-    TResult? Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)?
+    TResult? Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)?
         sent,
     TResult? Function(AnswerEntity answer, Failure failure)? failed,
   }) {
@@ -1073,8 +1073,8 @@ class _$QuestionAnswerSelectedStateImpl extends QuestionAnswerSelectedState {
     TResult Function(AnswerEntity answer, AnswerTimerState timerState)?
         selected,
     TResult Function(AnswerEntity answer)? sending,
-    TResult Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)?
+    TResult Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)?
         sent,
     TResult Function(AnswerEntity answer, Failure failure)? failed,
     required TResult orElse(),
@@ -1231,8 +1231,8 @@ class _$QuestionAnswerSendingStateImpl extends QuestionAnswerSendingState {
     required TResult Function(AnswerEntity answer, AnswerTimerState timerState)
         selected,
     required TResult Function(AnswerEntity answer) sending,
-    required TResult Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)
+    required TResult Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)
         sent,
     required TResult Function(AnswerEntity answer, Failure failure) failed,
   }) {
@@ -1246,8 +1246,8 @@ class _$QuestionAnswerSendingStateImpl extends QuestionAnswerSendingState {
     TResult? Function(AnswerEntity answer, AnswerTimerState timerState)?
         selected,
     TResult? Function(AnswerEntity answer)? sending,
-    TResult? Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)?
+    TResult? Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)?
         sent,
     TResult? Function(AnswerEntity answer, Failure failure)? failed,
   }) {
@@ -1261,8 +1261,8 @@ class _$QuestionAnswerSendingStateImpl extends QuestionAnswerSendingState {
     TResult Function(AnswerEntity answer, AnswerTimerState timerState)?
         selected,
     TResult Function(AnswerEntity answer)? sending,
-    TResult Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)?
+    TResult Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)?
         sent,
     TResult Function(AnswerEntity answer, Failure failure)? failed,
     required TResult orElse(),
@@ -1336,7 +1336,11 @@ abstract class _$$QuestionAnswerSentStateImplCopyWith<$Res> {
       __$$QuestionAnswerSentStateImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {AnswerEntity answer, String? correctAnswerId, String? description});
+      {AnswerEntity answer,
+      String? correctAnswerId,
+      String? description,
+      int xp,
+      int streakDelta});
 
   $AnswerEntityCopyWith<$Res> get answer;
 }
@@ -1359,6 +1363,8 @@ class __$$QuestionAnswerSentStateImplCopyWithImpl<$Res>
     Object? answer = null,
     Object? correctAnswerId = freezed,
     Object? description = freezed,
+    Object? xp = null,
+    Object? streakDelta = null,
   }) {
     return _then(_$QuestionAnswerSentStateImpl(
       answer: null == answer
@@ -1373,6 +1379,14 @@ class __$$QuestionAnswerSentStateImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      xp: null == xp
+          ? _value.xp
+          : xp // ignore: cast_nullable_to_non_nullable
+              as int,
+      streakDelta: null == streakDelta
+          ? _value.streakDelta
+          : streakDelta // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 
@@ -1391,7 +1405,11 @@ class __$$QuestionAnswerSentStateImplCopyWithImpl<$Res>
 
 class _$QuestionAnswerSentStateImpl extends QuestionAnswerSentState {
   const _$QuestionAnswerSentStateImpl(
-      {required this.answer, this.correctAnswerId, this.description})
+      {required this.answer,
+      this.correctAnswerId,
+      this.description,
+      this.xp = 0,
+      this.streakDelta = 0})
       : super._();
 
   @override
@@ -1400,10 +1418,16 @@ class _$QuestionAnswerSentStateImpl extends QuestionAnswerSentState {
   final String? correctAnswerId;
   @override
   final String? description;
+  @override
+  @JsonKey()
+  final int xp;
+  @override
+  @JsonKey()
+  final int streakDelta;
 
   @override
   String toString() {
-    return 'QuestionAnswerState.sent(answer: $answer, correctAnswerId: $correctAnswerId, description: $description)';
+    return 'QuestionAnswerState.sent(answer: $answer, correctAnswerId: $correctAnswerId, description: $description, xp: $xp, streakDelta: $streakDelta)';
   }
 
   @override
@@ -1415,12 +1439,15 @@ class _$QuestionAnswerSentStateImpl extends QuestionAnswerSentState {
             (identical(other.correctAnswerId, correctAnswerId) ||
                 other.correctAnswerId == correctAnswerId) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            (identical(other.xp, xp) || other.xp == xp) &&
+            (identical(other.streakDelta, streakDelta) ||
+                other.streakDelta == streakDelta));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, answer, correctAnswerId, description);
+  int get hashCode => Object.hash(
+      runtimeType, answer, correctAnswerId, description, xp, streakDelta);
 
   /// Create a copy of QuestionAnswerState
   /// with the given fields replaced by the non-null parameter values.
@@ -1438,12 +1465,12 @@ class _$QuestionAnswerSentStateImpl extends QuestionAnswerSentState {
     required TResult Function(AnswerEntity answer, AnswerTimerState timerState)
         selected,
     required TResult Function(AnswerEntity answer) sending,
-    required TResult Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)
+    required TResult Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)
         sent,
     required TResult Function(AnswerEntity answer, Failure failure) failed,
   }) {
-    return sent(answer, correctAnswerId, description);
+    return sent(answer, correctAnswerId, description, xp, streakDelta);
   }
 
   @override
@@ -1453,12 +1480,12 @@ class _$QuestionAnswerSentStateImpl extends QuestionAnswerSentState {
     TResult? Function(AnswerEntity answer, AnswerTimerState timerState)?
         selected,
     TResult? Function(AnswerEntity answer)? sending,
-    TResult? Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)?
+    TResult? Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)?
         sent,
     TResult? Function(AnswerEntity answer, Failure failure)? failed,
   }) {
-    return sent?.call(answer, correctAnswerId, description);
+    return sent?.call(answer, correctAnswerId, description, xp, streakDelta);
   }
 
   @override
@@ -1468,14 +1495,14 @@ class _$QuestionAnswerSentStateImpl extends QuestionAnswerSentState {
     TResult Function(AnswerEntity answer, AnswerTimerState timerState)?
         selected,
     TResult Function(AnswerEntity answer)? sending,
-    TResult Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)?
+    TResult Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)?
         sent,
     TResult Function(AnswerEntity answer, Failure failure)? failed,
     required TResult orElse(),
   }) {
     if (sent != null) {
-      return sent(answer, correctAnswerId, description);
+      return sent(answer, correctAnswerId, description, xp, streakDelta);
     }
     return orElse();
   }
@@ -1525,12 +1552,16 @@ abstract class QuestionAnswerSentState extends QuestionAnswerState {
   const factory QuestionAnswerSentState(
       {required final AnswerEntity answer,
       final String? correctAnswerId,
-      final String? description}) = _$QuestionAnswerSentStateImpl;
+      final String? description,
+      final int xp,
+      final int streakDelta}) = _$QuestionAnswerSentStateImpl;
   const QuestionAnswerSentState._() : super._();
 
   AnswerEntity get answer;
   String? get correctAnswerId;
   String? get description;
+  int get xp;
+  int get streakDelta;
 
   /// Create a copy of QuestionAnswerState
   /// with the given fields replaced by the non-null parameter values.
@@ -1648,8 +1679,8 @@ class _$QuestionAnswerFailedStateImpl extends QuestionAnswerFailedState {
     required TResult Function(AnswerEntity answer, AnswerTimerState timerState)
         selected,
     required TResult Function(AnswerEntity answer) sending,
-    required TResult Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)
+    required TResult Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)
         sent,
     required TResult Function(AnswerEntity answer, Failure failure) failed,
   }) {
@@ -1663,8 +1694,8 @@ class _$QuestionAnswerFailedStateImpl extends QuestionAnswerFailedState {
     TResult? Function(AnswerEntity answer, AnswerTimerState timerState)?
         selected,
     TResult? Function(AnswerEntity answer)? sending,
-    TResult? Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)?
+    TResult? Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)?
         sent,
     TResult? Function(AnswerEntity answer, Failure failure)? failed,
   }) {
@@ -1678,8 +1709,8 @@ class _$QuestionAnswerFailedStateImpl extends QuestionAnswerFailedState {
     TResult Function(AnswerEntity answer, AnswerTimerState timerState)?
         selected,
     TResult Function(AnswerEntity answer)? sending,
-    TResult Function(
-            AnswerEntity answer, String? correctAnswerId, String? description)?
+    TResult Function(AnswerEntity answer, String? correctAnswerId,
+            String? description, int xp, int streakDelta)?
         sent,
     TResult Function(AnswerEntity answer, Failure failure)? failed,
     required TResult orElse(),

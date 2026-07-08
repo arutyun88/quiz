@@ -37,6 +37,8 @@ class QuestionAnswerState with _$QuestionAnswerState {
     required AnswerEntity answer,
     String? correctAnswerId,
     String? description,
+    @Default(0) int xp,
+    @Default(0) int streakDelta,
   }) = QuestionAnswerSentState;
 
   const factory QuestionAnswerState.failed({
