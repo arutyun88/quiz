@@ -17,18 +17,19 @@ class SplashFlow extends ConsumerWidget {
       (_, state) => state.whenData(
         (_) {
           ref.read(authenticationProvider).whenOrNull(
-            authenticated: (user) => routeAuthenticatedUser(context, user),
-            unauthenticated: (_) {
-              final storage = getIt<SettingsLocalStorageService>();
-              if (storage.isOnboardingSeen) {
-                context.go('/');
-                context.push('/login');
-              } else {
-                storage.markOnboardingSeen();
-                context.go('/onboarding');
-              }
-            },
-          );
+                authenticated: (user) => routeAuthenticatedUser(context, user),
+                unauthenticated: (_) {
+                  final storage = getIt<SettingsLocalStorageService>();
+                  if (storage.isOnboardingSeen) {
+                    context.go('/');
+                    context.push('/login');
+                  } else {
+                    storage.markOnboardingSeen();
+                    context.go('/');
+                    context.push('/onboarding');
+                  }
+                },
+              );
         },
       ),
     );

@@ -4,8 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/provider/issue_number_provider.dart';
+import 'package:quiz/app/core/services/settings_local_storage_service.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
 import 'package:quiz/app/core/widgets/button/app_button_v2.dart';
+import 'package:quiz/app/di/di.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class OnboardingPage extends ConsumerWidget {
@@ -28,6 +30,11 @@ class OnboardingPage extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  GestureDetector(
+                    onTap: () => _closeOnboarding(context),
+                    child: Icon(Icons.arrow_back, size: 22, color: colors.text.primary),
+                  ),
+                  const SizedBox(width: 12),
                   Text(
                     'QUIZ.',
                     style: GoogleFonts.unbounded(
@@ -36,6 +43,7 @@ class OnboardingPage extends ConsumerWidget {
                       color: colors.text.primary,
                     ),
                   ),
+                  const Spacer(),
                   Text(
                     t.daily_issue,
                     style: GoogleFonts.jetBrainsMono(
@@ -163,6 +171,17 @@ class OnboardingPage extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _closeOnboarding(BuildContext context) async {
+    await getIt<SettingsLocalStorageService>().markOnboardingSeen();
+    if (!context.mounted) return;
+
+    if (context.canPop()) {
+      context.pop();
+    } else {
+      context.go('/');
+    }
   }
 }
 
