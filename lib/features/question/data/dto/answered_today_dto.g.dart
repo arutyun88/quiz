@@ -9,11 +9,11 @@ part of 'answered_today_dto.dart';
 _$AnsweredTodayDtoImpl _$$AnsweredTodayDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$AnsweredTodayDtoImpl(
-      answeredToday: json['answered_today'] as bool,
+      answeredQuestionCount: (json['answered_question_count'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$AnsweredTodayDtoImplToJson(
         _$AnsweredTodayDtoImpl instance) =>
     <String, dynamic>{
-      'answered_today': instance.answeredToday,
+      'answered_question_count': instance.answeredQuestionCount,
     };

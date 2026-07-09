@@ -9,7 +9,7 @@ Future<void> routeAuthenticatedUser(BuildContext context, UserEntity? user) asyn
   if (user case UserEntity user when user.name is String && user.name!.isNotEmpty && user.birthDate is DateTime) {
     final result = await getIt<QuestionRepository>().checkAnsweredToday();
     final answeredToday = switch (result) {
-      ResultOk(data: final value) => value,
+      ResultOk(data: final value) => value.answeredToday,
       ResultFailed() => false,
     };
     if (!context.mounted) return;

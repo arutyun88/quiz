@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'answered_today_dto.dart';
+part of 'answered_today_entity.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,46 +14,37 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-AnsweredTodayDto _$AnsweredTodayDtoFromJson(Map<String, dynamic> json) {
-  return _AnsweredTodayDto.fromJson(json);
-}
-
 /// @nodoc
-mixin _$AnsweredTodayDto {
-  @JsonKey(name: 'answered_question_count')
+mixin _$AnsweredTodayEntity {
   int get answeredQuestionCount => throw _privateConstructorUsedError;
 
-  /// Serializes this AnsweredTodayDto to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of AnsweredTodayDto
+  /// Create a copy of AnsweredTodayEntity
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $AnsweredTodayDtoCopyWith<AnsweredTodayDto> get copyWith =>
+  $AnsweredTodayEntityCopyWith<AnsweredTodayEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AnsweredTodayDtoCopyWith<$Res> {
-  factory $AnsweredTodayDtoCopyWith(
-          AnsweredTodayDto value, $Res Function(AnsweredTodayDto) then) =
-      _$AnsweredTodayDtoCopyWithImpl<$Res, AnsweredTodayDto>;
+abstract class $AnsweredTodayEntityCopyWith<$Res> {
+  factory $AnsweredTodayEntityCopyWith(
+          AnsweredTodayEntity value, $Res Function(AnsweredTodayEntity) then) =
+      _$AnsweredTodayEntityCopyWithImpl<$Res, AnsweredTodayEntity>;
   @useResult
-  $Res call(
-      {@JsonKey(name: 'answered_question_count') int answeredQuestionCount});
+  $Res call({int answeredQuestionCount});
 }
 
 /// @nodoc
-class _$AnsweredTodayDtoCopyWithImpl<$Res, $Val extends AnsweredTodayDto>
-    implements $AnsweredTodayDtoCopyWith<$Res> {
-  _$AnsweredTodayDtoCopyWithImpl(this._value, this._then);
+class _$AnsweredTodayEntityCopyWithImpl<$Res, $Val extends AnsweredTodayEntity>
+    implements $AnsweredTodayEntityCopyWith<$Res> {
+  _$AnsweredTodayEntityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of AnsweredTodayDto
+  /// Create a copy of AnsweredTodayEntity
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -70,33 +61,32 @@ class _$AnsweredTodayDtoCopyWithImpl<$Res, $Val extends AnsweredTodayDto>
 }
 
 /// @nodoc
-abstract class _$$AnsweredTodayDtoImplCopyWith<$Res>
-    implements $AnsweredTodayDtoCopyWith<$Res> {
-  factory _$$AnsweredTodayDtoImplCopyWith(_$AnsweredTodayDtoImpl value,
-          $Res Function(_$AnsweredTodayDtoImpl) then) =
-      __$$AnsweredTodayDtoImplCopyWithImpl<$Res>;
+abstract class _$$AnsweredTodayEntityImplCopyWith<$Res>
+    implements $AnsweredTodayEntityCopyWith<$Res> {
+  factory _$$AnsweredTodayEntityImplCopyWith(_$AnsweredTodayEntityImpl value,
+          $Res Function(_$AnsweredTodayEntityImpl) then) =
+      __$$AnsweredTodayEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@JsonKey(name: 'answered_question_count') int answeredQuestionCount});
+  $Res call({int answeredQuestionCount});
 }
 
 /// @nodoc
-class __$$AnsweredTodayDtoImplCopyWithImpl<$Res>
-    extends _$AnsweredTodayDtoCopyWithImpl<$Res, _$AnsweredTodayDtoImpl>
-    implements _$$AnsweredTodayDtoImplCopyWith<$Res> {
-  __$$AnsweredTodayDtoImplCopyWithImpl(_$AnsweredTodayDtoImpl _value,
-      $Res Function(_$AnsweredTodayDtoImpl) _then)
+class __$$AnsweredTodayEntityImplCopyWithImpl<$Res>
+    extends _$AnsweredTodayEntityCopyWithImpl<$Res, _$AnsweredTodayEntityImpl>
+    implements _$$AnsweredTodayEntityImplCopyWith<$Res> {
+  __$$AnsweredTodayEntityImplCopyWithImpl(_$AnsweredTodayEntityImpl _value,
+      $Res Function(_$AnsweredTodayEntityImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AnsweredTodayDto
+  /// Create a copy of AnsweredTodayEntity
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? answeredQuestionCount = null,
   }) {
-    return _then(_$AnsweredTodayDtoImpl(
+    return _then(_$AnsweredTodayEntityImpl(
       answeredQuestionCount: null == answeredQuestionCount
           ? _value.answeredQuestionCount
           : answeredQuestionCount // ignore: cast_nullable_to_non_nullable
@@ -106,70 +96,53 @@ class __$$AnsweredTodayDtoImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$AnsweredTodayDtoImpl implements _AnsweredTodayDto {
-  const _$AnsweredTodayDtoImpl(
-      {@JsonKey(name: 'answered_question_count')
-      required this.answeredQuestionCount});
 
-  factory _$AnsweredTodayDtoImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AnsweredTodayDtoImplFromJson(json);
+class _$AnsweredTodayEntityImpl extends _AnsweredTodayEntity {
+  const _$AnsweredTodayEntityImpl({required this.answeredQuestionCount})
+      : super._();
 
   @override
-  @JsonKey(name: 'answered_question_count')
   final int answeredQuestionCount;
 
   @override
   String toString() {
-    return 'AnsweredTodayDto(answeredQuestionCount: $answeredQuestionCount)';
+    return 'AnsweredTodayEntity(answeredQuestionCount: $answeredQuestionCount)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AnsweredTodayDtoImpl &&
+            other is _$AnsweredTodayEntityImpl &&
             (identical(other.answeredQuestionCount, answeredQuestionCount) ||
                 other.answeredQuestionCount == answeredQuestionCount));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, answeredQuestionCount);
 
-  /// Create a copy of AnsweredTodayDto
+  /// Create a copy of AnsweredTodayEntity
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$AnsweredTodayDtoImplCopyWith<_$AnsweredTodayDtoImpl> get copyWith =>
-      __$$AnsweredTodayDtoImplCopyWithImpl<_$AnsweredTodayDtoImpl>(
+  _$$AnsweredTodayEntityImplCopyWith<_$AnsweredTodayEntityImpl> get copyWith =>
+      __$$AnsweredTodayEntityImplCopyWithImpl<_$AnsweredTodayEntityImpl>(
           this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AnsweredTodayDtoImplToJson(
-      this,
-    );
-  }
 }
 
-abstract class _AnsweredTodayDto implements AnsweredTodayDto {
-  const factory _AnsweredTodayDto(
-      {@JsonKey(name: 'answered_question_count')
-      required final int answeredQuestionCount}) = _$AnsweredTodayDtoImpl;
-
-  factory _AnsweredTodayDto.fromJson(Map<String, dynamic> json) =
-      _$AnsweredTodayDtoImpl.fromJson;
+abstract class _AnsweredTodayEntity extends AnsweredTodayEntity {
+  const factory _AnsweredTodayEntity(
+      {required final int answeredQuestionCount}) = _$AnsweredTodayEntityImpl;
+  const _AnsweredTodayEntity._() : super._();
 
   @override
-  @JsonKey(name: 'answered_question_count')
   int get answeredQuestionCount;
 
-  /// Create a copy of AnsweredTodayDto
+  /// Create a copy of AnsweredTodayEntity
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AnsweredTodayDtoImplCopyWith<_$AnsweredTodayDtoImpl> get copyWith =>
+  _$$AnsweredTodayEntityImplCopyWith<_$AnsweredTodayEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

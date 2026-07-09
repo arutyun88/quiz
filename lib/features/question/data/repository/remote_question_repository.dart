@@ -11,6 +11,7 @@ import 'package:quiz/features/question/data/converter/question_state_dto_convert
 import 'package:quiz/features/question/data/dto/answered_today_dto.dart';
 import 'package:quiz/features/question/data/dto/question_dto.dart';
 import 'package:quiz/features/question/data/dto/question_state_dto.dart';
+import 'package:quiz/features/question/domain/entity/answered_today_entity.dart';
 import 'package:quiz/features/question/domain/entity/question_entity.dart';
 import 'package:quiz/features/question/domain/entity/question_state_entity.dart';
 import 'package:quiz/features/question/domain/repository/question_repository.dart';
@@ -55,7 +56,7 @@ class RemoteQuestionRepository implements QuestionRepository {
   }
 
   @override
-  Future<Result<bool, Failure>> checkAnsweredToday() async {
+  Future<Result<AnsweredTodayEntity, Failure>> checkAnsweredToday() async {
     return await _client.get(
       '/questions/answered-today',
       mapper: (json) => DataDto.fromJson(json, (json) => AnsweredTodayDto.fromJson(json as Json)),

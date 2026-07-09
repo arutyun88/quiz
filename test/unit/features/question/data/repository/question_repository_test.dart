@@ -18,6 +18,7 @@ import 'package:quiz/features/question/data/dto/question_dto.dart';
 import 'package:quiz/features/question/data/dto/question_state_dto.dart';
 import 'package:quiz/features/question/data/repository/remote_question_repository.dart';
 import 'package:quiz/features/question/domain/entity/answer_entity.dart';
+import 'package:quiz/features/question/domain/entity/answered_today_entity.dart';
 import 'package:quiz/features/question/domain/entity/question_entity.dart';
 import 'package:quiz/features/question/domain/entity/question_state_entity.dart';
 import 'package:quiz/features/question/domain/entity/topic_entity.dart';
@@ -46,6 +47,9 @@ final questions = PageEntity<QuestionEntity>(
 );
 
 final questionState = QuestionStateEntity(questionId: 'q1', isAnswered: false);
+final answeredToday = AnsweredTodayEntity(
+  answeredQuestionCount: 1,
+);
 
 void main() {
   late QuestionRepository repository;
@@ -181,13 +185,13 @@ void main() {
       group('when GET succeeds', () {
         test('calls GET /questions/answered-today and returns Result.ok', () async {
           when(() => _getAnsweredToday(apiClient)).thenAnswer(
-            (_) async => Result.ok(true),
+            (_) async => Result.ok(answeredToday),
           );
 
           final result = await repository.checkAnsweredToday();
 
-          expect(result, isA<ResultOk<bool, Failure>>());
-          expect((result as ResultOk<bool, Failure>).data, true);
+          expect(result, isA<ResultOk<AnsweredTodayEntity, Failure>>());
+          expect((result as ResultOk<AnsweredTodayEntity, Failure>).data, answeredToday);
 
           verify(() => _getAnsweredToday(apiClient)).called(1);
         });
@@ -199,8 +203,8 @@ void main() {
 
           final result = await repository.checkAnsweredToday();
 
-          expect(result, isA<ResultFailed<bool, Failure>>());
-          expect((result as ResultFailed<bool, Failure>).error, failure);
+          expect(result, isA<ResultFailed<AnsweredTodayEntity, Failure>>());
+          expect((result as ResultFailed<AnsweredTodayEntity, Failure>).error, failure);
         });
       });
     });
@@ -228,8 +232,8 @@ Future<Result<QuestionStateEntity, Failure>> _getQuestionStateById(MockApiClient
   );
 }
 
-Future<Result<bool, Failure>> _getAnsweredToday(MockApiClient apiClient) {
-  return apiClient.get<bool, DataDto<AnsweredTodayDto>>(
+Future<Result<AnsweredTodayEntity, Failure>> _getAnsweredToday(MockApiClient apiClient) {
+  return apiClient.get<AnsweredTodayEntity, DataDto<AnsweredTodayDto>>(
     '/questions/answered-today',
     queryParameters: any(named: 'queryParameters'),
     headers: any(named: 'headers'),
