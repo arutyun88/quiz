@@ -248,6 +248,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => questionModule.questionRepository(
               client: gh<_i782.ApiClient>(),
               questionpageConverter: gh<_i622.QuestionPageConverter>(),
+              questionConverter: gh<_i622.QuestionConverter>(),
               questionStateDtoConverter: gh<_i122.QuestionStateDtoConverter>(),
               answeredTodayDtoConverter: gh<_i60.AnsweredTodayDtoConverter>(),
             ));

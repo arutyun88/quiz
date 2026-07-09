@@ -19,16 +19,19 @@ import 'package:quiz/features/question/domain/repository/question_repository.dar
 class RemoteQuestionRepository implements QuestionRepository {
   final ApiClient _client;
   final QuestionPageConverter _questionPageConverter;
+  final QuestionConverter _questionConverter;
   final QuestionStateDtoConverter _questionStateDtoConverter;
   final AnsweredTodayDtoConverter _answeredTodayDtoConverter;
 
   const RemoteQuestionRepository({
     required ApiClient client,
     required QuestionPageConverter questionPageConverter,
+    required QuestionConverter questionConverter,
     required QuestionStateDtoConverter questionStateDtoConverter,
     required AnsweredTodayDtoConverter answeredTodayDtoConverter,
   })  : _client = client,
         _questionPageConverter = questionPageConverter,
+        _questionConverter = questionConverter,
         _questionStateDtoConverter = questionStateDtoConverter,
         _answeredTodayDtoConverter = answeredTodayDtoConverter;
 
@@ -45,6 +48,22 @@ class RemoteQuestionRepository implements QuestionRepository {
         converter: _questionPageConverter.convert,
         enableLocale: true,
       );
+
+  @override
+  Future<Result<List<QuestionEntity>, Failure>> localizeByIds(List<String> ids) async {
+    return await _client.post(
+      '/questions/localize',
+      body: {
+        'question_ids': ids,
+      },
+      mapper: (json) => DataDto.fromJson(
+        json,
+        (json) => (json as List<dynamic>).map((item) => QuestionDto.fromJson(item as Json)).toList(),
+      ),
+      converter: (dto) => _questionConverter.convertMultiple(dto.data).toList(),
+      enableLocale: true,
+    );
+  }
 
   @override
   Future<Result<QuestionStateEntity, Failure>> checkQuestionStateById(String id) async {

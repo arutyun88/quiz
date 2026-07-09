@@ -23,7 +23,7 @@ class ChangeLocaleGateway {
     await LocaleSettings.setLocale(locale);
   }
 
-  void change(AppLocale locale) async {
+  Future<void> change(AppLocale locale) async {
     await LocaleSettings.setLocale(locale);
     _storageService.saveLocale(locale.languageCode);
   }

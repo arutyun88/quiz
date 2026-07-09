@@ -1,13 +1,13 @@
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 import 'package:quiz/app/core/database/app_database.dart';
+import 'package:quiz/app/core/database/schema/answer.dart';
+import 'package:quiz/app/core/database/schema/question.dart';
+import 'package:quiz/app/core/database/schema/topic.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/features/question/data/converter/question_db_converter.dart';
-import 'package:quiz/app/core/database/schema/answer.dart';
-import 'package:quiz/app/core/database/schema/question.dart';
 import 'package:quiz/features/question/data/table/question_db_model.dart';
-import 'package:quiz/app/core/database/schema/topic.dart';
 import 'package:quiz/features/question/domain/entity/question_entity.dart';
 
 part 'question_dao.g.dart';
@@ -17,7 +17,11 @@ abstract interface class QuestionDao {
 
   Future<Result<QuestionEntity, Failure>> getQuestionById(String id);
 
+  Future<Result<List<QuestionEntity>, Failure>> getAllQuestions();
+
   Future<Result<void, Failure>> save(List<QuestionEntity> questionList);
+
+  Future<Result<void, Failure>> replaceAll(List<QuestionEntity> questionList);
 
   Future<Result<void, Failure>> clearAllCache();
 
@@ -75,11 +79,39 @@ class QuestionDaoImpl extends DatabaseAccessor<AppDatabase> with _$QuestionDaoIm
   }
 
   @override
+  Future<Result<List<QuestionEntity>, Failure>> getAllQuestions() async {
+    try {
+      final questionRows = await select(questions).get();
+      final result = <QuestionEntity>[];
+
+      for (final question in questionRows) {
+        final entity = await getQuestionById(question.id);
+        switch (entity) {
+          case ResultOk(:final data):
+            result.add(data);
+          case ResultFailed(:final error):
+            return Result.failed(error);
+        }
+      }
+
+      return Result.ok(result);
+    } catch (_) {
+      return Result.failed(Failure.question(QuestionFailureReason.notFoundCached()));
+    }
+  }
+
+  @override
   Future<Result<void, Failure>> save(List<QuestionEntity> questionList) async {
     try {
       return await transaction(() async {
         final questionsModels = _questionConverter.toDaoMultiple(questionList);
 
+        await batch(
+          (batch) => batch.insertAllOnConflictUpdate(
+            topics,
+            questionsModels.map((question) => question.topic),
+          ),
+        );
         await batch(
           (batch) => batch.insertAllOnConflictUpdate(
             questions,
@@ -88,8 +120,38 @@ class QuestionDaoImpl extends DatabaseAccessor<AppDatabase> with _$QuestionDaoIm
         );
         await batch(
           (batch) => batch.insertAllOnConflictUpdate(
+            answers,
+            questionsModels.expand((question) => question.answers),
+          ),
+        );
+
+        return Result.ok(null);
+      });
+    } catch (_) {
+      return Result.failed(Failure.question(QuestionFailureReason.save()));
+    }
+  }
+
+  @override
+  Future<Result<void, Failure>> replaceAll(List<QuestionEntity> questionList) async {
+    try {
+      return await transaction(() async {
+        await delete(answers).go();
+        await delete(questions).go();
+        await delete(topics).go();
+
+        final questionsModels = _questionConverter.toDaoMultiple(questionList);
+
+        await batch(
+          (batch) => batch.insertAllOnConflictUpdate(
             topics,
             questionsModels.map((question) => question.topic),
+          ),
+        );
+        await batch(
+          (batch) => batch.insertAllOnConflictUpdate(
+            questions,
+            questionsModels.map((question) => question.question),
           ),
         );
         await batch(

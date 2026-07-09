@@ -22,6 +22,17 @@ final _question = QuestionEntity(
     AnswerEntity(id: 'a2', text: '4'),
   ],
 );
+
+final _localizedQuestion = QuestionEntity(
+  id: 'q2',
+  question: 'Capital of France?',
+  topic: TopicEntity(id: 't2', name: 'Geography', description: ''),
+  hint: '',
+  answers: [
+    AnswerEntity(id: 'a3', text: 'Paris'),
+    AnswerEntity(id: 'a4', text: 'London'),
+  ],
+);
 void main() {
   late AppDatabase database;
   late QuestionDao dao;
@@ -125,6 +136,27 @@ void main() {
               hint: _question.hint,
               topicId: _question.topic.id,
             ),
+          );
+        });
+
+        test('getAllQuestions returns cached questions', () async {
+          final result = await dao.getAllQuestions();
+
+          expect(result, isA<ResultOk<List<QuestionEntity>, Failure>>());
+          expect((result as ResultOk<List<QuestionEntity>, Failure>).data, [_question]);
+        });
+
+        test('replaceAll swaps cached questions', () async {
+          final replaceResult = await dao.replaceAll([_localizedQuestion]);
+          final oldQuestionResult = await dao.getQuestionById(_question.id);
+          final newQuestionResult = await dao.getQuestionById(_localizedQuestion.id);
+
+          expect(replaceResult, isA<ResultOk<void, Failure>>());
+          expect(oldQuestionResult, isA<ResultFailed<QuestionEntity, Failure>>());
+          expect(newQuestionResult, isA<ResultOk<QuestionEntity, Failure>>());
+          expect(
+            (newQuestionResult as ResultOk<QuestionEntity, Failure>).data,
+            _localizedQuestion,
           );
         });
       });

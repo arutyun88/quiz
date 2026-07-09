@@ -218,6 +218,7 @@ class Translations$question$en {
 		'D',
 	];
 	late final Translations$question$meta$en meta = Translations$question$meta$en._(_root);
+	late final Translations$question$state$en state = Translations$question$state$en._(_root);
 	late final Translations$question$answer_reveal$en answer_reveal = Translations$question$answer_reveal$en._(_root);
 	late final Translations$question$dialog$en dialog = Translations$question$dialog$en._(_root);
 	late final Translations$question$error_snackbar$en error_snackbar = Translations$question$error_snackbar$en._(_root);
@@ -614,6 +615,21 @@ class Translations$question$meta$en {
 	String topic({required Object topic}) => '// ${topic}';
 }
 
+// Path: question.state
+class Translations$question$state$en {
+	Translations$question$state$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'На сегодня вопросы закончились. Заходите завтра!'
+	String get empty => 'You\'re done with today\'s questions.\nCome back tomorrow!';
+
+	/// ru: 'Не удалось загрузить вопрос'
+	String get error => 'Could not load the question';
+}
+
 // Path: question.answer_reveal
 class Translations$question$answer_reveal$en {
 	Translations$question$answer_reveal$en._(this._root);
@@ -926,6 +942,8 @@ class Translations$profile$settings$application$language$en {
 
 	/// ru: 'Изменить язык'
 	String get change => 'Choose language';
+
+	late final Translations$profile$settings$application$language$sync$en sync = Translations$profile$settings$application$language$sync$en._(_root);
 }
 
 // Path: profile.settings.application.theme
@@ -1015,6 +1033,42 @@ class Translations$authentication$sign_in$forget_password$dialog$en {
 	late final Translations$authentication$sign_in$forget_password$dialog$valid$en valid = Translations$authentication$sign_in$forget_password$dialog$valid$en._(_root);
 	late final Translations$authentication$sign_in$forget_password$dialog$invalid$en invalid = Translations$authentication$sign_in$forget_password$dialog$invalid$en._(_root);
 	late final Translations$authentication$sign_in$forget_password$dialog$result$en result = Translations$authentication$sign_in$forget_password$dialog$result$en._(_root);
+}
+
+// Path: profile.settings.application.language.sync
+class Translations$profile$settings$application$language$sync$en {
+	Translations$profile$settings$application$language$sync$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Обновляем вопросы'
+	String get title => 'Updating questions';
+
+	/// ru: 'Загружаем вопросы, темы и ответы на выбранном языке'
+	String get syncing => 'Loading questions, topics, and answers in the selected language';
+
+	/// ru: 'Вопросы обновлены'
+	String get success => 'Questions are updated';
+
+	/// ru: 'Язык интерфейса изменён'
+	String get waiting_connection_title => 'Interface language changed';
+
+	/// ru: 'Вопросы обновятся на выбранном языке, когда появится интернет'
+	String get waiting_connection => 'Questions will update in the selected language when internet is back';
+
+	/// ru: 'Не удалось обновить вопросы'
+	String get failed_title => 'Could not update questions';
+
+	/// ru: 'Старый кеш вопросов пока сохранён. Можно повторить попытку сейчас или дождаться следующей синхронизации'
+	String get failed => 'The old question cache is still saved. You can try again now or wait for the next sync';
+
+	/// ru: 'Закрыть'
+	String get close => 'Close';
+
+	/// ru: 'Повторить'
+	String get retry => 'Retry';
 }
 
 // Path: profile.settings.application.theme.switcher
@@ -1132,6 +1186,15 @@ extension on Translations {
 			'profile.settings.user.go_to_subscriptions' => 'Управление подпиской',
 			'profile.settings.application.title' => 'Application',
 			'profile.settings.application.language.change' => 'Choose language',
+			'profile.settings.application.language.sync.title' => 'Updating questions',
+			'profile.settings.application.language.sync.syncing' => 'Loading questions, topics, and answers in the selected language',
+			'profile.settings.application.language.sync.success' => 'Questions are updated',
+			'profile.settings.application.language.sync.waiting_connection_title' => 'Interface language changed',
+			'profile.settings.application.language.sync.waiting_connection' => 'Questions will update in the selected language when internet is back',
+			'profile.settings.application.language.sync.failed_title' => 'Could not update questions',
+			'profile.settings.application.language.sync.failed' => 'The old question cache is still saved. You can try again now or wait for the next sync',
+			'profile.settings.application.language.sync.close' => 'Close',
+			'profile.settings.application.language.sync.retry' => 'Retry',
 			'profile.settings.application.theme.title' => 'Theme',
 			'profile.settings.application.theme.switcher.as_system' => 'As in the system',
 			'profile.settings.application.go_to_storage_manager' => 'Memory Manager',
@@ -1217,6 +1280,8 @@ extension on Translations {
 			'question.answer_letters.3' => 'D',
 			'question.meta.counter' => ({required Object current, required Object total}) => 'QUESTION ${current} / ${total}',
 			'question.meta.topic' => ({required Object topic}) => '// ${topic}',
+			'question.state.empty' => 'You\'re done with today\'s questions.\nCome back tomorrow!',
+			'question.state.error' => 'Could not load the question',
 			'question.answer_reveal.correct' => 'CORRECT',
 			'question.answer_reveal.incorrect' => 'INCORRECT',
 			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',

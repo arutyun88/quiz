@@ -32,7 +32,18 @@
             "application": {
                 "title": "Application",
                 "language": {
-                    "change": "Choose language"
+                    "change": "Choose language",
+                    "sync": {
+                        "title": "Updating questions",
+                        "syncing": "Loading questions, topics, and answers in the selected language",
+                        "success": "Questions are updated",
+                        "waiting_connection_title": "Interface language changed",
+                        "waiting_connection": "Questions will update in the selected language when internet is back",
+                        "failed_title": "Could not update questions",
+                        "failed": "The old question cache is still saved. You can try again now or wait for the next sync",
+                        "close": "Close",
+                        "retry": "Retry"
+                    }
                 },
                 "theme": {
                     "title": "Theme",
@@ -188,6 +199,10 @@
         "meta": {
             "counter": "QUESTION $current / $total",
             "topic": "// $topic"
+        },
+        "state": {
+            "empty": "You're done with today's questions.\nCome back tomorrow!",
+            "error": "Could not load the question"
         },
         "answer_reveal": {
             "correct": "CORRECT",

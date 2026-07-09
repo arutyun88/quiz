@@ -170,6 +170,7 @@ class _Translations$question$ru implements Translations$question$en {
 		'Г',
 	];
 	@override late final _Translations$question$meta$ru meta = _Translations$question$meta$ru._(_root);
+	@override late final _Translations$question$state$ru state = _Translations$question$state$ru._(_root);
 	@override late final _Translations$question$answer_reveal$ru answer_reveal = _Translations$question$answer_reveal$ru._(_root);
 	@override late final _Translations$question$dialog$ru dialog = _Translations$question$dialog$ru._(_root);
 	@override late final _Translations$question$error_snackbar$ru error_snackbar = _Translations$question$error_snackbar$ru._(_root);
@@ -422,6 +423,17 @@ class _Translations$question$meta$ru implements Translations$question$meta$en {
 	@override String topic({required Object topic}) => '// ${topic}';
 }
 
+// Path: question.state
+class _Translations$question$state$ru implements Translations$question$state$en {
+	_Translations$question$state$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'На сегодня вопросы закончились.\nЗаходите завтра!';
+	@override String get error => 'Не удалось загрузить вопрос';
+}
+
 // Path: question.answer_reveal
 class _Translations$question$answer_reveal$ru implements Translations$question$answer_reveal$en {
 	_Translations$question$answer_reveal$ru._(this._root);
@@ -654,6 +666,7 @@ class _Translations$profile$settings$application$language$ru implements Translat
 
 	// Translations
 	@override String get change => 'Изменить язык';
+	@override late final _Translations$profile$settings$application$language$sync$ru sync = _Translations$profile$settings$application$language$sync$ru._(_root);
 }
 
 // Path: profile.settings.application.theme
@@ -722,6 +735,24 @@ class _Translations$authentication$sign_in$forget_password$dialog$ru implements 
 	@override late final _Translations$authentication$sign_in$forget_password$dialog$valid$ru valid = _Translations$authentication$sign_in$forget_password$dialog$valid$ru._(_root);
 	@override late final _Translations$authentication$sign_in$forget_password$dialog$invalid$ru invalid = _Translations$authentication$sign_in$forget_password$dialog$invalid$ru._(_root);
 	@override late final _Translations$authentication$sign_in$forget_password$dialog$result$ru result = _Translations$authentication$sign_in$forget_password$dialog$result$ru._(_root);
+}
+
+// Path: profile.settings.application.language.sync
+class _Translations$profile$settings$application$language$sync$ru implements Translations$profile$settings$application$language$sync$en {
+	_Translations$profile$settings$application$language$sync$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Обновляем вопросы';
+	@override String get syncing => 'Загружаем вопросы, темы и ответы на выбранном языке';
+	@override String get success => 'Вопросы обновлены';
+	@override String get waiting_connection_title => 'Язык интерфейса изменён';
+	@override String get waiting_connection => 'Вопросы обновятся на выбранном языке, когда появится интернет';
+	@override String get failed_title => 'Не удалось обновить вопросы';
+	@override String get failed => 'Старый кеш вопросов пока сохранён. Можно повторить попытку сейчас или дождаться следующей синхронизации';
+	@override String get close => 'Закрыть';
+	@override String get retry => 'Повторить';
 }
 
 // Path: profile.settings.application.theme.switcher
@@ -816,6 +847,15 @@ extension on TranslationsRu {
 			'profile.settings.user.go_to_subscriptions' => 'Управление подпиской',
 			'profile.settings.application.title' => 'Приложение',
 			'profile.settings.application.language.change' => 'Изменить язык',
+			'profile.settings.application.language.sync.title' => 'Обновляем вопросы',
+			'profile.settings.application.language.sync.syncing' => 'Загружаем вопросы, темы и ответы на выбранном языке',
+			'profile.settings.application.language.sync.success' => 'Вопросы обновлены',
+			'profile.settings.application.language.sync.waiting_connection_title' => 'Язык интерфейса изменён',
+			'profile.settings.application.language.sync.waiting_connection' => 'Вопросы обновятся на выбранном языке, когда появится интернет',
+			'profile.settings.application.language.sync.failed_title' => 'Не удалось обновить вопросы',
+			'profile.settings.application.language.sync.failed' => 'Старый кеш вопросов пока сохранён. Можно повторить попытку сейчас или дождаться следующей синхронизации',
+			'profile.settings.application.language.sync.close' => 'Закрыть',
+			'profile.settings.application.language.sync.retry' => 'Повторить',
 			'profile.settings.application.theme.title' => 'Тема оформления',
 			'profile.settings.application.theme.switcher.as_system' => 'Как в системе',
 			'profile.settings.application.go_to_storage_manager' => 'Менеджер памяти',
@@ -901,6 +941,8 @@ extension on TranslationsRu {
 			'question.answer_letters.3' => 'Г',
 			'question.meta.counter' => ({required Object current, required Object total}) => 'ВОПРОС ${current} / ${total}',
 			'question.meta.topic' => ({required Object topic}) => '// ${topic}',
+			'question.state.empty' => 'На сегодня вопросы закончились.\nЗаходите завтра!',
+			'question.state.error' => 'Не удалось загрузить вопрос',
 			'question.answer_reveal.correct' => 'ВЕРНО',
 			'question.answer_reveal.incorrect' => 'НЕВЕРНО',
 			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',

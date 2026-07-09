@@ -29,12 +29,14 @@ abstract class QuestionModule {
   QuestionRepository questionRepository({
     required ApiClient client,
     required QuestionPageConverter questionpageConverter,
+    required QuestionConverter questionConverter,
     required QuestionStateDtoConverter questionStateDtoConverter,
     required AnsweredTodayDtoConverter answeredTodayDtoConverter,
   }) =>
       RemoteQuestionRepository(
         client: client,
         questionPageConverter: questionpageConverter,
+        questionConverter: questionConverter,
         questionStateDtoConverter: questionStateDtoConverter,
         answeredTodayDtoConverter: answeredTodayDtoConverter,
       );

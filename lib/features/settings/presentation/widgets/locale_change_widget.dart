@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz/app/config/style/text_style_ex.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/localization/gateway/change_locale_gateway.dart';
 import 'package:quiz/app/di/di.dart';
+import 'package:quiz/features/settings/presentation/widgets/locale_question_sync_page.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class ProfileLocaleChangeWidget extends StatelessWidget {
@@ -75,9 +77,24 @@ class _LanguageWidget extends StatelessWidget {
       children: [
         GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: () {
+          onTap: () async {
+            final navigator = Navigator.of(context, rootNavigator: true);
+            final container = ProviderScope.containerOf(context, listen: false);
             Navigator.pop(context);
-            getIt<ChangeLocaleGateway>().change(locale);
+            if (locale == LocaleSettings.currentLocale) {
+              return;
+            }
+
+            await getIt<ChangeLocaleGateway>().change(locale);
+            await navigator.push(
+              MaterialPageRoute<void>(
+                fullscreenDialog: true,
+                builder: (_) => UncontrolledProviderScope(
+                  container: container,
+                  child: const LocaleQuestionSyncPage(),
+                ),
+              ),
+            );
           },
           child: SizedBox(
             width: double.infinity,

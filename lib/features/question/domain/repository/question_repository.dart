@@ -10,6 +10,8 @@ abstract interface class QuestionRepository {
     int limit = 1,
   });
 
+  Future<Result<List<QuestionEntity>, Failure>> localizeByIds(List<String> ids);
+
   Future<Result<QuestionStateEntity, Failure>> checkQuestionStateById(String id);
 
   Future<Result<AnsweredTodayEntity, Failure>> checkAnsweredToday();

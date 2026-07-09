@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz/app/config/navigation/router.dart';
 import 'package:quiz/app/core/theme/provider/theme_provider.dart';
+import 'package:quiz/features/settings/presentation/provider/locale_question_sync_provider.dart';
 import 'package:quiz/features/sync/presentation/widgets/sync_snackbar_overlay.dart';
 import 'package:quiz/gen/strings.g.dart';
 
@@ -13,6 +14,7 @@ class Application extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     final theme = ref.watch(themeProvider);
+    ref.watch(localeQuestionSyncProvider);
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,

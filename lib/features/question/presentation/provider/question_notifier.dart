@@ -26,7 +26,6 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
 
       switch (questionState) {
         case ResultOk(data: final questionState) when questionState.isAnswered:
-        case ResultFailed(error: final NetworkFailure failure) when failure.reason is! NetworkFailureServerReason:
         case ResultFailed(error: final QuestionFailure failure) when failure.reason is QuestionFailureCheckStateReason:
           await _questionIdService.clean();
           return await fetch();
@@ -52,7 +51,7 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
                 question: question,
                 answerState: QuestionAnswerState.wait(),
               );
-              _questionIdService.save(question.id);
+              await _questionIdService.save(question.id);
 
             case ResultFailed(error: final QuestionFailure failure) when failure.reason is QuestionFailureOverReason:
               state = QuestionState.empty();
@@ -72,7 +71,7 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
             question: question,
             answerState: QuestionAnswerState.wait(),
           );
-          _questionIdService.save(question.id);
+          await _questionIdService.save(question.id);
 
         case ResultFailed(error: final QuestionFailure failure) when failure.reason is QuestionFailureOverReason:
           state = QuestionState.empty();

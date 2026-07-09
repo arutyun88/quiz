@@ -57,15 +57,17 @@ void main() {
 
   setUp(() {
     apiClient = MockApiClient();
+    final questionConverter = QuestionConverterImpl(
+      topicConverter: TopicConverterImpl(),
+      answerConverter: AnswerConverterImpl(),
+    );
     repository = RemoteQuestionRepository(
       client: apiClient,
       questionPageConverter: DataPageConverter<QuestionEntity, QuestionDto>(
         pageInfoConverter: PageInfoConverterImpl(),
-        dataConverter: QuestionConverterImpl(
-          topicConverter: TopicConverterImpl(),
-          answerConverter: AnswerConverterImpl(),
-        ),
+        dataConverter: questionConverter,
       ),
+      questionConverter: questionConverter,
       questionStateDtoConverter: QuestionStateDtoConverterImpl(),
       answeredTodayDtoConverter: AnsweredTodayDtoConverterImpl(),
     );
@@ -75,14 +77,16 @@ void main() {
     group('fetch', () {
       group('when GET succeeds', () {
         setUp(() {
-          when(() => _getQuestions(apiClient)).thenAnswer((_) async => Result.ok(questions));
+          when(() => _getQuestions(apiClient))
+              .thenAnswer((_) async => Result.ok(questions));
         });
 
         test('calls GET /questions with X-Limit header', () async {
           await repository.fetch(limit: 10);
 
           final captured = verify(
-            () => apiClient.get<PageEntity<QuestionEntity>, DataPageDto<QuestionDto>>(
+            () => apiClient
+                .get<PageEntity<QuestionEntity>, DataPageDto<QuestionDto>>(
               '/questions',
               headers: captureAny(named: 'headers'),
               mapper: any(named: 'mapper'),
@@ -110,7 +114,8 @@ void main() {
           await repository.fetch();
 
           final captured = verify(
-            () => apiClient.get<PageEntity<QuestionEntity>, DataPageDto<QuestionDto>>(
+            () => apiClient
+                .get<PageEntity<QuestionEntity>, DataPageDto<QuestionDto>>(
               '/questions',
               headers: captureAny(named: 'headers'),
               mapper: any(named: 'mapper'),
@@ -125,7 +130,8 @@ void main() {
       group('when GET fails', () {
         test('returns Result.failed with NetworkFailure', () async {
           final failure = NetworkFailure(NetworkFailureReason.server('500'));
-          when(() => _getQuestions(apiClient)).thenAnswer((_) async => Result.failed(failure));
+          when(() => _getQuestions(apiClient))
+              .thenAnswer((_) async => Result.failed(failure));
 
           final result = await repository.fetch();
 
@@ -135,6 +141,57 @@ void main() {
           verify(
             () => _getQuestions(apiClient),
           ).called(1);
+        });
+      });
+    });
+
+    group('localizeByIds', () {
+      group('when POST succeeds', () {
+        setUp(() {
+          when(() => _localizeQuestions(apiClient))
+              .thenAnswer((_) async => Result.ok(questions.items));
+        });
+
+        test('calls POST /questions/localize with question ids', () async {
+          await repository.localizeByIds(['q1', 'q2']);
+
+          final captured = verify(
+            () => apiClient
+                .post<List<QuestionEntity>, DataDto<List<QuestionDto>>>(
+              '/questions/localize',
+              body: captureAny(named: 'body'),
+              mapper: any(named: 'mapper'),
+              converter: any(named: 'converter'),
+              enableLocale: true,
+            ),
+          ).captured;
+
+          expect(captured.first, {
+            'question_ids': ['q1', 'q2'],
+          });
+        });
+
+        test('returns Result.ok with localized questions', () async {
+          final result = await repository.localizeByIds(['q1']);
+
+          expect(result, isA<ResultOk<List<QuestionEntity>, Failure>>());
+          expect((result as ResultOk<List<QuestionEntity>, Failure>).data,
+              questions.items);
+          verify(() => _localizeQuestions(apiClient)).called(1);
+        });
+      });
+
+      group('when POST fails', () {
+        test('returns Result.failed with NetworkFailure', () async {
+          final failure = NetworkFailure(NetworkFailureReason.server('500'));
+          when(() => _localizeQuestions(apiClient))
+              .thenAnswer((_) async => Result.failed(failure));
+
+          final result = await repository.localizeByIds(['q1']);
+
+          expect(result, isA<ResultFailed<List<QuestionEntity>, Failure>>());
+          expect((result as ResultFailed<List<QuestionEntity>, Failure>).error,
+              failure);
         });
       });
     });
@@ -165,13 +222,15 @@ void main() {
       group('when GET fails', () {
         test('returns Result.failed with NetworkFailure', () async {
           final failure = NetworkFailure(NetworkFailureReason.server('500'));
-          when(() => _getQuestionStateById(apiClient, 'q1')).thenAnswer((_) async => Result.failed(failure));
+          when(() => _getQuestionStateById(apiClient, 'q1'))
+              .thenAnswer((_) async => Result.failed(failure));
 
           final result = await repository.checkQuestionStateById('q1');
 
           expect(result, isA<ResultFailed<QuestionStateEntity, Failure>>());
 
-          final resultFailed = result as ResultFailed<QuestionStateEntity, Failure>;
+          final resultFailed =
+              result as ResultFailed<QuestionStateEntity, Failure>;
           expect(resultFailed.error, failure);
 
           verify(
@@ -183,7 +242,8 @@ void main() {
 
     group('checkAnsweredToday', () {
       group('when GET succeeds', () {
-        test('calls GET /questions/answered-today and returns Result.ok', () async {
+        test('calls GET /questions/answered-today and returns Result.ok',
+            () async {
           when(() => _getAnsweredToday(apiClient)).thenAnswer(
             (_) async => Result.ok(answeredToday),
           );
@@ -191,7 +251,8 @@ void main() {
           final result = await repository.checkAnsweredToday();
 
           expect(result, isA<ResultOk<AnsweredTodayEntity, Failure>>());
-          expect((result as ResultOk<AnsweredTodayEntity, Failure>).data, answeredToday);
+          expect((result as ResultOk<AnsweredTodayEntity, Failure>).data,
+              answeredToday);
 
           verify(() => _getAnsweredToday(apiClient)).called(1);
         });
@@ -199,19 +260,22 @@ void main() {
       group('when GET fails', () {
         test('returns Result.failed with NetworkFailure', () async {
           final failure = NetworkFailure(NetworkFailureReason.server('500'));
-          when(() => _getAnsweredToday(apiClient)).thenAnswer((_) async => Result.failed(failure));
+          when(() => _getAnsweredToday(apiClient))
+              .thenAnswer((_) async => Result.failed(failure));
 
           final result = await repository.checkAnsweredToday();
 
           expect(result, isA<ResultFailed<AnsweredTodayEntity, Failure>>());
-          expect((result as ResultFailed<AnsweredTodayEntity, Failure>).error, failure);
+          expect((result as ResultFailed<AnsweredTodayEntity, Failure>).error,
+              failure);
         });
       });
     });
   });
 }
 
-Future<Result<PageEntity<QuestionEntity>, Failure>> _getQuestions(MockApiClient apiClient) {
+Future<Result<PageEntity<QuestionEntity>, Failure>> _getQuestions(
+    MockApiClient apiClient) {
   return apiClient.get<PageEntity<QuestionEntity>, DataPageDto<QuestionDto>>(
     '/questions',
     headers: any(named: 'headers'),
@@ -221,7 +285,19 @@ Future<Result<PageEntity<QuestionEntity>, Failure>> _getQuestions(MockApiClient 
   );
 }
 
-Future<Result<QuestionStateEntity, Failure>> _getQuestionStateById(MockApiClient apiClient, String id) {
+Future<Result<List<QuestionEntity>, Failure>> _localizeQuestions(
+    MockApiClient apiClient) {
+  return apiClient.post<List<QuestionEntity>, DataDto<List<QuestionDto>>>(
+    '/questions/localize',
+    body: any(named: 'body'),
+    mapper: any(named: 'mapper'),
+    converter: any(named: 'converter'),
+    enableLocale: any(named: 'enableLocale'),
+  );
+}
+
+Future<Result<QuestionStateEntity, Failure>> _getQuestionStateById(
+    MockApiClient apiClient, String id) {
   return apiClient.get<QuestionStateEntity, DataDto<QuestionStateDto>>(
     '/questions/$id/state',
     queryParameters: any(named: 'queryParameters'),
@@ -232,7 +308,8 @@ Future<Result<QuestionStateEntity, Failure>> _getQuestionStateById(MockApiClient
   );
 }
 
-Future<Result<AnsweredTodayEntity, Failure>> _getAnsweredToday(MockApiClient apiClient) {
+Future<Result<AnsweredTodayEntity, Failure>> _getAnsweredToday(
+    MockApiClient apiClient) {
   return apiClient.get<AnsweredTodayEntity, DataDto<AnsweredTodayDto>>(
     '/questions/answered-today',
     queryParameters: any(named: 'queryParameters'),
