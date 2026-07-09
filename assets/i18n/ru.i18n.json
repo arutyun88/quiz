@@ -189,6 +189,10 @@
             "В",
             "Г"
         ],
+        "meta": {
+            "counter": "ВОПРОС $current / $total",
+            "topic": "// $topic"
+        },
         "answer_reveal": {
             "correct": "ВЕРНО",
             "incorrect": "НЕВЕРНО",

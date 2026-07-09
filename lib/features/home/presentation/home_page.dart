@@ -1,164 +1,135 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:quiz/app/config/style/text_style_ex.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
-import 'package:quiz/app/core/model/failure.dart';
-import 'package:quiz/app/core/widgets/app_bottom_sheet.dart';
-import 'package:quiz/app/core/widgets/button/app_button.dart';
-import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
-import 'package:quiz/features/authentication/provider/authentication_provider.dart';
+import 'package:quiz/app/core/widgets/app_divider.dart';
+import 'package:quiz/features/gamification/presentation/provider/gamification_provider.dart';
+import 'package:quiz/features/home/presentation/home_page_actions.dart';
+import 'package:quiz/features/home/presentation/provider/daily_question_progress_provider.dart';
+import 'package:quiz/features/home/presentation/provider/start_day_config_provider.dart';
+import 'package:quiz/features/home/presentation/widgets/quiz/answer_reveal_bottom_sheet.dart';
+import 'package:quiz/features/home/presentation/widgets/quiz/quiz_body.dart';
+import 'package:quiz/features/home/presentation/widgets/quiz/quiz_motion.dart';
+import 'package:quiz/features/home/presentation/widgets/quiz/quiz_state_views.dart';
+import 'package:quiz/features/home/presentation/widgets/start_day_header.dart';
+import 'package:quiz/features/question/domain/entity/question_entity.dart';
 import 'package:quiz/features/question/presentation/provider/question_provider.dart';
-import 'package:quiz/features/gamification/presentation/widgets/level_badge_widget.dart';
-import 'package:quiz/features/question/presentation/widgets/answers_widget.dart';
-import 'package:quiz/features/question/presentation/widgets/question_widget.dart';
 import 'package:quiz/gen/strings.g.dart';
 
-class HomePage extends ConsumerStatefulWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  ConsumerState<HomePage> createState() => _HomePageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final actions = HomePageActionsScope.of(context);
+    _listenAnswerSent(context, ref, actions);
 
-class _HomePageState extends ConsumerState<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    _listenQuestionAnswerResult();
+    final gamification = ref.watch(gamificationProvider);
+    final streak = gamification.whenOrNull(data: (d) => d.streakDays) ?? 0;
+    final level = gamification.whenOrNull(data: (d) => d.level);
+    final config = ref.watch(startDayConfigProvider);
+    final dailyProgress = ref.watch(dailyQuestionProgressProvider);
+    final totalQuestions = config.questionCount;
+    final answeredQuestionCount = dailyProgress.whenOrNull(
+          data: (progress) => progress.answeredQuestionCount,
+        ) ??
+        0;
+    final nextQuestionNumber = answeredQuestionCount + 1;
+    final questionNumber = nextQuestionNumber > totalQuestions ? totalQuestions : nextQuestionNumber;
+    final questionState = ref.watch(questionProvider);
+    final palette = context.palette;
 
-    final name = ref.watch(authenticationProvider).whenOrNull(authenticated: (user) => user?.name);
-
-    return AppSubheaderedScaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: name != null ? Text(name) : null,
-        actions: const [
-          LevelBadgeWidget(),
-          SizedBox(width: 16.0),
-        ],
-      ),
-      body: Column(
-        children: [
-          const SizedBox(height: 10.0),
-          Expanded(
-            flex: 2,
-            child: QuestionWidget(),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        backgroundColor: palette.background.static,
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              StartDayHeader(
+                streak: streak,
+                level: level,
+                subtitle: context.t.onboarding.daily_issue,
+              ),
+              AppDivider(indent: 22, endIndent: 22),
+              Expanded(
+                child: questionState.when(
+                  loading: () => const QuizLoading(),
+                  empty: () => const QuizEmpty(),
+                  failed: (failure) => QuizError(failure: failure),
+                  data: (question, answerState) => QuizBody(
+                    question: question,
+                    answerState: answerState,
+                    questionNumber: questionNumber,
+                    totalQuestions: totalQuestions,
+                    onSelect: answerState is QuestionAnswerWaitingState || answerState is QuestionAnswerSelectedState
+                        ? actions.onSelect
+                        : null,
+                  ),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 10.0),
-          Expanded(
-            flex: 3,
-            child: const AnswersWidget(),
-          ),
-          const SizedBox(height: 10.0),
-        ],
+        ),
       ),
     );
   }
 
-  void _listenQuestionAnswerResult() {
+  void _listenAnswerSent(
+    BuildContext context,
+    WidgetRef ref,
+    HomePageActions actions,
+  ) {
     ref.listen(
-      questionProvider.select(
-        (state) => state.whenOrNull(
-          data: (question, answerState) => switch (answerState) {
-            QuestionAnswerSentState() => (question, answerState),
-            QuestionAnswerFailedState() => (question, answerState),
-            _ => null,
-          },
-        ),
-      ),
-      (prev, next) async {
-        if (next == null) return;
-
-        final (question, answerState) = next;
-
-        switch (answerState) {
-          case QuestionAnswerSentState(:final isCorrect):
-            showAppBottomSheet(
-              context,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Column(
-                  spacing: 24.0,
-                  children: [
-                    Align(
-                      alignment: AlignmentDirectional.centerStart,
-                      child: Text(
-                        isCorrect
-                            ? t.question.dialog.correct
-                                .header[Random().nextInt(t.question.dialog.correct.header.length)]
-                            : t.question.dialog.incorrect
-                                .header[Random().nextInt(t.question.dialog.correct.header.length)],
-                        style: context.textStyle.body16Semibold,
-                      ),
-                    ),
-                    if (answerState.description case String description?)
-                      Text(
-                        description,
-                        textAlign: TextAlign.start,
-                      ),
-                    Align(
-                      alignment: AlignmentDirectional.centerEnd,
-                      child: Text(
-                        textAlign: TextAlign.end,
-                        isCorrect
-                            ? t.question.dialog.correct
-                                .prompt[Random().nextInt(t.question.dialog.correct.header.length)]
-                            : t.question.dialog.incorrect
-                                .prompt[Random().nextInt(t.question.dialog.correct.header.length)],
-                        style: context.textStyle.body16Semibold,
-                      ),
-                    ),
-                    AppButton(
-                      onTap: context.pop,
-                      child: Text(t.question.dialog.button),
-                    ),
-                  ],
-                ),
-              ),
-            ).then((_) => ref.read(questionProvider.notifier).next());
-          case QuestionAnswerFailedState(:final QuestionFailure failure):
-            _showSnackBar(
-              text: failure.reason is QuestionFailureAlreadySavedReason
-                  ? t.question.error_snackbar.already_answered.text
-                  : t.question.error_snackbar.save_failed_retry_later.text,
-              button: failure.reason is QuestionFailureAlreadySavedReason
-                  ? t.question.error_snackbar.already_answered.button
-                  : t.question.error_snackbar.save_failed_retry_later.button,
-            );
-          case QuestionAnswerFailedState(:final NetworkFailure failure):
-            _showSnackBar(
-              text: failure.reason is NetworkFailureBadResponseReason
-                  ? t.question.error_snackbar.answered_on_another_device.text
-                  : t.question.error_snackbar.save_failed_retry_later.text,
-              button: failure.reason is NetworkFailureBadResponseReason
-                  ? t.question.error_snackbar.answered_on_another_device.button
-                  : t.question.error_snackbar.save_failed_retry_later.button,
-            );
-        }
+      questionProvider.select((s) => s.maybeWhen(
+            data: (question, ans) => ans is QuestionAnswerSentState ? (question, ans) : null,
+            orElse: () => null,
+          )),
+      (_, sent) {
+        if (sent == null) return;
+        final (question, sentState) = sent;
+        _showAnswerRevealSheet(
+          context,
+          question: question,
+          sentState: sentState,
+          onNext: actions.onNext,
+        );
       },
     );
   }
 
-  void _showSnackBar({
-    required String text,
-    required String button,
-  }) =>
-      ScaffoldMessenger.of(context)
-          .showSnackBar(
-            SnackBar(
-              content: Text(text),
-              action: SnackBarAction(
-                label: button,
-                onPressed: () {},
-                textColor: context.palette.text.primary,
-              ),
-              backgroundColor: context.palette.background.danger,
-            ),
-          )
-          .closed
-          .then(
-            (value) => ref.read(questionProvider.notifier).next(),
-          );
+  Future<void> _showAnswerRevealSheet(
+    BuildContext context, {
+    required QuestionEntity question,
+    required QuestionAnswerSentState sentState,
+    required VoidCallback onNext,
+  }) async {
+    final palette = context.palette;
+
+    await showModalBottomSheet<void>(
+      context: context,
+      useRootNavigator: true,
+      isScrollControlled: true,
+      isDismissible: false,
+      enableDrag: false,
+      barrierColor: palette.bottomSheet.scrim,
+      backgroundColor: palette.bottomSheet.background,
+      shape: const RoundedRectangleBorder(),
+      sheetAnimationStyle: const AnimationStyle(
+        duration: answerRevealTransitionDuration,
+        reverseDuration: answerRevealTransitionDuration,
+      ),
+      builder: (sheetContext) => SafeArea(
+        top: false,
+        child: AnswerRevealBottomSheet(
+          question: question,
+          sentState: sentState,
+          onNext: () {
+            Navigator.of(sheetContext).pop();
+            onNext();
+          },
+        ),
+      ),
+    );
+  }
 }

@@ -185,6 +185,10 @@
             "C",
             "D"
         ],
+        "meta": {
+            "counter": "QUESTION $current / $total",
+            "topic": "// $topic"
+        },
         "answer_reveal": {
             "correct": "CORRECT",
             "incorrect": "INCORRECT",

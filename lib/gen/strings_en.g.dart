@@ -217,6 +217,7 @@ class Translations$question$en {
 		'C',
 		'D',
 	];
+	late final Translations$question$meta$en meta = Translations$question$meta$en._(_root);
 	late final Translations$question$answer_reveal$en answer_reveal = Translations$question$answer_reveal$en._(_root);
 	late final Translations$question$dialog$en dialog = Translations$question$dialog$en._(_root);
 	late final Translations$question$error_snackbar$en error_snackbar = Translations$question$error_snackbar$en._(_root);
@@ -596,6 +597,21 @@ class Translations$achievements$categories$en {
 
 	/// ru: 'Очки'
 	String get points => 'Points';
+}
+
+// Path: question.meta
+class Translations$question$meta$en {
+	Translations$question$meta$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'ВОПРОС $current / $total'
+	String counter({required Object current, required Object total}) => 'QUESTION ${current} / ${total}';
+
+	/// ru: '// $topic'
+	String topic({required Object topic}) => '// ${topic}';
 }
 
 // Path: question.answer_reveal
@@ -1199,6 +1215,8 @@ extension on Translations {
 			'question.answer_letters.1' => 'B',
 			'question.answer_letters.2' => 'C',
 			'question.answer_letters.3' => 'D',
+			'question.meta.counter' => ({required Object current, required Object total}) => 'QUESTION ${current} / ${total}',
+			'question.meta.topic' => ({required Object topic}) => '// ${topic}',
 			'question.answer_reveal.correct' => 'CORRECT',
 			'question.answer_reveal.incorrect' => 'INCORRECT',
 			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',

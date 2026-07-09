@@ -169,6 +169,7 @@ class _Translations$question$ru implements Translations$question$en {
 		'В',
 		'Г',
 	];
+	@override late final _Translations$question$meta$ru meta = _Translations$question$meta$ru._(_root);
 	@override late final _Translations$question$answer_reveal$ru answer_reveal = _Translations$question$answer_reveal$ru._(_root);
 	@override late final _Translations$question$dialog$ru dialog = _Translations$question$dialog$ru._(_root);
 	@override late final _Translations$question$error_snackbar$ru error_snackbar = _Translations$question$error_snackbar$ru._(_root);
@@ -408,6 +409,17 @@ class _Translations$achievements$categories$ru implements Translations$achieveme
 	@override String get accuracy => 'Точность';
 	@override String get streak => 'Серия';
 	@override String get points => 'Очки';
+}
+
+// Path: question.meta
+class _Translations$question$meta$ru implements Translations$question$meta$en {
+	_Translations$question$meta$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String counter({required Object current, required Object total}) => 'ВОПРОС ${current} / ${total}';
+	@override String topic({required Object topic}) => '// ${topic}';
 }
 
 // Path: question.answer_reveal
@@ -887,6 +899,8 @@ extension on TranslationsRu {
 			'question.answer_letters.1' => 'Б',
 			'question.answer_letters.2' => 'В',
 			'question.answer_letters.3' => 'Г',
+			'question.meta.counter' => ({required Object current, required Object total}) => 'ВОПРОС ${current} / ${total}',
+			'question.meta.topic' => ({required Object topic}) => '// ${topic}',
 			'question.answer_reveal.correct' => 'ВЕРНО',
 			'question.answer_reveal.incorrect' => 'НЕВЕРНО',
 			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',

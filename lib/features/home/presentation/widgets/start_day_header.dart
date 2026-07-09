@@ -10,10 +10,12 @@ class StartDayHeader extends StatelessWidget {
     super.key,
     required this.streak,
     required this.level,
+    this.subtitle,
   });
 
   final int streak;
   final int? level;
+  final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,7 @@ class StartDayHeader extends StatelessWidget {
               ),
               const SizedBox(height: 3),
               Text(
-                _formatDate(),
+                subtitle ?? _formatDate(),
                 style: GoogleFonts.jetBrainsMono(
                   fontSize: 10,
                   letterSpacing: 1.5,
