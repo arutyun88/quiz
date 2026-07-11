@@ -129,9 +129,9 @@ extension GetItInjectableX on _i174.GetIt {
     final authenticationModule = _$AuthenticationModule();
     final questionModule = _$QuestionModule();
     final userModule = _$UserModule();
-    final leaderboardModule = _$LeaderboardModule();
     final appSettingsModule = _$AppSettingsModule();
     final achievementsModule = _$AchievementsModule();
+    final leaderboardModule = _$LeaderboardModule();
     final gamificationModule = _$GamificationModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
       () => firebaseConfigModule.firebase(),
@@ -234,16 +234,16 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i935.AppDatabase>(),
           answeredQuestionDbConverter: gh<_i988.AnsweredQuestionDbConverter>(),
         ));
-    gh.factory<_i1065.LeaderboardPageConverter>(
-        () => leaderboardModule.leaderboardEntryPageConverter(
-              gh<_i1065.LeaderboardConverter>(),
-              gh<_i724.PageInfoConverter>(),
-            ));
+    gh.factory<_i1065.LeaderboardOverviewConverter>(() =>
+        _i1065.LeaderboardOverviewConverterImpl(
+            gh<_i1065.LeaderboardConverter>()));
     gh.lazySingleton<_i632.UserStatisticsRepository>(
         () => userModule.userStatisticsRepository(
               gh<_i782.ApiClient>(),
               gh<_i740.UserStatisticsConverter>(),
             ));
+    gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
+        .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
     gh.lazySingleton<_i240.QuestionRepository>(
         () => questionModule.questionRepository(
               client: gh<_i782.ApiClient>(),
@@ -252,8 +252,6 @@ extension GetItInjectableX on _i174.GetIt {
               questionStateDtoConverter: gh<_i122.QuestionStateDtoConverter>(),
               answeredTodayDtoConverter: gh<_i60.AnsweredTodayDtoConverter>(),
             ));
-    gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
-        .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
     gh.lazySingleton<_i482.ChangeUserInfoGateway>(
         () => userModule.changeUserInfoGateway(gh<_i450.UserRepository>()));
     gh.lazySingleton<_i885.ChangePasswordGateway>(
@@ -266,8 +264,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i914.LeaderboardRepository>(
         () => leaderboardModule.leaderboardRepository(
               client: gh<_i782.ApiClient>(),
-              pageConverter: gh<_i1065.LeaderboardPageConverter>(),
               converter: gh<_i1065.LeaderboardConverter>(),
+              overviewConverter: gh<_i1065.LeaderboardOverviewConverter>(),
             ));
     gh.factory<_i137.CheckQuestionStateUseCase>(
         () => _i137.CheckQuestionStateUseCaseImpl(
@@ -346,10 +344,10 @@ class _$QuestionModule extends _i906.QuestionModule {}
 
 class _$UserModule extends _i527.UserModule {}
 
-class _$LeaderboardModule extends _i946.LeaderboardModule {}
-
 class _$AppSettingsModule extends _i913.AppSettingsModule {}
 
 class _$AchievementsModule extends _i134.AchievementsModule {}
+
+class _$LeaderboardModule extends _i946.LeaderboardModule {}
 
 class _$GamificationModule extends _i941.GamificationModule {}

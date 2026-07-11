@@ -106,6 +106,25 @@ class _Translations$leaderboard$ru implements Translations$leaderboard$en {
 	@override String get title => 'Рейтинг';
 	@override String get my_position => 'Моя позиция';
 	@override String get empty => 'Нет активности за этот период';
+	@override String get rank_header => 'МЕСТО';
+	@override String get participant_header => 'УЧАСТНИК';
+	@override String get points_header => 'ОЧКИ';
+	@override String get accuracy_label => 'ТОЧНОСТЬ';
+	@override String gap_row({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+		one: 'ЕЩЁ ${n} УЧАСТНИК',
+		few: 'ЕЩЁ ${n} УЧАСТНИКА',
+		many: 'ЕЩЁ ${n} УЧАСТНИКОВ',
+		other: 'ЕЩЁ ${n} УЧАСТНИКА',
+	);
+	@override String total_participants({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+		one: 'ВСЕГО ${n} УЧАСТНИК',
+		few: 'ВСЕГО ${n} УЧАСТНИКА',
+		many: 'ВСЕГО ${n} УЧАСТНИКОВ',
+		other: 'ВСЕГО ${n} УЧАСТНИКА',
+	);
+	@override String get retry => 'ПОВТОРИТЬ';
+	@override String get load_failed => 'Не удалось загрузить рейтинг';
+	@override late final _Translations$leaderboard$period_tabs$ru period_tabs = _Translations$leaderboard$period_tabs$ru._(_root);
 	@override late final _Translations$leaderboard$periods$ru periods = _Translations$leaderboard$periods$ru._(_root);
 }
 
@@ -383,6 +402,19 @@ class _Translations$authentication$sign_up$ru implements Translations$authentica
 	@override late final _Translations$authentication$sign_up$confirm_password$ru confirm_password = _Translations$authentication$sign_up$confirm_password$ru._(_root);
 	@override String get button => 'Зарегистрироваться';
 	@override String get title => 'Зарегистрироваться';
+}
+
+// Path: leaderboard.period_tabs
+class _Translations$leaderboard$period_tabs$ru implements Translations$leaderboard$period_tabs$en {
+	_Translations$leaderboard$period_tabs$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get daily => 'ДЕНЬ';
+	@override String get weekly => 'НЕДЕЛЯ';
+	@override String get monthly => 'МЕСЯЦ';
+	@override String get yearly => 'ГОД';
 }
 
 // Path: leaderboard.periods
@@ -908,6 +940,18 @@ extension on TranslationsRu {
 			'leaderboard.title' => 'Рейтинг',
 			'leaderboard.my_position' => 'Моя позиция',
 			'leaderboard.empty' => 'Нет активности за этот период',
+			'leaderboard.rank_header' => 'МЕСТО',
+			'leaderboard.participant_header' => 'УЧАСТНИК',
+			'leaderboard.points_header' => 'ОЧКИ',
+			'leaderboard.accuracy_label' => 'ТОЧНОСТЬ',
+			'leaderboard.gap_row' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'ЕЩЁ ${n} УЧАСТНИК', few: 'ЕЩЁ ${n} УЧАСТНИКА', many: 'ЕЩЁ ${n} УЧАСТНИКОВ', other: 'ЕЩЁ ${n} УЧАСТНИКА', ), 
+			'leaderboard.total_participants' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'ВСЕГО ${n} УЧАСТНИК', few: 'ВСЕГО ${n} УЧАСТНИКА', many: 'ВСЕГО ${n} УЧАСТНИКОВ', other: 'ВСЕГО ${n} УЧАСТНИКА', ), 
+			'leaderboard.retry' => 'ПОВТОРИТЬ',
+			'leaderboard.load_failed' => 'Не удалось загрузить рейтинг',
+			'leaderboard.period_tabs.daily' => 'ДЕНЬ',
+			'leaderboard.period_tabs.weekly' => 'НЕДЕЛЯ',
+			'leaderboard.period_tabs.monthly' => 'МЕСЯЦ',
+			'leaderboard.period_tabs.yearly' => 'ГОД',
 			'leaderboard.periods.daily' => 'дня',
 			'leaderboard.periods.weekly' => 'недели',
 			'leaderboard.periods.monthly' => 'месяца',

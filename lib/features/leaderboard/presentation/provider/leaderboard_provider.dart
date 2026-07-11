@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz/app/core/model/base_state.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/di/di.dart';
+import 'package:quiz/features/leaderboard/domain/entity/leaderboard_overview_entity.dart';
 import 'package:quiz/features/leaderboard/domain/entity/leaderboard_period.dart';
 import 'package:quiz/features/leaderboard/domain/repository/leaderboard_repository.dart';
 import 'package:quiz/features/leaderboard/presentation/provider/leaderboard_state.dart';
@@ -27,39 +28,23 @@ class LeaderboardNotifier extends StateNotifier<LeaderboardState> {
   Future<void> fetch(LeaderboardPeriod period) async {
     state = state.updatePeriod(period, BaseState.loading());
 
-    final results = await Future.wait([
-      _repository.fetchBoard(period),
-      _repository.fetchMyEntry(period),
-    ]);
+    final result = await _repository.fetchOverview(period);
 
-    final boardResult = results[0] as Result;
-    final myResult = results[1] as Result;
-
-    switch (boardResult) {
-      case ResultOk(data: final page):
-        state = state.updatePeriod(
-          period,
-          BaseState.data(
-            LeaderboardData(
-              period: period,
-              entries: page.items,
-              myEntry: switch (myResult) {
-                ResultOk(data: final entry) => entry,
-                ResultFailed() => null,
-              },
-            ),
-          ),
-        );
+    switch (result) {
+      case ResultOk(data: final overview):
+        state = state.updatePeriod(period, BaseState.data(overview));
       case ResultFailed(error: final failure):
         state = state.updatePeriod(period, BaseState.failed(failure));
     }
   }
 
   void changePeriod(LeaderboardPeriod period) {
+    if (period == state.currentPeriod) return;
+
     state = state.copyWith(currentPeriod: period);
 
     final periodState = state.periodStates[period];
-    final shouldFetch = periodState == null || periodState is BaseFailedState<LeaderboardData>;
+    final shouldFetch = periodState == null || periodState is BaseFailedState<LeaderboardOverviewEntity>;
 
     if (shouldFetch) fetch(period);
 

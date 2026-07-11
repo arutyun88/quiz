@@ -147,6 +147,26 @@
         "title": "Leaderboard",
         "my_position": "My position",
         "empty": "No activity yet for this period",
+        "rank_header": "RANK",
+        "participant_header": "PLAYER",
+        "points_header": "POINTS",
+        "accuracy_label": "ACCURACY",
+        "gap_row(n)": {
+            "one": "$n MORE PLAYER",
+            "other": "$n MORE PLAYERS"
+        },
+        "total_participants(n)": {
+            "one": "$n PLAYER TOTAL",
+            "other": "$n PLAYERS TOTAL"
+        },
+        "retry": "RETRY",
+        "load_failed": "Could not load leaderboard",
+        "period_tabs": {
+            "daily": "DAY",
+            "weekly": "WEEK",
+            "monthly": "MONTH",
+            "yearly": "YEAR"
+        },
         "periods": {
             "daily": "today",
             "weekly": "this week",

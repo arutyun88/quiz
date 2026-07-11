@@ -1,55 +1,41 @@
 import 'package:quiz/app/core/client/api_client.dart';
 import 'package:quiz/app/core/model/data_page/data_dto.dart';
-import 'package:quiz/app/core/model/data_page/data_page_dto.dart';
-import 'package:quiz/app/core/model/data_page/page_entity.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/json.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/features/leaderboard/data/converter/leaderboard_converter.dart';
 import 'package:quiz/features/leaderboard/data/dto/leaderboard_dto.dart';
+import 'package:quiz/features/leaderboard/data/dto/leaderboard_overview_dto.dart';
 import 'package:quiz/features/leaderboard/domain/entity/leaderboard_entity.dart';
+import 'package:quiz/features/leaderboard/domain/entity/leaderboard_overview_entity.dart';
 import 'package:quiz/features/leaderboard/domain/entity/leaderboard_period.dart';
 import 'package:quiz/features/leaderboard/domain/repository/leaderboard_repository.dart';
 
 class RemoteLeaderboardRepository implements LeaderboardRepository {
   final ApiClient _client;
-  final LeaderboardPageConverter _pageConverter;
   final LeaderboardConverter _converter;
+  final LeaderboardOverviewConverter _overviewConverter;
 
   const RemoteLeaderboardRepository({
     required ApiClient client,
-    required LeaderboardPageConverter pageConverter,
     required LeaderboardConverter converter,
+    required LeaderboardOverviewConverter overviewConverter,
   })  : _client = client,
-        _pageConverter = pageConverter,
-        _converter = converter;
+        _converter = converter,
+        _overviewConverter = overviewConverter;
 
   @override
-  Future<Result<PageEntity<LeaderboardEntity>, Failure>> fetchBoard(
+  Future<Result<LeaderboardOverviewEntity, Failure>> fetchOverview(
     LeaderboardPeriod period,
   ) async =>
       await _client.get(
-        '/gamification/leaderboard',
-        queryParameters: {'period': period.toApiValue()},
-        mapper: (json) => DataPageDto.fromJson(
-          json,
-          (json) => LeaderboardDto.fromJson(json as Json),
-        ),
-        converter: _pageConverter.convert,
-      );
-
-  @override
-  Future<Result<LeaderboardEntity, Failure>> fetchMyEntry(
-    LeaderboardPeriod period,
-  ) async =>
-      await _client.get(
-        '/gamification/leaderboard/me',
+        '/gamification/leaderboard/overview',
         queryParameters: {'period': period.toApiValue()},
         mapper: (json) => DataDto.fromJson(
           json,
-          (json) => LeaderboardDto.fromJson(json as Json),
+          (json) => LeaderboardOverviewDto.fromJson(json as Json),
         ),
-        converter: (dto) => _converter.convert(dto.data),
+        converter: (dto) => _overviewConverter.convert(dto.data),
       );
 
   @override

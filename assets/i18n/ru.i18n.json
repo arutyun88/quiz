@@ -147,6 +147,30 @@
         "title": "Рейтинг",
         "my_position": "Моя позиция",
         "empty": "Нет активности за этот период",
+        "rank_header": "МЕСТО",
+        "participant_header": "УЧАСТНИК",
+        "points_header": "ОЧКИ",
+        "accuracy_label": "ТОЧНОСТЬ",
+        "gap_row(n)": {
+            "one": "ЕЩЁ $n УЧАСТНИК",
+            "few": "ЕЩЁ $n УЧАСТНИКА",
+            "many": "ЕЩЁ $n УЧАСТНИКОВ",
+            "other": "ЕЩЁ $n УЧАСТНИКА"
+        },
+        "total_participants(n)": {
+            "one": "ВСЕГО $n УЧАСТНИК",
+            "few": "ВСЕГО $n УЧАСТНИКА",
+            "many": "ВСЕГО $n УЧАСТНИКОВ",
+            "other": "ВСЕГО $n УЧАСТНИКА"
+        },
+        "retry": "ПОВТОРИТЬ",
+        "load_failed": "Не удалось загрузить рейтинг",
+        "period_tabs": {
+            "daily": "ДЕНЬ",
+            "weekly": "НЕДЕЛЯ",
+            "monthly": "МЕСЯЦ",
+            "yearly": "ГОД"
+        },
         "periods": {
             "daily": "дня",
             "weekly": "недели",

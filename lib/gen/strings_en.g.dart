@@ -121,6 +121,37 @@ class Translations$leaderboard$en {
 	/// ru: 'Нет активности за этот период'
 	String get empty => 'No activity yet for this period';
 
+	/// ru: 'МЕСТО'
+	String get rank_header => 'RANK';
+
+	/// ru: 'УЧАСТНИК'
+	String get participant_header => 'PLAYER';
+
+	/// ru: 'ОЧКИ'
+	String get points_header => 'POINTS';
+
+	/// ru: 'ТОЧНОСТЬ'
+	String get accuracy_label => 'ACCURACY';
+
+	/// ru: '(one) {ЕЩЁ $n УЧАСТНИК} (few) {ЕЩЁ $n УЧАСТНИКА} (many) {ЕЩЁ $n УЧАСТНИКОВ} (other) {ЕЩЁ $n УЧАСТНИКА}'
+	String gap_row({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: '${n} MORE PLAYER',
+		other: '${n} MORE PLAYERS',
+	);
+
+	/// ru: '(one) {ВСЕГО $n УЧАСТНИК} (few) {ВСЕГО $n УЧАСТНИКА} (many) {ВСЕГО $n УЧАСТНИКОВ} (other) {ВСЕГО $n УЧАСТНИКА}'
+	String total_participants({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: '${n} PLAYER TOTAL',
+		other: '${n} PLAYERS TOTAL',
+	);
+
+	/// ru: 'ПОВТОРИТЬ'
+	String get retry => 'RETRY';
+
+	/// ru: 'Не удалось загрузить рейтинг'
+	String get load_failed => 'Could not load leaderboard';
+
+	late final Translations$leaderboard$period_tabs$en period_tabs = Translations$leaderboard$period_tabs$en._(_root);
 	late final Translations$leaderboard$periods$en periods = Translations$leaderboard$periods$en._(_root);
 }
 
@@ -553,6 +584,27 @@ class Translations$authentication$sign_up$en {
 
 	/// ru: 'Зарегистрироваться'
 	String get title => 'Sign up';
+}
+
+// Path: leaderboard.period_tabs
+class Translations$leaderboard$period_tabs$en {
+	Translations$leaderboard$period_tabs$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'ДЕНЬ'
+	String get daily => 'DAY';
+
+	/// ru: 'НЕДЕЛЯ'
+	String get weekly => 'WEEK';
+
+	/// ru: 'МЕСЯЦ'
+	String get monthly => 'MONTH';
+
+	/// ru: 'ГОД'
+	String get yearly => 'YEAR';
 }
 
 // Path: leaderboard.periods
@@ -1247,6 +1299,18 @@ extension on Translations {
 			'leaderboard.title' => 'Leaderboard',
 			'leaderboard.my_position' => 'My position',
 			'leaderboard.empty' => 'No activity yet for this period',
+			'leaderboard.rank_header' => 'RANK',
+			'leaderboard.participant_header' => 'PLAYER',
+			'leaderboard.points_header' => 'POINTS',
+			'leaderboard.accuracy_label' => 'ACCURACY',
+			'leaderboard.gap_row' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} MORE PLAYER', other: '${n} MORE PLAYERS', ), 
+			'leaderboard.total_participants' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} PLAYER TOTAL', other: '${n} PLAYERS TOTAL', ), 
+			'leaderboard.retry' => 'RETRY',
+			'leaderboard.load_failed' => 'Could not load leaderboard',
+			'leaderboard.period_tabs.daily' => 'DAY',
+			'leaderboard.period_tabs.weekly' => 'WEEK',
+			'leaderboard.period_tabs.monthly' => 'MONTH',
+			'leaderboard.period_tabs.yearly' => 'YEAR',
 			'leaderboard.periods.daily' => 'today',
 			'leaderboard.periods.weekly' => 'this week',
 			'leaderboard.periods.monthly' => 'this month',
