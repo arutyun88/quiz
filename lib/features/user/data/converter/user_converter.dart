@@ -15,6 +15,18 @@ final class UserConverterImpl extends UserConverter {
       email: dto.data.email,
       name: dto.data.name,
       birthDate: dto.data.birthDate,
+      level: dto.data.level,
+      experienceInLevel: dto.data.experienceInLevel,
+      levelExperience: dto.data.levelExperience,
+      streakDays: dto.data.streakDays,
+      bestStreakDays: dto.data.bestStreakDays,
+      questionsAnswered: dto.data.questionsAnswered,
+      correctAnswers: dto.data.correctAnswers,
+      accuracy: dto.data.accuracy,
+      totalPoints: dto.data.totalPoints,
+      memberSince: dto.data.memberSince,
+      achievementsUnlocked: dto.data.achievementsUnlocked,
+      achievementsTotal: dto.data.achievementsTotal,
     );
   }
 }

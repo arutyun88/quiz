@@ -17,9 +17,21 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$UserEntity {
   String get id => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   DateTime? get birthDate => throw _privateConstructorUsedError;
+  int get level => throw _privateConstructorUsedError;
+  int get experienceInLevel => throw _privateConstructorUsedError;
+  int get levelExperience => throw _privateConstructorUsedError;
+  int get streakDays => throw _privateConstructorUsedError;
+  int get bestStreakDays => throw _privateConstructorUsedError;
+  int get questionsAnswered => throw _privateConstructorUsedError;
+  int get correctAnswers => throw _privateConstructorUsedError;
+  double get accuracy => throw _privateConstructorUsedError;
+  int get totalPoints => throw _privateConstructorUsedError;
+  DateTime get memberSince => throw _privateConstructorUsedError;
+  int get achievementsUnlocked => throw _privateConstructorUsedError;
+  int get achievementsTotal => throw _privateConstructorUsedError;
 
   /// Create a copy of UserEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -34,7 +46,23 @@ abstract class $UserEntityCopyWith<$Res> {
           UserEntity value, $Res Function(UserEntity) then) =
       _$UserEntityCopyWithImpl<$Res, UserEntity>;
   @useResult
-  $Res call({String id, String email, String? name, DateTime? birthDate});
+  $Res call(
+      {String id,
+      String? email,
+      String? name,
+      DateTime? birthDate,
+      int level,
+      int experienceInLevel,
+      int levelExperience,
+      int streakDays,
+      int bestStreakDays,
+      int questionsAnswered,
+      int correctAnswers,
+      double accuracy,
+      int totalPoints,
+      DateTime memberSince,
+      int achievementsUnlocked,
+      int achievementsTotal});
 }
 
 /// @nodoc
@@ -53,19 +81,31 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
   @override
   $Res call({
     Object? id = null,
-    Object? email = null,
+    Object? email = freezed,
     Object? name = freezed,
     Object? birthDate = freezed,
+    Object? level = null,
+    Object? experienceInLevel = null,
+    Object? levelExperience = null,
+    Object? streakDays = null,
+    Object? bestStreakDays = null,
+    Object? questionsAnswered = null,
+    Object? correctAnswers = null,
+    Object? accuracy = null,
+    Object? totalPoints = null,
+    Object? memberSince = null,
+    Object? achievementsUnlocked = null,
+    Object? achievementsTotal = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -74,6 +114,54 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
           ? _value.birthDate
           : birthDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      level: null == level
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as int,
+      experienceInLevel: null == experienceInLevel
+          ? _value.experienceInLevel
+          : experienceInLevel // ignore: cast_nullable_to_non_nullable
+              as int,
+      levelExperience: null == levelExperience
+          ? _value.levelExperience
+          : levelExperience // ignore: cast_nullable_to_non_nullable
+              as int,
+      streakDays: null == streakDays
+          ? _value.streakDays
+          : streakDays // ignore: cast_nullable_to_non_nullable
+              as int,
+      bestStreakDays: null == bestStreakDays
+          ? _value.bestStreakDays
+          : bestStreakDays // ignore: cast_nullable_to_non_nullable
+              as int,
+      questionsAnswered: null == questionsAnswered
+          ? _value.questionsAnswered
+          : questionsAnswered // ignore: cast_nullable_to_non_nullable
+              as int,
+      correctAnswers: null == correctAnswers
+          ? _value.correctAnswers
+          : correctAnswers // ignore: cast_nullable_to_non_nullable
+              as int,
+      accuracy: null == accuracy
+          ? _value.accuracy
+          : accuracy // ignore: cast_nullable_to_non_nullable
+              as double,
+      totalPoints: null == totalPoints
+          ? _value.totalPoints
+          : totalPoints // ignore: cast_nullable_to_non_nullable
+              as int,
+      memberSince: null == memberSince
+          ? _value.memberSince
+          : memberSince // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      achievementsUnlocked: null == achievementsUnlocked
+          ? _value.achievementsUnlocked
+          : achievementsUnlocked // ignore: cast_nullable_to_non_nullable
+              as int,
+      achievementsTotal: null == achievementsTotal
+          ? _value.achievementsTotal
+          : achievementsTotal // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -86,7 +174,23 @@ abstract class _$$UserEntityImplCopyWith<$Res>
       __$$UserEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String email, String? name, DateTime? birthDate});
+  $Res call(
+      {String id,
+      String? email,
+      String? name,
+      DateTime? birthDate,
+      int level,
+      int experienceInLevel,
+      int levelExperience,
+      int streakDays,
+      int bestStreakDays,
+      int questionsAnswered,
+      int correctAnswers,
+      double accuracy,
+      int totalPoints,
+      DateTime memberSince,
+      int achievementsUnlocked,
+      int achievementsTotal});
 }
 
 /// @nodoc
@@ -103,19 +207,31 @@ class __$$UserEntityImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? email = null,
+    Object? email = freezed,
     Object? name = freezed,
     Object? birthDate = freezed,
+    Object? level = null,
+    Object? experienceInLevel = null,
+    Object? levelExperience = null,
+    Object? streakDays = null,
+    Object? bestStreakDays = null,
+    Object? questionsAnswered = null,
+    Object? correctAnswers = null,
+    Object? accuracy = null,
+    Object? totalPoints = null,
+    Object? memberSince = null,
+    Object? achievementsUnlocked = null,
+    Object? achievementsTotal = null,
   }) {
     return _then(_$UserEntityImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -124,6 +240,54 @@ class __$$UserEntityImplCopyWithImpl<$Res>
           ? _value.birthDate
           : birthDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      level: null == level
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as int,
+      experienceInLevel: null == experienceInLevel
+          ? _value.experienceInLevel
+          : experienceInLevel // ignore: cast_nullable_to_non_nullable
+              as int,
+      levelExperience: null == levelExperience
+          ? _value.levelExperience
+          : levelExperience // ignore: cast_nullable_to_non_nullable
+              as int,
+      streakDays: null == streakDays
+          ? _value.streakDays
+          : streakDays // ignore: cast_nullable_to_non_nullable
+              as int,
+      bestStreakDays: null == bestStreakDays
+          ? _value.bestStreakDays
+          : bestStreakDays // ignore: cast_nullable_to_non_nullable
+              as int,
+      questionsAnswered: null == questionsAnswered
+          ? _value.questionsAnswered
+          : questionsAnswered // ignore: cast_nullable_to_non_nullable
+              as int,
+      correctAnswers: null == correctAnswers
+          ? _value.correctAnswers
+          : correctAnswers // ignore: cast_nullable_to_non_nullable
+              as int,
+      accuracy: null == accuracy
+          ? _value.accuracy
+          : accuracy // ignore: cast_nullable_to_non_nullable
+              as double,
+      totalPoints: null == totalPoints
+          ? _value.totalPoints
+          : totalPoints // ignore: cast_nullable_to_non_nullable
+              as int,
+      memberSince: null == memberSince
+          ? _value.memberSince
+          : memberSince // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      achievementsUnlocked: null == achievementsUnlocked
+          ? _value.achievementsUnlocked
+          : achievementsUnlocked // ignore: cast_nullable_to_non_nullable
+              as int,
+      achievementsTotal: null == achievementsTotal
+          ? _value.achievementsTotal
+          : achievementsTotal // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -135,20 +299,56 @@ class _$UserEntityImpl implements _UserEntity {
       {required this.id,
       required this.email,
       required this.name,
-      required this.birthDate});
+      required this.birthDate,
+      required this.level,
+      required this.experienceInLevel,
+      required this.levelExperience,
+      required this.streakDays,
+      required this.bestStreakDays,
+      required this.questionsAnswered,
+      required this.correctAnswers,
+      required this.accuracy,
+      required this.totalPoints,
+      required this.memberSince,
+      required this.achievementsUnlocked,
+      required this.achievementsTotal});
 
   @override
   final String id;
   @override
-  final String email;
+  final String? email;
   @override
   final String? name;
   @override
   final DateTime? birthDate;
+  @override
+  final int level;
+  @override
+  final int experienceInLevel;
+  @override
+  final int levelExperience;
+  @override
+  final int streakDays;
+  @override
+  final int bestStreakDays;
+  @override
+  final int questionsAnswered;
+  @override
+  final int correctAnswers;
+  @override
+  final double accuracy;
+  @override
+  final int totalPoints;
+  @override
+  final DateTime memberSince;
+  @override
+  final int achievementsUnlocked;
+  @override
+  final int achievementsTotal;
 
   @override
   String toString() {
-    return 'UserEntity(id: $id, email: $email, name: $name, birthDate: $birthDate)';
+    return 'UserEntity(id: $id, email: $email, name: $name, birthDate: $birthDate, level: $level, experienceInLevel: $experienceInLevel, levelExperience: $levelExperience, streakDays: $streakDays, bestStreakDays: $bestStreakDays, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, totalPoints: $totalPoints, memberSince: $memberSince, achievementsUnlocked: $achievementsUnlocked, achievementsTotal: $achievementsTotal)';
   }
 
   @override
@@ -160,11 +360,51 @@ class _$UserEntityImpl implements _UserEntity {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.birthDate, birthDate) ||
-                other.birthDate == birthDate));
+                other.birthDate == birthDate) &&
+            (identical(other.level, level) || other.level == level) &&
+            (identical(other.experienceInLevel, experienceInLevel) ||
+                other.experienceInLevel == experienceInLevel) &&
+            (identical(other.levelExperience, levelExperience) ||
+                other.levelExperience == levelExperience) &&
+            (identical(other.streakDays, streakDays) ||
+                other.streakDays == streakDays) &&
+            (identical(other.bestStreakDays, bestStreakDays) ||
+                other.bestStreakDays == bestStreakDays) &&
+            (identical(other.questionsAnswered, questionsAnswered) ||
+                other.questionsAnswered == questionsAnswered) &&
+            (identical(other.correctAnswers, correctAnswers) ||
+                other.correctAnswers == correctAnswers) &&
+            (identical(other.accuracy, accuracy) ||
+                other.accuracy == accuracy) &&
+            (identical(other.totalPoints, totalPoints) ||
+                other.totalPoints == totalPoints) &&
+            (identical(other.memberSince, memberSince) ||
+                other.memberSince == memberSince) &&
+            (identical(other.achievementsUnlocked, achievementsUnlocked) ||
+                other.achievementsUnlocked == achievementsUnlocked) &&
+            (identical(other.achievementsTotal, achievementsTotal) ||
+                other.achievementsTotal == achievementsTotal));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, email, name, birthDate);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      email,
+      name,
+      birthDate,
+      level,
+      experienceInLevel,
+      levelExperience,
+      streakDays,
+      bestStreakDays,
+      questionsAnswered,
+      correctAnswers,
+      accuracy,
+      totalPoints,
+      memberSince,
+      achievementsUnlocked,
+      achievementsTotal);
 
   /// Create a copy of UserEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -178,18 +418,54 @@ class _$UserEntityImpl implements _UserEntity {
 abstract class _UserEntity implements UserEntity {
   const factory _UserEntity(
       {required final String id,
-      required final String email,
+      required final String? email,
       required final String? name,
-      required final DateTime? birthDate}) = _$UserEntityImpl;
+      required final DateTime? birthDate,
+      required final int level,
+      required final int experienceInLevel,
+      required final int levelExperience,
+      required final int streakDays,
+      required final int bestStreakDays,
+      required final int questionsAnswered,
+      required final int correctAnswers,
+      required final double accuracy,
+      required final int totalPoints,
+      required final DateTime memberSince,
+      required final int achievementsUnlocked,
+      required final int achievementsTotal}) = _$UserEntityImpl;
 
   @override
   String get id;
   @override
-  String get email;
+  String? get email;
   @override
   String? get name;
   @override
   DateTime? get birthDate;
+  @override
+  int get level;
+  @override
+  int get experienceInLevel;
+  @override
+  int get levelExperience;
+  @override
+  int get streakDays;
+  @override
+  int get bestStreakDays;
+  @override
+  int get questionsAnswered;
+  @override
+  int get correctAnswers;
+  @override
+  double get accuracy;
+  @override
+  int get totalPoints;
+  @override
+  DateTime get memberSince;
+  @override
+  int get achievementsUnlocked;
+  @override
+  int get achievementsTotal;
 
   /// Create a copy of UserEntity
   /// with the given fields replaced by the non-null parameter values.

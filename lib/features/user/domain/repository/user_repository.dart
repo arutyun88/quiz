@@ -5,6 +5,8 @@ import 'package:quiz/features/user/domain/entity/user_entity.dart';
 abstract interface class UserRepository {
   Future<Result<UserEntity, Failure>> fetch();
 
+  Future<Result<UserEntity, Failure>> fetchUser(String userId);
+
   Future<Result<UserEntity, Failure>> update({
     String? name,
     DateTime? birthDate,

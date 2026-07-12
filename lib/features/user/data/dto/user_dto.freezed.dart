@@ -15,16 +15,38 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 UserDto _$UserDtoFromJson(Map<String, dynamic> json) {
-  return _UserAuthenticatedEntity.fromJson(json);
+  return _UserDto.fromJson(json);
 }
 
 /// @nodoc
 mixin _$UserDto {
   String get id => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'birth_date')
   DateTime? get birthDate => throw _privateConstructorUsedError;
+  int get level => throw _privateConstructorUsedError;
+  @JsonKey(name: 'experience_in_level')
+  int get experienceInLevel => throw _privateConstructorUsedError;
+  @JsonKey(name: 'level_experience')
+  int get levelExperience => throw _privateConstructorUsedError;
+  @JsonKey(name: 'streak_days')
+  int get streakDays => throw _privateConstructorUsedError;
+  @JsonKey(name: 'best_streak_days')
+  int get bestStreakDays => throw _privateConstructorUsedError;
+  @JsonKey(name: 'questions_answered')
+  int get questionsAnswered => throw _privateConstructorUsedError;
+  @JsonKey(name: 'correct_answers')
+  int get correctAnswers => throw _privateConstructorUsedError;
+  double get accuracy => throw _privateConstructorUsedError;
+  @JsonKey(name: 'total_points')
+  int get totalPoints => throw _privateConstructorUsedError;
+  @JsonKey(name: 'member_since')
+  DateTime get memberSince => throw _privateConstructorUsedError;
+  @JsonKey(name: 'achievements_unlocked')
+  int get achievementsUnlocked => throw _privateConstructorUsedError;
+  @JsonKey(name: 'achievements_total')
+  int get achievementsTotal => throw _privateConstructorUsedError;
 
   /// Serializes this UserDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,9 +64,21 @@ abstract class $UserDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String email,
+      String? email,
       String? name,
-      @JsonKey(name: 'birth_date') DateTime? birthDate});
+      @JsonKey(name: 'birth_date') DateTime? birthDate,
+      int level,
+      @JsonKey(name: 'experience_in_level') int experienceInLevel,
+      @JsonKey(name: 'level_experience') int levelExperience,
+      @JsonKey(name: 'streak_days') int streakDays,
+      @JsonKey(name: 'best_streak_days') int bestStreakDays,
+      @JsonKey(name: 'questions_answered') int questionsAnswered,
+      @JsonKey(name: 'correct_answers') int correctAnswers,
+      double accuracy,
+      @JsonKey(name: 'total_points') int totalPoints,
+      @JsonKey(name: 'member_since') DateTime memberSince,
+      @JsonKey(name: 'achievements_unlocked') int achievementsUnlocked,
+      @JsonKey(name: 'achievements_total') int achievementsTotal});
 }
 
 /// @nodoc
@@ -63,19 +97,31 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
   @override
   $Res call({
     Object? id = null,
-    Object? email = null,
+    Object? email = freezed,
     Object? name = freezed,
     Object? birthDate = freezed,
+    Object? level = null,
+    Object? experienceInLevel = null,
+    Object? levelExperience = null,
+    Object? streakDays = null,
+    Object? bestStreakDays = null,
+    Object? questionsAnswered = null,
+    Object? correctAnswers = null,
+    Object? accuracy = null,
+    Object? totalPoints = null,
+    Object? memberSince = null,
+    Object? achievementsUnlocked = null,
+    Object? achievementsTotal = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -84,33 +130,90 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
           ? _value.birthDate
           : birthDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      level: null == level
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as int,
+      experienceInLevel: null == experienceInLevel
+          ? _value.experienceInLevel
+          : experienceInLevel // ignore: cast_nullable_to_non_nullable
+              as int,
+      levelExperience: null == levelExperience
+          ? _value.levelExperience
+          : levelExperience // ignore: cast_nullable_to_non_nullable
+              as int,
+      streakDays: null == streakDays
+          ? _value.streakDays
+          : streakDays // ignore: cast_nullable_to_non_nullable
+              as int,
+      bestStreakDays: null == bestStreakDays
+          ? _value.bestStreakDays
+          : bestStreakDays // ignore: cast_nullable_to_non_nullable
+              as int,
+      questionsAnswered: null == questionsAnswered
+          ? _value.questionsAnswered
+          : questionsAnswered // ignore: cast_nullable_to_non_nullable
+              as int,
+      correctAnswers: null == correctAnswers
+          ? _value.correctAnswers
+          : correctAnswers // ignore: cast_nullable_to_non_nullable
+              as int,
+      accuracy: null == accuracy
+          ? _value.accuracy
+          : accuracy // ignore: cast_nullable_to_non_nullable
+              as double,
+      totalPoints: null == totalPoints
+          ? _value.totalPoints
+          : totalPoints // ignore: cast_nullable_to_non_nullable
+              as int,
+      memberSince: null == memberSince
+          ? _value.memberSince
+          : memberSince // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      achievementsUnlocked: null == achievementsUnlocked
+          ? _value.achievementsUnlocked
+          : achievementsUnlocked // ignore: cast_nullable_to_non_nullable
+              as int,
+      achievementsTotal: null == achievementsTotal
+          ? _value.achievementsTotal
+          : achievementsTotal // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$UserAuthenticatedEntityImplCopyWith<$Res>
-    implements $UserDtoCopyWith<$Res> {
-  factory _$$UserAuthenticatedEntityImplCopyWith(
-          _$UserAuthenticatedEntityImpl value,
-          $Res Function(_$UserAuthenticatedEntityImpl) then) =
-      __$$UserAuthenticatedEntityImplCopyWithImpl<$Res>;
+abstract class _$$UserDtoImplCopyWith<$Res> implements $UserDtoCopyWith<$Res> {
+  factory _$$UserDtoImplCopyWith(
+          _$UserDtoImpl value, $Res Function(_$UserDtoImpl) then) =
+      __$$UserDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {String id,
-      String email,
+      String? email,
       String? name,
-      @JsonKey(name: 'birth_date') DateTime? birthDate});
+      @JsonKey(name: 'birth_date') DateTime? birthDate,
+      int level,
+      @JsonKey(name: 'experience_in_level') int experienceInLevel,
+      @JsonKey(name: 'level_experience') int levelExperience,
+      @JsonKey(name: 'streak_days') int streakDays,
+      @JsonKey(name: 'best_streak_days') int bestStreakDays,
+      @JsonKey(name: 'questions_answered') int questionsAnswered,
+      @JsonKey(name: 'correct_answers') int correctAnswers,
+      double accuracy,
+      @JsonKey(name: 'total_points') int totalPoints,
+      @JsonKey(name: 'member_since') DateTime memberSince,
+      @JsonKey(name: 'achievements_unlocked') int achievementsUnlocked,
+      @JsonKey(name: 'achievements_total') int achievementsTotal});
 }
 
 /// @nodoc
-class __$$UserAuthenticatedEntityImplCopyWithImpl<$Res>
-    extends _$UserDtoCopyWithImpl<$Res, _$UserAuthenticatedEntityImpl>
-    implements _$$UserAuthenticatedEntityImplCopyWith<$Res> {
-  __$$UserAuthenticatedEntityImplCopyWithImpl(
-      _$UserAuthenticatedEntityImpl _value,
-      $Res Function(_$UserAuthenticatedEntityImpl) _then)
+class __$$UserDtoImplCopyWithImpl<$Res>
+    extends _$UserDtoCopyWithImpl<$Res, _$UserDtoImpl>
+    implements _$$UserDtoImplCopyWith<$Res> {
+  __$$UserDtoImplCopyWithImpl(
+      _$UserDtoImpl _value, $Res Function(_$UserDtoImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of UserDto
@@ -119,19 +222,31 @@ class __$$UserAuthenticatedEntityImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? email = null,
+    Object? email = freezed,
     Object? name = freezed,
     Object? birthDate = freezed,
+    Object? level = null,
+    Object? experienceInLevel = null,
+    Object? levelExperience = null,
+    Object? streakDays = null,
+    Object? bestStreakDays = null,
+    Object? questionsAnswered = null,
+    Object? correctAnswers = null,
+    Object? accuracy = null,
+    Object? totalPoints = null,
+    Object? memberSince = null,
+    Object? achievementsUnlocked = null,
+    Object? achievementsTotal = null,
   }) {
-    return _then(_$UserAuthenticatedEntityImpl(
+    return _then(_$UserDtoImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -140,95 +255,276 @@ class __$$UserAuthenticatedEntityImplCopyWithImpl<$Res>
           ? _value.birthDate
           : birthDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      level: null == level
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as int,
+      experienceInLevel: null == experienceInLevel
+          ? _value.experienceInLevel
+          : experienceInLevel // ignore: cast_nullable_to_non_nullable
+              as int,
+      levelExperience: null == levelExperience
+          ? _value.levelExperience
+          : levelExperience // ignore: cast_nullable_to_non_nullable
+              as int,
+      streakDays: null == streakDays
+          ? _value.streakDays
+          : streakDays // ignore: cast_nullable_to_non_nullable
+              as int,
+      bestStreakDays: null == bestStreakDays
+          ? _value.bestStreakDays
+          : bestStreakDays // ignore: cast_nullable_to_non_nullable
+              as int,
+      questionsAnswered: null == questionsAnswered
+          ? _value.questionsAnswered
+          : questionsAnswered // ignore: cast_nullable_to_non_nullable
+              as int,
+      correctAnswers: null == correctAnswers
+          ? _value.correctAnswers
+          : correctAnswers // ignore: cast_nullable_to_non_nullable
+              as int,
+      accuracy: null == accuracy
+          ? _value.accuracy
+          : accuracy // ignore: cast_nullable_to_non_nullable
+              as double,
+      totalPoints: null == totalPoints
+          ? _value.totalPoints
+          : totalPoints // ignore: cast_nullable_to_non_nullable
+              as int,
+      memberSince: null == memberSince
+          ? _value.memberSince
+          : memberSince // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      achievementsUnlocked: null == achievementsUnlocked
+          ? _value.achievementsUnlocked
+          : achievementsUnlocked // ignore: cast_nullable_to_non_nullable
+              as int,
+      achievementsTotal: null == achievementsTotal
+          ? _value.achievementsTotal
+          : achievementsTotal // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$UserAuthenticatedEntityImpl implements _UserAuthenticatedEntity {
-  const _$UserAuthenticatedEntityImpl(
+class _$UserDtoImpl implements _UserDto {
+  const _$UserDtoImpl(
       {required this.id,
-      required this.email,
+      this.email,
       this.name,
-      @JsonKey(name: 'birth_date') this.birthDate});
+      @JsonKey(name: 'birth_date') this.birthDate,
+      required this.level,
+      @JsonKey(name: 'experience_in_level') required this.experienceInLevel,
+      @JsonKey(name: 'level_experience') required this.levelExperience,
+      @JsonKey(name: 'streak_days') required this.streakDays,
+      @JsonKey(name: 'best_streak_days') required this.bestStreakDays,
+      @JsonKey(name: 'questions_answered') required this.questionsAnswered,
+      @JsonKey(name: 'correct_answers') required this.correctAnswers,
+      required this.accuracy,
+      @JsonKey(name: 'total_points') required this.totalPoints,
+      @JsonKey(name: 'member_since') required this.memberSince,
+      @JsonKey(name: 'achievements_unlocked')
+      required this.achievementsUnlocked,
+      @JsonKey(name: 'achievements_total') required this.achievementsTotal});
 
-  factory _$UserAuthenticatedEntityImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserAuthenticatedEntityImplFromJson(json);
+  factory _$UserDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserDtoImplFromJson(json);
 
   @override
   final String id;
   @override
-  final String email;
+  final String? email;
   @override
   final String? name;
   @override
   @JsonKey(name: 'birth_date')
   final DateTime? birthDate;
+  @override
+  final int level;
+  @override
+  @JsonKey(name: 'experience_in_level')
+  final int experienceInLevel;
+  @override
+  @JsonKey(name: 'level_experience')
+  final int levelExperience;
+  @override
+  @JsonKey(name: 'streak_days')
+  final int streakDays;
+  @override
+  @JsonKey(name: 'best_streak_days')
+  final int bestStreakDays;
+  @override
+  @JsonKey(name: 'questions_answered')
+  final int questionsAnswered;
+  @override
+  @JsonKey(name: 'correct_answers')
+  final int correctAnswers;
+  @override
+  final double accuracy;
+  @override
+  @JsonKey(name: 'total_points')
+  final int totalPoints;
+  @override
+  @JsonKey(name: 'member_since')
+  final DateTime memberSince;
+  @override
+  @JsonKey(name: 'achievements_unlocked')
+  final int achievementsUnlocked;
+  @override
+  @JsonKey(name: 'achievements_total')
+  final int achievementsTotal;
 
   @override
   String toString() {
-    return 'UserDto(id: $id, email: $email, name: $name, birthDate: $birthDate)';
+    return 'UserDto(id: $id, email: $email, name: $name, birthDate: $birthDate, level: $level, experienceInLevel: $experienceInLevel, levelExperience: $levelExperience, streakDays: $streakDays, bestStreakDays: $bestStreakDays, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, totalPoints: $totalPoints, memberSince: $memberSince, achievementsUnlocked: $achievementsUnlocked, achievementsTotal: $achievementsTotal)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UserAuthenticatedEntityImpl &&
+            other is _$UserDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.birthDate, birthDate) ||
-                other.birthDate == birthDate));
+                other.birthDate == birthDate) &&
+            (identical(other.level, level) || other.level == level) &&
+            (identical(other.experienceInLevel, experienceInLevel) ||
+                other.experienceInLevel == experienceInLevel) &&
+            (identical(other.levelExperience, levelExperience) ||
+                other.levelExperience == levelExperience) &&
+            (identical(other.streakDays, streakDays) ||
+                other.streakDays == streakDays) &&
+            (identical(other.bestStreakDays, bestStreakDays) ||
+                other.bestStreakDays == bestStreakDays) &&
+            (identical(other.questionsAnswered, questionsAnswered) ||
+                other.questionsAnswered == questionsAnswered) &&
+            (identical(other.correctAnswers, correctAnswers) ||
+                other.correctAnswers == correctAnswers) &&
+            (identical(other.accuracy, accuracy) ||
+                other.accuracy == accuracy) &&
+            (identical(other.totalPoints, totalPoints) ||
+                other.totalPoints == totalPoints) &&
+            (identical(other.memberSince, memberSince) ||
+                other.memberSince == memberSince) &&
+            (identical(other.achievementsUnlocked, achievementsUnlocked) ||
+                other.achievementsUnlocked == achievementsUnlocked) &&
+            (identical(other.achievementsTotal, achievementsTotal) ||
+                other.achievementsTotal == achievementsTotal));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, email, name, birthDate);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      email,
+      name,
+      birthDate,
+      level,
+      experienceInLevel,
+      levelExperience,
+      streakDays,
+      bestStreakDays,
+      questionsAnswered,
+      correctAnswers,
+      accuracy,
+      totalPoints,
+      memberSince,
+      achievementsUnlocked,
+      achievementsTotal);
 
   /// Create a copy of UserDto
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$UserAuthenticatedEntityImplCopyWith<_$UserAuthenticatedEntityImpl>
-      get copyWith => __$$UserAuthenticatedEntityImplCopyWithImpl<
-          _$UserAuthenticatedEntityImpl>(this, _$identity);
+  _$$UserDtoImplCopyWith<_$UserDtoImpl> get copyWith =>
+      __$$UserDtoImplCopyWithImpl<_$UserDtoImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserAuthenticatedEntityImplToJson(
+    return _$$UserDtoImplToJson(
       this,
     );
   }
 }
 
-abstract class _UserAuthenticatedEntity implements UserDto {
-  const factory _UserAuthenticatedEntity(
-          {required final String id,
-          required final String email,
-          final String? name,
-          @JsonKey(name: 'birth_date') final DateTime? birthDate}) =
-      _$UserAuthenticatedEntityImpl;
+abstract class _UserDto implements UserDto {
+  const factory _UserDto(
+      {required final String id,
+      final String? email,
+      final String? name,
+      @JsonKey(name: 'birth_date') final DateTime? birthDate,
+      required final int level,
+      @JsonKey(name: 'experience_in_level')
+      required final int experienceInLevel,
+      @JsonKey(name: 'level_experience') required final int levelExperience,
+      @JsonKey(name: 'streak_days') required final int streakDays,
+      @JsonKey(name: 'best_streak_days') required final int bestStreakDays,
+      @JsonKey(name: 'questions_answered') required final int questionsAnswered,
+      @JsonKey(name: 'correct_answers') required final int correctAnswers,
+      required final double accuracy,
+      @JsonKey(name: 'total_points') required final int totalPoints,
+      @JsonKey(name: 'member_since') required final DateTime memberSince,
+      @JsonKey(name: 'achievements_unlocked')
+      required final int achievementsUnlocked,
+      @JsonKey(name: 'achievements_total')
+      required final int achievementsTotal}) = _$UserDtoImpl;
 
-  factory _UserAuthenticatedEntity.fromJson(Map<String, dynamic> json) =
-      _$UserAuthenticatedEntityImpl.fromJson;
+  factory _UserDto.fromJson(Map<String, dynamic> json) = _$UserDtoImpl.fromJson;
 
   @override
   String get id;
   @override
-  String get email;
+  String? get email;
   @override
   String? get name;
   @override
   @JsonKey(name: 'birth_date')
   DateTime? get birthDate;
+  @override
+  int get level;
+  @override
+  @JsonKey(name: 'experience_in_level')
+  int get experienceInLevel;
+  @override
+  @JsonKey(name: 'level_experience')
+  int get levelExperience;
+  @override
+  @JsonKey(name: 'streak_days')
+  int get streakDays;
+  @override
+  @JsonKey(name: 'best_streak_days')
+  int get bestStreakDays;
+  @override
+  @JsonKey(name: 'questions_answered')
+  int get questionsAnswered;
+  @override
+  @JsonKey(name: 'correct_answers')
+  int get correctAnswers;
+  @override
+  double get accuracy;
+  @override
+  @JsonKey(name: 'total_points')
+  int get totalPoints;
+  @override
+  @JsonKey(name: 'member_since')
+  DateTime get memberSince;
+  @override
+  @JsonKey(name: 'achievements_unlocked')
+  int get achievementsUnlocked;
+  @override
+  @JsonKey(name: 'achievements_total')
+  int get achievementsTotal;
 
   /// Create a copy of UserDto
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UserAuthenticatedEntityImplCopyWith<_$UserAuthenticatedEntityImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$UserDtoImplCopyWith<_$UserDtoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

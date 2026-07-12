@@ -26,6 +26,13 @@ class RemoteUserRepository implements UserRepository {
       );
 
   @override
+  Future<Result<UserEntity, Failure>> fetchUser(String userId) async => await _client.get(
+        '/user/$userId',
+        mapper: (json) => DataDto.fromJson(json, (json) => UserDto.fromJson(json as Json)),
+        converter: _userConverter.convert,
+      );
+
+  @override
   Future<Result<UserEntity, Failure>> update({
     String? name,
     DateTime? birthDate,
