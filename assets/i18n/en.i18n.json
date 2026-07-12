@@ -21,6 +21,21 @@
     },
     "profile": {
         "title": "Profile",
+        "view": {
+            "current_level_label": "CURRENT LVL",
+            "next_level": "→ LVL $n",
+            "stats_section": "// STATISTICS",
+            "stat_streak": "STREAK, D.",
+            "stat_answers": "ANSWERS",
+            "stat_accuracy": "ACCURACY",
+            "stat_points": "POINTS",
+            "stat_best_streak": "BEST STREAK",
+            "stat_days_in_game": "DAYS PLAYING",
+            "member_since": "PLAYING SINCE $date",
+            "achievements": "ACHIEVEMENTS · $unlocked/$total",
+            "load_failed": "Could not load profile",
+            "retry": "RETRY"
+        },
         "settings": {
             "title": "Settings",
             "user": {

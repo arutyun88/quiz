@@ -15,6 +15,7 @@ import 'package:quiz/features/home/presentation/home_gate_flow.dart';
 import 'package:quiz/features/onboarding/presentation/onboarding_flow.dart';
 import 'package:quiz/features/user/presentation/pages/edit/profile_edit_flow.dart';
 import 'package:quiz/features/user/presentation/pages/profile_flow.dart';
+import 'package:quiz/features/user/presentation/pages/public_profile_page.dart';
 import 'package:quiz/features/rating/presentation/rating_flow.dart';
 import 'package:quiz/features/settings/presentation/settings_flow.dart';
 import 'package:quiz/features/splash/presentation/splash_flow.dart';
@@ -72,6 +73,15 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                   path: '/rating',
                   name: 'rating',
                   builder: (context, state) => const RatingFlow(),
+                  routes: [
+                    GoRoute(
+                      path: 'user/:userId',
+                      name: 'public-profile',
+                      builder: (context, state) => PublicProfilePage(
+                        userId: state.pathParameters['userId']!,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/features/leaderboard/domain/entity/leaderboard_entity.dart';
@@ -44,73 +45,75 @@ class LeaderboardRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.palette;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: isMe ? colors.background.dynamic : null,
-        border: Border(
-          top: BorderSide(
-            color: isFirst ? colors.text.primary : colors.divider,
-            width: isFirst ? 1.5 : 1,
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => isMe ? context.go('/profile') : context.push('/rating/user/${entry.userId}'),
+      child: Container(
+        decoration: BoxDecoration(
+          color: isMe ? colors.background.dynamic : null,
+          border: Border(
+            top: BorderSide(
+              color: isFirst ? colors.text.primary : colors.divider,
+              width: isFirst ? 1.5 : 1,
+            ),
           ),
         ),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: Row(
-        children: [
-          SizedBox(
-            width: rankColumnWidth,
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              alignment: Alignment.centerLeft,
-              child: Text(
-                _rankValueText(entry.rank),
-                maxLines: 1,
-                style: GoogleFonts.unbounded(
-                  fontSize: 22,
-                  fontWeight: entry.rank > 0 && entry.rank <= 3
-                      ? FontWeight.w800
-                      : FontWeight.w700,
-                  color: _rankColor(context, entry.rank),
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: Row(
+          children: [
+            SizedBox(
+              width: rankColumnWidth,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  _rankValueText(entry.rank),
+                  maxLines: 1,
+                  style: GoogleFonts.unbounded(
+                    fontSize: 22,
+                    fontWeight: entry.rank > 0 && entry.rank <= 3 ? FontWeight.w800 : FontWeight.w700,
+                    color: _rankColor(context, entry.rank),
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  entry.displayName,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.spectral(
-                    fontSize: 17,
-                    color: colors.text.primary,
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    entry.displayName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.spectral(
+                      fontSize: 17,
+                      color: colors.text.primary,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 1),
-                Text(
-                  '${context.t.leaderboard.accuracy_label} ${entry.accuracyPercent}',
-                  style: GoogleFonts.jetBrainsMono(
-                    fontSize: 9,
-                    fontWeight: FontWeight.w500,
-                    color: colors.text.secondary,
+                  const SizedBox(height: 1),
+                  Text(
+                    '${context.t.leaderboard.accuracy_label} ${entry.accuracyPercent}',
+                    style: GoogleFonts.jetBrainsMono(
+                      fontSize: 9,
+                      fontWeight: FontWeight.w500,
+                      color: colors.text.secondary,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const SizedBox(width: 12),
-          Text(
-            entry.points.toString(),
-            style: GoogleFonts.unbounded(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: colors.text.primary,
+            const SizedBox(width: 12),
+            Text(
+              entry.points.toString(),
+              style: GoogleFonts.unbounded(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: colors.text.primary,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

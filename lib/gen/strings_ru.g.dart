@@ -76,6 +76,7 @@ class _Translations$profile$ru implements Translations$profile$en {
 
 	// Translations
 	@override String get title => 'Профиль';
+	@override late final _Translations$profile$view$ru view = _Translations$profile$view$ru._(_root);
 	@override late final _Translations$profile$settings$ru settings = _Translations$profile$settings$ru._(_root);
 	@override late final _Translations$profile$edit$ru edit = _Translations$profile$edit$ru._(_root);
 }
@@ -337,6 +338,28 @@ class _Translations$text_field$confirm_password$ru implements Translations$text_
 	// Translations
 	@override String get label => 'Подтвердите пароль';
 	@override String get hint => 'Повторите введенный пароль';
+}
+
+// Path: profile.view
+class _Translations$profile$view$ru implements Translations$profile$view$en {
+	_Translations$profile$view$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get current_level_label => 'ТЕКУЩИЙ УР.';
+	@override String next_level({required Object n}) => '→ УР. ${n}';
+	@override String get stats_section => '// СТАТИСТИКА';
+	@override String get stat_streak => 'СЕРИЯ, ДН.';
+	@override String get stat_answers => 'ОТВЕТОВ';
+	@override String get stat_accuracy => 'ТОЧНОСТЬ';
+	@override String get stat_points => 'ОЧКОВ';
+	@override String get stat_best_streak => 'ЛУЧШАЯ СЕРИЯ';
+	@override String get stat_days_in_game => 'ДНЕЙ В ИГРЕ';
+	@override String member_since({required Object date}) => 'В ИГРЕ С ${date}';
+	@override String achievements({required Object unlocked, required Object total}) => 'ДОСТИЖЕНИЯ · ${unlocked}/${total}';
+	@override String get load_failed => 'Не удалось загрузить профиль';
+	@override String get retry => 'ПОВТОРИТЬ';
 }
 
 // Path: profile.settings
@@ -872,6 +895,19 @@ extension on TranslationsRu {
 			'text_field.confirm_password.label' => 'Подтвердите пароль',
 			'text_field.confirm_password.hint' => 'Повторите введенный пароль',
 			'profile.title' => 'Профиль',
+			'profile.view.current_level_label' => 'ТЕКУЩИЙ УР.',
+			'profile.view.next_level' => ({required Object n}) => '→ УР. ${n}',
+			'profile.view.stats_section' => '// СТАТИСТИКА',
+			'profile.view.stat_streak' => 'СЕРИЯ, ДН.',
+			'profile.view.stat_answers' => 'ОТВЕТОВ',
+			'profile.view.stat_accuracy' => 'ТОЧНОСТЬ',
+			'profile.view.stat_points' => 'ОЧКОВ',
+			'profile.view.stat_best_streak' => 'ЛУЧШАЯ СЕРИЯ',
+			'profile.view.stat_days_in_game' => 'ДНЕЙ В ИГРЕ',
+			'profile.view.member_since' => ({required Object date}) => 'В ИГРЕ С ${date}',
+			'profile.view.achievements' => ({required Object unlocked, required Object total}) => 'ДОСТИЖЕНИЯ · ${unlocked}/${total}',
+			'profile.view.load_failed' => 'Не удалось загрузить профиль',
+			'profile.view.retry' => 'ПОВТОРИТЬ',
 			'profile.settings.title' => 'Настройки',
 			'profile.settings.user.title' => 'Настройки',
 			'profile.settings.user.go_to_edit' => 'Редактировать профиль',

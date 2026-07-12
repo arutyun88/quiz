@@ -21,6 +21,21 @@
     },
     "profile": {
         "title": "Профиль",
+        "view": {
+            "current_level_label": "ТЕКУЩИЙ УР.",
+            "next_level": "→ УР. $n",
+            "stats_section": "// СТАТИСТИКА",
+            "stat_streak": "СЕРИЯ, ДН.",
+            "stat_answers": "ОТВЕТОВ",
+            "stat_accuracy": "ТОЧНОСТЬ",
+            "stat_points": "ОЧКОВ",
+            "stat_best_streak": "ЛУЧШАЯ СЕРИЯ",
+            "stat_days_in_game": "ДНЕЙ В ИГРЕ",
+            "member_since": "В ИГРЕ С $date",
+            "achievements": "ДОСТИЖЕНИЯ · $unlocked/$total",
+            "load_failed": "Не удалось загрузить профиль",
+            "retry": "ПОВТОРИТЬ"
+        },
         "settings": {
             "title": "Настройки",
             "user": {

@@ -82,6 +82,7 @@ class Translations$profile$en {
 	/// ru: 'Профиль'
 	String get title => 'Profile';
 
+	late final Translations$profile$view$en view = Translations$profile$view$en._(_root);
 	late final Translations$profile$settings$en settings = Translations$profile$settings$en._(_root);
 	late final Translations$profile$edit$en edit = Translations$profile$edit$en._(_root);
 }
@@ -492,6 +493,54 @@ class Translations$text_field$confirm_password$en {
 
 	/// ru: 'Повторите введенный пароль'
 	String get hint => 'Repeat the entered password';
+}
+
+// Path: profile.view
+class Translations$profile$view$en {
+	Translations$profile$view$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'ТЕКУЩИЙ УР.'
+	String get current_level_label => 'CURRENT LVL';
+
+	/// ru: '→ УР. $n'
+	String next_level({required Object n}) => '→ LVL ${n}';
+
+	/// ru: '// СТАТИСТИКА'
+	String get stats_section => '// STATISTICS';
+
+	/// ru: 'СЕРИЯ, ДН.'
+	String get stat_streak => 'STREAK, D.';
+
+	/// ru: 'ОТВЕТОВ'
+	String get stat_answers => 'ANSWERS';
+
+	/// ru: 'ТОЧНОСТЬ'
+	String get stat_accuracy => 'ACCURACY';
+
+	/// ru: 'ОЧКОВ'
+	String get stat_points => 'POINTS';
+
+	/// ru: 'ЛУЧШАЯ СЕРИЯ'
+	String get stat_best_streak => 'BEST STREAK';
+
+	/// ru: 'ДНЕЙ В ИГРЕ'
+	String get stat_days_in_game => 'DAYS PLAYING';
+
+	/// ru: 'В ИГРЕ С $date'
+	String member_since({required Object date}) => 'PLAYING SINCE ${date}';
+
+	/// ru: 'ДОСТИЖЕНИЯ · $unlocked/$total'
+	String achievements({required Object unlocked, required Object total}) => 'ACHIEVEMENTS · ${unlocked}/${total}';
+
+	/// ru: 'Не удалось загрузить профиль'
+	String get load_failed => 'Could not load profile';
+
+	/// ru: 'ПОВТОРИТЬ'
+	String get retry => 'RETRY';
 }
 
 // Path: profile.settings
@@ -1231,6 +1280,19 @@ extension on Translations {
 			'text_field.confirm_password.label' => 'Confirm password',
 			'text_field.confirm_password.hint' => 'Repeat the entered password',
 			'profile.title' => 'Profile',
+			'profile.view.current_level_label' => 'CURRENT LVL',
+			'profile.view.next_level' => ({required Object n}) => '→ LVL ${n}',
+			'profile.view.stats_section' => '// STATISTICS',
+			'profile.view.stat_streak' => 'STREAK, D.',
+			'profile.view.stat_answers' => 'ANSWERS',
+			'profile.view.stat_accuracy' => 'ACCURACY',
+			'profile.view.stat_points' => 'POINTS',
+			'profile.view.stat_best_streak' => 'BEST STREAK',
+			'profile.view.stat_days_in_game' => 'DAYS PLAYING',
+			'profile.view.member_since' => ({required Object date}) => 'PLAYING SINCE ${date}',
+			'profile.view.achievements' => ({required Object unlocked, required Object total}) => 'ACHIEVEMENTS · ${unlocked}/${total}',
+			'profile.view.load_failed' => 'Could not load profile',
+			'profile.view.retry' => 'RETRY',
 			'profile.settings.title' => 'Settings',
 			'profile.settings.user.title' => 'Settings',
 			'profile.settings.user.go_to_edit' => 'Edit profile',
