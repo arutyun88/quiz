@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="Quiz app icon">
+  <rect width="1024" height="1024" fill="#F3EFE6"/>
+  <text
+    x="464"
+    y="474"
+    fill="#18160F"
+    font-family="Unbounded, Avenir Next, Arial Black, sans-serif"
+    font-size="260"
+    font-weight="800"
+    letter-spacing="7.6"
+    text-anchor="middle"
+    dominant-baseline="middle">QUIZ</text>
+  <text
+    x="824"
+    y="474"
+    fill="#2A39DE"
+    font-family="Unbounded, Avenir Next, Arial Black, sans-serif"
+    font-size="260"
+    font-weight="800"
+    dominant-baseline="middle">.</text>
+  <line x1="200" y1="636" x2="824" y2="636" stroke="#18160F" stroke-width="8"/>
+  <line x1="260" y1="682" x2="764" y2="682" stroke="#D7D0C1" stroke-width="6"/>
+</svg>
