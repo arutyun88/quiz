@@ -7,6 +7,7 @@ import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/core/services/connectivity_service.dart';
 import 'package:quiz/app/di/di.dart';
+import 'package:quiz/features/achievements/presentation/provider/achievements_provider.dart';
 import 'package:quiz/features/question/domain/repository/question_repository.dart';
 import 'package:quiz/features/question/domain/service/question_id_service.dart';
 import 'package:quiz/features/question/domain/use_case/sync_cached_question_locale_use_case.dart';
@@ -156,6 +157,9 @@ class LocaleQuestionSyncNotifier extends StateNotifier<LocaleQuestionSyncState> 
           syncedCount: data.syncedCount,
           clearFailure: true,
         );
+        // A public achievements page can stay mounted in the rating tab stack,
+        // keeping its autoDispose provider alive with the previous locale.
+        _ref.invalidate(publicAchievementsProvider);
         if (data.cachedCount > 0 || data.syncedCount > 0) {
           await _reloadQuestion();
         }
