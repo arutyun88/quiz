@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/model/base_state.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
@@ -33,6 +34,7 @@ class PublicProfilePage extends ConsumerWidget {
                 BaseDataState(:final data) => ProfileView(
                     profile: data,
                     isPublic: true,
+                    onAchievementsTap: () => context.push('/rating/user/$userId/achievements'),
                   ),
                 _ => ProfileError(
                     onRetry: () => ref.read(publicProfileProvider(userId).notifier).fetch(),

@@ -221,6 +221,7 @@
             "streak": "Streak",
             "points": "Points"
         },
+        "xp_reward": "+$points XP",
         "error": "Failed to load",
         "retry": "Retry"
     },

@@ -25,6 +25,13 @@ mixin _$UserAchievementDto {
   String get description => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   int? get points => throw _privateConstructorUsedError;
+  bool get unlocked => throw _privateConstructorUsedError;
+  @JsonKey(name: 'unlocked_at')
+  DateTime? get unlockedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'progress_current')
+  int? get progressCurrent => throw _privateConstructorUsedError;
+  @JsonKey(name: 'progress_target')
+  int? get progressTarget => throw _privateConstructorUsedError;
 
   /// Serializes this UserAchievementDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,7 +54,11 @@ abstract class $UserAchievementDtoCopyWith<$Res> {
       String name,
       String description,
       String category,
-      int? points});
+      int? points,
+      bool unlocked,
+      @JsonKey(name: 'unlocked_at') DateTime? unlockedAt,
+      @JsonKey(name: 'progress_current') int? progressCurrent,
+      @JsonKey(name: 'progress_target') int? progressTarget});
 }
 
 /// @nodoc
@@ -70,6 +81,10 @@ class _$UserAchievementDtoCopyWithImpl<$Res, $Val extends UserAchievementDto>
     Object? description = null,
     Object? category = null,
     Object? points = freezed,
+    Object? unlocked = null,
+    Object? unlockedAt = freezed,
+    Object? progressCurrent = freezed,
+    Object? progressTarget = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -92,6 +107,22 @@ class _$UserAchievementDtoCopyWithImpl<$Res, $Val extends UserAchievementDto>
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
               as int?,
+      unlocked: null == unlocked
+          ? _value.unlocked
+          : unlocked // ignore: cast_nullable_to_non_nullable
+              as bool,
+      unlockedAt: freezed == unlockedAt
+          ? _value.unlockedAt
+          : unlockedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      progressCurrent: freezed == progressCurrent
+          ? _value.progressCurrent
+          : progressCurrent // ignore: cast_nullable_to_non_nullable
+              as int?,
+      progressTarget: freezed == progressTarget
+          ? _value.progressTarget
+          : progressTarget // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -109,7 +140,11 @@ abstract class _$$UserAchievementDtoImplCopyWith<$Res>
       String name,
       String description,
       String category,
-      int? points});
+      int? points,
+      bool unlocked,
+      @JsonKey(name: 'unlocked_at') DateTime? unlockedAt,
+      @JsonKey(name: 'progress_current') int? progressCurrent,
+      @JsonKey(name: 'progress_target') int? progressTarget});
 }
 
 /// @nodoc
@@ -130,6 +165,10 @@ class __$$UserAchievementDtoImplCopyWithImpl<$Res>
     Object? description = null,
     Object? category = null,
     Object? points = freezed,
+    Object? unlocked = null,
+    Object? unlockedAt = freezed,
+    Object? progressCurrent = freezed,
+    Object? progressTarget = freezed,
   }) {
     return _then(_$UserAchievementDtoImpl(
       id: null == id
@@ -152,6 +191,22 @@ class __$$UserAchievementDtoImplCopyWithImpl<$Res>
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
               as int?,
+      unlocked: null == unlocked
+          ? _value.unlocked
+          : unlocked // ignore: cast_nullable_to_non_nullable
+              as bool,
+      unlockedAt: freezed == unlockedAt
+          ? _value.unlockedAt
+          : unlockedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      progressCurrent: freezed == progressCurrent
+          ? _value.progressCurrent
+          : progressCurrent // ignore: cast_nullable_to_non_nullable
+              as int?,
+      progressTarget: freezed == progressTarget
+          ? _value.progressTarget
+          : progressTarget // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -164,7 +219,11 @@ class _$UserAchievementDtoImpl implements _UserAchievementDto {
       required this.name,
       required this.description,
       required this.category,
-      this.points});
+      this.points,
+      this.unlocked = false,
+      @JsonKey(name: 'unlocked_at') this.unlockedAt,
+      @JsonKey(name: 'progress_current') this.progressCurrent,
+      @JsonKey(name: 'progress_target') this.progressTarget});
 
   factory _$UserAchievementDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserAchievementDtoImplFromJson(json);
@@ -179,10 +238,22 @@ class _$UserAchievementDtoImpl implements _UserAchievementDto {
   final String category;
   @override
   final int? points;
+  @override
+  @JsonKey()
+  final bool unlocked;
+  @override
+  @JsonKey(name: 'unlocked_at')
+  final DateTime? unlockedAt;
+  @override
+  @JsonKey(name: 'progress_current')
+  final int? progressCurrent;
+  @override
+  @JsonKey(name: 'progress_target')
+  final int? progressTarget;
 
   @override
   String toString() {
-    return 'UserAchievementDto(id: $id, name: $name, description: $description, category: $category, points: $points)';
+    return 'UserAchievementDto(id: $id, name: $name, description: $description, category: $category, points: $points, unlocked: $unlocked, unlockedAt: $unlockedAt, progressCurrent: $progressCurrent, progressTarget: $progressTarget)';
   }
 
   @override
@@ -196,13 +267,21 @@ class _$UserAchievementDtoImpl implements _UserAchievementDto {
                 other.description == description) &&
             (identical(other.category, category) ||
                 other.category == category) &&
-            (identical(other.points, points) || other.points == points));
+            (identical(other.points, points) || other.points == points) &&
+            (identical(other.unlocked, unlocked) ||
+                other.unlocked == unlocked) &&
+            (identical(other.unlockedAt, unlockedAt) ||
+                other.unlockedAt == unlockedAt) &&
+            (identical(other.progressCurrent, progressCurrent) ||
+                other.progressCurrent == progressCurrent) &&
+            (identical(other.progressTarget, progressTarget) ||
+                other.progressTarget == progressTarget));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, description, category, points);
+  int get hashCode => Object.hash(runtimeType, id, name, description, category,
+      points, unlocked, unlockedAt, progressCurrent, progressTarget);
 
   /// Create a copy of UserAchievementDto
   /// with the given fields replaced by the non-null parameter values.
@@ -223,11 +302,16 @@ class _$UserAchievementDtoImpl implements _UserAchievementDto {
 
 abstract class _UserAchievementDto implements UserAchievementDto {
   const factory _UserAchievementDto(
-      {required final String id,
-      required final String name,
-      required final String description,
-      required final String category,
-      final int? points}) = _$UserAchievementDtoImpl;
+          {required final String id,
+          required final String name,
+          required final String description,
+          required final String category,
+          final int? points,
+          final bool unlocked,
+          @JsonKey(name: 'unlocked_at') final DateTime? unlockedAt,
+          @JsonKey(name: 'progress_current') final int? progressCurrent,
+          @JsonKey(name: 'progress_target') final int? progressTarget}) =
+      _$UserAchievementDtoImpl;
 
   factory _UserAchievementDto.fromJson(Map<String, dynamic> json) =
       _$UserAchievementDtoImpl.fromJson;
@@ -242,6 +326,17 @@ abstract class _UserAchievementDto implements UserAchievementDto {
   String get category;
   @override
   int? get points;
+  @override
+  bool get unlocked;
+  @override
+  @JsonKey(name: 'unlocked_at')
+  DateTime? get unlockedAt;
+  @override
+  @JsonKey(name: 'progress_current')
+  int? get progressCurrent;
+  @override
+  @JsonKey(name: 'progress_target')
+  int? get progressTarget;
 
   /// Create a copy of UserAchievementDto
   /// with the given fields replaced by the non-null parameter values.

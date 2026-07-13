@@ -16,7 +16,11 @@ final class UserAchievementConverterImpl extends UserAchievementConverter {
       name: dto.name,
       description: dto.description,
       category: dto.category,
+      unlocked: dto.unlocked,
       points: dto.points,
+      unlockedAt: dto.unlockedAt,
+      progressCurrent: dto.progressCurrent,
+      progressTarget: dto.progressTarget,
     );
   }
 }

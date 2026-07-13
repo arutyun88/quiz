@@ -80,6 +80,15 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                       builder: (context, state) => PublicProfilePage(
                         userId: state.pathParameters['userId']!,
                       ),
+                      routes: [
+                        GoRoute(
+                          path: 'achievements',
+                          name: 'public-profile-achievements',
+                          builder: (context, state) => AchievementsFlow(
+                            userId: state.pathParameters['userId']!,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

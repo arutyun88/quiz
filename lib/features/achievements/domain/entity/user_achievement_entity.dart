@@ -9,6 +9,10 @@ class UserAchievementEntity with _$UserAchievementEntity {
     required String name,
     required String description,
     required String category,
+    required bool unlocked,
     int? points,
+    DateTime? unlockedAt,
+    int? progressCurrent,
+    int? progressTarget,
   }) = _UserAchievementEntity;
 }

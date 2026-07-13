@@ -229,6 +229,9 @@ class Translations$achievements$en {
 
 	late final Translations$achievements$categories$en categories = Translations$achievements$categories$en._(_root);
 
+	/// ru: '+$points XP'
+	String xp_reward({required Object points}) => '+${points} XP';
+
 	/// ru: 'Не удалось загрузить'
 	String get error => 'Failed to load';
 
@@ -1398,6 +1401,7 @@ extension on Translations {
 			'achievements.categories.accuracy' => 'Accuracy',
 			'achievements.categories.streak' => 'Streak',
 			'achievements.categories.points' => 'Points',
+			'achievements.xp_reward' => ({required Object points}) => '+${points} XP',
 			'achievements.error' => 'Failed to load',
 			'achievements.retry' => 'Retry',
 			'question.answer_letters.0' => 'A',

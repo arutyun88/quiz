@@ -11,6 +11,10 @@ class UserAchievementDto with _$UserAchievementDto {
     required String description,
     required String category,
     int? points,
+    @Default(false) bool unlocked,
+    @JsonKey(name: 'unlocked_at') DateTime? unlockedAt,
+    @JsonKey(name: 'progress_current') int? progressCurrent,
+    @JsonKey(name: 'progress_target') int? progressTarget,
   }) = _UserAchievementDto;
 
   factory UserAchievementDto.fromJson(Map<String, dynamic> json) => _$UserAchievementDtoFromJson(json);

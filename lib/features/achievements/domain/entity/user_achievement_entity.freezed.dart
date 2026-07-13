@@ -20,7 +20,11 @@ mixin _$UserAchievementEntity {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
+  bool get unlocked => throw _privateConstructorUsedError;
   int? get points => throw _privateConstructorUsedError;
+  DateTime? get unlockedAt => throw _privateConstructorUsedError;
+  int? get progressCurrent => throw _privateConstructorUsedError;
+  int? get progressTarget => throw _privateConstructorUsedError;
 
   /// Create a copy of UserAchievementEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -40,7 +44,11 @@ abstract class $UserAchievementEntityCopyWith<$Res> {
       String name,
       String description,
       String category,
-      int? points});
+      bool unlocked,
+      int? points,
+      DateTime? unlockedAt,
+      int? progressCurrent,
+      int? progressTarget});
 }
 
 /// @nodoc
@@ -63,7 +71,11 @@ class _$UserAchievementEntityCopyWithImpl<$Res,
     Object? name = null,
     Object? description = null,
     Object? category = null,
+    Object? unlocked = null,
     Object? points = freezed,
+    Object? unlockedAt = freezed,
+    Object? progressCurrent = freezed,
+    Object? progressTarget = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -82,9 +94,25 @@ class _$UserAchievementEntityCopyWithImpl<$Res,
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
+      unlocked: null == unlocked
+          ? _value.unlocked
+          : unlocked // ignore: cast_nullable_to_non_nullable
+              as bool,
       points: freezed == points
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
+              as int?,
+      unlockedAt: freezed == unlockedAt
+          ? _value.unlockedAt
+          : unlockedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      progressCurrent: freezed == progressCurrent
+          ? _value.progressCurrent
+          : progressCurrent // ignore: cast_nullable_to_non_nullable
+              as int?,
+      progressTarget: freezed == progressTarget
+          ? _value.progressTarget
+          : progressTarget // ignore: cast_nullable_to_non_nullable
               as int?,
     ) as $Val);
   }
@@ -104,7 +132,11 @@ abstract class _$$UserAchievementEntityImplCopyWith<$Res>
       String name,
       String description,
       String category,
-      int? points});
+      bool unlocked,
+      int? points,
+      DateTime? unlockedAt,
+      int? progressCurrent,
+      int? progressTarget});
 }
 
 /// @nodoc
@@ -125,7 +157,11 @@ class __$$UserAchievementEntityImplCopyWithImpl<$Res>
     Object? name = null,
     Object? description = null,
     Object? category = null,
+    Object? unlocked = null,
     Object? points = freezed,
+    Object? unlockedAt = freezed,
+    Object? progressCurrent = freezed,
+    Object? progressTarget = freezed,
   }) {
     return _then(_$UserAchievementEntityImpl(
       id: null == id
@@ -144,9 +180,25 @@ class __$$UserAchievementEntityImplCopyWithImpl<$Res>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
+      unlocked: null == unlocked
+          ? _value.unlocked
+          : unlocked // ignore: cast_nullable_to_non_nullable
+              as bool,
       points: freezed == points
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
+              as int?,
+      unlockedAt: freezed == unlockedAt
+          ? _value.unlockedAt
+          : unlockedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      progressCurrent: freezed == progressCurrent
+          ? _value.progressCurrent
+          : progressCurrent // ignore: cast_nullable_to_non_nullable
+              as int?,
+      progressTarget: freezed == progressTarget
+          ? _value.progressTarget
+          : progressTarget // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
   }
@@ -160,7 +212,11 @@ class _$UserAchievementEntityImpl implements _UserAchievementEntity {
       required this.name,
       required this.description,
       required this.category,
-      this.points});
+      required this.unlocked,
+      this.points,
+      this.unlockedAt,
+      this.progressCurrent,
+      this.progressTarget});
 
   @override
   final String id;
@@ -171,11 +227,19 @@ class _$UserAchievementEntityImpl implements _UserAchievementEntity {
   @override
   final String category;
   @override
+  final bool unlocked;
+  @override
   final int? points;
+  @override
+  final DateTime? unlockedAt;
+  @override
+  final int? progressCurrent;
+  @override
+  final int? progressTarget;
 
   @override
   String toString() {
-    return 'UserAchievementEntity(id: $id, name: $name, description: $description, category: $category, points: $points)';
+    return 'UserAchievementEntity(id: $id, name: $name, description: $description, category: $category, unlocked: $unlocked, points: $points, unlockedAt: $unlockedAt, progressCurrent: $progressCurrent, progressTarget: $progressTarget)';
   }
 
   @override
@@ -189,12 +253,20 @@ class _$UserAchievementEntityImpl implements _UserAchievementEntity {
                 other.description == description) &&
             (identical(other.category, category) ||
                 other.category == category) &&
-            (identical(other.points, points) || other.points == points));
+            (identical(other.unlocked, unlocked) ||
+                other.unlocked == unlocked) &&
+            (identical(other.points, points) || other.points == points) &&
+            (identical(other.unlockedAt, unlockedAt) ||
+                other.unlockedAt == unlockedAt) &&
+            (identical(other.progressCurrent, progressCurrent) ||
+                other.progressCurrent == progressCurrent) &&
+            (identical(other.progressTarget, progressTarget) ||
+                other.progressTarget == progressTarget));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, description, category, points);
+  int get hashCode => Object.hash(runtimeType, id, name, description, category,
+      unlocked, points, unlockedAt, progressCurrent, progressTarget);
 
   /// Create a copy of UserAchievementEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -212,7 +284,11 @@ abstract class _UserAchievementEntity implements UserAchievementEntity {
       required final String name,
       required final String description,
       required final String category,
-      final int? points}) = _$UserAchievementEntityImpl;
+      required final bool unlocked,
+      final int? points,
+      final DateTime? unlockedAt,
+      final int? progressCurrent,
+      final int? progressTarget}) = _$UserAchievementEntityImpl;
 
   @override
   String get id;
@@ -223,7 +299,15 @@ abstract class _UserAchievementEntity implements UserAchievementEntity {
   @override
   String get category;
   @override
+  bool get unlocked;
+  @override
   int? get points;
+  @override
+  DateTime? get unlockedAt;
+  @override
+  int? get progressCurrent;
+  @override
+  int? get progressTarget;
 
   /// Create a copy of UserAchievementEntity
   /// with the given fields replaced by the non-null parameter values.

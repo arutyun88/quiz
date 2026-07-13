@@ -14,6 +14,12 @@ _$UserAchievementDtoImpl _$$UserAchievementDtoImplFromJson(
       description: json['description'] as String,
       category: json['category'] as String,
       points: (json['points'] as num?)?.toInt(),
+      unlocked: json['unlocked'] as bool? ?? false,
+      unlockedAt: json['unlocked_at'] == null
+          ? null
+          : DateTime.parse(json['unlocked_at'] as String),
+      progressCurrent: (json['progress_current'] as num?)?.toInt(),
+      progressTarget: (json['progress_target'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$UserAchievementDtoImplToJson(
@@ -24,4 +30,8 @@ Map<String, dynamic> _$$UserAchievementDtoImplToJson(
       'description': instance.description,
       'category': instance.category,
       'points': instance.points,
+      'unlocked': instance.unlocked,
+      'unlocked_at': instance.unlockedAt?.toIso8601String(),
+      'progress_current': instance.progressCurrent,
+      'progress_target': instance.progressTarget,
     };
