@@ -19,10 +19,14 @@ class SignUpWithEmailGateway {
   Future<Result<void, Failure>> call({
     required String email,
     required String password,
+    required DateTime birthDate,
+    String? name,
   }) async {
     final result = await _authenticationRepository.registerWithEmail(
       email: email,
       password: password,
+      birthDate: birthDate,
+      name: name,
     );
 
     switch (result) {

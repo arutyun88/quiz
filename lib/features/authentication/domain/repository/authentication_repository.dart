@@ -6,6 +6,8 @@ abstract interface class AuthenticationRepository {
   Future<Result<TokenEntity, Failure>> registerWithEmail({
     required String email,
     required String password,
+    required DateTime birthDate,
+    String? name,
   });
 
   Future<Result<TokenEntity, Failure>> signInWithEmail({

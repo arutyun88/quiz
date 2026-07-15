@@ -5,6 +5,10 @@ part 'sign_up_form_state.dart';
 class SignUpFormProvider extends StateNotifier<SignUpFormState> {
   SignUpFormProvider() : super(const SignUpFormState());
 
+  void updateName(String value) => state = state.copyWith(name: value);
+
+  void updateBirthDate(DateTime value) => state = state.copyWith(birthDate: value);
+
   void updateEmail(String value) => state = state.copyWith(email: value);
 
   void updatePassword(String value) => state = state.copyWith(password: value);

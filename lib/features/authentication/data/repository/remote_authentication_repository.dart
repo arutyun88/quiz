@@ -18,12 +18,16 @@ class RemoteAuthenticationRepository implements AuthenticationRepository {
   Future<Result<TokenEntity, Failure>> registerWithEmail({
     required String email,
     required String password,
+    required DateTime birthDate,
+    String? name,
   }) async =>
       await _client.post(
         '/auth/register',
         body: {
           "email": email,
           'password': password,
+          'name': name,
+          'birth_date': birthDate.toString(),
         },
         mapper: (json) => DataDto.fromJson(json, (json) => TokenDto.fromJson(json as Json)),
         converter: (dto) => TokenEntity(accessToken: dto.data.accessToken),

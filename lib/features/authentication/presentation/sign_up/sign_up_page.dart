@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/utils/authentication_failure_snack_bar.dart';
@@ -10,6 +11,7 @@ import 'package:quiz/app/core/utils/validation_exp_ex.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
 import 'package:quiz/app/core/widgets/button/app_button_v2.dart';
 import 'package:quiz/app/core/widgets/input/app_text_field_v2.dart';
+import 'package:quiz/app/core/widgets/input/birth_date_picker.dart';
 import 'package:quiz/features/authentication/presentation/sign_up/provider/sign_up_form_provider.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/gen/strings.g.dart';
@@ -22,14 +24,14 @@ class SignUpPage extends ConsumerStatefulWidget {
 }
 
 class _SignUpPageState extends ConsumerState<SignUpPage> {
-  late final formProvider =
-      StateNotifierProvider<SignUpFormProvider, SignUpFormState>(
+  late final formProvider = StateNotifierProvider<SignUpFormProvider, SignUpFormState>(
     (ref) => SignUpFormProvider(),
   );
 
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _birthDateController = TextEditingController();
   final _nameFocus = FocusNode();
   final _emailFocus = FocusNode();
   final _passwordFocus = FocusNode();
@@ -39,10 +41,23 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _birthDateController.dispose();
     _nameFocus.dispose();
     _emailFocus.dispose();
     _passwordFocus.dispose();
     super.dispose();
+  }
+
+  Future<void> _pickBirthDate() async {
+    FocusScope.of(context).unfocus();
+    final locale = LocaleSettings.instance.currentLocale.languageCode;
+    final current = ref.read(formProvider).birthDate;
+
+    final picked = await showBirthDatePicker(context, initial: current);
+    if (picked == null || !mounted) return;
+
+    ref.read(formProvider.notifier).updateBirthDate(picked);
+    _birthDateController.text = DateFormat.yMMMMd(locale).format(picked);
   }
 
   @override
@@ -54,8 +69,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
       next.when(
         authenticated: (user) => routeAuthenticatedUser(context, user),
         unauthenticated: (failure) {
-          if (failure case Failure failure
-              when failure is AuthenticationFailure) {
+          if (failure case Failure failure when failure is AuthenticationFailure) {
             showAuthenticationFailureSnackBar(context, type: failure.type);
           }
         },
@@ -78,8 +92,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                     if (context.canPop()) ...[
                       GestureDetector(
                         onTap: context.pop,
-                        child: Icon(Icons.arrow_back,
-                            size: 22, color: colors.text.primary),
+                        child: Icon(Icons.arrow_back, size: 22, color: colors.text.primary),
                       ),
                       const SizedBox(width: 12),
                     ],
@@ -121,7 +134,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                           textInputAction: TextInputAction.next,
                           autofillHints: const [AutofillHints.name],
                           onSubmitted: (_) => _emailFocus.requestFocus(),
-                          onChanged: (_) {},
+                          onChanged: (v) => ref.read(formProvider.notifier).updateName(v),
                         ),
                         const SizedBox(height: 8),
                         AppTextFieldV2(
@@ -130,15 +143,11 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                           focusNode: _emailFocus,
                           keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
-                          autofillHints: const [
-                            AutofillHints.username,
-                            AutofillHints.email
-                          ],
+                          autofillHints: const [AutofillHints.username, AutofillHints.email],
                           onSubmitted: (_) => _passwordFocus.requestFocus(),
                           onChanged: (v) {
                             ref.read(formProvider.notifier).updateEmail(v);
-                            ref.read(formProvider.notifier).updateEmailValidity(
-                                v.isValidEmail ? null : '');
+                            ref.read(formProvider.notifier).updateEmailValidity(v.isValidEmail ? null : '');
                           },
                         ),
                         const SizedBox(height: 8),
@@ -151,11 +160,15 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                           autofillHints: const [AutofillHints.newPassword],
                           onChanged: (v) {
                             ref.read(formProvider.notifier).updatePassword(v);
-                            ref
-                                .read(formProvider.notifier)
-                                .updatePasswordValidity(
-                                    v.isValidPassword ? null : '');
+                            ref.read(formProvider.notifier).updatePasswordValidity(v.isValidPassword ? null : '');
                           },
+                        ),
+                        const SizedBox(height: 8),
+                        AppTextFieldV2(
+                          label: t.birth_date_label,
+                          controller: _birthDateController,
+                          readOnly: true,
+                          onTap: _pickBirthDate,
                         ),
                       ],
                     ),
@@ -170,10 +183,12 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                       ? (complete) async {
                           FocusScope.of(context).unfocus();
                           final s = ref.read(formProvider);
-                          await ref
-                              .read(authenticationProvider.notifier)
-                              .registerWithEmail(
-                                  email: s.email, password: s.password);
+                          await ref.read(authenticationProvider.notifier).registerWithEmail(
+                                email: s.email,
+                                password: s.password,
+                                birthDate: s.birthDate!,
+                                name: s.name.trim().isEmpty ? null : s.name.trim(),
+                              );
                           complete();
                         }
                       : null,
@@ -188,13 +203,11 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                       children: [
                         TextSpan(
                           text: '${t.have_account} ',
-                          style: GoogleFonts.spectral(
-                              fontSize: 14, color: colors.text.secondary),
+                          style: GoogleFonts.spectral(fontSize: 14, color: colors.text.secondary),
                         ),
                         TextSpan(
                           text: t.sign_in_link,
-                          style: GoogleFonts.spectral(
-                              fontSize: 14, color: colors.text.accent),
+                          style: GoogleFonts.spectral(fontSize: 14, color: colors.text.accent),
                         ),
                       ],
                     ),

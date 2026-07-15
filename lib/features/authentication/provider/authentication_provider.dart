@@ -98,8 +98,15 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
   Future<void> registerWithEmail({
     required String email,
     required String password,
+    required DateTime birthDate,
+    String? name,
   }) async {
-    await _signUpWithEmailGateway.call(email: email, password: password);
+    await _signUpWithEmailGateway.call(
+      email: email,
+      password: password,
+      birthDate: birthDate,
+      name: name,
+    );
 
     final result = await _fetchCurrentUserGateway.call();
 
