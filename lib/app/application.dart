@@ -20,6 +20,9 @@ class Application extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       routerConfig: router.value,
       theme: theme.data,
+      // The editorial palette is a full inversion (cream ↔ ink): the default
+      // 200ms theme crossfade drags every color through low-contrast gray.
+      themeAnimationDuration: Duration.zero,
       locale: TranslationProvider.of(context).flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
