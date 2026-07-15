@@ -1,121 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
+import 'package:quiz/app/core/widgets/app_divider.dart';
 
-class AppSubheaderedScaffold extends StatelessWidget {
-  const AppSubheaderedScaffold({
+class AppScaffold extends StatelessWidget {
+  const AppScaffold({
     super.key,
-    this.appBar,
-    this.header,
-    this.headerDecoration,
-    this.headerSubColor,
+    required this.title,
     required this.body,
-    this.isScrollable = false,
+    this.trailing,
   });
 
-  final PreferredSizeWidget? appBar;
-  final Widget? header;
-  final BoxDecoration? headerDecoration;
-  final Color? headerSubColor;
+  final String title;
   final Widget body;
-  final bool isScrollable;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
-    if (!isScrollable) {
-      return Scaffold(
-        appBar: appBar,
-        body: Column(
+    final colors = context.palette;
+
+    return Scaffold(
+      backgroundColor: colors.background.static,
+      body: SafeArea(
+        bottom: false,
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (header case Widget header)
-              _SubheaderWidget(
-                header: header,
-                headerDecoration: headerDecoration,
-                headerSubColor: headerSubColor,
-              ),
-            Expanded(child: body)
-          ],
-        ),
-      );
-    }
-
-    return GestureDetector(
-      onTap: FocusScope.of(context).unfocus,
-      child: Scaffold(
-        appBar: appBar,
-        body: CustomScrollView(
-          clipBehavior: Clip.none,
-          slivers: [
-            if (header case Widget header)
-              SliverLayoutBuilder(
-                builder: (context, constraints) => SliverToBoxAdapter(
-                  child: _SubheaderWidget(
-                    header: header,
-                    headerDecoration: headerDecoration,
-                    overscroll: constraints.viewportMainAxisExtent - constraints.remainingPaintExtent,
-                    headerSubColor: headerSubColor,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(22, 16, 22, 14),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: context.pop,
+                    child: Icon(Icons.arrow_back, size: 22, color: colors.text.primary),
                   ),
-                ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      title.toUpperCase(),
+                      style: GoogleFonts.unbounded(
+                        fontSize: 21,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: -0.3,
+                        color: colors.text.primary,
+                      ),
+                    ),
+                  ),
+                  if (trailing != null) trailing!,
+                ],
               ),
-            if (header == null) //
-              const SliverToBoxAdapter(child: SizedBox(height: 10.0)),
-            if (body case Column items)
-              SliverList.separated(
-                separatorBuilder: (context, index) => SizedBox(height: items.spacing),
-                itemCount: items.children.length,
-                itemBuilder: (context, index) => items.children[index],
-              )
-            else
-              SliverToBoxAdapter(
-                child: body,
-              )
+            ),
+            const AppDivider(indent: 22, endIndent: 22),
+            Expanded(child: body),
           ],
         ),
       ),
-    );
-  }
-}
-
-class _SubheaderWidget extends StatelessWidget {
-  const _SubheaderWidget({
-    required this.header,
-    this.overscroll,
-    this.headerDecoration,
-    this.headerSubColor,
-  });
-  final Widget header;
-  final double? overscroll;
-  final BoxDecoration? headerDecoration;
-  final Color? headerSubColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Positioned.fill(
-          top: -const Radius.circular(10).y - (overscroll ?? 0.0),
-          bottom: -const Radius.circular(10).y,
-          child: DecoratedBox(
-            decoration: headerDecoration ?? const BoxDecoration(),
-          ),
-        ),
-        header,
-        Positioned(
-          left: 0,
-          right: 0,
-          bottom: -const Radius.circular(10).y,
-          height: const Radius.circular(10).y,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: headerSubColor ?? context.palette.background.static,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(10),
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

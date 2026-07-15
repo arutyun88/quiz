@@ -31,6 +31,12 @@ abstract interface class ApiClient {
     void Function(TEntity)? onSuccess,
   });
 
+  Future<Result<void, Failure>> delete(
+    String path, {
+    Json? queryParameters,
+    Json? headers,
+  });
+
   Future<Result<dynamic, Failure>> download(
     String url,
     String savePath, {

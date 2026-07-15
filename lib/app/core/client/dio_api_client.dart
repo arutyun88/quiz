@@ -133,6 +133,25 @@ class DioApiClient implements ApiClient {
   }
 
   @override
+  Future<Result<void, Failure>> delete(
+    String path, {
+    Json? queryParameters,
+    Json? headers,
+  }) async {
+    try {
+      await _dio.delete(
+        path,
+        queryParameters: queryParameters,
+        options: Options(headers: headers),
+      );
+
+      return const Result.ok(null);
+    } on DioException catch (e) {
+      return Result.failed(_handleError(e));
+    }
+  }
+
+  @override
   Future<Result<dynamic, Failure>> download(
     String url,
     String savePath, {

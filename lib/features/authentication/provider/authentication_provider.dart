@@ -12,9 +12,10 @@ import 'package:quiz/features/user/domain/repository/fetch_current_user_gateway.
 import 'package:quiz/features/user/domain/repository/sign_in_with_email_gateway.dart';
 import 'package:quiz/features/user/domain/repository/sign_up_with_email_gateway.dart';
 import 'package:quiz/features/user/domain/repository/user_logout_gateway.dart';
+import 'package:quiz/features/user/domain/repository/user_repository.dart';
 
-part 'authentication_state.dart';
 part 'authentication_provider.freezed.dart';
+part 'authentication_state.dart';
 
 final authenticationProvider = StateNotifierProvider<AuthenticationNotifier, AuthenticationState>(
   (ref) {
@@ -24,6 +25,7 @@ final authenticationProvider = StateNotifierProvider<AuthenticationNotifier, Aut
       signInWithEmailGateway: getIt<SignInWithEmailGateway>(),
       signUpWithEmailGateway: getIt<SignUpWithEmailGateway>(),
       userLogoutGateway: getIt<UserLogoutGateway>(),
+      userRepository: getIt<UserRepository>(),
       unauthorizedEventService: getIt<UnauthorizedEventService>(),
     );
     ref.onDispose(() => notifier.dispose());
@@ -37,6 +39,7 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
   final SignInWithEmailGateway _signInWithEmailGateway;
   final SignUpWithEmailGateway _signUpWithEmailGateway;
   final UserLogoutGateway _userLogoutGateway;
+  final UserRepository _userRepository;
   final UnauthorizedEventService _unauthorizedEventService;
   StreamSubscription<void>? _unauthorizedSubscription;
 
@@ -46,12 +49,14 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
     required SignInWithEmailGateway signInWithEmailGateway,
     required SignUpWithEmailGateway signUpWithEmailGateway,
     required UserLogoutGateway userLogoutGateway,
+    required UserRepository userRepository,
     required UnauthorizedEventService unauthorizedEventService,
   })  : _tokenService = tokenService,
         _fetchCurrentUserGateway = fetchCurrentUserGateway,
         _signInWithEmailGateway = signInWithEmailGateway,
         _signUpWithEmailGateway = signUpWithEmailGateway,
         _userLogoutGateway = userLogoutGateway,
+        _userRepository = userRepository,
         _unauthorizedEventService = unauthorizedEventService,
         super(const AuthenticationState.unauthenticated()) {
     _unauthorizedSubscription = _unauthorizedEventService.stream.listen(
@@ -107,5 +112,18 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
   void logout() async {
     await _userLogoutGateway.call();
     state = const AuthenticationState.unauthenticated();
+  }
+
+  Future<bool> deleteAccount() async {
+    final result = await _userRepository.deleteAccount();
+
+    switch (result) {
+      case ResultOk():
+        await _userLogoutGateway.call();
+        state = const AuthenticationState.unauthenticated();
+        return true;
+      case ResultFailed():
+        return false;
+    }
   }
 }

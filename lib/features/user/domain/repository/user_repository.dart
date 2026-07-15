@@ -16,4 +16,6 @@ abstract interface class UserRepository {
     required String oldPassword,
     required String newPassword,
   });
+
+  Future<Result<void, Failure>> deleteAccount();
 }

@@ -61,4 +61,7 @@ class RemoteUserRepository implements UserRepository {
       },
     );
   }
+
+  @override
+  Future<Result<void, Failure>> deleteAccount() async => await _client.delete('/user');
 }

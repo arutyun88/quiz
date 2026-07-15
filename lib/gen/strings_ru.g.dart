@@ -54,6 +54,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$forgot_password$ru forgot_password = _Translations$forgot_password$ru._(_root);
 	@override late final _Translations$start_day$ru start_day = _Translations$start_day$ru._(_root);
 	@override late final _Translations$nav$ru nav = _Translations$nav$ru._(_root);
+	@override late final _Translations$birth_date_picker$ru birth_date_picker = _Translations$birth_date_picker$ru._(_root);
 }
 
 // Path: text_field
@@ -244,6 +245,7 @@ class _Translations$sign_up$ru implements Translations$sign_up$en {
 	@override String get submit => 'СОЗДАТЬ АККАУНТ';
 	@override String get have_account => 'Уже есть аккаунт?';
 	@override String get sign_in_link => 'Войти';
+	@override String get birth_date_label => 'ДАТА РОЖДЕНИЯ';
 }
 
 // Path: forgot_password
@@ -304,6 +306,16 @@ class _Translations$nav$ru implements Translations$nav$en {
 	@override String get game => 'ИГРА';
 	@override String get leaderboard => 'РЕЙТИНГ';
 	@override String get profile => 'ПРОФИЛЬ';
+}
+
+// Path: birth_date_picker
+class _Translations$birth_date_picker$ru implements Translations$birth_date_picker$en {
+	_Translations$birth_date_picker$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get apply => 'Готово';
 }
 
 // Path: text_field.email
@@ -371,10 +383,22 @@ class _Translations$profile$settings$ru implements Translations$profile$settings
 
 	// Translations
 	@override String get title => 'Настройки';
-	@override late final _Translations$profile$settings$user$ru user = _Translations$profile$settings$user$ru._(_root);
-	@override late final _Translations$profile$settings$application$ru application = _Translations$profile$settings$application$ru._(_root);
+	@override String get account_section => 'Аккаунт';
+	@override String get app_section => 'Приложение';
+	@override String get edit_profile => 'Редактировать профиль';
+	@override String get notifications => 'Уведомления';
+	@override String get language => 'Язык';
+	@override String get theme => 'Тема оформления';
+	@override String get theme_light => 'Светлая';
+	@override String get theme_system => 'Система';
+	@override String get theme_dark => 'Тёмная';
+	@override String get about => 'О приложении';
+	@override String get sign_in => 'Войти';
 	@override String get sign_out => 'Выйти из профиля';
-	@override String get sign_in => 'Войти или зарегистрироваться';
+	@override late final _Translations$profile$settings$sign_out_dialog$ru sign_out_dialog = _Translations$profile$settings$sign_out_dialog$ru._(_root);
+	@override late final _Translations$profile$settings$notifications_page$ru notifications_page = _Translations$profile$settings$notifications_page$ru._(_root);
+	@override late final _Translations$profile$settings$about_page$ru about_page = _Translations$profile$settings$about_page$ru._(_root);
+	@override late final _Translations$profile$settings$language_sync$ru language_sync = _Translations$profile$settings$language_sync$ru._(_root);
 }
 
 // Path: profile.edit
@@ -384,9 +408,16 @@ class _Translations$profile$edit$ru implements Translations$profile$edit$en {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Редактировать профиль';
-	@override late final _Translations$profile$edit$password$ru password = _Translations$profile$edit$password$ru._(_root);
-	@override late final _Translations$profile$edit$main$ru main = _Translations$profile$edit$main$ru._(_root);
+	@override String get title => 'Редактирование';
+	@override String get done => 'Готово';
+	@override String get name_label => 'Имя';
+	@override String get email_label => 'Email';
+	@override String get password_label => 'Пароль';
+	@override String get change_password => 'Изменить пароль';
+	@override String get delete_account => 'Удалить аккаунт';
+	@override String get save_failed => 'Не удалось сохранить изменения';
+	@override late final _Translations$profile$edit$delete_dialog$ru delete_dialog = _Translations$profile$edit$delete_dialog$ru._(_root);
+	@override late final _Translations$profile$edit$password_page$ru password_page = _Translations$profile$edit$password_page$ru._(_root);
 }
 
 // Path: authentication.failure
@@ -546,60 +577,91 @@ class _Translations$onboarding$features$ru implements Translations$onboarding$fe
 	@override String get f4 => 'Соревнуйтесь, собирайте серии, открывайте достижения';
 }
 
-// Path: profile.settings.user
-class _Translations$profile$settings$user$ru implements Translations$profile$settings$user$en {
-	_Translations$profile$settings$user$ru._(this._root);
+// Path: profile.settings.sign_out_dialog
+class _Translations$profile$settings$sign_out_dialog$ru implements Translations$profile$settings$sign_out_dialog$en {
+	_Translations$profile$settings$sign_out_dialog$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Настройки';
-	@override String get go_to_edit => 'Редактировать профиль';
-	@override String get go_to_notifications_settings => 'Настройки уведомлений';
-	@override String get go_to_subscriptions => 'Управление подпиской';
+	@override String get title => 'Выйти из профиля?';
+	@override String get message => 'Прогресс сохранится — вы сможете войти снова с этим email.';
+	@override String get confirm => 'Выйти';
+	@override String get cancel => 'Отмена';
 }
 
-// Path: profile.settings.application
-class _Translations$profile$settings$application$ru implements Translations$profile$settings$application$en {
-	_Translations$profile$settings$application$ru._(this._root);
+// Path: profile.settings.notifications_page
+class _Translations$profile$settings$notifications_page$ru implements Translations$profile$settings$notifications_page$en {
+	_Translations$profile$settings$notifications_page$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Приложение';
-	@override late final _Translations$profile$settings$application$language$ru language = _Translations$profile$settings$application$language$ru._(_root);
-	@override late final _Translations$profile$settings$application$theme$ru theme = _Translations$profile$settings$application$theme$ru._(_root);
-	@override String get go_to_storage_manager => 'Менеджер памяти';
-	@override String get go_to_about_app => 'О приложении';
+	@override String get daily_issue => 'Напоминание о выпуске дня';
+	@override String get streak_risk => 'Серия под угрозой';
+	@override String get rank_change => 'Изменение позиции в рейтинге';
+	@override String get promo => 'Новости и акции Quiz+';
 }
 
-// Path: profile.edit.password
-class _Translations$profile$edit$password$ru implements Translations$profile$edit$password$en {
-	_Translations$profile$edit$password$ru._(this._root);
+// Path: profile.settings.about_page
+class _Translations$profile$settings$about_page$ru implements Translations$profile$settings$about_page$en {
+	_Translations$profile$settings$about_page$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Изменить пароль';
-	@override String get old_password_hint => 'Введите старый пароль';
-	@override String get new_password_hint => 'Введите новый пароль';
-	@override String get new_confirm_password_hint => 'Повторите новый пароль';
-	@override String get confirm_password_validation_message => 'Пароли не совпадают';
-	@override String get button => 'Сохранить';
-	@override late final _Translations$profile$edit$password$result$ru result = _Translations$profile$edit$password$result$ru._(_root);
+	@override String version({required Object version, required Object build}) => 'Версия ${version} (${build})';
+	@override String get terms => 'Пользовательское соглашение';
+	@override String get privacy => 'Политика конфиденциальности';
+	@override String get support => 'Написать в поддержку';
 }
 
-// Path: profile.edit.main
-class _Translations$profile$edit$main$ru implements Translations$profile$edit$main$en {
-	_Translations$profile$edit$main$ru._(this._root);
+// Path: profile.settings.language_sync
+class _Translations$profile$settings$language_sync$ru implements Translations$profile$settings$language_sync$en {
+	_Translations$profile$settings$language_sync$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Основная информация';
-	@override late final _Translations$profile$edit$main$name$ru name = _Translations$profile$edit$main$name$ru._(_root);
-	@override late final _Translations$profile$edit$main$date$ru date = _Translations$profile$edit$main$date$ru._(_root);
-	@override late final _Translations$profile$edit$main$result$ru result = _Translations$profile$edit$main$result$ru._(_root);
+	@override String get title => 'Обновляем вопросы';
+	@override String get syncing => 'Загружаем вопросы, темы и ответы на выбранном языке';
+	@override String get success => 'Вопросы обновлены';
+	@override String get waiting_connection_title => 'Язык интерфейса изменён';
+	@override String get waiting_connection => 'Вопросы обновятся на выбранном языке, когда появится интернет';
+	@override String get failed_title => 'Не удалось обновить вопросы';
+	@override String get failed => 'Старый кеш вопросов пока сохранён. Можно повторить попытку сейчас или дождаться следующей синхронизации';
+	@override String get close => 'Закрыть';
+	@override String get retry => 'Повторить';
+}
+
+// Path: profile.edit.delete_dialog
+class _Translations$profile$edit$delete_dialog$ru implements Translations$profile$edit$delete_dialog$en {
+	_Translations$profile$edit$delete_dialog$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Удалить аккаунт?';
+	@override String get message => 'Серия, статистика и достижения будут удалены безвозвратно. Это действие нельзя отменить.';
+	@override String get confirm => 'Удалить аккаунт';
+	@override String get cancel => 'Отмена';
+	@override String get failed => 'Не удалось удалить аккаунт. Попробуйте позже';
+}
+
+// Path: profile.edit.password_page
+class _Translations$profile$edit$password_page$ru implements Translations$profile$edit$password_page$en {
+	_Translations$profile$edit$password_page$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Пароль';
+	@override String get old_label => 'Старый пароль';
+	@override String get new_label => 'Новый пароль';
+	@override String get confirm_label => 'Повторите пароль';
+	@override String get save => 'Сохранить';
+	@override String get success => 'Пароль успешно изменён';
+	@override String get failed => 'Не удалось изменить пароль. Проверьте введённые данные и попробуйте снова';
 }
 
 // Path: authentication.sign_in.no_account
@@ -714,72 +776,6 @@ class _Translations$question$error_snackbar$save_failed_retry_later$ru implement
 	@override String get button => 'Попробую позже';
 }
 
-// Path: profile.settings.application.language
-class _Translations$profile$settings$application$language$ru implements Translations$profile$settings$application$language$en {
-	_Translations$profile$settings$application$language$ru._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get change => 'Изменить язык';
-	@override late final _Translations$profile$settings$application$language$sync$ru sync = _Translations$profile$settings$application$language$sync$ru._(_root);
-}
-
-// Path: profile.settings.application.theme
-class _Translations$profile$settings$application$theme$ru implements Translations$profile$settings$application$theme$en {
-	_Translations$profile$settings$application$theme$ru._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Тема оформления';
-	@override late final _Translations$profile$settings$application$theme$switcher$ru switcher = _Translations$profile$settings$application$theme$switcher$ru._(_root);
-}
-
-// Path: profile.edit.password.result
-class _Translations$profile$edit$password$result$ru implements Translations$profile$edit$password$result$en {
-	_Translations$profile$edit$password$result$ru._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get success => 'Пароль успешно изменен';
-	@override String get failed => 'Не удалось изменить пароль. Пожалуйста, проверьте введенные данные и попробуйте снова';
-}
-
-// Path: profile.edit.main.name
-class _Translations$profile$edit$main$name$ru implements Translations$profile$edit$main$name$en {
-	_Translations$profile$edit$main$name$ru._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get label => 'Имя';
-	@override String get hint => 'Введите ваше имя';
-}
-
-// Path: profile.edit.main.date
-class _Translations$profile$edit$main$date$ru implements Translations$profile$edit$main$date$en {
-	_Translations$profile$edit$main$date$ru._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get hint => 'Укажите дату вашего рождения';
-	@override late final _Translations$profile$edit$main$date$picker$ru picker = _Translations$profile$edit$main$date$picker$ru._(_root);
-}
-
-// Path: profile.edit.main.result
-class _Translations$profile$edit$main$result$ru implements Translations$profile$edit$main$result$en {
-	_Translations$profile$edit$main$result$ru._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get success => 'Информация успешно изменена';
-	@override String get failed => 'Не удалось изменить информацию. Пожалуйста, проверьте введенные данные и попробуйте снова';
-}
-
 // Path: authentication.sign_in.forget_password.dialog
 class _Translations$authentication$sign_in$forget_password$dialog$ru implements Translations$authentication$sign_in$forget_password$dialog$en {
 	_Translations$authentication$sign_in$forget_password$dialog$ru._(this._root);
@@ -791,45 +787,6 @@ class _Translations$authentication$sign_in$forget_password$dialog$ru implements 
 	@override late final _Translations$authentication$sign_in$forget_password$dialog$valid$ru valid = _Translations$authentication$sign_in$forget_password$dialog$valid$ru._(_root);
 	@override late final _Translations$authentication$sign_in$forget_password$dialog$invalid$ru invalid = _Translations$authentication$sign_in$forget_password$dialog$invalid$ru._(_root);
 	@override late final _Translations$authentication$sign_in$forget_password$dialog$result$ru result = _Translations$authentication$sign_in$forget_password$dialog$result$ru._(_root);
-}
-
-// Path: profile.settings.application.language.sync
-class _Translations$profile$settings$application$language$sync$ru implements Translations$profile$settings$application$language$sync$en {
-	_Translations$profile$settings$application$language$sync$ru._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Обновляем вопросы';
-	@override String get syncing => 'Загружаем вопросы, темы и ответы на выбранном языке';
-	@override String get success => 'Вопросы обновлены';
-	@override String get waiting_connection_title => 'Язык интерфейса изменён';
-	@override String get waiting_connection => 'Вопросы обновятся на выбранном языке, когда появится интернет';
-	@override String get failed_title => 'Не удалось обновить вопросы';
-	@override String get failed => 'Старый кеш вопросов пока сохранён. Можно повторить попытку сейчас или дождаться следующей синхронизации';
-	@override String get close => 'Закрыть';
-	@override String get retry => 'Повторить';
-}
-
-// Path: profile.settings.application.theme.switcher
-class _Translations$profile$settings$application$theme$switcher$ru implements Translations$profile$settings$application$theme$switcher$en {
-	_Translations$profile$settings$application$theme$switcher$ru._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get as_system => 'Как в системе';
-}
-
-// Path: profile.edit.main.date.picker
-class _Translations$profile$edit$main$date$picker$ru implements Translations$profile$edit$main$date$picker$en {
-	_Translations$profile$edit$main$date$picker$ru._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Дата рождения';
-	@override late final _Translations$profile$edit$main$date$picker$button$ru button = _Translations$profile$edit$main$date$picker$button$ru._(_root);
 }
 
 // Path: authentication.sign_in.forget_password.dialog.valid
@@ -866,17 +823,6 @@ class _Translations$authentication$sign_in$forget_password$dialog$result$ru impl
 	@override String get failed => 'Не удалось отправить ссылку для сброса пароля. Пожалуйста, попробуйте позже.';
 }
 
-// Path: profile.edit.main.date.picker.button
-class _Translations$profile$edit$main$date$picker$button$ru implements Translations$profile$edit$main$date$picker$button$en {
-	_Translations$profile$edit$main$date$picker$button$ru._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get cancel => 'Отмена';
-	@override String get apply => 'Готово';
-}
-
 /// The flat map containing all translations for locale <ru>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -910,45 +856,59 @@ extension on TranslationsRu {
 			'profile.view.load_failed' => 'Не удалось загрузить профиль',
 			'profile.view.retry' => 'ПОВТОРИТЬ',
 			'profile.settings.title' => 'Настройки',
-			'profile.settings.user.title' => 'Настройки',
-			'profile.settings.user.go_to_edit' => 'Редактировать профиль',
-			'profile.settings.user.go_to_notifications_settings' => 'Настройки уведомлений',
-			'profile.settings.user.go_to_subscriptions' => 'Управление подпиской',
-			'profile.settings.application.title' => 'Приложение',
-			'profile.settings.application.language.change' => 'Изменить язык',
-			'profile.settings.application.language.sync.title' => 'Обновляем вопросы',
-			'profile.settings.application.language.sync.syncing' => 'Загружаем вопросы, темы и ответы на выбранном языке',
-			'profile.settings.application.language.sync.success' => 'Вопросы обновлены',
-			'profile.settings.application.language.sync.waiting_connection_title' => 'Язык интерфейса изменён',
-			'profile.settings.application.language.sync.waiting_connection' => 'Вопросы обновятся на выбранном языке, когда появится интернет',
-			'profile.settings.application.language.sync.failed_title' => 'Не удалось обновить вопросы',
-			'profile.settings.application.language.sync.failed' => 'Старый кеш вопросов пока сохранён. Можно повторить попытку сейчас или дождаться следующей синхронизации',
-			'profile.settings.application.language.sync.close' => 'Закрыть',
-			'profile.settings.application.language.sync.retry' => 'Повторить',
-			'profile.settings.application.theme.title' => 'Тема оформления',
-			'profile.settings.application.theme.switcher.as_system' => 'Как в системе',
-			'profile.settings.application.go_to_storage_manager' => 'Менеджер памяти',
-			'profile.settings.application.go_to_about_app' => 'О приложении',
+			'profile.settings.account_section' => 'Аккаунт',
+			'profile.settings.app_section' => 'Приложение',
+			'profile.settings.edit_profile' => 'Редактировать профиль',
+			'profile.settings.notifications' => 'Уведомления',
+			'profile.settings.language' => 'Язык',
+			'profile.settings.theme' => 'Тема оформления',
+			'profile.settings.theme_light' => 'Светлая',
+			'profile.settings.theme_system' => 'Система',
+			'profile.settings.theme_dark' => 'Тёмная',
+			'profile.settings.about' => 'О приложении',
+			'profile.settings.sign_in' => 'Войти',
 			'profile.settings.sign_out' => 'Выйти из профиля',
-			'profile.settings.sign_in' => 'Войти или зарегистрироваться',
-			'profile.edit.title' => 'Редактировать профиль',
-			'profile.edit.password.title' => 'Изменить пароль',
-			'profile.edit.password.old_password_hint' => 'Введите старый пароль',
-			'profile.edit.password.new_password_hint' => 'Введите новый пароль',
-			'profile.edit.password.new_confirm_password_hint' => 'Повторите новый пароль',
-			'profile.edit.password.confirm_password_validation_message' => 'Пароли не совпадают',
-			'profile.edit.password.button' => 'Сохранить',
-			'profile.edit.password.result.success' => 'Пароль успешно изменен',
-			'profile.edit.password.result.failed' => 'Не удалось изменить пароль. Пожалуйста, проверьте введенные данные и попробуйте снова',
-			'profile.edit.main.title' => 'Основная информация',
-			'profile.edit.main.name.label' => 'Имя',
-			'profile.edit.main.name.hint' => 'Введите ваше имя',
-			'profile.edit.main.date.hint' => 'Укажите дату вашего рождения',
-			'profile.edit.main.date.picker.title' => 'Дата рождения',
-			'profile.edit.main.date.picker.button.cancel' => 'Отмена',
-			'profile.edit.main.date.picker.button.apply' => 'Готово',
-			'profile.edit.main.result.success' => 'Информация успешно изменена',
-			'profile.edit.main.result.failed' => 'Не удалось изменить информацию. Пожалуйста, проверьте введенные данные и попробуйте снова',
+			'profile.settings.sign_out_dialog.title' => 'Выйти из профиля?',
+			'profile.settings.sign_out_dialog.message' => 'Прогресс сохранится — вы сможете войти снова с этим email.',
+			'profile.settings.sign_out_dialog.confirm' => 'Выйти',
+			'profile.settings.sign_out_dialog.cancel' => 'Отмена',
+			'profile.settings.notifications_page.daily_issue' => 'Напоминание о выпуске дня',
+			'profile.settings.notifications_page.streak_risk' => 'Серия под угрозой',
+			'profile.settings.notifications_page.rank_change' => 'Изменение позиции в рейтинге',
+			'profile.settings.notifications_page.promo' => 'Новости и акции Quiz+',
+			'profile.settings.about_page.version' => ({required Object version, required Object build}) => 'Версия ${version} (${build})',
+			'profile.settings.about_page.terms' => 'Пользовательское соглашение',
+			'profile.settings.about_page.privacy' => 'Политика конфиденциальности',
+			'profile.settings.about_page.support' => 'Написать в поддержку',
+			'profile.settings.language_sync.title' => 'Обновляем вопросы',
+			'profile.settings.language_sync.syncing' => 'Загружаем вопросы, темы и ответы на выбранном языке',
+			'profile.settings.language_sync.success' => 'Вопросы обновлены',
+			'profile.settings.language_sync.waiting_connection_title' => 'Язык интерфейса изменён',
+			'profile.settings.language_sync.waiting_connection' => 'Вопросы обновятся на выбранном языке, когда появится интернет',
+			'profile.settings.language_sync.failed_title' => 'Не удалось обновить вопросы',
+			'profile.settings.language_sync.failed' => 'Старый кеш вопросов пока сохранён. Можно повторить попытку сейчас или дождаться следующей синхронизации',
+			'profile.settings.language_sync.close' => 'Закрыть',
+			'profile.settings.language_sync.retry' => 'Повторить',
+			'profile.edit.title' => 'Редактирование',
+			'profile.edit.done' => 'Готово',
+			'profile.edit.name_label' => 'Имя',
+			'profile.edit.email_label' => 'Email',
+			'profile.edit.password_label' => 'Пароль',
+			'profile.edit.change_password' => 'Изменить пароль',
+			'profile.edit.delete_account' => 'Удалить аккаунт',
+			'profile.edit.save_failed' => 'Не удалось сохранить изменения',
+			'profile.edit.delete_dialog.title' => 'Удалить аккаунт?',
+			'profile.edit.delete_dialog.message' => 'Серия, статистика и достижения будут удалены безвозвратно. Это действие нельзя отменить.',
+			'profile.edit.delete_dialog.confirm' => 'Удалить аккаунт',
+			'profile.edit.delete_dialog.cancel' => 'Отмена',
+			'profile.edit.delete_dialog.failed' => 'Не удалось удалить аккаунт. Попробуйте позже',
+			'profile.edit.password_page.title' => 'Пароль',
+			'profile.edit.password_page.old_label' => 'Старый пароль',
+			'profile.edit.password_page.new_label' => 'Новый пароль',
+			'profile.edit.password_page.confirm_label' => 'Повторите пароль',
+			'profile.edit.password_page.save' => 'Сохранить',
+			'profile.edit.password_page.success' => 'Пароль успешно изменён',
+			'profile.edit.password_page.failed' => 'Не удалось изменить пароль. Проверьте введённые данные и попробуйте снова',
 			'authentication.failure.invalid_credentials' => 'Неверные учетные данные. Проверьте правильность введенного email и пароля.',
 			'authentication.failure.too_many_requests' => 'Слишком много попыток входа. Попробуйте позже или сбросьте пароль.',
 			'authentication.failure.already_exist' => 'Этот email уже используется другим аккаунтом.',
@@ -1070,6 +1030,7 @@ extension on TranslationsRu {
 			'sign_up.submit' => 'СОЗДАТЬ АККАУНТ',
 			'sign_up.have_account' => 'Уже есть аккаунт?',
 			'sign_up.sign_in_link' => 'Войти',
+			'sign_up.birth_date_label' => 'ДАТА РОЖДЕНИЯ',
 			'forgot_password.title' => 'Забыли\nпароль?',
 			'forgot_password.subtitle' => 'Введите email — пришлём ссылку для сброса пароля.',
 			'forgot_password.email_label' => 'EMAIL',
@@ -1090,6 +1051,7 @@ extension on TranslationsRu {
 			'nav.game' => 'ИГРА',
 			'nav.leaderboard' => 'РЕЙТИНГ',
 			'nav.profile' => 'ПРОФИЛЬ',
+			'birth_date_picker.apply' => 'Готово',
 			_ => null,
 		};
 	}

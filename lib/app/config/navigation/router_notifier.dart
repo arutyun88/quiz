@@ -13,10 +13,14 @@ import 'package:quiz/features/debug/debug_question_page.dart';
 import 'package:quiz/features/home/presentation/home_flow.dart';
 import 'package:quiz/features/home/presentation/home_gate_flow.dart';
 import 'package:quiz/features/onboarding/presentation/onboarding_flow.dart';
+import 'package:quiz/features/user/presentation/pages/edit/change_password_page.dart';
 import 'package:quiz/features/user/presentation/pages/edit/profile_edit_flow.dart';
 import 'package:quiz/features/user/presentation/pages/profile_flow.dart';
 import 'package:quiz/features/user/presentation/pages/public_profile_page.dart';
 import 'package:quiz/features/rating/presentation/rating_flow.dart';
+import 'package:quiz/features/settings/presentation/about_page.dart';
+import 'package:quiz/features/settings/presentation/language_page.dart';
+import 'package:quiz/features/settings/presentation/notifications_page.dart';
 import 'package:quiz/features/settings/presentation/settings_flow.dart';
 import 'package:quiz/features/splash/presentation/splash_flow.dart';
 
@@ -115,6 +119,28 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                           path: 'edit',
                           name: 'profile-edit',
                           builder: (context, state) => const ProfileEditFlow(),
+                          routes: [
+                            GoRoute(
+                              path: 'password',
+                              name: 'profile-edit-password',
+                              builder: (context, state) => const ChangePasswordPage(),
+                            ),
+                          ],
+                        ),
+                        GoRoute(
+                          path: 'notifications',
+                          name: 'profile-settings-notifications',
+                          builder: (context, state) => const NotificationsPage(),
+                        ),
+                        GoRoute(
+                          path: 'language',
+                          name: 'profile-settings-language',
+                          builder: (context, state) => const LanguagePage(),
+                        ),
+                        GoRoute(
+                          path: 'about',
+                          name: 'profile-settings-about',
+                          builder: (context, state) => const AboutPage(),
                         ),
                       ],
                     ),

@@ -57,6 +57,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$forgot_password$en forgot_password = Translations$forgot_password$en._(_root);
 	late final Translations$start_day$en start_day = Translations$start_day$en._(_root);
 	late final Translations$nav$en nav = Translations$nav$en._(_root);
+	late final Translations$birth_date_picker$en birth_date_picker = Translations$birth_date_picker$en._(_root);
 }
 
 // Path: text_field
@@ -349,6 +350,9 @@ class Translations$sign_up$en {
 
 	/// ru: 'Войти'
 	String get sign_in_link => 'Sign in';
+
+	/// ru: 'ДАТА РОЖДЕНИЯ'
+	String get birth_date_label => 'BIRTH DATE';
 }
 
 // Path: forgot_password
@@ -445,6 +449,18 @@ class Translations$nav$en {
 
 	/// ru: 'ПРОФИЛЬ'
 	String get profile => 'PROFILE';
+}
+
+// Path: birth_date_picker
+class Translations$birth_date_picker$en {
+	Translations$birth_date_picker$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Готово'
+	String get apply => 'Done';
 }
 
 // Path: text_field.email
@@ -557,14 +573,46 @@ class Translations$profile$settings$en {
 	/// ru: 'Настройки'
 	String get title => 'Settings';
 
-	late final Translations$profile$settings$user$en user = Translations$profile$settings$user$en._(_root);
-	late final Translations$profile$settings$application$en application = Translations$profile$settings$application$en._(_root);
+	/// ru: 'Аккаунт'
+	String get account_section => 'Account';
+
+	/// ru: 'Приложение'
+	String get app_section => 'Application';
+
+	/// ru: 'Редактировать профиль'
+	String get edit_profile => 'Edit profile';
+
+	/// ru: 'Уведомления'
+	String get notifications => 'Notifications';
+
+	/// ru: 'Язык'
+	String get language => 'Language';
+
+	/// ru: 'Тема оформления'
+	String get theme => 'Theme';
+
+	/// ru: 'Светлая'
+	String get theme_light => 'Light';
+
+	/// ru: 'Система'
+	String get theme_system => 'System';
+
+	/// ru: 'Тёмная'
+	String get theme_dark => 'Dark';
+
+	/// ru: 'О приложении'
+	String get about => 'About';
+
+	/// ru: 'Войти'
+	String get sign_in => 'Sign in';
 
 	/// ru: 'Выйти из профиля'
-	String get sign_out => 'Log out of profile';
+	String get sign_out => 'Sign out';
 
-	/// ru: 'Войти или зарегистрироваться'
-	String get sign_in => 'Log in or register';
+	late final Translations$profile$settings$sign_out_dialog$en sign_out_dialog = Translations$profile$settings$sign_out_dialog$en._(_root);
+	late final Translations$profile$settings$notifications_page$en notifications_page = Translations$profile$settings$notifications_page$en._(_root);
+	late final Translations$profile$settings$about_page$en about_page = Translations$profile$settings$about_page$en._(_root);
+	late final Translations$profile$settings$language_sync$en language_sync = Translations$profile$settings$language_sync$en._(_root);
 }
 
 // Path: profile.edit
@@ -575,11 +623,32 @@ class Translations$profile$edit$en {
 
 	// Translations
 
-	/// ru: 'Редактировать профиль'
-	String get title => 'Edit profile';
+	/// ru: 'Редактирование'
+	String get title => 'Editing';
 
-	late final Translations$profile$edit$password$en password = Translations$profile$edit$password$en._(_root);
-	late final Translations$profile$edit$main$en main = Translations$profile$edit$main$en._(_root);
+	/// ru: 'Готово'
+	String get done => 'Done';
+
+	/// ru: 'Имя'
+	String get name_label => 'Name';
+
+	/// ru: 'Email'
+	String get email_label => 'Email';
+
+	/// ru: 'Пароль'
+	String get password_label => 'Password';
+
+	/// ru: 'Изменить пароль'
+	String get change_password => 'Change password';
+
+	/// ru: 'Удалить аккаунт'
+	String get delete_account => 'Delete account';
+
+	/// ru: 'Не удалось сохранить изменения'
+	String get save_failed => 'Failed to save changes';
+
+	late final Translations$profile$edit$delete_dialog$en delete_dialog = Translations$profile$edit$delete_dialog$en._(_root);
+	late final Translations$profile$edit$password_page$en password_page = Translations$profile$edit$password_page$en._(_root);
 }
 
 // Path: authentication.failure
@@ -808,91 +877,157 @@ class Translations$onboarding$features$en {
 	String get f4 => 'Compete, build streaks, unlock achievements';
 }
 
-// Path: profile.settings.user
-class Translations$profile$settings$user$en {
-	Translations$profile$settings$user$en._(this._root);
+// Path: profile.settings.sign_out_dialog
+class Translations$profile$settings$sign_out_dialog$en {
+	Translations$profile$settings$sign_out_dialog$en._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// ru: 'Настройки'
-	String get title => 'Settings';
+	/// ru: 'Выйти из профиля?'
+	String get title => 'Sign out?';
 
-	/// ru: 'Редактировать профиль'
-	String get go_to_edit => 'Edit profile';
+	/// ru: 'Прогресс сохранится — вы сможете войти снова с этим email.'
+	String get message => 'Your progress is saved — you can sign in again with this email.';
 
-	/// ru: 'Настройки уведомлений'
-	String get go_to_notifications_settings => 'Настройки уведомлений';
+	/// ru: 'Выйти'
+	String get confirm => 'Sign out';
 
-	/// ru: 'Управление подпиской'
-	String get go_to_subscriptions => 'Управление подпиской';
+	/// ru: 'Отмена'
+	String get cancel => 'Cancel';
 }
 
-// Path: profile.settings.application
-class Translations$profile$settings$application$en {
-	Translations$profile$settings$application$en._(this._root);
+// Path: profile.settings.notifications_page
+class Translations$profile$settings$notifications_page$en {
+	Translations$profile$settings$notifications_page$en._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// ru: 'Приложение'
-	String get title => 'Application';
+	/// ru: 'Напоминание о выпуске дня'
+	String get daily_issue => 'Daily issue reminder';
 
-	late final Translations$profile$settings$application$language$en language = Translations$profile$settings$application$language$en._(_root);
-	late final Translations$profile$settings$application$theme$en theme = Translations$profile$settings$application$theme$en._(_root);
+	/// ru: 'Серия под угрозой'
+	String get streak_risk => 'Streak at risk';
 
-	/// ru: 'Менеджер памяти'
-	String get go_to_storage_manager => 'Memory Manager';
+	/// ru: 'Изменение позиции в рейтинге'
+	String get rank_change => 'Leaderboard position changes';
 
-	/// ru: 'О приложении'
-	String get go_to_about_app => 'About the application';
+	/// ru: 'Новости и акции Quiz+'
+	String get promo => 'Quiz+ news and offers';
 }
 
-// Path: profile.edit.password
-class Translations$profile$edit$password$en {
-	Translations$profile$edit$password$en._(this._root);
+// Path: profile.settings.about_page
+class Translations$profile$settings$about_page$en {
+	Translations$profile$settings$about_page$en._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// ru: 'Изменить пароль'
-	String get title => 'Change password';
+	/// ru: 'Версия $version ($build)'
+	String version({required Object version, required Object build}) => 'Version ${version} (${build})';
 
-	/// ru: 'Введите старый пароль'
-	String get old_password_hint => 'Enter old password';
+	/// ru: 'Пользовательское соглашение'
+	String get terms => 'Terms of service';
 
-	/// ru: 'Введите новый пароль'
-	String get new_password_hint => 'Enter new password';
+	/// ru: 'Политика конфиденциальности'
+	String get privacy => 'Privacy policy';
 
-	/// ru: 'Повторите новый пароль'
-	String get new_confirm_password_hint => 'Repeat new password';
+	/// ru: 'Написать в поддержку'
+	String get support => 'Contact support';
+}
 
-	/// ru: 'Пароли не совпадают'
-	String get confirm_password_validation_message => 'Passwords don\'t match';
+// Path: profile.settings.language_sync
+class Translations$profile$settings$language_sync$en {
+	Translations$profile$settings$language_sync$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Обновляем вопросы'
+	String get title => 'Updating questions';
+
+	/// ru: 'Загружаем вопросы, темы и ответы на выбранном языке'
+	String get syncing => 'Loading questions, topics, and answers in the selected language';
+
+	/// ru: 'Вопросы обновлены'
+	String get success => 'Questions are updated';
+
+	/// ru: 'Язык интерфейса изменён'
+	String get waiting_connection_title => 'Interface language changed';
+
+	/// ru: 'Вопросы обновятся на выбранном языке, когда появится интернет'
+	String get waiting_connection => 'Questions will update in the selected language when internet is back';
+
+	/// ru: 'Не удалось обновить вопросы'
+	String get failed_title => 'Could not update questions';
+
+	/// ru: 'Старый кеш вопросов пока сохранён. Можно повторить попытку сейчас или дождаться следующей синхронизации'
+	String get failed => 'The old question cache is still saved. You can try again now or wait for the next sync';
+
+	/// ru: 'Закрыть'
+	String get close => 'Close';
+
+	/// ru: 'Повторить'
+	String get retry => 'Retry';
+}
+
+// Path: profile.edit.delete_dialog
+class Translations$profile$edit$delete_dialog$en {
+	Translations$profile$edit$delete_dialog$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Удалить аккаунт?'
+	String get title => 'Delete account?';
+
+	/// ru: 'Серия, статистика и достижения будут удалены безвозвратно. Это действие нельзя отменить.'
+	String get message => 'Your streak, statistics and achievements will be permanently deleted. This action cannot be undone.';
+
+	/// ru: 'Удалить аккаунт'
+	String get confirm => 'Delete account';
+
+	/// ru: 'Отмена'
+	String get cancel => 'Cancel';
+
+	/// ru: 'Не удалось удалить аккаунт. Попробуйте позже'
+	String get failed => 'Failed to delete the account. Try again later';
+}
+
+// Path: profile.edit.password_page
+class Translations$profile$edit$password_page$en {
+	Translations$profile$edit$password_page$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Пароль'
+	String get title => 'Password';
+
+	/// ru: 'Старый пароль'
+	String get old_label => 'Old password';
+
+	/// ru: 'Новый пароль'
+	String get new_label => 'New password';
+
+	/// ru: 'Повторите пароль'
+	String get confirm_label => 'Repeat password';
 
 	/// ru: 'Сохранить'
-	String get button => 'Save';
+	String get save => 'Save';
 
-	late final Translations$profile$edit$password$result$en result = Translations$profile$edit$password$result$en._(_root);
-}
+	/// ru: 'Пароль успешно изменён'
+	String get success => 'Password changed';
 
-// Path: profile.edit.main
-class Translations$profile$edit$main$en {
-	Translations$profile$edit$main$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'Основная информация'
-	String get title => 'Basic information';
-
-	late final Translations$profile$edit$main$name$en name = Translations$profile$edit$main$name$en._(_root);
-	late final Translations$profile$edit$main$date$en date = Translations$profile$edit$main$date$en._(_root);
-	late final Translations$profile$edit$main$result$en result = Translations$profile$edit$main$result$en._(_root);
+	/// ru: 'Не удалось изменить пароль. Проверьте введённые данные и попробуйте снова'
+	String get failed => 'Failed to change password. Check the entered data and try again';
 }
 
 // Path: authentication.sign_in.no_account
@@ -1036,93 +1171,6 @@ class Translations$question$error_snackbar$save_failed_retry_later$en {
 	String get button => 'Try again later';
 }
 
-// Path: profile.settings.application.language
-class Translations$profile$settings$application$language$en {
-	Translations$profile$settings$application$language$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'Изменить язык'
-	String get change => 'Choose language';
-
-	late final Translations$profile$settings$application$language$sync$en sync = Translations$profile$settings$application$language$sync$en._(_root);
-}
-
-// Path: profile.settings.application.theme
-class Translations$profile$settings$application$theme$en {
-	Translations$profile$settings$application$theme$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'Тема оформления'
-	String get title => 'Theme';
-
-	late final Translations$profile$settings$application$theme$switcher$en switcher = Translations$profile$settings$application$theme$switcher$en._(_root);
-}
-
-// Path: profile.edit.password.result
-class Translations$profile$edit$password$result$en {
-	Translations$profile$edit$password$result$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'Пароль успешно изменен'
-	String get success => 'Password successfully changed';
-
-	/// ru: 'Не удалось изменить пароль. Пожалуйста, проверьте введенные данные и попробуйте снова'
-	String get failed => 'The password could not be changed. Please check the entered data and try again';
-}
-
-// Path: profile.edit.main.name
-class Translations$profile$edit$main$name$en {
-	Translations$profile$edit$main$name$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'Имя'
-	String get label => 'Name';
-
-	/// ru: 'Введите ваше имя'
-	String get hint => 'Enter your name';
-}
-
-// Path: profile.edit.main.date
-class Translations$profile$edit$main$date$en {
-	Translations$profile$edit$main$date$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'Укажите дату вашего рождения'
-	String get hint => 'Specify your date of birth';
-
-	late final Translations$profile$edit$main$date$picker$en picker = Translations$profile$edit$main$date$picker$en._(_root);
-}
-
-// Path: profile.edit.main.result
-class Translations$profile$edit$main$result$en {
-	Translations$profile$edit$main$result$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'Информация успешно изменена'
-	String get success => 'Information successfully changed';
-
-	/// ru: 'Не удалось изменить информацию. Пожалуйста, проверьте введенные данные и попробуйте снова'
-	String get failed => 'Information could not be changed. Please check the entered data and try again';
-}
-
 // Path: authentication.sign_in.forget_password.dialog
 class Translations$authentication$sign_in$forget_password$dialog$en {
 	Translations$authentication$sign_in$forget_password$dialog$en._(this._root);
@@ -1137,68 +1185,6 @@ class Translations$authentication$sign_in$forget_password$dialog$en {
 	late final Translations$authentication$sign_in$forget_password$dialog$valid$en valid = Translations$authentication$sign_in$forget_password$dialog$valid$en._(_root);
 	late final Translations$authentication$sign_in$forget_password$dialog$invalid$en invalid = Translations$authentication$sign_in$forget_password$dialog$invalid$en._(_root);
 	late final Translations$authentication$sign_in$forget_password$dialog$result$en result = Translations$authentication$sign_in$forget_password$dialog$result$en._(_root);
-}
-
-// Path: profile.settings.application.language.sync
-class Translations$profile$settings$application$language$sync$en {
-	Translations$profile$settings$application$language$sync$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'Обновляем вопросы'
-	String get title => 'Updating questions';
-
-	/// ru: 'Загружаем вопросы, темы и ответы на выбранном языке'
-	String get syncing => 'Loading questions, topics, and answers in the selected language';
-
-	/// ru: 'Вопросы обновлены'
-	String get success => 'Questions are updated';
-
-	/// ru: 'Язык интерфейса изменён'
-	String get waiting_connection_title => 'Interface language changed';
-
-	/// ru: 'Вопросы обновятся на выбранном языке, когда появится интернет'
-	String get waiting_connection => 'Questions will update in the selected language when internet is back';
-
-	/// ru: 'Не удалось обновить вопросы'
-	String get failed_title => 'Could not update questions';
-
-	/// ru: 'Старый кеш вопросов пока сохранён. Можно повторить попытку сейчас или дождаться следующей синхронизации'
-	String get failed => 'The old question cache is still saved. You can try again now or wait for the next sync';
-
-	/// ru: 'Закрыть'
-	String get close => 'Close';
-
-	/// ru: 'Повторить'
-	String get retry => 'Retry';
-}
-
-// Path: profile.settings.application.theme.switcher
-class Translations$profile$settings$application$theme$switcher$en {
-	Translations$profile$settings$application$theme$switcher$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'Как в системе'
-	String get as_system => 'As in the system';
-}
-
-// Path: profile.edit.main.date.picker
-class Translations$profile$edit$main$date$picker$en {
-	Translations$profile$edit$main$date$picker$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'Дата рождения'
-	String get title => 'Date of birth';
-
-	late final Translations$profile$edit$main$date$picker$button$en button = Translations$profile$edit$main$date$picker$button$en._(_root);
 }
 
 // Path: authentication.sign_in.forget_password.dialog.valid
@@ -1249,21 +1235,6 @@ class Translations$authentication$sign_in$forget_password$dialog$result$en {
 	String get failed => 'The password reset link could not be sent. Please try again later.';
 }
 
-// Path: profile.edit.main.date.picker.button
-class Translations$profile$edit$main$date$picker$button$en {
-	Translations$profile$edit$main$date$picker$button$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'Отмена'
-	String get cancel => 'Cancel';
-
-	/// ru: 'Готово'
-	String get apply => 'Done';
-}
-
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -1297,45 +1268,59 @@ extension on Translations {
 			'profile.view.load_failed' => 'Could not load profile',
 			'profile.view.retry' => 'RETRY',
 			'profile.settings.title' => 'Settings',
-			'profile.settings.user.title' => 'Settings',
-			'profile.settings.user.go_to_edit' => 'Edit profile',
-			'profile.settings.user.go_to_notifications_settings' => 'Настройки уведомлений',
-			'profile.settings.user.go_to_subscriptions' => 'Управление подпиской',
-			'profile.settings.application.title' => 'Application',
-			'profile.settings.application.language.change' => 'Choose language',
-			'profile.settings.application.language.sync.title' => 'Updating questions',
-			'profile.settings.application.language.sync.syncing' => 'Loading questions, topics, and answers in the selected language',
-			'profile.settings.application.language.sync.success' => 'Questions are updated',
-			'profile.settings.application.language.sync.waiting_connection_title' => 'Interface language changed',
-			'profile.settings.application.language.sync.waiting_connection' => 'Questions will update in the selected language when internet is back',
-			'profile.settings.application.language.sync.failed_title' => 'Could not update questions',
-			'profile.settings.application.language.sync.failed' => 'The old question cache is still saved. You can try again now or wait for the next sync',
-			'profile.settings.application.language.sync.close' => 'Close',
-			'profile.settings.application.language.sync.retry' => 'Retry',
-			'profile.settings.application.theme.title' => 'Theme',
-			'profile.settings.application.theme.switcher.as_system' => 'As in the system',
-			'profile.settings.application.go_to_storage_manager' => 'Memory Manager',
-			'profile.settings.application.go_to_about_app' => 'About the application',
-			'profile.settings.sign_out' => 'Log out of profile',
-			'profile.settings.sign_in' => 'Log in or register',
-			'profile.edit.title' => 'Edit profile',
-			'profile.edit.password.title' => 'Change password',
-			'profile.edit.password.old_password_hint' => 'Enter old password',
-			'profile.edit.password.new_password_hint' => 'Enter new password',
-			'profile.edit.password.new_confirm_password_hint' => 'Repeat new password',
-			'profile.edit.password.confirm_password_validation_message' => 'Passwords don\'t match',
-			'profile.edit.password.button' => 'Save',
-			'profile.edit.password.result.success' => 'Password successfully changed',
-			'profile.edit.password.result.failed' => 'The password could not be changed. Please check the entered data and try again',
-			'profile.edit.main.title' => 'Basic information',
-			'profile.edit.main.name.label' => 'Name',
-			'profile.edit.main.name.hint' => 'Enter your name',
-			'profile.edit.main.date.hint' => 'Specify your date of birth',
-			'profile.edit.main.date.picker.title' => 'Date of birth',
-			'profile.edit.main.date.picker.button.cancel' => 'Cancel',
-			'profile.edit.main.date.picker.button.apply' => 'Done',
-			'profile.edit.main.result.success' => 'Information successfully changed',
-			'profile.edit.main.result.failed' => 'Information could not be changed. Please check the entered data and try again',
+			'profile.settings.account_section' => 'Account',
+			'profile.settings.app_section' => 'Application',
+			'profile.settings.edit_profile' => 'Edit profile',
+			'profile.settings.notifications' => 'Notifications',
+			'profile.settings.language' => 'Language',
+			'profile.settings.theme' => 'Theme',
+			'profile.settings.theme_light' => 'Light',
+			'profile.settings.theme_system' => 'System',
+			'profile.settings.theme_dark' => 'Dark',
+			'profile.settings.about' => 'About',
+			'profile.settings.sign_in' => 'Sign in',
+			'profile.settings.sign_out' => 'Sign out',
+			'profile.settings.sign_out_dialog.title' => 'Sign out?',
+			'profile.settings.sign_out_dialog.message' => 'Your progress is saved — you can sign in again with this email.',
+			'profile.settings.sign_out_dialog.confirm' => 'Sign out',
+			'profile.settings.sign_out_dialog.cancel' => 'Cancel',
+			'profile.settings.notifications_page.daily_issue' => 'Daily issue reminder',
+			'profile.settings.notifications_page.streak_risk' => 'Streak at risk',
+			'profile.settings.notifications_page.rank_change' => 'Leaderboard position changes',
+			'profile.settings.notifications_page.promo' => 'Quiz+ news and offers',
+			'profile.settings.about_page.version' => ({required Object version, required Object build}) => 'Version ${version} (${build})',
+			'profile.settings.about_page.terms' => 'Terms of service',
+			'profile.settings.about_page.privacy' => 'Privacy policy',
+			'profile.settings.about_page.support' => 'Contact support',
+			'profile.settings.language_sync.title' => 'Updating questions',
+			'profile.settings.language_sync.syncing' => 'Loading questions, topics, and answers in the selected language',
+			'profile.settings.language_sync.success' => 'Questions are updated',
+			'profile.settings.language_sync.waiting_connection_title' => 'Interface language changed',
+			'profile.settings.language_sync.waiting_connection' => 'Questions will update in the selected language when internet is back',
+			'profile.settings.language_sync.failed_title' => 'Could not update questions',
+			'profile.settings.language_sync.failed' => 'The old question cache is still saved. You can try again now or wait for the next sync',
+			'profile.settings.language_sync.close' => 'Close',
+			'profile.settings.language_sync.retry' => 'Retry',
+			'profile.edit.title' => 'Editing',
+			'profile.edit.done' => 'Done',
+			'profile.edit.name_label' => 'Name',
+			'profile.edit.email_label' => 'Email',
+			'profile.edit.password_label' => 'Password',
+			'profile.edit.change_password' => 'Change password',
+			'profile.edit.delete_account' => 'Delete account',
+			'profile.edit.save_failed' => 'Failed to save changes',
+			'profile.edit.delete_dialog.title' => 'Delete account?',
+			'profile.edit.delete_dialog.message' => 'Your streak, statistics and achievements will be permanently deleted. This action cannot be undone.',
+			'profile.edit.delete_dialog.confirm' => 'Delete account',
+			'profile.edit.delete_dialog.cancel' => 'Cancel',
+			'profile.edit.delete_dialog.failed' => 'Failed to delete the account. Try again later',
+			'profile.edit.password_page.title' => 'Password',
+			'profile.edit.password_page.old_label' => 'Old password',
+			'profile.edit.password_page.new_label' => 'New password',
+			'profile.edit.password_page.confirm_label' => 'Repeat password',
+			'profile.edit.password_page.save' => 'Save',
+			'profile.edit.password_page.success' => 'Password changed',
+			'profile.edit.password_page.failed' => 'Failed to change password. Check the entered data and try again',
 			'authentication.failure.invalid_credentials' => 'Invalid credentials. Check that the email and password you entered are correct.',
 			'authentication.failure.too_many_requests' => 'Too many login attempts. Try again later or reset your password.',
 			'authentication.failure.already_exist' => 'This email is already being used by another account.',
@@ -1457,6 +1442,7 @@ extension on Translations {
 			'sign_up.submit' => 'CREATE ACCOUNT',
 			'sign_up.have_account' => 'Already have an account?',
 			'sign_up.sign_in_link' => 'Sign in',
+			'sign_up.birth_date_label' => 'BIRTH DATE',
 			'forgot_password.title' => 'Forgot\npassword?',
 			'forgot_password.subtitle' => 'Enter your email — we\'ll send a reset link.',
 			'forgot_password.email_label' => 'EMAIL',
@@ -1477,6 +1463,7 @@ extension on Translations {
 			'nav.game' => 'GAME',
 			'nav.leaderboard' => 'RANK',
 			'nav.profile' => 'PROFILE',
+			'birth_date_picker.apply' => 'Done',
 			_ => null,
 		};
 	}

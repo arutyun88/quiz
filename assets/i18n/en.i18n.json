@@ -38,74 +38,72 @@
         },
         "settings": {
             "title": "Settings",
-            "user": {
-                "title": "Settings",
-                "go_to_edit": "Edit profile",
-                "go_to_notifications_settings": "Настройки уведомлений",
-                "go_to_subscriptions": "Управление подпиской"
+            "account_section": "Account",
+            "app_section": "Application",
+            "edit_profile": "Edit profile",
+            "notifications": "Notifications",
+            "language": "Language",
+            "theme": "Theme",
+            "theme_light": "Light",
+            "theme_system": "System",
+            "theme_dark": "Dark",
+            "about": "About",
+            "sign_in": "Sign in",
+            "sign_out": "Sign out",
+            "sign_out_dialog": {
+                "title": "Sign out?",
+                "message": "Your progress is saved — you can sign in again with this email.",
+                "confirm": "Sign out",
+                "cancel": "Cancel"
             },
-            "application": {
-                "title": "Application",
-                "language": {
-                    "change": "Choose language",
-                    "sync": {
-                        "title": "Updating questions",
-                        "syncing": "Loading questions, topics, and answers in the selected language",
-                        "success": "Questions are updated",
-                        "waiting_connection_title": "Interface language changed",
-                        "waiting_connection": "Questions will update in the selected language when internet is back",
-                        "failed_title": "Could not update questions",
-                        "failed": "The old question cache is still saved. You can try again now or wait for the next sync",
-                        "close": "Close",
-                        "retry": "Retry"
-                    }
-                },
-                "theme": {
-                    "title": "Theme",
-                    "switcher": {
-                        "as_system": "As in the system"
-                    }
-                },
-                "go_to_storage_manager": "Memory Manager",
-                "go_to_about_app": "About the application"
+            "notifications_page": {
+                "daily_issue": "Daily issue reminder",
+                "streak_risk": "Streak at risk",
+                "rank_change": "Leaderboard position changes",
+                "promo": "Quiz+ news and offers"
             },
-            "sign_out": "Log out of profile",
-            "sign_in": "Log in or register"
+            "about_page": {
+                "version": "Version $version ($build)",
+                "terms": "Terms of service",
+                "privacy": "Privacy policy",
+                "support": "Contact support"
+            },
+            "language_sync": {
+                "title": "Updating questions",
+                "syncing": "Loading questions, topics, and answers in the selected language",
+                "success": "Questions are updated",
+                "waiting_connection_title": "Interface language changed",
+                "waiting_connection": "Questions will update in the selected language when internet is back",
+                "failed_title": "Could not update questions",
+                "failed": "The old question cache is still saved. You can try again now or wait for the next sync",
+                "close": "Close",
+                "retry": "Retry"
+            }
         },
         "edit": {
-            "title": "Edit profile",
-            "password": {
-                "title": "Change password",
-                "old_password_hint": "Enter old password",
-                "new_password_hint": "Enter new password",
-                "new_confirm_password_hint": "Repeat new password",
-                "confirm_password_validation_message": "Passwords don't match",
-                "button": "Save",
-                "result": {
-                    "success": "Password successfully changed",
-                    "failed": "The password could not be changed. Please check the entered data and try again"
-                }
+            "title": "Editing",
+            "done": "Done",
+            "name_label": "Name",
+            "email_label": "Email",
+            "password_label": "Password",
+            "change_password": "Change password",
+            "delete_account": "Delete account",
+            "save_failed": "Failed to save changes",
+            "delete_dialog": {
+                "title": "Delete account?",
+                "message": "Your streak, statistics and achievements will be permanently deleted. This action cannot be undone.",
+                "confirm": "Delete account",
+                "cancel": "Cancel",
+                "failed": "Failed to delete the account. Try again later"
             },
-            "main": {
-                "title": "Basic information",
-                "name": {
-                    "label": "Name",
-                    "hint": "Enter your name"
-                },
-                "date": {
-                    "hint": "Specify your date of birth",
-                    "picker": {
-                        "title": "Date of birth",
-                        "button": {
-                            "cancel": "Cancel",
-                            "apply": "Done"
-                        }
-                    }
-                },
-                "result": {
-                    "success": "Information successfully changed",
-                    "failed": "Information could not be changed. Please check the entered data and try again"
-                }
+            "password_page": {
+                "title": "Password",
+                "old_label": "Old password",
+                "new_label": "New password",
+                "confirm_label": "Repeat password",
+                "save": "Save",
+                "success": "Password changed",
+                "failed": "Failed to change password. Check the entered data and try again"
             }
         }
     },
@@ -319,7 +317,8 @@
         "password_label": "PASSWORD",
         "submit": "CREATE ACCOUNT",
         "have_account": "Already have an account?",
-        "sign_in_link": "Sign in"
+        "sign_in_link": "Sign in",
+        "birth_date_label": "BIRTH DATE"
     },
     "forgot_password": {
         "title": "Forgot\npassword?",
@@ -352,5 +351,8 @@
         "game": "GAME",
         "leaderboard": "RANK",
         "profile": "PROFILE"
+    },
+    "birth_date_picker": {
+        "apply": "Done"
     }
 }

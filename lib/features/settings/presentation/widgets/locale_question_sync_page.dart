@@ -25,7 +25,7 @@ class _LocaleQuestionSyncPageState extends ConsumerState<LocaleQuestionSyncPage>
   Widget build(BuildContext context) {
     final state = ref.watch(localeQuestionSyncProvider);
     final palette = context.palette;
-    final texts = context.t.profile.settings.application.language.sync;
+    final texts = context.t.profile.settings.language_sync;
     final isSyncing = state.status == LocaleQuestionSyncStatus.syncing;
 
     ref.listen(localeQuestionSyncProvider.select((state) => state.status), (_, status) {
