@@ -56,6 +56,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$nav$ru nav = _Translations$nav$ru._(_root);
 	@override late final _Translations$birth_date_picker$ru birth_date_picker = _Translations$birth_date_picker$ru._(_root);
 	@override late final _Translations$mastery$ru mastery = _Translations$mastery$ru._(_root);
+	@override late final _Translations$review$ru review = _Translations$review$ru._(_root);
 }
 
 // Path: text_field
@@ -339,6 +340,27 @@ class _Translations$mastery$ru implements Translations$mastery$en {
 	@override late final _Translations$mastery$paywall$ru paywall = _Translations$mastery$paywall$ru._(_root);
 }
 
+// Path: review
+class _Translations$review$ru implements Translations$review$en {
+	_Translations$review$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'На повторение';
+	@override String get info_banner => 'Вручную вызвать нельзя — интервальное повторение хранит честность рейтинга';
+	@override String due_days({required Object n}) => '${n}д';
+	@override String get due_label => 'Через';
+	@override String wrong_times({required Object n}) => 'Ошибка ${n}×';
+	@override String mastered_times({required Object n}) => 'Освоено ${n}×';
+	@override String get queued_label => 'В очереди на повтор';
+	@override String get mastered_label => 'Уже освоено';
+	@override String get footer => 'Повтор приходит в следующих выпусках';
+	@override String get empty => 'Очередь пуста — в последних выпусках не было ошибок';
+	@override String get error => 'Не удалось загрузить';
+	@override String get retry => 'Повторить';
+}
+
 // Path: text_field.email
 class _Translations$text_field$email$ru implements Translations$text_field$email$en {
 	_Translations$text_field$email$ru._(this._root);
@@ -395,6 +417,7 @@ class _Translations$profile$view$ru implements Translations$profile$view$en {
 	@override String get load_failed => 'Не удалось загрузить профиль';
 	@override String get retry => 'ПОВТОРИТЬ';
 	@override String get mastery => 'Мастерство';
+	@override String get review => 'На повторение';
 }
 
 // Path: profile.settings
@@ -925,6 +948,7 @@ extension on TranslationsRu {
 			'profile.view.load_failed' => 'Не удалось загрузить профиль',
 			'profile.view.retry' => 'ПОВТОРИТЬ',
 			'profile.view.mastery' => 'Мастерство',
+			'profile.view.review' => 'На повторение',
 			'profile.settings.title' => 'Настройки',
 			'profile.settings.account_section' => 'Аккаунт',
 			'profile.settings.app_section' => 'Приложение',
@@ -1150,6 +1174,18 @@ extension on TranslationsRu {
 			'mastery.paywall.tagline' => 'Мастерство тем',
 			'mastery.paywall.description' => 'Узнайте, где вы сильны, а где стоит подтянуть — и алгоритм сделает остальное.',
 			'mastery.paywall.cta' => 'Попробовать Quiz+',
+			'review.title' => 'На повторение',
+			'review.info_banner' => 'Вручную вызвать нельзя — интервальное повторение хранит честность рейтинга',
+			'review.due_days' => ({required Object n}) => '${n}д',
+			'review.due_label' => 'Через',
+			'review.wrong_times' => ({required Object n}) => 'Ошибка ${n}×',
+			'review.mastered_times' => ({required Object n}) => 'Освоено ${n}×',
+			'review.queued_label' => 'В очереди на повтор',
+			'review.mastered_label' => 'Уже освоено',
+			'review.footer' => 'Повтор приходит в следующих выпусках',
+			'review.empty' => 'Очередь пуста — в последних выпусках не было ошибок',
+			'review.error' => 'Не удалось загрузить',
+			'review.retry' => 'Повторить',
 			_ => null,
 		};
 	}

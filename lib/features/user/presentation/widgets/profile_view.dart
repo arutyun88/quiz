@@ -14,12 +14,14 @@ class ProfileView extends StatelessWidget {
     required this.isPublic,
     this.onAchievementsTap,
     this.onMasteryTap,
+    this.onReviewTap,
   });
 
   final UserEntity profile;
   final bool isPublic;
   final VoidCallback? onAchievementsTap;
   final VoidCallback? onMasteryTap;
+  final VoidCallback? onReviewTap;
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +45,16 @@ class ProfileView extends StatelessWidget {
               ),
               onTap: onAchievementsTap,
             ),
-            if (!isPublic)
+            if (!isPublic) ...[
               ProfileLinkRow(
                 label: t.mastery,
                 onTap: onMasteryTap,
               ),
+              ProfileLinkRow(
+                label: t.review,
+                onTap: onReviewTap,
+              ),
+            ],
           ],
         ),
       ],

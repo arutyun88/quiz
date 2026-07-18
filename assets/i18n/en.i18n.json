@@ -35,7 +35,8 @@
             "achievements": "ACHIEVEMENTS · $unlocked/$total",
             "load_failed": "Could not load profile",
             "retry": "RETRY",
-            "mastery": "Mastery"
+            "mastery": "Mastery",
+            "review": "Review queue"
         },
         "settings": {
             "title": "Settings",
@@ -391,5 +392,19 @@
             "description": "See where you're strong and what needs work — the algorithm does the rest.",
             "cta": "Try Quiz+"
         }
+    },
+    "review": {
+        "title": "Review queue",
+        "info_banner": "No manual trigger — spaced repetition keeps the leaderboard fair",
+        "due_days": "${n}d",
+        "due_label": "In",
+        "wrong_times": "Missed $n×",
+        "mastered_times": "Mastered $n×",
+        "queued_label": "Queued for review",
+        "mastered_label": "Already mastered",
+        "footer": "Repeats come back in the next issues",
+        "empty": "The queue is empty — no misses in the recent issues",
+        "error": "Failed to load",
+        "retry": "Retry"
     }
 }

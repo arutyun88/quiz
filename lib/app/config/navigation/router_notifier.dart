@@ -14,6 +14,7 @@ import 'package:quiz/features/home/presentation/home_flow.dart';
 import 'package:quiz/features/home/presentation/home_gate_flow.dart';
 import 'package:quiz/features/mastery/presentation/mastery_flow.dart';
 import 'package:quiz/features/onboarding/presentation/onboarding_flow.dart';
+import 'package:quiz/features/review/presentation/review_flow.dart';
 import 'package:quiz/features/user/presentation/pages/edit/change_password_page.dart';
 import 'package:quiz/features/user/presentation/pages/edit/profile_edit_flow.dart';
 import 'package:quiz/features/user/presentation/pages/profile_flow.dart';
@@ -116,6 +117,11 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                       path: 'mastery',
                       name: 'profile-mastery',
                       builder: (context, state) => const MasteryFlow(),
+                    ),
+                    GoRoute(
+                      path: 'review',
+                      name: 'profile-review',
+                      builder: (context, state) => const ReviewFlow(),
                     ),
                     GoRoute(
                       path: 'settings',

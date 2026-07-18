@@ -78,6 +78,11 @@ import '../../features/question/domain/use_case/send_answer_use_case.dart'
     as _i694;
 import '../../features/question/domain/use_case/sync_cached_answers_use_case.dart'
     as _i953;
+import '../../features/review/data/converter/review_queue_converter.dart'
+    as _i283;
+import '../../features/review/di/di.dart' as _i1035;
+import '../../features/review/domain/repository/review_repository.dart'
+    as _i489;
 import '../../features/user/data/converter/user_converter.dart' as _i11;
 import '../../features/user/data/converter/user_dao_converter.dart' as _i812;
 import '../../features/user/data/converter/user_statistics_converter.dart'
@@ -136,6 +141,7 @@ extension GetItInjectableX on _i174.GetIt {
     final appSettingsModule = _$AppSettingsModule();
     final achievementsModule = _$AchievementsModule();
     final leaderboardModule = _$LeaderboardModule();
+    final reviewModule = _$ReviewModule();
     final gamificationModule = _$GamificationModule();
     final masteryModule = _$MasteryModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
@@ -160,6 +166,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i498.AnswerConverter>(() => _i498.AnswerConverterImpl());
     gh.factory<_i606.UserAchievementConverter>(
         () => _i606.UserAchievementConverterImpl());
+    gh.factory<_i283.ReviewQueueConverter>(
+        () => _i283.ReviewQueueConverterImpl());
     await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(
       () => firebaseConfigModule
           .remoteConfigService(gh<_i627.FirebaseRemoteConfig>()),
@@ -273,6 +281,11 @@ extension GetItInjectableX on _i174.GetIt {
               converter: gh<_i1065.LeaderboardConverter>(),
               overviewConverter: gh<_i1065.LeaderboardOverviewConverter>(),
             ));
+    gh.lazySingleton<_i489.ReviewRepository>(
+        () => reviewModule.reviewRepository(
+              client: gh<_i782.ApiClient>(),
+              reviewQueueConverter: gh<_i283.ReviewQueueConverter>(),
+            ));
     gh.factory<_i137.CheckQuestionStateUseCase>(
         () => _i137.CheckQuestionStateUseCaseImpl(
               questionRepository: gh<_i240.QuestionRepository>(),
@@ -360,6 +373,8 @@ class _$AppSettingsModule extends _i913.AppSettingsModule {}
 class _$AchievementsModule extends _i134.AchievementsModule {}
 
 class _$LeaderboardModule extends _i946.LeaderboardModule {}
+
+class _$ReviewModule extends _i1035.ReviewModule {}
 
 class _$GamificationModule extends _i941.GamificationModule {}
 

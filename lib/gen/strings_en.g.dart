@@ -59,6 +59,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$nav$en nav = Translations$nav$en._(_root);
 	late final Translations$birth_date_picker$en birth_date_picker = Translations$birth_date_picker$en._(_root);
 	late final Translations$mastery$en mastery = Translations$mastery$en._(_root);
+	late final Translations$review$en review = Translations$review$en._(_root);
 }
 
 // Path: text_field
@@ -505,6 +506,51 @@ class Translations$mastery$en {
 	late final Translations$mastery$paywall$en paywall = Translations$mastery$paywall$en._(_root);
 }
 
+// Path: review
+class Translations$review$en {
+	Translations$review$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'На повторение'
+	String get title => 'Review queue';
+
+	/// ru: 'Вручную вызвать нельзя — интервальное повторение хранит честность рейтинга'
+	String get info_banner => 'No manual trigger — spaced repetition keeps the leaderboard fair';
+
+	/// ru: '${n}д'
+	String due_days({required Object n}) => '${n}d';
+
+	/// ru: 'Через'
+	String get due_label => 'In';
+
+	/// ru: 'Ошибка $n×'
+	String wrong_times({required Object n}) => 'Missed ${n}×';
+
+	/// ru: 'Освоено $n×'
+	String mastered_times({required Object n}) => 'Mastered ${n}×';
+
+	/// ru: 'В очереди на повтор'
+	String get queued_label => 'Queued for review';
+
+	/// ru: 'Уже освоено'
+	String get mastered_label => 'Already mastered';
+
+	/// ru: 'Повтор приходит в следующих выпусках'
+	String get footer => 'Repeats come back in the next issues';
+
+	/// ru: 'Очередь пуста — в последних выпусках не было ошибок'
+	String get empty => 'The queue is empty — no misses in the recent issues';
+
+	/// ru: 'Не удалось загрузить'
+	String get error => 'Failed to load';
+
+	/// ru: 'Повторить'
+	String get retry => 'Retry';
+}
+
 // Path: text_field.email
 class Translations$text_field$email$en {
 	Translations$text_field$email$en._(this._root);
@@ -605,6 +651,9 @@ class Translations$profile$view$en {
 
 	/// ru: 'Мастерство'
 	String get mastery => 'Mastery';
+
+	/// ru: 'На повторение'
+	String get review => 'Review queue';
 }
 
 // Path: profile.settings
@@ -1397,6 +1446,7 @@ extension on Translations {
 			'profile.view.load_failed' => 'Could not load profile',
 			'profile.view.retry' => 'RETRY',
 			'profile.view.mastery' => 'Mastery',
+			'profile.view.review' => 'Review queue',
 			'profile.settings.title' => 'Settings',
 			'profile.settings.account_section' => 'Account',
 			'profile.settings.app_section' => 'Application',
@@ -1622,6 +1672,18 @@ extension on Translations {
 			'mastery.paywall.tagline' => 'Topic mastery',
 			'mastery.paywall.description' => 'See where you\'re strong and what needs work — the algorithm does the rest.',
 			'mastery.paywall.cta' => 'Try Quiz+',
+			'review.title' => 'Review queue',
+			'review.info_banner' => 'No manual trigger — spaced repetition keeps the leaderboard fair',
+			'review.due_days' => ({required Object n}) => '${n}d',
+			'review.due_label' => 'In',
+			'review.wrong_times' => ({required Object n}) => 'Missed ${n}×',
+			'review.mastered_times' => ({required Object n}) => 'Mastered ${n}×',
+			'review.queued_label' => 'Queued for review',
+			'review.mastered_label' => 'Already mastered',
+			'review.footer' => 'Repeats come back in the next issues',
+			'review.empty' => 'The queue is empty — no misses in the recent issues',
+			'review.error' => 'Failed to load',
+			'review.retry' => 'Retry',
 			_ => null,
 		};
 	}

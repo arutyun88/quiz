@@ -64,6 +64,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     isPublic: false,
                     onAchievementsTap: () => context.push('/profile/achievements'),
                     onMasteryTap: () => context.push('/profile/mastery'),
+                    onReviewTap: () => context.push('/profile/review'),
                   ),
                 _ => ProfileError(
                     onRetry: () => ref.read(profileProvider.notifier).fetch(),
