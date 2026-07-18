@@ -2,18 +2,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz/app/core/model/base_state.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/di/di.dart';
+import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/user/domain/entity/user_entity.dart';
 import 'package:quiz/features/user/domain/repository/user_repository.dart';
 
 final profileProvider = StateNotifierProvider<ProfileNotifier, BaseState<UserEntity>>(
-  (ref) => ProfileNotifier(repository: getIt<UserRepository>()),
+  (ref) => ProfileNotifier(
+    repository: getIt<UserRepository>(),
+    onProfileLoaded: (profile) => ref.read(authenticationProvider.notifier).updateUser(profile),
+  ),
 );
 
 class ProfileNotifier extends StateNotifier<BaseState<UserEntity>> {
   final UserRepository _repository;
+  final void Function(UserEntity profile)? _onProfileLoaded;
 
-  ProfileNotifier({required UserRepository repository})
-      : _repository = repository,
+  ProfileNotifier({
+    required UserRepository repository,
+    void Function(UserEntity profile)? onProfileLoaded,
+  })  : _repository = repository,
+        _onProfileLoaded = onProfileLoaded,
         super(BaseState.loading()) {
     fetch();
   }
@@ -29,6 +37,7 @@ class ProfileNotifier extends StateNotifier<BaseState<UserEntity>> {
     switch (result) {
       case ResultOk(data: final profile):
         state = BaseState.data(profile);
+        _onProfileLoaded?.call(profile);
       case ResultFailed(error: final failure):
         if (state is! BaseDataState<UserEntity>) {
           state = BaseState.failed(failure);

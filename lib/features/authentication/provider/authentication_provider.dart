@@ -81,6 +81,12 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
     }
   }
 
+  /// Accepts a freshly fetched own profile so the auth state stays the single
+  /// source of truth for the current user (entitlement, name, subscription).
+  void updateUser(UserEntity user) {
+    state = AuthenticationState.authenticated(user: user);
+  }
+
   Future<void> signInWithEmail({
     required String email,
     required String password,
