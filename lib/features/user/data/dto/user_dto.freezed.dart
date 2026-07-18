@@ -47,6 +47,7 @@ mixin _$UserDto {
   int get achievementsUnlocked => throw _privateConstructorUsedError;
   @JsonKey(name: 'achievements_total')
   int get achievementsTotal => throw _privateConstructorUsedError;
+  SubscriptionDto? get subscription => throw _privateConstructorUsedError;
 
   /// Serializes this UserDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -78,7 +79,10 @@ abstract class $UserDtoCopyWith<$Res> {
       @JsonKey(name: 'total_points') int totalPoints,
       @JsonKey(name: 'member_since') DateTime memberSince,
       @JsonKey(name: 'achievements_unlocked') int achievementsUnlocked,
-      @JsonKey(name: 'achievements_total') int achievementsTotal});
+      @JsonKey(name: 'achievements_total') int achievementsTotal,
+      SubscriptionDto? subscription});
+
+  $SubscriptionDtoCopyWith<$Res>? get subscription;
 }
 
 /// @nodoc
@@ -112,6 +116,7 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
     Object? memberSince = null,
     Object? achievementsUnlocked = null,
     Object? achievementsTotal = null,
+    Object? subscription = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -178,7 +183,25 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
           ? _value.achievementsTotal
           : achievementsTotal // ignore: cast_nullable_to_non_nullable
               as int,
+      subscription: freezed == subscription
+          ? _value.subscription
+          : subscription // ignore: cast_nullable_to_non_nullable
+              as SubscriptionDto?,
     ) as $Val);
+  }
+
+  /// Create a copy of UserDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SubscriptionDtoCopyWith<$Res>? get subscription {
+    if (_value.subscription == null) {
+      return null;
+    }
+
+    return $SubscriptionDtoCopyWith<$Res>(_value.subscription!, (value) {
+      return _then(_value.copyWith(subscription: value) as $Val);
+    });
   }
 }
 
@@ -205,7 +228,11 @@ abstract class _$$UserDtoImplCopyWith<$Res> implements $UserDtoCopyWith<$Res> {
       @JsonKey(name: 'total_points') int totalPoints,
       @JsonKey(name: 'member_since') DateTime memberSince,
       @JsonKey(name: 'achievements_unlocked') int achievementsUnlocked,
-      @JsonKey(name: 'achievements_total') int achievementsTotal});
+      @JsonKey(name: 'achievements_total') int achievementsTotal,
+      SubscriptionDto? subscription});
+
+  @override
+  $SubscriptionDtoCopyWith<$Res>? get subscription;
 }
 
 /// @nodoc
@@ -237,6 +264,7 @@ class __$$UserDtoImplCopyWithImpl<$Res>
     Object? memberSince = null,
     Object? achievementsUnlocked = null,
     Object? achievementsTotal = null,
+    Object? subscription = freezed,
   }) {
     return _then(_$UserDtoImpl(
       id: null == id
@@ -303,6 +331,10 @@ class __$$UserDtoImplCopyWithImpl<$Res>
           ? _value.achievementsTotal
           : achievementsTotal // ignore: cast_nullable_to_non_nullable
               as int,
+      subscription: freezed == subscription
+          ? _value.subscription
+          : subscription // ignore: cast_nullable_to_non_nullable
+              as SubscriptionDto?,
     ));
   }
 }
@@ -327,7 +359,8 @@ class _$UserDtoImpl implements _UserDto {
       @JsonKey(name: 'member_since') required this.memberSince,
       @JsonKey(name: 'achievements_unlocked')
       required this.achievementsUnlocked,
-      @JsonKey(name: 'achievements_total') required this.achievementsTotal});
+      @JsonKey(name: 'achievements_total') required this.achievementsTotal,
+      this.subscription});
 
   factory _$UserDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserDtoImplFromJson(json);
@@ -375,10 +408,12 @@ class _$UserDtoImpl implements _UserDto {
   @override
   @JsonKey(name: 'achievements_total')
   final int achievementsTotal;
+  @override
+  final SubscriptionDto? subscription;
 
   @override
   String toString() {
-    return 'UserDto(id: $id, email: $email, name: $name, birthDate: $birthDate, level: $level, experienceInLevel: $experienceInLevel, levelExperience: $levelExperience, streakDays: $streakDays, bestStreakDays: $bestStreakDays, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, totalPoints: $totalPoints, memberSince: $memberSince, achievementsUnlocked: $achievementsUnlocked, achievementsTotal: $achievementsTotal)';
+    return 'UserDto(id: $id, email: $email, name: $name, birthDate: $birthDate, level: $level, experienceInLevel: $experienceInLevel, levelExperience: $levelExperience, streakDays: $streakDays, bestStreakDays: $bestStreakDays, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, totalPoints: $totalPoints, memberSince: $memberSince, achievementsUnlocked: $achievementsUnlocked, achievementsTotal: $achievementsTotal, subscription: $subscription)';
   }
 
   @override
@@ -413,7 +448,9 @@ class _$UserDtoImpl implements _UserDto {
             (identical(other.achievementsUnlocked, achievementsUnlocked) ||
                 other.achievementsUnlocked == achievementsUnlocked) &&
             (identical(other.achievementsTotal, achievementsTotal) ||
-                other.achievementsTotal == achievementsTotal));
+                other.achievementsTotal == achievementsTotal) &&
+            (identical(other.subscription, subscription) ||
+                other.subscription == subscription));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -435,7 +472,8 @@ class _$UserDtoImpl implements _UserDto {
       totalPoints,
       memberSince,
       achievementsUnlocked,
-      achievementsTotal);
+      achievementsTotal,
+      subscription);
 
   /// Create a copy of UserDto
   /// with the given fields replaced by the non-null parameter values.
@@ -472,8 +510,8 @@ abstract class _UserDto implements UserDto {
       @JsonKey(name: 'member_since') required final DateTime memberSince,
       @JsonKey(name: 'achievements_unlocked')
       required final int achievementsUnlocked,
-      @JsonKey(name: 'achievements_total')
-      required final int achievementsTotal}) = _$UserDtoImpl;
+      @JsonKey(name: 'achievements_total') required final int achievementsTotal,
+      final SubscriptionDto? subscription}) = _$UserDtoImpl;
 
   factory _UserDto.fromJson(Map<String, dynamic> json) = _$UserDtoImpl.fromJson;
 
@@ -520,6 +558,8 @@ abstract class _UserDto implements UserDto {
   @override
   @JsonKey(name: 'achievements_total')
   int get achievementsTotal;
+  @override
+  SubscriptionDto? get subscription;
 
   /// Create a copy of UserDto
   /// with the given fields replaced by the non-null parameter values.

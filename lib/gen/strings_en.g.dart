@@ -58,6 +58,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$start_day$en start_day = Translations$start_day$en._(_root);
 	late final Translations$nav$en nav = Translations$nav$en._(_root);
 	late final Translations$birth_date_picker$en birth_date_picker = Translations$birth_date_picker$en._(_root);
+	late final Translations$mastery$en mastery = Translations$mastery$en._(_root);
 }
 
 // Path: text_field
@@ -463,6 +464,47 @@ class Translations$birth_date_picker$en {
 	String get apply => 'Done';
 }
 
+// Path: mastery
+class Translations$mastery$en {
+	Translations$mastery$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Мастерство'
+	String get title => 'Mastery';
+
+	/// ru: 'Владение по темам'
+	String get topics_section => 'Topic mastery';
+
+	/// ru: 'Самая слабая тема'
+	String get weakest_label => 'Weakest topic';
+
+	/// ru: '$percent% точности'
+	String weakest_accuracy({required Object percent}) => '${percent}% accuracy';
+
+	/// ru: ' за 30 дней. Алгоритм чаще будет давать эти вопросы в выпусках.'
+	String get weakest_tail => ' over the last 30 days. The algorithm will serve these questions more often.';
+
+	/// ru: 'За неделю'
+	String get weekly_delta_label => 'This week';
+
+	/// ru: 'Лучший день'
+	String get best_day_label => 'Best day';
+
+	/// ru: 'Пока нет данных — сыграйте выпуск дня, и мастерство появится здесь'
+	String get empty => 'No data yet — play a daily issue and your mastery will show up here';
+
+	/// ru: 'Не удалось загрузить'
+	String get error => 'Failed to load';
+
+	/// ru: 'Повторить'
+	String get retry => 'Retry';
+
+	late final Translations$mastery$paywall$en paywall = Translations$mastery$paywall$en._(_root);
+}
+
 // Path: text_field.email
 class Translations$text_field$email$en {
 	Translations$text_field$email$en._(this._root);
@@ -560,6 +602,9 @@ class Translations$profile$view$en {
 
 	/// ru: 'ПОВТОРИТЬ'
 	String get retry => 'RETRY';
+
+	/// ru: 'Мастерство'
+	String get mastery => 'Mastery';
 }
 
 // Path: profile.settings
@@ -584,6 +629,9 @@ class Translations$profile$settings$en {
 
 	/// ru: 'Уведомления'
 	String get notifications => 'Notifications';
+
+	/// ru: 'Управление подпиской'
+	String get subscription => 'Manage subscription';
 
 	/// ru: 'Язык'
 	String get language => 'Language';
@@ -613,6 +661,7 @@ class Translations$profile$settings$en {
 	late final Translations$profile$settings$notifications_page$en notifications_page = Translations$profile$settings$notifications_page$en._(_root);
 	late final Translations$profile$settings$about_page$en about_page = Translations$profile$settings$about_page$en._(_root);
 	late final Translations$profile$settings$language_sync$en language_sync = Translations$profile$settings$language_sync$en._(_root);
+	late final Translations$profile$settings$subscription_page$en subscription_page = Translations$profile$settings$subscription_page$en._(_root);
 }
 
 // Path: profile.edit
@@ -877,6 +926,24 @@ class Translations$onboarding$features$en {
 	String get f4 => 'Compete, build streaks, unlock achievements';
 }
 
+// Path: mastery.paywall
+class Translations$mastery$paywall$en {
+	Translations$mastery$paywall$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Мастерство тем'
+	String get tagline => 'Topic mastery';
+
+	/// ru: 'Узнайте, где вы сильны, а где стоит подтянуть — и алгоритм сделает остальное.'
+	String get description => 'See where you\'re strong and what needs work — the algorithm does the rest.';
+
+	/// ru: 'Попробовать Quiz+'
+	String get cta => 'Try Quiz+';
+}
+
 // Path: profile.settings.sign_out_dialog
 class Translations$profile$settings$sign_out_dialog$en {
 	Translations$profile$settings$sign_out_dialog$en._(this._root);
@@ -974,6 +1041,47 @@ class Translations$profile$settings$language_sync$en {
 
 	/// ru: 'Повторить'
 	String get retry => 'Retry';
+}
+
+// Path: profile.settings.subscription_page
+class Translations$profile$settings$subscription_page$en {
+	Translations$profile$settings$subscription_page$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Подписка'
+	String get title => 'Subscription';
+
+	/// ru: 'Активна'
+	String get active => 'Active';
+
+	/// ru: 'Неактивна'
+	String get inactive => 'Inactive';
+
+	/// ru: 'Месячная'
+	String get plan_monthly => 'Monthly';
+
+	/// ru: 'Годовая'
+	String get plan_yearly => 'Yearly';
+
+	/// ru: 'Следующее списание · $date'
+	String next_billing({required Object date}) => 'Next billing · ${date}';
+
+	/// ru: 'Изменить план'
+	String get change_plan => 'Change plan';
+
+	/// ru: 'Способ оплаты'
+	String get payment_method => 'Payment method';
+
+	/// ru: 'История платежей'
+	String get payment_history => 'Payment history';
+
+	/// ru: 'Отменить подписку'
+	String get cancel => 'Cancel subscription';
+
+	late final Translations$profile$settings$subscription_page$cancel_dialog$en cancel_dialog = Translations$profile$settings$subscription_page$cancel_dialog$en._(_root);
 }
 
 // Path: profile.edit.delete_dialog
@@ -1171,6 +1279,27 @@ class Translations$question$error_snackbar$save_failed_retry_later$en {
 	String get button => 'Try again later';
 }
 
+// Path: profile.settings.subscription_page.cancel_dialog
+class Translations$profile$settings$subscription_page$cancel_dialog$en {
+	Translations$profile$settings$subscription_page$cancel_dialog$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Отменить подписку?'
+	String get title => 'Cancel subscription?';
+
+	/// ru: 'Quiz+ отключится сразу. Действие доступно только в debug-сборке — реального биллинга пока нет.'
+	String get message => 'Quiz+ turns off immediately. Debug builds only — there is no real billing yet.';
+
+	/// ru: 'Отменить подписку'
+	String get confirm => 'Cancel subscription';
+
+	/// ru: 'Назад'
+	String get cancel => 'Back';
+}
+
 // Path: authentication.sign_in.forget_password.dialog
 class Translations$authentication$sign_in$forget_password$dialog$en {
 	Translations$authentication$sign_in$forget_password$dialog$en._(this._root);
@@ -1267,11 +1396,13 @@ extension on Translations {
 			'profile.view.achievements' => ({required Object unlocked, required Object total}) => 'ACHIEVEMENTS · ${unlocked}/${total}',
 			'profile.view.load_failed' => 'Could not load profile',
 			'profile.view.retry' => 'RETRY',
+			'profile.view.mastery' => 'Mastery',
 			'profile.settings.title' => 'Settings',
 			'profile.settings.account_section' => 'Account',
 			'profile.settings.app_section' => 'Application',
 			'profile.settings.edit_profile' => 'Edit profile',
 			'profile.settings.notifications' => 'Notifications',
+			'profile.settings.subscription' => 'Manage subscription',
 			'profile.settings.language' => 'Language',
 			'profile.settings.theme' => 'Theme',
 			'profile.settings.theme_light' => 'Light',
@@ -1301,6 +1432,20 @@ extension on Translations {
 			'profile.settings.language_sync.failed' => 'The old question cache is still saved. You can try again now or wait for the next sync',
 			'profile.settings.language_sync.close' => 'Close',
 			'profile.settings.language_sync.retry' => 'Retry',
+			'profile.settings.subscription_page.title' => 'Subscription',
+			'profile.settings.subscription_page.active' => 'Active',
+			'profile.settings.subscription_page.inactive' => 'Inactive',
+			'profile.settings.subscription_page.plan_monthly' => 'Monthly',
+			'profile.settings.subscription_page.plan_yearly' => 'Yearly',
+			'profile.settings.subscription_page.next_billing' => ({required Object date}) => 'Next billing · ${date}',
+			'profile.settings.subscription_page.change_plan' => 'Change plan',
+			'profile.settings.subscription_page.payment_method' => 'Payment method',
+			'profile.settings.subscription_page.payment_history' => 'Payment history',
+			'profile.settings.subscription_page.cancel' => 'Cancel subscription',
+			'profile.settings.subscription_page.cancel_dialog.title' => 'Cancel subscription?',
+			'profile.settings.subscription_page.cancel_dialog.message' => 'Quiz+ turns off immediately. Debug builds only — there is no real billing yet.',
+			'profile.settings.subscription_page.cancel_dialog.confirm' => 'Cancel subscription',
+			'profile.settings.subscription_page.cancel_dialog.cancel' => 'Back',
 			'profile.edit.title' => 'Editing',
 			'profile.edit.done' => 'Done',
 			'profile.edit.name_label' => 'Name',
@@ -1464,6 +1609,19 @@ extension on Translations {
 			'nav.leaderboard' => 'RANK',
 			'nav.profile' => 'PROFILE',
 			'birth_date_picker.apply' => 'Done',
+			'mastery.title' => 'Mastery',
+			'mastery.topics_section' => 'Topic mastery',
+			'mastery.weakest_label' => 'Weakest topic',
+			'mastery.weakest_accuracy' => ({required Object percent}) => '${percent}% accuracy',
+			'mastery.weakest_tail' => ' over the last 30 days. The algorithm will serve these questions more often.',
+			'mastery.weekly_delta_label' => 'This week',
+			'mastery.best_day_label' => 'Best day',
+			'mastery.empty' => 'No data yet — play a daily issue and your mastery will show up here',
+			'mastery.error' => 'Failed to load',
+			'mastery.retry' => 'Retry',
+			'mastery.paywall.tagline' => 'Topic mastery',
+			'mastery.paywall.description' => 'See where you\'re strong and what needs work — the algorithm does the rest.',
+			'mastery.paywall.cta' => 'Try Quiz+',
 			_ => null,
 		};
 	}

@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
+import 'package:quiz/app/core/client/api_client.dart';
 import 'package:quiz/app/core/database/app_database.dart';
 import 'package:quiz/app/core/database/dao/answered_question_dao.dart';
 import 'package:quiz/app/core/database/dao/question_dao.dart';
+import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/core/services/settings_local_storage_service.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
 import 'package:quiz/app/di/di.dart';
+import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/question/domain/use_case/sync_cached_answers_use_case.dart';
 import 'package:quiz/features/settings/presentation/widgets/settings_rows.dart';
+import 'package:quiz/features/user/presentation/provider/quiz_plus_provider.dart';
 
 // Dev-only screen: strings are intentionally not localized.
 class DebugFlow extends StatelessWidget {
@@ -68,6 +73,83 @@ class DebugFlow extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 26),
+            const SettingsSectionLabel(label: 'Подписка'),
+            const SizedBox(height: 10),
+            const SettingsRowGroup(
+              children: [
+                _QuizPlusRow(),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Dev-only Quiz+ toggle: flips the mock entitlement on the server and
+/// reloads the profile so `quizPlusProvider` picks the change up.
+class _QuizPlusRow extends ConsumerStatefulWidget {
+  const _QuizPlusRow();
+
+  @override
+  ConsumerState<_QuizPlusRow> createState() => _QuizPlusRowState();
+}
+
+class _QuizPlusRowState extends ConsumerState<_QuizPlusRow> {
+  bool _busy = false;
+
+  Future<void> _toggle(bool enable) async {
+    setState(() => _busy = true);
+
+    final client = getIt<ApiClient>();
+    final result =
+        enable ? await client.post<void, void>('/dev/subscription') : await client.delete('/dev/subscription');
+
+    if (result is ResultOk) {
+      await ref.read(authenticationProvider.notifier).reload();
+    } else if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Не удалось переключить Quiz+ (нужен dev-профиль сервера)')),
+      );
+    }
+
+    if (mounted) setState(() => _busy = false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isActive = ref.watch(quizPlusProvider);
+
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: _busy ? null : () => _toggle(!isActive),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 2),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                'Quiz+',
+                style: GoogleFonts.spectral(fontSize: 16, color: context.palette.text.primary),
+              ),
+            ),
+            if (_busy)
+              SizedBox.square(
+                dimension: 16,
+                child: CircularProgressIndicator(strokeWidth: 2, color: context.palette.text.accent),
+              )
+            else
+              Text(
+                isActive ? 'АКТИВНА' : 'ВЫКЛ',
+                style: GoogleFonts.jetBrainsMono(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1,
+                  color: isActive ? context.palette.answer.success : context.palette.text.secondary,
+                ),
+              ),
           ],
         ),
       ),

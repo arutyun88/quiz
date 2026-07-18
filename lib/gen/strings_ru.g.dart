@@ -55,6 +55,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$start_day$ru start_day = _Translations$start_day$ru._(_root);
 	@override late final _Translations$nav$ru nav = _Translations$nav$ru._(_root);
 	@override late final _Translations$birth_date_picker$ru birth_date_picker = _Translations$birth_date_picker$ru._(_root);
+	@override late final _Translations$mastery$ru mastery = _Translations$mastery$ru._(_root);
 }
 
 // Path: text_field
@@ -318,6 +319,26 @@ class _Translations$birth_date_picker$ru implements Translations$birth_date_pick
 	@override String get apply => 'Готово';
 }
 
+// Path: mastery
+class _Translations$mastery$ru implements Translations$mastery$en {
+	_Translations$mastery$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Мастерство';
+	@override String get topics_section => 'Владение по темам';
+	@override String get weakest_label => 'Самая слабая тема';
+	@override String weakest_accuracy({required Object percent}) => '${percent}% точности';
+	@override String get weakest_tail => ' за 30 дней. Алгоритм чаще будет давать эти вопросы в выпусках.';
+	@override String get weekly_delta_label => 'За неделю';
+	@override String get best_day_label => 'Лучший день';
+	@override String get empty => 'Пока нет данных — сыграйте выпуск дня, и мастерство появится здесь';
+	@override String get error => 'Не удалось загрузить';
+	@override String get retry => 'Повторить';
+	@override late final _Translations$mastery$paywall$ru paywall = _Translations$mastery$paywall$ru._(_root);
+}
+
 // Path: text_field.email
 class _Translations$text_field$email$ru implements Translations$text_field$email$en {
 	_Translations$text_field$email$ru._(this._root);
@@ -373,6 +394,7 @@ class _Translations$profile$view$ru implements Translations$profile$view$en {
 	@override String achievements({required Object unlocked, required Object total}) => 'ДОСТИЖЕНИЯ · ${unlocked}/${total}';
 	@override String get load_failed => 'Не удалось загрузить профиль';
 	@override String get retry => 'ПОВТОРИТЬ';
+	@override String get mastery => 'Мастерство';
 }
 
 // Path: profile.settings
@@ -387,6 +409,7 @@ class _Translations$profile$settings$ru implements Translations$profile$settings
 	@override String get app_section => 'Приложение';
 	@override String get edit_profile => 'Редактировать профиль';
 	@override String get notifications => 'Уведомления';
+	@override String get subscription => 'Управление подпиской';
 	@override String get language => 'Язык';
 	@override String get theme => 'Тема оформления';
 	@override String get theme_light => 'Светлая';
@@ -399,6 +422,7 @@ class _Translations$profile$settings$ru implements Translations$profile$settings
 	@override late final _Translations$profile$settings$notifications_page$ru notifications_page = _Translations$profile$settings$notifications_page$ru._(_root);
 	@override late final _Translations$profile$settings$about_page$ru about_page = _Translations$profile$settings$about_page$ru._(_root);
 	@override late final _Translations$profile$settings$language_sync$ru language_sync = _Translations$profile$settings$language_sync$ru._(_root);
+	@override late final _Translations$profile$settings$subscription_page$ru subscription_page = _Translations$profile$settings$subscription_page$ru._(_root);
 }
 
 // Path: profile.edit
@@ -577,6 +601,18 @@ class _Translations$onboarding$features$ru implements Translations$onboarding$fe
 	@override String get f4 => 'Соревнуйтесь, собирайте серии, открывайте достижения';
 }
 
+// Path: mastery.paywall
+class _Translations$mastery$paywall$ru implements Translations$mastery$paywall$en {
+	_Translations$mastery$paywall$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get tagline => 'Мастерство тем';
+	@override String get description => 'Узнайте, где вы сильны, а где стоит подтянуть — и алгоритм сделает остальное.';
+	@override String get cta => 'Попробовать Quiz+';
+}
+
 // Path: profile.settings.sign_out_dialog
 class _Translations$profile$settings$sign_out_dialog$ru implements Translations$profile$settings$sign_out_dialog$en {
 	_Translations$profile$settings$sign_out_dialog$ru._(this._root);
@@ -632,6 +668,26 @@ class _Translations$profile$settings$language_sync$ru implements Translations$pr
 	@override String get failed => 'Старый кеш вопросов пока сохранён. Можно повторить попытку сейчас или дождаться следующей синхронизации';
 	@override String get close => 'Закрыть';
 	@override String get retry => 'Повторить';
+}
+
+// Path: profile.settings.subscription_page
+class _Translations$profile$settings$subscription_page$ru implements Translations$profile$settings$subscription_page$en {
+	_Translations$profile$settings$subscription_page$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Подписка';
+	@override String get active => 'Активна';
+	@override String get inactive => 'Неактивна';
+	@override String get plan_monthly => 'Месячная';
+	@override String get plan_yearly => 'Годовая';
+	@override String next_billing({required Object date}) => 'Следующее списание · ${date}';
+	@override String get change_plan => 'Изменить план';
+	@override String get payment_method => 'Способ оплаты';
+	@override String get payment_history => 'История платежей';
+	@override String get cancel => 'Отменить подписку';
+	@override late final _Translations$profile$settings$subscription_page$cancel_dialog$ru cancel_dialog = _Translations$profile$settings$subscription_page$cancel_dialog$ru._(_root);
 }
 
 // Path: profile.edit.delete_dialog
@@ -776,6 +832,19 @@ class _Translations$question$error_snackbar$save_failed_retry_later$ru implement
 	@override String get button => 'Попробую позже';
 }
 
+// Path: profile.settings.subscription_page.cancel_dialog
+class _Translations$profile$settings$subscription_page$cancel_dialog$ru implements Translations$profile$settings$subscription_page$cancel_dialog$en {
+	_Translations$profile$settings$subscription_page$cancel_dialog$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Отменить подписку?';
+	@override String get message => 'Quiz+ отключится сразу. Действие доступно только в debug-сборке — реального биллинга пока нет.';
+	@override String get confirm => 'Отменить подписку';
+	@override String get cancel => 'Назад';
+}
+
 // Path: authentication.sign_in.forget_password.dialog
 class _Translations$authentication$sign_in$forget_password$dialog$ru implements Translations$authentication$sign_in$forget_password$dialog$en {
 	_Translations$authentication$sign_in$forget_password$dialog$ru._(this._root);
@@ -855,11 +924,13 @@ extension on TranslationsRu {
 			'profile.view.achievements' => ({required Object unlocked, required Object total}) => 'ДОСТИЖЕНИЯ · ${unlocked}/${total}',
 			'profile.view.load_failed' => 'Не удалось загрузить профиль',
 			'profile.view.retry' => 'ПОВТОРИТЬ',
+			'profile.view.mastery' => 'Мастерство',
 			'profile.settings.title' => 'Настройки',
 			'profile.settings.account_section' => 'Аккаунт',
 			'profile.settings.app_section' => 'Приложение',
 			'profile.settings.edit_profile' => 'Редактировать профиль',
 			'profile.settings.notifications' => 'Уведомления',
+			'profile.settings.subscription' => 'Управление подпиской',
 			'profile.settings.language' => 'Язык',
 			'profile.settings.theme' => 'Тема оформления',
 			'profile.settings.theme_light' => 'Светлая',
@@ -889,6 +960,20 @@ extension on TranslationsRu {
 			'profile.settings.language_sync.failed' => 'Старый кеш вопросов пока сохранён. Можно повторить попытку сейчас или дождаться следующей синхронизации',
 			'profile.settings.language_sync.close' => 'Закрыть',
 			'profile.settings.language_sync.retry' => 'Повторить',
+			'profile.settings.subscription_page.title' => 'Подписка',
+			'profile.settings.subscription_page.active' => 'Активна',
+			'profile.settings.subscription_page.inactive' => 'Неактивна',
+			'profile.settings.subscription_page.plan_monthly' => 'Месячная',
+			'profile.settings.subscription_page.plan_yearly' => 'Годовая',
+			'profile.settings.subscription_page.next_billing' => ({required Object date}) => 'Следующее списание · ${date}',
+			'profile.settings.subscription_page.change_plan' => 'Изменить план',
+			'profile.settings.subscription_page.payment_method' => 'Способ оплаты',
+			'profile.settings.subscription_page.payment_history' => 'История платежей',
+			'profile.settings.subscription_page.cancel' => 'Отменить подписку',
+			'profile.settings.subscription_page.cancel_dialog.title' => 'Отменить подписку?',
+			'profile.settings.subscription_page.cancel_dialog.message' => 'Quiz+ отключится сразу. Действие доступно только в debug-сборке — реального биллинга пока нет.',
+			'profile.settings.subscription_page.cancel_dialog.confirm' => 'Отменить подписку',
+			'profile.settings.subscription_page.cancel_dialog.cancel' => 'Назад',
 			'profile.edit.title' => 'Редактирование',
 			'profile.edit.done' => 'Готово',
 			'profile.edit.name_label' => 'Имя',
@@ -1052,6 +1137,19 @@ extension on TranslationsRu {
 			'nav.leaderboard' => 'РЕЙТИНГ',
 			'nav.profile' => 'ПРОФИЛЬ',
 			'birth_date_picker.apply' => 'Готово',
+			'mastery.title' => 'Мастерство',
+			'mastery.topics_section' => 'Владение по темам',
+			'mastery.weakest_label' => 'Самая слабая тема',
+			'mastery.weakest_accuracy' => ({required Object percent}) => '${percent}% точности',
+			'mastery.weakest_tail' => ' за 30 дней. Алгоритм чаще будет давать эти вопросы в выпусках.',
+			'mastery.weekly_delta_label' => 'За неделю',
+			'mastery.best_day_label' => 'Лучший день',
+			'mastery.empty' => 'Пока нет данных — сыграйте выпуск дня, и мастерство появится здесь',
+			'mastery.error' => 'Не удалось загрузить',
+			'mastery.retry' => 'Повторить',
+			'mastery.paywall.tagline' => 'Мастерство тем',
+			'mastery.paywall.description' => 'Узнайте, где вы сильны, а где стоит подтянуть — и алгоритм сделает остальное.',
+			'mastery.paywall.cta' => 'Попробовать Quiz+',
 			_ => null,
 		};
 	}

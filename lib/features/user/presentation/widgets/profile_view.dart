@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:quiz/features/settings/presentation/widgets/settings_rows.dart';
 import 'package:quiz/features/user/domain/entity/user_entity.dart';
 import 'package:quiz/features/user/presentation/widgets/profile_level_block.dart';
 import 'package:quiz/features/user/presentation/widgets/profile_link_row.dart';
 import 'package:quiz/features/user/presentation/widgets/profile_stats_grid.dart';
 import 'package:quiz/features/user/presentation/widgets/profile_user_block.dart';
+import 'package:quiz/gen/strings.g.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({
@@ -11,14 +13,18 @@ class ProfileView extends StatelessWidget {
     required this.profile,
     required this.isPublic,
     this.onAchievementsTap,
+    this.onMasteryTap,
   });
 
   final UserEntity profile;
   final bool isPublic;
   final VoidCallback? onAchievementsTap;
+  final VoidCallback? onMasteryTap;
 
   @override
   Widget build(BuildContext context) {
+    final t = context.t.profile.view;
+
     return ListView(
       padding: const EdgeInsets.fromLTRB(22, 18, 22, 24),
       children: [
@@ -28,10 +34,21 @@ class ProfileView extends StatelessWidget {
         const SizedBox(height: 24),
         ProfileStatsGrid(profile: profile),
         const SizedBox(height: 18),
-        ProfileAchievementsRow(
-          unlocked: profile.achievementsUnlocked,
-          total: profile.achievementsTotal,
-          onTap: onAchievementsTap,
+        SettingsRowGroup(
+          children: [
+            ProfileLinkRow(
+              label: t.achievements(
+                unlocked: profile.achievementsUnlocked,
+                total: profile.achievementsTotal,
+              ),
+              onTap: onAchievementsTap,
+            ),
+            if (!isPublic)
+              ProfileLinkRow(
+                label: t.mastery,
+                onTap: onMasteryTap,
+              ),
+          ],
         ),
       ],
     );

@@ -34,7 +34,8 @@
             "member_since": "PLAYING SINCE $date",
             "achievements": "ACHIEVEMENTS · $unlocked/$total",
             "load_failed": "Could not load profile",
-            "retry": "RETRY"
+            "retry": "RETRY",
+            "mastery": "Mastery"
         },
         "settings": {
             "title": "Settings",
@@ -42,6 +43,7 @@
             "app_section": "Application",
             "edit_profile": "Edit profile",
             "notifications": "Notifications",
+            "subscription": "Manage subscription",
             "language": "Language",
             "theme": "Theme",
             "theme_light": "Light",
@@ -78,6 +80,24 @@
                 "failed": "The old question cache is still saved. You can try again now or wait for the next sync",
                 "close": "Close",
                 "retry": "Retry"
+            },
+            "subscription_page": {
+                "title": "Subscription",
+                "active": "Active",
+                "inactive": "Inactive",
+                "plan_monthly": "Monthly",
+                "plan_yearly": "Yearly",
+                "next_billing": "Next billing · $date",
+                "change_plan": "Change plan",
+                "payment_method": "Payment method",
+                "payment_history": "Payment history",
+                "cancel": "Cancel subscription",
+                "cancel_dialog": {
+                    "title": "Cancel subscription?",
+                    "message": "Quiz+ turns off immediately. Debug builds only — there is no real billing yet.",
+                    "confirm": "Cancel subscription",
+                    "cancel": "Back"
+                }
             }
         },
         "edit": {
@@ -354,5 +374,22 @@
     },
     "birth_date_picker": {
         "apply": "Done"
+    },
+    "mastery": {
+        "title": "Mastery",
+        "topics_section": "Topic mastery",
+        "weakest_label": "Weakest topic",
+        "weakest_accuracy": "$percent% accuracy",
+        "weakest_tail": " over the last 30 days. The algorithm will serve these questions more often.",
+        "weekly_delta_label": "This week",
+        "best_day_label": "Best day",
+        "empty": "No data yet — play a daily issue and your mastery will show up here",
+        "error": "Failed to load",
+        "retry": "Retry",
+        "paywall": {
+            "tagline": "Topic mastery",
+            "description": "See where you're strong and what needs work — the algorithm does the rest.",
+            "cta": "Try Quiz+"
+        }
     }
 }

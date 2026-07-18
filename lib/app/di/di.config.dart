@@ -37,6 +37,10 @@ import '../../features/leaderboard/data/converter/leaderboard_converter.dart'
 import '../../features/leaderboard/di/di.dart' as _i946;
 import '../../features/leaderboard/domain/repository/leaderboard_repository.dart'
     as _i914;
+import '../../features/mastery/data/converter/mastery_converter.dart' as _i78;
+import '../../features/mastery/di/di.dart' as _i963;
+import '../../features/mastery/domain/repository/mastery_repository.dart'
+    as _i871;
 import '../../features/question/data/converter/answer_converter.dart' as _i498;
 import '../../features/question/data/converter/answer_db_converter.dart'
     as _i692;
@@ -133,6 +137,7 @@ extension GetItInjectableX on _i174.GetIt {
     final achievementsModule = _$AchievementsModule();
     final leaderboardModule = _$LeaderboardModule();
     final gamificationModule = _$GamificationModule();
+    final masteryModule = _$MasteryModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
       () => firebaseConfigModule.firebase(),
       preResolve: true,
@@ -151,6 +156,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i959.PasswordResetGateway>(
         () => authenticationModule.passwordResetGateway());
     gh.factory<_i625.TopicConverter>(() => _i625.TopicConverterImpl());
+    gh.factory<_i78.MasteryConverter>(() => _i78.MasteryConverterImpl());
     gh.factory<_i498.AnswerConverter>(() => _i498.AnswerConverterImpl());
     gh.factory<_i606.UserAchievementConverter>(
         () => _i606.UserAchievementConverterImpl());
@@ -278,6 +284,11 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i782.ApiClient>(),
               gh<_i508.UserLevelConverter>(),
             ));
+    gh.lazySingleton<_i871.MasteryRepository>(
+        () => masteryModule.masteryRepository(
+              client: gh<_i782.ApiClient>(),
+              masteryConverter: gh<_i78.MasteryConverter>(),
+            ));
     gh.lazySingleton<_i797.AuthenticationRepository>(
         () => authenticationModule.repository(client: gh<_i782.ApiClient>()));
     gh.lazySingleton<_i547.SignInWithEmailGateway>(
@@ -351,3 +362,5 @@ class _$AchievementsModule extends _i134.AchievementsModule {}
 class _$LeaderboardModule extends _i946.LeaderboardModule {}
 
 class _$GamificationModule extends _i941.GamificationModule {}
+
+class _$MasteryModule extends _i963.MasteryModule {}

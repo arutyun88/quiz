@@ -26,6 +26,10 @@ _$UserDtoImpl _$$UserDtoImplFromJson(Map<String, dynamic> json) =>
       memberSince: DateTime.parse(json['member_since'] as String),
       achievementsUnlocked: (json['achievements_unlocked'] as num).toInt(),
       achievementsTotal: (json['achievements_total'] as num).toInt(),
+      subscription: json['subscription'] == null
+          ? null
+          : SubscriptionDto.fromJson(
+              json['subscription'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$UserDtoImplToJson(_$UserDtoImpl instance) =>
@@ -46,4 +50,5 @@ Map<String, dynamic> _$$UserDtoImplToJson(_$UserDtoImpl instance) =>
       'member_since': instance.memberSince.toIso8601String(),
       'achievements_unlocked': instance.achievementsUnlocked,
       'achievements_total': instance.achievementsTotal,
+      'subscription': instance.subscription,
     };

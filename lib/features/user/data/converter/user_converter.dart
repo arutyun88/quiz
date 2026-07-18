@@ -1,7 +1,9 @@
 import 'package:injectable/injectable.dart';
 import 'package:quiz/app/core/model/data_page/data_dto.dart';
 import 'package:quiz/app/core/model/dto_converter.dart';
+import 'package:quiz/features/user/data/dto/subscription_dto.dart';
 import 'package:quiz/features/user/data/dto/user_dto.dart';
+import 'package:quiz/features/user/domain/entity/subscription_entity.dart';
 import 'package:quiz/features/user/domain/entity/user_entity.dart';
 
 typedef UserConverter = DtoConverter<UserEntity, DataDto<UserDto>>;
@@ -27,6 +29,17 @@ final class UserConverterImpl extends UserConverter {
       memberSince: dto.data.memberSince,
       achievementsUnlocked: dto.data.achievementsUnlocked,
       achievementsTotal: dto.data.achievementsTotal,
+      subscription: _convertSubscription(dto.data.subscription),
+    );
+  }
+
+  SubscriptionEntity? _convertSubscription(SubscriptionDto? dto) {
+    if (dto == null) return null;
+
+    return SubscriptionEntity(
+      active: dto.active,
+      plan: dto.plan == 'MONTHLY' ? SubscriptionPlan.monthly : SubscriptionPlan.yearly,
+      renewsAt: dto.renewsAt,
     );
   }
 }

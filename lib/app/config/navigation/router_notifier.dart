@@ -12,6 +12,7 @@ import 'package:quiz/features/debug/debug_flow.dart';
 import 'package:quiz/features/debug/debug_question_page.dart';
 import 'package:quiz/features/home/presentation/home_flow.dart';
 import 'package:quiz/features/home/presentation/home_gate_flow.dart';
+import 'package:quiz/features/mastery/presentation/mastery_flow.dart';
 import 'package:quiz/features/onboarding/presentation/onboarding_flow.dart';
 import 'package:quiz/features/user/presentation/pages/edit/change_password_page.dart';
 import 'package:quiz/features/user/presentation/pages/edit/profile_edit_flow.dart';
@@ -22,6 +23,7 @@ import 'package:quiz/features/settings/presentation/about_page.dart';
 import 'package:quiz/features/settings/presentation/language_page.dart';
 import 'package:quiz/features/settings/presentation/notifications_page.dart';
 import 'package:quiz/features/settings/presentation/settings_flow.dart';
+import 'package:quiz/features/settings/presentation/subscription_page.dart';
 import 'package:quiz/features/splash/presentation/splash_flow.dart';
 
 class RouterNotifier extends AsyncNotifier<GoRouter> {
@@ -111,6 +113,11 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                       builder: (context, state) => const AchievementsFlow(),
                     ),
                     GoRoute(
+                      path: 'mastery',
+                      name: 'profile-mastery',
+                      builder: (context, state) => const MasteryFlow(),
+                    ),
+                    GoRoute(
                       path: 'settings',
                       name: 'profile-settings',
                       builder: (context, state) => const SettingsFlow(),
@@ -131,6 +138,11 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                           path: 'notifications',
                           name: 'profile-settings-notifications',
                           builder: (context, state) => const NotificationsPage(),
+                        ),
+                        GoRoute(
+                          path: 'subscription',
+                          name: 'profile-settings-subscription',
+                          builder: (context, state) => const SubscriptionPage(),
                         ),
                         GoRoute(
                           path: 'language',

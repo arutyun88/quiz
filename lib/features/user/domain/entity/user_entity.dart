@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:quiz/features/user/domain/entity/subscription_entity.dart';
 
 part 'user_entity.freezed.dart';
 
@@ -21,5 +22,6 @@ class UserEntity with _$UserEntity {
     required DateTime memberSince,
     required int achievementsUnlocked,
     required int achievementsTotal,
+    SubscriptionEntity? subscription,
   }) = _UserEntity;
 }

@@ -8,6 +8,7 @@ import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/settings/presentation/widgets/settings_rows.dart';
 import 'package:quiz/features/settings/presentation/widgets/theme_mode_switcher.dart';
+import 'package:quiz/features/user/presentation/provider/quiz_plus_provider.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -17,6 +18,7 @@ class SettingsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.t.profile.settings;
     final isAuthenticated = ref.watch(authenticationProvider).isAuthenticated;
+    final hasQuizPlus = ref.watch(quizPlusProvider);
 
     return AppScaffold(
       title: t.title,
@@ -38,6 +40,11 @@ class SettingsPage extends ConsumerWidget {
                     label: t.notifications,
                     onTap: () => context.push('/profile/settings/notifications'),
                   ),
+                  if (hasQuizPlus)
+                    SettingsLinkRow(
+                      label: t.subscription,
+                      onTap: () => context.push('/profile/settings/subscription'),
+                    ),
                 ],
               ),
               const SizedBox(height: 26),

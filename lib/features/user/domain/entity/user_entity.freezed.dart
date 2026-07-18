@@ -32,6 +32,7 @@ mixin _$UserEntity {
   DateTime get memberSince => throw _privateConstructorUsedError;
   int get achievementsUnlocked => throw _privateConstructorUsedError;
   int get achievementsTotal => throw _privateConstructorUsedError;
+  SubscriptionEntity? get subscription => throw _privateConstructorUsedError;
 
   /// Create a copy of UserEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -62,7 +63,10 @@ abstract class $UserEntityCopyWith<$Res> {
       int totalPoints,
       DateTime memberSince,
       int achievementsUnlocked,
-      int achievementsTotal});
+      int achievementsTotal,
+      SubscriptionEntity? subscription});
+
+  $SubscriptionEntityCopyWith<$Res>? get subscription;
 }
 
 /// @nodoc
@@ -96,6 +100,7 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
     Object? memberSince = null,
     Object? achievementsUnlocked = null,
     Object? achievementsTotal = null,
+    Object? subscription = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -162,7 +167,25 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
           ? _value.achievementsTotal
           : achievementsTotal // ignore: cast_nullable_to_non_nullable
               as int,
+      subscription: freezed == subscription
+          ? _value.subscription
+          : subscription // ignore: cast_nullable_to_non_nullable
+              as SubscriptionEntity?,
     ) as $Val);
+  }
+
+  /// Create a copy of UserEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SubscriptionEntityCopyWith<$Res>? get subscription {
+    if (_value.subscription == null) {
+      return null;
+    }
+
+    return $SubscriptionEntityCopyWith<$Res>(_value.subscription!, (value) {
+      return _then(_value.copyWith(subscription: value) as $Val);
+    });
   }
 }
 
@@ -190,7 +213,11 @@ abstract class _$$UserEntityImplCopyWith<$Res>
       int totalPoints,
       DateTime memberSince,
       int achievementsUnlocked,
-      int achievementsTotal});
+      int achievementsTotal,
+      SubscriptionEntity? subscription});
+
+  @override
+  $SubscriptionEntityCopyWith<$Res>? get subscription;
 }
 
 /// @nodoc
@@ -222,6 +249,7 @@ class __$$UserEntityImplCopyWithImpl<$Res>
     Object? memberSince = null,
     Object? achievementsUnlocked = null,
     Object? achievementsTotal = null,
+    Object? subscription = freezed,
   }) {
     return _then(_$UserEntityImpl(
       id: null == id
@@ -288,6 +316,10 @@ class __$$UserEntityImplCopyWithImpl<$Res>
           ? _value.achievementsTotal
           : achievementsTotal // ignore: cast_nullable_to_non_nullable
               as int,
+      subscription: freezed == subscription
+          ? _value.subscription
+          : subscription // ignore: cast_nullable_to_non_nullable
+              as SubscriptionEntity?,
     ));
   }
 }
@@ -311,7 +343,8 @@ class _$UserEntityImpl implements _UserEntity {
       required this.totalPoints,
       required this.memberSince,
       required this.achievementsUnlocked,
-      required this.achievementsTotal});
+      required this.achievementsTotal,
+      this.subscription});
 
   @override
   final String id;
@@ -345,10 +378,12 @@ class _$UserEntityImpl implements _UserEntity {
   final int achievementsUnlocked;
   @override
   final int achievementsTotal;
+  @override
+  final SubscriptionEntity? subscription;
 
   @override
   String toString() {
-    return 'UserEntity(id: $id, email: $email, name: $name, birthDate: $birthDate, level: $level, experienceInLevel: $experienceInLevel, levelExperience: $levelExperience, streakDays: $streakDays, bestStreakDays: $bestStreakDays, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, totalPoints: $totalPoints, memberSince: $memberSince, achievementsUnlocked: $achievementsUnlocked, achievementsTotal: $achievementsTotal)';
+    return 'UserEntity(id: $id, email: $email, name: $name, birthDate: $birthDate, level: $level, experienceInLevel: $experienceInLevel, levelExperience: $levelExperience, streakDays: $streakDays, bestStreakDays: $bestStreakDays, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, totalPoints: $totalPoints, memberSince: $memberSince, achievementsUnlocked: $achievementsUnlocked, achievementsTotal: $achievementsTotal, subscription: $subscription)';
   }
 
   @override
@@ -383,7 +418,9 @@ class _$UserEntityImpl implements _UserEntity {
             (identical(other.achievementsUnlocked, achievementsUnlocked) ||
                 other.achievementsUnlocked == achievementsUnlocked) &&
             (identical(other.achievementsTotal, achievementsTotal) ||
-                other.achievementsTotal == achievementsTotal));
+                other.achievementsTotal == achievementsTotal) &&
+            (identical(other.subscription, subscription) ||
+                other.subscription == subscription));
   }
 
   @override
@@ -404,7 +441,8 @@ class _$UserEntityImpl implements _UserEntity {
       totalPoints,
       memberSince,
       achievementsUnlocked,
-      achievementsTotal);
+      achievementsTotal,
+      subscription);
 
   /// Create a copy of UserEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -432,7 +470,8 @@ abstract class _UserEntity implements UserEntity {
       required final int totalPoints,
       required final DateTime memberSince,
       required final int achievementsUnlocked,
-      required final int achievementsTotal}) = _$UserEntityImpl;
+      required final int achievementsTotal,
+      final SubscriptionEntity? subscription}) = _$UserEntityImpl;
 
   @override
   String get id;
@@ -466,6 +505,8 @@ abstract class _UserEntity implements UserEntity {
   int get achievementsUnlocked;
   @override
   int get achievementsTotal;
+  @override
+  SubscriptionEntity? get subscription;
 
   /// Create a copy of UserEntity
   /// with the given fields replaced by the non-null parameter values.

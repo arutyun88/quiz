@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
-import 'package:quiz/gen/strings.g.dart';
 
-class ProfileAchievementsRow extends StatelessWidget {
-  const ProfileAchievementsRow({
+/// Mono link row of the profile (ДОСТИЖЕНИЯ · 12/30, МАСТЕРСТВО …).
+/// Borders come from the surrounding [SettingsRowGroup].
+class ProfileLinkRow extends StatelessWidget {
+  const ProfileLinkRow({
     super.key,
-    required this.unlocked,
-    required this.total,
+    required this.label,
     this.onTap,
   });
 
-  final int unlocked;
-  final int total;
+  final String label;
   final VoidCallback? onTap;
 
   @override
@@ -22,22 +21,13 @@ class ProfileAchievementsRow extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(color: colors.text.primary, width: 1.5),
-            bottom: BorderSide(color: colors.text.primary, width: 1.5),
-          ),
-        ),
+      child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 14),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              context.t.profile.view.achievements(
-                unlocked: unlocked,
-                total: total,
-              ),
+              label.toUpperCase(),
               style: GoogleFonts.jetBrainsMono(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
