@@ -12,5 +12,18 @@ class UserLevelEntity with _$UserLevelEntity {
     required int correctAnswers,
     required double accuracy,
     required int streakDays,
+    required StreakNoticeEntity? streakNotice,
   }) = _UserLevelEntity;
+}
+
+enum StreakNoticeType { freezeApplied, streakLost }
+
+@freezed
+class StreakNoticeEntity with _$StreakNoticeEntity {
+  const factory StreakNoticeEntity({
+    required StreakNoticeType type,
+    required int freezesLeft,
+    required int freezesTotal,
+    required int lostStreakDays,
+  }) = _StreakNoticeEntity;
 }

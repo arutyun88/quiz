@@ -34,6 +34,11 @@ mixin _$UserLevelDto {
   double get accuracy => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: 0)
   int get streakDays => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: 0)
+  int get freezesLeft => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: 2)
+  int get freezesTotal => throw _privateConstructorUsedError;
+  StreakNoticeDto? get streakNotice => throw _privateConstructorUsedError;
 
   /// Serializes this UserLevelDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -58,7 +63,12 @@ abstract class $UserLevelDtoCopyWith<$Res> {
       @JsonKey(defaultValue: 0) int questionsAnswered,
       @JsonKey(defaultValue: 0) int correctAnswers,
       @JsonKey(defaultValue: 0.0) double accuracy,
-      @JsonKey(defaultValue: 0) int streakDays});
+      @JsonKey(defaultValue: 0) int streakDays,
+      @JsonKey(defaultValue: 0) int freezesLeft,
+      @JsonKey(defaultValue: 2) int freezesTotal,
+      StreakNoticeDto? streakNotice});
+
+  $StreakNoticeDtoCopyWith<$Res>? get streakNotice;
 }
 
 /// @nodoc
@@ -83,6 +93,9 @@ class _$UserLevelDtoCopyWithImpl<$Res, $Val extends UserLevelDto>
     Object? correctAnswers = null,
     Object? accuracy = null,
     Object? streakDays = null,
+    Object? freezesLeft = null,
+    Object? freezesTotal = null,
+    Object? streakNotice = freezed,
   }) {
     return _then(_value.copyWith(
       level: null == level
@@ -113,7 +126,33 @@ class _$UserLevelDtoCopyWithImpl<$Res, $Val extends UserLevelDto>
           ? _value.streakDays
           : streakDays // ignore: cast_nullable_to_non_nullable
               as int,
+      freezesLeft: null == freezesLeft
+          ? _value.freezesLeft
+          : freezesLeft // ignore: cast_nullable_to_non_nullable
+              as int,
+      freezesTotal: null == freezesTotal
+          ? _value.freezesTotal
+          : freezesTotal // ignore: cast_nullable_to_non_nullable
+              as int,
+      streakNotice: freezed == streakNotice
+          ? _value.streakNotice
+          : streakNotice // ignore: cast_nullable_to_non_nullable
+              as StreakNoticeDto?,
     ) as $Val);
+  }
+
+  /// Create a copy of UserLevelDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $StreakNoticeDtoCopyWith<$Res>? get streakNotice {
+    if (_value.streakNotice == null) {
+      return null;
+    }
+
+    return $StreakNoticeDtoCopyWith<$Res>(_value.streakNotice!, (value) {
+      return _then(_value.copyWith(streakNotice: value) as $Val);
+    });
   }
 }
 
@@ -132,7 +171,13 @@ abstract class _$$UserLevelDtoImplCopyWith<$Res>
       @JsonKey(defaultValue: 0) int questionsAnswered,
       @JsonKey(defaultValue: 0) int correctAnswers,
       @JsonKey(defaultValue: 0.0) double accuracy,
-      @JsonKey(defaultValue: 0) int streakDays});
+      @JsonKey(defaultValue: 0) int streakDays,
+      @JsonKey(defaultValue: 0) int freezesLeft,
+      @JsonKey(defaultValue: 2) int freezesTotal,
+      StreakNoticeDto? streakNotice});
+
+  @override
+  $StreakNoticeDtoCopyWith<$Res>? get streakNotice;
 }
 
 /// @nodoc
@@ -155,6 +200,9 @@ class __$$UserLevelDtoImplCopyWithImpl<$Res>
     Object? correctAnswers = null,
     Object? accuracy = null,
     Object? streakDays = null,
+    Object? freezesLeft = null,
+    Object? freezesTotal = null,
+    Object? streakNotice = freezed,
   }) {
     return _then(_$UserLevelDtoImpl(
       level: null == level
@@ -185,6 +233,18 @@ class __$$UserLevelDtoImplCopyWithImpl<$Res>
           ? _value.streakDays
           : streakDays // ignore: cast_nullable_to_non_nullable
               as int,
+      freezesLeft: null == freezesLeft
+          ? _value.freezesLeft
+          : freezesLeft // ignore: cast_nullable_to_non_nullable
+              as int,
+      freezesTotal: null == freezesTotal
+          ? _value.freezesTotal
+          : freezesTotal // ignore: cast_nullable_to_non_nullable
+              as int,
+      streakNotice: freezed == streakNotice
+          ? _value.streakNotice
+          : streakNotice // ignore: cast_nullable_to_non_nullable
+              as StreakNoticeDto?,
     ));
   }
 }
@@ -199,7 +259,10 @@ class _$UserLevelDtoImpl implements _UserLevelDto {
       @JsonKey(defaultValue: 0) required this.questionsAnswered,
       @JsonKey(defaultValue: 0) required this.correctAnswers,
       @JsonKey(defaultValue: 0.0) required this.accuracy,
-      @JsonKey(defaultValue: 0) required this.streakDays});
+      @JsonKey(defaultValue: 0) required this.streakDays,
+      @JsonKey(defaultValue: 0) required this.freezesLeft,
+      @JsonKey(defaultValue: 2) required this.freezesTotal,
+      this.streakNotice});
 
   factory _$UserLevelDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserLevelDtoImplFromJson(json);
@@ -225,10 +288,18 @@ class _$UserLevelDtoImpl implements _UserLevelDto {
   @override
   @JsonKey(defaultValue: 0)
   final int streakDays;
+  @override
+  @JsonKey(defaultValue: 0)
+  final int freezesLeft;
+  @override
+  @JsonKey(defaultValue: 2)
+  final int freezesTotal;
+  @override
+  final StreakNoticeDto? streakNotice;
 
   @override
   String toString() {
-    return 'UserLevelDto(level: $level, experience: $experience, totalPoints: $totalPoints, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, streakDays: $streakDays)';
+    return 'UserLevelDto(level: $level, experience: $experience, totalPoints: $totalPoints, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, streakDays: $streakDays, freezesLeft: $freezesLeft, freezesTotal: $freezesTotal, streakNotice: $streakNotice)';
   }
 
   @override
@@ -248,13 +319,29 @@ class _$UserLevelDtoImpl implements _UserLevelDto {
             (identical(other.accuracy, accuracy) ||
                 other.accuracy == accuracy) &&
             (identical(other.streakDays, streakDays) ||
-                other.streakDays == streakDays));
+                other.streakDays == streakDays) &&
+            (identical(other.freezesLeft, freezesLeft) ||
+                other.freezesLeft == freezesLeft) &&
+            (identical(other.freezesTotal, freezesTotal) ||
+                other.freezesTotal == freezesTotal) &&
+            (identical(other.streakNotice, streakNotice) ||
+                other.streakNotice == streakNotice));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, level, experience, totalPoints,
-      questionsAnswered, correctAnswers, accuracy, streakDays);
+  int get hashCode => Object.hash(
+      runtimeType,
+      level,
+      experience,
+      totalPoints,
+      questionsAnswered,
+      correctAnswers,
+      accuracy,
+      streakDays,
+      freezesLeft,
+      freezesTotal,
+      streakNotice);
 
   /// Create a copy of UserLevelDto
   /// with the given fields replaced by the non-null parameter values.
@@ -274,14 +361,16 @@ class _$UserLevelDtoImpl implements _UserLevelDto {
 
 abstract class _UserLevelDto implements UserLevelDto {
   const factory _UserLevelDto(
-          {@JsonKey(defaultValue: 1) required final int level,
-          @JsonKey(defaultValue: 0) required final int experience,
-          @JsonKey(defaultValue: 0) required final int totalPoints,
-          @JsonKey(defaultValue: 0) required final int questionsAnswered,
-          @JsonKey(defaultValue: 0) required final int correctAnswers,
-          @JsonKey(defaultValue: 0.0) required final double accuracy,
-          @JsonKey(defaultValue: 0) required final int streakDays}) =
-      _$UserLevelDtoImpl;
+      {@JsonKey(defaultValue: 1) required final int level,
+      @JsonKey(defaultValue: 0) required final int experience,
+      @JsonKey(defaultValue: 0) required final int totalPoints,
+      @JsonKey(defaultValue: 0) required final int questionsAnswered,
+      @JsonKey(defaultValue: 0) required final int correctAnswers,
+      @JsonKey(defaultValue: 0.0) required final double accuracy,
+      @JsonKey(defaultValue: 0) required final int streakDays,
+      @JsonKey(defaultValue: 0) required final int freezesLeft,
+      @JsonKey(defaultValue: 2) required final int freezesTotal,
+      final StreakNoticeDto? streakNotice}) = _$UserLevelDtoImpl;
 
   factory _UserLevelDto.fromJson(Map<String, dynamic> json) =
       _$UserLevelDtoImpl.fromJson;
@@ -307,6 +396,14 @@ abstract class _UserLevelDto implements UserLevelDto {
   @override
   @JsonKey(defaultValue: 0)
   int get streakDays;
+  @override
+  @JsonKey(defaultValue: 0)
+  int get freezesLeft;
+  @override
+  @JsonKey(defaultValue: 2)
+  int get freezesTotal;
+  @override
+  StreakNoticeDto? get streakNotice;
 
   /// Create a copy of UserLevelDto
   /// with the given fields replaced by the non-null parameter values.

@@ -16,7 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ReviewQueueEntity {
-  /// Queued repeats ordered by due date.
   List<ReviewItemEntity> get queued => throw _privateConstructorUsedError;
   int get queuedTotal => throw _privateConstructorUsedError;
   int get masteredTotal => throw _privateConstructorUsedError;
@@ -129,10 +128,7 @@ class _$ReviewQueueEntityImpl implements _ReviewQueueEntity {
       required this.masteredTotal})
       : _queued = queued;
 
-  /// Queued repeats ordered by due date.
   final List<ReviewItemEntity> _queued;
-
-  /// Queued repeats ordered by due date.
   @override
   List<ReviewItemEntity> get queued {
     if (_queued is EqualUnmodifiableListView) return _queued;
@@ -182,7 +178,6 @@ abstract class _ReviewQueueEntity implements ReviewQueueEntity {
       required final int queuedTotal,
       required final int masteredTotal}) = _$ReviewQueueEntityImpl;
 
-  /// Queued repeats ordered by due date.
   @override
   List<ReviewItemEntity> get queued;
   @override
@@ -203,11 +198,7 @@ mixin _$ReviewItemEntity {
   String get question => throw _privateConstructorUsedError;
   String get topic => throw _privateConstructorUsedError;
   int get wrongCount => throw _privateConstructorUsedError;
-
-  /// Passed review intervals; 3 correct re-answers master the item.
   int get correctCount => throw _privateConstructorUsedError;
-
-  /// Days until the repeat is due; 0 when it is already due.
   int get dueInDays => throw _privateConstructorUsedError;
 
   /// Create a copy of ReviewItemEntity
@@ -353,12 +344,8 @@ class _$ReviewItemEntityImpl implements _ReviewItemEntity {
   final String topic;
   @override
   final int wrongCount;
-
-  /// Passed review intervals; 3 correct re-answers master the item.
   @override
   final int correctCount;
-
-  /// Days until the repeat is due; 0 when it is already due.
   @override
   final int dueInDays;
 
@@ -411,12 +398,8 @@ abstract class _ReviewItemEntity implements ReviewItemEntity {
   String get topic;
   @override
   int get wrongCount;
-
-  /// Passed review intervals; 3 correct re-answers master the item.
   @override
   int get correctCount;
-
-  /// Days until the repeat is due; 0 when it is already due.
   @override
   int get dueInDays;
 

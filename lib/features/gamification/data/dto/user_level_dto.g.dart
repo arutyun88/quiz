@@ -15,6 +15,12 @@ _$UserLevelDtoImpl _$$UserLevelDtoImplFromJson(Map<String, dynamic> json) =>
       correctAnswers: (json['correctAnswers'] as num?)?.toInt() ?? 0,
       accuracy: (json['accuracy'] as num?)?.toDouble() ?? 0.0,
       streakDays: (json['streakDays'] as num?)?.toInt() ?? 0,
+      freezesLeft: (json['freezesLeft'] as num?)?.toInt() ?? 0,
+      freezesTotal: (json['freezesTotal'] as num?)?.toInt() ?? 2,
+      streakNotice: json['streakNotice'] == null
+          ? null
+          : StreakNoticeDto.fromJson(
+              json['streakNotice'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$UserLevelDtoImplToJson(_$UserLevelDtoImpl instance) =>
@@ -26,4 +32,7 @@ Map<String, dynamic> _$$UserLevelDtoImplToJson(_$UserLevelDtoImpl instance) =>
       'correctAnswers': instance.correctAnswers,
       'accuracy': instance.accuracy,
       'streakDays': instance.streakDays,
+      'freezesLeft': instance.freezesLeft,
+      'freezesTotal': instance.freezesTotal,
+      'streakNotice': instance.streakNotice,
     };
