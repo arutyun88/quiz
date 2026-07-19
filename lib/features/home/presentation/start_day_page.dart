@@ -5,10 +5,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
 import 'package:quiz/app/core/widgets/button/app_button_v2.dart';
+import 'package:quiz/features/gamification/domain/entity/user_level_entity.dart';
 import 'package:quiz/features/gamification/presentation/provider/gamification_provider.dart';
+import 'package:quiz/features/home/presentation/provider/daily_topics_provider.dart';
 import 'package:quiz/features/home/presentation/provider/start_day_config_provider.dart';
 import 'package:quiz/features/home/presentation/widgets/start_day_header.dart';
 import 'package:quiz/features/leaderboard/presentation/provider/last_session_leaderboard_provider.dart';
+import 'package:quiz/features/user/presentation/provider/quiz_plus_provider.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class StartDayPage extends ConsumerWidget {
@@ -22,6 +25,7 @@ class StartDayPage extends ConsumerWidget {
 
     final level = gamification.whenOrNull(data: (d) => d.level);
     final streak = gamification.whenOrNull(data: (d) => d.streakDays) ?? 0;
+    final notice = gamification.whenOrNull(data: (d) => d.streakNotice);
     final points = lastSession.whenOrNull(data: (e) => e?.points);
     final accuracy = lastSession.whenOrNull(data: (e) => e?.accuracy);
     final rank = lastSession.whenOrNull(data: (e) => e?.rank);
@@ -42,9 +46,14 @@ class StartDayPage extends ConsumerWidget {
                   points: points,
                   accuracy: accuracy,
                   streakDays: streak,
+                  notice: notice,
                 ),
               ),
-              const _StartDayButton(),
+              _StartDayButton(
+                label: notice?.type == StreakNoticeType.streakLost
+                    ? context.t.start_day.start_new_streak_button
+                    : context.t.start_day.start_button,
+              ),
             ],
           ),
         ),
@@ -59,15 +68,19 @@ class _Body extends StatelessWidget {
     required this.points,
     required this.accuracy,
     required this.streakDays,
+    required this.notice,
   });
 
   final int? rank;
   final int? points;
   final double? accuracy;
   final int streakDays;
+  final StreakNoticeEntity? notice;
 
   @override
   Widget build(BuildContext context) {
+    final notice = this.notice;
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(22, 24, 22, 0),
@@ -84,21 +97,162 @@ class _Body extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             const _IssueCountRow(),
+            const _TopicChips(),
             const SizedBox(height: 24),
-            Text(
-              context.t.start_day.last_session_stats_title,
-              style: GoogleFonts.jetBrainsMono(
-                fontSize: 11,
-                letterSpacing: 2,
-                color: context.palette.text.accent,
+            if (notice != null)
+              _StreakNoticeBlock(notice: notice)
+            else ...[
+              Text(
+                context.t.start_day.last_session_stats_title,
+                style: GoogleFonts.jetBrainsMono(
+                  fontSize: 11,
+                  letterSpacing: 2,
+                  color: context.palette.text.accent,
+                ),
               ),
-            ),
-            const SizedBox(height: 8),
-            _StatsRow(rank: rank, points: points, accuracy: accuracy),
-            if (streakDays > 0) const _StreakWarning(),
+              const SizedBox(height: 8),
+              _StatsRow(rank: rank, points: points, accuracy: accuracy),
+              if (streakDays > 0) const _StreakWarning(),
+            ],
           ],
         ),
       ),
+    );
+  }
+}
+
+class _TopicChips extends ConsumerWidget {
+  const _TopicChips();
+
+  static const _maxVisible = 3;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final topics = ref.watch(dailyTopicsProvider).valueOrNull ?? const [];
+    if (topics.isEmpty) return const SizedBox.shrink();
+
+    final colors = context.palette;
+    final visible = topics.take(_maxVisible);
+    final restCount = topics.length - _maxVisible;
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 18),
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: [
+          for (final topic in visible) _TopicChip(label: topic.toUpperCase(), color: colors.text.primary),
+          if (restCount > 0) _TopicChip(label: '+$restCount', color: colors.text.secondary),
+        ],
+      ),
+    );
+  }
+}
+
+class _TopicChip extends StatelessWidget {
+  const _TopicChip({required this.label, required this.color});
+
+  final String label;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: context.palette.divider),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
+      child: Text(
+        label,
+        style: GoogleFonts.jetBrainsMono(
+          fontSize: 9,
+          letterSpacing: 1,
+          color: color,
+        ),
+      ),
+    );
+  }
+}
+
+class _StreakNoticeBlock extends ConsumerWidget {
+  const _StreakNoticeBlock({required this.notice});
+
+  final StreakNoticeEntity notice;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = context.palette;
+    final t = context.t.start_day;
+    final textStyle = GoogleFonts.spectral(fontSize: 15, color: colors.text.primary);
+    const accentStyle = TextStyle(fontStyle: FontStyle.italic);
+    final hasQuizPlus = ref.watch(quizPlusProvider);
+
+    final TextSpan noticeText;
+    final TextSpan adviceText;
+    final IconData adviceIcon;
+    final Color adviceIconColor;
+
+    switch (notice.type) {
+      case StreakNoticeType.freezeApplied:
+        noticeText = t.freeze_applied_notice(
+          accent: (text) => TextSpan(text: text, style: accentStyle),
+          left: TextSpan(text: notice.freezesLeft.toString()),
+          total: TextSpan(text: notice.freezesTotal.toString()),
+        );
+        adviceText = t.freeze_applied_advice(
+          accent: (text) => TextSpan(text: text, style: accentStyle),
+        );
+        adviceIcon = Icons.ac_unit;
+        adviceIconColor = colors.text.accent;
+
+      case StreakNoticeType.streakLost:
+        final days = TextSpan(text: t.streak_lost_days(n: notice.lostStreakDays));
+        // «заморозок не осталось» only for Quiz+ users who truly ran out: free users never saw freezes,
+        // and a multi-day gap can lose the streak while some stock remains
+        noticeText = hasQuizPlus && notice.freezesLeft == 0
+            ? t.streak_lost_notice(
+                accent: (text) => TextSpan(text: text, style: accentStyle),
+                days: days,
+              )
+            : t.streak_lost_notice_free(
+                accent: (text) => TextSpan(text: text, style: accentStyle),
+                days: days,
+              );
+        adviceText = t.streak_lost_advice(
+          accent: (text) => TextSpan(text: text, style: accentStyle),
+        );
+        adviceIcon = Icons.local_fire_department;
+        adviceIconColor = colors.text.danger;
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            border: Border(top: BorderSide(color: colors.text.primary, width: 1.5)),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 2),
+          child: Text.rich(noticeText, style: textStyle),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(color: colors.divider),
+              bottom: BorderSide(color: colors.text.primary, width: 1.5),
+            ),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 2),
+          child: Row(
+            children: [
+              Icon(adviceIcon, size: 20, color: adviceIconColor),
+              const SizedBox(width: 10),
+              Expanded(child: Text.rich(adviceText, style: textStyle)),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -282,14 +436,16 @@ class _StreakWarning extends StatelessWidget {
 }
 
 class _StartDayButton extends StatelessWidget {
-  const _StartDayButton();
+  const _StartDayButton({required this.label});
+
+  final String label;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(22, 0, 22, 12),
       child: AppButtonV2(
-        label: context.t.start_day.start_button,
+        label: label,
         onTap: (complete) {
           complete();
           context.goNamed('quiz');

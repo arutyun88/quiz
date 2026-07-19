@@ -73,6 +73,7 @@ class StartDayHeader extends StatelessWidget {
               AppBadge.outlined(
                 value: streak.toString(),
                 label: t.streak_badge_label,
+                muted: streak == 0,
               ),
               AppBadge.filled(
                 value: level != null ? level.toString().padLeft(2, '0') : '—',

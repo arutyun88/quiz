@@ -380,7 +380,19 @@
             "many": "~ $n МИНУТ",
             "other": "~ $n МИНУТ"
         },
-        "streak_warning(rich)": "Сыграйте сегодня, чтобы ${accent(не потерять серию)}"
+        "streak_warning(rich)": "Сыграйте сегодня, чтобы ${accent(не потерять серию)}",
+        "freeze_applied_notice(rich)": "Вы пропустили вчерашний день — ${accent(заморозка применена автоматически.)} Осталось $left / $total",
+        "freeze_applied_advice(rich)": "Сыграйте сегодня, чтобы ${accent(не расходовать заморозки без нужды)}",
+        "streak_lost_notice(rich)": "Серия из $days ${accent(потеряна)} — заморозок не осталось",
+        "streak_lost_notice_free(rich)": "Серия из $days ${accent(потеряна)}",
+        "streak_lost_days(n)": {
+            "one": "$n дня",
+            "few": "$n дней",
+            "many": "$n дней",
+            "other": "$n дней"
+        },
+        "streak_lost_advice(rich)": "Начните новую серию сегодня — ${accent(до первого достижения всего 3 дня)}",
+        "start_new_streak_button": "НАЧАТЬ НОВУЮ СЕРИЮ"
     },
     "nav": {
         "game": "ИГРА",

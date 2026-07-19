@@ -8,6 +8,7 @@ class AppBadge extends StatelessWidget {
     required this.value,
     required this.label,
     this.valueColor,
+    this.muted = false,
   }) : _filled = false;
 
   const AppBadge.filled({
@@ -15,7 +16,8 @@ class AppBadge extends StatelessWidget {
     required this.value,
     required this.label,
     this.valueColor,
-  }) : _filled = true;
+  })  : _filled = true,
+        muted = false;
 
   static const _width = 52.0;
   static const _height = 46.0;
@@ -23,13 +25,18 @@ class AppBadge extends StatelessWidget {
   final String value;
   final String label;
   final Color? valueColor;
+  final bool muted;
   final bool _filled;
 
   @override
   Widget build(BuildContext context) {
     final colors = context.palette;
-    final resolvedValueColor =
-        valueColor ?? (_filled ? colors.background.static : colors.text.accent);
+    final resolvedValueColor = valueColor ??
+        (muted
+            ? colors.text.secondary
+            : _filled
+                ? colors.background.static
+                : colors.text.accent);
 
     return SizedBox(
       width: _width,
@@ -37,7 +44,7 @@ class AppBadge extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: _filled ? colors.text.primary : null,
-          border: Border.all(color: colors.text.primary),
+          border: Border.all(color: muted ? colors.divider : colors.text.primary),
           borderRadius: BorderRadius.circular(5),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 6),

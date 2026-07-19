@@ -366,7 +366,17 @@
             "one": "~ $n MINUTE",
             "other": "~ $n MINUTES"
         },
-        "streak_warning(rich)": "Play today to ${accent(keep your streak)}"
+        "streak_warning(rich)": "Play today to ${accent(keep your streak)}",
+        "freeze_applied_notice(rich)": "You missed yesterday — ${accent(a streak freeze was applied automatically.)} $left / $total left",
+        "freeze_applied_advice(rich)": "Play today to ${accent(avoid spending freezes when you don't need to)}",
+        "streak_lost_notice(rich)": "Your streak of $days ${accent(is lost)} — no freezes left",
+        "streak_lost_notice_free(rich)": "Your streak of $days ${accent(is lost)}",
+        "streak_lost_days(n)": {
+            "one": "$n day",
+            "other": "$n days"
+        },
+        "streak_lost_advice(rich)": "Start a new streak today — ${accent(your first achievement is just 3 days away)}",
+        "start_new_streak_button": "START A NEW STREAK"
     },
     "nav": {
         "game": "GAME",

@@ -15,6 +15,8 @@ part 'question_dao.g.dart';
 abstract interface class QuestionDao {
   Future<Result<QuestionEntity, Failure>> getRandomQuestion();
 
+  Future<List<String>> getCachedTopicNames();
+
   Future<Result<QuestionEntity, Failure>> getQuestionById(String id);
 
   Future<Result<List<QuestionEntity>, Failure>> getAllQuestions();
@@ -52,6 +54,16 @@ class QuestionDaoImpl extends DatabaseAccessor<AppDatabase> with _$QuestionDaoIm
     }
 
     return getQuestionById(id);
+  }
+
+  @override
+  Future<List<String>> getCachedTopicNames() async {
+    final query = selectOnly(questions, distinct: true).join([
+      innerJoin(topics, topics.id.equalsExp(questions.topicId)),
+    ])
+      ..addColumns([topics.name]);
+
+    return query.map((row) => row.read(topics.name)!).get();
   }
 
   @override
