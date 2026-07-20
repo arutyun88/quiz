@@ -13,6 +13,7 @@ class Palette extends ThemeExtension<Palette> {
     required this.answer,
     required this.base,
     required this.bottomSheet,
+    required this.card,
   });
 
   // TODO: rename background.static → background.main and background.dynamic → background.surface once the redesign is complete
@@ -27,6 +28,7 @@ class Palette extends ThemeExtension<Palette> {
   final AnswerColor answer;
   final BaseColor base;
   final BottomSheetColor bottomSheet;
+  final CardColor card;
 
   static Palette light = Palette._(
     background: BackgroundColor(
@@ -80,6 +82,10 @@ class Palette extends ThemeExtension<Palette> {
       headerForeground: const Color(0xFFF3EFE6),
       buttonBackground: const Color(0xFF18160F),
       buttonForeground: const Color(0xFFF3EFE6),
+    ),
+    card: CardColor(
+      background: const Color(0xFFFBF8F1),
+      border: const Color(0xFFDAD3C4),
     ),
   );
 
@@ -136,6 +142,10 @@ class Palette extends ThemeExtension<Palette> {
       buttonBackground: const Color(0xFF3A372E),
       buttonForeground: const Color(0xFFF3EFE6),
     ),
+    card: CardColor(
+      background: const Color(0xFF1E1C15),
+      border: const Color(0xFF3A372E),
+    ),
   );
 
   @override
@@ -151,6 +161,7 @@ class Palette extends ThemeExtension<Palette> {
     AnswerColor? answer,
     BaseColor? base,
     BottomSheetColor? bottomSheet,
+    CardColor? card,
   }) {
     return Palette._(
       background: background ?? this.background,
@@ -164,6 +175,7 @@ class Palette extends ThemeExtension<Palette> {
       answer: answer ?? this.answer,
       base: base ?? this.base,
       bottomSheet: bottomSheet ?? this.bottomSheet,
+      card: card ?? this.card,
     );
   }
 
@@ -182,6 +194,7 @@ class Palette extends ThemeExtension<Palette> {
         answer: answer.lerp(other.answer, t),
         base: base.lerp(other.base, t),
         bottomSheet: bottomSheet.lerp(other.bottomSheet, t),
+        card: card.lerp(other.card, t),
       );
     }
     return this;
@@ -343,6 +356,26 @@ class BaseColor {
       gold: Color.lerp(gold, other.gold, t)!,
       silver: Color.lerp(silver, other.silver, t)!,
       bronze: Color.lerp(bronze, other.bronze, t)!,
+    );
+  }
+}
+
+/// Raised card surface — info banners, partner blocks, reward offers.
+/// Sits above [BackgroundColor.static] and always draws its own 1px [border].
+class CardColor {
+  final Color background;
+  final Color border;
+
+  CardColor({
+    required this.background,
+    required this.border,
+  });
+
+  CardColor lerp(CardColor? other, double t) {
+    if (other == null) return this;
+    return CardColor(
+      background: Color.lerp(background, other.background, t)!,
+      border: Color.lerp(border, other.border, t)!,
     );
   }
 }

@@ -80,7 +80,10 @@ class _InfoBanner extends StatelessWidget {
     final colors = context.palette;
 
     return Container(
-      color: colors.background.dynamic,
+      decoration: BoxDecoration(
+        color: colors.card.background,
+        border: Border.all(color: colors.card.border),
+      ),
       padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 11),
       child: Row(
         children: [
