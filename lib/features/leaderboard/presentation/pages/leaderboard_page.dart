@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
@@ -59,14 +60,29 @@ class _LeaderboardPageState extends ConsumerState<LeaderboardPage> with SingleTi
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    context.t.leaderboard.title.toUpperCase(),
-                    style: GoogleFonts.unbounded(
-                      fontSize: 34,
-                      fontWeight: FontWeight.w800,
-                      height: 1,
-                      color: colors.text.primary,
-                    ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          context.t.leaderboard.title.toUpperCase(),
+                          style: GoogleFonts.unbounded(
+                            fontSize: 34,
+                            fontWeight: FontWeight.w800,
+                            height: 1,
+                            color: colors.text.primary,
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () => context.pushNamed('rating-history'),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 12, top: 4, bottom: 4),
+                          child: Icon(Icons.insights, size: 24, color: colors.text.primary),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 14),
                   LeaderboardPeriodTabs(controller: _tabController),

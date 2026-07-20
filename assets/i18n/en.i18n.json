@@ -206,6 +206,23 @@
             "weekly": "this week",
             "monthly": "this month",
             "yearly": "this year"
+        },
+        "history": {
+            "title": "Rank trend",
+            "current_rank_label": "Current rank",
+            "delta_label(n)": {
+                "one": "over $n day",
+                "other": "over $n days"
+            },
+            "chart_end": "Today",
+            "by_days_title": "by day",
+            "today": "Today",
+            "yesterday": "Yesterday",
+            "points(n)": "$n pts",
+            "not_played": "Not played",
+            "empty": "No history yet — play an edition to enter the daily rating",
+            "error": "Failed to load history",
+            "retry": "Retry"
         }
     },
     "gamification": {

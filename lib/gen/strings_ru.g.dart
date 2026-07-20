@@ -130,6 +130,7 @@ class _Translations$leaderboard$ru implements Translations$leaderboard$en {
 	@override String get load_failed => 'Не удалось загрузить рейтинг';
 	@override late final _Translations$leaderboard$period_tabs$ru period_tabs = _Translations$leaderboard$period_tabs$ru._(_root);
 	@override late final _Translations$leaderboard$periods$ru periods = _Translations$leaderboard$periods$ru._(_root);
+	@override late final _Translations$leaderboard$history$ru history = _Translations$leaderboard$history$ru._(_root);
 }
 
 // Path: gamification
@@ -566,6 +567,32 @@ class _Translations$leaderboard$periods$ru implements Translations$leaderboard$p
 	@override String get weekly => 'недели';
 	@override String get monthly => 'месяца';
 	@override String get yearly => 'года';
+}
+
+// Path: leaderboard.history
+class _Translations$leaderboard$history$ru implements Translations$leaderboard$history$en {
+	_Translations$leaderboard$history$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Динамика места';
+	@override String get current_rank_label => 'Текущее место';
+	@override String delta_label({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+		one: 'за ${n} день',
+		few: 'за ${n} дня',
+		many: 'за ${n} дней',
+		other: 'за ${n} дней',
+	);
+	@override String get chart_end => 'Сегодня';
+	@override String get by_days_title => 'по дням';
+	@override String get today => 'Сегодня';
+	@override String get yesterday => 'Вчера';
+	@override String points({required Object n}) => '${n} очк';
+	@override String get not_played => 'Не играли';
+	@override String get empty => 'Пока нет истории — сыграйте выпуск, чтобы попасть в дневной рейтинг';
+	@override String get error => 'Не удалось загрузить историю';
+	@override String get retry => 'Повторить';
 }
 
 // Path: achievements.categories
@@ -1098,6 +1125,18 @@ extension on TranslationsRu {
 			'leaderboard.periods.weekly' => 'недели',
 			'leaderboard.periods.monthly' => 'месяца',
 			'leaderboard.periods.yearly' => 'года',
+			'leaderboard.history.title' => 'Динамика места',
+			'leaderboard.history.current_rank_label' => 'Текущее место',
+			'leaderboard.history.delta_label' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'за ${n} день', few: 'за ${n} дня', many: 'за ${n} дней', other: 'за ${n} дней', ), 
+			'leaderboard.history.chart_end' => 'Сегодня',
+			'leaderboard.history.by_days_title' => 'по дням',
+			'leaderboard.history.today' => 'Сегодня',
+			'leaderboard.history.yesterday' => 'Вчера',
+			'leaderboard.history.points' => ({required Object n}) => '${n} очк',
+			'leaderboard.history.not_played' => 'Не играли',
+			'leaderboard.history.empty' => 'Пока нет истории — сыграйте выпуск, чтобы попасть в дневной рейтинг',
+			'leaderboard.history.error' => 'Не удалось загрузить историю',
+			'leaderboard.history.retry' => 'Повторить',
 			'gamification.level' => ({required Object level}) => 'Уровень ${level}',
 			'gamification.level_short' => ({required Object level}) => 'Ур. ${level}',
 			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',

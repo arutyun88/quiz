@@ -157,6 +157,7 @@ class Translations$leaderboard$en {
 
 	late final Translations$leaderboard$period_tabs$en period_tabs = Translations$leaderboard$period_tabs$en._(_root);
 	late final Translations$leaderboard$periods$en periods = Translations$leaderboard$periods$en._(_root);
+	late final Translations$leaderboard$history$en history = Translations$leaderboard$history$en._(_root);
 }
 
 // Path: gamification
@@ -896,6 +897,54 @@ class Translations$leaderboard$periods$en {
 	String get yearly => 'this year';
 }
 
+// Path: leaderboard.history
+class Translations$leaderboard$history$en {
+	Translations$leaderboard$history$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Динамика места'
+	String get title => 'Rank trend';
+
+	/// ru: 'Текущее место'
+	String get current_rank_label => 'Current rank';
+
+	/// ru: '(one) {за $n день} (few) {за $n дня} (many) {за $n дней} (other) {за $n дней}'
+	String delta_label({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: 'over ${n} day',
+		other: 'over ${n} days',
+	);
+
+	/// ru: 'Сегодня'
+	String get chart_end => 'Today';
+
+	/// ru: 'по дням'
+	String get by_days_title => 'by day';
+
+	/// ru: 'Сегодня'
+	String get today => 'Today';
+
+	/// ru: 'Вчера'
+	String get yesterday => 'Yesterday';
+
+	/// ru: '$n очк'
+	String points({required Object n}) => '${n} pts';
+
+	/// ru: 'Не играли'
+	String get not_played => 'Not played';
+
+	/// ru: 'Пока нет истории — сыграйте выпуск, чтобы попасть в дневной рейтинг'
+	String get empty => 'No history yet — play an edition to enter the daily rating';
+
+	/// ru: 'Не удалось загрузить историю'
+	String get error => 'Failed to load history';
+
+	/// ru: 'Повторить'
+	String get retry => 'Retry';
+}
+
 // Path: achievements.categories
 class Translations$achievements$categories$en {
 	Translations$achievements$categories$en._(this._root);
@@ -1609,6 +1658,18 @@ extension on Translations {
 			'leaderboard.periods.weekly' => 'this week',
 			'leaderboard.periods.monthly' => 'this month',
 			'leaderboard.periods.yearly' => 'this year',
+			'leaderboard.history.title' => 'Rank trend',
+			'leaderboard.history.current_rank_label' => 'Current rank',
+			'leaderboard.history.delta_label' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'over ${n} day', other: 'over ${n} days', ), 
+			'leaderboard.history.chart_end' => 'Today',
+			'leaderboard.history.by_days_title' => 'by day',
+			'leaderboard.history.today' => 'Today',
+			'leaderboard.history.yesterday' => 'Yesterday',
+			'leaderboard.history.points' => ({required Object n}) => '${n} pts',
+			'leaderboard.history.not_played' => 'Not played',
+			'leaderboard.history.empty' => 'No history yet — play an edition to enter the daily rating',
+			'leaderboard.history.error' => 'Failed to load history',
+			'leaderboard.history.retry' => 'Retry',
 			'gamification.level' => ({required Object level}) => 'Level ${level}',
 			'gamification.level_short' => ({required Object level}) => 'Lvl ${level}',
 			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',
