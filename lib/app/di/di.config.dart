@@ -34,6 +34,8 @@ import '../../features/gamification/domain/repository/gamification_repository.da
     as _i31;
 import '../../features/leaderboard/data/converter/leaderboard_converter.dart'
     as _i1065;
+import '../../features/leaderboard/data/converter/leaderboard_timeline_converter.dart'
+    as _i1036;
 import '../../features/leaderboard/di/di.dart' as _i946;
 import '../../features/leaderboard/domain/repository/leaderboard_repository.dart'
     as _i914;
@@ -138,9 +140,9 @@ extension GetItInjectableX on _i174.GetIt {
     final authenticationModule = _$AuthenticationModule();
     final questionModule = _$QuestionModule();
     final userModule = _$UserModule();
+    final leaderboardModule = _$LeaderboardModule();
     final appSettingsModule = _$AppSettingsModule();
     final achievementsModule = _$AchievementsModule();
-    final leaderboardModule = _$LeaderboardModule();
     final reviewModule = _$ReviewModule();
     final gamificationModule = _$GamificationModule();
     final masteryModule = _$MasteryModule();
@@ -194,6 +196,8 @@ extension GetItInjectableX on _i174.GetIt {
           answerConverter: gh<_i498.AnswerConverter>(),
         ));
     gh.factory<_i812.UserDaoConverter>(() => _i812.UserDaoConverterImpl());
+    gh.factory<_i1036.LeaderboardTimelineConverter>(
+        () => _i1036.LeaderboardTimelineConverterImpl());
     gh.factory<_i11.UserConverter>(() => _i11.UserConverterImpl());
     gh.factory<_i692.AnswerDbConverter>(() => _i692.AnswerDbConverterImpl());
     gh.factory<_i1044.AnswerResultConverter>(
@@ -256,6 +260,13 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i782.ApiClient>(),
               gh<_i740.UserStatisticsConverter>(),
             ));
+    gh.lazySingleton<_i914.LeaderboardRepository>(
+        () => leaderboardModule.leaderboardRepository(
+              client: gh<_i782.ApiClient>(),
+              converter: gh<_i1065.LeaderboardConverter>(),
+              overviewConverter: gh<_i1065.LeaderboardOverviewConverter>(),
+              timelineConverter: gh<_i1036.LeaderboardTimelineConverter>(),
+            ));
     gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
         .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
     gh.lazySingleton<_i240.QuestionRepository>(
@@ -274,12 +285,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => achievementsModule.userAchievementPageConverter(
               gh<_i606.UserAchievementConverter>(),
               gh<_i724.PageInfoConverter>(),
-            ));
-    gh.lazySingleton<_i914.LeaderboardRepository>(
-        () => leaderboardModule.leaderboardRepository(
-              client: gh<_i782.ApiClient>(),
-              converter: gh<_i1065.LeaderboardConverter>(),
-              overviewConverter: gh<_i1065.LeaderboardOverviewConverter>(),
             ));
     gh.lazySingleton<_i489.ReviewRepository>(
         () => reviewModule.reviewRepository(
@@ -368,11 +373,11 @@ class _$QuestionModule extends _i906.QuestionModule {}
 
 class _$UserModule extends _i527.UserModule {}
 
+class _$LeaderboardModule extends _i946.LeaderboardModule {}
+
 class _$AppSettingsModule extends _i913.AppSettingsModule {}
 
 class _$AchievementsModule extends _i134.AchievementsModule {}
-
-class _$LeaderboardModule extends _i946.LeaderboardModule {}
 
 class _$ReviewModule extends _i1035.ReviewModule {}
 
