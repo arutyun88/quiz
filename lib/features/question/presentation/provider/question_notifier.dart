@@ -9,6 +9,10 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
   static const Duration _timerDuration = Duration(seconds: 3);
   Timer? _timer;
 
+  /// Serving a question writes a `user_question_log` row on the server, which permanently
+  /// removes it from the user's pool — overlapping fetches would burn questions for nothing.
+  bool _fetching = false;
+
   QuestionNotifier({
     required FetchQuestionUseCase fetchQuestionUseCase,
     required CheckQuestionStateUseCase checkQuestionStateUseCase,
@@ -21,6 +25,16 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
         super(const QuestionState.loading());
 
   Future<void> fetch() async {
+    if (_fetching) return;
+    _fetching = true;
+    try {
+      await _fetch();
+    } finally {
+      _fetching = false;
+    }
+  }
+
+  Future<void> _fetch() async {
     if (_questionIdService.questionId case String id) {
       final questionState = await _checkQuestionStateUseCase.checkById(id);
 
@@ -28,7 +42,7 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
         case ResultOk(data: final questionState) when questionState.isAnswered:
         case ResultFailed(error: final QuestionFailure failure) when failure.reason is QuestionFailureCheckStateReason:
           await _questionIdService.clean();
-          return await fetch();
+          return await _fetch();
         default:
       }
 
@@ -83,11 +97,17 @@ class QuestionNotifier extends StateNotifier<QuestionState> {
   }
 
   Future<void> next() async {
+    await reset();
+
+    await fetch();
+  }
+
+  /// Drops the current question without pulling a new one — the next question is
+  /// fetched only when the quiz is entered again (В1 «Финал дня» leaves it reset).
+  Future<void> reset() async {
     state = QuestionState.loading();
 
     await _questionIdService.clean();
-
-    await fetch();
   }
 
   void select(AnswerEntity answer) {

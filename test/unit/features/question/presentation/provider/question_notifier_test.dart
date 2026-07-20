@@ -98,5 +98,40 @@ void main() {
       verifyNever(() => questionIdService.clean());
       verifyNever(() => fetchQuestionUseCase.fetch());
     });
+
+    test('ignores a fetch while another one is in flight', () async {
+      final fetchCompleter = Completer<Result<QuestionEntity, Failure>>();
+
+      when(() => questionIdService.questionId).thenReturn(null);
+      when(() => fetchQuestionUseCase.fetch()).thenAnswer((_) => fetchCompleter.future);
+      when(() => questionIdService.save(_question.id)).thenAnswer((_) async {});
+
+      final first = notifier.fetch();
+      await untilCalled(() => fetchQuestionUseCase.fetch());
+
+      await notifier.fetch();
+
+      fetchCompleter.complete(Result.ok(_question));
+      await first;
+
+      // A second serving would burn 10 more questions from the user's pool server-side
+      verify(() => fetchQuestionUseCase.fetch()).called(1);
+    });
+
+    test('reset drops the question without pulling a new one', () async {
+      when(() => questionIdService.questionId).thenReturn(null);
+      when(() => fetchQuestionUseCase.fetch()).thenAnswer((_) async => Result.ok(_question));
+      when(() => questionIdService.save(_question.id)).thenAnswer((_) async {});
+      when(() => questionIdService.clean()).thenAnswer((_) async {});
+
+      await notifier.fetch();
+      expect(notifier.state, isA<QuestionDataState>());
+
+      await notifier.reset();
+
+      expect(notifier.state, isA<QuestionLoadingState>());
+      verify(() => questionIdService.clean()).called(1);
+      verify(() => fetchQuestionUseCase.fetch()).called(1);
+    });
   });
 }
