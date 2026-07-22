@@ -413,6 +413,25 @@
         "streak_lost_advice(rich)": "Начните новую серию сегодня — ${accent(до первого достижения всего 3 дня)}",
         "start_new_streak_button": "НАЧАТЬ НОВУЮ СЕРИЮ"
     },
+    "daily_result": {
+        "goal_completed": "ЕЖЕДНЕВНАЯ ЦЕЛЬ ВЫПОЛНЕНА",
+        "ring_label": "ИЗ $total",
+        "correct_label": "ВЕРНО",
+        "points_label": "ОЧКОВ",
+        "streak_label": "СЕРИЯ, ДН.",
+        "rank_up(rich)": "Поднялись на $positions в недельном рейтинге",
+        "rank_up_positions(n)": {
+            "one": "$n позицию",
+            "few": "$n позиции",
+            "many": "$n позиций",
+            "other": "$n позиции"
+        },
+        "rank_leader(rich)": "${accent(Первое место)} в недельном рейтинге — так держать",
+        "rank_current(rich)": "Сейчас $rank в недельном рейтинге — каждый выпуск двигает вверх",
+        "rank_unknown(rich)": "Каждый выпуск двигает вас в ${accent(недельном рейтинге)}",
+        "continue_button": "ИГРАТЬ ДАЛЬШЕ",
+        "footer": "ВЫПУСК ДНЯ ЗАКРЫТ · НОВЫЙ ЗАВТРА"
+    },
     "nav": {
         "game": "ИГРА",
         "leaderboard": "РЕЙТИНГ",

@@ -395,6 +395,23 @@
         "streak_lost_advice(rich)": "Start a new streak today — ${accent(your first achievement is just 3 days away)}",
         "start_new_streak_button": "START A NEW STREAK"
     },
+    "daily_result": {
+        "goal_completed": "DAILY GOAL COMPLETED",
+        "ring_label": "OF $total",
+        "correct_label": "CORRECT",
+        "points_label": "POINTS",
+        "streak_label": "STREAK, D.",
+        "rank_up(rich)": "You climbed $positions in the weekly leaderboard",
+        "rank_up_positions(n)": {
+            "one": "$n position",
+            "other": "$n positions"
+        },
+        "rank_leader(rich)": "${accent(First place)} in the weekly leaderboard — keep it up",
+        "rank_current(rich)": "Currently $rank in the weekly leaderboard — every issue moves you up",
+        "rank_unknown(rich)": "Every issue moves you up the ${accent(weekly leaderboard)}",
+        "continue_button": "KEEP PLAYING",
+        "footer": "TODAY'S ISSUE IS CLOSED · A NEW ONE TOMORROW"
+    },
     "nav": {
         "game": "GAME",
         "leaderboard": "RANK",

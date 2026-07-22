@@ -21,8 +21,6 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final actions = HomePageActionsScope.of(context);
-    _listenAnswerSent(context, ref, actions);
-
     final gamification = ref.watch(gamificationProvider);
     final streak = gamification.whenOrNull(data: (d) => d.streakDays) ?? 0;
     final level = gamification.whenOrNull(data: (d) => d.level);
@@ -35,8 +33,15 @@ class HomePage extends ConsumerWidget {
         0;
     final nextQuestionNumber = answeredQuestionCount + 1;
     final questionNumber = nextQuestionNumber > totalQuestions ? totalQuestions : nextQuestionNumber;
+    final isLastOfIssue = nextQuestionNumber == totalQuestions;
     final questionState = ref.watch(questionProvider);
     final palette = context.palette;
+
+    _listenAnswerSent(
+      context,
+      ref,
+      onNext: isLastOfIssue ? actions.onIssueComplete : actions.onNext,
+    );
 
     return PopScope(
       canPop: false,
@@ -77,9 +82,9 @@ class HomePage extends ConsumerWidget {
 
   void _listenAnswerSent(
     BuildContext context,
-    WidgetRef ref,
-    HomePageActions actions,
-  ) {
+    WidgetRef ref, {
+    required VoidCallback onNext,
+  }) {
     ref.listen(
       questionProvider.select((s) => s.maybeWhen(
             data: (question, ans) => ans is QuestionAnswerSentState ? (question, ans) : null,
@@ -92,7 +97,7 @@ class HomePage extends ConsumerWidget {
           context,
           question: question,
           sentState: sentState,
-          onNext: actions.onNext,
+          onNext: onNext,
         );
       },
     );

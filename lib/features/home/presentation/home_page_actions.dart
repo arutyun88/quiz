@@ -5,10 +5,12 @@ class HomePageActions {
   const HomePageActions({
     required this.onSelect,
     required this.onNext,
+    required this.onIssueComplete,
   });
 
   final void Function(AnswerEntity answer) onSelect;
   final VoidCallback onNext;
+  final VoidCallback onIssueComplete;
 }
 
 class HomePageActionsScope extends InheritedWidget {

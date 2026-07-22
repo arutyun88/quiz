@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/model/failure.dart';
-import 'package:quiz/features/home/presentation/home_page_actions.dart';
 import 'package:quiz/features/home/presentation/home_page.dart';
+import 'package:quiz/features/home/presentation/home_page_actions.dart';
 import 'package:quiz/features/home/presentation/provider/daily_question_progress_provider.dart';
 import 'package:quiz/features/question/domain/entity/answer_entity.dart';
 import 'package:quiz/features/question/presentation/provider/question_provider.dart';
@@ -17,9 +18,25 @@ class HomeFlow extends ConsumerStatefulWidget {
 }
 
 class _HomeFlowState extends ConsumerState<HomeFlow> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (ref.read(questionProvider) is QuestionLoadingState) {
+        ref.read(questionProvider.notifier).fetch();
+      }
+    });
+  }
+
   void _onNext() {
     ref.invalidate(dailyQuestionProgressProvider);
     ref.read(questionProvider.notifier).next();
+  }
+
+  void _onIssueComplete() {
+    ref.invalidate(dailyQuestionProgressProvider);
+    ref.read(questionProvider.notifier).reset();
+    context.goNamed('daily-result');
   }
 
   void _onSelect(AnswerEntity answer) {
@@ -34,6 +51,7 @@ class _HomeFlowState extends ConsumerState<HomeFlow> {
       actions: HomePageActions(
         onSelect: _onSelect,
         onNext: _onNext,
+        onIssueComplete: _onIssueComplete,
       ),
       child: const HomePage(),
     );
@@ -49,16 +67,14 @@ class _HomeFlowState extends ConsumerState<HomeFlow> {
         if (failed == null) return;
         final t = context.t.question;
         final text = switch (failed.failure) {
-          QuestionFailure f
-              when f.reason is QuestionFailureAlreadySavedReason =>
+          QuestionFailure f when f.reason is QuestionFailureAlreadySavedReason =>
             t.error_snackbar.already_answered.text,
           NetworkFailure f when f.reason is NetworkFailureBadResponseReason =>
             t.error_snackbar.answered_on_another_device.text,
           _ => t.error_snackbar.save_failed_retry_later.text,
         };
         final button = switch (failed.failure) {
-          QuestionFailure f
-              when f.reason is QuestionFailureAlreadySavedReason =>
+          QuestionFailure f when f.reason is QuestionFailureAlreadySavedReason =>
             t.error_snackbar.already_answered.button,
           NetworkFailure f when f.reason is NetworkFailureBadResponseReason =>
             t.error_snackbar.answered_on_another_device.button,

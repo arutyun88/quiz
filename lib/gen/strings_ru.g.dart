@@ -53,6 +53,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$sign_up$ru sign_up = _Translations$sign_up$ru._(_root);
 	@override late final _Translations$forgot_password$ru forgot_password = _Translations$forgot_password$ru._(_root);
 	@override late final _Translations$start_day$ru start_day = _Translations$start_day$ru._(_root);
+	@override late final _Translations$daily_result$ru daily_result = _Translations$daily_result$ru._(_root);
 	@override late final _Translations$nav$ru nav = _Translations$nav$ru._(_root);
 	@override late final _Translations$birth_date_picker$ru birth_date_picker = _Translations$birth_date_picker$ru._(_root);
 	@override late final _Translations$mastery$ru mastery = _Translations$mastery$ru._(_root);
@@ -333,6 +334,46 @@ class _Translations$start_day$ru implements Translations$start_day$en {
 		accent('до первого достижения всего 3 дня'),
 	]);
 	@override String get start_new_streak_button => 'НАЧАТЬ НОВУЮ СЕРИЮ';
+}
+
+// Path: daily_result
+class _Translations$daily_result$ru implements Translations$daily_result$en {
+	_Translations$daily_result$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get goal_completed => 'ЕЖЕДНЕВНАЯ ЦЕЛЬ ВЫПОЛНЕНА';
+	@override String ring_label({required Object total}) => 'ИЗ ${total}';
+	@override String get correct_label => 'ВЕРНО';
+	@override String get points_label => 'ОЧКОВ';
+	@override String get streak_label => 'СЕРИЯ, ДН.';
+	@override TextSpan rank_up({required InlineSpan positions}) => TextSpan(children: [
+		const TextSpan(text: 'Поднялись на '),
+		positions,
+		const TextSpan(text: ' в недельном рейтинге'),
+	]);
+	@override String rank_up_positions({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+		one: '${n} позицию',
+		few: '${n} позиции',
+		many: '${n} позиций',
+		other: '${n} позиции',
+	);
+	@override TextSpan rank_leader({required InlineSpanBuilder accent}) => TextSpan(children: [
+		accent('Первое место'),
+		const TextSpan(text: ' в недельном рейтинге — так держать'),
+	]);
+	@override TextSpan rank_current({required InlineSpan rank}) => TextSpan(children: [
+		const TextSpan(text: 'Сейчас '),
+		rank,
+		const TextSpan(text: ' в недельном рейтинге — каждый выпуск двигает вверх'),
+	]);
+	@override TextSpan rank_unknown({required InlineSpanBuilder accent}) => TextSpan(children: [
+		const TextSpan(text: 'Каждый выпуск двигает вас в '),
+		accent('недельном рейтинге'),
+	]);
+	@override String get continue_button => 'ИГРАТЬ ДАЛЬШЕ';
+	@override String get footer => 'ВЫПУСК ДНЯ ЗАКРЫТ · НОВЫЙ ЗАВТРА';
 }
 
 // Path: nav
@@ -1239,6 +1280,18 @@ extension on TranslationsRu {
 			'start_day.streak_lost_days' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} дня', few: '${n} дней', many: '${n} дней', other: '${n} дней', ), 
 			'start_day.streak_lost_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Начните новую серию сегодня — '), accent('до первого достижения всего 3 дня'), ]), 
 			'start_day.start_new_streak_button' => 'НАЧАТЬ НОВУЮ СЕРИЮ',
+			'daily_result.goal_completed' => 'ЕЖЕДНЕВНАЯ ЦЕЛЬ ВЫПОЛНЕНА',
+			'daily_result.ring_label' => ({required Object total}) => 'ИЗ ${total}',
+			'daily_result.correct_label' => 'ВЕРНО',
+			'daily_result.points_label' => 'ОЧКОВ',
+			'daily_result.streak_label' => 'СЕРИЯ, ДН.',
+			'daily_result.rank_up' => ({required InlineSpan positions}) => TextSpan(children: [ const TextSpan(text: 'Поднялись на '), positions, const TextSpan(text: ' в недельном рейтинге'), ]), 
+			'daily_result.rank_up_positions' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} позицию', few: '${n} позиции', many: '${n} позиций', other: '${n} позиции', ), 
+			'daily_result.rank_leader' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ accent('Первое место'), const TextSpan(text: ' в недельном рейтинге — так держать'), ]), 
+			'daily_result.rank_current' => ({required InlineSpan rank}) => TextSpan(children: [ const TextSpan(text: 'Сейчас '), rank, const TextSpan(text: ' в недельном рейтинге — каждый выпуск двигает вверх'), ]), 
+			'daily_result.rank_unknown' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Каждый выпуск двигает вас в '), accent('недельном рейтинге'), ]), 
+			'daily_result.continue_button' => 'ИГРАТЬ ДАЛЬШЕ',
+			'daily_result.footer' => 'ВЫПУСК ДНЯ ЗАКРЫТ · НОВЫЙ ЗАВТРА',
 			'nav.game' => 'ИГРА',
 			'nav.leaderboard' => 'РЕЙТИНГ',
 			'nav.profile' => 'ПРОФИЛЬ',

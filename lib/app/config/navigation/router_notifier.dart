@@ -7,6 +7,7 @@ import 'package:quiz/features/achievements/presentation/achievements_flow.dart';
 import 'package:quiz/features/authentication/presentation/forgot_password/forgot_password_flow.dart';
 import 'package:quiz/features/authentication/presentation/sign_in/sign_in_flow.dart';
 import 'package:quiz/features/authentication/presentation/sign_up/sign_up_flow.dart';
+import 'package:quiz/features/daily_result/presentation/daily_result_flow.dart';
 import 'package:quiz/features/debug/debug_answered_question_page.dart';
 import 'package:quiz/features/debug/debug_flow.dart';
 import 'package:quiz/features/debug/debug_question_page.dart';
@@ -15,18 +16,18 @@ import 'package:quiz/features/home/presentation/home_gate_flow.dart';
 import 'package:quiz/features/leaderboard/presentation/pages/leaderboard_history_page.dart';
 import 'package:quiz/features/mastery/presentation/mastery_flow.dart';
 import 'package:quiz/features/onboarding/presentation/onboarding_flow.dart';
-import 'package:quiz/features/review/presentation/review_flow.dart';
-import 'package:quiz/features/user/presentation/pages/edit/change_password_page.dart';
-import 'package:quiz/features/user/presentation/pages/edit/profile_edit_flow.dart';
-import 'package:quiz/features/user/presentation/pages/profile_flow.dart';
-import 'package:quiz/features/user/presentation/pages/public_profile_page.dart';
 import 'package:quiz/features/rating/presentation/rating_flow.dart';
+import 'package:quiz/features/review/presentation/review_flow.dart';
 import 'package:quiz/features/settings/presentation/about_page.dart';
 import 'package:quiz/features/settings/presentation/language_page.dart';
 import 'package:quiz/features/settings/presentation/notifications_page.dart';
 import 'package:quiz/features/settings/presentation/settings_flow.dart';
 import 'package:quiz/features/settings/presentation/subscription_page.dart';
 import 'package:quiz/features/splash/presentation/splash_flow.dart';
+import 'package:quiz/features/user/presentation/pages/edit/change_password_page.dart';
+import 'package:quiz/features/user/presentation/pages/edit/profile_edit_flow.dart';
+import 'package:quiz/features/user/presentation/pages/profile_flow.dart';
+import 'package:quiz/features/user/presentation/pages/public_profile_page.dart';
 
 class RouterNotifier extends AsyncNotifier<GoRouter> {
   @override
@@ -57,6 +58,11 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
           path: '/forgot-password',
           name: 'forgot-password',
           builder: (context, state) => const ForgotPasswordFlow(),
+        ),
+        GoRoute(
+          path: '/daily-result',
+          name: 'daily-result',
+          builder: (context, state) => const DailyResultFlow(),
         ),
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) => MainLayout(navigationShell: navigationShell),
