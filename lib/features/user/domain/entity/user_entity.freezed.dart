@@ -19,7 +19,8 @@ mixin _$UserEntity {
   String get id => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
-  DateTime? get birthDate => throw _privateConstructorUsedError;
+  AgeAccessEntity? get ageAccess => throw _privateConstructorUsedError;
+  String? get timezoneId => throw _privateConstructorUsedError;
   int get level => throw _privateConstructorUsedError;
   int get experienceInLevel => throw _privateConstructorUsedError;
   int get levelExperience => throw _privateConstructorUsedError;
@@ -32,6 +33,10 @@ mixin _$UserEntity {
   DateTime get memberSince => throw _privateConstructorUsedError;
   int get achievementsUnlocked => throw _privateConstructorUsedError;
   int get achievementsTotal => throw _privateConstructorUsedError;
+  int get rating => throw _privateConstructorUsedError;
+  int get bestRating => throw _privateConstructorUsedError;
+  int get ratingOfficialAnswers => throw _privateConstructorUsedError;
+  bool get ratingProvisional => throw _privateConstructorUsedError;
   SubscriptionEntity? get subscription => throw _privateConstructorUsedError;
 
   /// Create a copy of UserEntity
@@ -51,7 +56,8 @@ abstract class $UserEntityCopyWith<$Res> {
       {String id,
       String? email,
       String? name,
-      DateTime? birthDate,
+      AgeAccessEntity? ageAccess,
+      String? timezoneId,
       int level,
       int experienceInLevel,
       int levelExperience,
@@ -64,6 +70,10 @@ abstract class $UserEntityCopyWith<$Res> {
       DateTime memberSince,
       int achievementsUnlocked,
       int achievementsTotal,
+      int rating,
+      int bestRating,
+      int ratingOfficialAnswers,
+      bool ratingProvisional,
       SubscriptionEntity? subscription});
 
   $SubscriptionEntityCopyWith<$Res>? get subscription;
@@ -87,7 +97,8 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
     Object? id = null,
     Object? email = freezed,
     Object? name = freezed,
-    Object? birthDate = freezed,
+    Object? ageAccess = freezed,
+    Object? timezoneId = freezed,
     Object? level = null,
     Object? experienceInLevel = null,
     Object? levelExperience = null,
@@ -100,6 +111,10 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
     Object? memberSince = null,
     Object? achievementsUnlocked = null,
     Object? achievementsTotal = null,
+    Object? rating = null,
+    Object? bestRating = null,
+    Object? ratingOfficialAnswers = null,
+    Object? ratingProvisional = null,
     Object? subscription = freezed,
   }) {
     return _then(_value.copyWith(
@@ -115,10 +130,14 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      birthDate: freezed == birthDate
-          ? _value.birthDate
-          : birthDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      ageAccess: freezed == ageAccess
+          ? _value.ageAccess
+          : ageAccess // ignore: cast_nullable_to_non_nullable
+              as AgeAccessEntity?,
+      timezoneId: freezed == timezoneId
+          ? _value.timezoneId
+          : timezoneId // ignore: cast_nullable_to_non_nullable
+              as String?,
       level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
@@ -167,6 +186,22 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
           ? _value.achievementsTotal
           : achievementsTotal // ignore: cast_nullable_to_non_nullable
               as int,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int,
+      bestRating: null == bestRating
+          ? _value.bestRating
+          : bestRating // ignore: cast_nullable_to_non_nullable
+              as int,
+      ratingOfficialAnswers: null == ratingOfficialAnswers
+          ? _value.ratingOfficialAnswers
+          : ratingOfficialAnswers // ignore: cast_nullable_to_non_nullable
+              as int,
+      ratingProvisional: null == ratingProvisional
+          ? _value.ratingProvisional
+          : ratingProvisional // ignore: cast_nullable_to_non_nullable
+              as bool,
       subscription: freezed == subscription
           ? _value.subscription
           : subscription // ignore: cast_nullable_to_non_nullable
@@ -201,7 +236,8 @@ abstract class _$$UserEntityImplCopyWith<$Res>
       {String id,
       String? email,
       String? name,
-      DateTime? birthDate,
+      AgeAccessEntity? ageAccess,
+      String? timezoneId,
       int level,
       int experienceInLevel,
       int levelExperience,
@@ -214,6 +250,10 @@ abstract class _$$UserEntityImplCopyWith<$Res>
       DateTime memberSince,
       int achievementsUnlocked,
       int achievementsTotal,
+      int rating,
+      int bestRating,
+      int ratingOfficialAnswers,
+      bool ratingProvisional,
       SubscriptionEntity? subscription});
 
   @override
@@ -236,7 +276,8 @@ class __$$UserEntityImplCopyWithImpl<$Res>
     Object? id = null,
     Object? email = freezed,
     Object? name = freezed,
-    Object? birthDate = freezed,
+    Object? ageAccess = freezed,
+    Object? timezoneId = freezed,
     Object? level = null,
     Object? experienceInLevel = null,
     Object? levelExperience = null,
@@ -249,6 +290,10 @@ class __$$UserEntityImplCopyWithImpl<$Res>
     Object? memberSince = null,
     Object? achievementsUnlocked = null,
     Object? achievementsTotal = null,
+    Object? rating = null,
+    Object? bestRating = null,
+    Object? ratingOfficialAnswers = null,
+    Object? ratingProvisional = null,
     Object? subscription = freezed,
   }) {
     return _then(_$UserEntityImpl(
@@ -264,10 +309,14 @@ class __$$UserEntityImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      birthDate: freezed == birthDate
-          ? _value.birthDate
-          : birthDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      ageAccess: freezed == ageAccess
+          ? _value.ageAccess
+          : ageAccess // ignore: cast_nullable_to_non_nullable
+              as AgeAccessEntity?,
+      timezoneId: freezed == timezoneId
+          ? _value.timezoneId
+          : timezoneId // ignore: cast_nullable_to_non_nullable
+              as String?,
       level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
@@ -316,6 +365,22 @@ class __$$UserEntityImplCopyWithImpl<$Res>
           ? _value.achievementsTotal
           : achievementsTotal // ignore: cast_nullable_to_non_nullable
               as int,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int,
+      bestRating: null == bestRating
+          ? _value.bestRating
+          : bestRating // ignore: cast_nullable_to_non_nullable
+              as int,
+      ratingOfficialAnswers: null == ratingOfficialAnswers
+          ? _value.ratingOfficialAnswers
+          : ratingOfficialAnswers // ignore: cast_nullable_to_non_nullable
+              as int,
+      ratingProvisional: null == ratingProvisional
+          ? _value.ratingProvisional
+          : ratingProvisional // ignore: cast_nullable_to_non_nullable
+              as bool,
       subscription: freezed == subscription
           ? _value.subscription
           : subscription // ignore: cast_nullable_to_non_nullable
@@ -331,7 +396,8 @@ class _$UserEntityImpl implements _UserEntity {
       {required this.id,
       required this.email,
       required this.name,
-      required this.birthDate,
+      this.ageAccess,
+      this.timezoneId,
       required this.level,
       required this.experienceInLevel,
       required this.levelExperience,
@@ -344,6 +410,10 @@ class _$UserEntityImpl implements _UserEntity {
       required this.memberSince,
       required this.achievementsUnlocked,
       required this.achievementsTotal,
+      this.rating = 1000,
+      this.bestRating = 1000,
+      this.ratingOfficialAnswers = 0,
+      this.ratingProvisional = true,
       this.subscription});
 
   @override
@@ -353,7 +423,9 @@ class _$UserEntityImpl implements _UserEntity {
   @override
   final String? name;
   @override
-  final DateTime? birthDate;
+  final AgeAccessEntity? ageAccess;
+  @override
+  final String? timezoneId;
   @override
   final int level;
   @override
@@ -379,11 +451,23 @@ class _$UserEntityImpl implements _UserEntity {
   @override
   final int achievementsTotal;
   @override
+  @JsonKey()
+  final int rating;
+  @override
+  @JsonKey()
+  final int bestRating;
+  @override
+  @JsonKey()
+  final int ratingOfficialAnswers;
+  @override
+  @JsonKey()
+  final bool ratingProvisional;
+  @override
   final SubscriptionEntity? subscription;
 
   @override
   String toString() {
-    return 'UserEntity(id: $id, email: $email, name: $name, birthDate: $birthDate, level: $level, experienceInLevel: $experienceInLevel, levelExperience: $levelExperience, streakDays: $streakDays, bestStreakDays: $bestStreakDays, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, totalPoints: $totalPoints, memberSince: $memberSince, achievementsUnlocked: $achievementsUnlocked, achievementsTotal: $achievementsTotal, subscription: $subscription)';
+    return 'UserEntity(id: $id, email: $email, name: $name, ageAccess: $ageAccess, timezoneId: $timezoneId, level: $level, experienceInLevel: $experienceInLevel, levelExperience: $levelExperience, streakDays: $streakDays, bestStreakDays: $bestStreakDays, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, totalPoints: $totalPoints, memberSince: $memberSince, achievementsUnlocked: $achievementsUnlocked, achievementsTotal: $achievementsTotal, rating: $rating, bestRating: $bestRating, ratingOfficialAnswers: $ratingOfficialAnswers, ratingProvisional: $ratingProvisional, subscription: $subscription)';
   }
 
   @override
@@ -394,8 +478,10 @@ class _$UserEntityImpl implements _UserEntity {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.birthDate, birthDate) ||
-                other.birthDate == birthDate) &&
+            (identical(other.ageAccess, ageAccess) ||
+                other.ageAccess == ageAccess) &&
+            (identical(other.timezoneId, timezoneId) ||
+                other.timezoneId == timezoneId) &&
             (identical(other.level, level) || other.level == level) &&
             (identical(other.experienceInLevel, experienceInLevel) ||
                 other.experienceInLevel == experienceInLevel) &&
@@ -419,30 +505,43 @@ class _$UserEntityImpl implements _UserEntity {
                 other.achievementsUnlocked == achievementsUnlocked) &&
             (identical(other.achievementsTotal, achievementsTotal) ||
                 other.achievementsTotal == achievementsTotal) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.bestRating, bestRating) ||
+                other.bestRating == bestRating) &&
+            (identical(other.ratingOfficialAnswers, ratingOfficialAnswers) ||
+                other.ratingOfficialAnswers == ratingOfficialAnswers) &&
+            (identical(other.ratingProvisional, ratingProvisional) ||
+                other.ratingProvisional == ratingProvisional) &&
             (identical(other.subscription, subscription) ||
                 other.subscription == subscription));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      email,
-      name,
-      birthDate,
-      level,
-      experienceInLevel,
-      levelExperience,
-      streakDays,
-      bestStreakDays,
-      questionsAnswered,
-      correctAnswers,
-      accuracy,
-      totalPoints,
-      memberSince,
-      achievementsUnlocked,
-      achievementsTotal,
-      subscription);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        email,
+        name,
+        ageAccess,
+        timezoneId,
+        level,
+        experienceInLevel,
+        levelExperience,
+        streakDays,
+        bestStreakDays,
+        questionsAnswered,
+        correctAnswers,
+        accuracy,
+        totalPoints,
+        memberSince,
+        achievementsUnlocked,
+        achievementsTotal,
+        rating,
+        bestRating,
+        ratingOfficialAnswers,
+        ratingProvisional,
+        subscription
+      ]);
 
   /// Create a copy of UserEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -458,7 +557,8 @@ abstract class _UserEntity implements UserEntity {
       {required final String id,
       required final String? email,
       required final String? name,
-      required final DateTime? birthDate,
+      final AgeAccessEntity? ageAccess,
+      final String? timezoneId,
       required final int level,
       required final int experienceInLevel,
       required final int levelExperience,
@@ -471,6 +571,10 @@ abstract class _UserEntity implements UserEntity {
       required final DateTime memberSince,
       required final int achievementsUnlocked,
       required final int achievementsTotal,
+      final int rating,
+      final int bestRating,
+      final int ratingOfficialAnswers,
+      final bool ratingProvisional,
       final SubscriptionEntity? subscription}) = _$UserEntityImpl;
 
   @override
@@ -480,7 +584,9 @@ abstract class _UserEntity implements UserEntity {
   @override
   String? get name;
   @override
-  DateTime? get birthDate;
+  AgeAccessEntity? get ageAccess;
+  @override
+  String? get timezoneId;
   @override
   int get level;
   @override
@@ -505,6 +611,14 @@ abstract class _UserEntity implements UserEntity {
   int get achievementsUnlocked;
   @override
   int get achievementsTotal;
+  @override
+  int get rating;
+  @override
+  int get bestRating;
+  @override
+  int get ratingOfficialAnswers;
+  @override
+  bool get ratingProvisional;
   @override
   SubscriptionEntity? get subscription;
 

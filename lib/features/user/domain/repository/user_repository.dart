@@ -7,10 +7,7 @@ abstract interface class UserRepository {
 
   Future<Result<UserEntity, Failure>> fetchUser(String userId);
 
-  Future<Result<UserEntity, Failure>> update({
-    String? name,
-    DateTime? birthDate,
-  });
+  Future<Result<UserEntity, Failure>> update({String? name});
 
   Future<Result<void, Failure>> changePassword({
     required String oldPassword,

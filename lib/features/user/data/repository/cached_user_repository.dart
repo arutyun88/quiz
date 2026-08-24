@@ -32,4 +32,9 @@ class CachedUserRepository implements LocalUserRepository {
       _converter.toDao(user).toJsonString(),
     );
   }
+
+  @override
+  Future<void> clearUser() async {
+    await _prefs.remove(_key);
+  }
 }

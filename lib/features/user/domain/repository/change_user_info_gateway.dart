@@ -9,13 +9,7 @@ class ChangeUserInfoGateway {
     required UserRepository userRepository,
   }) : _userRepository = userRepository;
 
-  Future<Result<void, Failure>> call({
-    String? name,
-    DateTime? birthDate,
-  }) async {
-    return await _userRepository.update(
-      name: name,
-      birthDate: birthDate,
-    );
+  Future<Result<void, Failure>> call({String? name}) async {
+    return await _userRepository.update(name: name);
   }
 }

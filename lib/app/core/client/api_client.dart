@@ -22,7 +22,7 @@ abstract interface class ApiClient {
 
   Future<Result<TEntity, Failure>> post<TEntity, TDto>(
     String path, {
-    Json body,
+    Json? body,
     Json? queryParameters,
     Json? headers,
     JsonMapper<TDto>? mapper,

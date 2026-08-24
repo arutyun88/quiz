@@ -11,9 +11,10 @@ _$UserDtoImpl _$$UserDtoImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       email: json['email'] as String?,
       name: json['name'] as String?,
-      birthDate: json['birth_date'] == null
+      ageAccess: json['age_access'] == null
           ? null
-          : DateTime.parse(json['birth_date'] as String),
+          : AgeAccessDto.fromJson(json['age_access'] as Map<String, dynamic>),
+      timezoneId: json['timezone_id'] as String?,
       level: (json['level'] as num).toInt(),
       experienceInLevel: (json['experience_in_level'] as num).toInt(),
       levelExperience: (json['level_experience'] as num).toInt(),
@@ -26,6 +27,11 @@ _$UserDtoImpl _$$UserDtoImplFromJson(Map<String, dynamic> json) =>
       memberSince: DateTime.parse(json['member_since'] as String),
       achievementsUnlocked: (json['achievements_unlocked'] as num).toInt(),
       achievementsTotal: (json['achievements_total'] as num).toInt(),
+      rating: (json['rating'] as num?)?.toInt() ?? 1000,
+      bestRating: (json['best_rating'] as num?)?.toInt() ?? 1000,
+      ratingOfficialAnswers:
+          (json['rating_official_answers'] as num?)?.toInt() ?? 0,
+      ratingProvisional: json['rating_provisional'] as bool? ?? true,
       subscription: json['subscription'] == null
           ? null
           : SubscriptionDto.fromJson(
@@ -37,7 +43,8 @@ Map<String, dynamic> _$$UserDtoImplToJson(_$UserDtoImpl instance) =>
       'id': instance.id,
       'email': instance.email,
       'name': instance.name,
-      'birth_date': instance.birthDate?.toIso8601String(),
+      'age_access': instance.ageAccess,
+      'timezone_id': instance.timezoneId,
       'level': instance.level,
       'experience_in_level': instance.experienceInLevel,
       'level_experience': instance.levelExperience,
@@ -50,5 +57,9 @@ Map<String, dynamic> _$$UserDtoImplToJson(_$UserDtoImpl instance) =>
       'member_since': instance.memberSince.toIso8601String(),
       'achievements_unlocked': instance.achievementsUnlocked,
       'achievements_total': instance.achievementsTotal,
+      'rating': instance.rating,
+      'best_rating': instance.bestRating,
+      'rating_official_answers': instance.ratingOfficialAnswers,
+      'rating_provisional': instance.ratingProvisional,
       'subscription': instance.subscription,
     };

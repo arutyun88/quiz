@@ -4,4 +4,6 @@ abstract interface class LocalUserRepository {
   Future<UserEntity?> fetchUser();
 
   Future<void> saveUser(UserEntity user);
+
+  Future<void> clearUser();
 }

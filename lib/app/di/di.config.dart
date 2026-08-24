@@ -89,7 +89,11 @@ import '../../features/user/data/converter/user_converter.dart' as _i11;
 import '../../features/user/data/converter/user_dao_converter.dart' as _i812;
 import '../../features/user/data/converter/user_statistics_converter.dart'
     as _i740;
+import '../../features/user/data/repository/remote_age_access_repository.dart'
+    as _i918;
 import '../../features/user/di/di.dart' as _i527;
+import '../../features/user/domain/repository/age_access_repository.dart'
+    as _i191;
 import '../../features/user/domain/repository/change_password_gateway.dart'
     as _i885;
 import '../../features/user/domain/repository/change_user_info_gateway.dart'
@@ -307,6 +311,8 @@ extension GetItInjectableX on _i174.GetIt {
               client: gh<_i782.ApiClient>(),
               masteryConverter: gh<_i78.MasteryConverter>(),
             ));
+    gh.lazySingleton<_i191.AgeAccessRepository>(
+        () => _i918.RemoteAgeAccessRepository(client: gh<_i782.ApiClient>()));
     gh.lazySingleton<_i797.AuthenticationRepository>(
         () => authenticationModule.repository(client: gh<_i782.ApiClient>()));
     gh.lazySingleton<_i547.SignInWithEmailGateway>(
@@ -319,10 +325,6 @@ extension GetItInjectableX on _i174.GetIt {
               authenticationRepository: gh<_i797.AuthenticationRepository>(),
               tokenService: gh<_i422.AuthTokenService>(),
             ));
-    gh.lazySingleton<_i1052.UserLogoutGateway>(() => _i1052.UserLogoutGateway(
-          authenticationRepository: gh<_i797.AuthenticationRepository>(),
-          tokenService: gh<_i422.AuthTokenService>(),
-        ));
     gh.factory<_i265.QuestionDao>(() => _i265.QuestionDaoImpl(
           gh<_i935.AppDatabase>(),
           questionConverter: gh<_i813.QuestionDbConverter>(),
@@ -332,6 +334,11 @@ extension GetItInjectableX on _i174.GetIt {
               questionRepository: gh<_i240.QuestionRepository>(),
               questionDao: gh<_i265.QuestionDao>(),
             ));
+    gh.lazySingleton<_i1052.UserLogoutGateway>(() => _i1052.UserLogoutGateway(
+          authenticationRepository: gh<_i797.AuthenticationRepository>(),
+          tokenService: gh<_i422.AuthTokenService>(),
+          localUserRepository: gh<_i799.LocalUserRepository>(),
+        ));
     gh.lazySingleton<_i518.UserAchievementRepository>(
         () => achievementsModule.userAchievementRepository(
               client: gh<_i782.ApiClient>(),

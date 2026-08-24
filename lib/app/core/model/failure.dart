@@ -12,11 +12,13 @@ abstract class Failure with _$Failure {
 
   const factory Failure.conflict() = ConflictFailure;
 
-  const factory Failure.authentication(AuthenticationFailureType type) = AuthenticationFailure;
+  const factory Failure.authentication(AuthenticationFailureType type) =
+      AuthenticationFailure;
 
   const factory Failure.network(NetworkFailureReason reason) = NetworkFailure;
 
-  const factory Failure.question(QuestionFailureReason reason) = QuestionFailure;
+  const factory Failure.question(QuestionFailureReason reason) =
+      QuestionFailure;
 }
 
 enum AuthenticationFailureType {
@@ -29,30 +31,43 @@ enum AuthenticationFailureType {
 
 @freezed
 abstract class NetworkFailureReason with _$NetworkFailureReason {
-  const factory NetworkFailureReason.timeout(String message) = NetworkFailureTimeoutReason;
+  const factory NetworkFailureReason.timeout(String message) =
+      NetworkFailureTimeoutReason;
 
-  const factory NetworkFailureReason.badResponse(String message) = NetworkFailureBadResponseReason;
+  const factory NetworkFailureReason.badResponse(
+    String message, {
+    int? statusCode,
+    String? errorCode,
+  }) = NetworkFailureBadResponseReason;
 
-  const factory NetworkFailureReason.credential(String message) = NetworkFailureCredentialReason;
+  const factory NetworkFailureReason.credential(String message) =
+      NetworkFailureCredentialReason;
 
-  const factory NetworkFailureReason.cancelled(String message) = NetworkFailureCancelledReason;
+  const factory NetworkFailureReason.cancelled(String message) =
+      NetworkFailureCancelledReason;
 
-  const factory NetworkFailureReason.server(String message) = NetworkFailureServerReason;
+  const factory NetworkFailureReason.server(String message) =
+      NetworkFailureServerReason;
 }
 
 @freezed
 abstract class QuestionFailureReason with _$QuestionFailureReason {
-  const factory QuestionFailureReason.notFoundCached() = QuestionFailureNotFoundCachedReason;
+  const factory QuestionFailureReason.notFoundCached() =
+      QuestionFailureNotFoundCachedReason;
 
   const factory QuestionFailureReason.save() = QuestionFailureSaveReason;
 
-  const factory QuestionFailureReason.alreadySaved() = QuestionFailureAlreadySavedReason;
+  const factory QuestionFailureReason.alreadySaved() =
+      QuestionFailureAlreadySavedReason;
 
   const factory QuestionFailureReason.over() = QuestionFailureOverReason;
 
-  const factory QuestionFailureReason.clearCache() = QuestionFailureClearCacheReason;
+  const factory QuestionFailureReason.clearCache() =
+      QuestionFailureClearCacheReason;
 
-  const factory QuestionFailureReason.checkState() = QuestionFailureCheckStateReason;
+  const factory QuestionFailureReason.checkState() =
+      QuestionFailureCheckStateReason;
 
-  const factory QuestionFailureReason.markAsAnswered() = QuestionFailureMarkAsAnsweredReason;
+  const factory QuestionFailureReason.markAsAnswered() =
+      QuestionFailureMarkAsAnsweredReason;
 }

@@ -19,12 +19,13 @@ class FetchCurrentUserGateway {
 
     switch (rUser) {
       case ResultOk(data: final user):
-        _localUserRepository.saveUser(user);
+        await _localUserRepository.saveUser(user);
 
         return Result.ok(user);
 
       case ResultFailed(error: final failure):
-        if (failure case NetworkFailure(:final reason) when reason is NetworkFailureBadResponseReason) {
+        if (failure case NetworkFailure(:final reason)
+            when reason is NetworkFailureBadResponseReason) {
           return Result.failed(failure);
         }
 

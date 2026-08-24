@@ -21,29 +21,27 @@ class RemoteUserRepository implements UserRepository {
   @override
   Future<Result<UserEntity, Failure>> fetch() async => await _client.get(
         '/user',
-        mapper: (json) => DataDto.fromJson(json, (json) => UserDto.fromJson(json as Json)),
+        mapper: (json) =>
+            DataDto.fromJson(json, (json) => UserDto.fromJson(json as Json)),
         converter: _userConverter.convert,
       );
 
   @override
-  Future<Result<UserEntity, Failure>> fetchUser(String userId) async => await _client.get(
+  Future<Result<UserEntity, Failure>> fetchUser(String userId) async =>
+      await _client.get(
         '/user/$userId',
-        mapper: (json) => DataDto.fromJson(json, (json) => UserDto.fromJson(json as Json)),
+        mapper: (json) =>
+            DataDto.fromJson(json, (json) => UserDto.fromJson(json as Json)),
         converter: _userConverter.convert,
       );
 
   @override
-  Future<Result<UserEntity, Failure>> update({
-    String? name,
-    DateTime? birthDate,
-  }) async {
+  Future<Result<UserEntity, Failure>> update({String? name}) async {
     return await _client.post(
       '/user',
-      body: {
-        'name': name,
-        'birth_date': birthDate?.toString(),
-      },
-      mapper: (json) => DataDto.fromJson(json, (json) => UserDto.fromJson(json as Json)),
+      body: {'name': name},
+      mapper: (json) =>
+          DataDto.fromJson(json, (json) => UserDto.fromJson(json as Json)),
       converter: _userConverter.convert,
     );
   }
@@ -63,5 +61,6 @@ class RemoteUserRepository implements UserRepository {
   }
 
   @override
-  Future<Result<void, Failure>> deleteAccount() async => await _client.delete('/user');
+  Future<Result<void, Failure>> deleteAccount() async =>
+      await _client.delete('/user');
 }

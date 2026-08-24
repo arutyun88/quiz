@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:quiz/app/core/model/dao/dao_converter.dart';
+import 'package:quiz/features/user/data/converter/age_access_converter.dart';
 import 'package:quiz/features/user/data/dao/user_dao.dart';
 import 'package:quiz/features/user/domain/entity/user_entity.dart';
 
@@ -13,7 +14,8 @@ final class UserDaoConverterImpl extends UserDaoConverter {
       id: dao.id,
       email: dao.email,
       name: dao.name,
-      birthDate: dao.birthDate,
+      ageAccess: dao.ageAccess?.toEntity(),
+      timezoneId: dao.timezoneId,
       level: dao.level,
       experienceInLevel: dao.experienceInLevel,
       levelExperience: dao.levelExperience,
@@ -26,6 +28,10 @@ final class UserDaoConverterImpl extends UserDaoConverter {
       memberSince: dao.memberSince,
       achievementsUnlocked: dao.achievementsUnlocked,
       achievementsTotal: dao.achievementsTotal,
+      rating: dao.rating,
+      bestRating: dao.bestRating,
+      ratingOfficialAnswers: dao.ratingOfficialAnswers,
+      ratingProvisional: dao.ratingProvisional,
     );
   }
 
@@ -35,7 +41,8 @@ final class UserDaoConverterImpl extends UserDaoConverter {
       id: entity.id,
       email: entity.email,
       name: entity.name,
-      birthDateIso: entity.birthDate?.toIso8601String(),
+      ageAccess: entity.ageAccess?.toDao(),
+      timezoneId: entity.timezoneId,
       level: entity.level,
       experienceInLevel: entity.experienceInLevel,
       levelExperience: entity.levelExperience,
@@ -48,6 +55,10 @@ final class UserDaoConverterImpl extends UserDaoConverter {
       memberSinceIso: entity.memberSince.toIso8601String(),
       achievementsUnlocked: entity.achievementsUnlocked,
       achievementsTotal: entity.achievementsTotal,
+      rating: entity.rating,
+      bestRating: entity.bestRating,
+      ratingOfficialAnswers: entity.ratingOfficialAnswers,
+      ratingProvisional: entity.ratingProvisional,
     );
   }
 }

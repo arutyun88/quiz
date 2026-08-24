@@ -11,7 +11,10 @@ _$UserDaoImpl _$$UserDaoImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       email: json['email'] as String?,
       name: json['name'] as String?,
-      birthDateIso: json['birthDateIso'] as String?,
+      ageAccess: json['ageAccess'] == null
+          ? null
+          : AgeAccessDao.fromJson(json['ageAccess'] as Map<String, dynamic>),
+      timezoneId: json['timezoneId'] as String?,
       level: (json['level'] as num).toInt(),
       experienceInLevel: (json['experienceInLevel'] as num).toInt(),
       levelExperience: (json['levelExperience'] as num).toInt(),
@@ -24,6 +27,11 @@ _$UserDaoImpl _$$UserDaoImplFromJson(Map<String, dynamic> json) =>
       memberSinceIso: json['memberSinceIso'] as String,
       achievementsUnlocked: (json['achievementsUnlocked'] as num).toInt(),
       achievementsTotal: (json['achievementsTotal'] as num).toInt(),
+      rating: (json['rating'] as num?)?.toInt() ?? 1000,
+      bestRating: (json['bestRating'] as num?)?.toInt() ?? 1000,
+      ratingOfficialAnswers:
+          (json['ratingOfficialAnswers'] as num?)?.toInt() ?? 0,
+      ratingProvisional: json['ratingProvisional'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$$UserDaoImplToJson(_$UserDaoImpl instance) =>
@@ -31,7 +39,8 @@ Map<String, dynamic> _$$UserDaoImplToJson(_$UserDaoImpl instance) =>
       'id': instance.id,
       'email': instance.email,
       'name': instance.name,
-      'birthDateIso': instance.birthDateIso,
+      'ageAccess': instance.ageAccess,
+      'timezoneId': instance.timezoneId,
       'level': instance.level,
       'experienceInLevel': instance.experienceInLevel,
       'levelExperience': instance.levelExperience,
@@ -44,4 +53,8 @@ Map<String, dynamic> _$$UserDaoImplToJson(_$UserDaoImpl instance) =>
       'memberSinceIso': instance.memberSinceIso,
       'achievementsUnlocked': instance.achievementsUnlocked,
       'achievementsTotal': instance.achievementsTotal,
+      'rating': instance.rating,
+      'bestRating': instance.bestRating,
+      'ratingOfficialAnswers': instance.ratingOfficialAnswers,
+      'ratingProvisional': instance.ratingProvisional,
     };

@@ -27,9 +27,10 @@ class RemoteAuthenticationRepository implements AuthenticationRepository {
           "email": email,
           'password': password,
           'name': name,
-          'birth_date': birthDate.toString(),
+          'birth_date': _formatDateOnly(birthDate),
         },
-        mapper: (json) => DataDto.fromJson(json, (json) => TokenDto.fromJson(json as Json)),
+        mapper: (json) =>
+            DataDto.fromJson(json, (json) => TokenDto.fromJson(json as Json)),
         converter: (dto) => TokenEntity(accessToken: dto.data.accessToken),
       );
 
@@ -44,7 +45,8 @@ class RemoteAuthenticationRepository implements AuthenticationRepository {
           "email": email,
           'password': password,
         },
-        mapper: (json) => DataDto.fromJson(json, (json) => TokenDto.fromJson(json as Json)),
+        mapper: (json) =>
+            DataDto.fromJson(json, (json) => TokenDto.fromJson(json as Json)),
         converter: (dto) => TokenEntity(accessToken: dto.data.accessToken),
       );
 
@@ -64,3 +66,9 @@ class RemoteAuthenticationRepository implements AuthenticationRepository {
     // }
   }
 }
+
+String _formatDateOnly(DateTime value) => [
+      value.year.toString().padLeft(4, '0'),
+      value.month.toString().padLeft(2, '0'),
+      value.day.toString().padLeft(2, '0'),
+    ].join('-');

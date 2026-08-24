@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:quiz/features/user/domain/entity/age_access_entity.dart';
 import 'package:quiz/features/user/domain/entity/subscription_entity.dart';
 
 part 'user_entity.freezed.dart';
@@ -9,7 +10,8 @@ class UserEntity with _$UserEntity {
     required String id,
     required String? email,
     required String? name,
-    required DateTime? birthDate,
+    AgeAccessEntity? ageAccess,
+    String? timezoneId,
     required int level,
     required int experienceInLevel,
     required int levelExperience,
@@ -22,6 +24,10 @@ class UserEntity with _$UserEntity {
     required DateTime memberSince,
     required int achievementsUnlocked,
     required int achievementsTotal,
+    @Default(1000) int rating,
+    @Default(1000) int bestRating,
+    @Default(0) int ratingOfficialAnswers,
+    @Default(true) bool ratingProvisional,
     SubscriptionEntity? subscription,
   }) = _UserEntity;
 }

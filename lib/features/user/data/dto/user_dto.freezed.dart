@@ -23,8 +23,10 @@ mixin _$UserDto {
   String get id => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
-  @JsonKey(name: 'birth_date')
-  DateTime? get birthDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'age_access')
+  AgeAccessDto? get ageAccess => throw _privateConstructorUsedError;
+  @JsonKey(name: 'timezone_id')
+  String? get timezoneId => throw _privateConstructorUsedError;
   int get level => throw _privateConstructorUsedError;
   @JsonKey(name: 'experience_in_level')
   int get experienceInLevel => throw _privateConstructorUsedError;
@@ -47,6 +49,13 @@ mixin _$UserDto {
   int get achievementsUnlocked => throw _privateConstructorUsedError;
   @JsonKey(name: 'achievements_total')
   int get achievementsTotal => throw _privateConstructorUsedError;
+  int get rating => throw _privateConstructorUsedError;
+  @JsonKey(name: 'best_rating')
+  int get bestRating => throw _privateConstructorUsedError;
+  @JsonKey(name: 'rating_official_answers')
+  int get ratingOfficialAnswers => throw _privateConstructorUsedError;
+  @JsonKey(name: 'rating_provisional')
+  bool get ratingProvisional => throw _privateConstructorUsedError;
   SubscriptionDto? get subscription => throw _privateConstructorUsedError;
 
   /// Serializes this UserDto to a JSON map.
@@ -67,7 +76,8 @@ abstract class $UserDtoCopyWith<$Res> {
       {String id,
       String? email,
       String? name,
-      @JsonKey(name: 'birth_date') DateTime? birthDate,
+      @JsonKey(name: 'age_access') AgeAccessDto? ageAccess,
+      @JsonKey(name: 'timezone_id') String? timezoneId,
       int level,
       @JsonKey(name: 'experience_in_level') int experienceInLevel,
       @JsonKey(name: 'level_experience') int levelExperience,
@@ -80,6 +90,10 @@ abstract class $UserDtoCopyWith<$Res> {
       @JsonKey(name: 'member_since') DateTime memberSince,
       @JsonKey(name: 'achievements_unlocked') int achievementsUnlocked,
       @JsonKey(name: 'achievements_total') int achievementsTotal,
+      int rating,
+      @JsonKey(name: 'best_rating') int bestRating,
+      @JsonKey(name: 'rating_official_answers') int ratingOfficialAnswers,
+      @JsonKey(name: 'rating_provisional') bool ratingProvisional,
       SubscriptionDto? subscription});
 
   $SubscriptionDtoCopyWith<$Res>? get subscription;
@@ -103,7 +117,8 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
     Object? id = null,
     Object? email = freezed,
     Object? name = freezed,
-    Object? birthDate = freezed,
+    Object? ageAccess = freezed,
+    Object? timezoneId = freezed,
     Object? level = null,
     Object? experienceInLevel = null,
     Object? levelExperience = null,
@@ -116,6 +131,10 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
     Object? memberSince = null,
     Object? achievementsUnlocked = null,
     Object? achievementsTotal = null,
+    Object? rating = null,
+    Object? bestRating = null,
+    Object? ratingOfficialAnswers = null,
+    Object? ratingProvisional = null,
     Object? subscription = freezed,
   }) {
     return _then(_value.copyWith(
@@ -131,10 +150,14 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      birthDate: freezed == birthDate
-          ? _value.birthDate
-          : birthDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      ageAccess: freezed == ageAccess
+          ? _value.ageAccess
+          : ageAccess // ignore: cast_nullable_to_non_nullable
+              as AgeAccessDto?,
+      timezoneId: freezed == timezoneId
+          ? _value.timezoneId
+          : timezoneId // ignore: cast_nullable_to_non_nullable
+              as String?,
       level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
@@ -183,6 +206,22 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
           ? _value.achievementsTotal
           : achievementsTotal // ignore: cast_nullable_to_non_nullable
               as int,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int,
+      bestRating: null == bestRating
+          ? _value.bestRating
+          : bestRating // ignore: cast_nullable_to_non_nullable
+              as int,
+      ratingOfficialAnswers: null == ratingOfficialAnswers
+          ? _value.ratingOfficialAnswers
+          : ratingOfficialAnswers // ignore: cast_nullable_to_non_nullable
+              as int,
+      ratingProvisional: null == ratingProvisional
+          ? _value.ratingProvisional
+          : ratingProvisional // ignore: cast_nullable_to_non_nullable
+              as bool,
       subscription: freezed == subscription
           ? _value.subscription
           : subscription // ignore: cast_nullable_to_non_nullable
@@ -216,7 +255,8 @@ abstract class _$$UserDtoImplCopyWith<$Res> implements $UserDtoCopyWith<$Res> {
       {String id,
       String? email,
       String? name,
-      @JsonKey(name: 'birth_date') DateTime? birthDate,
+      @JsonKey(name: 'age_access') AgeAccessDto? ageAccess,
+      @JsonKey(name: 'timezone_id') String? timezoneId,
       int level,
       @JsonKey(name: 'experience_in_level') int experienceInLevel,
       @JsonKey(name: 'level_experience') int levelExperience,
@@ -229,6 +269,10 @@ abstract class _$$UserDtoImplCopyWith<$Res> implements $UserDtoCopyWith<$Res> {
       @JsonKey(name: 'member_since') DateTime memberSince,
       @JsonKey(name: 'achievements_unlocked') int achievementsUnlocked,
       @JsonKey(name: 'achievements_total') int achievementsTotal,
+      int rating,
+      @JsonKey(name: 'best_rating') int bestRating,
+      @JsonKey(name: 'rating_official_answers') int ratingOfficialAnswers,
+      @JsonKey(name: 'rating_provisional') bool ratingProvisional,
       SubscriptionDto? subscription});
 
   @override
@@ -251,7 +295,8 @@ class __$$UserDtoImplCopyWithImpl<$Res>
     Object? id = null,
     Object? email = freezed,
     Object? name = freezed,
-    Object? birthDate = freezed,
+    Object? ageAccess = freezed,
+    Object? timezoneId = freezed,
     Object? level = null,
     Object? experienceInLevel = null,
     Object? levelExperience = null,
@@ -264,6 +309,10 @@ class __$$UserDtoImplCopyWithImpl<$Res>
     Object? memberSince = null,
     Object? achievementsUnlocked = null,
     Object? achievementsTotal = null,
+    Object? rating = null,
+    Object? bestRating = null,
+    Object? ratingOfficialAnswers = null,
+    Object? ratingProvisional = null,
     Object? subscription = freezed,
   }) {
     return _then(_$UserDtoImpl(
@@ -279,10 +328,14 @@ class __$$UserDtoImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      birthDate: freezed == birthDate
-          ? _value.birthDate
-          : birthDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      ageAccess: freezed == ageAccess
+          ? _value.ageAccess
+          : ageAccess // ignore: cast_nullable_to_non_nullable
+              as AgeAccessDto?,
+      timezoneId: freezed == timezoneId
+          ? _value.timezoneId
+          : timezoneId // ignore: cast_nullable_to_non_nullable
+              as String?,
       level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
@@ -331,6 +384,22 @@ class __$$UserDtoImplCopyWithImpl<$Res>
           ? _value.achievementsTotal
           : achievementsTotal // ignore: cast_nullable_to_non_nullable
               as int,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int,
+      bestRating: null == bestRating
+          ? _value.bestRating
+          : bestRating // ignore: cast_nullable_to_non_nullable
+              as int,
+      ratingOfficialAnswers: null == ratingOfficialAnswers
+          ? _value.ratingOfficialAnswers
+          : ratingOfficialAnswers // ignore: cast_nullable_to_non_nullable
+              as int,
+      ratingProvisional: null == ratingProvisional
+          ? _value.ratingProvisional
+          : ratingProvisional // ignore: cast_nullable_to_non_nullable
+              as bool,
       subscription: freezed == subscription
           ? _value.subscription
           : subscription // ignore: cast_nullable_to_non_nullable
@@ -346,7 +415,8 @@ class _$UserDtoImpl implements _UserDto {
       {required this.id,
       this.email,
       this.name,
-      @JsonKey(name: 'birth_date') this.birthDate,
+      @JsonKey(name: 'age_access') this.ageAccess,
+      @JsonKey(name: 'timezone_id') this.timezoneId,
       required this.level,
       @JsonKey(name: 'experience_in_level') required this.experienceInLevel,
       @JsonKey(name: 'level_experience') required this.levelExperience,
@@ -360,6 +430,10 @@ class _$UserDtoImpl implements _UserDto {
       @JsonKey(name: 'achievements_unlocked')
       required this.achievementsUnlocked,
       @JsonKey(name: 'achievements_total') required this.achievementsTotal,
+      this.rating = 1000,
+      @JsonKey(name: 'best_rating') this.bestRating = 1000,
+      @JsonKey(name: 'rating_official_answers') this.ratingOfficialAnswers = 0,
+      @JsonKey(name: 'rating_provisional') this.ratingProvisional = true,
       this.subscription});
 
   factory _$UserDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -372,8 +446,11 @@ class _$UserDtoImpl implements _UserDto {
   @override
   final String? name;
   @override
-  @JsonKey(name: 'birth_date')
-  final DateTime? birthDate;
+  @JsonKey(name: 'age_access')
+  final AgeAccessDto? ageAccess;
+  @override
+  @JsonKey(name: 'timezone_id')
+  final String? timezoneId;
   @override
   final int level;
   @override
@@ -409,11 +486,23 @@ class _$UserDtoImpl implements _UserDto {
   @JsonKey(name: 'achievements_total')
   final int achievementsTotal;
   @override
+  @JsonKey()
+  final int rating;
+  @override
+  @JsonKey(name: 'best_rating')
+  final int bestRating;
+  @override
+  @JsonKey(name: 'rating_official_answers')
+  final int ratingOfficialAnswers;
+  @override
+  @JsonKey(name: 'rating_provisional')
+  final bool ratingProvisional;
+  @override
   final SubscriptionDto? subscription;
 
   @override
   String toString() {
-    return 'UserDto(id: $id, email: $email, name: $name, birthDate: $birthDate, level: $level, experienceInLevel: $experienceInLevel, levelExperience: $levelExperience, streakDays: $streakDays, bestStreakDays: $bestStreakDays, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, totalPoints: $totalPoints, memberSince: $memberSince, achievementsUnlocked: $achievementsUnlocked, achievementsTotal: $achievementsTotal, subscription: $subscription)';
+    return 'UserDto(id: $id, email: $email, name: $name, ageAccess: $ageAccess, timezoneId: $timezoneId, level: $level, experienceInLevel: $experienceInLevel, levelExperience: $levelExperience, streakDays: $streakDays, bestStreakDays: $bestStreakDays, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, totalPoints: $totalPoints, memberSince: $memberSince, achievementsUnlocked: $achievementsUnlocked, achievementsTotal: $achievementsTotal, rating: $rating, bestRating: $bestRating, ratingOfficialAnswers: $ratingOfficialAnswers, ratingProvisional: $ratingProvisional, subscription: $subscription)';
   }
 
   @override
@@ -424,8 +513,10 @@ class _$UserDtoImpl implements _UserDto {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.birthDate, birthDate) ||
-                other.birthDate == birthDate) &&
+            (identical(other.ageAccess, ageAccess) ||
+                other.ageAccess == ageAccess) &&
+            (identical(other.timezoneId, timezoneId) ||
+                other.timezoneId == timezoneId) &&
             (identical(other.level, level) || other.level == level) &&
             (identical(other.experienceInLevel, experienceInLevel) ||
                 other.experienceInLevel == experienceInLevel) &&
@@ -449,31 +540,44 @@ class _$UserDtoImpl implements _UserDto {
                 other.achievementsUnlocked == achievementsUnlocked) &&
             (identical(other.achievementsTotal, achievementsTotal) ||
                 other.achievementsTotal == achievementsTotal) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.bestRating, bestRating) ||
+                other.bestRating == bestRating) &&
+            (identical(other.ratingOfficialAnswers, ratingOfficialAnswers) ||
+                other.ratingOfficialAnswers == ratingOfficialAnswers) &&
+            (identical(other.ratingProvisional, ratingProvisional) ||
+                other.ratingProvisional == ratingProvisional) &&
             (identical(other.subscription, subscription) ||
                 other.subscription == subscription));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      email,
-      name,
-      birthDate,
-      level,
-      experienceInLevel,
-      levelExperience,
-      streakDays,
-      bestStreakDays,
-      questionsAnswered,
-      correctAnswers,
-      accuracy,
-      totalPoints,
-      memberSince,
-      achievementsUnlocked,
-      achievementsTotal,
-      subscription);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        email,
+        name,
+        ageAccess,
+        timezoneId,
+        level,
+        experienceInLevel,
+        levelExperience,
+        streakDays,
+        bestStreakDays,
+        questionsAnswered,
+        correctAnswers,
+        accuracy,
+        totalPoints,
+        memberSince,
+        achievementsUnlocked,
+        achievementsTotal,
+        rating,
+        bestRating,
+        ratingOfficialAnswers,
+        ratingProvisional,
+        subscription
+      ]);
 
   /// Create a copy of UserDto
   /// with the given fields replaced by the non-null parameter values.
@@ -496,7 +600,8 @@ abstract class _UserDto implements UserDto {
       {required final String id,
       final String? email,
       final String? name,
-      @JsonKey(name: 'birth_date') final DateTime? birthDate,
+      @JsonKey(name: 'age_access') final AgeAccessDto? ageAccess,
+      @JsonKey(name: 'timezone_id') final String? timezoneId,
       required final int level,
       @JsonKey(name: 'experience_in_level')
       required final int experienceInLevel,
@@ -511,6 +616,10 @@ abstract class _UserDto implements UserDto {
       @JsonKey(name: 'achievements_unlocked')
       required final int achievementsUnlocked,
       @JsonKey(name: 'achievements_total') required final int achievementsTotal,
+      final int rating,
+      @JsonKey(name: 'best_rating') final int bestRating,
+      @JsonKey(name: 'rating_official_answers') final int ratingOfficialAnswers,
+      @JsonKey(name: 'rating_provisional') final bool ratingProvisional,
       final SubscriptionDto? subscription}) = _$UserDtoImpl;
 
   factory _UserDto.fromJson(Map<String, dynamic> json) = _$UserDtoImpl.fromJson;
@@ -522,8 +631,11 @@ abstract class _UserDto implements UserDto {
   @override
   String? get name;
   @override
-  @JsonKey(name: 'birth_date')
-  DateTime? get birthDate;
+  @JsonKey(name: 'age_access')
+  AgeAccessDto? get ageAccess;
+  @override
+  @JsonKey(name: 'timezone_id')
+  String? get timezoneId;
   @override
   int get level;
   @override
@@ -558,6 +670,17 @@ abstract class _UserDto implements UserDto {
   @override
   @JsonKey(name: 'achievements_total')
   int get achievementsTotal;
+  @override
+  int get rating;
+  @override
+  @JsonKey(name: 'best_rating')
+  int get bestRating;
+  @override
+  @JsonKey(name: 'rating_official_answers')
+  int get ratingOfficialAnswers;
+  @override
+  @JsonKey(name: 'rating_provisional')
+  bool get ratingProvisional;
   @override
   SubscriptionDto? get subscription;
 

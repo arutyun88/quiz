@@ -23,7 +23,8 @@ class DioApiClient implements ApiClient {
     required AuthTokenService tokenService,
     required UnauthorizedEventService unauthorizedEventService,
     required SettingsLocalStorageService settingsStorage,
-  })  : _dio = _configurDio(config, deviceId, tokenService, unauthorizedEventService),
+  })  : _dio = _configurDio(
+            config, deviceId, tokenService, unauthorizedEventService),
         _settingsStorage = settingsStorage;
 
   static _configurDio(
@@ -56,9 +57,11 @@ class DioApiClient implements ApiClient {
     if (config.enableLogging) {
       dio.interceptors.add(
         PrettyDioLogger(
-          requestHeader: true,
-          requestBody: true,
-          responseBody: true,
+          // Headers and payloads can contain tokens, credentials,
+          // and private age state.
+          requestHeader: false,
+          requestBody: false,
+          responseBody: false,
           responseHeader: false,
         ),
       );
@@ -193,7 +196,11 @@ class DioApiClient implements ApiClient {
         }
 
         return Failure.network(
-          NetworkFailureReason.badResponse(message ?? 'Bad response error'),
+          NetworkFailureReason.badResponse(
+            message ?? 'Bad response error',
+            statusCode: exc.response?.statusCode,
+            errorCode: error is String ? error : null,
+          ),
         );
       case DioExceptionType.cancel:
         return Failure.network(
@@ -209,7 +216,8 @@ class DioApiClient implements ApiClient {
   Json _prepareHeaders(Json? headers, bool enableLocale) {
     final requestHeaders = Map<String, dynamic>.from(headers ?? {});
     if (enableLocale) {
-      requestHeaders['X-Lang'] = _settingsStorage.fetchLocale() ?? LocaleSettings.currentLocale.languageCode;
+      requestHeaders['X-Lang'] = _settingsStorage.fetchLocale() ??
+          LocaleSettings.currentLocale.languageCode;
     }
     return requestHeaders;
   }

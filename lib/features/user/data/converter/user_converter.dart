@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:quiz/app/core/model/data_page/data_dto.dart';
 import 'package:quiz/app/core/model/dto_converter.dart';
+import 'package:quiz/features/user/data/converter/age_access_converter.dart';
 import 'package:quiz/features/user/data/dto/subscription_dto.dart';
 import 'package:quiz/features/user/data/dto/user_dto.dart';
 import 'package:quiz/features/user/domain/entity/subscription_entity.dart';
@@ -16,7 +17,8 @@ final class UserConverterImpl extends UserConverter {
       id: dto.data.id,
       email: dto.data.email,
       name: dto.data.name,
-      birthDate: dto.data.birthDate,
+      ageAccess: dto.data.ageAccess?.toEntity(),
+      timezoneId: dto.data.timezoneId,
       level: dto.data.level,
       experienceInLevel: dto.data.experienceInLevel,
       levelExperience: dto.data.levelExperience,
@@ -29,6 +31,10 @@ final class UserConverterImpl extends UserConverter {
       memberSince: dto.data.memberSince,
       achievementsUnlocked: dto.data.achievementsUnlocked,
       achievementsTotal: dto.data.achievementsTotal,
+      rating: dto.data.rating,
+      bestRating: dto.data.bestRating,
+      ratingOfficialAnswers: dto.data.ratingOfficialAnswers,
+      ratingProvisional: dto.data.ratingProvisional,
       subscription: _convertSubscription(dto.data.subscription),
     );
   }
@@ -38,7 +44,9 @@ final class UserConverterImpl extends UserConverter {
 
     return SubscriptionEntity(
       active: dto.active,
-      plan: dto.plan == 'MONTHLY' ? SubscriptionPlan.monthly : SubscriptionPlan.yearly,
+      plan: dto.plan == 'MONTHLY'
+          ? SubscriptionPlan.monthly
+          : SubscriptionPlan.yearly,
       renewsAt: dto.renewsAt,
     );
   }

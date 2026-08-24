@@ -23,7 +23,8 @@ mixin _$UserDao {
   String get id => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
-  String? get birthDateIso => throw _privateConstructorUsedError;
+  AgeAccessDao? get ageAccess => throw _privateConstructorUsedError;
+  String? get timezoneId => throw _privateConstructorUsedError;
   int get level => throw _privateConstructorUsedError;
   int get experienceInLevel => throw _privateConstructorUsedError;
   int get levelExperience => throw _privateConstructorUsedError;
@@ -36,6 +37,10 @@ mixin _$UserDao {
   String get memberSinceIso => throw _privateConstructorUsedError;
   int get achievementsUnlocked => throw _privateConstructorUsedError;
   int get achievementsTotal => throw _privateConstructorUsedError;
+  int get rating => throw _privateConstructorUsedError;
+  int get bestRating => throw _privateConstructorUsedError;
+  int get ratingOfficialAnswers => throw _privateConstructorUsedError;
+  bool get ratingProvisional => throw _privateConstructorUsedError;
 
   /// Serializes this UserDao to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -55,7 +60,8 @@ abstract class $UserDaoCopyWith<$Res> {
       {String id,
       String? email,
       String? name,
-      String? birthDateIso,
+      AgeAccessDao? ageAccess,
+      String? timezoneId,
       int level,
       int experienceInLevel,
       int levelExperience,
@@ -67,7 +73,11 @@ abstract class $UserDaoCopyWith<$Res> {
       int totalPoints,
       String memberSinceIso,
       int achievementsUnlocked,
-      int achievementsTotal});
+      int achievementsTotal,
+      int rating,
+      int bestRating,
+      int ratingOfficialAnswers,
+      bool ratingProvisional});
 }
 
 /// @nodoc
@@ -88,7 +98,8 @@ class _$UserDaoCopyWithImpl<$Res, $Val extends UserDao>
     Object? id = null,
     Object? email = freezed,
     Object? name = freezed,
-    Object? birthDateIso = freezed,
+    Object? ageAccess = freezed,
+    Object? timezoneId = freezed,
     Object? level = null,
     Object? experienceInLevel = null,
     Object? levelExperience = null,
@@ -101,6 +112,10 @@ class _$UserDaoCopyWithImpl<$Res, $Val extends UserDao>
     Object? memberSinceIso = null,
     Object? achievementsUnlocked = null,
     Object? achievementsTotal = null,
+    Object? rating = null,
+    Object? bestRating = null,
+    Object? ratingOfficialAnswers = null,
+    Object? ratingProvisional = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -115,9 +130,13 @@ class _$UserDaoCopyWithImpl<$Res, $Val extends UserDao>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      birthDateIso: freezed == birthDateIso
-          ? _value.birthDateIso
-          : birthDateIso // ignore: cast_nullable_to_non_nullable
+      ageAccess: freezed == ageAccess
+          ? _value.ageAccess
+          : ageAccess // ignore: cast_nullable_to_non_nullable
+              as AgeAccessDao?,
+      timezoneId: freezed == timezoneId
+          ? _value.timezoneId
+          : timezoneId // ignore: cast_nullable_to_non_nullable
               as String?,
       level: null == level
           ? _value.level
@@ -167,6 +186,22 @@ class _$UserDaoCopyWithImpl<$Res, $Val extends UserDao>
           ? _value.achievementsTotal
           : achievementsTotal // ignore: cast_nullable_to_non_nullable
               as int,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int,
+      bestRating: null == bestRating
+          ? _value.bestRating
+          : bestRating // ignore: cast_nullable_to_non_nullable
+              as int,
+      ratingOfficialAnswers: null == ratingOfficialAnswers
+          ? _value.ratingOfficialAnswers
+          : ratingOfficialAnswers // ignore: cast_nullable_to_non_nullable
+              as int,
+      ratingProvisional: null == ratingProvisional
+          ? _value.ratingProvisional
+          : ratingProvisional // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -182,7 +217,8 @@ abstract class _$$UserDaoImplCopyWith<$Res> implements $UserDaoCopyWith<$Res> {
       {String id,
       String? email,
       String? name,
-      String? birthDateIso,
+      AgeAccessDao? ageAccess,
+      String? timezoneId,
       int level,
       int experienceInLevel,
       int levelExperience,
@@ -194,7 +230,11 @@ abstract class _$$UserDaoImplCopyWith<$Res> implements $UserDaoCopyWith<$Res> {
       int totalPoints,
       String memberSinceIso,
       int achievementsUnlocked,
-      int achievementsTotal});
+      int achievementsTotal,
+      int rating,
+      int bestRating,
+      int ratingOfficialAnswers,
+      bool ratingProvisional});
 }
 
 /// @nodoc
@@ -213,7 +253,8 @@ class __$$UserDaoImplCopyWithImpl<$Res>
     Object? id = null,
     Object? email = freezed,
     Object? name = freezed,
-    Object? birthDateIso = freezed,
+    Object? ageAccess = freezed,
+    Object? timezoneId = freezed,
     Object? level = null,
     Object? experienceInLevel = null,
     Object? levelExperience = null,
@@ -226,6 +267,10 @@ class __$$UserDaoImplCopyWithImpl<$Res>
     Object? memberSinceIso = null,
     Object? achievementsUnlocked = null,
     Object? achievementsTotal = null,
+    Object? rating = null,
+    Object? bestRating = null,
+    Object? ratingOfficialAnswers = null,
+    Object? ratingProvisional = null,
   }) {
     return _then(_$UserDaoImpl(
       id: null == id
@@ -240,9 +285,13 @@ class __$$UserDaoImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      birthDateIso: freezed == birthDateIso
-          ? _value.birthDateIso
-          : birthDateIso // ignore: cast_nullable_to_non_nullable
+      ageAccess: freezed == ageAccess
+          ? _value.ageAccess
+          : ageAccess // ignore: cast_nullable_to_non_nullable
+              as AgeAccessDao?,
+      timezoneId: freezed == timezoneId
+          ? _value.timezoneId
+          : timezoneId // ignore: cast_nullable_to_non_nullable
               as String?,
       level: null == level
           ? _value.level
@@ -292,6 +341,22 @@ class __$$UserDaoImplCopyWithImpl<$Res>
           ? _value.achievementsTotal
           : achievementsTotal // ignore: cast_nullable_to_non_nullable
               as int,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int,
+      bestRating: null == bestRating
+          ? _value.bestRating
+          : bestRating // ignore: cast_nullable_to_non_nullable
+              as int,
+      ratingOfficialAnswers: null == ratingOfficialAnswers
+          ? _value.ratingOfficialAnswers
+          : ratingOfficialAnswers // ignore: cast_nullable_to_non_nullable
+              as int,
+      ratingProvisional: null == ratingProvisional
+          ? _value.ratingProvisional
+          : ratingProvisional // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -303,7 +368,8 @@ class _$UserDaoImpl extends _UserDao {
       {required this.id,
       this.email,
       this.name,
-      this.birthDateIso,
+      this.ageAccess,
+      this.timezoneId,
       required this.level,
       required this.experienceInLevel,
       required this.levelExperience,
@@ -315,7 +381,11 @@ class _$UserDaoImpl extends _UserDao {
       required this.totalPoints,
       required this.memberSinceIso,
       required this.achievementsUnlocked,
-      required this.achievementsTotal})
+      required this.achievementsTotal,
+      this.rating = 1000,
+      this.bestRating = 1000,
+      this.ratingOfficialAnswers = 0,
+      this.ratingProvisional = true})
       : super._();
 
   factory _$UserDaoImpl.fromJson(Map<String, dynamic> json) =>
@@ -328,7 +398,9 @@ class _$UserDaoImpl extends _UserDao {
   @override
   final String? name;
   @override
-  final String? birthDateIso;
+  final AgeAccessDao? ageAccess;
+  @override
+  final String? timezoneId;
   @override
   final int level;
   @override
@@ -353,10 +425,22 @@ class _$UserDaoImpl extends _UserDao {
   final int achievementsUnlocked;
   @override
   final int achievementsTotal;
+  @override
+  @JsonKey()
+  final int rating;
+  @override
+  @JsonKey()
+  final int bestRating;
+  @override
+  @JsonKey()
+  final int ratingOfficialAnswers;
+  @override
+  @JsonKey()
+  final bool ratingProvisional;
 
   @override
   String toString() {
-    return 'UserDao(id: $id, email: $email, name: $name, birthDateIso: $birthDateIso, level: $level, experienceInLevel: $experienceInLevel, levelExperience: $levelExperience, streakDays: $streakDays, bestStreakDays: $bestStreakDays, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, totalPoints: $totalPoints, memberSinceIso: $memberSinceIso, achievementsUnlocked: $achievementsUnlocked, achievementsTotal: $achievementsTotal)';
+    return 'UserDao(id: $id, email: $email, name: $name, ageAccess: $ageAccess, timezoneId: $timezoneId, level: $level, experienceInLevel: $experienceInLevel, levelExperience: $levelExperience, streakDays: $streakDays, bestStreakDays: $bestStreakDays, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, totalPoints: $totalPoints, memberSinceIso: $memberSinceIso, achievementsUnlocked: $achievementsUnlocked, achievementsTotal: $achievementsTotal, rating: $rating, bestRating: $bestRating, ratingOfficialAnswers: $ratingOfficialAnswers, ratingProvisional: $ratingProvisional)';
   }
 
   @override
@@ -367,8 +451,10 @@ class _$UserDaoImpl extends _UserDao {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.birthDateIso, birthDateIso) ||
-                other.birthDateIso == birthDateIso) &&
+            (identical(other.ageAccess, ageAccess) ||
+                other.ageAccess == ageAccess) &&
+            (identical(other.timezoneId, timezoneId) ||
+                other.timezoneId == timezoneId) &&
             (identical(other.level, level) || other.level == level) &&
             (identical(other.experienceInLevel, experienceInLevel) ||
                 other.experienceInLevel == experienceInLevel) &&
@@ -391,29 +477,42 @@ class _$UserDaoImpl extends _UserDao {
             (identical(other.achievementsUnlocked, achievementsUnlocked) ||
                 other.achievementsUnlocked == achievementsUnlocked) &&
             (identical(other.achievementsTotal, achievementsTotal) ||
-                other.achievementsTotal == achievementsTotal));
+                other.achievementsTotal == achievementsTotal) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.bestRating, bestRating) ||
+                other.bestRating == bestRating) &&
+            (identical(other.ratingOfficialAnswers, ratingOfficialAnswers) ||
+                other.ratingOfficialAnswers == ratingOfficialAnswers) &&
+            (identical(other.ratingProvisional, ratingProvisional) ||
+                other.ratingProvisional == ratingProvisional));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      email,
-      name,
-      birthDateIso,
-      level,
-      experienceInLevel,
-      levelExperience,
-      streakDays,
-      bestStreakDays,
-      questionsAnswered,
-      correctAnswers,
-      accuracy,
-      totalPoints,
-      memberSinceIso,
-      achievementsUnlocked,
-      achievementsTotal);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        email,
+        name,
+        ageAccess,
+        timezoneId,
+        level,
+        experienceInLevel,
+        levelExperience,
+        streakDays,
+        bestStreakDays,
+        questionsAnswered,
+        correctAnswers,
+        accuracy,
+        totalPoints,
+        memberSinceIso,
+        achievementsUnlocked,
+        achievementsTotal,
+        rating,
+        bestRating,
+        ratingOfficialAnswers,
+        ratingProvisional
+      ]);
 
   /// Create a copy of UserDao
   /// with the given fields replaced by the non-null parameter values.
@@ -436,7 +535,8 @@ abstract class _UserDao extends UserDao {
       {required final String id,
       final String? email,
       final String? name,
-      final String? birthDateIso,
+      final AgeAccessDao? ageAccess,
+      final String? timezoneId,
       required final int level,
       required final int experienceInLevel,
       required final int levelExperience,
@@ -448,7 +548,11 @@ abstract class _UserDao extends UserDao {
       required final int totalPoints,
       required final String memberSinceIso,
       required final int achievementsUnlocked,
-      required final int achievementsTotal}) = _$UserDaoImpl;
+      required final int achievementsTotal,
+      final int rating,
+      final int bestRating,
+      final int ratingOfficialAnswers,
+      final bool ratingProvisional}) = _$UserDaoImpl;
   const _UserDao._() : super._();
 
   factory _UserDao.fromJson(Map<String, dynamic> json) = _$UserDaoImpl.fromJson;
@@ -460,7 +564,9 @@ abstract class _UserDao extends UserDao {
   @override
   String? get name;
   @override
-  String? get birthDateIso;
+  AgeAccessDao? get ageAccess;
+  @override
+  String? get timezoneId;
   @override
   int get level;
   @override
@@ -485,6 +591,14 @@ abstract class _UserDao extends UserDao {
   int get achievementsUnlocked;
   @override
   int get achievementsTotal;
+  @override
+  int get rating;
+  @override
+  int get bestRating;
+  @override
+  int get ratingOfficialAnswers;
+  @override
+  bool get ratingProvisional;
 
   /// Create a copy of UserDao
   /// with the given fields replaced by the non-null parameter values.
