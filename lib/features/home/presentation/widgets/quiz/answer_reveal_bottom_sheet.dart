@@ -13,12 +13,14 @@ class AnswerRevealBottomSheet extends StatelessWidget {
     required this.sentState,
     required this.onNext,
     this.ratingDelta,
+    this.partnerBlock,
   });
 
   final QuestionEntity question;
   final QuestionAnswerSentState sentState;
   final VoidCallback onNext;
   final int? ratingDelta;
+  final Widget? partnerBlock;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,7 @@ class AnswerRevealBottomSheet extends StatelessWidget {
           _AnswerExplanationPanel(
             correctAnswer: correctAnswer,
             description: sentState.description,
+            partnerBlock: partnerBlock,
             onNext: onNext,
           ),
         ],
@@ -128,11 +131,13 @@ class _AnswerExplanationPanel extends StatelessWidget {
   const _AnswerExplanationPanel({
     required this.correctAnswer,
     required this.description,
+    required this.partnerBlock,
     required this.onNext,
   });
 
   final String correctAnswer;
   final String? description;
+  final Widget? partnerBlock;
   final VoidCallback onNext;
 
   @override
@@ -164,6 +169,7 @@ class _AnswerExplanationPanel extends StatelessWidget {
               ),
             ),
           ],
+          if (partnerBlock case final partnerBlock?) partnerBlock,
           const SizedBox(height: 18),
           AppButtonV2(
             label: context.t.question.answer_reveal.next_question,

@@ -6,7 +6,10 @@ import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_question_provider.dart';
+import 'package:quiz/features/daily_edition/presentation/provider/partner_interaction_provider.dart';
 import 'package:quiz/features/daily_edition/presentation/widgets/daily_hint_panel.dart';
+import 'package:quiz/features/daily_edition/presentation/widgets/partner_recommendation_block.dart';
+import 'package:quiz/features/daily_edition/domain/service/partner_interaction_tracker.dart';
 import 'package:quiz/features/gamification/presentation/provider/gamification_provider.dart';
 import 'package:quiz/features/home/presentation/widgets/quiz/answer_reveal_bottom_sheet.dart';
 import 'package:quiz/features/home/presentation/widgets/quiz/quiz_body.dart';
@@ -136,6 +139,7 @@ class DailyQuizPage extends ConsumerWidget {
           question: question,
           sentState: sentState,
           ratingDelta: editionState.attempt?.ratingDelta,
+          partnerBlock: _partnerBlock(ref, editionState),
           onNext: ref.read(dailyEditionProvider.notifier).advance,
         );
       },
@@ -171,6 +175,7 @@ class DailyQuizPage extends ConsumerWidget {
     required QuestionEntity question,
     required QuestionAnswerSentState sentState,
     required int? ratingDelta,
+    required Widget? partnerBlock,
     required Future<void> Function() onNext,
   }) async {
     final palette = context.palette;
@@ -193,12 +198,30 @@ class DailyQuizPage extends ConsumerWidget {
           question: question,
           sentState: sentState,
           ratingDelta: ratingDelta,
+          partnerBlock: partnerBlock,
           onNext: () {
             Navigator.of(sheetContext).pop();
             onNext();
           },
         ),
       ),
+    );
+  }
+
+  Widget? _partnerBlock(WidgetRef ref, DailyEditionActiveState state) {
+    final attempt = state.attempt;
+    final partner = attempt?.partner;
+    if (attempt == null || partner == null) return null;
+    return PartnerRecommendationBlock(
+      partner: partner,
+      interaction: PartnerInteraction(
+        campaignId: partner.campaignId,
+        attemptId: attempt.attemptId,
+        assignmentId: attempt.assignmentId,
+        questionVersionId: attempt.questionVersionId,
+      ),
+      tracker: ref.read(partnerInteractionTrackerProvider),
+      launcher: ref.read(partnerLinkLauncherProvider),
     );
   }
 }
