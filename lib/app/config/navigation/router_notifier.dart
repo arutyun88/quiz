@@ -11,8 +11,8 @@ import 'package:quiz/features/daily_result/presentation/daily_result_flow.dart';
 import 'package:quiz/features/debug/debug_answered_question_page.dart';
 import 'package:quiz/features/debug/debug_flow.dart';
 import 'package:quiz/features/debug/debug_question_page.dart';
-import 'package:quiz/features/home/presentation/home_flow.dart';
 import 'package:quiz/features/home/presentation/home_gate_flow.dart';
+import 'package:quiz/features/home/presentation/quiz_gate_flow.dart';
 import 'package:quiz/features/leaderboard/presentation/pages/leaderboard_history_page.dart';
 import 'package:quiz/features/mastery/presentation/mastery_flow.dart';
 import 'package:quiz/features/onboarding/presentation/onboarding_flow.dart';
@@ -77,7 +77,7 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                 GoRoute(
                   path: '/quiz',
                   name: 'quiz',
-                  builder: (context, state) => const HomeFlow(),
+                  builder: (context, state) => const QuizGateFlow(),
                 ),
               ],
             ),
