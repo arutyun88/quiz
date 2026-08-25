@@ -3,14 +3,19 @@ import 'package:mocktail/mocktail.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.dart';
+import 'package:quiz/features/daily_edition/domain/entity/pending_daily_attempt_entity.dart';
 import 'package:quiz/features/daily_edition/domain/repository/daily_edition_repository.dart';
+import 'package:quiz/features/daily_edition/domain/service/daily_attempt_outbox.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 
 class MockDailyEditionRepository extends Mock
     implements DailyEditionRepository {}
 
+class MockDailyAttemptOutbox extends Mock implements DailyAttemptOutbox {}
+
 void main() {
   late MockDailyEditionRepository repository;
+  late MockDailyAttemptOutbox outbox;
   late DailyEditionNotifier notifier;
 
   final activeRun = DailyRunEntity(
@@ -88,11 +93,38 @@ void main() {
 
   setUpAll(() {
     registerFallbackValue(DailyAttemptAction.answer);
+    registerFallbackValue(
+      PendingDailyAttemptEntity(
+        accountId: 'account-1',
+        runId: 'run-1',
+        assignmentId: 'assignment-4',
+        clientEventId: 'fallback-event',
+        action: DailyAttemptAction.answer,
+        answerId: 'answer-1',
+        createdAt: DateTime.parse('2026-08-26T00:00:00Z'),
+      ),
+    );
   });
 
   setUp(() {
     repository = MockDailyEditionRepository();
-    notifier = DailyEditionNotifier(repository: repository);
+    outbox = MockDailyAttemptOutbox();
+    when(() => outbox.load(accountId: 'account-1'))
+        .thenAnswer((_) async => null);
+    when(() => outbox.save(any())).thenAnswer((_) async {});
+    when(
+      () => outbox.clear(
+        accountId: any(named: 'accountId'),
+        clientEventId: any(named: 'clientEventId'),
+      ),
+    ).thenAnswer((_) async {});
+    notifier = DailyEditionNotifier(
+      accountId: 'account-1',
+      repository: repository,
+      outbox: outbox,
+      clientEventIdFactory: () => 'event-1',
+      now: () => DateTime.parse('2026-08-26T00:00:00Z'),
+    );
   });
 
   tearDown(() => notifier.dispose());
@@ -110,6 +142,27 @@ void main() {
     expect(state.assignment.assignmentId, 'assignment-4');
     verify(() => repository.open(timezoneId: 'Asia/Yekaterinburg')).called(1);
     verify(() => repository.fetchCurrent('run-1')).called(1);
+  });
+
+  test('bootstrap fails closed without an authenticated account', () async {
+    final unauthenticatedNotifier = DailyEditionNotifier(
+      accountId: null,
+      repository: repository,
+      outbox: outbox,
+      clientEventIdFactory: () => 'event-1',
+    );
+    addTearDown(unauthenticatedNotifier.dispose);
+
+    await unauthenticatedNotifier.bootstrap();
+
+    final state = unauthenticatedNotifier.state as DailyEditionFailedState;
+    expect(
+      state.failure,
+      const AuthenticationFailure(
+        AuthenticationFailureType.unauthenticated,
+      ),
+    );
+    verifyNever(() => repository.open(timezoneId: any(named: 'timezoneId')));
   });
 
   test('bootstrap restores a completed run from the server summary', () async {
@@ -170,7 +223,6 @@ void main() {
     await notifier.bootstrap();
 
     await notifier.submitAttempt(
-      clientEventId: 'event-1',
       action: DailyAttemptAction.answer,
       answerId: 'answer-1',
     );
@@ -179,6 +231,19 @@ void main() {
     expect(state.attempt?.ratingDelta, 12);
     expect(state.attempt?.description, 'Server explanation');
     expect(state.assignment.assignmentId, 'assignment-4');
+    final saved = verify(() => outbox.save(captureAny())).captured.single
+        as PendingDailyAttemptEntity;
+    expect(saved.accountId, 'account-1');
+    expect(saved.runId, 'run-1');
+    expect(saved.assignmentId, 'assignment-4');
+    expect(saved.clientEventId, 'event-1');
+    expect(saved.createdAt, DateTime.parse('2026-08-26T00:00:00Z'));
+    verify(
+      () => outbox.clear(
+        accountId: 'account-1',
+        clientEventId: 'event-1',
+      ),
+    ).called(1);
   });
 
   test('advance requests the next server assignment after reveal', () async {
@@ -197,7 +262,6 @@ void main() {
     ).thenAnswer((_) async => const Result.ok(attempt));
     await notifier.bootstrap();
     await notifier.submitAttempt(
-      clientEventId: 'event-1',
       action: DailyAttemptAction.answer,
       answerId: 'answer-1',
     );
@@ -230,7 +294,6 @@ void main() {
         .thenAnswer((_) async => const Result.ok(summary));
     await notifier.bootstrap();
     await notifier.submitAttempt(
-      clientEventId: 'event-1',
       action: DailyAttemptAction.answer,
       answerId: 'answer-1',
     );
@@ -326,5 +389,229 @@ void main() {
     expect(state.run.status, DailyRunStatus.abandoned);
     expect(state.summary.resolvedCount, 3);
     verify(() => repository.close('run-1')).called(1);
+  });
+
+  test('does not send an attempt before its envelope is persisted', () async {
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(activeRun));
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(assignment));
+    when(() => outbox.save(any())).thenThrow(StateError('disk failed'));
+    await notifier.bootstrap();
+
+    await notifier.submitAttempt(
+      action: DailyAttemptAction.answer,
+      answerId: 'answer-1',
+    );
+
+    final state = notifier.state as DailyEditionActiveState;
+    expect(state.failure, isA<UnknownFailure>());
+    verifyNever(
+      () => repository.submitAttempt(
+        runId: any(named: 'runId'),
+        assignmentId: any(named: 'assignmentId'),
+        clientEventId: any(named: 'clientEventId'),
+        action: any(named: 'action'),
+        answerId: any(named: 'answerId'),
+      ),
+    );
+  });
+
+  test('retry reuses the persisted client event id after a lost response',
+      () async {
+    var submitCalls = 0;
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(activeRun));
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(assignment));
+    when(
+      () => repository.submitAttempt(
+        runId: 'run-1',
+        assignmentId: 'assignment-4',
+        clientEventId: 'event-1',
+        action: DailyAttemptAction.answer,
+        answerId: 'answer-1',
+      ),
+    ).thenAnswer((_) async {
+      submitCalls++;
+      if (submitCalls == 1) {
+        return const Result.failed(
+          NetworkFailure(NetworkFailureReason.server('response lost')),
+        );
+      }
+      return const Result.ok(attempt);
+    });
+    await notifier.bootstrap();
+
+    await notifier.submitAttempt(
+      action: DailyAttemptAction.answer,
+      answerId: 'answer-1',
+    );
+    final pending = verify(() => outbox.save(captureAny())).captured.single
+        as PendingDailyAttemptEntity;
+    when(() => outbox.load(accountId: 'account-1'))
+        .thenAnswer((_) async => pending);
+    verifyNever(
+      () => outbox.clear(
+        accountId: any(named: 'accountId'),
+        clientEventId: any(named: 'clientEventId'),
+      ),
+    );
+
+    await notifier.retryPendingAttempt();
+
+    final state = notifier.state as DailyEditionActiveState;
+    expect(state.attempt?.clientEventId, 'event-1');
+    verify(
+      () => repository.submitAttempt(
+        runId: 'run-1',
+        assignmentId: 'assignment-4',
+        clientEventId: 'event-1',
+        action: DailyAttemptAction.answer,
+        answerId: 'answer-1',
+      ),
+    ).called(2);
+    verify(
+      () => outbox.clear(
+        accountId: 'account-1',
+        clientEventId: 'event-1',
+      ),
+    ).called(1);
+  });
+
+  test('bootstrap replays pending attempt before loading current assignment',
+      () async {
+    final pending = PendingDailyAttemptEntity(
+      accountId: 'account-1',
+      runId: 'run-1',
+      assignmentId: 'assignment-4',
+      clientEventId: 'pending-event',
+      action: DailyAttemptAction.answer,
+      answerId: 'answer-1',
+      createdAt: DateTime.parse('2026-08-25T23:59:00Z'),
+    );
+    when(() => outbox.load(accountId: 'account-1'))
+        .thenAnswer((_) async => pending);
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(activeRun));
+    when(
+      () => repository.submitAttempt(
+        runId: 'run-1',
+        assignmentId: 'assignment-4',
+        clientEventId: 'pending-event',
+        action: DailyAttemptAction.answer,
+        answerId: 'answer-1',
+      ),
+    ).thenAnswer((_) async => const Result.ok(attempt));
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(nextAssignment));
+
+    await notifier.bootstrap();
+
+    final state = notifier.state as DailyEditionActiveState;
+    expect(state.assignment.assignmentId, 'assignment-5');
+    expect(state.attempt, isNull);
+    verifyInOrder([
+      () => outbox.load(accountId: 'account-1'),
+      () => repository.submitAttempt(
+            runId: 'run-1',
+            assignmentId: 'assignment-4',
+            clientEventId: 'pending-event',
+            action: DailyAttemptAction.answer,
+            answerId: 'answer-1',
+          ),
+      () => outbox.clear(
+            accountId: 'account-1',
+            clientEventId: 'pending-event',
+          ),
+      () => repository.fetchCurrent('run-1'),
+    ]);
+  });
+
+  test('bootstrap drops a stale envelope only after server opens a new run',
+      () async {
+    final stale = PendingDailyAttemptEntity(
+      accountId: 'account-1',
+      runId: 'old-run',
+      assignmentId: 'old-assignment',
+      clientEventId: 'old-event',
+      action: DailyAttemptAction.skip,
+      answerId: null,
+      createdAt: DateTime.parse('2026-08-24T00:00:00Z'),
+    );
+    when(() => outbox.load(accountId: 'account-1'))
+        .thenAnswer((_) async => stale);
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(activeRun));
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(assignment));
+
+    await notifier.bootstrap();
+
+    expect(notifier.state, isA<DailyEditionActiveState>());
+    verify(
+      () => outbox.clear(
+        accountId: 'account-1',
+        clientEventId: 'old-event',
+      ),
+    ).called(1);
+    verifyNever(
+      () => repository.submitAttempt(
+        runId: any(named: 'runId'),
+        assignmentId: any(named: 'assignmentId'),
+        clientEventId: any(named: 'clientEventId'),
+        action: any(named: 'action'),
+        answerId: any(named: 'answerId'),
+      ),
+    );
+  });
+
+  test('bootstrap reconciles an unaccepted attempt resolved on another device',
+      () async {
+    final pending = PendingDailyAttemptEntity(
+      accountId: 'account-1',
+      runId: 'run-1',
+      assignmentId: 'assignment-4',
+      clientEventId: 'pending-event',
+      action: DailyAttemptAction.answer,
+      answerId: 'answer-1',
+      createdAt: DateTime.parse('2026-08-25T23:59:00Z'),
+    );
+    when(() => outbox.load(accountId: 'account-1'))
+        .thenAnswer((_) async => pending);
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(activeRun));
+    when(
+      () => repository.submitAttempt(
+        runId: 'run-1',
+        assignmentId: 'assignment-4',
+        clientEventId: 'pending-event',
+        action: DailyAttemptAction.answer,
+        answerId: 'answer-1',
+      ),
+    ).thenAnswer(
+      (_) async => const Result.failed(
+        NetworkFailure(
+          NetworkFailureReason.badResponse(
+            'already resolved elsewhere',
+            statusCode: 409,
+            errorCode: 'ASSIGNMENT_NOT_CURRENT',
+          ),
+        ),
+      ),
+    );
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(nextAssignment));
+
+    await notifier.bootstrap();
+
+    final state = notifier.state as DailyEditionActiveState;
+    expect(state.assignment.assignmentId, 'assignment-5');
+    verify(
+      () => outbox.clear(
+        accountId: 'account-1',
+        clientEventId: 'pending-event',
+      ),
+    ).called(1);
   });
 }

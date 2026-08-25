@@ -2,13 +2,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/di/di.dart';
+import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.dart';
+import 'package:quiz/features/daily_edition/domain/entity/pending_daily_attempt_entity.dart';
 import 'package:quiz/features/daily_edition/domain/repository/daily_edition_repository.dart';
+import 'package:quiz/features/daily_edition/domain/service/daily_attempt_outbox.dart';
+import 'package:uuid/uuid.dart';
 
 final dailyEditionProvider =
     StateNotifierProvider.autoDispose<DailyEditionNotifier, DailyEditionState>(
         (ref) {
-  return DailyEditionNotifier(repository: getIt<DailyEditionRepository>());
+  final accountId = ref.watch(authenticationProvider).mapOrNull(
+        authenticated: (state) => state.user?.id,
+      );
+  return DailyEditionNotifier(
+    accountId: accountId,
+    repository: getIt<DailyEditionRepository>(),
+    outbox: getIt<DailyAttemptOutbox>(),
+  );
 });
 
 sealed class DailyEditionState {
@@ -78,24 +89,47 @@ final class DailyEditionFailedState extends DailyEditionState {
 }
 
 class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
-  DailyEditionNotifier({required DailyEditionRepository repository})
-      : _repository = repository,
+  DailyEditionNotifier({
+    required String? accountId,
+    required DailyEditionRepository repository,
+    required DailyAttemptOutbox outbox,
+    String Function()? clientEventIdFactory,
+    DateTime Function()? now,
+  })  : _accountId = accountId,
+        _repository = repository,
+        _outbox = outbox,
+        _clientEventIdFactory =
+            clientEventIdFactory ?? (() => const Uuid().v4()),
+        _now = now ?? DateTime.now,
         super(const DailyEditionInitialState());
 
+  final String? _accountId;
   final DailyEditionRepository _repository;
+  final DailyAttemptOutbox _outbox;
+  final String Function() _clientEventIdFactory;
+  final DateTime Function() _now;
   bool _bootstrapping = false;
 
   /// Opens or restores the account's authoritative run. The server decides the
   /// edition date and returns the same active run on a new process or device.
   Future<void> bootstrap({String? timezoneId}) async {
     if (_bootstrapping) return;
+    final accountId = _accountId;
+    if (accountId == null) {
+      state = const DailyEditionFailedState(
+        failure: Failure.authentication(
+          AuthenticationFailureType.unauthenticated,
+        ),
+      );
+      return;
+    }
     _bootstrapping = true;
     state = const DailyEditionLoadingState();
     try {
       final result = await _repository.open(timezoneId: timezoneId);
       switch (result) {
         case ResultOk(data: final run):
-          await _loadRun(run);
+          await _restoreOrLoadRun(accountId, run);
         case ResultFailed(error: final failure):
           state = DailyEditionFailedState(failure: failure);
       }
@@ -131,32 +165,95 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
   }
 
   Future<void> submitAttempt({
-    required String clientEventId,
     required DailyAttemptAction action,
     String? answerId,
   }) async {
     final current = state;
+    final accountId = _accountId;
     if (current is! DailyEditionActiveState ||
+        accountId == null ||
         current.isBusy ||
         current.attempt != null) {
       return;
     }
 
     state = current.copyWith(isBusy: true, clearFailure: true);
-    final result = await _repository.submitAttempt(
+    final pending = PendingDailyAttemptEntity(
+      accountId: accountId,
       runId: current.run.runId,
       assignmentId: current.assignment.assignmentId,
-      clientEventId: clientEventId,
+      clientEventId: _clientEventIdFactory(),
       action: action,
       answerId: answerId,
+      createdAt: _now().toUtc(),
+    );
+    try {
+      await _outbox.save(pending);
+    } on Object catch (error) {
+      state = current.copyWith(
+        isBusy: false,
+        failure: Failure.unknown(error),
+      );
+      return;
+    }
+    await _sendPending(current, pending);
+  }
+
+  Future<void> retryPendingAttempt() async {
+    final current = state;
+    final accountId = _accountId;
+    if (current is! DailyEditionActiveState ||
+        accountId == null ||
+        current.isBusy ||
+        current.attempt != null) {
+      return;
+    }
+
+    try {
+      final pending = await _outbox.load(accountId: accountId);
+      if (pending == null) return;
+      state = current.copyWith(isBusy: true, clearFailure: true);
+      await _sendPending(current, pending);
+    } on Object catch (error) {
+      state = current.copyWith(
+        isBusy: false,
+        failure: Failure.unknown(error),
+      );
+    }
+  }
+
+  Future<void> _sendPending(
+    DailyEditionActiveState current,
+    PendingDailyAttemptEntity pending,
+  ) async {
+    final result = await _repository.submitAttempt(
+      runId: pending.runId,
+      assignmentId: pending.assignmentId,
+      clientEventId: pending.clientEventId,
+      action: pending.action,
+      answerId: pending.answerId,
     );
     switch (result) {
       case ResultOk(data: final attempt):
-        state = current.copyWith(
-          attempt: attempt,
-          isBusy: false,
-          clearFailure: true,
-        );
+        try {
+          await _outbox.clear(
+            accountId: pending.accountId,
+            clientEventId: pending.clientEventId,
+          );
+          state = current.copyWith(
+            attempt: attempt,
+            isBusy: false,
+            clearFailure: true,
+          );
+        } on Object catch (error) {
+          state = current.copyWith(
+            isBusy: false,
+            failure: Failure.unknown(error),
+          );
+        }
+      case ResultFailed(error: final failure)
+          when _hasErrorCode(failure, 'ASSIGNMENT_NOT_CURRENT'):
+        await _clearPendingAndLoadRun(current.run, pending);
       case ResultFailed(error: final failure):
         state = current.copyWith(isBusy: false, failure: failure);
     }
@@ -238,6 +335,95 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     }
   }
 
+  Future<void> _restoreOrLoadRun(
+    String accountId,
+    DailyRunEntity run,
+  ) async {
+    final PendingDailyAttemptEntity? pending;
+    try {
+      pending = await _outbox.load(accountId: accountId);
+    } on Object catch (error) {
+      state = DailyEditionFailedState(
+        run: run,
+        failure: Failure.unknown(error),
+      );
+      return;
+    }
+
+    if (pending == null) {
+      await _loadRun(run);
+      return;
+    }
+    if (pending.runId != run.runId) {
+      try {
+        await _outbox.clear(
+          accountId: accountId,
+          clientEventId: pending.clientEventId,
+        );
+      } on Object catch (error) {
+        state = DailyEditionFailedState(
+          run: run,
+          failure: Failure.unknown(error),
+        );
+        return;
+      }
+      await _loadRun(run);
+      return;
+    }
+
+    final result = await _repository.submitAttempt(
+      runId: pending.runId,
+      assignmentId: pending.assignmentId,
+      clientEventId: pending.clientEventId,
+      action: pending.action,
+      answerId: pending.answerId,
+    );
+    switch (result) {
+      case ResultOk(data: final attempt):
+        try {
+          await _outbox.clear(
+            accountId: accountId,
+            clientEventId: pending.clientEventId,
+          );
+        } on Object catch (error) {
+          state = DailyEditionFailedState(
+            run: run,
+            failure: Failure.unknown(error),
+          );
+          return;
+        }
+        if (attempt.runCompleted) {
+          await _loadSummary(run, latestAttempt: attempt);
+        } else {
+          await _loadRun(run);
+        }
+      case ResultFailed(error: final failure)
+          when _hasErrorCode(failure, 'ASSIGNMENT_NOT_CURRENT'):
+        await _clearPendingAndLoadRun(run, pending);
+      case ResultFailed(error: final failure):
+        state = DailyEditionFailedState(failure: failure, run: run);
+    }
+  }
+
+  Future<void> _clearPendingAndLoadRun(
+    DailyRunEntity run,
+    PendingDailyAttemptEntity pending,
+  ) async {
+    try {
+      await _outbox.clear(
+        accountId: pending.accountId,
+        clientEventId: pending.clientEventId,
+      );
+    } on Object catch (error) {
+      state = DailyEditionFailedState(
+        run: run,
+        failure: Failure.unknown(error),
+      );
+      return;
+    }
+    await _loadRun(run);
+  }
+
   Future<void> _loadSummary(
     DailyRunEntity run, {
     DailyAttemptEntity? latestAttempt,
@@ -256,11 +442,14 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
   }
 }
 
-bool _isDailyRunComplete(Failure failure) => switch (failure) {
+bool _isDailyRunComplete(Failure failure) =>
+    _hasErrorCode(failure, 'DAILY_RUN_COMPLETE');
+
+bool _hasErrorCode(Failure failure, String expected) => switch (failure) {
       NetworkFailure(
         reason: NetworkFailureBadResponseReason(errorCode: final errorCode),
       )
-          when errorCode == 'DAILY_RUN_COMPLETE' =>
+          when errorCode == expected =>
         true,
       _ => false,
     };
