@@ -29,8 +29,12 @@ import '../../features/authentication/domain/repository/password_reset_gateway.d
     as _i959;
 import '../../features/daily_edition/data/repository/remote_daily_edition_repository.dart'
     as _i522;
+import '../../features/daily_edition/data/service/shared_preferences_daily_attempt_outbox.dart'
+    as _i1070;
 import '../../features/daily_edition/domain/repository/daily_edition_repository.dart'
     as _i824;
+import '../../features/daily_edition/domain/service/daily_attempt_outbox.dart'
+    as _i66;
 import '../../features/gamification/data/converter/user_level_converter.dart'
     as _i508;
 import '../../features/gamification/di/di.dart' as _i941;
@@ -217,6 +221,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i724.PageInfoConverter>(() => _i724.PageInfoConverterImpl());
     gh.singleton<_i422.AuthTokenService>(() =>
         _i422.AuthTokenServicePrefs(prefs: gh<_i460.SharedPreferences>()));
+    gh.lazySingleton<_i66.DailyAttemptOutbox>(() =>
+        _i1070.SharedPreferencesDailyAttemptOutbox(
+            preferences: gh<_i460.SharedPreferences>()));
     gh.singleton<_i841.QuestionIdService>(() =>
         _i129.QuestionIdServicePrefs(prefs: gh<_i460.SharedPreferences>()));
     gh.singleton<_i782.ApiClient>(() => networkModule.apiClient(
