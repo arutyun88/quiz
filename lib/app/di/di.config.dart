@@ -27,6 +27,10 @@ import '../../features/authentication/domain/repository/authentication_repositor
     as _i797;
 import '../../features/authentication/domain/repository/password_reset_gateway.dart'
     as _i959;
+import '../../features/daily_edition/data/repository/remote_daily_edition_repository.dart'
+    as _i522;
+import '../../features/daily_edition/domain/repository/daily_edition_repository.dart'
+    as _i824;
 import '../../features/gamification/data/converter/user_level_converter.dart'
     as _i508;
 import '../../features/gamification/di/di.dart' as _i941;
@@ -311,6 +315,8 @@ extension GetItInjectableX on _i174.GetIt {
               client: gh<_i782.ApiClient>(),
               masteryConverter: gh<_i78.MasteryConverter>(),
             ));
+    gh.lazySingleton<_i824.DailyEditionRepository>(() =>
+        _i522.RemoteDailyEditionRepository(client: gh<_i782.ApiClient>()));
     gh.lazySingleton<_i191.AgeAccessRepository>(
         () => _i918.RemoteAgeAccessRepository(client: gh<_i782.ApiClient>()));
     gh.lazySingleton<_i797.AuthenticationRepository>(
