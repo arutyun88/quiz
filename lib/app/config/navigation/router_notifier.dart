@@ -7,7 +7,7 @@ import 'package:quiz/features/achievements/presentation/achievements_flow.dart';
 import 'package:quiz/features/authentication/presentation/forgot_password/forgot_password_flow.dart';
 import 'package:quiz/features/authentication/presentation/sign_in/sign_in_flow.dart';
 import 'package:quiz/features/authentication/presentation/sign_up/sign_up_flow.dart';
-import 'package:quiz/features/daily_result/presentation/daily_result_flow.dart';
+import 'package:quiz/features/daily_result/presentation/daily_result_gate_flow.dart';
 import 'package:quiz/features/debug/debug_answered_question_page.dart';
 import 'package:quiz/features/debug/debug_flow.dart';
 import 'package:quiz/features/debug/debug_question_page.dart';
@@ -62,7 +62,7 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
         GoRoute(
           path: '/daily-result',
           name: 'daily-result',
-          builder: (context, state) => const DailyResultFlow(),
+          builder: (context, state) => const DailyResultGateFlow(),
         ),
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) => MainLayout(navigationShell: navigationShell),
