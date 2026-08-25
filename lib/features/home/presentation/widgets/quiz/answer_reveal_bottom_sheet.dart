@@ -12,11 +12,13 @@ class AnswerRevealBottomSheet extends StatelessWidget {
     required this.question,
     required this.sentState,
     required this.onNext,
+    this.ratingDelta,
   });
 
   final QuestionEntity question;
   final QuestionAnswerSentState sentState;
   final VoidCallback onNext;
+  final int? ratingDelta;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class AnswerRevealBottomSheet extends StatelessWidget {
             isCorrect: sentState.isCorrect,
             xp: sentState.xp,
             streakDelta: sentState.streakDelta,
+            ratingDelta: ratingDelta,
           ),
           _AnswerExplanationPanel(
             correctAnswer: correctAnswer,
@@ -60,11 +63,13 @@ class _AnswerRevealHeader extends StatelessWidget {
     required this.isCorrect,
     required this.xp,
     required this.streakDelta,
+    required this.ratingDelta,
   });
 
   final bool isCorrect;
   final int xp;
   final int streakDelta;
+  final int? ratingDelta;
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +77,7 @@ class _AnswerRevealHeader extends StatelessWidget {
     final sheetColors = palette.bottomSheet;
     final t = context.t.question.answer_reveal;
     final rewardParts = [
+      if (ratingDelta case final delta?) _formatRatingDelta(delta),
       if (xp > 0) t.xp_bonus(xp: xp),
       if (streakDelta > 0) t.streak_bonus(n: streakDelta),
     ];
@@ -109,6 +115,12 @@ class _AnswerRevealHeader extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _formatRatingDelta(int delta) {
+    if (delta > 0) return 'Δ +$delta';
+    if (delta < 0) return 'Δ −${delta.abs()}';
+    return 'Δ 0';
   }
 }
 

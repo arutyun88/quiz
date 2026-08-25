@@ -205,6 +205,39 @@ void main() {
     expect(state.hint?.hint, 'Server hint');
   });
 
+  test('bootstrap restores the text of an already used server hint', () async {
+    final hintedAssignment = assignment.copyWith(hintUsed: true);
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(activeRun));
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => Result.ok(hintedAssignment));
+    when(
+      () => repository.useHint(
+        runId: 'run-1',
+        assignmentId: 'assignment-4',
+      ),
+    ).thenAnswer(
+      (_) async => const Result.ok(
+        DailyHintEntity(
+          assignmentId: 'assignment-4',
+          hint: 'Restored server hint',
+        ),
+      ),
+    );
+
+    await notifier.bootstrap();
+
+    final state = notifier.state as DailyEditionActiveState;
+    expect(state.assignment.hintUsed, isTrue);
+    expect(state.hint?.hint, 'Restored server hint');
+    verify(
+      () => repository.useHint(
+        runId: 'run-1',
+        assignmentId: 'assignment-4',
+      ),
+    ).called(1);
+  });
+
   test('attempt keeps authoritative reveal and rating delta unchanged',
       () async {
     when(() => repository.open(timezoneId: null))

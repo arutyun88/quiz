@@ -6,6 +6,7 @@ import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_question_provider.dart';
+import 'package:quiz/features/daily_edition/presentation/widgets/daily_hint_panel.dart';
 import 'package:quiz/features/gamification/presentation/provider/gamification_provider.dart';
 import 'package:quiz/features/home/presentation/widgets/quiz/answer_reveal_bottom_sheet.dart';
 import 'package:quiz/features/home/presentation/widgets/quiz/quiz_body.dart';
@@ -78,17 +79,36 @@ class DailyQuizPage extends ConsumerWidget {
         const QuizLoading(),
       DailyEditionFailedState(:final failure) => QuizError(failure: failure),
       DailyEditionSummaryState() => const QuizLoading(),
-      DailyEditionActiveState(:final run, :final assignment) => switch (
-            assignment.toQuestionEntity()) {
-          final QuestionEntity question => QuizBody(
-              question: question,
-              answerState: answerState,
-              questionNumber: assignment.position,
-              totalQuestions: run.requiredCount,
-              onSelect: answerState is QuestionAnswerWaitingState ||
-                      answerState is QuestionAnswerSelectedState
-                  ? ref.read(dailyQuestionProvider.notifier).select
-                  : null,
+      DailyEditionActiveState(
+        :final run,
+        :final assignment,
+        :final hint,
+        :final isBusy,
+      ) =>
+        switch (assignment.toQuestionEntity()) {
+          final QuestionEntity question => Column(
+              children: [
+                Expanded(
+                  child: QuizBody(
+                    question: question,
+                    answerState: answerState,
+                    questionNumber: assignment.position,
+                    totalQuestions: run.requiredCount,
+                    onSelect: !isBusy &&
+                            (answerState is QuestionAnswerWaitingState ||
+                                answerState is QuestionAnswerSelectedState)
+                        ? ref.read(dailyQuestionProvider.notifier).select
+                        : null,
+                  ),
+                ),
+                if (answerState is QuestionAnswerWaitingState)
+                  DailyHintPanel(
+                    hintUsed: assignment.hintUsed,
+                    hint: hint?.hint,
+                    enabled: !isBusy,
+                    onUseHint: ref.read(dailyEditionProvider.notifier).useHint,
+                  ),
+              ],
             ),
           null => QuizError(
               failure: Failure.unknown(
@@ -115,6 +135,7 @@ class DailyQuizPage extends ConsumerWidget {
           context,
           question: question,
           sentState: sentState,
+          ratingDelta: editionState.attempt?.ratingDelta,
           onNext: ref.read(dailyEditionProvider.notifier).advance,
         );
       },
@@ -149,6 +170,7 @@ class DailyQuizPage extends ConsumerWidget {
     BuildContext context, {
     required QuestionEntity question,
     required QuestionAnswerSentState sentState,
+    required int? ratingDelta,
     required Future<void> Function() onNext,
   }) async {
     final palette = context.palette;
@@ -170,6 +192,7 @@ class DailyQuizPage extends ConsumerWidget {
         child: AnswerRevealBottomSheet(
           question: question,
           sentState: sentState,
+          ratingDelta: ratingDelta,
           onNext: () {
             Navigator.of(sheetContext).pop();
             onNext();

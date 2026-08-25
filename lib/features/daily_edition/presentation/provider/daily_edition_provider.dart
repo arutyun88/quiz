@@ -279,10 +279,7 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     final result = await _repository.fetchCurrent(current.run.runId);
     switch (result) {
       case ResultOk(data: final assignment):
-        state = DailyEditionActiveState(
-          run: current.run,
-          assignment: assignment,
-        );
+        await _showAssignment(current.run, assignment);
       case ResultFailed(error: final failure) when _isDailyRunComplete(failure):
         await _loadSummary(current.run, latestAttempt: current.attempt);
       case ResultFailed(error: final failure):
@@ -310,10 +307,7 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
         final result = await _repository.fetchCurrent(run.runId);
         switch (result) {
           case ResultOk(data: final assignment):
-            state = DailyEditionActiveState(
-              run: run,
-              assignment: assignment,
-            );
+            await _showAssignment(run, assignment);
           case ResultFailed(error: final failure)
               when _isDailyRunComplete(failure):
             await _loadSummary(run);
@@ -331,6 +325,35 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
           failure: Failure.unknown(
             StateError('Unsupported Daily Edition status'),
           ),
+        );
+    }
+  }
+
+  Future<void> _showAssignment(
+    DailyRunEntity run,
+    DailyAssignmentEntity assignment,
+  ) async {
+    if (!assignment.hintUsed) {
+      state = DailyEditionActiveState(run: run, assignment: assignment);
+      return;
+    }
+
+    final result = await _repository.useHint(
+      runId: run.runId,
+      assignmentId: assignment.assignmentId,
+    );
+    switch (result) {
+      case ResultOk(data: final hint):
+        state = DailyEditionActiveState(
+          run: run,
+          assignment: assignment,
+          hint: hint,
+        );
+      case ResultFailed(error: final failure):
+        state = DailyEditionActiveState(
+          run: run,
+          assignment: assignment,
+          failure: failure,
         );
     }
   }
