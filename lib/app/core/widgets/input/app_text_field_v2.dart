@@ -59,7 +59,9 @@ class _AppTextFieldV2State extends State<AppTextFieldV2> {
     if (t == TextInputType.emailAddress ||
         t == TextInputType.url ||
         t == TextInputType.phone ||
-        t == TextInputType.number) return TextCapitalization.none;
+        t == TextInputType.number) {
+      return TextCapitalization.none;
+    }
     if (t == TextInputType.name) return TextCapitalization.words;
     return TextCapitalization.sentences;
   }
