@@ -2,20 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
-import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
-import 'package:quiz/features/daily_result/presentation/server_daily_result_page.dart';
+import 'package:quiz/features/daily_limit/presentation/daily_limit_page.dart';
 import 'package:quiz/features/home/presentation/widgets/quiz/quiz_state_views.dart';
 
-class ServerDailyResultFlow extends ConsumerStatefulWidget {
-  const ServerDailyResultFlow({super.key});
+class DailyLimitFlow extends ConsumerStatefulWidget {
+  const DailyLimitFlow({super.key});
 
   @override
-  ConsumerState<ServerDailyResultFlow> createState() =>
-      _ServerDailyResultFlowState();
+  ConsumerState<DailyLimitFlow> createState() => _DailyLimitFlowState();
 }
 
-class _ServerDailyResultFlowState extends ConsumerState<ServerDailyResultFlow> {
+class _DailyLimitFlowState extends ConsumerState<DailyLimitFlow> {
   @override
   void initState() {
     super.initState();
@@ -42,9 +40,15 @@ class _ServerDailyResultFlowState extends ConsumerState<ServerDailyResultFlow> {
     return PopScope(
       canPop: false,
       child: switch (state) {
-        DailyEditionSummaryState(:final summary) => ServerDailyResultPage(
-            summary: summary,
-            onContinue: () => _continueFrom(summary.continuation),
+        DailyEditionSummaryState(:final summary, :final isBusy) =>
+          DailyLimitPage(
+            continuation: summary.continuation,
+            isBusy: isBusy,
+            onKeepPlaying: () =>
+                ref.read(dailyEditionProvider.notifier).continueEdition(),
+            onRefresh: () =>
+                ref.read(dailyEditionProvider.notifier).refreshContinuation(),
+            onClose: () => context.goNamed('home'),
           ),
         DailyEditionFailedState(:final failure) => Scaffold(
             body: SafeArea(child: QuizError(failure: failure)),
@@ -54,20 +58,5 @@ class _ServerDailyResultFlowState extends ConsumerState<ServerDailyResultFlow> {
           ),
       },
     );
-  }
-
-  void _continueFrom(DailyContinuationEntity continuation) {
-    switch (continuation.nextAction) {
-      case DailyContinuationAction.playQuestion:
-        ref.read(dailyEditionProvider.notifier).continueEdition();
-      case DailyContinuationAction.watchRewarded:
-      case DailyContinuationAction.waitForRewarded:
-      case DailyContinuationAction.limitReached:
-        context.goNamed('daily-limit');
-      case DailyContinuationAction.completeMain:
-      case DailyContinuationAction.closed:
-      case DailyContinuationAction.unknown:
-        context.goNamed('home');
-    }
   }
 }

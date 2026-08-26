@@ -128,6 +128,26 @@ DailyRunEntity _run() => DailyRunEntity(
       requiredCount: 6,
       resolvedCount: 0,
       ratingAtOpen: 1000,
+      continuation: _continuation(),
+    );
+
+DailyContinuationEntity _continuation() => DailyContinuationEntity(
+      runId: 'run-1',
+      serverTime: DateTime.utc(2026, 8, 26, 12),
+      closesAt: DateTime.utc(2026, 8, 27, 4),
+      nextAction: DailyContinuationAction.completeMain,
+      quizPlus: false,
+      bonusQuestionsGranted: 0,
+      bonusQuestionsServed: 0,
+      bonusQuestionsRemaining: 0,
+      questionsPerReward: 5,
+      rewardedVideosUsed: 0,
+      rewardedVideosMax: 6,
+      rewardedVideosRemaining: 6,
+      rollingVideosUsed: 0,
+      rollingVideosMax: 2,
+      rewardedAdAvailable: false,
+      rewardedAdNextAvailableAt: null,
     );
 
 DailyAssignmentEntity _assignment({

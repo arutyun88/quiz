@@ -54,6 +54,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$forgot_password$ru forgot_password = _Translations$forgot_password$ru._(_root);
 	@override late final _Translations$start_day$ru start_day = _Translations$start_day$ru._(_root);
 	@override late final _Translations$daily_result$ru daily_result = _Translations$daily_result$ru._(_root);
+	@override late final _Translations$daily_limit$ru daily_limit = _Translations$daily_limit$ru._(_root);
 	@override late final _Translations$demo$ru demo = _Translations$demo$ru._(_root);
 	@override late final _Translations$nav$ru nav = _Translations$nav$ru._(_root);
 	@override late final _Translations$birth_date_picker$ru birth_date_picker = _Translations$birth_date_picker$ru._(_root);
@@ -280,7 +281,9 @@ class _Translations$start_day$ru implements Translations$start_day$en {
 
 	// Translations
 	@override String get start_button => 'НАЧАТЬ ВЫПУСК';
+	@override String get more_questions_button => 'ЕЩЁ ВОПРОСЫ';
 	@override String get ready_title => 'ВЫПУСК ДНЯ ГОТОВ';
+	@override String get issue_completed_title => 'ВЫПУСК ДНЯ ПРОЙДЕН';
 	@override String get last_session_stats_title => 'ПОСЛЕДНИЙ ВЫПУСК';
 	@override String get rank_label => 'В РЕЙТИНГЕ';
 	@override String get points_label => 'ОЧКОВ';
@@ -337,6 +340,14 @@ class _Translations$start_day$ru implements Translations$start_day$en {
 		accent('до первого достижения всего 3 дня'),
 	]);
 	@override String get start_new_streak_button => 'НАЧАТЬ НОВУЮ СЕРИЮ';
+	@override String get issue_done_caption => 'ПРОЙДЕНО СЕГОДНЯ';
+	@override String get today_stats_title => 'СЕГОДНЯ';
+	@override TextSpan issue_done_streak({required InlineSpanBuilder accent}) => TextSpan(children: [
+		const TextSpan(text: 'Выпуск пройден, '),
+		accent('серия сохранена'),
+		const TextSpan(text: ' — возвращайтесь завтра за новым'),
+	]);
+	@override String get issue_done_no_streak => 'Выпуск дня пройден — возвращайтесь завтра за новым';
 }
 
 // Path: daily_result
@@ -377,6 +388,33 @@ class _Translations$daily_result$ru implements Translations$daily_result$en {
 	]);
 	@override String get continue_button => 'ИГРАТЬ ДАЛЬШЕ';
 	@override String get footer => 'ВЫПУСК ДНЯ ЗАКРЫТ · НОВЫЙ ЗАВТРА';
+}
+
+// Path: daily_limit
+class _Translations$daily_limit$ru implements Translations$daily_limit$en {
+	_Translations$daily_limit$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ЕЩЁ ВОПРОСЫ';
+	@override String get extras_section => 'ДОП. ВОПРОСЫ НА СЕГОДНЯ';
+	@override String slots_hint({required Object grants, required Object questions}) => '${grants} РОЛИКОВ · +${questions} ВОПРОСА КАЖДЫЙ';
+	@override String get completed_title => 'Выпуск дня завершён';
+	@override String get next_issue_in => 'Новый выпуск через';
+	@override String get next_ad_in => 'Следующий ролик через';
+	@override String get watch_ad => 'Посмотреть ролик';
+	@override String watch_ad_caption({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+		one: '+${n} ВОПРОС · БЕСПЛАТНО',
+		few: '+${n} ВОПРОСА · БЕСПЛАТНО',
+		many: '+${n} ВОПРОСОВ · БЕСПЛАТНО',
+		other: '+${n} ВОПРОСА · БЕСПЛАТНО',
+	);
+	@override String get ad_unavailable => 'СЕРВИС РОЛИКОВ ПОКА НЕ ПОДКЛЮЧЁН';
+	@override String get ad_exhausted => 'На сегодня доп. вопросы закончились';
+	@override String get keep_playing => 'ИГРАТЬ ДАЛЬШЕ';
+	@override String get unlimited_cta => 'БЕЗЛИМИТ С QUIZ+';
+	@override late final _Translations$daily_limit$ad$ru ad = _Translations$daily_limit$ad$ru._(_root);
 }
 
 // Path: demo
@@ -675,6 +713,7 @@ class _Translations$question$meta$ru implements Translations$question$meta$en {
 
 	// Translations
 	@override String counter({required Object current, required Object total}) => 'ВОПРОС ${current} / ${total}';
+	@override String extra_counter({required Object n}) => 'ДОП. ВОПРОС ${n}';
 	@override String topic({required Object topic}) => '// ${topic}';
 }
 
@@ -743,6 +782,27 @@ class _Translations$onboarding$features$ru implements Translations$onboarding$fe
 	@override String get f2 => 'Узнаете не только что правильно, но и почему';
 	@override String get f3 => 'Поможем заполнить пробелы — вопросы, где ошиблись, вернутся';
 	@override String get f4 => 'Соревнуйтесь, собирайте серии, открывайте достижения';
+}
+
+// Path: daily_limit.ad
+class _Translations$daily_limit$ad$ru implements Translations$daily_limit$ad$en {
+	_Translations$daily_limit$ad$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'РЕКЛАМА';
+	@override String get skip => 'Пропустить';
+	@override String playing({required Object time}) => 'Рекламный ролик · ${time}';
+	@override String get reward_title => 'НАГРАДА ПОСЛЕ ПРОСМОТРА';
+	@override String reward_amount({required Object n}) => '+${n}';
+	@override String reward_suffix({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+		one: 'вопрос сегодня',
+		few: 'вопроса сегодня',
+		many: 'вопросов сегодня',
+		other: 'вопроса сегодня',
+	);
+	@override String get footer => 'РЕКЛАМА НЕ В ОСНОВНОМ ВЫПУСКЕ';
 }
 
 // Path: demo.start
@@ -1329,6 +1389,7 @@ extension on TranslationsRu {
 			'question.answer_letters.2' => 'В',
 			'question.answer_letters.3' => 'Г',
 			'question.meta.counter' => ({required Object current, required Object total}) => 'ВОПРОС ${current} / ${total}',
+			'question.meta.extra_counter' => ({required Object n}) => 'ДОП. ВОПРОС ${n}',
 			'question.meta.topic' => ({required Object topic}) => '// ${topic}',
 			'question.state.empty' => 'На сегодня вопросы закончились.\nЗаходите завтра!',
 			'question.state.error' => 'Не удалось загрузить вопрос',
@@ -1389,7 +1450,9 @@ extension on TranslationsRu {
 			'forgot_password.success' => 'Ссылка отправлена. Проверьте почту.',
 			'forgot_password.error' => 'Не удалось отправить ссылку. Попробуйте позже.',
 			'start_day.start_button' => 'НАЧАТЬ ВЫПУСК',
+			'start_day.more_questions_button' => 'ЕЩЁ ВОПРОСЫ',
 			'start_day.ready_title' => 'ВЫПУСК ДНЯ ГОТОВ',
+			'start_day.issue_completed_title' => 'ВЫПУСК ДНЯ ПРОЙДЕН',
 			'start_day.last_session_stats_title' => 'ПОСЛЕДНИЙ ВЫПУСК',
 			'start_day.rank_label' => 'В РЕЙТИНГЕ',
 			'start_day.points_label' => 'ОЧКОВ',
@@ -1404,6 +1467,10 @@ extension on TranslationsRu {
 			'start_day.streak_lost_days' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} дня', few: '${n} дней', many: '${n} дней', other: '${n} дней', ), 
 			'start_day.streak_lost_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Начните новую серию сегодня — '), accent('до первого достижения всего 3 дня'), ]), 
 			'start_day.start_new_streak_button' => 'НАЧАТЬ НОВУЮ СЕРИЮ',
+			'start_day.issue_done_caption' => 'ПРОЙДЕНО СЕГОДНЯ',
+			'start_day.today_stats_title' => 'СЕГОДНЯ',
+			'start_day.issue_done_streak' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Выпуск пройден, '), accent('серия сохранена'), const TextSpan(text: ' — возвращайтесь завтра за новым'), ]),
+			'start_day.issue_done_no_streak' => 'Выпуск дня пройден — возвращайтесь завтра за новым',
 			'daily_result.goal_completed' => 'ЕЖЕДНЕВНАЯ ЦЕЛЬ ВЫПОЛНЕНА',
 			'daily_result.ring_label' => ({required Object total}) => 'ИЗ ${total}',
 			'daily_result.correct_label' => 'ВЕРНО',
@@ -1416,6 +1483,25 @@ extension on TranslationsRu {
 			'daily_result.rank_unknown' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Каждый выпуск двигает вас в '), accent('недельном рейтинге'), ]), 
 			'daily_result.continue_button' => 'ИГРАТЬ ДАЛЬШЕ',
 			'daily_result.footer' => 'ВЫПУСК ДНЯ ЗАКРЫТ · НОВЫЙ ЗАВТРА',
+			'daily_limit.title' => 'ЕЩЁ ВОПРОСЫ',
+			'daily_limit.extras_section' => 'ДОП. ВОПРОСЫ НА СЕГОДНЯ',
+			'daily_limit.slots_hint' => ({required Object grants, required Object questions}) => '${grants} РОЛИКОВ · +${questions} ВОПРОСА КАЖДЫЙ',
+			'daily_limit.completed_title' => 'Выпуск дня завершён',
+			'daily_limit.next_issue_in' => 'Новый выпуск через',
+			'daily_limit.next_ad_in' => 'Следующий ролик через',
+			'daily_limit.watch_ad' => 'Посмотреть ролик',
+			'daily_limit.watch_ad_caption' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '+${n} ВОПРОС · БЕСПЛАТНО', few: '+${n} ВОПРОСА · БЕСПЛАТНО', many: '+${n} ВОПРОСОВ · БЕСПЛАТНО', other: '+${n} ВОПРОСА · БЕСПЛАТНО', ),
+			'daily_limit.ad_unavailable' => 'СЕРВИС РОЛИКОВ ПОКА НЕ ПОДКЛЮЧЁН',
+			'daily_limit.ad_exhausted' => 'На сегодня доп. вопросы закончились',
+			'daily_limit.keep_playing' => 'ИГРАТЬ ДАЛЬШЕ',
+			'daily_limit.unlimited_cta' => 'БЕЗЛИМИТ С QUIZ+',
+			'daily_limit.ad.label' => 'РЕКЛАМА',
+			'daily_limit.ad.skip' => 'Пропустить',
+			'daily_limit.ad.playing' => ({required Object time}) => 'Рекламный ролик · ${time}',
+			'daily_limit.ad.reward_title' => 'НАГРАДА ПОСЛЕ ПРОСМОТРА',
+			'daily_limit.ad.reward_amount' => ({required Object n}) => '+${n}',
+			'daily_limit.ad.reward_suffix' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'вопрос сегодня', few: 'вопроса сегодня', many: 'вопросов сегодня', other: 'вопроса сегодня', ),
+			'daily_limit.ad.footer' => 'РЕКЛАМА НЕ В ОСНОВНОМ ВЫПУСКЕ',
 			'demo.start.badge' => 'ГОСТЕВОЕ ДЕМО',
 			'demo.start.title' => 'Попробуйте Quiz без регистрации',
 			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'Ответьте на один короткий вопрос, воспользуйтесь подсказкой и посмотрите разбор ответа.', few: 'Ответьте на ${n} коротких вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.', many: 'Ответьте на ${n} коротких вопросов, воспользуйтесь подсказкой и посмотрите разбор ответа.', other: 'Ответьте на ${n} короткого вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.', ),

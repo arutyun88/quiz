@@ -24,6 +24,10 @@ abstract interface class DailyEditionRepository {
 
   Future<Result<DailySummaryEntity, Failure>> fetchSummary(String runId);
 
+  Future<Result<DailyContinuationEntity, Failure>> fetchContinuation(
+    String runId,
+  );
+
   Future<Result<RewardedAdEntity, Failure>> confirmRewardedAd({
     required String runId,
     required String clientEventId,

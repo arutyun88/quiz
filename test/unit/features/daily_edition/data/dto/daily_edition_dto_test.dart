@@ -15,6 +15,7 @@ void main() {
       'required_count': 10,
       'resolved_count': 2,
       'rating_at_open': 1000,
+      'continuation': _continuationJson(nextAction: 'COMPLETE_MAIN'),
     });
 
     final entity = dto.toEntity();
@@ -158,9 +159,14 @@ void main() {
       'required_count': 0,
       'resolved_count': 0,
       'rating_at_open': 1000,
+      'continuation': _continuationJson(nextAction: 'FUTURE_ACTION'),
     }).toEntity();
 
     expect(entity.status, DailyRunStatus.unknown);
+    expect(
+      entity.continuation.nextAction,
+      DailyContinuationAction.unknown,
+    );
   });
 
   test('unknown assignment kinds stay representable for safe rollout', () {
@@ -194,6 +200,7 @@ void main() {
       'total_xp': 109,
       'bonus_granted': 0,
       'bonus_served': 0,
+      'continuation': _continuationJson(nextAction: 'FUTURE_ACTION'),
     }).toEntity();
 
     expect(entity.status, DailyRunStatus.unknown);
@@ -230,9 +237,40 @@ void main() {
     final entity = RewardedAdDto.fromJson({
       'client_event_id': 'event-1',
       'granted_questions': 5,
+      'continuation': _continuationJson(
+        nextAction: 'PLAY_QUESTION',
+        bonusRemaining: 5,
+      ),
     }).toEntity();
 
     expect(entity.clientEventId, 'event-1');
     expect(entity.grantedQuestions, 5);
+    expect(
+      entity.continuation.nextAction,
+      DailyContinuationAction.playQuestion,
+    );
   });
 }
+
+Map<String, dynamic> _continuationJson({
+  required String nextAction,
+  int bonusRemaining = 0,
+}) =>
+    {
+      'run_id': 'run-1',
+      'server_time': '2026-08-25T12:00:00Z',
+      'closes_at': '2026-08-25T23:00:00Z',
+      'next_action': nextAction,
+      'quiz_plus': false,
+      'bonus_questions_granted': bonusRemaining,
+      'bonus_questions_served': 0,
+      'bonus_questions_remaining': bonusRemaining,
+      'questions_per_reward': 5,
+      'rewarded_videos_used': 0,
+      'rewarded_videos_max': 6,
+      'rewarded_videos_remaining': 6,
+      'rolling_videos_used': 0,
+      'rolling_videos_max': 2,
+      'rewarded_ad_available': false,
+      'rewarded_ad_next_available_at': null,
+    };

@@ -13,6 +13,25 @@ void main() {
   late MockApiClient client;
   late DailyEditionRepository repository;
 
+  final continuation = DailyContinuationEntity(
+    runId: 'run-1',
+    serverTime: DateTime.parse('2026-08-25T12:00:00Z'),
+    closesAt: DateTime.parse('2026-08-25T23:00:00Z'),
+    nextAction: DailyContinuationAction.completeMain,
+    quizPlus: false,
+    bonusQuestionsGranted: 0,
+    bonusQuestionsServed: 0,
+    bonusQuestionsRemaining: 0,
+    questionsPerReward: 5,
+    rewardedVideosUsed: 0,
+    rewardedVideosMax: 6,
+    rewardedVideosRemaining: 6,
+    rollingVideosUsed: 0,
+    rollingVideosMax: 2,
+    rewardedAdAvailable: false,
+    rewardedAdNextAvailableAt: null,
+  );
+
   final run = DailyRunEntity(
     runId: 'run-1',
     editionDate: '2026-08-25',
@@ -22,6 +41,7 @@ void main() {
     requiredCount: 10,
     resolvedCount: 0,
     ratingAtOpen: 1000,
+    continuation: continuation,
   );
 
   const assignment = DailyAssignmentEntity(
@@ -61,7 +81,7 @@ void main() {
     hint: null,
   );
 
-  const summary = DailySummaryEntity(
+  final summary = DailySummaryEntity(
     runId: 'run-1',
     editionDate: '2026-08-25',
     status: DailyRunStatus.completed,
@@ -75,11 +95,20 @@ void main() {
     totalXp: 109,
     bonusGranted: 0,
     bonusServed: 0,
+    continuation: continuation.copyWith(
+      nextAction: DailyContinuationAction.watchRewarded,
+      rewardedAdAvailable: true,
+    ),
   );
 
-  const rewardedAd = RewardedAdEntity(
+  final rewardedAd = RewardedAdEntity(
     clientEventId: 'ad-event-1',
     grantedQuestions: 5,
+    continuation: continuation.copyWith(
+      nextAction: DailyContinuationAction.playQuestion,
+      bonusQuestionsGranted: 5,
+      bonusQuestionsRemaining: 5,
+    ),
   );
 
   setUpAll(() {
@@ -222,13 +251,40 @@ void main() {
         converter: any(named: 'converter'),
         enableLocale: any(named: 'enableLocale'),
       ),
-    ).thenAnswer((_) async => const Result.ok(summary));
+    ).thenAnswer((_) async => Result.ok(summary));
 
     await repository.fetchSummary('run-1');
 
     verify(
       () => client.get<DailySummaryEntity, DataDto<DailySummaryDto>>(
         '/daily-editions/run-1/summary',
+        queryParameters: any(named: 'queryParameters'),
+        headers: any(named: 'headers'),
+        mapper: any(named: 'mapper'),
+        converter: any(named: 'converter'),
+        enableLocale: false,
+      ),
+    ).called(1);
+  });
+
+  test('fetchContinuation uses the run-scoped authoritative endpoint',
+      () async {
+    when(
+      () => client.get<DailyContinuationEntity, DataDto<DailyContinuationDto>>(
+        any(),
+        queryParameters: any(named: 'queryParameters'),
+        headers: any(named: 'headers'),
+        mapper: any(named: 'mapper'),
+        converter: any(named: 'converter'),
+        enableLocale: any(named: 'enableLocale'),
+      ),
+    ).thenAnswer((_) async => Result.ok(continuation));
+
+    await repository.fetchContinuation('run-1');
+
+    verify(
+      () => client.get<DailyContinuationEntity, DataDto<DailyContinuationDto>>(
+        '/daily-editions/run-1/continuation',
         queryParameters: any(named: 'queryParameters'),
         headers: any(named: 'headers'),
         mapper: any(named: 'mapper'),
@@ -333,7 +389,7 @@ void main() {
         enableLocale: any(named: 'enableLocale'),
         onSuccess: any(named: 'onSuccess'),
       ),
-    ).thenAnswer((_) async => const Result.ok(rewardedAd));
+    ).thenAnswer((_) async => Result.ok(rewardedAd));
 
     await repository.confirmRewardedAd(
       runId: 'run-1',

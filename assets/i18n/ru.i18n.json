@@ -300,6 +300,7 @@
         ],
         "meta": {
             "counter": "ВОПРОС $current / $total",
+            "extra_counter": "ДОП. ВОПРОС $n",
             "topic": "// $topic"
         },
         "state": {
@@ -404,7 +405,9 @@
     },
     "start_day": {
         "start_button": "НАЧАТЬ ВЫПУСК",
+        "more_questions_button": "ЕЩЁ ВОПРОСЫ",
         "ready_title": "ВЫПУСК ДНЯ ГОТОВ",
+        "issue_completed_title": "ВЫПУСК ДНЯ ПРОЙДЕН",
         "last_session_stats_title": "ПОСЛЕДНИЙ ВЫПУСК",
         "rank_label": "В РЕЙТИНГЕ",
         "points_label": "ОЧКОВ",
@@ -433,7 +436,11 @@
             "other": "$n дней"
         },
         "streak_lost_advice(rich)": "Начните новую серию сегодня — ${accent(до первого достижения всего 3 дня)}",
-        "start_new_streak_button": "НАЧАТЬ НОВУЮ СЕРИЮ"
+        "start_new_streak_button": "НАЧАТЬ НОВУЮ СЕРИЮ",
+        "issue_done_caption": "ПРОЙДЕНО СЕГОДНЯ",
+        "today_stats_title": "СЕГОДНЯ",
+        "issue_done_streak(rich)": "Выпуск пройден, ${accent(серия сохранена)} — возвращайтесь завтра за новым",
+        "issue_done_no_streak": "Выпуск дня пройден — возвращайтесь завтра за новым"
     },
     "daily_result": {
         "goal_completed": "ЕЖЕДНЕВНАЯ ЦЕЛЬ ВЫПОЛНЕНА",
@@ -453,6 +460,39 @@
         "rank_unknown(rich)": "Каждый выпуск двигает вас в ${accent(недельном рейтинге)}",
         "continue_button": "ИГРАТЬ ДАЛЬШЕ",
         "footer": "ВЫПУСК ДНЯ ЗАКРЫТ · НОВЫЙ ЗАВТРА"
+    },
+    "daily_limit": {
+        "title": "ЕЩЁ ВОПРОСЫ",
+        "extras_section": "ДОП. ВОПРОСЫ НА СЕГОДНЯ",
+        "slots_hint": "$grants РОЛИКОВ · +$questions ВОПРОСА КАЖДЫЙ",
+        "completed_title": "Выпуск дня завершён",
+        "next_issue_in": "Новый выпуск через",
+        "next_ad_in": "Следующий ролик через",
+        "watch_ad": "Посмотреть ролик",
+        "watch_ad_caption(n)": {
+            "one": "+$n ВОПРОС · БЕСПЛАТНО",
+            "few": "+$n ВОПРОСА · БЕСПЛАТНО",
+            "many": "+$n ВОПРОСОВ · БЕСПЛАТНО",
+            "other": "+$n ВОПРОСА · БЕСПЛАТНО"
+        },
+        "ad_unavailable": "СЕРВИС РОЛИКОВ ПОКА НЕ ПОДКЛЮЧЁН",
+        "ad_exhausted": "На сегодня доп. вопросы закончились",
+        "keep_playing": "ИГРАТЬ ДАЛЬШЕ",
+        "unlimited_cta": "БЕЗЛИМИТ С QUIZ+",
+        "ad": {
+            "label": "РЕКЛАМА",
+            "skip": "Пропустить",
+            "playing": "Рекламный ролик · $time",
+            "reward_title": "НАГРАДА ПОСЛЕ ПРОСМОТРА",
+            "reward_amount": "+$n",
+            "reward_suffix(n)": {
+                "one": "вопрос сегодня",
+                "few": "вопроса сегодня",
+                "many": "вопросов сегодня",
+                "other": "вопроса сегодня"
+            },
+            "footer": "РЕКЛАМА НЕ В ОСНОВНОМ ВЫПУСКЕ"
+        }
     },
     "demo": {
         "start": {

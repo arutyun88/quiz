@@ -74,11 +74,29 @@ final class DailyEditionSummaryState extends DailyEditionState {
     required this.run,
     required this.summary,
     this.latestAttempt,
+    this.isBusy = false,
+    this.failure,
   });
 
   final DailyRunEntity run;
   final DailySummaryEntity summary;
   final DailyAttemptEntity? latestAttempt;
+  final bool isBusy;
+  final Failure? failure;
+
+  DailyEditionSummaryState copyWith({
+    DailySummaryEntity? summary,
+    bool? isBusy,
+    Failure? failure,
+    bool clearFailure = false,
+  }) =>
+      DailyEditionSummaryState(
+        run: run,
+        summary: summary ?? this.summary,
+        latestAttempt: latestAttempt,
+        isBusy: isBusy ?? this.isBusy,
+        failure: clearFailure ? null : failure ?? this.failure,
+      );
 }
 
 final class DailyEditionFailedState extends DailyEditionState {
@@ -296,6 +314,78 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     switch (result) {
       case ResultOk(data: final run):
         await _loadSummary(run, latestAttempt: current.attempt);
+      case ResultFailed(error: final failure):
+        state = current.copyWith(isBusy: false, failure: failure);
+    }
+  }
+
+  Future<void> refreshContinuation() async {
+    final current = state;
+    if (current is! DailyEditionSummaryState || current.isBusy) return;
+
+    state = current.copyWith(isBusy: true, clearFailure: true);
+    final result = await _repository.fetchContinuation(current.run.runId);
+    switch (result) {
+      case ResultOk(data: final continuation):
+        state = current.copyWith(
+          summary: current.summary.copyWith(continuation: continuation),
+          isBusy: false,
+          clearFailure: true,
+        );
+      case ResultFailed(error: final failure):
+        state = current.copyWith(isBusy: false, failure: failure);
+    }
+  }
+
+  Future<void> continueEdition() async {
+    final current = state;
+    if (current is! DailyEditionSummaryState ||
+        current.isBusy ||
+        current.summary.continuation.nextAction !=
+            DailyContinuationAction.playQuestion) {
+      return;
+    }
+
+    state = current.copyWith(isBusy: true, clearFailure: true);
+    final result = await _repository.fetchCurrent(current.run.runId);
+    switch (result) {
+      case ResultOk(data: final assignment):
+        await _showAssignment(current.run, assignment);
+      case ResultFailed(error: final failure) when _isDailyRunComplete(failure):
+        await _loadSummary(current.run, latestAttempt: current.latestAttempt);
+      case ResultFailed(error: final failure):
+        state = current.copyWith(isBusy: false, failure: failure);
+    }
+  }
+
+  Future<void> confirmRewardedAd({
+    required String clientEventId,
+    required String providerEventId,
+    required String verificationToken,
+  }) async {
+    final current = state;
+    if (current is! DailyEditionSummaryState ||
+        current.isBusy ||
+        !current.summary.continuation.rewardedAdAvailable) {
+      return;
+    }
+
+    state = current.copyWith(isBusy: true, clearFailure: true);
+    final result = await _repository.confirmRewardedAd(
+      runId: current.run.runId,
+      clientEventId: clientEventId,
+      providerEventId: providerEventId,
+      verificationToken: verificationToken,
+    );
+    switch (result) {
+      case ResultOk(data: final reward):
+        state = current.copyWith(
+          summary: current.summary.copyWith(
+            continuation: reward.continuation,
+          ),
+          isBusy: false,
+          clearFailure: true,
+        );
       case ResultFailed(error: final failure):
         state = current.copyWith(isBusy: false, failure: failure);
     }

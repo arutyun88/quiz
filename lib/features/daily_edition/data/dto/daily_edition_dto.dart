@@ -6,6 +6,35 @@ part 'daily_edition_dto.freezed.dart';
 part 'daily_edition_dto.g.dart';
 
 @freezed
+class DailyContinuationDto with _$DailyContinuationDto {
+  const factory DailyContinuationDto({
+    @JsonKey(name: 'run_id') required String runId,
+    @JsonKey(name: 'server_time') required DateTime serverTime,
+    @JsonKey(name: 'closes_at') required DateTime closesAt,
+    @JsonKey(name: 'next_action') required String nextAction,
+    @JsonKey(name: 'quiz_plus') required bool quizPlus,
+    @JsonKey(name: 'bonus_questions_granted')
+    required int bonusQuestionsGranted,
+    @JsonKey(name: 'bonus_questions_served') required int bonusQuestionsServed,
+    @JsonKey(name: 'bonus_questions_remaining')
+    required int bonusQuestionsRemaining,
+    @JsonKey(name: 'questions_per_reward') required int questionsPerReward,
+    @JsonKey(name: 'rewarded_videos_used') required int rewardedVideosUsed,
+    @JsonKey(name: 'rewarded_videos_max') required int rewardedVideosMax,
+    @JsonKey(name: 'rewarded_videos_remaining')
+    required int rewardedVideosRemaining,
+    @JsonKey(name: 'rolling_videos_used') required int rollingVideosUsed,
+    @JsonKey(name: 'rolling_videos_max') required int rollingVideosMax,
+    @JsonKey(name: 'rewarded_ad_available') required bool rewardedAdAvailable,
+    @JsonKey(name: 'rewarded_ad_next_available_at')
+    DateTime? rewardedAdNextAvailableAt,
+  }) = _DailyContinuationDto;
+
+  factory DailyContinuationDto.fromJson(Map<String, dynamic> json) =>
+      _$DailyContinuationDtoFromJson(json);
+}
+
+@freezed
 class DailyOpenDto with _$DailyOpenDto {
   const factory DailyOpenDto({
     @JsonKey(name: 'run_id') required String runId,
@@ -16,6 +45,7 @@ class DailyOpenDto with _$DailyOpenDto {
     @JsonKey(name: 'required_count') required int requiredCount,
     @JsonKey(name: 'resolved_count') required int resolvedCount,
     @JsonKey(name: 'rating_at_open') required int ratingAtOpen,
+    required DailyContinuationDto continuation,
   }) = _DailyOpenDto;
 
   factory DailyOpenDto.fromJson(Map<String, dynamic> json) =>
@@ -132,6 +162,7 @@ class DailySummaryDto with _$DailySummaryDto {
     @JsonKey(name: 'total_xp') required int totalXp,
     @JsonKey(name: 'bonus_granted') required int bonusGranted,
     @JsonKey(name: 'bonus_served') required int bonusServed,
+    required DailyContinuationDto continuation,
   }) = _DailySummaryDto;
 
   factory DailySummaryDto.fromJson(Map<String, dynamic> json) =>
@@ -155,6 +186,7 @@ class RewardedAdDto with _$RewardedAdDto {
   const factory RewardedAdDto({
     @JsonKey(name: 'client_event_id') required String clientEventId,
     @JsonKey(name: 'granted_questions') required int grantedQuestions,
+    required DailyContinuationDto continuation,
   }) = _RewardedAdDto;
 
   factory RewardedAdDto.fromJson(Map<String, dynamic> json) =>

@@ -15,6 +15,479 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
+mixin _$DailyContinuationEntity {
+  String get runId => throw _privateConstructorUsedError;
+  DateTime get serverTime => throw _privateConstructorUsedError;
+  DateTime get closesAt => throw _privateConstructorUsedError;
+  DailyContinuationAction get nextAction => throw _privateConstructorUsedError;
+  bool get quizPlus => throw _privateConstructorUsedError;
+  int get bonusQuestionsGranted => throw _privateConstructorUsedError;
+  int get bonusQuestionsServed => throw _privateConstructorUsedError;
+  int get bonusQuestionsRemaining => throw _privateConstructorUsedError;
+  int get questionsPerReward => throw _privateConstructorUsedError;
+  int get rewardedVideosUsed => throw _privateConstructorUsedError;
+  int get rewardedVideosMax => throw _privateConstructorUsedError;
+  int get rewardedVideosRemaining => throw _privateConstructorUsedError;
+  int get rollingVideosUsed => throw _privateConstructorUsedError;
+  int get rollingVideosMax => throw _privateConstructorUsedError;
+  bool get rewardedAdAvailable => throw _privateConstructorUsedError;
+  DateTime? get rewardedAdNextAvailableAt => throw _privateConstructorUsedError;
+
+  /// Create a copy of DailyContinuationEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $DailyContinuationEntityCopyWith<DailyContinuationEntity> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DailyContinuationEntityCopyWith<$Res> {
+  factory $DailyContinuationEntityCopyWith(DailyContinuationEntity value,
+          $Res Function(DailyContinuationEntity) then) =
+      _$DailyContinuationEntityCopyWithImpl<$Res, DailyContinuationEntity>;
+  @useResult
+  $Res call(
+      {String runId,
+      DateTime serverTime,
+      DateTime closesAt,
+      DailyContinuationAction nextAction,
+      bool quizPlus,
+      int bonusQuestionsGranted,
+      int bonusQuestionsServed,
+      int bonusQuestionsRemaining,
+      int questionsPerReward,
+      int rewardedVideosUsed,
+      int rewardedVideosMax,
+      int rewardedVideosRemaining,
+      int rollingVideosUsed,
+      int rollingVideosMax,
+      bool rewardedAdAvailable,
+      DateTime? rewardedAdNextAvailableAt});
+}
+
+/// @nodoc
+class _$DailyContinuationEntityCopyWithImpl<$Res,
+        $Val extends DailyContinuationEntity>
+    implements $DailyContinuationEntityCopyWith<$Res> {
+  _$DailyContinuationEntityCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of DailyContinuationEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? runId = null,
+    Object? serverTime = null,
+    Object? closesAt = null,
+    Object? nextAction = null,
+    Object? quizPlus = null,
+    Object? bonusQuestionsGranted = null,
+    Object? bonusQuestionsServed = null,
+    Object? bonusQuestionsRemaining = null,
+    Object? questionsPerReward = null,
+    Object? rewardedVideosUsed = null,
+    Object? rewardedVideosMax = null,
+    Object? rewardedVideosRemaining = null,
+    Object? rollingVideosUsed = null,
+    Object? rollingVideosMax = null,
+    Object? rewardedAdAvailable = null,
+    Object? rewardedAdNextAvailableAt = freezed,
+  }) {
+    return _then(_value.copyWith(
+      runId: null == runId
+          ? _value.runId
+          : runId // ignore: cast_nullable_to_non_nullable
+              as String,
+      serverTime: null == serverTime
+          ? _value.serverTime
+          : serverTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      closesAt: null == closesAt
+          ? _value.closesAt
+          : closesAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      nextAction: null == nextAction
+          ? _value.nextAction
+          : nextAction // ignore: cast_nullable_to_non_nullable
+              as DailyContinuationAction,
+      quizPlus: null == quizPlus
+          ? _value.quizPlus
+          : quizPlus // ignore: cast_nullable_to_non_nullable
+              as bool,
+      bonusQuestionsGranted: null == bonusQuestionsGranted
+          ? _value.bonusQuestionsGranted
+          : bonusQuestionsGranted // ignore: cast_nullable_to_non_nullable
+              as int,
+      bonusQuestionsServed: null == bonusQuestionsServed
+          ? _value.bonusQuestionsServed
+          : bonusQuestionsServed // ignore: cast_nullable_to_non_nullable
+              as int,
+      bonusQuestionsRemaining: null == bonusQuestionsRemaining
+          ? _value.bonusQuestionsRemaining
+          : bonusQuestionsRemaining // ignore: cast_nullable_to_non_nullable
+              as int,
+      questionsPerReward: null == questionsPerReward
+          ? _value.questionsPerReward
+          : questionsPerReward // ignore: cast_nullable_to_non_nullable
+              as int,
+      rewardedVideosUsed: null == rewardedVideosUsed
+          ? _value.rewardedVideosUsed
+          : rewardedVideosUsed // ignore: cast_nullable_to_non_nullable
+              as int,
+      rewardedVideosMax: null == rewardedVideosMax
+          ? _value.rewardedVideosMax
+          : rewardedVideosMax // ignore: cast_nullable_to_non_nullable
+              as int,
+      rewardedVideosRemaining: null == rewardedVideosRemaining
+          ? _value.rewardedVideosRemaining
+          : rewardedVideosRemaining // ignore: cast_nullable_to_non_nullable
+              as int,
+      rollingVideosUsed: null == rollingVideosUsed
+          ? _value.rollingVideosUsed
+          : rollingVideosUsed // ignore: cast_nullable_to_non_nullable
+              as int,
+      rollingVideosMax: null == rollingVideosMax
+          ? _value.rollingVideosMax
+          : rollingVideosMax // ignore: cast_nullable_to_non_nullable
+              as int,
+      rewardedAdAvailable: null == rewardedAdAvailable
+          ? _value.rewardedAdAvailable
+          : rewardedAdAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      rewardedAdNextAvailableAt: freezed == rewardedAdNextAvailableAt
+          ? _value.rewardedAdNextAvailableAt
+          : rewardedAdNextAvailableAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$DailyContinuationEntityImplCopyWith<$Res>
+    implements $DailyContinuationEntityCopyWith<$Res> {
+  factory _$$DailyContinuationEntityImplCopyWith(
+          _$DailyContinuationEntityImpl value,
+          $Res Function(_$DailyContinuationEntityImpl) then) =
+      __$$DailyContinuationEntityImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String runId,
+      DateTime serverTime,
+      DateTime closesAt,
+      DailyContinuationAction nextAction,
+      bool quizPlus,
+      int bonusQuestionsGranted,
+      int bonusQuestionsServed,
+      int bonusQuestionsRemaining,
+      int questionsPerReward,
+      int rewardedVideosUsed,
+      int rewardedVideosMax,
+      int rewardedVideosRemaining,
+      int rollingVideosUsed,
+      int rollingVideosMax,
+      bool rewardedAdAvailable,
+      DateTime? rewardedAdNextAvailableAt});
+}
+
+/// @nodoc
+class __$$DailyContinuationEntityImplCopyWithImpl<$Res>
+    extends _$DailyContinuationEntityCopyWithImpl<$Res,
+        _$DailyContinuationEntityImpl>
+    implements _$$DailyContinuationEntityImplCopyWith<$Res> {
+  __$$DailyContinuationEntityImplCopyWithImpl(
+      _$DailyContinuationEntityImpl _value,
+      $Res Function(_$DailyContinuationEntityImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DailyContinuationEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? runId = null,
+    Object? serverTime = null,
+    Object? closesAt = null,
+    Object? nextAction = null,
+    Object? quizPlus = null,
+    Object? bonusQuestionsGranted = null,
+    Object? bonusQuestionsServed = null,
+    Object? bonusQuestionsRemaining = null,
+    Object? questionsPerReward = null,
+    Object? rewardedVideosUsed = null,
+    Object? rewardedVideosMax = null,
+    Object? rewardedVideosRemaining = null,
+    Object? rollingVideosUsed = null,
+    Object? rollingVideosMax = null,
+    Object? rewardedAdAvailable = null,
+    Object? rewardedAdNextAvailableAt = freezed,
+  }) {
+    return _then(_$DailyContinuationEntityImpl(
+      runId: null == runId
+          ? _value.runId
+          : runId // ignore: cast_nullable_to_non_nullable
+              as String,
+      serverTime: null == serverTime
+          ? _value.serverTime
+          : serverTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      closesAt: null == closesAt
+          ? _value.closesAt
+          : closesAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      nextAction: null == nextAction
+          ? _value.nextAction
+          : nextAction // ignore: cast_nullable_to_non_nullable
+              as DailyContinuationAction,
+      quizPlus: null == quizPlus
+          ? _value.quizPlus
+          : quizPlus // ignore: cast_nullable_to_non_nullable
+              as bool,
+      bonusQuestionsGranted: null == bonusQuestionsGranted
+          ? _value.bonusQuestionsGranted
+          : bonusQuestionsGranted // ignore: cast_nullable_to_non_nullable
+              as int,
+      bonusQuestionsServed: null == bonusQuestionsServed
+          ? _value.bonusQuestionsServed
+          : bonusQuestionsServed // ignore: cast_nullable_to_non_nullable
+              as int,
+      bonusQuestionsRemaining: null == bonusQuestionsRemaining
+          ? _value.bonusQuestionsRemaining
+          : bonusQuestionsRemaining // ignore: cast_nullable_to_non_nullable
+              as int,
+      questionsPerReward: null == questionsPerReward
+          ? _value.questionsPerReward
+          : questionsPerReward // ignore: cast_nullable_to_non_nullable
+              as int,
+      rewardedVideosUsed: null == rewardedVideosUsed
+          ? _value.rewardedVideosUsed
+          : rewardedVideosUsed // ignore: cast_nullable_to_non_nullable
+              as int,
+      rewardedVideosMax: null == rewardedVideosMax
+          ? _value.rewardedVideosMax
+          : rewardedVideosMax // ignore: cast_nullable_to_non_nullable
+              as int,
+      rewardedVideosRemaining: null == rewardedVideosRemaining
+          ? _value.rewardedVideosRemaining
+          : rewardedVideosRemaining // ignore: cast_nullable_to_non_nullable
+              as int,
+      rollingVideosUsed: null == rollingVideosUsed
+          ? _value.rollingVideosUsed
+          : rollingVideosUsed // ignore: cast_nullable_to_non_nullable
+              as int,
+      rollingVideosMax: null == rollingVideosMax
+          ? _value.rollingVideosMax
+          : rollingVideosMax // ignore: cast_nullable_to_non_nullable
+              as int,
+      rewardedAdAvailable: null == rewardedAdAvailable
+          ? _value.rewardedAdAvailable
+          : rewardedAdAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      rewardedAdNextAvailableAt: freezed == rewardedAdNextAvailableAt
+          ? _value.rewardedAdNextAvailableAt
+          : rewardedAdNextAvailableAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DailyContinuationEntityImpl implements _DailyContinuationEntity {
+  const _$DailyContinuationEntityImpl(
+      {required this.runId,
+      required this.serverTime,
+      required this.closesAt,
+      required this.nextAction,
+      required this.quizPlus,
+      required this.bonusQuestionsGranted,
+      required this.bonusQuestionsServed,
+      required this.bonusQuestionsRemaining,
+      required this.questionsPerReward,
+      required this.rewardedVideosUsed,
+      required this.rewardedVideosMax,
+      required this.rewardedVideosRemaining,
+      required this.rollingVideosUsed,
+      required this.rollingVideosMax,
+      required this.rewardedAdAvailable,
+      required this.rewardedAdNextAvailableAt});
+
+  @override
+  final String runId;
+  @override
+  final DateTime serverTime;
+  @override
+  final DateTime closesAt;
+  @override
+  final DailyContinuationAction nextAction;
+  @override
+  final bool quizPlus;
+  @override
+  final int bonusQuestionsGranted;
+  @override
+  final int bonusQuestionsServed;
+  @override
+  final int bonusQuestionsRemaining;
+  @override
+  final int questionsPerReward;
+  @override
+  final int rewardedVideosUsed;
+  @override
+  final int rewardedVideosMax;
+  @override
+  final int rewardedVideosRemaining;
+  @override
+  final int rollingVideosUsed;
+  @override
+  final int rollingVideosMax;
+  @override
+  final bool rewardedAdAvailable;
+  @override
+  final DateTime? rewardedAdNextAvailableAt;
+
+  @override
+  String toString() {
+    return 'DailyContinuationEntity(runId: $runId, serverTime: $serverTime, closesAt: $closesAt, nextAction: $nextAction, quizPlus: $quizPlus, bonusQuestionsGranted: $bonusQuestionsGranted, bonusQuestionsServed: $bonusQuestionsServed, bonusQuestionsRemaining: $bonusQuestionsRemaining, questionsPerReward: $questionsPerReward, rewardedVideosUsed: $rewardedVideosUsed, rewardedVideosMax: $rewardedVideosMax, rewardedVideosRemaining: $rewardedVideosRemaining, rollingVideosUsed: $rollingVideosUsed, rollingVideosMax: $rollingVideosMax, rewardedAdAvailable: $rewardedAdAvailable, rewardedAdNextAvailableAt: $rewardedAdNextAvailableAt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DailyContinuationEntityImpl &&
+            (identical(other.runId, runId) || other.runId == runId) &&
+            (identical(other.serverTime, serverTime) ||
+                other.serverTime == serverTime) &&
+            (identical(other.closesAt, closesAt) ||
+                other.closesAt == closesAt) &&
+            (identical(other.nextAction, nextAction) ||
+                other.nextAction == nextAction) &&
+            (identical(other.quizPlus, quizPlus) ||
+                other.quizPlus == quizPlus) &&
+            (identical(other.bonusQuestionsGranted, bonusQuestionsGranted) ||
+                other.bonusQuestionsGranted == bonusQuestionsGranted) &&
+            (identical(other.bonusQuestionsServed, bonusQuestionsServed) ||
+                other.bonusQuestionsServed == bonusQuestionsServed) &&
+            (identical(
+                    other.bonusQuestionsRemaining, bonusQuestionsRemaining) ||
+                other.bonusQuestionsRemaining == bonusQuestionsRemaining) &&
+            (identical(other.questionsPerReward, questionsPerReward) ||
+                other.questionsPerReward == questionsPerReward) &&
+            (identical(other.rewardedVideosUsed, rewardedVideosUsed) ||
+                other.rewardedVideosUsed == rewardedVideosUsed) &&
+            (identical(other.rewardedVideosMax, rewardedVideosMax) ||
+                other.rewardedVideosMax == rewardedVideosMax) &&
+            (identical(
+                    other.rewardedVideosRemaining, rewardedVideosRemaining) ||
+                other.rewardedVideosRemaining == rewardedVideosRemaining) &&
+            (identical(other.rollingVideosUsed, rollingVideosUsed) ||
+                other.rollingVideosUsed == rollingVideosUsed) &&
+            (identical(other.rollingVideosMax, rollingVideosMax) ||
+                other.rollingVideosMax == rollingVideosMax) &&
+            (identical(other.rewardedAdAvailable, rewardedAdAvailable) ||
+                other.rewardedAdAvailable == rewardedAdAvailable) &&
+            (identical(other.rewardedAdNextAvailableAt,
+                    rewardedAdNextAvailableAt) ||
+                other.rewardedAdNextAvailableAt == rewardedAdNextAvailableAt));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      runId,
+      serverTime,
+      closesAt,
+      nextAction,
+      quizPlus,
+      bonusQuestionsGranted,
+      bonusQuestionsServed,
+      bonusQuestionsRemaining,
+      questionsPerReward,
+      rewardedVideosUsed,
+      rewardedVideosMax,
+      rewardedVideosRemaining,
+      rollingVideosUsed,
+      rollingVideosMax,
+      rewardedAdAvailable,
+      rewardedAdNextAvailableAt);
+
+  /// Create a copy of DailyContinuationEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DailyContinuationEntityImplCopyWith<_$DailyContinuationEntityImpl>
+      get copyWith => __$$DailyContinuationEntityImplCopyWithImpl<
+          _$DailyContinuationEntityImpl>(this, _$identity);
+}
+
+abstract class _DailyContinuationEntity implements DailyContinuationEntity {
+  const factory _DailyContinuationEntity(
+          {required final String runId,
+          required final DateTime serverTime,
+          required final DateTime closesAt,
+          required final DailyContinuationAction nextAction,
+          required final bool quizPlus,
+          required final int bonusQuestionsGranted,
+          required final int bonusQuestionsServed,
+          required final int bonusQuestionsRemaining,
+          required final int questionsPerReward,
+          required final int rewardedVideosUsed,
+          required final int rewardedVideosMax,
+          required final int rewardedVideosRemaining,
+          required final int rollingVideosUsed,
+          required final int rollingVideosMax,
+          required final bool rewardedAdAvailable,
+          required final DateTime? rewardedAdNextAvailableAt}) =
+      _$DailyContinuationEntityImpl;
+
+  @override
+  String get runId;
+  @override
+  DateTime get serverTime;
+  @override
+  DateTime get closesAt;
+  @override
+  DailyContinuationAction get nextAction;
+  @override
+  bool get quizPlus;
+  @override
+  int get bonusQuestionsGranted;
+  @override
+  int get bonusQuestionsServed;
+  @override
+  int get bonusQuestionsRemaining;
+  @override
+  int get questionsPerReward;
+  @override
+  int get rewardedVideosUsed;
+  @override
+  int get rewardedVideosMax;
+  @override
+  int get rewardedVideosRemaining;
+  @override
+  int get rollingVideosUsed;
+  @override
+  int get rollingVideosMax;
+  @override
+  bool get rewardedAdAvailable;
+  @override
+  DateTime? get rewardedAdNextAvailableAt;
+
+  /// Create a copy of DailyContinuationEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DailyContinuationEntityImplCopyWith<_$DailyContinuationEntityImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$DailyRunEntity {
   String get runId => throw _privateConstructorUsedError;
   String get editionDate => throw _privateConstructorUsedError;
@@ -24,6 +497,8 @@ mixin _$DailyRunEntity {
   int get requiredCount => throw _privateConstructorUsedError;
   int get resolvedCount => throw _privateConstructorUsedError;
   int get ratingAtOpen => throw _privateConstructorUsedError;
+  DailyContinuationEntity get continuation =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of DailyRunEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -46,7 +521,10 @@ abstract class $DailyRunEntityCopyWith<$Res> {
       DateTime graceEndsAt,
       int requiredCount,
       int resolvedCount,
-      int ratingAtOpen});
+      int ratingAtOpen,
+      DailyContinuationEntity continuation});
+
+  $DailyContinuationEntityCopyWith<$Res> get continuation;
 }
 
 /// @nodoc
@@ -72,6 +550,7 @@ class _$DailyRunEntityCopyWithImpl<$Res, $Val extends DailyRunEntity>
     Object? requiredCount = null,
     Object? resolvedCount = null,
     Object? ratingAtOpen = null,
+    Object? continuation = null,
   }) {
     return _then(_value.copyWith(
       runId: null == runId
@@ -106,7 +585,21 @@ class _$DailyRunEntityCopyWithImpl<$Res, $Val extends DailyRunEntity>
           ? _value.ratingAtOpen
           : ratingAtOpen // ignore: cast_nullable_to_non_nullable
               as int,
+      continuation: null == continuation
+          ? _value.continuation
+          : continuation // ignore: cast_nullable_to_non_nullable
+              as DailyContinuationEntity,
     ) as $Val);
+  }
+
+  /// Create a copy of DailyRunEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DailyContinuationEntityCopyWith<$Res> get continuation {
+    return $DailyContinuationEntityCopyWith<$Res>(_value.continuation, (value) {
+      return _then(_value.copyWith(continuation: value) as $Val);
+    });
   }
 }
 
@@ -126,7 +619,11 @@ abstract class _$$DailyRunEntityImplCopyWith<$Res>
       DateTime graceEndsAt,
       int requiredCount,
       int resolvedCount,
-      int ratingAtOpen});
+      int ratingAtOpen,
+      DailyContinuationEntity continuation});
+
+  @override
+  $DailyContinuationEntityCopyWith<$Res> get continuation;
 }
 
 /// @nodoc
@@ -150,6 +647,7 @@ class __$$DailyRunEntityImplCopyWithImpl<$Res>
     Object? requiredCount = null,
     Object? resolvedCount = null,
     Object? ratingAtOpen = null,
+    Object? continuation = null,
   }) {
     return _then(_$DailyRunEntityImpl(
       runId: null == runId
@@ -184,6 +682,10 @@ class __$$DailyRunEntityImplCopyWithImpl<$Res>
           ? _value.ratingAtOpen
           : ratingAtOpen // ignore: cast_nullable_to_non_nullable
               as int,
+      continuation: null == continuation
+          ? _value.continuation
+          : continuation // ignore: cast_nullable_to_non_nullable
+              as DailyContinuationEntity,
     ));
   }
 }
@@ -199,7 +701,8 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
       required this.graceEndsAt,
       required this.requiredCount,
       required this.resolvedCount,
-      required this.ratingAtOpen});
+      required this.ratingAtOpen,
+      required this.continuation});
 
   @override
   final String runId;
@@ -217,10 +720,12 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
   final int resolvedCount;
   @override
   final int ratingAtOpen;
+  @override
+  final DailyContinuationEntity continuation;
 
   @override
   String toString() {
-    return 'DailyRunEntity(runId: $runId, editionDate: $editionDate, status: $status, closesAt: $closesAt, graceEndsAt: $graceEndsAt, requiredCount: $requiredCount, resolvedCount: $resolvedCount, ratingAtOpen: $ratingAtOpen)';
+    return 'DailyRunEntity(runId: $runId, editionDate: $editionDate, status: $status, closesAt: $closesAt, graceEndsAt: $graceEndsAt, requiredCount: $requiredCount, resolvedCount: $resolvedCount, ratingAtOpen: $ratingAtOpen, continuation: $continuation)';
   }
 
   @override
@@ -241,12 +746,23 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
             (identical(other.resolvedCount, resolvedCount) ||
                 other.resolvedCount == resolvedCount) &&
             (identical(other.ratingAtOpen, ratingAtOpen) ||
-                other.ratingAtOpen == ratingAtOpen));
+                other.ratingAtOpen == ratingAtOpen) &&
+            (identical(other.continuation, continuation) ||
+                other.continuation == continuation));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, runId, editionDate, status,
-      closesAt, graceEndsAt, requiredCount, resolvedCount, ratingAtOpen);
+  int get hashCode => Object.hash(
+      runtimeType,
+      runId,
+      editionDate,
+      status,
+      closesAt,
+      graceEndsAt,
+      requiredCount,
+      resolvedCount,
+      ratingAtOpen,
+      continuation);
 
   /// Create a copy of DailyRunEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -260,14 +776,16 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
 
 abstract class _DailyRunEntity implements DailyRunEntity {
   const factory _DailyRunEntity(
-      {required final String runId,
-      required final String editionDate,
-      required final DailyRunStatus status,
-      required final DateTime closesAt,
-      required final DateTime graceEndsAt,
-      required final int requiredCount,
-      required final int resolvedCount,
-      required final int ratingAtOpen}) = _$DailyRunEntityImpl;
+          {required final String runId,
+          required final String editionDate,
+          required final DailyRunStatus status,
+          required final DateTime closesAt,
+          required final DateTime graceEndsAt,
+          required final int requiredCount,
+          required final int resolvedCount,
+          required final int ratingAtOpen,
+          required final DailyContinuationEntity continuation}) =
+      _$DailyRunEntityImpl;
 
   @override
   String get runId;
@@ -285,6 +803,8 @@ abstract class _DailyRunEntity implements DailyRunEntity {
   int get resolvedCount;
   @override
   int get ratingAtOpen;
+  @override
+  DailyContinuationEntity get continuation;
 
   /// Create a copy of DailyRunEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -1683,6 +2203,8 @@ mixin _$DailySummaryEntity {
   int get totalXp => throw _privateConstructorUsedError;
   int get bonusGranted => throw _privateConstructorUsedError;
   int get bonusServed => throw _privateConstructorUsedError;
+  DailyContinuationEntity get continuation =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of DailySummaryEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -1710,7 +2232,10 @@ abstract class $DailySummaryEntityCopyWith<$Res> {
       int completionXp,
       int totalXp,
       int bonusGranted,
-      int bonusServed});
+      int bonusServed,
+      DailyContinuationEntity continuation});
+
+  $DailyContinuationEntityCopyWith<$Res> get continuation;
 }
 
 /// @nodoc
@@ -1741,6 +2266,7 @@ class _$DailySummaryEntityCopyWithImpl<$Res, $Val extends DailySummaryEntity>
     Object? totalXp = null,
     Object? bonusGranted = null,
     Object? bonusServed = null,
+    Object? continuation = null,
   }) {
     return _then(_value.copyWith(
       runId: null == runId
@@ -1795,7 +2321,21 @@ class _$DailySummaryEntityCopyWithImpl<$Res, $Val extends DailySummaryEntity>
           ? _value.bonusServed
           : bonusServed // ignore: cast_nullable_to_non_nullable
               as int,
+      continuation: null == continuation
+          ? _value.continuation
+          : continuation // ignore: cast_nullable_to_non_nullable
+              as DailyContinuationEntity,
     ) as $Val);
+  }
+
+  /// Create a copy of DailySummaryEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DailyContinuationEntityCopyWith<$Res> get continuation {
+    return $DailyContinuationEntityCopyWith<$Res>(_value.continuation, (value) {
+      return _then(_value.copyWith(continuation: value) as $Val);
+    });
   }
 }
 
@@ -1820,7 +2360,11 @@ abstract class _$$DailySummaryEntityImplCopyWith<$Res>
       int completionXp,
       int totalXp,
       int bonusGranted,
-      int bonusServed});
+      int bonusServed,
+      DailyContinuationEntity continuation});
+
+  @override
+  $DailyContinuationEntityCopyWith<$Res> get continuation;
 }
 
 /// @nodoc
@@ -1849,6 +2393,7 @@ class __$$DailySummaryEntityImplCopyWithImpl<$Res>
     Object? totalXp = null,
     Object? bonusGranted = null,
     Object? bonusServed = null,
+    Object? continuation = null,
   }) {
     return _then(_$DailySummaryEntityImpl(
       runId: null == runId
@@ -1903,6 +2448,10 @@ class __$$DailySummaryEntityImplCopyWithImpl<$Res>
           ? _value.bonusServed
           : bonusServed // ignore: cast_nullable_to_non_nullable
               as int,
+      continuation: null == continuation
+          ? _value.continuation
+          : continuation // ignore: cast_nullable_to_non_nullable
+              as DailyContinuationEntity,
     ));
   }
 }
@@ -1923,7 +2472,8 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
       required this.completionXp,
       required this.totalXp,
       required this.bonusGranted,
-      required this.bonusServed});
+      required this.bonusServed,
+      required this.continuation});
 
   @override
   final String runId;
@@ -1951,10 +2501,12 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
   final int bonusGranted;
   @override
   final int bonusServed;
+  @override
+  final DailyContinuationEntity continuation;
 
   @override
   String toString() {
-    return 'DailySummaryEntity(runId: $runId, editionDate: $editionDate, status: $status, requiredCount: $requiredCount, resolvedCount: $resolvedCount, correctCount: $correctCount, skippedCount: $skippedCount, hintCount: $hintCount, answerXp: $answerXp, completionXp: $completionXp, totalXp: $totalXp, bonusGranted: $bonusGranted, bonusServed: $bonusServed)';
+    return 'DailySummaryEntity(runId: $runId, editionDate: $editionDate, status: $status, requiredCount: $requiredCount, resolvedCount: $resolvedCount, correctCount: $correctCount, skippedCount: $skippedCount, hintCount: $hintCount, answerXp: $answerXp, completionXp: $completionXp, totalXp: $totalXp, bonusGranted: $bonusGranted, bonusServed: $bonusServed, continuation: $continuation)';
   }
 
   @override
@@ -1984,7 +2536,9 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
             (identical(other.bonusGranted, bonusGranted) ||
                 other.bonusGranted == bonusGranted) &&
             (identical(other.bonusServed, bonusServed) ||
-                other.bonusServed == bonusServed));
+                other.bonusServed == bonusServed) &&
+            (identical(other.continuation, continuation) ||
+                other.continuation == continuation));
   }
 
   @override
@@ -2002,7 +2556,8 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
       completionXp,
       totalXp,
       bonusGranted,
-      bonusServed);
+      bonusServed,
+      continuation);
 
   /// Create a copy of DailySummaryEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -2016,19 +2571,21 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
 
 abstract class _DailySummaryEntity implements DailySummaryEntity {
   const factory _DailySummaryEntity(
-      {required final String runId,
-      required final String editionDate,
-      required final DailyRunStatus status,
-      required final int requiredCount,
-      required final int resolvedCount,
-      required final int correctCount,
-      required final int skippedCount,
-      required final int hintCount,
-      required final int answerXp,
-      required final int completionXp,
-      required final int totalXp,
-      required final int bonusGranted,
-      required final int bonusServed}) = _$DailySummaryEntityImpl;
+          {required final String runId,
+          required final String editionDate,
+          required final DailyRunStatus status,
+          required final int requiredCount,
+          required final int resolvedCount,
+          required final int correctCount,
+          required final int skippedCount,
+          required final int hintCount,
+          required final int answerXp,
+          required final int completionXp,
+          required final int totalXp,
+          required final int bonusGranted,
+          required final int bonusServed,
+          required final DailyContinuationEntity continuation}) =
+      _$DailySummaryEntityImpl;
 
   @override
   String get runId;
@@ -2056,6 +2613,8 @@ abstract class _DailySummaryEntity implements DailySummaryEntity {
   int get bonusGranted;
   @override
   int get bonusServed;
+  @override
+  DailyContinuationEntity get continuation;
 
   /// Create a copy of DailySummaryEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -2069,6 +2628,8 @@ abstract class _DailySummaryEntity implements DailySummaryEntity {
 mixin _$RewardedAdEntity {
   String get clientEventId => throw _privateConstructorUsedError;
   int get grantedQuestions => throw _privateConstructorUsedError;
+  DailyContinuationEntity get continuation =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of RewardedAdEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -2083,7 +2644,12 @@ abstract class $RewardedAdEntityCopyWith<$Res> {
           RewardedAdEntity value, $Res Function(RewardedAdEntity) then) =
       _$RewardedAdEntityCopyWithImpl<$Res, RewardedAdEntity>;
   @useResult
-  $Res call({String clientEventId, int grantedQuestions});
+  $Res call(
+      {String clientEventId,
+      int grantedQuestions,
+      DailyContinuationEntity continuation});
+
+  $DailyContinuationEntityCopyWith<$Res> get continuation;
 }
 
 /// @nodoc
@@ -2103,6 +2669,7 @@ class _$RewardedAdEntityCopyWithImpl<$Res, $Val extends RewardedAdEntity>
   $Res call({
     Object? clientEventId = null,
     Object? grantedQuestions = null,
+    Object? continuation = null,
   }) {
     return _then(_value.copyWith(
       clientEventId: null == clientEventId
@@ -2113,7 +2680,21 @@ class _$RewardedAdEntityCopyWithImpl<$Res, $Val extends RewardedAdEntity>
           ? _value.grantedQuestions
           : grantedQuestions // ignore: cast_nullable_to_non_nullable
               as int,
+      continuation: null == continuation
+          ? _value.continuation
+          : continuation // ignore: cast_nullable_to_non_nullable
+              as DailyContinuationEntity,
     ) as $Val);
+  }
+
+  /// Create a copy of RewardedAdEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DailyContinuationEntityCopyWith<$Res> get continuation {
+    return $DailyContinuationEntityCopyWith<$Res>(_value.continuation, (value) {
+      return _then(_value.copyWith(continuation: value) as $Val);
+    });
   }
 }
 
@@ -2125,7 +2706,13 @@ abstract class _$$RewardedAdEntityImplCopyWith<$Res>
       __$$RewardedAdEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String clientEventId, int grantedQuestions});
+  $Res call(
+      {String clientEventId,
+      int grantedQuestions,
+      DailyContinuationEntity continuation});
+
+  @override
+  $DailyContinuationEntityCopyWith<$Res> get continuation;
 }
 
 /// @nodoc
@@ -2143,6 +2730,7 @@ class __$$RewardedAdEntityImplCopyWithImpl<$Res>
   $Res call({
     Object? clientEventId = null,
     Object? grantedQuestions = null,
+    Object? continuation = null,
   }) {
     return _then(_$RewardedAdEntityImpl(
       clientEventId: null == clientEventId
@@ -2153,6 +2741,10 @@ class __$$RewardedAdEntityImplCopyWithImpl<$Res>
           ? _value.grantedQuestions
           : grantedQuestions // ignore: cast_nullable_to_non_nullable
               as int,
+      continuation: null == continuation
+          ? _value.continuation
+          : continuation // ignore: cast_nullable_to_non_nullable
+              as DailyContinuationEntity,
     ));
   }
 }
@@ -2161,16 +2753,20 @@ class __$$RewardedAdEntityImplCopyWithImpl<$Res>
 
 class _$RewardedAdEntityImpl implements _RewardedAdEntity {
   const _$RewardedAdEntityImpl(
-      {required this.clientEventId, required this.grantedQuestions});
+      {required this.clientEventId,
+      required this.grantedQuestions,
+      required this.continuation});
 
   @override
   final String clientEventId;
   @override
   final int grantedQuestions;
+  @override
+  final DailyContinuationEntity continuation;
 
   @override
   String toString() {
-    return 'RewardedAdEntity(clientEventId: $clientEventId, grantedQuestions: $grantedQuestions)';
+    return 'RewardedAdEntity(clientEventId: $clientEventId, grantedQuestions: $grantedQuestions, continuation: $continuation)';
   }
 
   @override
@@ -2181,11 +2777,14 @@ class _$RewardedAdEntityImpl implements _RewardedAdEntity {
             (identical(other.clientEventId, clientEventId) ||
                 other.clientEventId == clientEventId) &&
             (identical(other.grantedQuestions, grantedQuestions) ||
-                other.grantedQuestions == grantedQuestions));
+                other.grantedQuestions == grantedQuestions) &&
+            (identical(other.continuation, continuation) ||
+                other.continuation == continuation));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, clientEventId, grantedQuestions);
+  int get hashCode =>
+      Object.hash(runtimeType, clientEventId, grantedQuestions, continuation);
 
   /// Create a copy of RewardedAdEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -2199,13 +2798,17 @@ class _$RewardedAdEntityImpl implements _RewardedAdEntity {
 
 abstract class _RewardedAdEntity implements RewardedAdEntity {
   const factory _RewardedAdEntity(
-      {required final String clientEventId,
-      required final int grantedQuestions}) = _$RewardedAdEntityImpl;
+          {required final String clientEventId,
+          required final int grantedQuestions,
+          required final DailyContinuationEntity continuation}) =
+      _$RewardedAdEntityImpl;
 
   @override
   String get clientEventId;
   @override
   int get grantedQuestions;
+  @override
+  DailyContinuationEntity get continuation;
 
   /// Create a copy of RewardedAdEntity
   /// with the given fields replaced by the non-null parameter values.

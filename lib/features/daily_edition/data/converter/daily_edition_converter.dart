@@ -11,6 +11,28 @@ extension DailyOpenDtoConverter on DailyOpenDto {
         requiredCount: requiredCount,
         resolvedCount: resolvedCount,
         ratingAtOpen: ratingAtOpen,
+        continuation: continuation.toEntity(),
+      );
+}
+
+extension DailyContinuationDtoConverter on DailyContinuationDto {
+  DailyContinuationEntity toEntity() => DailyContinuationEntity(
+        runId: runId,
+        serverTime: serverTime,
+        closesAt: closesAt,
+        nextAction: _continuationAction(nextAction),
+        quizPlus: quizPlus,
+        bonusQuestionsGranted: bonusQuestionsGranted,
+        bonusQuestionsServed: bonusQuestionsServed,
+        bonusQuestionsRemaining: bonusQuestionsRemaining,
+        questionsPerReward: questionsPerReward,
+        rewardedVideosUsed: rewardedVideosUsed,
+        rewardedVideosMax: rewardedVideosMax,
+        rewardedVideosRemaining: rewardedVideosRemaining,
+        rollingVideosUsed: rollingVideosUsed,
+        rollingVideosMax: rollingVideosMax,
+        rewardedAdAvailable: rewardedAdAvailable,
+        rewardedAdNextAvailableAt: rewardedAdNextAvailableAt,
       );
 }
 
@@ -90,6 +112,7 @@ extension DailySummaryDtoConverter on DailySummaryDto {
         totalXp: totalXp,
         bonusGranted: bonusGranted,
         bonusServed: bonusServed,
+        continuation: continuation.toEntity(),
       );
 }
 
@@ -97,6 +120,7 @@ extension RewardedAdDtoConverter on RewardedAdDto {
   RewardedAdEntity toEntity() => RewardedAdEntity(
         clientEventId: clientEventId,
         grantedQuestions: grantedQuestions,
+        continuation: continuation.toEntity(),
       );
 }
 
@@ -119,4 +143,14 @@ DailyAttemptAction _attemptAction(String value) => switch (value) {
       'ANSWER' => DailyAttemptAction.answer,
       'SKIP' => DailyAttemptAction.skip,
       _ => DailyAttemptAction.unknown,
+    };
+
+DailyContinuationAction _continuationAction(String value) => switch (value) {
+      'COMPLETE_MAIN' => DailyContinuationAction.completeMain,
+      'PLAY_QUESTION' => DailyContinuationAction.playQuestion,
+      'WATCH_REWARDED' => DailyContinuationAction.watchRewarded,
+      'WAIT_FOR_REWARDED' => DailyContinuationAction.waitForRewarded,
+      'LIMIT_REACHED' => DailyContinuationAction.limitReached,
+      'CLOSED' => DailyContinuationAction.closed,
+      _ => DailyContinuationAction.unknown,
     };

@@ -14,6 +14,562 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+DailyContinuationDto _$DailyContinuationDtoFromJson(Map<String, dynamic> json) {
+  return _DailyContinuationDto.fromJson(json);
+}
+
+/// @nodoc
+mixin _$DailyContinuationDto {
+  @JsonKey(name: 'run_id')
+  String get runId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'server_time')
+  DateTime get serverTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'closes_at')
+  DateTime get closesAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'next_action')
+  String get nextAction => throw _privateConstructorUsedError;
+  @JsonKey(name: 'quiz_plus')
+  bool get quizPlus => throw _privateConstructorUsedError;
+  @JsonKey(name: 'bonus_questions_granted')
+  int get bonusQuestionsGranted => throw _privateConstructorUsedError;
+  @JsonKey(name: 'bonus_questions_served')
+  int get bonusQuestionsServed => throw _privateConstructorUsedError;
+  @JsonKey(name: 'bonus_questions_remaining')
+  int get bonusQuestionsRemaining => throw _privateConstructorUsedError;
+  @JsonKey(name: 'questions_per_reward')
+  int get questionsPerReward => throw _privateConstructorUsedError;
+  @JsonKey(name: 'rewarded_videos_used')
+  int get rewardedVideosUsed => throw _privateConstructorUsedError;
+  @JsonKey(name: 'rewarded_videos_max')
+  int get rewardedVideosMax => throw _privateConstructorUsedError;
+  @JsonKey(name: 'rewarded_videos_remaining')
+  int get rewardedVideosRemaining => throw _privateConstructorUsedError;
+  @JsonKey(name: 'rolling_videos_used')
+  int get rollingVideosUsed => throw _privateConstructorUsedError;
+  @JsonKey(name: 'rolling_videos_max')
+  int get rollingVideosMax => throw _privateConstructorUsedError;
+  @JsonKey(name: 'rewarded_ad_available')
+  bool get rewardedAdAvailable => throw _privateConstructorUsedError;
+  @JsonKey(name: 'rewarded_ad_next_available_at')
+  DateTime? get rewardedAdNextAvailableAt => throw _privateConstructorUsedError;
+
+  /// Serializes this DailyContinuationDto to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of DailyContinuationDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $DailyContinuationDtoCopyWith<DailyContinuationDto> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DailyContinuationDtoCopyWith<$Res> {
+  factory $DailyContinuationDtoCopyWith(DailyContinuationDto value,
+          $Res Function(DailyContinuationDto) then) =
+      _$DailyContinuationDtoCopyWithImpl<$Res, DailyContinuationDto>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'run_id') String runId,
+      @JsonKey(name: 'server_time') DateTime serverTime,
+      @JsonKey(name: 'closes_at') DateTime closesAt,
+      @JsonKey(name: 'next_action') String nextAction,
+      @JsonKey(name: 'quiz_plus') bool quizPlus,
+      @JsonKey(name: 'bonus_questions_granted') int bonusQuestionsGranted,
+      @JsonKey(name: 'bonus_questions_served') int bonusQuestionsServed,
+      @JsonKey(name: 'bonus_questions_remaining') int bonusQuestionsRemaining,
+      @JsonKey(name: 'questions_per_reward') int questionsPerReward,
+      @JsonKey(name: 'rewarded_videos_used') int rewardedVideosUsed,
+      @JsonKey(name: 'rewarded_videos_max') int rewardedVideosMax,
+      @JsonKey(name: 'rewarded_videos_remaining') int rewardedVideosRemaining,
+      @JsonKey(name: 'rolling_videos_used') int rollingVideosUsed,
+      @JsonKey(name: 'rolling_videos_max') int rollingVideosMax,
+      @JsonKey(name: 'rewarded_ad_available') bool rewardedAdAvailable,
+      @JsonKey(name: 'rewarded_ad_next_available_at')
+      DateTime? rewardedAdNextAvailableAt});
+}
+
+/// @nodoc
+class _$DailyContinuationDtoCopyWithImpl<$Res,
+        $Val extends DailyContinuationDto>
+    implements $DailyContinuationDtoCopyWith<$Res> {
+  _$DailyContinuationDtoCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of DailyContinuationDto
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? runId = null,
+    Object? serverTime = null,
+    Object? closesAt = null,
+    Object? nextAction = null,
+    Object? quizPlus = null,
+    Object? bonusQuestionsGranted = null,
+    Object? bonusQuestionsServed = null,
+    Object? bonusQuestionsRemaining = null,
+    Object? questionsPerReward = null,
+    Object? rewardedVideosUsed = null,
+    Object? rewardedVideosMax = null,
+    Object? rewardedVideosRemaining = null,
+    Object? rollingVideosUsed = null,
+    Object? rollingVideosMax = null,
+    Object? rewardedAdAvailable = null,
+    Object? rewardedAdNextAvailableAt = freezed,
+  }) {
+    return _then(_value.copyWith(
+      runId: null == runId
+          ? _value.runId
+          : runId // ignore: cast_nullable_to_non_nullable
+              as String,
+      serverTime: null == serverTime
+          ? _value.serverTime
+          : serverTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      closesAt: null == closesAt
+          ? _value.closesAt
+          : closesAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      nextAction: null == nextAction
+          ? _value.nextAction
+          : nextAction // ignore: cast_nullable_to_non_nullable
+              as String,
+      quizPlus: null == quizPlus
+          ? _value.quizPlus
+          : quizPlus // ignore: cast_nullable_to_non_nullable
+              as bool,
+      bonusQuestionsGranted: null == bonusQuestionsGranted
+          ? _value.bonusQuestionsGranted
+          : bonusQuestionsGranted // ignore: cast_nullable_to_non_nullable
+              as int,
+      bonusQuestionsServed: null == bonusQuestionsServed
+          ? _value.bonusQuestionsServed
+          : bonusQuestionsServed // ignore: cast_nullable_to_non_nullable
+              as int,
+      bonusQuestionsRemaining: null == bonusQuestionsRemaining
+          ? _value.bonusQuestionsRemaining
+          : bonusQuestionsRemaining // ignore: cast_nullable_to_non_nullable
+              as int,
+      questionsPerReward: null == questionsPerReward
+          ? _value.questionsPerReward
+          : questionsPerReward // ignore: cast_nullable_to_non_nullable
+              as int,
+      rewardedVideosUsed: null == rewardedVideosUsed
+          ? _value.rewardedVideosUsed
+          : rewardedVideosUsed // ignore: cast_nullable_to_non_nullable
+              as int,
+      rewardedVideosMax: null == rewardedVideosMax
+          ? _value.rewardedVideosMax
+          : rewardedVideosMax // ignore: cast_nullable_to_non_nullable
+              as int,
+      rewardedVideosRemaining: null == rewardedVideosRemaining
+          ? _value.rewardedVideosRemaining
+          : rewardedVideosRemaining // ignore: cast_nullable_to_non_nullable
+              as int,
+      rollingVideosUsed: null == rollingVideosUsed
+          ? _value.rollingVideosUsed
+          : rollingVideosUsed // ignore: cast_nullable_to_non_nullable
+              as int,
+      rollingVideosMax: null == rollingVideosMax
+          ? _value.rollingVideosMax
+          : rollingVideosMax // ignore: cast_nullable_to_non_nullable
+              as int,
+      rewardedAdAvailable: null == rewardedAdAvailable
+          ? _value.rewardedAdAvailable
+          : rewardedAdAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      rewardedAdNextAvailableAt: freezed == rewardedAdNextAvailableAt
+          ? _value.rewardedAdNextAvailableAt
+          : rewardedAdNextAvailableAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$DailyContinuationDtoImplCopyWith<$Res>
+    implements $DailyContinuationDtoCopyWith<$Res> {
+  factory _$$DailyContinuationDtoImplCopyWith(_$DailyContinuationDtoImpl value,
+          $Res Function(_$DailyContinuationDtoImpl) then) =
+      __$$DailyContinuationDtoImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'run_id') String runId,
+      @JsonKey(name: 'server_time') DateTime serverTime,
+      @JsonKey(name: 'closes_at') DateTime closesAt,
+      @JsonKey(name: 'next_action') String nextAction,
+      @JsonKey(name: 'quiz_plus') bool quizPlus,
+      @JsonKey(name: 'bonus_questions_granted') int bonusQuestionsGranted,
+      @JsonKey(name: 'bonus_questions_served') int bonusQuestionsServed,
+      @JsonKey(name: 'bonus_questions_remaining') int bonusQuestionsRemaining,
+      @JsonKey(name: 'questions_per_reward') int questionsPerReward,
+      @JsonKey(name: 'rewarded_videos_used') int rewardedVideosUsed,
+      @JsonKey(name: 'rewarded_videos_max') int rewardedVideosMax,
+      @JsonKey(name: 'rewarded_videos_remaining') int rewardedVideosRemaining,
+      @JsonKey(name: 'rolling_videos_used') int rollingVideosUsed,
+      @JsonKey(name: 'rolling_videos_max') int rollingVideosMax,
+      @JsonKey(name: 'rewarded_ad_available') bool rewardedAdAvailable,
+      @JsonKey(name: 'rewarded_ad_next_available_at')
+      DateTime? rewardedAdNextAvailableAt});
+}
+
+/// @nodoc
+class __$$DailyContinuationDtoImplCopyWithImpl<$Res>
+    extends _$DailyContinuationDtoCopyWithImpl<$Res, _$DailyContinuationDtoImpl>
+    implements _$$DailyContinuationDtoImplCopyWith<$Res> {
+  __$$DailyContinuationDtoImplCopyWithImpl(_$DailyContinuationDtoImpl _value,
+      $Res Function(_$DailyContinuationDtoImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DailyContinuationDto
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? runId = null,
+    Object? serverTime = null,
+    Object? closesAt = null,
+    Object? nextAction = null,
+    Object? quizPlus = null,
+    Object? bonusQuestionsGranted = null,
+    Object? bonusQuestionsServed = null,
+    Object? bonusQuestionsRemaining = null,
+    Object? questionsPerReward = null,
+    Object? rewardedVideosUsed = null,
+    Object? rewardedVideosMax = null,
+    Object? rewardedVideosRemaining = null,
+    Object? rollingVideosUsed = null,
+    Object? rollingVideosMax = null,
+    Object? rewardedAdAvailable = null,
+    Object? rewardedAdNextAvailableAt = freezed,
+  }) {
+    return _then(_$DailyContinuationDtoImpl(
+      runId: null == runId
+          ? _value.runId
+          : runId // ignore: cast_nullable_to_non_nullable
+              as String,
+      serverTime: null == serverTime
+          ? _value.serverTime
+          : serverTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      closesAt: null == closesAt
+          ? _value.closesAt
+          : closesAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      nextAction: null == nextAction
+          ? _value.nextAction
+          : nextAction // ignore: cast_nullable_to_non_nullable
+              as String,
+      quizPlus: null == quizPlus
+          ? _value.quizPlus
+          : quizPlus // ignore: cast_nullable_to_non_nullable
+              as bool,
+      bonusQuestionsGranted: null == bonusQuestionsGranted
+          ? _value.bonusQuestionsGranted
+          : bonusQuestionsGranted // ignore: cast_nullable_to_non_nullable
+              as int,
+      bonusQuestionsServed: null == bonusQuestionsServed
+          ? _value.bonusQuestionsServed
+          : bonusQuestionsServed // ignore: cast_nullable_to_non_nullable
+              as int,
+      bonusQuestionsRemaining: null == bonusQuestionsRemaining
+          ? _value.bonusQuestionsRemaining
+          : bonusQuestionsRemaining // ignore: cast_nullable_to_non_nullable
+              as int,
+      questionsPerReward: null == questionsPerReward
+          ? _value.questionsPerReward
+          : questionsPerReward // ignore: cast_nullable_to_non_nullable
+              as int,
+      rewardedVideosUsed: null == rewardedVideosUsed
+          ? _value.rewardedVideosUsed
+          : rewardedVideosUsed // ignore: cast_nullable_to_non_nullable
+              as int,
+      rewardedVideosMax: null == rewardedVideosMax
+          ? _value.rewardedVideosMax
+          : rewardedVideosMax // ignore: cast_nullable_to_non_nullable
+              as int,
+      rewardedVideosRemaining: null == rewardedVideosRemaining
+          ? _value.rewardedVideosRemaining
+          : rewardedVideosRemaining // ignore: cast_nullable_to_non_nullable
+              as int,
+      rollingVideosUsed: null == rollingVideosUsed
+          ? _value.rollingVideosUsed
+          : rollingVideosUsed // ignore: cast_nullable_to_non_nullable
+              as int,
+      rollingVideosMax: null == rollingVideosMax
+          ? _value.rollingVideosMax
+          : rollingVideosMax // ignore: cast_nullable_to_non_nullable
+              as int,
+      rewardedAdAvailable: null == rewardedAdAvailable
+          ? _value.rewardedAdAvailable
+          : rewardedAdAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      rewardedAdNextAvailableAt: freezed == rewardedAdNextAvailableAt
+          ? _value.rewardedAdNextAvailableAt
+          : rewardedAdNextAvailableAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$DailyContinuationDtoImpl implements _DailyContinuationDto {
+  const _$DailyContinuationDtoImpl(
+      {@JsonKey(name: 'run_id') required this.runId,
+      @JsonKey(name: 'server_time') required this.serverTime,
+      @JsonKey(name: 'closes_at') required this.closesAt,
+      @JsonKey(name: 'next_action') required this.nextAction,
+      @JsonKey(name: 'quiz_plus') required this.quizPlus,
+      @JsonKey(name: 'bonus_questions_granted')
+      required this.bonusQuestionsGranted,
+      @JsonKey(name: 'bonus_questions_served')
+      required this.bonusQuestionsServed,
+      @JsonKey(name: 'bonus_questions_remaining')
+      required this.bonusQuestionsRemaining,
+      @JsonKey(name: 'questions_per_reward') required this.questionsPerReward,
+      @JsonKey(name: 'rewarded_videos_used') required this.rewardedVideosUsed,
+      @JsonKey(name: 'rewarded_videos_max') required this.rewardedVideosMax,
+      @JsonKey(name: 'rewarded_videos_remaining')
+      required this.rewardedVideosRemaining,
+      @JsonKey(name: 'rolling_videos_used') required this.rollingVideosUsed,
+      @JsonKey(name: 'rolling_videos_max') required this.rollingVideosMax,
+      @JsonKey(name: 'rewarded_ad_available') required this.rewardedAdAvailable,
+      @JsonKey(name: 'rewarded_ad_next_available_at')
+      this.rewardedAdNextAvailableAt});
+
+  factory _$DailyContinuationDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DailyContinuationDtoImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'run_id')
+  final String runId;
+  @override
+  @JsonKey(name: 'server_time')
+  final DateTime serverTime;
+  @override
+  @JsonKey(name: 'closes_at')
+  final DateTime closesAt;
+  @override
+  @JsonKey(name: 'next_action')
+  final String nextAction;
+  @override
+  @JsonKey(name: 'quiz_plus')
+  final bool quizPlus;
+  @override
+  @JsonKey(name: 'bonus_questions_granted')
+  final int bonusQuestionsGranted;
+  @override
+  @JsonKey(name: 'bonus_questions_served')
+  final int bonusQuestionsServed;
+  @override
+  @JsonKey(name: 'bonus_questions_remaining')
+  final int bonusQuestionsRemaining;
+  @override
+  @JsonKey(name: 'questions_per_reward')
+  final int questionsPerReward;
+  @override
+  @JsonKey(name: 'rewarded_videos_used')
+  final int rewardedVideosUsed;
+  @override
+  @JsonKey(name: 'rewarded_videos_max')
+  final int rewardedVideosMax;
+  @override
+  @JsonKey(name: 'rewarded_videos_remaining')
+  final int rewardedVideosRemaining;
+  @override
+  @JsonKey(name: 'rolling_videos_used')
+  final int rollingVideosUsed;
+  @override
+  @JsonKey(name: 'rolling_videos_max')
+  final int rollingVideosMax;
+  @override
+  @JsonKey(name: 'rewarded_ad_available')
+  final bool rewardedAdAvailable;
+  @override
+  @JsonKey(name: 'rewarded_ad_next_available_at')
+  final DateTime? rewardedAdNextAvailableAt;
+
+  @override
+  String toString() {
+    return 'DailyContinuationDto(runId: $runId, serverTime: $serverTime, closesAt: $closesAt, nextAction: $nextAction, quizPlus: $quizPlus, bonusQuestionsGranted: $bonusQuestionsGranted, bonusQuestionsServed: $bonusQuestionsServed, bonusQuestionsRemaining: $bonusQuestionsRemaining, questionsPerReward: $questionsPerReward, rewardedVideosUsed: $rewardedVideosUsed, rewardedVideosMax: $rewardedVideosMax, rewardedVideosRemaining: $rewardedVideosRemaining, rollingVideosUsed: $rollingVideosUsed, rollingVideosMax: $rollingVideosMax, rewardedAdAvailable: $rewardedAdAvailable, rewardedAdNextAvailableAt: $rewardedAdNextAvailableAt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DailyContinuationDtoImpl &&
+            (identical(other.runId, runId) || other.runId == runId) &&
+            (identical(other.serverTime, serverTime) ||
+                other.serverTime == serverTime) &&
+            (identical(other.closesAt, closesAt) ||
+                other.closesAt == closesAt) &&
+            (identical(other.nextAction, nextAction) ||
+                other.nextAction == nextAction) &&
+            (identical(other.quizPlus, quizPlus) ||
+                other.quizPlus == quizPlus) &&
+            (identical(other.bonusQuestionsGranted, bonusQuestionsGranted) ||
+                other.bonusQuestionsGranted == bonusQuestionsGranted) &&
+            (identical(other.bonusQuestionsServed, bonusQuestionsServed) ||
+                other.bonusQuestionsServed == bonusQuestionsServed) &&
+            (identical(
+                    other.bonusQuestionsRemaining, bonusQuestionsRemaining) ||
+                other.bonusQuestionsRemaining == bonusQuestionsRemaining) &&
+            (identical(other.questionsPerReward, questionsPerReward) ||
+                other.questionsPerReward == questionsPerReward) &&
+            (identical(other.rewardedVideosUsed, rewardedVideosUsed) ||
+                other.rewardedVideosUsed == rewardedVideosUsed) &&
+            (identical(other.rewardedVideosMax, rewardedVideosMax) ||
+                other.rewardedVideosMax == rewardedVideosMax) &&
+            (identical(
+                    other.rewardedVideosRemaining, rewardedVideosRemaining) ||
+                other.rewardedVideosRemaining == rewardedVideosRemaining) &&
+            (identical(other.rollingVideosUsed, rollingVideosUsed) ||
+                other.rollingVideosUsed == rollingVideosUsed) &&
+            (identical(other.rollingVideosMax, rollingVideosMax) ||
+                other.rollingVideosMax == rollingVideosMax) &&
+            (identical(other.rewardedAdAvailable, rewardedAdAvailable) ||
+                other.rewardedAdAvailable == rewardedAdAvailable) &&
+            (identical(other.rewardedAdNextAvailableAt,
+                    rewardedAdNextAvailableAt) ||
+                other.rewardedAdNextAvailableAt == rewardedAdNextAvailableAt));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      runId,
+      serverTime,
+      closesAt,
+      nextAction,
+      quizPlus,
+      bonusQuestionsGranted,
+      bonusQuestionsServed,
+      bonusQuestionsRemaining,
+      questionsPerReward,
+      rewardedVideosUsed,
+      rewardedVideosMax,
+      rewardedVideosRemaining,
+      rollingVideosUsed,
+      rollingVideosMax,
+      rewardedAdAvailable,
+      rewardedAdNextAvailableAt);
+
+  /// Create a copy of DailyContinuationDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DailyContinuationDtoImplCopyWith<_$DailyContinuationDtoImpl>
+      get copyWith =>
+          __$$DailyContinuationDtoImplCopyWithImpl<_$DailyContinuationDtoImpl>(
+              this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$DailyContinuationDtoImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _DailyContinuationDto implements DailyContinuationDto {
+  const factory _DailyContinuationDto(
+      {@JsonKey(name: 'run_id') required final String runId,
+      @JsonKey(name: 'server_time') required final DateTime serverTime,
+      @JsonKey(name: 'closes_at') required final DateTime closesAt,
+      @JsonKey(name: 'next_action') required final String nextAction,
+      @JsonKey(name: 'quiz_plus') required final bool quizPlus,
+      @JsonKey(name: 'bonus_questions_granted')
+      required final int bonusQuestionsGranted,
+      @JsonKey(name: 'bonus_questions_served')
+      required final int bonusQuestionsServed,
+      @JsonKey(name: 'bonus_questions_remaining')
+      required final int bonusQuestionsRemaining,
+      @JsonKey(name: 'questions_per_reward')
+      required final int questionsPerReward,
+      @JsonKey(name: 'rewarded_videos_used')
+      required final int rewardedVideosUsed,
+      @JsonKey(name: 'rewarded_videos_max')
+      required final int rewardedVideosMax,
+      @JsonKey(name: 'rewarded_videos_remaining')
+      required final int rewardedVideosRemaining,
+      @JsonKey(name: 'rolling_videos_used')
+      required final int rollingVideosUsed,
+      @JsonKey(name: 'rolling_videos_max') required final int rollingVideosMax,
+      @JsonKey(name: 'rewarded_ad_available')
+      required final bool rewardedAdAvailable,
+      @JsonKey(name: 'rewarded_ad_next_available_at')
+      final DateTime? rewardedAdNextAvailableAt}) = _$DailyContinuationDtoImpl;
+
+  factory _DailyContinuationDto.fromJson(Map<String, dynamic> json) =
+      _$DailyContinuationDtoImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'run_id')
+  String get runId;
+  @override
+  @JsonKey(name: 'server_time')
+  DateTime get serverTime;
+  @override
+  @JsonKey(name: 'closes_at')
+  DateTime get closesAt;
+  @override
+  @JsonKey(name: 'next_action')
+  String get nextAction;
+  @override
+  @JsonKey(name: 'quiz_plus')
+  bool get quizPlus;
+  @override
+  @JsonKey(name: 'bonus_questions_granted')
+  int get bonusQuestionsGranted;
+  @override
+  @JsonKey(name: 'bonus_questions_served')
+  int get bonusQuestionsServed;
+  @override
+  @JsonKey(name: 'bonus_questions_remaining')
+  int get bonusQuestionsRemaining;
+  @override
+  @JsonKey(name: 'questions_per_reward')
+  int get questionsPerReward;
+  @override
+  @JsonKey(name: 'rewarded_videos_used')
+  int get rewardedVideosUsed;
+  @override
+  @JsonKey(name: 'rewarded_videos_max')
+  int get rewardedVideosMax;
+  @override
+  @JsonKey(name: 'rewarded_videos_remaining')
+  int get rewardedVideosRemaining;
+  @override
+  @JsonKey(name: 'rolling_videos_used')
+  int get rollingVideosUsed;
+  @override
+  @JsonKey(name: 'rolling_videos_max')
+  int get rollingVideosMax;
+  @override
+  @JsonKey(name: 'rewarded_ad_available')
+  bool get rewardedAdAvailable;
+  @override
+  @JsonKey(name: 'rewarded_ad_next_available_at')
+  DateTime? get rewardedAdNextAvailableAt;
+
+  /// Create a copy of DailyContinuationDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DailyContinuationDtoImplCopyWith<_$DailyContinuationDtoImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
 DailyOpenDto _$DailyOpenDtoFromJson(Map<String, dynamic> json) {
   return _DailyOpenDto.fromJson(json);
 }
@@ -35,6 +591,7 @@ mixin _$DailyOpenDto {
   int get resolvedCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'rating_at_open')
   int get ratingAtOpen => throw _privateConstructorUsedError;
+  DailyContinuationDto get continuation => throw _privateConstructorUsedError;
 
   /// Serializes this DailyOpenDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -60,7 +617,10 @@ abstract class $DailyOpenDtoCopyWith<$Res> {
       @JsonKey(name: 'grace_ends_at') DateTime graceEndsAt,
       @JsonKey(name: 'required_count') int requiredCount,
       @JsonKey(name: 'resolved_count') int resolvedCount,
-      @JsonKey(name: 'rating_at_open') int ratingAtOpen});
+      @JsonKey(name: 'rating_at_open') int ratingAtOpen,
+      DailyContinuationDto continuation});
+
+  $DailyContinuationDtoCopyWith<$Res> get continuation;
 }
 
 /// @nodoc
@@ -86,6 +646,7 @@ class _$DailyOpenDtoCopyWithImpl<$Res, $Val extends DailyOpenDto>
     Object? requiredCount = null,
     Object? resolvedCount = null,
     Object? ratingAtOpen = null,
+    Object? continuation = null,
   }) {
     return _then(_value.copyWith(
       runId: null == runId
@@ -120,7 +681,21 @@ class _$DailyOpenDtoCopyWithImpl<$Res, $Val extends DailyOpenDto>
           ? _value.ratingAtOpen
           : ratingAtOpen // ignore: cast_nullable_to_non_nullable
               as int,
+      continuation: null == continuation
+          ? _value.continuation
+          : continuation // ignore: cast_nullable_to_non_nullable
+              as DailyContinuationDto,
     ) as $Val);
+  }
+
+  /// Create a copy of DailyOpenDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DailyContinuationDtoCopyWith<$Res> get continuation {
+    return $DailyContinuationDtoCopyWith<$Res>(_value.continuation, (value) {
+      return _then(_value.copyWith(continuation: value) as $Val);
+    });
   }
 }
 
@@ -140,7 +715,11 @@ abstract class _$$DailyOpenDtoImplCopyWith<$Res>
       @JsonKey(name: 'grace_ends_at') DateTime graceEndsAt,
       @JsonKey(name: 'required_count') int requiredCount,
       @JsonKey(name: 'resolved_count') int resolvedCount,
-      @JsonKey(name: 'rating_at_open') int ratingAtOpen});
+      @JsonKey(name: 'rating_at_open') int ratingAtOpen,
+      DailyContinuationDto continuation});
+
+  @override
+  $DailyContinuationDtoCopyWith<$Res> get continuation;
 }
 
 /// @nodoc
@@ -164,6 +743,7 @@ class __$$DailyOpenDtoImplCopyWithImpl<$Res>
     Object? requiredCount = null,
     Object? resolvedCount = null,
     Object? ratingAtOpen = null,
+    Object? continuation = null,
   }) {
     return _then(_$DailyOpenDtoImpl(
       runId: null == runId
@@ -198,6 +778,10 @@ class __$$DailyOpenDtoImplCopyWithImpl<$Res>
           ? _value.ratingAtOpen
           : ratingAtOpen // ignore: cast_nullable_to_non_nullable
               as int,
+      continuation: null == continuation
+          ? _value.continuation
+          : continuation // ignore: cast_nullable_to_non_nullable
+              as DailyContinuationDto,
     ));
   }
 }
@@ -213,7 +797,8 @@ class _$DailyOpenDtoImpl implements _DailyOpenDto {
       @JsonKey(name: 'grace_ends_at') required this.graceEndsAt,
       @JsonKey(name: 'required_count') required this.requiredCount,
       @JsonKey(name: 'resolved_count') required this.resolvedCount,
-      @JsonKey(name: 'rating_at_open') required this.ratingAtOpen});
+      @JsonKey(name: 'rating_at_open') required this.ratingAtOpen,
+      required this.continuation});
 
   factory _$DailyOpenDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$DailyOpenDtoImplFromJson(json);
@@ -241,10 +826,12 @@ class _$DailyOpenDtoImpl implements _DailyOpenDto {
   @override
   @JsonKey(name: 'rating_at_open')
   final int ratingAtOpen;
+  @override
+  final DailyContinuationDto continuation;
 
   @override
   String toString() {
-    return 'DailyOpenDto(runId: $runId, editionDate: $editionDate, status: $status, closesAt: $closesAt, graceEndsAt: $graceEndsAt, requiredCount: $requiredCount, resolvedCount: $resolvedCount, ratingAtOpen: $ratingAtOpen)';
+    return 'DailyOpenDto(runId: $runId, editionDate: $editionDate, status: $status, closesAt: $closesAt, graceEndsAt: $graceEndsAt, requiredCount: $requiredCount, resolvedCount: $resolvedCount, ratingAtOpen: $ratingAtOpen, continuation: $continuation)';
   }
 
   @override
@@ -265,13 +852,24 @@ class _$DailyOpenDtoImpl implements _DailyOpenDto {
             (identical(other.resolvedCount, resolvedCount) ||
                 other.resolvedCount == resolvedCount) &&
             (identical(other.ratingAtOpen, ratingAtOpen) ||
-                other.ratingAtOpen == ratingAtOpen));
+                other.ratingAtOpen == ratingAtOpen) &&
+            (identical(other.continuation, continuation) ||
+                other.continuation == continuation));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, runId, editionDate, status,
-      closesAt, graceEndsAt, requiredCount, resolvedCount, ratingAtOpen);
+  int get hashCode => Object.hash(
+      runtimeType,
+      runId,
+      editionDate,
+      status,
+      closesAt,
+      graceEndsAt,
+      requiredCount,
+      resolvedCount,
+      ratingAtOpen,
+      continuation);
 
   /// Create a copy of DailyOpenDto
   /// with the given fields replaced by the non-null parameter values.
@@ -291,15 +889,15 @@ class _$DailyOpenDtoImpl implements _DailyOpenDto {
 
 abstract class _DailyOpenDto implements DailyOpenDto {
   const factory _DailyOpenDto(
-          {@JsonKey(name: 'run_id') required final String runId,
-          @JsonKey(name: 'edition_date') required final String editionDate,
-          required final String status,
-          @JsonKey(name: 'closes_at') required final DateTime closesAt,
-          @JsonKey(name: 'grace_ends_at') required final DateTime graceEndsAt,
-          @JsonKey(name: 'required_count') required final int requiredCount,
-          @JsonKey(name: 'resolved_count') required final int resolvedCount,
-          @JsonKey(name: 'rating_at_open') required final int ratingAtOpen}) =
-      _$DailyOpenDtoImpl;
+      {@JsonKey(name: 'run_id') required final String runId,
+      @JsonKey(name: 'edition_date') required final String editionDate,
+      required final String status,
+      @JsonKey(name: 'closes_at') required final DateTime closesAt,
+      @JsonKey(name: 'grace_ends_at') required final DateTime graceEndsAt,
+      @JsonKey(name: 'required_count') required final int requiredCount,
+      @JsonKey(name: 'resolved_count') required final int resolvedCount,
+      @JsonKey(name: 'rating_at_open') required final int ratingAtOpen,
+      required final DailyContinuationDto continuation}) = _$DailyOpenDtoImpl;
 
   factory _DailyOpenDto.fromJson(Map<String, dynamic> json) =
       _$DailyOpenDtoImpl.fromJson;
@@ -327,6 +925,8 @@ abstract class _DailyOpenDto implements DailyOpenDto {
   @override
   @JsonKey(name: 'rating_at_open')
   int get ratingAtOpen;
+  @override
+  DailyContinuationDto get continuation;
 
   /// Create a copy of DailyOpenDto
   /// with the given fields replaced by the non-null parameter values.
@@ -2125,6 +2725,7 @@ mixin _$DailySummaryDto {
   int get bonusGranted => throw _privateConstructorUsedError;
   @JsonKey(name: 'bonus_served')
   int get bonusServed => throw _privateConstructorUsedError;
+  DailyContinuationDto get continuation => throw _privateConstructorUsedError;
 
   /// Serializes this DailySummaryDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -2155,7 +2756,10 @@ abstract class $DailySummaryDtoCopyWith<$Res> {
       @JsonKey(name: 'completion_xp') int completionXp,
       @JsonKey(name: 'total_xp') int totalXp,
       @JsonKey(name: 'bonus_granted') int bonusGranted,
-      @JsonKey(name: 'bonus_served') int bonusServed});
+      @JsonKey(name: 'bonus_served') int bonusServed,
+      DailyContinuationDto continuation});
+
+  $DailyContinuationDtoCopyWith<$Res> get continuation;
 }
 
 /// @nodoc
@@ -2186,6 +2790,7 @@ class _$DailySummaryDtoCopyWithImpl<$Res, $Val extends DailySummaryDto>
     Object? totalXp = null,
     Object? bonusGranted = null,
     Object? bonusServed = null,
+    Object? continuation = null,
   }) {
     return _then(_value.copyWith(
       runId: null == runId
@@ -2240,7 +2845,21 @@ class _$DailySummaryDtoCopyWithImpl<$Res, $Val extends DailySummaryDto>
           ? _value.bonusServed
           : bonusServed // ignore: cast_nullable_to_non_nullable
               as int,
+      continuation: null == continuation
+          ? _value.continuation
+          : continuation // ignore: cast_nullable_to_non_nullable
+              as DailyContinuationDto,
     ) as $Val);
+  }
+
+  /// Create a copy of DailySummaryDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DailyContinuationDtoCopyWith<$Res> get continuation {
+    return $DailyContinuationDtoCopyWith<$Res>(_value.continuation, (value) {
+      return _then(_value.copyWith(continuation: value) as $Val);
+    });
   }
 }
 
@@ -2265,7 +2884,11 @@ abstract class _$$DailySummaryDtoImplCopyWith<$Res>
       @JsonKey(name: 'completion_xp') int completionXp,
       @JsonKey(name: 'total_xp') int totalXp,
       @JsonKey(name: 'bonus_granted') int bonusGranted,
-      @JsonKey(name: 'bonus_served') int bonusServed});
+      @JsonKey(name: 'bonus_served') int bonusServed,
+      DailyContinuationDto continuation});
+
+  @override
+  $DailyContinuationDtoCopyWith<$Res> get continuation;
 }
 
 /// @nodoc
@@ -2294,6 +2917,7 @@ class __$$DailySummaryDtoImplCopyWithImpl<$Res>
     Object? totalXp = null,
     Object? bonusGranted = null,
     Object? bonusServed = null,
+    Object? continuation = null,
   }) {
     return _then(_$DailySummaryDtoImpl(
       runId: null == runId
@@ -2348,6 +2972,10 @@ class __$$DailySummaryDtoImplCopyWithImpl<$Res>
           ? _value.bonusServed
           : bonusServed // ignore: cast_nullable_to_non_nullable
               as int,
+      continuation: null == continuation
+          ? _value.continuation
+          : continuation // ignore: cast_nullable_to_non_nullable
+              as DailyContinuationDto,
     ));
   }
 }
@@ -2368,7 +2996,8 @@ class _$DailySummaryDtoImpl implements _DailySummaryDto {
       @JsonKey(name: 'completion_xp') required this.completionXp,
       @JsonKey(name: 'total_xp') required this.totalXp,
       @JsonKey(name: 'bonus_granted') required this.bonusGranted,
-      @JsonKey(name: 'bonus_served') required this.bonusServed});
+      @JsonKey(name: 'bonus_served') required this.bonusServed,
+      required this.continuation});
 
   factory _$DailySummaryDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$DailySummaryDtoImplFromJson(json);
@@ -2411,10 +3040,12 @@ class _$DailySummaryDtoImpl implements _DailySummaryDto {
   @override
   @JsonKey(name: 'bonus_served')
   final int bonusServed;
+  @override
+  final DailyContinuationDto continuation;
 
   @override
   String toString() {
-    return 'DailySummaryDto(runId: $runId, editionDate: $editionDate, status: $status, requiredCount: $requiredCount, resolvedCount: $resolvedCount, correctCount: $correctCount, skippedCount: $skippedCount, hintCount: $hintCount, answerXp: $answerXp, completionXp: $completionXp, totalXp: $totalXp, bonusGranted: $bonusGranted, bonusServed: $bonusServed)';
+    return 'DailySummaryDto(runId: $runId, editionDate: $editionDate, status: $status, requiredCount: $requiredCount, resolvedCount: $resolvedCount, correctCount: $correctCount, skippedCount: $skippedCount, hintCount: $hintCount, answerXp: $answerXp, completionXp: $completionXp, totalXp: $totalXp, bonusGranted: $bonusGranted, bonusServed: $bonusServed, continuation: $continuation)';
   }
 
   @override
@@ -2444,7 +3075,9 @@ class _$DailySummaryDtoImpl implements _DailySummaryDto {
             (identical(other.bonusGranted, bonusGranted) ||
                 other.bonusGranted == bonusGranted) &&
             (identical(other.bonusServed, bonusServed) ||
-                other.bonusServed == bonusServed));
+                other.bonusServed == bonusServed) &&
+            (identical(other.continuation, continuation) ||
+                other.continuation == continuation));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2463,7 +3096,8 @@ class _$DailySummaryDtoImpl implements _DailySummaryDto {
       completionXp,
       totalXp,
       bonusGranted,
-      bonusServed);
+      bonusServed,
+      continuation);
 
   /// Create a copy of DailySummaryDto
   /// with the given fields replaced by the non-null parameter values.
@@ -2496,7 +3130,8 @@ abstract class _DailySummaryDto implements DailySummaryDto {
           @JsonKey(name: 'completion_xp') required final int completionXp,
           @JsonKey(name: 'total_xp') required final int totalXp,
           @JsonKey(name: 'bonus_granted') required final int bonusGranted,
-          @JsonKey(name: 'bonus_served') required final int bonusServed}) =
+          @JsonKey(name: 'bonus_served') required final int bonusServed,
+          required final DailyContinuationDto continuation}) =
       _$DailySummaryDtoImpl;
 
   factory _DailySummaryDto.fromJson(Map<String, dynamic> json) =
@@ -2540,6 +3175,8 @@ abstract class _DailySummaryDto implements DailySummaryDto {
   @override
   @JsonKey(name: 'bonus_served')
   int get bonusServed;
+  @override
+  DailyContinuationDto get continuation;
 
   /// Create a copy of DailySummaryDto
   /// with the given fields replaced by the non-null parameter values.
@@ -2769,6 +3406,7 @@ mixin _$RewardedAdDto {
   String get clientEventId => throw _privateConstructorUsedError;
   @JsonKey(name: 'granted_questions')
   int get grantedQuestions => throw _privateConstructorUsedError;
+  DailyContinuationDto get continuation => throw _privateConstructorUsedError;
 
   /// Serializes this RewardedAdDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -2788,7 +3426,10 @@ abstract class $RewardedAdDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'client_event_id') String clientEventId,
-      @JsonKey(name: 'granted_questions') int grantedQuestions});
+      @JsonKey(name: 'granted_questions') int grantedQuestions,
+      DailyContinuationDto continuation});
+
+  $DailyContinuationDtoCopyWith<$Res> get continuation;
 }
 
 /// @nodoc
@@ -2808,6 +3449,7 @@ class _$RewardedAdDtoCopyWithImpl<$Res, $Val extends RewardedAdDto>
   $Res call({
     Object? clientEventId = null,
     Object? grantedQuestions = null,
+    Object? continuation = null,
   }) {
     return _then(_value.copyWith(
       clientEventId: null == clientEventId
@@ -2818,7 +3460,21 @@ class _$RewardedAdDtoCopyWithImpl<$Res, $Val extends RewardedAdDto>
           ? _value.grantedQuestions
           : grantedQuestions // ignore: cast_nullable_to_non_nullable
               as int,
+      continuation: null == continuation
+          ? _value.continuation
+          : continuation // ignore: cast_nullable_to_non_nullable
+              as DailyContinuationDto,
     ) as $Val);
+  }
+
+  /// Create a copy of RewardedAdDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DailyContinuationDtoCopyWith<$Res> get continuation {
+    return $DailyContinuationDtoCopyWith<$Res>(_value.continuation, (value) {
+      return _then(_value.copyWith(continuation: value) as $Val);
+    });
   }
 }
 
@@ -2832,7 +3488,11 @@ abstract class _$$RewardedAdDtoImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'client_event_id') String clientEventId,
-      @JsonKey(name: 'granted_questions') int grantedQuestions});
+      @JsonKey(name: 'granted_questions') int grantedQuestions,
+      DailyContinuationDto continuation});
+
+  @override
+  $DailyContinuationDtoCopyWith<$Res> get continuation;
 }
 
 /// @nodoc
@@ -2850,6 +3510,7 @@ class __$$RewardedAdDtoImplCopyWithImpl<$Res>
   $Res call({
     Object? clientEventId = null,
     Object? grantedQuestions = null,
+    Object? continuation = null,
   }) {
     return _then(_$RewardedAdDtoImpl(
       clientEventId: null == clientEventId
@@ -2860,6 +3521,10 @@ class __$$RewardedAdDtoImplCopyWithImpl<$Res>
           ? _value.grantedQuestions
           : grantedQuestions // ignore: cast_nullable_to_non_nullable
               as int,
+      continuation: null == continuation
+          ? _value.continuation
+          : continuation // ignore: cast_nullable_to_non_nullable
+              as DailyContinuationDto,
     ));
   }
 }
@@ -2869,7 +3534,8 @@ class __$$RewardedAdDtoImplCopyWithImpl<$Res>
 class _$RewardedAdDtoImpl implements _RewardedAdDto {
   const _$RewardedAdDtoImpl(
       {@JsonKey(name: 'client_event_id') required this.clientEventId,
-      @JsonKey(name: 'granted_questions') required this.grantedQuestions});
+      @JsonKey(name: 'granted_questions') required this.grantedQuestions,
+      required this.continuation});
 
   factory _$RewardedAdDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$RewardedAdDtoImplFromJson(json);
@@ -2880,10 +3546,12 @@ class _$RewardedAdDtoImpl implements _RewardedAdDto {
   @override
   @JsonKey(name: 'granted_questions')
   final int grantedQuestions;
+  @override
+  final DailyContinuationDto continuation;
 
   @override
   String toString() {
-    return 'RewardedAdDto(clientEventId: $clientEventId, grantedQuestions: $grantedQuestions)';
+    return 'RewardedAdDto(clientEventId: $clientEventId, grantedQuestions: $grantedQuestions, continuation: $continuation)';
   }
 
   @override
@@ -2894,12 +3562,15 @@ class _$RewardedAdDtoImpl implements _RewardedAdDto {
             (identical(other.clientEventId, clientEventId) ||
                 other.clientEventId == clientEventId) &&
             (identical(other.grantedQuestions, grantedQuestions) ||
-                other.grantedQuestions == grantedQuestions));
+                other.grantedQuestions == grantedQuestions) &&
+            (identical(other.continuation, continuation) ||
+                other.continuation == continuation));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, clientEventId, grantedQuestions);
+  int get hashCode =>
+      Object.hash(runtimeType, clientEventId, grantedQuestions, continuation);
 
   /// Create a copy of RewardedAdDto
   /// with the given fields replaced by the non-null parameter values.
@@ -2920,8 +3591,8 @@ class _$RewardedAdDtoImpl implements _RewardedAdDto {
 abstract class _RewardedAdDto implements RewardedAdDto {
   const factory _RewardedAdDto(
       {@JsonKey(name: 'client_event_id') required final String clientEventId,
-      @JsonKey(name: 'granted_questions')
-      required final int grantedQuestions}) = _$RewardedAdDtoImpl;
+      @JsonKey(name: 'granted_questions') required final int grantedQuestions,
+      required final DailyContinuationDto continuation}) = _$RewardedAdDtoImpl;
 
   factory _RewardedAdDto.fromJson(Map<String, dynamic> json) =
       _$RewardedAdDtoImpl.fromJson;
@@ -2932,6 +3603,8 @@ abstract class _RewardedAdDto implements RewardedAdDto {
   @override
   @JsonKey(name: 'granted_questions')
   int get grantedQuestions;
+  @override
+  DailyContinuationDto get continuation;
 
   /// Create a copy of RewardedAdDto
   /// with the given fields replaced by the non-null parameter values.

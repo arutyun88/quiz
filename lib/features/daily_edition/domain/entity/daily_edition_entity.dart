@@ -30,6 +30,38 @@ enum DailyAttemptAction {
       };
 }
 
+enum DailyContinuationAction {
+  completeMain,
+  playQuestion,
+  watchRewarded,
+  waitForRewarded,
+  limitReached,
+  closed,
+  unknown,
+}
+
+@freezed
+class DailyContinuationEntity with _$DailyContinuationEntity {
+  const factory DailyContinuationEntity({
+    required String runId,
+    required DateTime serverTime,
+    required DateTime closesAt,
+    required DailyContinuationAction nextAction,
+    required bool quizPlus,
+    required int bonusQuestionsGranted,
+    required int bonusQuestionsServed,
+    required int bonusQuestionsRemaining,
+    required int questionsPerReward,
+    required int rewardedVideosUsed,
+    required int rewardedVideosMax,
+    required int rewardedVideosRemaining,
+    required int rollingVideosUsed,
+    required int rollingVideosMax,
+    required bool rewardedAdAvailable,
+    required DateTime? rewardedAdNextAvailableAt,
+  }) = _DailyContinuationEntity;
+}
+
 @freezed
 class DailyRunEntity with _$DailyRunEntity {
   const factory DailyRunEntity({
@@ -41,6 +73,7 @@ class DailyRunEntity with _$DailyRunEntity {
     required int requiredCount,
     required int resolvedCount,
     required int ratingAtOpen,
+    required DailyContinuationEntity continuation,
   }) = _DailyRunEntity;
 }
 
@@ -126,6 +159,7 @@ class DailySummaryEntity with _$DailySummaryEntity {
     required int totalXp,
     required int bonusGranted,
     required int bonusServed,
+    required DailyContinuationEntity continuation,
   }) = _DailySummaryEntity;
 }
 
@@ -134,5 +168,6 @@ class RewardedAdEntity with _$RewardedAdEntity {
   const factory RewardedAdEntity({
     required String clientEventId,
     required int grantedQuestions,
+    required DailyContinuationEntity continuation,
   }) = _RewardedAdEntity;
 }

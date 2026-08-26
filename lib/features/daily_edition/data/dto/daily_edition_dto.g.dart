@@ -6,6 +6,53 @@ part of 'daily_edition_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$DailyContinuationDtoImpl _$$DailyContinuationDtoImplFromJson(
+        Map<String, dynamic> json) =>
+    _$DailyContinuationDtoImpl(
+      runId: json['run_id'] as String,
+      serverTime: DateTime.parse(json['server_time'] as String),
+      closesAt: DateTime.parse(json['closes_at'] as String),
+      nextAction: json['next_action'] as String,
+      quizPlus: json['quiz_plus'] as bool,
+      bonusQuestionsGranted: (json['bonus_questions_granted'] as num).toInt(),
+      bonusQuestionsServed: (json['bonus_questions_served'] as num).toInt(),
+      bonusQuestionsRemaining:
+          (json['bonus_questions_remaining'] as num).toInt(),
+      questionsPerReward: (json['questions_per_reward'] as num).toInt(),
+      rewardedVideosUsed: (json['rewarded_videos_used'] as num).toInt(),
+      rewardedVideosMax: (json['rewarded_videos_max'] as num).toInt(),
+      rewardedVideosRemaining:
+          (json['rewarded_videos_remaining'] as num).toInt(),
+      rollingVideosUsed: (json['rolling_videos_used'] as num).toInt(),
+      rollingVideosMax: (json['rolling_videos_max'] as num).toInt(),
+      rewardedAdAvailable: json['rewarded_ad_available'] as bool,
+      rewardedAdNextAvailableAt: json['rewarded_ad_next_available_at'] == null
+          ? null
+          : DateTime.parse(json['rewarded_ad_next_available_at'] as String),
+    );
+
+Map<String, dynamic> _$$DailyContinuationDtoImplToJson(
+        _$DailyContinuationDtoImpl instance) =>
+    <String, dynamic>{
+      'run_id': instance.runId,
+      'server_time': instance.serverTime.toIso8601String(),
+      'closes_at': instance.closesAt.toIso8601String(),
+      'next_action': instance.nextAction,
+      'quiz_plus': instance.quizPlus,
+      'bonus_questions_granted': instance.bonusQuestionsGranted,
+      'bonus_questions_served': instance.bonusQuestionsServed,
+      'bonus_questions_remaining': instance.bonusQuestionsRemaining,
+      'questions_per_reward': instance.questionsPerReward,
+      'rewarded_videos_used': instance.rewardedVideosUsed,
+      'rewarded_videos_max': instance.rewardedVideosMax,
+      'rewarded_videos_remaining': instance.rewardedVideosRemaining,
+      'rolling_videos_used': instance.rollingVideosUsed,
+      'rolling_videos_max': instance.rollingVideosMax,
+      'rewarded_ad_available': instance.rewardedAdAvailable,
+      'rewarded_ad_next_available_at':
+          instance.rewardedAdNextAvailableAt?.toIso8601String(),
+    };
+
 _$DailyOpenDtoImpl _$$DailyOpenDtoImplFromJson(Map<String, dynamic> json) =>
     _$DailyOpenDtoImpl(
       runId: json['run_id'] as String,
@@ -16,6 +63,8 @@ _$DailyOpenDtoImpl _$$DailyOpenDtoImplFromJson(Map<String, dynamic> json) =>
       requiredCount: (json['required_count'] as num).toInt(),
       resolvedCount: (json['resolved_count'] as num).toInt(),
       ratingAtOpen: (json['rating_at_open'] as num).toInt(),
+      continuation: DailyContinuationDto.fromJson(
+          json['continuation'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$DailyOpenDtoImplToJson(_$DailyOpenDtoImpl instance) =>
@@ -28,6 +77,7 @@ Map<String, dynamic> _$$DailyOpenDtoImplToJson(_$DailyOpenDtoImpl instance) =>
       'required_count': instance.requiredCount,
       'resolved_count': instance.resolvedCount,
       'rating_at_open': instance.ratingAtOpen,
+      'continuation': instance.continuation,
     };
 
 _$DailyAssignmentAnswerDtoImpl _$$DailyAssignmentAnswerDtoImplFromJson(
@@ -190,6 +240,8 @@ _$DailySummaryDtoImpl _$$DailySummaryDtoImplFromJson(
       totalXp: (json['total_xp'] as num).toInt(),
       bonusGranted: (json['bonus_granted'] as num).toInt(),
       bonusServed: (json['bonus_served'] as num).toInt(),
+      continuation: DailyContinuationDto.fromJson(
+          json['continuation'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$DailySummaryDtoImplToJson(
@@ -208,6 +260,7 @@ Map<String, dynamic> _$$DailySummaryDtoImplToJson(
       'total_xp': instance.totalXp,
       'bonus_granted': instance.bonusGranted,
       'bonus_served': instance.bonusServed,
+      'continuation': instance.continuation,
     };
 
 _$RewardedAdRequestDtoImpl _$$RewardedAdRequestDtoImplFromJson(
@@ -230,10 +283,13 @@ _$RewardedAdDtoImpl _$$RewardedAdDtoImplFromJson(Map<String, dynamic> json) =>
     _$RewardedAdDtoImpl(
       clientEventId: json['client_event_id'] as String,
       grantedQuestions: (json['granted_questions'] as num).toInt(),
+      continuation: DailyContinuationDto.fromJson(
+          json['continuation'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$RewardedAdDtoImplToJson(_$RewardedAdDtoImpl instance) =>
     <String, dynamic>{
       'client_event_id': instance.clientEventId,
       'granted_questions': instance.grantedQuestions,
+      'continuation': instance.continuation,
     };

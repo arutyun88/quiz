@@ -290,6 +290,7 @@
         ],
         "meta": {
             "counter": "QUESTION $current / $total",
+            "extra_counter": "EXTRA QUESTION $n",
             "topic": "// $topic"
         },
         "state": {
@@ -392,7 +393,9 @@
     },
     "start_day": {
         "start_button": "START EDITION",
+        "more_questions_button": "MORE QUESTIONS",
         "ready_title": "DAILY EDITION READY",
+        "issue_completed_title": "TODAY'S ISSUE DONE",
         "last_session_stats_title": "LAST EDITION",
         "rank_label": "RANK",
         "points_label": "POINTS",
@@ -415,7 +418,11 @@
             "other": "$n days"
         },
         "streak_lost_advice(rich)": "Start a new streak today — ${accent(your first achievement is just 3 days away)}",
-        "start_new_streak_button": "START A NEW STREAK"
+        "start_new_streak_button": "START A NEW STREAK",
+        "issue_done_caption": "DONE TODAY",
+        "today_stats_title": "TODAY",
+        "issue_done_streak(rich)": "Issue done, ${accent(streak saved)} — come back tomorrow for a new one",
+        "issue_done_no_streak": "Today's issue is done — come back tomorrow for a new one"
     },
     "daily_result": {
         "goal_completed": "DAILY GOAL COMPLETED",
@@ -433,6 +440,35 @@
         "rank_unknown(rich)": "Every issue moves you up the ${accent(weekly leaderboard)}",
         "continue_button": "KEEP PLAYING",
         "footer": "TODAY'S ISSUE IS CLOSED · A NEW ONE TOMORROW"
+    },
+    "daily_limit": {
+        "title": "MORE QUESTIONS",
+        "extras_section": "EXTRA QUESTIONS TODAY",
+        "slots_hint": "$grants ADS · +$questions QUESTIONS EACH",
+        "completed_title": "Today's issue is done",
+        "next_issue_in": "New issue in",
+        "next_ad_in": "Next video available in",
+        "watch_ad": "Watch a video",
+        "watch_ad_caption(n)": {
+            "one": "+$n QUESTION · FREE",
+            "other": "+$n QUESTIONS · FREE"
+        },
+        "ad_unavailable": "VIDEO SERVICE IS NOT CONNECTED YET",
+        "ad_exhausted": "No more extra questions today",
+        "keep_playing": "KEEP PLAYING",
+        "unlimited_cta": "UNLIMITED WITH QUIZ+",
+        "ad": {
+            "label": "AD",
+            "skip": "Skip",
+            "playing": "Ad video · $time",
+            "reward_title": "REWARD AFTER WATCHING",
+            "reward_amount": "+$n",
+            "reward_suffix(n)": {
+                "one": "question today",
+                "other": "questions today"
+            },
+            "footer": "ADS ARE NOT PART OF THE MAIN ISSUE"
+        }
     },
     "demo": {
         "start": {

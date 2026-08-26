@@ -18,6 +18,25 @@ void main() {
   late MockDailyAttemptOutbox outbox;
   late DailyEditionNotifier notifier;
 
+  final continuation = DailyContinuationEntity(
+    runId: 'run-1',
+    serverTime: DateTime.parse('2026-08-25T12:00:00Z'),
+    closesAt: DateTime.parse('2026-08-26T00:00:00Z'),
+    nextAction: DailyContinuationAction.completeMain,
+    quizPlus: false,
+    bonusQuestionsGranted: 0,
+    bonusQuestionsServed: 0,
+    bonusQuestionsRemaining: 0,
+    questionsPerReward: 5,
+    rewardedVideosUsed: 0,
+    rewardedVideosMax: 6,
+    rewardedVideosRemaining: 6,
+    rollingVideosUsed: 0,
+    rollingVideosMax: 2,
+    rewardedAdAvailable: false,
+    rewardedAdNextAvailableAt: null,
+  );
+
   final activeRun = DailyRunEntity(
     runId: 'run-1',
     editionDate: '2026-08-25',
@@ -27,6 +46,7 @@ void main() {
     requiredCount: 10,
     resolvedCount: 3,
     ratingAtOpen: 1000,
+    continuation: continuation,
   );
 
   final completedRun = activeRun.copyWith(status: DailyRunStatus.completed);
@@ -75,7 +95,7 @@ void main() {
     partner: null,
   );
 
-  const summary = DailySummaryEntity(
+  final summary = DailySummaryEntity(
     runId: 'run-1',
     editionDate: '2026-08-25',
     status: DailyRunStatus.completed,
@@ -89,6 +109,10 @@ void main() {
     totalXp: 115,
     bonusGranted: 0,
     bonusServed: 0,
+    continuation: continuation.copyWith(
+      nextAction: DailyContinuationAction.watchRewarded,
+      rewardedAdAvailable: true,
+    ),
   );
 
   setUpAll(() {
@@ -169,13 +193,111 @@ void main() {
     when(() => repository.open(timezoneId: null))
         .thenAnswer((_) async => Result.ok(completedRun));
     when(() => repository.fetchSummary('run-1'))
-        .thenAnswer((_) async => const Result.ok(summary));
+        .thenAnswer((_) async => Result.ok(summary));
 
     await notifier.bootstrap();
 
     expect(notifier.state, isA<DailyEditionSummaryState>());
     verifyNever(() => repository.fetchCurrent(any()));
     verify(() => repository.fetchSummary('run-1')).called(1);
+  });
+
+  test('refreshContinuation replaces only the server continuation snapshot',
+      () async {
+    final refreshed = continuation.copyWith(
+      nextAction: DailyContinuationAction.waitForRewarded,
+      rewardedAdNextAvailableAt: DateTime.parse('2026-08-25T14:00:00Z'),
+    );
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(completedRun));
+    when(() => repository.fetchSummary('run-1'))
+        .thenAnswer((_) async => Result.ok(summary));
+    when(() => repository.fetchContinuation('run-1'))
+        .thenAnswer((_) async => Result.ok(refreshed));
+    await notifier.bootstrap();
+
+    await notifier.refreshContinuation();
+
+    final state = notifier.state as DailyEditionSummaryState;
+    expect(
+      state.summary.continuation.nextAction,
+      DailyContinuationAction.waitForRewarded,
+    );
+    expect(state.summary.totalXp, summary.totalXp);
+  });
+
+  test('continueEdition loads an assignment only when the server allows play',
+      () async {
+    final playableSummary = summary.copyWith(
+      continuation: continuation.copyWith(
+        nextAction: DailyContinuationAction.playQuestion,
+        bonusQuestionsRemaining: 5,
+      ),
+    );
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(completedRun));
+    when(() => repository.fetchSummary('run-1'))
+        .thenAnswer((_) async => Result.ok(playableSummary));
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(assignment));
+    await notifier.bootstrap();
+
+    await notifier.continueEdition();
+
+    expect(notifier.state, isA<DailyEditionActiveState>());
+    verify(() => repository.fetchCurrent('run-1')).called(1);
+  });
+
+  test('continueEdition cannot bypass a server rewarded-ad decision', () async {
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(completedRun));
+    when(() => repository.fetchSummary('run-1'))
+        .thenAnswer((_) async => Result.ok(summary));
+    await notifier.bootstrap();
+
+    await notifier.continueEdition();
+
+    expect(notifier.state, isA<DailyEditionSummaryState>());
+    verifyNever(() => repository.fetchCurrent(any()));
+  });
+
+  test('reward confirmation trusts only the returned server continuation',
+      () async {
+    final reward = RewardedAdEntity(
+      clientEventId: 'ad-event-1',
+      grantedQuestions: 5,
+      continuation: continuation.copyWith(
+        nextAction: DailyContinuationAction.playQuestion,
+        bonusQuestionsGranted: 5,
+        bonusQuestionsRemaining: 5,
+      ),
+    );
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(completedRun));
+    when(() => repository.fetchSummary('run-1'))
+        .thenAnswer((_) async => Result.ok(summary));
+    when(
+      () => repository.confirmRewardedAd(
+        runId: 'run-1',
+        clientEventId: 'ad-event-1',
+        providerEventId: 'provider-event-1',
+        verificationToken: 'token-1',
+      ),
+    ).thenAnswer((_) async => Result.ok(reward));
+    await notifier.bootstrap();
+
+    await notifier.confirmRewardedAd(
+      clientEventId: 'ad-event-1',
+      providerEventId: 'provider-event-1',
+      verificationToken: 'token-1',
+    );
+
+    final state = notifier.state as DailyEditionSummaryState;
+    expect(state.summary.continuation.bonusQuestionsRemaining, 5);
+    expect(
+      state.summary.continuation.nextAction,
+      DailyContinuationAction.playQuestion,
+    );
   });
 
   test('hint text and usage come only from the server response', () async {
@@ -324,7 +446,7 @@ void main() {
       ),
     ).thenAnswer((_) async => Result.ok(completedAttempt));
     when(() => repository.fetchSummary('run-1'))
-        .thenAnswer((_) async => const Result.ok(summary));
+        .thenAnswer((_) async => Result.ok(summary));
     await notifier.bootstrap();
     await notifier.submitAttempt(
       action: DailyAttemptAction.answer,
@@ -354,7 +476,7 @@ void main() {
       ),
     );
     when(() => repository.fetchSummary('run-1'))
-        .thenAnswer((_) async => const Result.ok(summary));
+        .thenAnswer((_) async => Result.ok(summary));
 
     await notifier.bootstrap();
 

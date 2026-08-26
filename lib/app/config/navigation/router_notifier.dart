@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/app/main_layout.dart';
@@ -7,6 +8,7 @@ import 'package:quiz/features/achievements/presentation/achievements_flow.dart';
 import 'package:quiz/features/authentication/presentation/forgot_password/forgot_password_flow.dart';
 import 'package:quiz/features/authentication/presentation/sign_in/sign_in_flow.dart';
 import 'package:quiz/features/authentication/presentation/sign_up/sign_up_flow.dart';
+import 'package:quiz/features/daily_limit/presentation/daily_limit_flow.dart';
 import 'package:quiz/features/daily_result/presentation/daily_result_gate_flow.dart';
 import 'package:quiz/features/debug/debug_answered_question_page.dart';
 import 'package:quiz/features/debug/debug_flow.dart';
@@ -60,13 +62,24 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
           name: 'forgot-password',
           builder: (context, state) => const ForgotPasswordFlow(),
         ),
+        // В1/В2/В4 — full-screen, no tab bar. Fade transition (not the default forward
+        // slide) so closing them does not read as «going deeper». Siblings (not nested)
+        // so returning В4 → В2 rebuilds В2 fresh with the updated counter.
         GoRoute(
           path: '/daily-result',
           name: 'daily-result',
-          builder: (context, state) => const DailyResultGateFlow(),
+          pageBuilder: (context, state) =>
+              _fadePage(const DailyResultGateFlow(), state),
+        ),
+        GoRoute(
+          path: '/daily-limit',
+          name: 'daily-limit',
+          pageBuilder: (context, state) =>
+              _fadePage(const DailyLimitFlow(), state),
         ),
         StatefulShellRoute.indexedStack(
-          builder: (context, state, navigationShell) => MainLayout(navigationShell: navigationShell),
+          builder: (context, state, navigationShell) =>
+              MainLayout(navigationShell: navigationShell),
           branches: [
             StatefulShellBranch(
               routes: [
@@ -92,7 +105,8 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                     GoRoute(
                       path: 'history',
                       name: 'rating-history',
-                      builder: (context, state) => const LeaderboardHistoryPage(),
+                      builder: (context, state) =>
+                          const LeaderboardHistoryPage(),
                     ),
                     GoRoute(
                       path: 'user/:userId',
@@ -149,14 +163,16 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                             GoRoute(
                               path: 'password',
                               name: 'profile-edit-password',
-                              builder: (context, state) => const ChangePasswordPage(),
+                              builder: (context, state) =>
+                                  const ChangePasswordPage(),
                             ),
                           ],
                         ),
                         GoRoute(
                           path: 'notifications',
                           name: 'profile-settings-notifications',
-                          builder: (context, state) => const NotificationsPage(),
+                          builder: (context, state) =>
+                              const NotificationsPage(),
                         ),
                         GoRoute(
                           path: 'adult-content',
@@ -189,12 +205,14 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                         GoRoute(
                           path: 'questions',
                           name: 'debug-questions',
-                          builder: (context, state) => const DebugQuestionPage(),
+                          builder: (context, state) =>
+                              const DebugQuestionPage(),
                         ),
                         GoRoute(
                           path: 'questions/answered',
                           name: 'debug-answered-questions',
-                          builder: (context, state) => const DebugAnsweredQuestionPage(),
+                          builder: (context, state) =>
+                              const DebugAnsweredQuestionPage(),
                         ),
                       ],
                     ),
@@ -207,4 +225,17 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
       ],
     );
   }
+}
+
+/// Directionless fade for the full-screen daily-end routes (В1/В2/В4): a `go`
+/// transition otherwise slides forward, which reads wrong when closing them.
+CustomTransitionPage<void> _fadePage(Widget child, GoRouterState state) {
+  return CustomTransitionPage<void>(
+    key: state.pageKey,
+    child: child,
+    transitionDuration: const Duration(milliseconds: 220),
+    reverseTransitionDuration: const Duration(milliseconds: 220),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+        FadeTransition(opacity: animation, child: child),
+  );
 }

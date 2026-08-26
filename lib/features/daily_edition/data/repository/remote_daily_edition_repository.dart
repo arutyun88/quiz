@@ -92,6 +92,19 @@ class RemoteDailyEditionRepository implements DailyEditionRepository {
       );
 
   @override
+  Future<Result<DailyContinuationEntity, Failure>> fetchContinuation(
+    String runId,
+  ) async =>
+      await _client.get(
+        '/daily-editions/$runId/continuation',
+        mapper: (json) => DataDto.fromJson(
+          json,
+          (data) => DailyContinuationDto.fromJson(data as Json),
+        ),
+        converter: (dto) => dto.data.toEntity(),
+      );
+
+  @override
   Future<Result<RewardedAdEntity, Failure>> confirmRewardedAd({
     required String runId,
     required String clientEventId,
