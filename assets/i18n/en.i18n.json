@@ -434,6 +434,38 @@
         "continue_button": "KEEP PLAYING",
         "footer": "TODAY'S ISSUE IS CLOSED · A NEW ONE TOMORROW"
     },
+    "demo": {
+        "start": {
+            "badge": "GUEST DEMO",
+            "title": "Try Quiz before signing up",
+            "body(n)": {
+                "one": "Answer one short question, use a hint, and see how answer explanations work.",
+                "other": "Answer $n short questions, use a hint, and see how answer explanations work."
+            },
+            "notice": "Demo answers are not saved and never affect rating, XP, or streak.",
+            "start_button": "START DEMO",
+            "sign_in_button": "I ALREADY HAVE AN ACCOUNT"
+        },
+        "quiz": {
+            "header": "QUIZ · DEMO",
+            "exit": "EXIT",
+            "show_hint": "SHOW HINT",
+            "retry": "TRY AGAIN"
+        },
+        "complete": {
+            "title": "Demo complete",
+            "body": "Create an account to join the official daily edition, build a streak, and receive a knowledge rating.",
+            "create_account": "CREATE ACCOUNT",
+            "sign_in": "SIGN IN",
+            "back": "BACK TO DEMO"
+        },
+        "rating": {
+            "title": "Rating requires an account",
+            "body": "Guest demo answers are not saved and do not participate in the official leaderboard.",
+            "sign_in": "SIGN IN",
+            "create_account": "CREATE ACCOUNT"
+        }
+    },
     "nav": {
         "game": "GAME",
         "leaderboard": "RANK",

@@ -57,6 +57,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$forgot_password$en forgot_password = Translations$forgot_password$en._(_root);
 	late final Translations$start_day$en start_day = Translations$start_day$en._(_root);
 	late final Translations$daily_result$en daily_result = Translations$daily_result$en._(_root);
+	late final Translations$demo$en demo = Translations$demo$en._(_root);
 	late final Translations$nav$en nav = Translations$nav$en._(_root);
 	late final Translations$birth_date_picker$en birth_date_picker = Translations$birth_date_picker$en._(_root);
 	late final Translations$mastery$en mastery = Translations$mastery$en._(_root);
@@ -552,6 +553,19 @@ class Translations$daily_result$en {
 
 	/// ru: 'ВЫПУСК ДНЯ ЗАКРЫТ · НОВЫЙ ЗАВТРА'
 	String get footer => 'TODAY\'S ISSUE IS CLOSED · A NEW ONE TOMORROW';
+}
+
+// Path: demo
+class Translations$demo$en {
+	Translations$demo$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final Translations$demo$start$en start = Translations$demo$start$en._(_root);
+	late final Translations$demo$quiz$en quiz = Translations$demo$quiz$en._(_root);
+	late final Translations$demo$complete$en complete = Translations$demo$complete$en._(_root);
+	late final Translations$demo$rating$en rating = Translations$demo$rating$en._(_root);
 }
 
 // Path: nav
@@ -1141,6 +1155,102 @@ class Translations$onboarding$features$en {
 
 	/// ru: 'Соревнуйтесь, собирайте серии, открывайте достижения'
 	String get f4 => 'Compete, build streaks, unlock achievements';
+}
+
+// Path: demo.start
+class Translations$demo$start$en {
+	Translations$demo$start$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'ГОСТЕВОЕ ДЕМО'
+	String get badge => 'GUEST DEMO';
+
+	/// ru: 'Попробуйте Quiz без регистрации'
+	String get title => 'Try Quiz before signing up';
+
+	/// ru: '(one) {Ответьте на один короткий вопрос, воспользуйтесь подсказкой и посмотрите разбор ответа.} (few) {Ответьте на $n коротких вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.} (many) {Ответьте на $n коротких вопросов, воспользуйтесь подсказкой и посмотрите разбор ответа.} (other) {Ответьте на $n короткого вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.}'
+	String body({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: 'Answer one short question, use a hint, and see how answer explanations work.',
+		other: 'Answer ${n} short questions, use a hint, and see how answer explanations work.',
+	);
+
+	/// ru: 'Ответы демо не сохраняются и никогда не влияют на рейтинг, XP или серию.'
+	String get notice => 'Demo answers are not saved and never affect rating, XP, or streak.';
+
+	/// ru: 'НАЧАТЬ ДЕМО'
+	String get start_button => 'START DEMO';
+
+	/// ru: 'У МЕНЯ УЖЕ ЕСТЬ АККАУНТ'
+	String get sign_in_button => 'I ALREADY HAVE AN ACCOUNT';
+}
+
+// Path: demo.quiz
+class Translations$demo$quiz$en {
+	Translations$demo$quiz$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'QUIZ · ДЕМО'
+	String get header => 'QUIZ · DEMO';
+
+	/// ru: 'ВЫЙТИ'
+	String get exit => 'EXIT';
+
+	/// ru: 'ПОКАЗАТЬ ПОДСКАЗКУ'
+	String get show_hint => 'SHOW HINT';
+
+	/// ru: 'ПОВТОРИТЬ'
+	String get retry => 'TRY AGAIN';
+}
+
+// Path: demo.complete
+class Translations$demo$complete$en {
+	Translations$demo$complete$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Демо завершено'
+	String get title => 'Demo complete';
+
+	/// ru: 'Создайте аккаунт, чтобы участвовать в официальном выпуске дня, поддерживать серию и получать рейтинг знаний.'
+	String get body => 'Create an account to join the official daily edition, build a streak, and receive a knowledge rating.';
+
+	/// ru: 'СОЗДАТЬ АККАУНТ'
+	String get create_account => 'CREATE ACCOUNT';
+
+	/// ru: 'ВОЙТИ'
+	String get sign_in => 'SIGN IN';
+
+	/// ru: 'ВЕРНУТЬСЯ К ДЕМО'
+	String get back => 'BACK TO DEMO';
+}
+
+// Path: demo.rating
+class Translations$demo$rating$en {
+	Translations$demo$rating$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Для рейтинга нужен аккаунт'
+	String get title => 'Rating requires an account';
+
+	/// ru: 'Ответы гостевого демо не сохраняются и не участвуют в официальном рейтинге.'
+	String get body => 'Guest demo answers are not saved and do not participate in the official leaderboard.';
+
+	/// ru: 'ВОЙТИ'
+	String get sign_in => 'SIGN IN';
+
+	/// ru: 'СОЗДАТЬ АККАУНТ'
+	String get create_account => 'CREATE ACCOUNT';
 }
 
 // Path: mastery.paywall
@@ -1937,6 +2047,25 @@ extension on Translations {
 			'daily_result.rank_unknown' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Every issue moves you up the '), accent('weekly leaderboard'), ]), 
 			'daily_result.continue_button' => 'KEEP PLAYING',
 			'daily_result.footer' => 'TODAY\'S ISSUE IS CLOSED · A NEW ONE TOMORROW',
+			'demo.start.badge' => 'GUEST DEMO',
+			'demo.start.title' => 'Try Quiz before signing up',
+			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'Answer one short question, use a hint, and see how answer explanations work.', other: 'Answer ${n} short questions, use a hint, and see how answer explanations work.', ),
+			'demo.start.notice' => 'Demo answers are not saved and never affect rating, XP, or streak.',
+			'demo.start.start_button' => 'START DEMO',
+			'demo.start.sign_in_button' => 'I ALREADY HAVE AN ACCOUNT',
+			'demo.quiz.header' => 'QUIZ · DEMO',
+			'demo.quiz.exit' => 'EXIT',
+			'demo.quiz.show_hint' => 'SHOW HINT',
+			'demo.quiz.retry' => 'TRY AGAIN',
+			'demo.complete.title' => 'Demo complete',
+			'demo.complete.body' => 'Create an account to join the official daily edition, build a streak, and receive a knowledge rating.',
+			'demo.complete.create_account' => 'CREATE ACCOUNT',
+			'demo.complete.sign_in' => 'SIGN IN',
+			'demo.complete.back' => 'BACK TO DEMO',
+			'demo.rating.title' => 'Rating requires an account',
+			'demo.rating.body' => 'Guest demo answers are not saved and do not participate in the official leaderboard.',
+			'demo.rating.sign_in' => 'SIGN IN',
+			'demo.rating.create_account' => 'CREATE ACCOUNT',
 			'nav.game' => 'GAME',
 			'nav.leaderboard' => 'RANK',
 			'nav.profile' => 'PROFILE',
