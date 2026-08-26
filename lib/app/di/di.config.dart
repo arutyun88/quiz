@@ -35,6 +35,9 @@ import '../../features/daily_edition/domain/repository/daily_edition_repository.
     as _i824;
 import '../../features/daily_edition/domain/service/daily_attempt_outbox.dart'
     as _i66;
+import '../../features/demo/data/repository/remote_demo_repository.dart'
+    as _i676;
+import '../../features/demo/domain/repository/demo_repository.dart' as _i776;
 import '../../features/gamification/data/converter/user_level_converter.dart'
     as _i508;
 import '../../features/gamification/di/di.dart' as _i941;
@@ -270,6 +273,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1065.LeaderboardOverviewConverter>(() =>
         _i1065.LeaderboardOverviewConverterImpl(
             gh<_i1065.LeaderboardConverter>()));
+    gh.lazySingleton<_i776.DemoRepository>(() => _i676.RemoteDemoRepository(
+          client: gh<_i782.ApiClient>(),
+          questionPageConverter: gh<_i622.QuestionPageConverter>(),
+        ));
     gh.lazySingleton<_i632.UserStatisticsRepository>(
         () => userModule.userStatisticsRepository(
               gh<_i782.ApiClient>(),
