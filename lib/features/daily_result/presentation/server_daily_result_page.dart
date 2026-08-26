@@ -58,10 +58,16 @@ class ServerDailyResultPage extends StatelessWidget {
                       valueFontSize: 64,
                     ),
                     const SizedBox(height: 30),
-                    _StatsRow(
-                      correctAnswers: summary.correctCount,
-                      totalXp: summary.totalXp,
-                    ),
+                    _StatsGrid(summary: summary),
+                    if (summary.streakAfter != null) ...[
+                      const SizedBox(height: 18),
+                      _StreakSnapshot(days: summary.streakAfter!),
+                    ],
+                    if (summary.percentile != null ||
+                        summary.seasonRankDelta != null) ...[
+                      const SizedBox(height: 18),
+                      _ExtendedStats(summary: summary),
+                    ],
                   ],
                 ),
               ),
@@ -138,14 +144,10 @@ class _Header extends StatelessWidget {
   }
 }
 
-class _StatsRow extends StatelessWidget {
-  const _StatsRow({
-    required this.correctAnswers,
-    required this.totalXp,
-  });
+class _StatsGrid extends StatelessWidget {
+  const _StatsGrid({required this.summary});
 
-  final int correctAnswers;
-  final int totalXp;
+  final DailySummaryEntity summary;
 
   @override
   Widget build(BuildContext context) {
@@ -158,18 +160,147 @@ class _StatsRow extends StatelessWidget {
           bottom: BorderSide(color: colors.text.primary, width: 1.5),
         ),
       ),
-      child: IntrinsicHeight(
-        child: Row(
-          children: [
-            _StatCell(
-              value: correctAnswers.toString(),
-              label: t.correct_label,
+      child: Column(
+        children: [
+          IntrinsicHeight(
+            child: Row(
+              children: [
+                _StatCell(
+                  value: '${summary.correctCount}/${summary.requiredCount}',
+                  label: t.correct_label,
+                ),
+                _StatCell(
+                  value: summary.hintCount.toString(),
+                  label: t.hints_label,
+                  hasLeftBorder: true,
+                ),
+              ],
             ),
-            _StatCell(
-              value: '+$totalXp',
-              label: 'XP',
-              valueColor: colors.text.accent,
-              hasLeftBorder: true,
+          ),
+          Divider(height: 1, color: colors.divider),
+          IntrinsicHeight(
+            child: Row(
+              children: [
+                _StatCell(
+                  value: _signed(summary.ratingDelta),
+                  label: t.rating_label,
+                  valueColor: colors.text.accent,
+                ),
+                _StatCell(
+                  value: _percentage(summary.accuracy),
+                  label: t.accuracy_label,
+                  hasLeftBorder: true,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static String _signed(int? value) {
+    if (value == null) return '—';
+    if (value > 0) return '+$value';
+    if (value < 0) return '−${value.abs()}';
+    return '0';
+  }
+
+  static String _percentage(double? value) {
+    if (value == null) return '—';
+    return '${(value * 100).round()}%';
+  }
+}
+
+class _StreakSnapshot extends StatelessWidget {
+  const _StreakSnapshot({required this.days});
+
+  final int days;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.palette;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(Icons.local_fire_department, color: colors.base.gold),
+        const SizedBox(width: 8),
+        Text(
+          context.t.daily_result.streak_value(n: days),
+          style: GoogleFonts.jetBrainsMono(
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1,
+            color: colors.text.primary,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ExtendedStats extends StatelessWidget {
+  const _ExtendedStats({required this.summary});
+
+  final DailySummaryEntity summary;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.t.daily_result;
+    return Row(
+      children: [
+        if (summary.percentile case final double percentile)
+          _ExtendedStat(
+            label: t.percentile_label,
+            value: '${percentile.round()}%',
+          ),
+        if (summary.percentile != null && summary.seasonRankDelta != null)
+          const SizedBox(width: 12),
+        if (summary.seasonRankDelta case final int delta)
+          _ExtendedStat(
+            label: t.season_rank_label,
+            value: delta > 0 ? '+$delta' : delta.toString(),
+          ),
+      ],
+    );
+  }
+}
+
+class _ExtendedStat extends StatelessWidget {
+  const _ExtendedStat({required this.label, required this.value});
+
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.palette;
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          color: colors.card.background,
+          border: Border.all(color: colors.card.border),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+        child: Column(
+          children: [
+            Text(
+              value,
+              style: GoogleFonts.unbounded(
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+                color: colors.text.primary,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.jetBrainsMono(
+                fontSize: 8,
+                letterSpacing: 0.5,
+                color: colors.text.secondary,
+              ),
             ),
           ],
         ),

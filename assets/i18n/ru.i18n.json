@@ -446,6 +446,17 @@
         "goal_completed": "ЕЖЕДНЕВНАЯ ЦЕЛЬ ВЫПОЛНЕНА",
         "ring_label": "ИЗ $total",
         "correct_label": "ВЕРНО",
+        "hints_label": "ПОДСКАЗКИ",
+        "rating_label": "РЕЙТИНГ",
+        "accuracy_label": "ТОЧНОСТЬ",
+        "percentile_label": "ПРОЦЕНТИЛЬ ВЫПУСКА",
+        "season_rank_label": "ПОЗИЦИЯ В СЕЗОНЕ",
+        "streak_value(n)": {
+            "one": "СЕРИЯ $n ДЕНЬ",
+            "few": "СЕРИЯ $n ДНЯ",
+            "many": "СЕРИЯ $n ДНЕЙ",
+            "other": "СЕРИЯ $n ДНЯ"
+        },
         "points_label": "ОЧКОВ",
         "streak_label": "СЕРИЯ, ДН.",
         "rank_up(rich)": "Поднялись на $positions в недельном рейтинге",

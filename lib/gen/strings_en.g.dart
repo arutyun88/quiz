@@ -533,6 +533,27 @@ class Translations$daily_result$en {
 	/// ru: 'ВЕРНО'
 	String get correct_label => 'CORRECT';
 
+	/// ru: 'ПОДСКАЗКИ'
+	String get hints_label => 'HINTS';
+
+	/// ru: 'РЕЙТИНГ'
+	String get rating_label => 'RATING';
+
+	/// ru: 'ТОЧНОСТЬ'
+	String get accuracy_label => 'ACCURACY';
+
+	/// ru: 'ПРОЦЕНТИЛЬ ВЫПУСКА'
+	String get percentile_label => 'ISSUE PERCENTILE';
+
+	/// ru: 'ПОЗИЦИЯ В СЕЗОНЕ'
+	String get season_rank_label => 'SEASON POSITION';
+
+	/// ru: '(one) {СЕРИЯ $n ДЕНЬ} (few) {СЕРИЯ $n ДНЯ} (many) {СЕРИЯ $n ДНЕЙ} (other) {СЕРИЯ $n ДНЯ}'
+	String streak_value({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: '${n} DAY STREAK',
+		other: '${n} DAY STREAK',
+	);
+
 	/// ru: 'ОЧКОВ'
 	String get points_label => 'POINTS';
 
@@ -2154,6 +2175,12 @@ extension on Translations {
 			'daily_result.goal_completed' => 'DAILY GOAL COMPLETED',
 			'daily_result.ring_label' => ({required Object total}) => 'OF ${total}',
 			'daily_result.correct_label' => 'CORRECT',
+			'daily_result.hints_label' => 'HINTS',
+			'daily_result.rating_label' => 'RATING',
+			'daily_result.accuracy_label' => 'ACCURACY',
+			'daily_result.percentile_label' => 'ISSUE PERCENTILE',
+			'daily_result.season_rank_label' => 'SEASON POSITION',
+			'daily_result.streak_value' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} DAY STREAK', other: '${n} DAY STREAK', ),
 			'daily_result.points_label' => 'POINTS',
 			'daily_result.streak_label' => 'STREAK, D.',
 			'daily_result.rank_up' => ({required InlineSpan positions}) => TextSpan(children: [ const TextSpan(text: 'You climbed '), positions, const TextSpan(text: ' in the weekly leaderboard'), ]), 

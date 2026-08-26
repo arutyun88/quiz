@@ -200,6 +200,17 @@ void main() {
       'total_xp': 109,
       'bonus_granted': 0,
       'bonus_served': 0,
+      'rating_before': 1000,
+      'rating_after': 1018,
+      'rating_delta': 18,
+      'accuracy': 0.8,
+      'percentile': null,
+      'streak_before': 4,
+      'streak_after': 5,
+      'streak_delta': 1,
+      'season_rank_before': null,
+      'season_rank_after': null,
+      'season_rank_delta': null,
       'continuation': _continuationJson(nextAction: 'FUTURE_ACTION'),
     }).toEntity();
 
@@ -209,6 +220,34 @@ void main() {
     expect(entity.totalXp, 109);
     expect(entity.bonusGranted, 0);
     expect(entity.bonusServed, 0);
+    expect(entity.ratingDelta, 18);
+    expect(entity.accuracy, 0.8);
+    expect(entity.streakAfter, 5);
+    expect(entity.percentile, isNull);
+    expect(entity.seasonRankDelta, isNull);
+  });
+
+  test('accepts an unfinished summary without completion metrics', () {
+    final entity = DailySummaryDto.fromJson({
+      'run_id': 'run-1',
+      'edition_date': '2026-08-25',
+      'status': 'ABANDONED',
+      'required_count': 10,
+      'resolved_count': 3,
+      'correct_count': 2,
+      'skipped_count': 1,
+      'hint_count': 0,
+      'answer_xp': 10,
+      'completion_xp': 0,
+      'total_xp': 10,
+      'bonus_granted': 0,
+      'bonus_served': 0,
+      'continuation': _continuationJson(nextAction: 'CLOSED'),
+    }).toEntity();
+
+    expect(entity.ratingDelta, isNull);
+    expect(entity.accuracy, isNull);
+    expect(entity.streakAfter, isNull);
   });
 
   test('unknown attempt action never becomes an answer', () {

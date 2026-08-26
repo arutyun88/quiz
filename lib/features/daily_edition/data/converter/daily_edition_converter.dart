@@ -112,6 +112,17 @@ extension DailySummaryDtoConverter on DailySummaryDto {
         totalXp: totalXp,
         bonusGranted: bonusGranted,
         bonusServed: bonusServed,
+        ratingBefore: ratingBefore,
+        ratingAfter: ratingAfter,
+        ratingDelta: ratingDelta,
+        accuracy: accuracy,
+        percentile: percentile,
+        streakBefore: streakBefore,
+        streakAfter: streakAfter,
+        streakDelta: streakDelta,
+        seasonRankBefore: seasonRankBefore,
+        seasonRankAfter: seasonRankAfter,
+        seasonRankDelta: seasonRankDelta,
         continuation: continuation.toEntity(),
       );
 }

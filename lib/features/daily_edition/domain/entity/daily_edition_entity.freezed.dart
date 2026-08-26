@@ -2203,6 +2203,17 @@ mixin _$DailySummaryEntity {
   int get totalXp => throw _privateConstructorUsedError;
   int get bonusGranted => throw _privateConstructorUsedError;
   int get bonusServed => throw _privateConstructorUsedError;
+  int? get ratingBefore => throw _privateConstructorUsedError;
+  int? get ratingAfter => throw _privateConstructorUsedError;
+  int? get ratingDelta => throw _privateConstructorUsedError;
+  double? get accuracy => throw _privateConstructorUsedError;
+  double? get percentile => throw _privateConstructorUsedError;
+  int? get streakBefore => throw _privateConstructorUsedError;
+  int? get streakAfter => throw _privateConstructorUsedError;
+  int? get streakDelta => throw _privateConstructorUsedError;
+  int? get seasonRankBefore => throw _privateConstructorUsedError;
+  int? get seasonRankAfter => throw _privateConstructorUsedError;
+  int? get seasonRankDelta => throw _privateConstructorUsedError;
   DailyContinuationEntity get continuation =>
       throw _privateConstructorUsedError;
 
@@ -2233,6 +2244,17 @@ abstract class $DailySummaryEntityCopyWith<$Res> {
       int totalXp,
       int bonusGranted,
       int bonusServed,
+      int? ratingBefore,
+      int? ratingAfter,
+      int? ratingDelta,
+      double? accuracy,
+      double? percentile,
+      int? streakBefore,
+      int? streakAfter,
+      int? streakDelta,
+      int? seasonRankBefore,
+      int? seasonRankAfter,
+      int? seasonRankDelta,
       DailyContinuationEntity continuation});
 
   $DailyContinuationEntityCopyWith<$Res> get continuation;
@@ -2266,6 +2288,17 @@ class _$DailySummaryEntityCopyWithImpl<$Res, $Val extends DailySummaryEntity>
     Object? totalXp = null,
     Object? bonusGranted = null,
     Object? bonusServed = null,
+    Object? ratingBefore = freezed,
+    Object? ratingAfter = freezed,
+    Object? ratingDelta = freezed,
+    Object? accuracy = freezed,
+    Object? percentile = freezed,
+    Object? streakBefore = freezed,
+    Object? streakAfter = freezed,
+    Object? streakDelta = freezed,
+    Object? seasonRankBefore = freezed,
+    Object? seasonRankAfter = freezed,
+    Object? seasonRankDelta = freezed,
     Object? continuation = null,
   }) {
     return _then(_value.copyWith(
@@ -2321,6 +2354,50 @@ class _$DailySummaryEntityCopyWithImpl<$Res, $Val extends DailySummaryEntity>
           ? _value.bonusServed
           : bonusServed // ignore: cast_nullable_to_non_nullable
               as int,
+      ratingBefore: freezed == ratingBefore
+          ? _value.ratingBefore
+          : ratingBefore // ignore: cast_nullable_to_non_nullable
+              as int?,
+      ratingAfter: freezed == ratingAfter
+          ? _value.ratingAfter
+          : ratingAfter // ignore: cast_nullable_to_non_nullable
+              as int?,
+      ratingDelta: freezed == ratingDelta
+          ? _value.ratingDelta
+          : ratingDelta // ignore: cast_nullable_to_non_nullable
+              as int?,
+      accuracy: freezed == accuracy
+          ? _value.accuracy
+          : accuracy // ignore: cast_nullable_to_non_nullable
+              as double?,
+      percentile: freezed == percentile
+          ? _value.percentile
+          : percentile // ignore: cast_nullable_to_non_nullable
+              as double?,
+      streakBefore: freezed == streakBefore
+          ? _value.streakBefore
+          : streakBefore // ignore: cast_nullable_to_non_nullable
+              as int?,
+      streakAfter: freezed == streakAfter
+          ? _value.streakAfter
+          : streakAfter // ignore: cast_nullable_to_non_nullable
+              as int?,
+      streakDelta: freezed == streakDelta
+          ? _value.streakDelta
+          : streakDelta // ignore: cast_nullable_to_non_nullable
+              as int?,
+      seasonRankBefore: freezed == seasonRankBefore
+          ? _value.seasonRankBefore
+          : seasonRankBefore // ignore: cast_nullable_to_non_nullable
+              as int?,
+      seasonRankAfter: freezed == seasonRankAfter
+          ? _value.seasonRankAfter
+          : seasonRankAfter // ignore: cast_nullable_to_non_nullable
+              as int?,
+      seasonRankDelta: freezed == seasonRankDelta
+          ? _value.seasonRankDelta
+          : seasonRankDelta // ignore: cast_nullable_to_non_nullable
+              as int?,
       continuation: null == continuation
           ? _value.continuation
           : continuation // ignore: cast_nullable_to_non_nullable
@@ -2361,6 +2438,17 @@ abstract class _$$DailySummaryEntityImplCopyWith<$Res>
       int totalXp,
       int bonusGranted,
       int bonusServed,
+      int? ratingBefore,
+      int? ratingAfter,
+      int? ratingDelta,
+      double? accuracy,
+      double? percentile,
+      int? streakBefore,
+      int? streakAfter,
+      int? streakDelta,
+      int? seasonRankBefore,
+      int? seasonRankAfter,
+      int? seasonRankDelta,
       DailyContinuationEntity continuation});
 
   @override
@@ -2393,6 +2481,17 @@ class __$$DailySummaryEntityImplCopyWithImpl<$Res>
     Object? totalXp = null,
     Object? bonusGranted = null,
     Object? bonusServed = null,
+    Object? ratingBefore = freezed,
+    Object? ratingAfter = freezed,
+    Object? ratingDelta = freezed,
+    Object? accuracy = freezed,
+    Object? percentile = freezed,
+    Object? streakBefore = freezed,
+    Object? streakAfter = freezed,
+    Object? streakDelta = freezed,
+    Object? seasonRankBefore = freezed,
+    Object? seasonRankAfter = freezed,
+    Object? seasonRankDelta = freezed,
     Object? continuation = null,
   }) {
     return _then(_$DailySummaryEntityImpl(
@@ -2448,6 +2547,50 @@ class __$$DailySummaryEntityImplCopyWithImpl<$Res>
           ? _value.bonusServed
           : bonusServed // ignore: cast_nullable_to_non_nullable
               as int,
+      ratingBefore: freezed == ratingBefore
+          ? _value.ratingBefore
+          : ratingBefore // ignore: cast_nullable_to_non_nullable
+              as int?,
+      ratingAfter: freezed == ratingAfter
+          ? _value.ratingAfter
+          : ratingAfter // ignore: cast_nullable_to_non_nullable
+              as int?,
+      ratingDelta: freezed == ratingDelta
+          ? _value.ratingDelta
+          : ratingDelta // ignore: cast_nullable_to_non_nullable
+              as int?,
+      accuracy: freezed == accuracy
+          ? _value.accuracy
+          : accuracy // ignore: cast_nullable_to_non_nullable
+              as double?,
+      percentile: freezed == percentile
+          ? _value.percentile
+          : percentile // ignore: cast_nullable_to_non_nullable
+              as double?,
+      streakBefore: freezed == streakBefore
+          ? _value.streakBefore
+          : streakBefore // ignore: cast_nullable_to_non_nullable
+              as int?,
+      streakAfter: freezed == streakAfter
+          ? _value.streakAfter
+          : streakAfter // ignore: cast_nullable_to_non_nullable
+              as int?,
+      streakDelta: freezed == streakDelta
+          ? _value.streakDelta
+          : streakDelta // ignore: cast_nullable_to_non_nullable
+              as int?,
+      seasonRankBefore: freezed == seasonRankBefore
+          ? _value.seasonRankBefore
+          : seasonRankBefore // ignore: cast_nullable_to_non_nullable
+              as int?,
+      seasonRankAfter: freezed == seasonRankAfter
+          ? _value.seasonRankAfter
+          : seasonRankAfter // ignore: cast_nullable_to_non_nullable
+              as int?,
+      seasonRankDelta: freezed == seasonRankDelta
+          ? _value.seasonRankDelta
+          : seasonRankDelta // ignore: cast_nullable_to_non_nullable
+              as int?,
       continuation: null == continuation
           ? _value.continuation
           : continuation // ignore: cast_nullable_to_non_nullable
@@ -2473,6 +2616,17 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
       required this.totalXp,
       required this.bonusGranted,
       required this.bonusServed,
+      this.ratingBefore,
+      this.ratingAfter,
+      this.ratingDelta,
+      this.accuracy,
+      this.percentile,
+      this.streakBefore,
+      this.streakAfter,
+      this.streakDelta,
+      this.seasonRankBefore,
+      this.seasonRankAfter,
+      this.seasonRankDelta,
       required this.continuation});
 
   @override
@@ -2502,11 +2656,33 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
   @override
   final int bonusServed;
   @override
+  final int? ratingBefore;
+  @override
+  final int? ratingAfter;
+  @override
+  final int? ratingDelta;
+  @override
+  final double? accuracy;
+  @override
+  final double? percentile;
+  @override
+  final int? streakBefore;
+  @override
+  final int? streakAfter;
+  @override
+  final int? streakDelta;
+  @override
+  final int? seasonRankBefore;
+  @override
+  final int? seasonRankAfter;
+  @override
+  final int? seasonRankDelta;
+  @override
   final DailyContinuationEntity continuation;
 
   @override
   String toString() {
-    return 'DailySummaryEntity(runId: $runId, editionDate: $editionDate, status: $status, requiredCount: $requiredCount, resolvedCount: $resolvedCount, correctCount: $correctCount, skippedCount: $skippedCount, hintCount: $hintCount, answerXp: $answerXp, completionXp: $completionXp, totalXp: $totalXp, bonusGranted: $bonusGranted, bonusServed: $bonusServed, continuation: $continuation)';
+    return 'DailySummaryEntity(runId: $runId, editionDate: $editionDate, status: $status, requiredCount: $requiredCount, resolvedCount: $resolvedCount, correctCount: $correctCount, skippedCount: $skippedCount, hintCount: $hintCount, answerXp: $answerXp, completionXp: $completionXp, totalXp: $totalXp, bonusGranted: $bonusGranted, bonusServed: $bonusServed, ratingBefore: $ratingBefore, ratingAfter: $ratingAfter, ratingDelta: $ratingDelta, accuracy: $accuracy, percentile: $percentile, streakBefore: $streakBefore, streakAfter: $streakAfter, streakDelta: $streakDelta, seasonRankBefore: $seasonRankBefore, seasonRankAfter: $seasonRankAfter, seasonRankDelta: $seasonRankDelta, continuation: $continuation)';
   }
 
   @override
@@ -2537,27 +2713,61 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
                 other.bonusGranted == bonusGranted) &&
             (identical(other.bonusServed, bonusServed) ||
                 other.bonusServed == bonusServed) &&
+            (identical(other.ratingBefore, ratingBefore) ||
+                other.ratingBefore == ratingBefore) &&
+            (identical(other.ratingAfter, ratingAfter) ||
+                other.ratingAfter == ratingAfter) &&
+            (identical(other.ratingDelta, ratingDelta) ||
+                other.ratingDelta == ratingDelta) &&
+            (identical(other.accuracy, accuracy) ||
+                other.accuracy == accuracy) &&
+            (identical(other.percentile, percentile) ||
+                other.percentile == percentile) &&
+            (identical(other.streakBefore, streakBefore) ||
+                other.streakBefore == streakBefore) &&
+            (identical(other.streakAfter, streakAfter) ||
+                other.streakAfter == streakAfter) &&
+            (identical(other.streakDelta, streakDelta) ||
+                other.streakDelta == streakDelta) &&
+            (identical(other.seasonRankBefore, seasonRankBefore) ||
+                other.seasonRankBefore == seasonRankBefore) &&
+            (identical(other.seasonRankAfter, seasonRankAfter) ||
+                other.seasonRankAfter == seasonRankAfter) &&
+            (identical(other.seasonRankDelta, seasonRankDelta) ||
+                other.seasonRankDelta == seasonRankDelta) &&
             (identical(other.continuation, continuation) ||
                 other.continuation == continuation));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      runId,
-      editionDate,
-      status,
-      requiredCount,
-      resolvedCount,
-      correctCount,
-      skippedCount,
-      hintCount,
-      answerXp,
-      completionXp,
-      totalXp,
-      bonusGranted,
-      bonusServed,
-      continuation);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        runId,
+        editionDate,
+        status,
+        requiredCount,
+        resolvedCount,
+        correctCount,
+        skippedCount,
+        hintCount,
+        answerXp,
+        completionXp,
+        totalXp,
+        bonusGranted,
+        bonusServed,
+        ratingBefore,
+        ratingAfter,
+        ratingDelta,
+        accuracy,
+        percentile,
+        streakBefore,
+        streakAfter,
+        streakDelta,
+        seasonRankBefore,
+        seasonRankAfter,
+        seasonRankDelta,
+        continuation
+      ]);
 
   /// Create a copy of DailySummaryEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -2584,6 +2794,17 @@ abstract class _DailySummaryEntity implements DailySummaryEntity {
           required final int totalXp,
           required final int bonusGranted,
           required final int bonusServed,
+          final int? ratingBefore,
+          final int? ratingAfter,
+          final int? ratingDelta,
+          final double? accuracy,
+          final double? percentile,
+          final int? streakBefore,
+          final int? streakAfter,
+          final int? streakDelta,
+          final int? seasonRankBefore,
+          final int? seasonRankAfter,
+          final int? seasonRankDelta,
           required final DailyContinuationEntity continuation}) =
       _$DailySummaryEntityImpl;
 
@@ -2613,6 +2834,28 @@ abstract class _DailySummaryEntity implements DailySummaryEntity {
   int get bonusGranted;
   @override
   int get bonusServed;
+  @override
+  int? get ratingBefore;
+  @override
+  int? get ratingAfter;
+  @override
+  int? get ratingDelta;
+  @override
+  double? get accuracy;
+  @override
+  double? get percentile;
+  @override
+  int? get streakBefore;
+  @override
+  int? get streakAfter;
+  @override
+  int? get streakDelta;
+  @override
+  int? get seasonRankBefore;
+  @override
+  int? get seasonRankAfter;
+  @override
+  int? get seasonRankDelta;
   @override
   DailyContinuationEntity get continuation;
 

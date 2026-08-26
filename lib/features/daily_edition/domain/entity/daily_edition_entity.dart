@@ -159,6 +159,17 @@ class DailySummaryEntity with _$DailySummaryEntity {
     required int totalXp,
     required int bonusGranted,
     required int bonusServed,
+    int? ratingBefore,
+    int? ratingAfter,
+    int? ratingDelta,
+    double? accuracy,
+    double? percentile,
+    int? streakBefore,
+    int? streakAfter,
+    int? streakDelta,
+    int? seasonRankBefore,
+    int? seasonRankAfter,
+    int? seasonRankDelta,
     required DailyContinuationEntity continuation,
   }) = _DailySummaryEntity;
 }

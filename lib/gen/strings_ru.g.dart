@@ -360,6 +360,17 @@ class _Translations$daily_result$ru implements Translations$daily_result$en {
 	@override String get goal_completed => 'ЕЖЕДНЕВНАЯ ЦЕЛЬ ВЫПОЛНЕНА';
 	@override String ring_label({required Object total}) => 'ИЗ ${total}';
 	@override String get correct_label => 'ВЕРНО';
+	@override String get hints_label => 'ПОДСКАЗКИ';
+	@override String get rating_label => 'РЕЙТИНГ';
+	@override String get accuracy_label => 'ТОЧНОСТЬ';
+	@override String get percentile_label => 'ПРОЦЕНТИЛЬ ВЫПУСКА';
+	@override String get season_rank_label => 'ПОЗИЦИЯ В СЕЗОНЕ';
+	@override String streak_value({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+		one: 'СЕРИЯ ${n} ДЕНЬ',
+		few: 'СЕРИЯ ${n} ДНЯ',
+		many: 'СЕРИЯ ${n} ДНЕЙ',
+		other: 'СЕРИЯ ${n} ДНЯ',
+	);
 	@override String get points_label => 'ОЧКОВ';
 	@override String get streak_label => 'СЕРИЯ, ДН.';
 	@override TextSpan rank_up({required InlineSpan positions}) => TextSpan(children: [
@@ -1474,6 +1485,12 @@ extension on TranslationsRu {
 			'daily_result.goal_completed' => 'ЕЖЕДНЕВНАЯ ЦЕЛЬ ВЫПОЛНЕНА',
 			'daily_result.ring_label' => ({required Object total}) => 'ИЗ ${total}',
 			'daily_result.correct_label' => 'ВЕРНО',
+			'daily_result.hints_label' => 'ПОДСКАЗКИ',
+			'daily_result.rating_label' => 'РЕЙТИНГ',
+			'daily_result.accuracy_label' => 'ТОЧНОСТЬ',
+			'daily_result.percentile_label' => 'ПРОЦЕНТИЛЬ ВЫПУСКА',
+			'daily_result.season_rank_label' => 'ПОЗИЦИЯ В СЕЗОНЕ',
+			'daily_result.streak_value' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'СЕРИЯ ${n} ДЕНЬ', few: 'СЕРИЯ ${n} ДНЯ', many: 'СЕРИЯ ${n} ДНЕЙ', other: 'СЕРИЯ ${n} ДНЯ', ),
 			'daily_result.points_label' => 'ОЧКОВ',
 			'daily_result.streak_label' => 'СЕРИЯ, ДН.',
 			'daily_result.rank_up' => ({required InlineSpan positions}) => TextSpan(children: [ const TextSpan(text: 'Поднялись на '), positions, const TextSpan(text: ' в недельном рейтинге'), ]), 

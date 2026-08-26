@@ -2725,6 +2725,26 @@ mixin _$DailySummaryDto {
   int get bonusGranted => throw _privateConstructorUsedError;
   @JsonKey(name: 'bonus_served')
   int get bonusServed => throw _privateConstructorUsedError;
+  @JsonKey(name: 'rating_before')
+  int? get ratingBefore => throw _privateConstructorUsedError;
+  @JsonKey(name: 'rating_after')
+  int? get ratingAfter => throw _privateConstructorUsedError;
+  @JsonKey(name: 'rating_delta')
+  int? get ratingDelta => throw _privateConstructorUsedError;
+  double? get accuracy => throw _privateConstructorUsedError;
+  double? get percentile => throw _privateConstructorUsedError;
+  @JsonKey(name: 'streak_before')
+  int? get streakBefore => throw _privateConstructorUsedError;
+  @JsonKey(name: 'streak_after')
+  int? get streakAfter => throw _privateConstructorUsedError;
+  @JsonKey(name: 'streak_delta')
+  int? get streakDelta => throw _privateConstructorUsedError;
+  @JsonKey(name: 'season_rank_before')
+  int? get seasonRankBefore => throw _privateConstructorUsedError;
+  @JsonKey(name: 'season_rank_after')
+  int? get seasonRankAfter => throw _privateConstructorUsedError;
+  @JsonKey(name: 'season_rank_delta')
+  int? get seasonRankDelta => throw _privateConstructorUsedError;
   DailyContinuationDto get continuation => throw _privateConstructorUsedError;
 
   /// Serializes this DailySummaryDto to a JSON map.
@@ -2757,6 +2777,17 @@ abstract class $DailySummaryDtoCopyWith<$Res> {
       @JsonKey(name: 'total_xp') int totalXp,
       @JsonKey(name: 'bonus_granted') int bonusGranted,
       @JsonKey(name: 'bonus_served') int bonusServed,
+      @JsonKey(name: 'rating_before') int? ratingBefore,
+      @JsonKey(name: 'rating_after') int? ratingAfter,
+      @JsonKey(name: 'rating_delta') int? ratingDelta,
+      double? accuracy,
+      double? percentile,
+      @JsonKey(name: 'streak_before') int? streakBefore,
+      @JsonKey(name: 'streak_after') int? streakAfter,
+      @JsonKey(name: 'streak_delta') int? streakDelta,
+      @JsonKey(name: 'season_rank_before') int? seasonRankBefore,
+      @JsonKey(name: 'season_rank_after') int? seasonRankAfter,
+      @JsonKey(name: 'season_rank_delta') int? seasonRankDelta,
       DailyContinuationDto continuation});
 
   $DailyContinuationDtoCopyWith<$Res> get continuation;
@@ -2790,6 +2821,17 @@ class _$DailySummaryDtoCopyWithImpl<$Res, $Val extends DailySummaryDto>
     Object? totalXp = null,
     Object? bonusGranted = null,
     Object? bonusServed = null,
+    Object? ratingBefore = freezed,
+    Object? ratingAfter = freezed,
+    Object? ratingDelta = freezed,
+    Object? accuracy = freezed,
+    Object? percentile = freezed,
+    Object? streakBefore = freezed,
+    Object? streakAfter = freezed,
+    Object? streakDelta = freezed,
+    Object? seasonRankBefore = freezed,
+    Object? seasonRankAfter = freezed,
+    Object? seasonRankDelta = freezed,
     Object? continuation = null,
   }) {
     return _then(_value.copyWith(
@@ -2845,6 +2887,50 @@ class _$DailySummaryDtoCopyWithImpl<$Res, $Val extends DailySummaryDto>
           ? _value.bonusServed
           : bonusServed // ignore: cast_nullable_to_non_nullable
               as int,
+      ratingBefore: freezed == ratingBefore
+          ? _value.ratingBefore
+          : ratingBefore // ignore: cast_nullable_to_non_nullable
+              as int?,
+      ratingAfter: freezed == ratingAfter
+          ? _value.ratingAfter
+          : ratingAfter // ignore: cast_nullable_to_non_nullable
+              as int?,
+      ratingDelta: freezed == ratingDelta
+          ? _value.ratingDelta
+          : ratingDelta // ignore: cast_nullable_to_non_nullable
+              as int?,
+      accuracy: freezed == accuracy
+          ? _value.accuracy
+          : accuracy // ignore: cast_nullable_to_non_nullable
+              as double?,
+      percentile: freezed == percentile
+          ? _value.percentile
+          : percentile // ignore: cast_nullable_to_non_nullable
+              as double?,
+      streakBefore: freezed == streakBefore
+          ? _value.streakBefore
+          : streakBefore // ignore: cast_nullable_to_non_nullable
+              as int?,
+      streakAfter: freezed == streakAfter
+          ? _value.streakAfter
+          : streakAfter // ignore: cast_nullable_to_non_nullable
+              as int?,
+      streakDelta: freezed == streakDelta
+          ? _value.streakDelta
+          : streakDelta // ignore: cast_nullable_to_non_nullable
+              as int?,
+      seasonRankBefore: freezed == seasonRankBefore
+          ? _value.seasonRankBefore
+          : seasonRankBefore // ignore: cast_nullable_to_non_nullable
+              as int?,
+      seasonRankAfter: freezed == seasonRankAfter
+          ? _value.seasonRankAfter
+          : seasonRankAfter // ignore: cast_nullable_to_non_nullable
+              as int?,
+      seasonRankDelta: freezed == seasonRankDelta
+          ? _value.seasonRankDelta
+          : seasonRankDelta // ignore: cast_nullable_to_non_nullable
+              as int?,
       continuation: null == continuation
           ? _value.continuation
           : continuation // ignore: cast_nullable_to_non_nullable
@@ -2885,6 +2971,17 @@ abstract class _$$DailySummaryDtoImplCopyWith<$Res>
       @JsonKey(name: 'total_xp') int totalXp,
       @JsonKey(name: 'bonus_granted') int bonusGranted,
       @JsonKey(name: 'bonus_served') int bonusServed,
+      @JsonKey(name: 'rating_before') int? ratingBefore,
+      @JsonKey(name: 'rating_after') int? ratingAfter,
+      @JsonKey(name: 'rating_delta') int? ratingDelta,
+      double? accuracy,
+      double? percentile,
+      @JsonKey(name: 'streak_before') int? streakBefore,
+      @JsonKey(name: 'streak_after') int? streakAfter,
+      @JsonKey(name: 'streak_delta') int? streakDelta,
+      @JsonKey(name: 'season_rank_before') int? seasonRankBefore,
+      @JsonKey(name: 'season_rank_after') int? seasonRankAfter,
+      @JsonKey(name: 'season_rank_delta') int? seasonRankDelta,
       DailyContinuationDto continuation});
 
   @override
@@ -2917,6 +3014,17 @@ class __$$DailySummaryDtoImplCopyWithImpl<$Res>
     Object? totalXp = null,
     Object? bonusGranted = null,
     Object? bonusServed = null,
+    Object? ratingBefore = freezed,
+    Object? ratingAfter = freezed,
+    Object? ratingDelta = freezed,
+    Object? accuracy = freezed,
+    Object? percentile = freezed,
+    Object? streakBefore = freezed,
+    Object? streakAfter = freezed,
+    Object? streakDelta = freezed,
+    Object? seasonRankBefore = freezed,
+    Object? seasonRankAfter = freezed,
+    Object? seasonRankDelta = freezed,
     Object? continuation = null,
   }) {
     return _then(_$DailySummaryDtoImpl(
@@ -2972,6 +3080,50 @@ class __$$DailySummaryDtoImplCopyWithImpl<$Res>
           ? _value.bonusServed
           : bonusServed // ignore: cast_nullable_to_non_nullable
               as int,
+      ratingBefore: freezed == ratingBefore
+          ? _value.ratingBefore
+          : ratingBefore // ignore: cast_nullable_to_non_nullable
+              as int?,
+      ratingAfter: freezed == ratingAfter
+          ? _value.ratingAfter
+          : ratingAfter // ignore: cast_nullable_to_non_nullable
+              as int?,
+      ratingDelta: freezed == ratingDelta
+          ? _value.ratingDelta
+          : ratingDelta // ignore: cast_nullable_to_non_nullable
+              as int?,
+      accuracy: freezed == accuracy
+          ? _value.accuracy
+          : accuracy // ignore: cast_nullable_to_non_nullable
+              as double?,
+      percentile: freezed == percentile
+          ? _value.percentile
+          : percentile // ignore: cast_nullable_to_non_nullable
+              as double?,
+      streakBefore: freezed == streakBefore
+          ? _value.streakBefore
+          : streakBefore // ignore: cast_nullable_to_non_nullable
+              as int?,
+      streakAfter: freezed == streakAfter
+          ? _value.streakAfter
+          : streakAfter // ignore: cast_nullable_to_non_nullable
+              as int?,
+      streakDelta: freezed == streakDelta
+          ? _value.streakDelta
+          : streakDelta // ignore: cast_nullable_to_non_nullable
+              as int?,
+      seasonRankBefore: freezed == seasonRankBefore
+          ? _value.seasonRankBefore
+          : seasonRankBefore // ignore: cast_nullable_to_non_nullable
+              as int?,
+      seasonRankAfter: freezed == seasonRankAfter
+          ? _value.seasonRankAfter
+          : seasonRankAfter // ignore: cast_nullable_to_non_nullable
+              as int?,
+      seasonRankDelta: freezed == seasonRankDelta
+          ? _value.seasonRankDelta
+          : seasonRankDelta // ignore: cast_nullable_to_non_nullable
+              as int?,
       continuation: null == continuation
           ? _value.continuation
           : continuation // ignore: cast_nullable_to_non_nullable
@@ -2997,6 +3149,17 @@ class _$DailySummaryDtoImpl implements _DailySummaryDto {
       @JsonKey(name: 'total_xp') required this.totalXp,
       @JsonKey(name: 'bonus_granted') required this.bonusGranted,
       @JsonKey(name: 'bonus_served') required this.bonusServed,
+      @JsonKey(name: 'rating_before') this.ratingBefore,
+      @JsonKey(name: 'rating_after') this.ratingAfter,
+      @JsonKey(name: 'rating_delta') this.ratingDelta,
+      this.accuracy,
+      this.percentile,
+      @JsonKey(name: 'streak_before') this.streakBefore,
+      @JsonKey(name: 'streak_after') this.streakAfter,
+      @JsonKey(name: 'streak_delta') this.streakDelta,
+      @JsonKey(name: 'season_rank_before') this.seasonRankBefore,
+      @JsonKey(name: 'season_rank_after') this.seasonRankAfter,
+      @JsonKey(name: 'season_rank_delta') this.seasonRankDelta,
       required this.continuation});
 
   factory _$DailySummaryDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -3041,11 +3204,42 @@ class _$DailySummaryDtoImpl implements _DailySummaryDto {
   @JsonKey(name: 'bonus_served')
   final int bonusServed;
   @override
+  @JsonKey(name: 'rating_before')
+  final int? ratingBefore;
+  @override
+  @JsonKey(name: 'rating_after')
+  final int? ratingAfter;
+  @override
+  @JsonKey(name: 'rating_delta')
+  final int? ratingDelta;
+  @override
+  final double? accuracy;
+  @override
+  final double? percentile;
+  @override
+  @JsonKey(name: 'streak_before')
+  final int? streakBefore;
+  @override
+  @JsonKey(name: 'streak_after')
+  final int? streakAfter;
+  @override
+  @JsonKey(name: 'streak_delta')
+  final int? streakDelta;
+  @override
+  @JsonKey(name: 'season_rank_before')
+  final int? seasonRankBefore;
+  @override
+  @JsonKey(name: 'season_rank_after')
+  final int? seasonRankAfter;
+  @override
+  @JsonKey(name: 'season_rank_delta')
+  final int? seasonRankDelta;
+  @override
   final DailyContinuationDto continuation;
 
   @override
   String toString() {
-    return 'DailySummaryDto(runId: $runId, editionDate: $editionDate, status: $status, requiredCount: $requiredCount, resolvedCount: $resolvedCount, correctCount: $correctCount, skippedCount: $skippedCount, hintCount: $hintCount, answerXp: $answerXp, completionXp: $completionXp, totalXp: $totalXp, bonusGranted: $bonusGranted, bonusServed: $bonusServed, continuation: $continuation)';
+    return 'DailySummaryDto(runId: $runId, editionDate: $editionDate, status: $status, requiredCount: $requiredCount, resolvedCount: $resolvedCount, correctCount: $correctCount, skippedCount: $skippedCount, hintCount: $hintCount, answerXp: $answerXp, completionXp: $completionXp, totalXp: $totalXp, bonusGranted: $bonusGranted, bonusServed: $bonusServed, ratingBefore: $ratingBefore, ratingAfter: $ratingAfter, ratingDelta: $ratingDelta, accuracy: $accuracy, percentile: $percentile, streakBefore: $streakBefore, streakAfter: $streakAfter, streakDelta: $streakDelta, seasonRankBefore: $seasonRankBefore, seasonRankAfter: $seasonRankAfter, seasonRankDelta: $seasonRankDelta, continuation: $continuation)';
   }
 
   @override
@@ -3076,28 +3270,62 @@ class _$DailySummaryDtoImpl implements _DailySummaryDto {
                 other.bonusGranted == bonusGranted) &&
             (identical(other.bonusServed, bonusServed) ||
                 other.bonusServed == bonusServed) &&
+            (identical(other.ratingBefore, ratingBefore) ||
+                other.ratingBefore == ratingBefore) &&
+            (identical(other.ratingAfter, ratingAfter) ||
+                other.ratingAfter == ratingAfter) &&
+            (identical(other.ratingDelta, ratingDelta) ||
+                other.ratingDelta == ratingDelta) &&
+            (identical(other.accuracy, accuracy) ||
+                other.accuracy == accuracy) &&
+            (identical(other.percentile, percentile) ||
+                other.percentile == percentile) &&
+            (identical(other.streakBefore, streakBefore) ||
+                other.streakBefore == streakBefore) &&
+            (identical(other.streakAfter, streakAfter) ||
+                other.streakAfter == streakAfter) &&
+            (identical(other.streakDelta, streakDelta) ||
+                other.streakDelta == streakDelta) &&
+            (identical(other.seasonRankBefore, seasonRankBefore) ||
+                other.seasonRankBefore == seasonRankBefore) &&
+            (identical(other.seasonRankAfter, seasonRankAfter) ||
+                other.seasonRankAfter == seasonRankAfter) &&
+            (identical(other.seasonRankDelta, seasonRankDelta) ||
+                other.seasonRankDelta == seasonRankDelta) &&
             (identical(other.continuation, continuation) ||
                 other.continuation == continuation));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      runId,
-      editionDate,
-      status,
-      requiredCount,
-      resolvedCount,
-      correctCount,
-      skippedCount,
-      hintCount,
-      answerXp,
-      completionXp,
-      totalXp,
-      bonusGranted,
-      bonusServed,
-      continuation);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        runId,
+        editionDate,
+        status,
+        requiredCount,
+        resolvedCount,
+        correctCount,
+        skippedCount,
+        hintCount,
+        answerXp,
+        completionXp,
+        totalXp,
+        bonusGranted,
+        bonusServed,
+        ratingBefore,
+        ratingAfter,
+        ratingDelta,
+        accuracy,
+        percentile,
+        streakBefore,
+        streakAfter,
+        streakDelta,
+        seasonRankBefore,
+        seasonRankAfter,
+        seasonRankDelta,
+        continuation
+      ]);
 
   /// Create a copy of DailySummaryDto
   /// with the given fields replaced by the non-null parameter values.
@@ -3131,6 +3359,17 @@ abstract class _DailySummaryDto implements DailySummaryDto {
           @JsonKey(name: 'total_xp') required final int totalXp,
           @JsonKey(name: 'bonus_granted') required final int bonusGranted,
           @JsonKey(name: 'bonus_served') required final int bonusServed,
+          @JsonKey(name: 'rating_before') final int? ratingBefore,
+          @JsonKey(name: 'rating_after') final int? ratingAfter,
+          @JsonKey(name: 'rating_delta') final int? ratingDelta,
+          final double? accuracy,
+          final double? percentile,
+          @JsonKey(name: 'streak_before') final int? streakBefore,
+          @JsonKey(name: 'streak_after') final int? streakAfter,
+          @JsonKey(name: 'streak_delta') final int? streakDelta,
+          @JsonKey(name: 'season_rank_before') final int? seasonRankBefore,
+          @JsonKey(name: 'season_rank_after') final int? seasonRankAfter,
+          @JsonKey(name: 'season_rank_delta') final int? seasonRankDelta,
           required final DailyContinuationDto continuation}) =
       _$DailySummaryDtoImpl;
 
@@ -3175,6 +3414,37 @@ abstract class _DailySummaryDto implements DailySummaryDto {
   @override
   @JsonKey(name: 'bonus_served')
   int get bonusServed;
+  @override
+  @JsonKey(name: 'rating_before')
+  int? get ratingBefore;
+  @override
+  @JsonKey(name: 'rating_after')
+  int? get ratingAfter;
+  @override
+  @JsonKey(name: 'rating_delta')
+  int? get ratingDelta;
+  @override
+  double? get accuracy;
+  @override
+  double? get percentile;
+  @override
+  @JsonKey(name: 'streak_before')
+  int? get streakBefore;
+  @override
+  @JsonKey(name: 'streak_after')
+  int? get streakAfter;
+  @override
+  @JsonKey(name: 'streak_delta')
+  int? get streakDelta;
+  @override
+  @JsonKey(name: 'season_rank_before')
+  int? get seasonRankBefore;
+  @override
+  @JsonKey(name: 'season_rank_after')
+  int? get seasonRankAfter;
+  @override
+  @JsonKey(name: 'season_rank_delta')
+  int? get seasonRankDelta;
   @override
   DailyContinuationDto get continuation;
 

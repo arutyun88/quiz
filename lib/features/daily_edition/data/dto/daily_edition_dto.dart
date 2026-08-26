@@ -162,6 +162,17 @@ class DailySummaryDto with _$DailySummaryDto {
     @JsonKey(name: 'total_xp') required int totalXp,
     @JsonKey(name: 'bonus_granted') required int bonusGranted,
     @JsonKey(name: 'bonus_served') required int bonusServed,
+    @JsonKey(name: 'rating_before') int? ratingBefore,
+    @JsonKey(name: 'rating_after') int? ratingAfter,
+    @JsonKey(name: 'rating_delta') int? ratingDelta,
+    double? accuracy,
+    double? percentile,
+    @JsonKey(name: 'streak_before') int? streakBefore,
+    @JsonKey(name: 'streak_after') int? streakAfter,
+    @JsonKey(name: 'streak_delta') int? streakDelta,
+    @JsonKey(name: 'season_rank_before') int? seasonRankBefore,
+    @JsonKey(name: 'season_rank_after') int? seasonRankAfter,
+    @JsonKey(name: 'season_rank_delta') int? seasonRankDelta,
     required DailyContinuationDto continuation,
   }) = _DailySummaryDto;
 
