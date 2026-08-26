@@ -59,6 +59,26 @@
                 "confirm": "Sign out",
                 "cancel": "Cancel"
             },
+            "adult_content": {
+                "label": "Adult content",
+                "title": "Adult content",
+                "enabled_title": "Adult content is enabled",
+                "enabled_body": "This preference is synchronized through your account. Store or policy restrictions can disable access at any time.",
+                "eligible_title": "Optional adult content",
+                "eligible_body": "Eligibility does not enable adult content automatically. Confirm only if you want eligible 18+ questions to appear.",
+                "unavailable_title": "Adult content is unavailable",
+                "unavailable_body": "Your current server age status is not eligible for adult content.",
+                "blocked_title": "Adult content is restricted",
+                "blocked_body": "A store, policy, or administrator restriction has priority over account preferences.",
+                "confirm": "ENABLE ADULT CONTENT",
+                "revoke": "DISABLE ADULT CONTENT",
+                "cancel": "CANCEL",
+                "retry": "RETRY",
+                "confirm_dialog_title": "Enable adult content?",
+                "confirm_dialog_body": "Eligible 18+ questions may appear in future editions. This one-time confirmation is synchronized across your devices.",
+                "revoke_dialog_title": "Disable adult content?",
+                "revoke_dialog_body": "Future assignments will use general content. Previously accepted rating events and XP will not change."
+            },
             "notifications_page": {
                 "daily_issue": "Daily issue reminder",
                 "streak_risk": "Streak at risk",
@@ -356,7 +376,9 @@
         "submit": "CREATE ACCOUNT",
         "have_account": "Already have an account?",
         "sign_in_link": "Sign in",
-        "birth_date_label": "BIRTH DATE"
+        "birth_date_label": "BIRTH DATE",
+        "age_check_label": "AGE CHECK",
+        "age_check_note": "Used once to determine age eligibility. The original date is not stored in your profile."
     },
     "forgot_password": {
         "title": "Forgot\npassword?",

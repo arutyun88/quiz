@@ -26,6 +26,7 @@ import 'package:quiz/features/settings/presentation/subscription_page.dart';
 import 'package:quiz/features/splash/presentation/splash_flow.dart';
 import 'package:quiz/features/user/presentation/pages/edit/change_password_page.dart';
 import 'package:quiz/features/user/presentation/pages/edit/profile_edit_flow.dart';
+import 'package:quiz/features/user/presentation/pages/adult_content_settings_page.dart';
 import 'package:quiz/features/user/presentation/pages/profile_flow.dart';
 import 'package:quiz/features/user/presentation/pages/public_profile_page.dart';
 
@@ -156,6 +157,12 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                           path: 'notifications',
                           name: 'profile-settings-notifications',
                           builder: (context, state) => const NotificationsPage(),
+                        ),
+                        GoRoute(
+                          path: 'adult-content',
+                          name: 'profile-settings-adult-content',
+                          builder: (context, state) =>
+                              const AdultContentSettingsPage(),
                         ),
                         GoRoute(
                           path: 'subscription',

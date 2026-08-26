@@ -38,12 +38,19 @@ class SettingsPage extends ConsumerWidget {
                   ),
                   SettingsLinkRow(
                     label: t.notifications,
-                    onTap: () => context.push('/profile/settings/notifications'),
+                    onTap: () =>
+                        context.push('/profile/settings/notifications'),
+                  ),
+                  SettingsLinkRow(
+                    label: t.adult_content.label,
+                    onTap: () =>
+                        context.push('/profile/settings/adult-content'),
                   ),
                   if (hasQuizPlus)
                     SettingsLinkRow(
                       label: t.subscription,
-                      onTap: () => context.push('/profile/settings/subscription'),
+                      onTap: () =>
+                          context.push('/profile/settings/subscription'),
                     ),
                 ],
               ),
@@ -55,7 +62,8 @@ class SettingsPage extends ConsumerWidget {
               children: [
                 SettingsLinkRow(
                   label: t.language,
-                  value: context.t.languages[LocaleSettings.instance.currentLocale.languageCode],
+                  value: context.t.languages[
+                      LocaleSettings.instance.currentLocale.languageCode],
                   onTap: () => context.push('/profile/settings/language'),
                 ),
                 const _ThemeRow(),
@@ -67,7 +75,9 @@ class SettingsPage extends ConsumerWidget {
             ),
             const SizedBox(height: 28),
             Center(
-              child: isAuthenticated ? const _SignOutButton() : const _SignInButton(),
+              child: isAuthenticated
+                  ? const _SignOutButton()
+                  : const _SignInButton(),
             ),
           ],
         ),

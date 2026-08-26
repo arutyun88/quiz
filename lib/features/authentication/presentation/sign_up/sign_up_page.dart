@@ -24,7 +24,8 @@ class SignUpPage extends ConsumerStatefulWidget {
 }
 
 class _SignUpPageState extends ConsumerState<SignUpPage> {
-  late final formProvider = StateNotifierProvider<SignUpFormProvider, SignUpFormState>(
+  late final formProvider =
+      StateNotifierProvider<SignUpFormProvider, SignUpFormState>(
     (ref) => SignUpFormProvider(),
   );
 
@@ -69,7 +70,8 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
       next.when(
         authenticated: (user) => routeAuthenticatedUser(context, user),
         unauthenticated: (failure) {
-          if (failure case Failure failure when failure is AuthenticationFailure) {
+          if (failure case Failure failure
+              when failure is AuthenticationFailure) {
             showAuthenticationFailureSnackBar(context, type: failure.type);
           }
         },
@@ -92,7 +94,8 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                     if (context.canPop()) ...[
                       GestureDetector(
                         onTap: context.pop,
-                        child: Icon(Icons.arrow_back, size: 22, color: colors.text.primary),
+                        child: Icon(Icons.arrow_back,
+                            size: 22, color: colors.text.primary),
                       ),
                       const SizedBox(width: 12),
                     ],
@@ -134,7 +137,8 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                           textInputAction: TextInputAction.next,
                           autofillHints: const [AutofillHints.name],
                           onSubmitted: (_) => _emailFocus.requestFocus(),
-                          onChanged: (v) => ref.read(formProvider.notifier).updateName(v),
+                          onChanged: (v) =>
+                              ref.read(formProvider.notifier).updateName(v),
                         ),
                         const SizedBox(height: 8),
                         AppTextFieldV2(
@@ -143,11 +147,15 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                           focusNode: _emailFocus,
                           keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
-                          autofillHints: const [AutofillHints.username, AutofillHints.email],
+                          autofillHints: const [
+                            AutofillHints.username,
+                            AutofillHints.email
+                          ],
                           onSubmitted: (_) => _passwordFocus.requestFocus(),
                           onChanged: (v) {
                             ref.read(formProvider.notifier).updateEmail(v);
-                            ref.read(formProvider.notifier).updateEmailValidity(v.isValidEmail ? null : '');
+                            ref.read(formProvider.notifier).updateEmailValidity(
+                                v.isValidEmail ? null : '');
                           },
                         ),
                         const SizedBox(height: 8),
@@ -160,15 +168,27 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                           autofillHints: const [AutofillHints.newPassword],
                           onChanged: (v) {
                             ref.read(formProvider.notifier).updatePassword(v);
-                            ref.read(formProvider.notifier).updatePasswordValidity(v.isValidPassword ? null : '');
+                            ref
+                                .read(formProvider.notifier)
+                                .updatePasswordValidity(
+                                    v.isValidPassword ? null : '');
                           },
                         ),
                         const SizedBox(height: 8),
                         AppTextFieldV2(
-                          label: t.birth_date_label,
+                          label: t.age_check_label,
                           controller: _birthDateController,
                           readOnly: true,
                           onTap: _pickBirthDate,
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          t.age_check_note,
+                          style: GoogleFonts.spectral(
+                            fontSize: 12,
+                            height: 1.35,
+                            color: colors.text.secondary,
+                          ),
                         ),
                       ],
                     ),
@@ -183,11 +203,15 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                       ? (complete) async {
                           FocusScope.of(context).unfocus();
                           final s = ref.read(formProvider);
-                          await ref.read(authenticationProvider.notifier).registerWithEmail(
+                          await ref
+                              .read(authenticationProvider.notifier)
+                              .registerWithEmail(
                                 email: s.email,
                                 password: s.password,
                                 birthDate: s.birthDate!,
-                                name: s.name.trim().isEmpty ? null : s.name.trim(),
+                                name: s.name.trim().isEmpty
+                                    ? null
+                                    : s.name.trim(),
                               );
                           complete();
                         }
@@ -203,11 +227,13 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                       children: [
                         TextSpan(
                           text: '${t.have_account} ',
-                          style: GoogleFonts.spectral(fontSize: 14, color: colors.text.secondary),
+                          style: GoogleFonts.spectral(
+                              fontSize: 14, color: colors.text.secondary),
                         ),
                         TextSpan(
                           text: t.sign_in_link,
-                          style: GoogleFonts.spectral(fontSize: 14, color: colors.text.accent),
+                          style: GoogleFonts.spectral(
+                              fontSize: 14, color: colors.text.accent),
                         ),
                       ],
                     ),

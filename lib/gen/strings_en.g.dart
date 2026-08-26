@@ -357,6 +357,12 @@ class Translations$sign_up$en {
 
 	/// ru: 'ДАТА РОЖДЕНИЯ'
 	String get birth_date_label => 'BIRTH DATE';
+
+	/// ru: 'ОПРЕДЕЛЕНИЕ ВОЗРАСТА'
+	String get age_check_label => 'AGE CHECK';
+
+	/// ru: 'Дата используется однократно для определения возраста. Исходная дата не хранится в профиле.'
+	String get age_check_note => 'Used once to determine age eligibility. The original date is not stored in your profile.';
 }
 
 // Path: forgot_password
@@ -820,6 +826,7 @@ class Translations$profile$settings$en {
 	String get sign_out => 'Sign out';
 
 	late final Translations$profile$settings$sign_out_dialog$en sign_out_dialog = Translations$profile$settings$sign_out_dialog$en._(_root);
+	late final Translations$profile$settings$adult_content$en adult_content = Translations$profile$settings$adult_content$en._(_root);
 	late final Translations$profile$settings$notifications_page$en notifications_page = Translations$profile$settings$notifications_page$en._(_root);
 	late final Translations$profile$settings$about_page$en about_page = Translations$profile$settings$about_page$en._(_root);
 	late final Translations$profile$settings$language_sync$en language_sync = Translations$profile$settings$language_sync$en._(_root);
@@ -1173,6 +1180,69 @@ class Translations$profile$settings$sign_out_dialog$en {
 
 	/// ru: 'Отмена'
 	String get cancel => 'Cancel';
+}
+
+// Path: profile.settings.adult_content
+class Translations$profile$settings$adult_content$en {
+	Translations$profile$settings$adult_content$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Контент 18+'
+	String get label => 'Adult content';
+
+	/// ru: 'Контент 18+'
+	String get title => 'Adult content';
+
+	/// ru: 'Контент 18+ включён'
+	String get enabled_title => 'Adult content is enabled';
+
+	/// ru: 'Выбор синхронизируется через аккаунт. Ограничение магазина или политики может отключить доступ в любой момент.'
+	String get enabled_body => 'This preference is synchronized through your account. Store or policy restrictions can disable access at any time.';
+
+	/// ru: 'Необязательный контент 18+'
+	String get eligible_title => 'Optional adult content';
+
+	/// ru: 'Совершеннолетие не включает такой контент автоматически. Подтвердите только если хотите видеть допустимые вопросы 18+.'
+	String get eligible_body => 'Eligibility does not enable adult content automatically. Confirm only if you want eligible 18+ questions to appear.';
+
+	/// ru: 'Контент 18+ недоступен'
+	String get unavailable_title => 'Adult content is unavailable';
+
+	/// ru: 'Текущий серверный возрастной статус не допускает контент 18+.'
+	String get unavailable_body => 'Your current server age status is not eligible for adult content.';
+
+	/// ru: 'Контент 18+ ограничен'
+	String get blocked_title => 'Adult content is restricted';
+
+	/// ru: 'Ограничение магазина, политики или администратора имеет приоритет над настройкой аккаунта.'
+	String get blocked_body => 'A store, policy, or administrator restriction has priority over account preferences.';
+
+	/// ru: 'ВКЛЮЧИТЬ КОНТЕНТ 18+'
+	String get confirm => 'ENABLE ADULT CONTENT';
+
+	/// ru: 'ОТКЛЮЧИТЬ КОНТЕНТ 18+'
+	String get revoke => 'DISABLE ADULT CONTENT';
+
+	/// ru: 'ОТМЕНА'
+	String get cancel => 'CANCEL';
+
+	/// ru: 'ПОВТОРИТЬ'
+	String get retry => 'RETRY';
+
+	/// ru: 'Включить контент 18+?'
+	String get confirm_dialog_title => 'Enable adult content?';
+
+	/// ru: 'В будущих выпусках могут появляться допустимые вопросы 18+. Однократное подтверждение синхронизируется между устройствами.'
+	String get confirm_dialog_body => 'Eligible 18+ questions may appear in future editions. This one-time confirmation is synchronized across your devices.';
+
+	/// ru: 'Отключить контент 18+?'
+	String get revoke_dialog_title => 'Disable adult content?';
+
+	/// ru: 'Будущие назначения будут использовать общий контент. Уже принятые изменения рейтинга и XP не изменятся.'
+	String get revoke_dialog_body => 'Future assignments will use general content. Previously accepted rating events and XP will not change.';
 }
 
 // Path: profile.settings.notifications_page
@@ -1626,6 +1696,24 @@ extension on Translations {
 			'profile.settings.sign_out_dialog.message' => 'Your progress is saved — you can sign in again with this email.',
 			'profile.settings.sign_out_dialog.confirm' => 'Sign out',
 			'profile.settings.sign_out_dialog.cancel' => 'Cancel',
+			'profile.settings.adult_content.label' => 'Adult content',
+			'profile.settings.adult_content.title' => 'Adult content',
+			'profile.settings.adult_content.enabled_title' => 'Adult content is enabled',
+			'profile.settings.adult_content.enabled_body' => 'This preference is synchronized through your account. Store or policy restrictions can disable access at any time.',
+			'profile.settings.adult_content.eligible_title' => 'Optional adult content',
+			'profile.settings.adult_content.eligible_body' => 'Eligibility does not enable adult content automatically. Confirm only if you want eligible 18+ questions to appear.',
+			'profile.settings.adult_content.unavailable_title' => 'Adult content is unavailable',
+			'profile.settings.adult_content.unavailable_body' => 'Your current server age status is not eligible for adult content.',
+			'profile.settings.adult_content.blocked_title' => 'Adult content is restricted',
+			'profile.settings.adult_content.blocked_body' => 'A store, policy, or administrator restriction has priority over account preferences.',
+			'profile.settings.adult_content.confirm' => 'ENABLE ADULT CONTENT',
+			'profile.settings.adult_content.revoke' => 'DISABLE ADULT CONTENT',
+			'profile.settings.adult_content.cancel' => 'CANCEL',
+			'profile.settings.adult_content.retry' => 'RETRY',
+			'profile.settings.adult_content.confirm_dialog_title' => 'Enable adult content?',
+			'profile.settings.adult_content.confirm_dialog_body' => 'Eligible 18+ questions may appear in future editions. This one-time confirmation is synchronized across your devices.',
+			'profile.settings.adult_content.revoke_dialog_title' => 'Disable adult content?',
+			'profile.settings.adult_content.revoke_dialog_body' => 'Future assignments will use general content. Previously accepted rating events and XP will not change.',
 			'profile.settings.notifications_page.daily_issue' => 'Daily issue reminder',
 			'profile.settings.notifications_page.streak_risk' => 'Streak at risk',
 			'profile.settings.notifications_page.rank_change' => 'Leaderboard position changes',
@@ -1811,6 +1899,8 @@ extension on Translations {
 			'sign_up.have_account' => 'Already have an account?',
 			'sign_up.sign_in_link' => 'Sign in',
 			'sign_up.birth_date_label' => 'BIRTH DATE',
+			'sign_up.age_check_label' => 'AGE CHECK',
+			'sign_up.age_check_note' => 'Used once to determine age eligibility. The original date is not stored in your profile.',
 			'forgot_password.title' => 'Forgot\npassword?',
 			'forgot_password.subtitle' => 'Enter your email — we\'ll send a reset link.',
 			'forgot_password.email_label' => 'EMAIL',

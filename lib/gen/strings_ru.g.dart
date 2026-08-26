@@ -250,6 +250,8 @@ class _Translations$sign_up$ru implements Translations$sign_up$en {
 	@override String get have_account => 'Уже есть аккаунт?';
 	@override String get sign_in_link => 'Войти';
 	@override String get birth_date_label => 'ДАТА РОЖДЕНИЯ';
+	@override String get age_check_label => 'ОПРЕДЕЛЕНИЕ ВОЗРАСТА';
+	@override String get age_check_note => 'Дата используется однократно для определения возраста. Исходная дата не хранится в профиле.';
 }
 
 // Path: forgot_password
@@ -520,6 +522,7 @@ class _Translations$profile$settings$ru implements Translations$profile$settings
 	@override String get sign_in => 'Войти';
 	@override String get sign_out => 'Выйти из профиля';
 	@override late final _Translations$profile$settings$sign_out_dialog$ru sign_out_dialog = _Translations$profile$settings$sign_out_dialog$ru._(_root);
+	@override late final _Translations$profile$settings$adult_content$ru adult_content = _Translations$profile$settings$adult_content$ru._(_root);
 	@override late final _Translations$profile$settings$notifications_page$ru notifications_page = _Translations$profile$settings$notifications_page$ru._(_root);
 	@override late final _Translations$profile$settings$about_page$ru about_page = _Translations$profile$settings$about_page$ru._(_root);
 	@override late final _Translations$profile$settings$language_sync$ru language_sync = _Translations$profile$settings$language_sync$ru._(_root);
@@ -751,6 +754,33 @@ class _Translations$profile$settings$sign_out_dialog$ru implements Translations$
 	@override String get message => 'Прогресс сохранится — вы сможете войти снова с этим email.';
 	@override String get confirm => 'Выйти';
 	@override String get cancel => 'Отмена';
+}
+
+// Path: profile.settings.adult_content
+class _Translations$profile$settings$adult_content$ru implements Translations$profile$settings$adult_content$en {
+	_Translations$profile$settings$adult_content$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Контент 18+';
+	@override String get title => 'Контент 18+';
+	@override String get enabled_title => 'Контент 18+ включён';
+	@override String get enabled_body => 'Выбор синхронизируется через аккаунт. Ограничение магазина или политики может отключить доступ в любой момент.';
+	@override String get eligible_title => 'Необязательный контент 18+';
+	@override String get eligible_body => 'Совершеннолетие не включает такой контент автоматически. Подтвердите только если хотите видеть допустимые вопросы 18+.';
+	@override String get unavailable_title => 'Контент 18+ недоступен';
+	@override String get unavailable_body => 'Текущий серверный возрастной статус не допускает контент 18+.';
+	@override String get blocked_title => 'Контент 18+ ограничен';
+	@override String get blocked_body => 'Ограничение магазина, политики или администратора имеет приоритет над настройкой аккаунта.';
+	@override String get confirm => 'ВКЛЮЧИТЬ КОНТЕНТ 18+';
+	@override String get revoke => 'ОТКЛЮЧИТЬ КОНТЕНТ 18+';
+	@override String get cancel => 'ОТМЕНА';
+	@override String get retry => 'ПОВТОРИТЬ';
+	@override String get confirm_dialog_title => 'Включить контент 18+?';
+	@override String get confirm_dialog_body => 'В будущих выпусках могут появляться допустимые вопросы 18+. Однократное подтверждение синхронизируется между устройствами.';
+	@override String get revoke_dialog_title => 'Отключить контент 18+?';
+	@override String get revoke_dialog_body => 'Будущие назначения будут использовать общий контент. Уже принятые изменения рейтинга и XP не изменятся.';
 }
 
 // Path: profile.settings.notifications_page
@@ -1071,6 +1101,24 @@ extension on TranslationsRu {
 			'profile.settings.sign_out_dialog.message' => 'Прогресс сохранится — вы сможете войти снова с этим email.',
 			'profile.settings.sign_out_dialog.confirm' => 'Выйти',
 			'profile.settings.sign_out_dialog.cancel' => 'Отмена',
+			'profile.settings.adult_content.label' => 'Контент 18+',
+			'profile.settings.adult_content.title' => 'Контент 18+',
+			'profile.settings.adult_content.enabled_title' => 'Контент 18+ включён',
+			'profile.settings.adult_content.enabled_body' => 'Выбор синхронизируется через аккаунт. Ограничение магазина или политики может отключить доступ в любой момент.',
+			'profile.settings.adult_content.eligible_title' => 'Необязательный контент 18+',
+			'profile.settings.adult_content.eligible_body' => 'Совершеннолетие не включает такой контент автоматически. Подтвердите только если хотите видеть допустимые вопросы 18+.',
+			'profile.settings.adult_content.unavailable_title' => 'Контент 18+ недоступен',
+			'profile.settings.adult_content.unavailable_body' => 'Текущий серверный возрастной статус не допускает контент 18+.',
+			'profile.settings.adult_content.blocked_title' => 'Контент 18+ ограничен',
+			'profile.settings.adult_content.blocked_body' => 'Ограничение магазина, политики или администратора имеет приоритет над настройкой аккаунта.',
+			'profile.settings.adult_content.confirm' => 'ВКЛЮЧИТЬ КОНТЕНТ 18+',
+			'profile.settings.adult_content.revoke' => 'ОТКЛЮЧИТЬ КОНТЕНТ 18+',
+			'profile.settings.adult_content.cancel' => 'ОТМЕНА',
+			'profile.settings.adult_content.retry' => 'ПОВТОРИТЬ',
+			'profile.settings.adult_content.confirm_dialog_title' => 'Включить контент 18+?',
+			'profile.settings.adult_content.confirm_dialog_body' => 'В будущих выпусках могут появляться допустимые вопросы 18+. Однократное подтверждение синхронизируется между устройствами.',
+			'profile.settings.adult_content.revoke_dialog_title' => 'Отключить контент 18+?',
+			'profile.settings.adult_content.revoke_dialog_body' => 'Будущие назначения будут использовать общий контент. Уже принятые изменения рейтинга и XP не изменятся.',
 			'profile.settings.notifications_page.daily_issue' => 'Напоминание о выпуске дня',
 			'profile.settings.notifications_page.streak_risk' => 'Серия под угрозой',
 			'profile.settings.notifications_page.rank_change' => 'Изменение позиции в рейтинге',
@@ -1256,6 +1304,8 @@ extension on TranslationsRu {
 			'sign_up.have_account' => 'Уже есть аккаунт?',
 			'sign_up.sign_in_link' => 'Войти',
 			'sign_up.birth_date_label' => 'ДАТА РОЖДЕНИЯ',
+			'sign_up.age_check_label' => 'ОПРЕДЕЛЕНИЕ ВОЗРАСТА',
+			'sign_up.age_check_note' => 'Дата используется однократно для определения возраста. Исходная дата не хранится в профиле.',
 			'forgot_password.title' => 'Забыли\nпароль?',
 			'forgot_password.subtitle' => 'Введите email — пришлём ссылку для сброса пароля.',
 			'forgot_password.email_label' => 'EMAIL',
