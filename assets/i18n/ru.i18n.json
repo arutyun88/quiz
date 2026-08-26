@@ -405,42 +405,7 @@
     },
     "start_day": {
         "start_button": "НАЧАТЬ ВЫПУСК",
-        "more_questions_button": "ЕЩЁ ВОПРОСЫ",
-        "ready_title": "ВЫПУСК ДНЯ ГОТОВ",
-        "issue_completed_title": "ВЫПУСК ДНЯ ПРОЙДЕН",
-        "last_session_stats_title": "ПОСЛЕДНИЙ ВЫПУСК",
-        "rank_label": "В РЕЙТИНГЕ",
-        "points_label": "ОЧКОВ",
-        "accuracy_label": "ТОЧНОСТЬ",
-        "question_count_label(n)": {
-            "one": "вопрос",
-            "few": "вопроса",
-            "many": "вопросов",
-            "other": "вопросов"
-        },
-        "estimated_time(n)": {
-            "one": "~ $n МИНУТА",
-            "few": "~ $n МИНУТЫ",
-            "many": "~ $n МИНУТ",
-            "other": "~ $n МИНУТ"
-        },
-        "streak_warning(rich)": "Сыграйте сегодня, чтобы ${accent(не потерять серию)}",
-        "freeze_applied_notice(rich)": "Вы пропустили вчерашний день — ${accent(заморозка применена автоматически.)} Осталось $left / $total",
-        "freeze_applied_advice(rich)": "Сыграйте сегодня, чтобы ${accent(не расходовать заморозки без нужды)}",
-        "streak_lost_notice(rich)": "Серия из $days ${accent(потеряна)} — заморозок не осталось",
-        "streak_lost_notice_free(rich)": "Серия из $days ${accent(потеряна)}",
-        "streak_lost_days(n)": {
-            "one": "$n дня",
-            "few": "$n дней",
-            "many": "$n дней",
-            "other": "$n дней"
-        },
-        "streak_lost_advice(rich)": "Начните новую серию сегодня — ${accent(до первого достижения всего 3 дня)}",
-        "start_new_streak_button": "НАЧАТЬ НОВУЮ СЕРИЮ",
-        "issue_done_caption": "ПРОЙДЕНО СЕГОДНЯ",
-        "today_stats_title": "СЕГОДНЯ",
-        "issue_done_streak(rich)": "Выпуск пройден, ${accent(серия сохранена)} — возвращайтесь завтра за новым",
-        "issue_done_no_streak": "Выпуск дня пройден — возвращайтесь завтра за новым"
+        "ready_title": "ВЫПУСК ДНЯ ГОТОВ"
     },
     "daily_result": {
         "goal_completed": "ЕЖЕДНЕВНАЯ ЦЕЛЬ ВЫПОЛНЕНА",
@@ -457,18 +422,6 @@
             "many": "СЕРИЯ $n ДНЕЙ",
             "other": "СЕРИЯ $n ДНЯ"
         },
-        "points_label": "ОЧКОВ",
-        "streak_label": "СЕРИЯ, ДН.",
-        "rank_up(rich)": "Поднялись на $positions в недельном рейтинге",
-        "rank_up_positions(n)": {
-            "one": "$n позицию",
-            "few": "$n позиции",
-            "many": "$n позиций",
-            "other": "$n позиции"
-        },
-        "rank_leader(rich)": "${accent(Первое место)} в недельном рейтинге — так держать",
-        "rank_current(rich)": "Сейчас $rank в недельном рейтинге — каждый выпуск двигает вверх",
-        "rank_unknown(rich)": "Каждый выпуск двигает вас в ${accent(недельном рейтинге)}",
         "continue_button": "ИГРАТЬ ДАЛЬШЕ",
         "footer": "ВЫПУСК ДНЯ ЗАКРЫТ · НОВЫЙ ЗАВТРА"
     },
@@ -488,22 +441,7 @@
         },
         "ad_unavailable": "СЕРВИС РОЛИКОВ ПОКА НЕ ПОДКЛЮЧЁН",
         "ad_exhausted": "На сегодня доп. вопросы закончились",
-        "keep_playing": "ИГРАТЬ ДАЛЬШЕ",
-        "unlimited_cta": "БЕЗЛИМИТ С QUIZ+",
-        "ad": {
-            "label": "РЕКЛАМА",
-            "skip": "Пропустить",
-            "playing": "Рекламный ролик · $time",
-            "reward_title": "НАГРАДА ПОСЛЕ ПРОСМОТРА",
-            "reward_amount": "+$n",
-            "reward_suffix(n)": {
-                "one": "вопрос сегодня",
-                "few": "вопроса сегодня",
-                "many": "вопросов сегодня",
-                "other": "вопроса сегодня"
-            },
-            "footer": "РЕКЛАМА НЕ В ОСНОВНОМ ВЫПУСКЕ"
-        }
+        "keep_playing": "ИГРАТЬ ДАЛЬШЕ"
     },
     "demo": {
         "start": {

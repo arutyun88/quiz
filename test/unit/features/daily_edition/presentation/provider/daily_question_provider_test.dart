@@ -3,7 +3,7 @@ import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.d
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_question_provider.dart';
 import 'package:quiz/features/question/domain/entity/answer_entity.dart';
-import 'package:quiz/features/question/presentation/provider/question_provider.dart';
+import 'package:quiz/features/question/presentation/question_answer_state.dart';
 
 void main() {
   group('DailyAssignmentPresentationX', () {

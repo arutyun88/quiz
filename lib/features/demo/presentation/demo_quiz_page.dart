@@ -11,7 +11,7 @@ import 'package:quiz/features/home/presentation/widgets/quiz/answer_reveal_botto
 import 'package:quiz/features/home/presentation/widgets/quiz/quiz_body.dart';
 import 'package:quiz/features/home/presentation/widgets/quiz/quiz_state_views.dart';
 import 'package:quiz/features/question/domain/entity/answer_entity.dart';
-import 'package:quiz/features/question/presentation/provider/question_provider.dart';
+import 'package:quiz/features/question/presentation/question_answer_state.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class DemoQuizPage extends ConsumerWidget {

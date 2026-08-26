@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
-import 'package:quiz/features/daily_result/presentation/daily_result_flow.dart';
 import 'package:quiz/features/daily_result/presentation/server_daily_result_flow.dart';
+import 'package:quiz/features/demo/presentation/demo_start_flow.dart';
 
 class DailyResultGateFlow extends ConsumerWidget {
   const DailyResultGateFlow({super.key});
@@ -14,6 +14,6 @@ class DailyResultGateFlow extends ConsumerWidget {
     );
     return isAuthenticated
         ? const ServerDailyResultFlow()
-        : const DailyResultFlow();
+        : const DemoStartFlow();
   }
 }

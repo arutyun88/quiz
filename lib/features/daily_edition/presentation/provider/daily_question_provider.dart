@@ -6,7 +6,7 @@ import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_
 import 'package:quiz/features/question/domain/entity/answer_entity.dart';
 import 'package:quiz/features/question/domain/entity/question_entity.dart';
 import 'package:quiz/features/question/domain/entity/topic_entity.dart';
-import 'package:quiz/features/question/presentation/provider/question_provider.dart';
+import 'package:quiz/features/question/presentation/question_answer_state.dart';
 
 final dailyQuestionProvider = StateNotifierProvider.autoDispose<
     DailyQuestionNotifier, QuestionAnswerState>((ref) {

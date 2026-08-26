@@ -393,36 +393,7 @@
     },
     "start_day": {
         "start_button": "START EDITION",
-        "more_questions_button": "MORE QUESTIONS",
-        "ready_title": "DAILY EDITION READY",
-        "issue_completed_title": "TODAY'S ISSUE DONE",
-        "last_session_stats_title": "LAST EDITION",
-        "rank_label": "RANK",
-        "points_label": "POINTS",
-        "accuracy_label": "ACCURACY",
-        "question_count_label(n)": {
-            "one": "question",
-            "other": "questions"
-        },
-        "estimated_time(n)": {
-            "one": "~ $n MINUTE",
-            "other": "~ $n MINUTES"
-        },
-        "streak_warning(rich)": "Play today to ${accent(keep your streak)}",
-        "freeze_applied_notice(rich)": "You missed yesterday — ${accent(a streak freeze was applied automatically.)} $left / $total left",
-        "freeze_applied_advice(rich)": "Play today to ${accent(avoid spending freezes when you don't need to)}",
-        "streak_lost_notice(rich)": "Your streak of $days ${accent(is lost)} — no freezes left",
-        "streak_lost_notice_free(rich)": "Your streak of $days ${accent(is lost)}",
-        "streak_lost_days(n)": {
-            "one": "$n day",
-            "other": "$n days"
-        },
-        "streak_lost_advice(rich)": "Start a new streak today — ${accent(your first achievement is just 3 days away)}",
-        "start_new_streak_button": "START A NEW STREAK",
-        "issue_done_caption": "DONE TODAY",
-        "today_stats_title": "TODAY",
-        "issue_done_streak(rich)": "Issue done, ${accent(streak saved)} — come back tomorrow for a new one",
-        "issue_done_no_streak": "Today's issue is done — come back tomorrow for a new one"
+        "ready_title": "DAILY EDITION READY"
     },
     "daily_result": {
         "goal_completed": "DAILY GOAL COMPLETED",
@@ -437,16 +408,6 @@
             "one": "$n DAY STREAK",
             "other": "$n DAY STREAK"
         },
-        "points_label": "POINTS",
-        "streak_label": "STREAK, D.",
-        "rank_up(rich)": "You climbed $positions in the weekly leaderboard",
-        "rank_up_positions(n)": {
-            "one": "$n position",
-            "other": "$n positions"
-        },
-        "rank_leader(rich)": "${accent(First place)} in the weekly leaderboard — keep it up",
-        "rank_current(rich)": "Currently $rank in the weekly leaderboard — every issue moves you up",
-        "rank_unknown(rich)": "Every issue moves you up the ${accent(weekly leaderboard)}",
         "continue_button": "KEEP PLAYING",
         "footer": "TODAY'S ISSUE IS CLOSED · A NEW ONE TOMORROW"
     },
@@ -464,20 +425,7 @@
         },
         "ad_unavailable": "VIDEO SERVICE IS NOT CONNECTED YET",
         "ad_exhausted": "No more extra questions today",
-        "keep_playing": "KEEP PLAYING",
-        "unlimited_cta": "UNLIMITED WITH QUIZ+",
-        "ad": {
-            "label": "AD",
-            "skip": "Skip",
-            "playing": "Ad video · $time",
-            "reward_title": "REWARD AFTER WATCHING",
-            "reward_amount": "+$n",
-            "reward_suffix(n)": {
-                "one": "question today",
-                "other": "questions today"
-            },
-            "footer": "ADS ARE NOT PART OF THE MAIN ISSUE"
-        }
+        "keep_playing": "KEEP PLAYING"
     },
     "demo": {
         "start": {

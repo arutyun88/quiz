@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/features/question/domain/entity/answer_entity.dart';
-import 'package:quiz/features/question/presentation/provider/question_provider.dart';
+import 'package:quiz/features/question/presentation/question_answer_state.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class QuizAnswersList extends StatelessWidget {
@@ -20,9 +20,12 @@ class QuizAnswersList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sentState = answerState is QuestionAnswerSentState ? answerState as QuestionAnswerSentState : null;
-    final selectedState =
-        answerState is QuestionAnswerSelectedState ? answerState as QuestionAnswerSelectedState : null;
+    final sentState = answerState is QuestionAnswerSentState
+        ? answerState as QuestionAnswerSentState
+        : null;
+    final selectedState = answerState is QuestionAnswerSelectedState
+        ? answerState as QuestionAnswerSelectedState
+        : null;
     final answerLetters = context.t.question.answer_letters;
 
     return Column(
@@ -32,8 +35,10 @@ class QuizAnswersList extends StatelessWidget {
         final answer = answers[index];
         final letter = answerLetters[index];
         final isSelected = answerState.answer?.id == answer.id;
-        final isCorrect = sentState != null && answer.id == sentState.correctAnswerId;
-        final isWrongSelected = sentState != null && isSelected && !sentState.isCorrect;
+        final isCorrect =
+            sentState != null && answer.id == sentState.correctAnswerId;
+        final isWrongSelected =
+            sentState != null && isSelected && !sentState.isCorrect;
         final isDimmed = sentState != null && !isCorrect && !isWrongSelected;
 
         return _QuizAnswerItem(
@@ -45,7 +50,9 @@ class QuizAnswersList extends StatelessWidget {
           isWrongSelected: isWrongSelected,
           isDimmed: isDimmed,
           isSelected: isSelected && sentState == null,
-          timerState: selectedState?.answer.id == answer.id ? selectedState?.timerState : null,
+          timerState: selectedState?.answer.id == answer.id
+              ? selectedState?.timerState
+              : null,
           showResultStripe: sentState != null && isSelected,
           onTap: onSelect != null
               ? () {
@@ -164,7 +171,9 @@ class _QuizAnswerItem extends StatelessWidget {
                       style: GoogleFonts.jetBrainsMono(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
-                        color: isCorrect ? badgeText : (isDimmed ? palette.text.secondary : badgeText),
+                        color: isCorrect
+                            ? badgeText
+                            : (isDimmed ? palette.text.secondary : badgeText),
                       ),
                     ),
                   ),
@@ -174,7 +183,9 @@ class _QuizAnswerItem extends StatelessWidget {
                       answer.text,
                       style: GoogleFonts.spectral(
                         fontSize: 18,
-                        color: isDimmed ? palette.text.secondary : palette.text.primary,
+                        color: isDimmed
+                            ? palette.text.secondary
+                            : palette.text.primary,
                       ),
                     ),
                   ),

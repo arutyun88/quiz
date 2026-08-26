@@ -5,7 +5,7 @@ import 'package:quiz/features/home/presentation/widgets/quiz/quiz_answers_list.d
 import 'package:quiz/features/home/presentation/widgets/quiz/quiz_motion.dart';
 import 'package:quiz/features/question/domain/entity/answer_entity.dart';
 import 'package:quiz/features/question/domain/entity/question_entity.dart';
-import 'package:quiz/features/question/presentation/provider/question_provider.dart';
+import 'package:quiz/features/question/presentation/question_answer_state.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class QuizBody extends StatelessWidget {
@@ -53,7 +53,8 @@ class QuizBody extends StatelessWidget {
             child: AnimatedAlign(
               duration: answerRevealTransitionDuration,
               curve: answerRevealTransitionCurve,
-              alignment: isAnswerReveal ? Alignment.topCenter : Alignment.bottomCenter,
+              alignment:
+                  isAnswerReveal ? Alignment.topCenter : Alignment.bottomCenter,
               child: AnimatedPadding(
                 duration: answerRevealTransitionDuration,
                 curve: answerRevealTransitionCurve,
@@ -93,15 +94,18 @@ class _QuestionMetaRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = context.palette;
     final t = context.t.question.meta;
-    final formattedQuestionNumber = questionNumber.toString().padLeft(2, '0');
+    final isExtra = questionNumber > totalQuestions;
+    final counterLabel = isExtra
+        ? t.extra_counter(n: questionNumber - totalQuestions)
+        : t.counter(
+            current: questionNumber.toString().padLeft(2, '0'),
+            total: totalQuestions,
+          );
 
     return Row(
       children: [
         Text(
-          t.counter(
-            current: formattedQuestionNumber,
-            total: totalQuestions,
-          ),
+          counterLabel,
           style: GoogleFonts.jetBrainsMono(
             fontSize: 11,
             letterSpacing: 1.5,

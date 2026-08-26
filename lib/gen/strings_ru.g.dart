@@ -281,73 +281,7 @@ class _Translations$start_day$ru implements Translations$start_day$en {
 
 	// Translations
 	@override String get start_button => 'НАЧАТЬ ВЫПУСК';
-	@override String get more_questions_button => 'ЕЩЁ ВОПРОСЫ';
 	@override String get ready_title => 'ВЫПУСК ДНЯ ГОТОВ';
-	@override String get issue_completed_title => 'ВЫПУСК ДНЯ ПРОЙДЕН';
-	@override String get last_session_stats_title => 'ПОСЛЕДНИЙ ВЫПУСК';
-	@override String get rank_label => 'В РЕЙТИНГЕ';
-	@override String get points_label => 'ОЧКОВ';
-	@override String get accuracy_label => 'ТОЧНОСТЬ';
-	@override String question_count_label({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
-		one: 'вопрос',
-		few: 'вопроса',
-		many: 'вопросов',
-		other: 'вопросов',
-	);
-	@override String estimated_time({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
-		one: '~ ${n} МИНУТА',
-		few: '~ ${n} МИНУТЫ',
-		many: '~ ${n} МИНУТ',
-		other: '~ ${n} МИНУТ',
-	);
-	@override TextSpan streak_warning({required InlineSpanBuilder accent}) => TextSpan(children: [
-		const TextSpan(text: 'Сыграйте сегодня, чтобы '),
-		accent('не потерять серию'),
-	]);
-	@override TextSpan freeze_applied_notice({required InlineSpanBuilder accent, required InlineSpan left, required InlineSpan total}) => TextSpan(children: [
-		const TextSpan(text: 'Вы пропустили вчерашний день — '),
-		accent('заморозка применена автоматически.'),
-		const TextSpan(text: ' Осталось '),
-		left,
-		const TextSpan(text: ' / '),
-		total,
-	]);
-	@override TextSpan freeze_applied_advice({required InlineSpanBuilder accent}) => TextSpan(children: [
-		const TextSpan(text: 'Сыграйте сегодня, чтобы '),
-		accent('не расходовать заморозки без нужды'),
-	]);
-	@override TextSpan streak_lost_notice({required InlineSpan days, required InlineSpanBuilder accent}) => TextSpan(children: [
-		const TextSpan(text: 'Серия из '),
-		days,
-		const TextSpan(text: ' '),
-		accent('потеряна'),
-		const TextSpan(text: ' — заморозок не осталось'),
-	]);
-	@override TextSpan streak_lost_notice_free({required InlineSpan days, required InlineSpanBuilder accent}) => TextSpan(children: [
-		const TextSpan(text: 'Серия из '),
-		days,
-		const TextSpan(text: ' '),
-		accent('потеряна'),
-	]);
-	@override String streak_lost_days({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
-		one: '${n} дня',
-		few: '${n} дней',
-		many: '${n} дней',
-		other: '${n} дней',
-	);
-	@override TextSpan streak_lost_advice({required InlineSpanBuilder accent}) => TextSpan(children: [
-		const TextSpan(text: 'Начните новую серию сегодня — '),
-		accent('до первого достижения всего 3 дня'),
-	]);
-	@override String get start_new_streak_button => 'НАЧАТЬ НОВУЮ СЕРИЮ';
-	@override String get issue_done_caption => 'ПРОЙДЕНО СЕГОДНЯ';
-	@override String get today_stats_title => 'СЕГОДНЯ';
-	@override TextSpan issue_done_streak({required InlineSpanBuilder accent}) => TextSpan(children: [
-		const TextSpan(text: 'Выпуск пройден, '),
-		accent('серия сохранена'),
-		const TextSpan(text: ' — возвращайтесь завтра за новым'),
-	]);
-	@override String get issue_done_no_streak => 'Выпуск дня пройден — возвращайтесь завтра за новым';
 }
 
 // Path: daily_result
@@ -371,32 +305,6 @@ class _Translations$daily_result$ru implements Translations$daily_result$en {
 		many: 'СЕРИЯ ${n} ДНЕЙ',
 		other: 'СЕРИЯ ${n} ДНЯ',
 	);
-	@override String get points_label => 'ОЧКОВ';
-	@override String get streak_label => 'СЕРИЯ, ДН.';
-	@override TextSpan rank_up({required InlineSpan positions}) => TextSpan(children: [
-		const TextSpan(text: 'Поднялись на '),
-		positions,
-		const TextSpan(text: ' в недельном рейтинге'),
-	]);
-	@override String rank_up_positions({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
-		one: '${n} позицию',
-		few: '${n} позиции',
-		many: '${n} позиций',
-		other: '${n} позиции',
-	);
-	@override TextSpan rank_leader({required InlineSpanBuilder accent}) => TextSpan(children: [
-		accent('Первое место'),
-		const TextSpan(text: ' в недельном рейтинге — так держать'),
-	]);
-	@override TextSpan rank_current({required InlineSpan rank}) => TextSpan(children: [
-		const TextSpan(text: 'Сейчас '),
-		rank,
-		const TextSpan(text: ' в недельном рейтинге — каждый выпуск двигает вверх'),
-	]);
-	@override TextSpan rank_unknown({required InlineSpanBuilder accent}) => TextSpan(children: [
-		const TextSpan(text: 'Каждый выпуск двигает вас в '),
-		accent('недельном рейтинге'),
-	]);
 	@override String get continue_button => 'ИГРАТЬ ДАЛЬШЕ';
 	@override String get footer => 'ВЫПУСК ДНЯ ЗАКРЫТ · НОВЫЙ ЗАВТРА';
 }
@@ -424,8 +332,6 @@ class _Translations$daily_limit$ru implements Translations$daily_limit$en {
 	@override String get ad_unavailable => 'СЕРВИС РОЛИКОВ ПОКА НЕ ПОДКЛЮЧЁН';
 	@override String get ad_exhausted => 'На сегодня доп. вопросы закончились';
 	@override String get keep_playing => 'ИГРАТЬ ДАЛЬШЕ';
-	@override String get unlimited_cta => 'БЕЗЛИМИТ С QUIZ+';
-	@override late final _Translations$daily_limit$ad$ru ad = _Translations$daily_limit$ad$ru._(_root);
 }
 
 // Path: demo
@@ -793,27 +699,6 @@ class _Translations$onboarding$features$ru implements Translations$onboarding$fe
 	@override String get f2 => 'Узнаете не только что правильно, но и почему';
 	@override String get f3 => 'Поможем заполнить пробелы — вопросы, где ошиблись, вернутся';
 	@override String get f4 => 'Соревнуйтесь, собирайте серии, открывайте достижения';
-}
-
-// Path: daily_limit.ad
-class _Translations$daily_limit$ad$ru implements Translations$daily_limit$ad$en {
-	_Translations$daily_limit$ad$ru._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get label => 'РЕКЛАМА';
-	@override String get skip => 'Пропустить';
-	@override String playing({required Object time}) => 'Рекламный ролик · ${time}';
-	@override String get reward_title => 'НАГРАДА ПОСЛЕ ПРОСМОТРА';
-	@override String reward_amount({required Object n}) => '+${n}';
-	@override String reward_suffix({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
-		one: 'вопрос сегодня',
-		few: 'вопроса сегодня',
-		many: 'вопросов сегодня',
-		other: 'вопроса сегодня',
-	);
-	@override String get footer => 'РЕКЛАМА НЕ В ОСНОВНОМ ВЫПУСКЕ';
 }
 
 // Path: demo.start
@@ -1461,27 +1346,7 @@ extension on TranslationsRu {
 			'forgot_password.success' => 'Ссылка отправлена. Проверьте почту.',
 			'forgot_password.error' => 'Не удалось отправить ссылку. Попробуйте позже.',
 			'start_day.start_button' => 'НАЧАТЬ ВЫПУСК',
-			'start_day.more_questions_button' => 'ЕЩЁ ВОПРОСЫ',
 			'start_day.ready_title' => 'ВЫПУСК ДНЯ ГОТОВ',
-			'start_day.issue_completed_title' => 'ВЫПУСК ДНЯ ПРОЙДЕН',
-			'start_day.last_session_stats_title' => 'ПОСЛЕДНИЙ ВЫПУСК',
-			'start_day.rank_label' => 'В РЕЙТИНГЕ',
-			'start_day.points_label' => 'ОЧКОВ',
-			'start_day.accuracy_label' => 'ТОЧНОСТЬ',
-			'start_day.question_count_label' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'вопрос', few: 'вопроса', many: 'вопросов', other: 'вопросов', ), 
-			'start_day.estimated_time' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '~ ${n} МИНУТА', few: '~ ${n} МИНУТЫ', many: '~ ${n} МИНУТ', other: '~ ${n} МИНУТ', ), 
-			'start_day.streak_warning' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Сыграйте сегодня, чтобы '), accent('не потерять серию'), ]), 
-			'start_day.freeze_applied_notice' => ({required InlineSpanBuilder accent, required InlineSpan left, required InlineSpan total}) => TextSpan(children: [ const TextSpan(text: 'Вы пропустили вчерашний день — '), accent('заморозка применена автоматически.'), const TextSpan(text: ' Осталось '), left, const TextSpan(text: ' / '), total, ]), 
-			'start_day.freeze_applied_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Сыграйте сегодня, чтобы '), accent('не расходовать заморозки без нужды'), ]), 
-			'start_day.streak_lost_notice' => ({required InlineSpan days, required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Серия из '), days, const TextSpan(text: ' '), accent('потеряна'), const TextSpan(text: ' — заморозок не осталось'), ]), 
-			'start_day.streak_lost_notice_free' => ({required InlineSpan days, required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Серия из '), days, const TextSpan(text: ' '), accent('потеряна'), ]), 
-			'start_day.streak_lost_days' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} дня', few: '${n} дней', many: '${n} дней', other: '${n} дней', ), 
-			'start_day.streak_lost_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Начните новую серию сегодня — '), accent('до первого достижения всего 3 дня'), ]), 
-			'start_day.start_new_streak_button' => 'НАЧАТЬ НОВУЮ СЕРИЮ',
-			'start_day.issue_done_caption' => 'ПРОЙДЕНО СЕГОДНЯ',
-			'start_day.today_stats_title' => 'СЕГОДНЯ',
-			'start_day.issue_done_streak' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Выпуск пройден, '), accent('серия сохранена'), const TextSpan(text: ' — возвращайтесь завтра за новым'), ]),
-			'start_day.issue_done_no_streak' => 'Выпуск дня пройден — возвращайтесь завтра за новым',
 			'daily_result.goal_completed' => 'ЕЖЕДНЕВНАЯ ЦЕЛЬ ВЫПОЛНЕНА',
 			'daily_result.ring_label' => ({required Object total}) => 'ИЗ ${total}',
 			'daily_result.correct_label' => 'ВЕРНО',
@@ -1491,13 +1356,6 @@ extension on TranslationsRu {
 			'daily_result.percentile_label' => 'ПРОЦЕНТИЛЬ ВЫПУСКА',
 			'daily_result.season_rank_label' => 'ПОЗИЦИЯ В СЕЗОНЕ',
 			'daily_result.streak_value' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'СЕРИЯ ${n} ДЕНЬ', few: 'СЕРИЯ ${n} ДНЯ', many: 'СЕРИЯ ${n} ДНЕЙ', other: 'СЕРИЯ ${n} ДНЯ', ),
-			'daily_result.points_label' => 'ОЧКОВ',
-			'daily_result.streak_label' => 'СЕРИЯ, ДН.',
-			'daily_result.rank_up' => ({required InlineSpan positions}) => TextSpan(children: [ const TextSpan(text: 'Поднялись на '), positions, const TextSpan(text: ' в недельном рейтинге'), ]), 
-			'daily_result.rank_up_positions' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} позицию', few: '${n} позиции', many: '${n} позиций', other: '${n} позиции', ), 
-			'daily_result.rank_leader' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ accent('Первое место'), const TextSpan(text: ' в недельном рейтинге — так держать'), ]), 
-			'daily_result.rank_current' => ({required InlineSpan rank}) => TextSpan(children: [ const TextSpan(text: 'Сейчас '), rank, const TextSpan(text: ' в недельном рейтинге — каждый выпуск двигает вверх'), ]), 
-			'daily_result.rank_unknown' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Каждый выпуск двигает вас в '), accent('недельном рейтинге'), ]), 
 			'daily_result.continue_button' => 'ИГРАТЬ ДАЛЬШЕ',
 			'daily_result.footer' => 'ВЫПУСК ДНЯ ЗАКРЫТ · НОВЫЙ ЗАВТРА',
 			'daily_limit.title' => 'ЕЩЁ ВОПРОСЫ',
@@ -1511,14 +1369,6 @@ extension on TranslationsRu {
 			'daily_limit.ad_unavailable' => 'СЕРВИС РОЛИКОВ ПОКА НЕ ПОДКЛЮЧЁН',
 			'daily_limit.ad_exhausted' => 'На сегодня доп. вопросы закончились',
 			'daily_limit.keep_playing' => 'ИГРАТЬ ДАЛЬШЕ',
-			'daily_limit.unlimited_cta' => 'БЕЗЛИМИТ С QUIZ+',
-			'daily_limit.ad.label' => 'РЕКЛАМА',
-			'daily_limit.ad.skip' => 'Пропустить',
-			'daily_limit.ad.playing' => ({required Object time}) => 'Рекламный ролик · ${time}',
-			'daily_limit.ad.reward_title' => 'НАГРАДА ПОСЛЕ ПРОСМОТРА',
-			'daily_limit.ad.reward_amount' => ({required Object n}) => '+${n}',
-			'daily_limit.ad.reward_suffix' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'вопрос сегодня', few: 'вопроса сегодня', many: 'вопросов сегодня', other: 'вопроса сегодня', ),
-			'daily_limit.ad.footer' => 'РЕКЛАМА НЕ В ОСНОВНОМ ВЫПУСКЕ',
 			'demo.start.badge' => 'ГОСТЕВОЕ ДЕМО',
 			'demo.start.title' => 'Попробуйте Quiz без регистрации',
 			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'Ответьте на один короткий вопрос, воспользуйтесь подсказкой и посмотрите разбор ответа.', few: 'Ответьте на ${n} коротких вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.', many: 'Ответьте на ${n} коротких вопросов, воспользуйтесь подсказкой и посмотрите разбор ответа.', other: 'Ответьте на ${n} короткого вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.', ),

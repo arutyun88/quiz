@@ -1,22 +1,8 @@
-part of 'question_provider.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:quiz/app/core/model/failure.dart';
+import 'package:quiz/features/question/domain/entity/answer_entity.dart';
 
-@freezed
-class QuestionState with _$QuestionState {
-  const QuestionState._();
-
-  const factory QuestionState.loading() = QuestionLoadingState;
-
-  const factory QuestionState.data({
-    required QuestionEntity question,
-    required QuestionAnswerState answerState,
-  }) = QuestionDataState;
-
-  const factory QuestionState.empty() = QuestionEmptyState;
-
-  const factory QuestionState.failed({
-    required Failure failure,
-  }) = QuestionFailedState;
-}
+part 'question_answer_state.freezed.dart';
 
 @freezed
 class QuestionAnswerState with _$QuestionAnswerState {

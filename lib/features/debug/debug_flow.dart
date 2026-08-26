@@ -12,7 +12,6 @@ import 'package:quiz/app/core/services/settings_local_storage_service.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
-import 'package:quiz/features/question/domain/use_case/sync_cached_answers_use_case.dart';
 import 'package:quiz/features/settings/presentation/widgets/settings_rows.dart';
 import 'package:quiz/features/user/presentation/provider/quiz_plus_provider.dart';
 
@@ -41,7 +40,8 @@ class DebugFlow extends StatelessWidget {
                 ),
                 _CountRow(
                   label: 'Вопросов с ответами в БД',
-                  countStream: getIt<AnsweredQuestionDao>().watchAnsweredQuestionsCount(),
+                  countStream: getIt<AnsweredQuestionDao>()
+                      .watchAnsweredQuestionsCount(),
                   onTap: () => context.goNamed('debug-answered-questions'),
                   onClear: () => getIt<AnsweredQuestionDao>().clearAllCache(),
                 ),
@@ -57,13 +57,10 @@ class DebugFlow extends StatelessWidget {
                   onTap: () => getIt<AppDatabase>().deleteDatabase(),
                 ),
                 _ActionRow(
-                  label: 'Синхронизировать',
-                  onTap: () => getIt<SyncCachedAnswersUseCase>().sync(),
-                ),
-                _ActionRow(
                   label: 'Сбросить онбординг',
                   onTap: () async {
-                    await getIt<SettingsLocalStorageService>().resetOnboardingSeen();
+                    await getIt<SettingsLocalStorageService>()
+                        .resetOnboardingSeen();
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Онбординг сброшен')),
@@ -104,14 +101,17 @@ class _QuizPlusRowState extends ConsumerState<_QuizPlusRow> {
     setState(() => _busy = true);
 
     final client = getIt<ApiClient>();
-    final result =
-        enable ? await client.post<void, void>('/dev/subscription') : await client.delete('/dev/subscription');
+    final result = enable
+        ? await client.post<void, void>('/dev/subscription')
+        : await client.delete('/dev/subscription');
 
     if (result is ResultOk) {
       await ref.read(authenticationProvider.notifier).reload();
     } else if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Не удалось переключить Quiz+ (нужен dev-профиль сервера)')),
+        const SnackBar(
+            content: Text(
+                'Не удалось переключить Quiz+ (нужен dev-профиль сервера)')),
       );
     }
 
@@ -132,13 +132,15 @@ class _QuizPlusRowState extends ConsumerState<_QuizPlusRow> {
             Expanded(
               child: Text(
                 'Quiz+',
-                style: GoogleFonts.spectral(fontSize: 16, color: context.palette.text.primary),
+                style: GoogleFonts.spectral(
+                    fontSize: 16, color: context.palette.text.primary),
               ),
             ),
             if (_busy)
               SizedBox.square(
                 dimension: 16,
-                child: CircularProgressIndicator(strokeWidth: 2, color: context.palette.text.accent),
+                child: CircularProgressIndicator(
+                    strokeWidth: 2, color: context.palette.text.accent),
               )
             else
               Text(
@@ -147,7 +149,9 @@ class _QuizPlusRowState extends ConsumerState<_QuizPlusRow> {
                   fontSize: 11,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 1,
-                  color: isActive ? context.palette.answer.success : context.palette.text.secondary,
+                  color: isActive
+                      ? context.palette.answer.success
+                      : context.palette.text.secondary,
                 ),
               ),
           ],
@@ -184,7 +188,8 @@ class _CountRow extends StatelessWidget {
             GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: onClear,
-              child: Icon(Icons.delete_outline, size: 20, color: colors.text.danger),
+              child: Icon(Icons.delete_outline,
+                  size: 20, color: colors.text.danger),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -193,13 +198,16 @@ class _CountRow extends StatelessWidget {
                 children: [
                   Text(
                     label,
-                    style: GoogleFonts.spectral(fontSize: 16, color: colors.text.primary),
+                    style: GoogleFonts.spectral(
+                        fontSize: 16, color: colors.text.primary),
                   ),
                   const SizedBox(height: 2),
                   StreamBuilder(
                     stream: countStream,
                     builder: (context, snapshot) => Text(
-                      snapshot.hasError ? 'ОШИБКА' : '${snapshot.data ?? '…'} ШТ',
+                      snapshot.hasError
+                          ? 'ОШИБКА'
+                          : '${snapshot.data ?? '…'} ШТ',
                       style: GoogleFonts.jetBrainsMono(
                         fontSize: 9,
                         fontWeight: FontWeight.w500,
@@ -235,7 +243,8 @@ class _ActionRow extends StatelessWidget {
           alignment: AlignmentDirectional.centerStart,
           child: Text(
             label,
-            style: GoogleFonts.spectral(fontSize: 16, color: context.palette.text.primary),
+            style: GoogleFonts.spectral(
+                fontSize: 16, color: context.palette.text.primary),
           ),
         ),
       ),

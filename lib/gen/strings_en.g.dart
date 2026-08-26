@@ -411,109 +411,8 @@ class Translations$start_day$en {
 	/// ru: 'НАЧАТЬ ВЫПУСК'
 	String get start_button => 'START EDITION';
 
-	/// ru: 'ЕЩЁ ВОПРОСЫ'
-	String get more_questions_button => 'MORE QUESTIONS';
-
 	/// ru: 'ВЫПУСК ДНЯ ГОТОВ'
 	String get ready_title => 'DAILY EDITION READY';
-
-	/// ru: 'ВЫПУСК ДНЯ ПРОЙДЕН'
-	String get issue_completed_title => 'TODAY\'S ISSUE DONE';
-
-	/// ru: 'ПОСЛЕДНИЙ ВЫПУСК'
-	String get last_session_stats_title => 'LAST EDITION';
-
-	/// ru: 'В РЕЙТИНГЕ'
-	String get rank_label => 'RANK';
-
-	/// ru: 'ОЧКОВ'
-	String get points_label => 'POINTS';
-
-	/// ru: 'ТОЧНОСТЬ'
-	String get accuracy_label => 'ACCURACY';
-
-	/// ru: '(one) {вопрос} (few) {вопроса} (many) {вопросов} (other) {вопросов}'
-	String question_count_label({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-		one: 'question',
-		other: 'questions',
-	);
-
-	/// ru: '(one) {~ $n МИНУТА} (few) {~ $n МИНУТЫ} (many) {~ $n МИНУТ} (other) {~ $n МИНУТ}'
-	String estimated_time({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-		one: '~ ${n} MINUTE',
-		other: '~ ${n} MINUTES',
-	);
-
-	/// ru: 'Сыграйте сегодня, чтобы ${accent(не потерять серию)}'
-	TextSpan streak_warning({required InlineSpanBuilder accent}) => TextSpan(children: [
-		const TextSpan(text: 'Play today to '),
-		accent('keep your streak'),
-	]);
-
-	/// ru: 'Вы пропустили вчерашний день — ${accent(заморозка применена автоматически.)} Осталось $left / $total'
-	TextSpan freeze_applied_notice({required InlineSpanBuilder accent, required InlineSpan left, required InlineSpan total}) => TextSpan(children: [
-		const TextSpan(text: 'You missed yesterday — '),
-		accent('a streak freeze was applied automatically.'),
-		const TextSpan(text: ' '),
-		left,
-		const TextSpan(text: ' / '),
-		total,
-		const TextSpan(text: ' left'),
-	]);
-
-	/// ru: 'Сыграйте сегодня, чтобы ${accent(не расходовать заморозки без нужды)}'
-	TextSpan freeze_applied_advice({required InlineSpanBuilder accent}) => TextSpan(children: [
-		const TextSpan(text: 'Play today to '),
-		accent('avoid spending freezes when you don\'t need to'),
-	]);
-
-	/// ru: 'Серия из $days ${accent(потеряна)} — заморозок не осталось'
-	TextSpan streak_lost_notice({required InlineSpan days, required InlineSpanBuilder accent}) => TextSpan(children: [
-		const TextSpan(text: 'Your streak of '),
-		days,
-		const TextSpan(text: ' '),
-		accent('is lost'),
-		const TextSpan(text: ' — no freezes left'),
-	]);
-
-	/// ru: 'Серия из $days ${accent(потеряна)}'
-	TextSpan streak_lost_notice_free({required InlineSpan days, required InlineSpanBuilder accent}) => TextSpan(children: [
-		const TextSpan(text: 'Your streak of '),
-		days,
-		const TextSpan(text: ' '),
-		accent('is lost'),
-	]);
-
-	/// ru: '(one) {$n дня} (few) {$n дней} (many) {$n дней} (other) {$n дней}'
-	String streak_lost_days({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-		one: '${n} day',
-		other: '${n} days',
-	);
-
-	/// ru: 'Начните новую серию сегодня — ${accent(до первого достижения всего 3 дня)}'
-	TextSpan streak_lost_advice({required InlineSpanBuilder accent}) => TextSpan(children: [
-		const TextSpan(text: 'Start a new streak today — '),
-		accent('your first achievement is just 3 days away'),
-	]);
-
-	/// ru: 'НАЧАТЬ НОВУЮ СЕРИЮ'
-	String get start_new_streak_button => 'START A NEW STREAK';
-
-	/// ru: 'ПРОЙДЕНО СЕГОДНЯ'
-	String get issue_done_caption => 'DONE TODAY';
-
-	/// ru: 'СЕГОДНЯ'
-	String get today_stats_title => 'TODAY';
-
-	/// ru: 'Выпуск пройден, ${accent(серия сохранена)} — возвращайтесь завтра за новым'
-	TextSpan issue_done_streak({required InlineSpanBuilder accent}) => TextSpan(children: [
-		const TextSpan(text: 'Issue done, '),
-		accent('streak saved'),
-		const TextSpan(text: ' — come back tomorrow for a new one'),
-	]);
-
-	/// ru: 'Выпуск дня пройден — возвращайтесь завтра за новым'
-	String get issue_done_no_streak => 'Today\'s issue is done — come back tomorrow for a new one';
 }
 
 // Path: daily_result
@@ -553,44 +452,6 @@ class Translations$daily_result$en {
 		one: '${n} DAY STREAK',
 		other: '${n} DAY STREAK',
 	);
-
-	/// ru: 'ОЧКОВ'
-	String get points_label => 'POINTS';
-
-	/// ru: 'СЕРИЯ, ДН.'
-	String get streak_label => 'STREAK, D.';
-
-	/// ru: 'Поднялись на $positions в недельном рейтинге'
-	TextSpan rank_up({required InlineSpan positions}) => TextSpan(children: [
-		const TextSpan(text: 'You climbed '),
-		positions,
-		const TextSpan(text: ' in the weekly leaderboard'),
-	]);
-
-	/// ru: '(one) {$n позицию} (few) {$n позиции} (many) {$n позиций} (other) {$n позиции}'
-	String rank_up_positions({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-		one: '${n} position',
-		other: '${n} positions',
-	);
-
-	/// ru: '${accent(Первое место)} в недельном рейтинге — так держать'
-	TextSpan rank_leader({required InlineSpanBuilder accent}) => TextSpan(children: [
-		accent('First place'),
-		const TextSpan(text: ' in the weekly leaderboard — keep it up'),
-	]);
-
-	/// ru: 'Сейчас $rank в недельном рейтинге — каждый выпуск двигает вверх'
-	TextSpan rank_current({required InlineSpan rank}) => TextSpan(children: [
-		const TextSpan(text: 'Currently '),
-		rank,
-		const TextSpan(text: ' in the weekly leaderboard — every issue moves you up'),
-	]);
-
-	/// ru: 'Каждый выпуск двигает вас в ${accent(недельном рейтинге)}'
-	TextSpan rank_unknown({required InlineSpanBuilder accent}) => TextSpan(children: [
-		const TextSpan(text: 'Every issue moves you up the '),
-		accent('weekly leaderboard'),
-	]);
 
 	/// ru: 'ИГРАТЬ ДАЛЬШЕ'
 	String get continue_button => 'KEEP PLAYING';
@@ -642,11 +503,6 @@ class Translations$daily_limit$en {
 
 	/// ru: 'ИГРАТЬ ДАЛЬШЕ'
 	String get keep_playing => 'KEEP PLAYING';
-
-	/// ru: 'БЕЗЛИМИТ С QUIZ+'
-	String get unlimited_cta => 'UNLIMITED WITH QUIZ+';
-
-	late final Translations$daily_limit$ad$en ad = Translations$daily_limit$ad$en._(_root);
 }
 
 // Path: demo
@@ -1252,39 +1108,6 @@ class Translations$onboarding$features$en {
 
 	/// ru: 'Соревнуйтесь, собирайте серии, открывайте достижения'
 	String get f4 => 'Compete, build streaks, unlock achievements';
-}
-
-// Path: daily_limit.ad
-class Translations$daily_limit$ad$en {
-	Translations$daily_limit$ad$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'РЕКЛАМА'
-	String get label => 'AD';
-
-	/// ru: 'Пропустить'
-	String get skip => 'Skip';
-
-	/// ru: 'Рекламный ролик · $time'
-	String playing({required Object time}) => 'Ad video · ${time}';
-
-	/// ru: 'НАГРАДА ПОСЛЕ ПРОСМОТРА'
-	String get reward_title => 'REWARD AFTER WATCHING';
-
-	/// ru: '+$n'
-	String reward_amount({required Object n}) => '+${n}';
-
-	/// ru: '(one) {вопрос сегодня} (few) {вопроса сегодня} (many) {вопросов сегодня} (other) {вопроса сегодня}'
-	String reward_suffix({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-		one: 'question today',
-		other: 'questions today',
-	);
-
-	/// ru: 'РЕКЛАМА НЕ В ОСНОВНОМ ВЫПУСКЕ'
-	String get footer => 'ADS ARE NOT PART OF THE MAIN ISSUE';
 }
 
 // Path: demo.start
@@ -2151,27 +1974,7 @@ extension on Translations {
 			'forgot_password.success' => 'Link sent. Check your inbox.',
 			'forgot_password.error' => 'Failed to send the link. Please try again later.',
 			'start_day.start_button' => 'START EDITION',
-			'start_day.more_questions_button' => 'MORE QUESTIONS',
 			'start_day.ready_title' => 'DAILY EDITION READY',
-			'start_day.issue_completed_title' => 'TODAY\'S ISSUE DONE',
-			'start_day.last_session_stats_title' => 'LAST EDITION',
-			'start_day.rank_label' => 'RANK',
-			'start_day.points_label' => 'POINTS',
-			'start_day.accuracy_label' => 'ACCURACY',
-			'start_day.question_count_label' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'question', other: 'questions', ), 
-			'start_day.estimated_time' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '~ ${n} MINUTE', other: '~ ${n} MINUTES', ), 
-			'start_day.streak_warning' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today to '), accent('keep your streak'), ]), 
-			'start_day.freeze_applied_notice' => ({required InlineSpanBuilder accent, required InlineSpan left, required InlineSpan total}) => TextSpan(children: [ const TextSpan(text: 'You missed yesterday — '), accent('a streak freeze was applied automatically.'), const TextSpan(text: ' '), left, const TextSpan(text: ' / '), total, const TextSpan(text: ' left'), ]), 
-			'start_day.freeze_applied_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today to '), accent('avoid spending freezes when you don\'t need to'), ]), 
-			'start_day.streak_lost_notice' => ({required InlineSpan days, required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Your streak of '), days, const TextSpan(text: ' '), accent('is lost'), const TextSpan(text: ' — no freezes left'), ]), 
-			'start_day.streak_lost_notice_free' => ({required InlineSpan days, required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Your streak of '), days, const TextSpan(text: ' '), accent('is lost'), ]), 
-			'start_day.streak_lost_days' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} day', other: '${n} days', ), 
-			'start_day.streak_lost_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Start a new streak today — '), accent('your first achievement is just 3 days away'), ]), 
-			'start_day.start_new_streak_button' => 'START A NEW STREAK',
-			'start_day.issue_done_caption' => 'DONE TODAY',
-			'start_day.today_stats_title' => 'TODAY',
-			'start_day.issue_done_streak' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Issue done, '), accent('streak saved'), const TextSpan(text: ' — come back tomorrow for a new one'), ]),
-			'start_day.issue_done_no_streak' => 'Today\'s issue is done — come back tomorrow for a new one',
 			'daily_result.goal_completed' => 'DAILY GOAL COMPLETED',
 			'daily_result.ring_label' => ({required Object total}) => 'OF ${total}',
 			'daily_result.correct_label' => 'CORRECT',
@@ -2181,13 +1984,6 @@ extension on Translations {
 			'daily_result.percentile_label' => 'ISSUE PERCENTILE',
 			'daily_result.season_rank_label' => 'SEASON POSITION',
 			'daily_result.streak_value' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} DAY STREAK', other: '${n} DAY STREAK', ),
-			'daily_result.points_label' => 'POINTS',
-			'daily_result.streak_label' => 'STREAK, D.',
-			'daily_result.rank_up' => ({required InlineSpan positions}) => TextSpan(children: [ const TextSpan(text: 'You climbed '), positions, const TextSpan(text: ' in the weekly leaderboard'), ]), 
-			'daily_result.rank_up_positions' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} position', other: '${n} positions', ), 
-			'daily_result.rank_leader' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ accent('First place'), const TextSpan(text: ' in the weekly leaderboard — keep it up'), ]), 
-			'daily_result.rank_current' => ({required InlineSpan rank}) => TextSpan(children: [ const TextSpan(text: 'Currently '), rank, const TextSpan(text: ' in the weekly leaderboard — every issue moves you up'), ]), 
-			'daily_result.rank_unknown' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Every issue moves you up the '), accent('weekly leaderboard'), ]), 
 			'daily_result.continue_button' => 'KEEP PLAYING',
 			'daily_result.footer' => 'TODAY\'S ISSUE IS CLOSED · A NEW ONE TOMORROW',
 			'daily_limit.title' => 'MORE QUESTIONS',
@@ -2201,14 +1997,6 @@ extension on Translations {
 			'daily_limit.ad_unavailable' => 'VIDEO SERVICE IS NOT CONNECTED YET',
 			'daily_limit.ad_exhausted' => 'No more extra questions today',
 			'daily_limit.keep_playing' => 'KEEP PLAYING',
-			'daily_limit.unlimited_cta' => 'UNLIMITED WITH QUIZ+',
-			'daily_limit.ad.label' => 'AD',
-			'daily_limit.ad.skip' => 'Skip',
-			'daily_limit.ad.playing' => ({required Object time}) => 'Ad video · ${time}',
-			'daily_limit.ad.reward_title' => 'REWARD AFTER WATCHING',
-			'daily_limit.ad.reward_amount' => ({required Object n}) => '+${n}',
-			'daily_limit.ad.reward_suffix' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'question today', other: 'questions today', ),
-			'daily_limit.ad.footer' => 'ADS ARE NOT PART OF THE MAIN ISSUE',
 			'demo.start.badge' => 'GUEST DEMO',
 			'demo.start.title' => 'Try Quiz before signing up',
 			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'Answer one short question, use a hint, and see how answer explanations work.', other: 'Answer ${n} short questions, use a hint, and see how answer explanations work.', ),

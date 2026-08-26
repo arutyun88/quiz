@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/button/app_button_v2.dart';
 import 'package:quiz/features/question/domain/entity/question_entity.dart';
-import 'package:quiz/features/question/presentation/provider/question_provider.dart';
+import 'package:quiz/features/question/presentation/question_answer_state.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class AnswerRevealBottomSheet extends StatelessWidget {

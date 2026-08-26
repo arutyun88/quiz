@@ -1,16 +1,7 @@
 import 'package:injectable/injectable.dart';
-import 'package:quiz/app/core/client/api_client.dart';
 import 'package:quiz/app/core/model/data_page/data_page_converter.dart';
 import 'package:quiz/app/core/model/data_page/page_info_converter.dart';
-import 'package:quiz/features/question/data/converter/answer_result_converter.dart';
-import 'package:quiz/features/question/data/converter/answered_today_dto_converter.dart';
 import 'package:quiz/features/question/data/converter/question_converter.dart';
-import 'package:quiz/features/question/data/converter/question_state_dto_converter.dart';
-import 'package:quiz/features/question/data/repository/remote_answer_repository.dart';
-import 'package:quiz/features/question/data/repository/remote_question_repository.dart';
-import 'package:quiz/features/question/domain/repository/answer_repository.dart';
-import 'package:quiz/features/question/domain/repository/question_repository.dart';
-import 'package:quiz/features/user/data/converter/user_statistics_converter.dart';
 
 @module
 abstract class QuestionModule {
@@ -24,32 +15,4 @@ abstract class QuestionModule {
       dataConverter: questionConverter,
     );
   }
-
-  @lazySingleton
-  QuestionRepository questionRepository({
-    required ApiClient client,
-    required QuestionPageConverter questionpageConverter,
-    required QuestionConverter questionConverter,
-    required QuestionStateDtoConverter questionStateDtoConverter,
-    required AnsweredTodayDtoConverter answeredTodayDtoConverter,
-  }) =>
-      RemoteQuestionRepository(
-        client: client,
-        questionPageConverter: questionpageConverter,
-        questionConverter: questionConverter,
-        questionStateDtoConverter: questionStateDtoConverter,
-        answeredTodayDtoConverter: answeredTodayDtoConverter,
-      );
-
-  @lazySingleton
-  AnswerRepository answerRepository({
-    required ApiClient client,
-    required AnswerResultConverter answerConverter,
-    required UserStatisticsConverter userStatisticsConverter,
-  }) =>
-      RemoteAnswerRepository(
-        client: client,
-        answerConverter: answerConverter,
-        userStatisticsConverter: userStatisticsConverter,
-      );
 }
