@@ -43,7 +43,7 @@ class LeaderboardTableHeader extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 8),
-            child: Text(t.points_header, style: style),
+            child: Text(t.rating_header, style: style),
           ),
         ],
       ),

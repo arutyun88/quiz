@@ -122,11 +122,17 @@ class Translations$leaderboard$en {
 	/// ru: 'Рейтинг'
 	String get title => 'Leaderboard';
 
+	/// ru: 'Текущий сезон · 28 дней'
+	String get current_season => 'Current 28-day season';
+
 	/// ru: 'Моя позиция'
 	String get my_position => 'My position';
 
-	/// ru: 'Нет активности за этот период'
-	String get empty => 'No activity yet for this period';
+	/// ru: 'Предварительный рейтинг'
+	String get provisional => 'Provisional rating';
+
+	/// ru: 'В этом сезоне пока нет участников с местом'
+	String get empty => 'No ranked players in this season yet';
 
 	/// ru: 'МЕСТО'
 	String get rank_header => 'RANK';
@@ -134,11 +140,17 @@ class Translations$leaderboard$en {
 	/// ru: 'УЧАСТНИК'
 	String get participant_header => 'PLAYER';
 
-	/// ru: 'ОЧКИ'
-	String get points_header => 'POINTS';
+	/// ru: 'РЕЙТИНГ'
+	String get rating_header => 'RATING';
 
-	/// ru: 'ТОЧНОСТЬ'
-	String get accuracy_label => 'ACCURACY';
+	/// ru: 'ЛУЧШИЙ'
+	String get best_rating => 'BEST';
+
+	/// ru: '(one) {$n ОФИЦИАЛЬНЫЙ ОТВЕТ} (few) {$n ОФИЦИАЛЬНЫХ ОТВЕТА} (many) {$n ОФИЦИАЛЬНЫХ ОТВЕТОВ} (other) {$n ОФИЦИАЛЬНОГО ОТВЕТА}'
+	String official_answers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: '${n} OFFICIAL ANSWER',
+		other: '${n} OFFICIAL ANSWERS',
+	);
 
 	/// ru: '(one) {ЕЩЁ $n УЧАСТНИК} (few) {ЕЩЁ $n УЧАСТНИКА} (many) {ЕЩЁ $n УЧАСТНИКОВ} (other) {ЕЩЁ $n УЧАСТНИКА}'
 	String gap_row({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
@@ -157,10 +169,6 @@ class Translations$leaderboard$en {
 
 	/// ru: 'Не удалось загрузить рейтинг'
 	String get load_failed => 'Could not load leaderboard';
-
-	late final Translations$leaderboard$period_tabs$en period_tabs = Translations$leaderboard$period_tabs$en._(_root);
-	late final Translations$leaderboard$periods$en periods = Translations$leaderboard$periods$en._(_root);
-	late final Translations$leaderboard$history$en history = Translations$leaderboard$history$en._(_root);
 }
 
 // Path: gamification
@@ -887,96 +895,6 @@ class Translations$authentication$sign_up$en {
 
 	/// ru: 'Зарегистрироваться'
 	String get title => 'Sign up';
-}
-
-// Path: leaderboard.period_tabs
-class Translations$leaderboard$period_tabs$en {
-	Translations$leaderboard$period_tabs$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'ДЕНЬ'
-	String get daily => 'DAY';
-
-	/// ru: 'НЕДЕЛЯ'
-	String get weekly => 'WEEK';
-
-	/// ru: 'МЕСЯЦ'
-	String get monthly => 'MONTH';
-
-	/// ru: 'ГОД'
-	String get yearly => 'YEAR';
-}
-
-// Path: leaderboard.periods
-class Translations$leaderboard$periods$en {
-	Translations$leaderboard$periods$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'дня'
-	String get daily => 'today';
-
-	/// ru: 'недели'
-	String get weekly => 'this week';
-
-	/// ru: 'месяца'
-	String get monthly => 'this month';
-
-	/// ru: 'года'
-	String get yearly => 'this year';
-}
-
-// Path: leaderboard.history
-class Translations$leaderboard$history$en {
-	Translations$leaderboard$history$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'Динамика места'
-	String get title => 'Rank trend';
-
-	/// ru: 'Текущее место'
-	String get current_rank_label => 'Current rank';
-
-	/// ru: '(one) {за $n день} (few) {за $n дня} (many) {за $n дней} (other) {за $n дней}'
-	String delta_label({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-		one: 'over ${n} day',
-		other: 'over ${n} days',
-	);
-
-	/// ru: 'Сегодня'
-	String get chart_end => 'Today';
-
-	/// ru: 'по дням'
-	String get by_days_title => 'by day';
-
-	/// ru: 'Сегодня'
-	String get today => 'Today';
-
-	/// ru: 'Вчера'
-	String get yesterday => 'Yesterday';
-
-	/// ru: '$n очк'
-	String points({required Object n}) => '${n} pts';
-
-	/// ru: 'Не играли'
-	String get not_played => 'Not played';
-
-	/// ru: 'Пока нет истории — сыграйте выпуск, чтобы попасть в дневной рейтинг'
-	String get empty => 'No history yet — play an edition to enter the daily rating';
-
-	/// ru: 'Не удалось загрузить историю'
-	String get error => 'Failed to load history';
-
-	/// ru: 'Повторить'
-	String get retry => 'Retry';
 }
 
 // Path: achievements.categories
@@ -1854,36 +1772,19 @@ extension on Translations {
 			'authentication.sign_up.title' => 'Sign up',
 			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'By using the app, you accept '), link('User Agreement'), ]), 
 			'leaderboard.title' => 'Leaderboard',
+			'leaderboard.current_season' => 'Current 28-day season',
 			'leaderboard.my_position' => 'My position',
-			'leaderboard.empty' => 'No activity yet for this period',
+			'leaderboard.provisional' => 'Provisional rating',
+			'leaderboard.empty' => 'No ranked players in this season yet',
 			'leaderboard.rank_header' => 'RANK',
 			'leaderboard.participant_header' => 'PLAYER',
-			'leaderboard.points_header' => 'POINTS',
-			'leaderboard.accuracy_label' => 'ACCURACY',
+			'leaderboard.rating_header' => 'RATING',
+			'leaderboard.best_rating' => 'BEST',
+			'leaderboard.official_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} OFFICIAL ANSWER', other: '${n} OFFICIAL ANSWERS', ),
 			'leaderboard.gap_row' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} MORE PLAYER', other: '${n} MORE PLAYERS', ), 
 			'leaderboard.total_participants' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} PLAYER TOTAL', other: '${n} PLAYERS TOTAL', ), 
 			'leaderboard.retry' => 'RETRY',
 			'leaderboard.load_failed' => 'Could not load leaderboard',
-			'leaderboard.period_tabs.daily' => 'DAY',
-			'leaderboard.period_tabs.weekly' => 'WEEK',
-			'leaderboard.period_tabs.monthly' => 'MONTH',
-			'leaderboard.period_tabs.yearly' => 'YEAR',
-			'leaderboard.periods.daily' => 'today',
-			'leaderboard.periods.weekly' => 'this week',
-			'leaderboard.periods.monthly' => 'this month',
-			'leaderboard.periods.yearly' => 'this year',
-			'leaderboard.history.title' => 'Rank trend',
-			'leaderboard.history.current_rank_label' => 'Current rank',
-			'leaderboard.history.delta_label' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'over ${n} day', other: 'over ${n} days', ), 
-			'leaderboard.history.chart_end' => 'Today',
-			'leaderboard.history.by_days_title' => 'by day',
-			'leaderboard.history.today' => 'Today',
-			'leaderboard.history.yesterday' => 'Yesterday',
-			'leaderboard.history.points' => ({required Object n}) => '${n} pts',
-			'leaderboard.history.not_played' => 'Not played',
-			'leaderboard.history.empty' => 'No history yet — play an edition to enter the daily rating',
-			'leaderboard.history.error' => 'Failed to load history',
-			'leaderboard.history.retry' => 'Retry',
 			'gamification.level' => ({required Object level}) => 'Level ${level}',
 			'gamification.level_short' => ({required Object level}) => 'Lvl ${level}',
 			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',

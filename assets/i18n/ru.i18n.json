@@ -199,12 +199,20 @@
     },
     "leaderboard": {
         "title": "Рейтинг",
+        "current_season": "Текущий сезон · 28 дней",
         "my_position": "Моя позиция",
-        "empty": "Нет активности за этот период",
+        "provisional": "Предварительный рейтинг",
+        "empty": "В этом сезоне пока нет участников с местом",
         "rank_header": "МЕСТО",
         "participant_header": "УЧАСТНИК",
-        "points_header": "ОЧКИ",
-        "accuracy_label": "ТОЧНОСТЬ",
+        "rating_header": "РЕЙТИНГ",
+        "best_rating": "ЛУЧШИЙ",
+        "official_answers(n)": {
+            "one": "$n ОФИЦИАЛЬНЫЙ ОТВЕТ",
+            "few": "$n ОФИЦИАЛЬНЫХ ОТВЕТА",
+            "many": "$n ОФИЦИАЛЬНЫХ ОТВЕТОВ",
+            "other": "$n ОФИЦИАЛЬНОГО ОТВЕТА"
+        },
         "gap_row(n)": {
             "one": "ЕЩЁ $n УЧАСТНИК",
             "few": "ЕЩЁ $n УЧАСТНИКА",
@@ -218,38 +226,7 @@
             "other": "ВСЕГО $n УЧАСТНИКА"
         },
         "retry": "ПОВТОРИТЬ",
-        "load_failed": "Не удалось загрузить рейтинг",
-        "period_tabs": {
-            "daily": "ДЕНЬ",
-            "weekly": "НЕДЕЛЯ",
-            "monthly": "МЕСЯЦ",
-            "yearly": "ГОД"
-        },
-        "periods": {
-            "daily": "дня",
-            "weekly": "недели",
-            "monthly": "месяца",
-            "yearly": "года"
-        },
-        "history": {
-            "title": "Динамика места",
-            "current_rank_label": "Текущее место",
-            "delta_label(n)": {
-                "one": "за $n день",
-                "few": "за $n дня",
-                "many": "за $n дней",
-                "other": "за $n дней"
-            },
-            "chart_end": "Сегодня",
-            "by_days_title": "по дням",
-            "today": "Сегодня",
-            "yesterday": "Вчера",
-            "points(n)": "$n очк",
-            "not_played": "Не играли",
-            "empty": "Пока нет истории — сыграйте выпуск, чтобы попасть в дневной рейтинг",
-            "error": "Не удалось загрузить историю",
-            "retry": "Повторить"
-        }
+        "load_failed": "Не удалось загрузить рейтинг"
     },
     "gamification": {
         "level": "Уровень $level",

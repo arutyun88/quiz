@@ -16,10 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$LeaderboardOverviewEntity {
-  List<LeaderboardEntity> get top => throw _privateConstructorUsedError;
-  LeaderboardEntity? get me => throw _privateConstructorUsedError;
-  List<LeaderboardEntity> get around => throw _privateConstructorUsedError;
-  LeaderboardEntity? get previousMe => throw _privateConstructorUsedError;
+  List<LeaderboardEntity> get entries => throw _privateConstructorUsedError;
+  LeaderboardEntity get me => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
 
   /// Create a copy of LeaderboardOverviewEntity
@@ -35,15 +33,9 @@ abstract class $LeaderboardOverviewEntityCopyWith<$Res> {
           $Res Function(LeaderboardOverviewEntity) then) =
       _$LeaderboardOverviewEntityCopyWithImpl<$Res, LeaderboardOverviewEntity>;
   @useResult
-  $Res call(
-      {List<LeaderboardEntity> top,
-      LeaderboardEntity? me,
-      List<LeaderboardEntity> around,
-      LeaderboardEntity? previousMe,
-      int total});
+  $Res call({List<LeaderboardEntity> entries, LeaderboardEntity me, int total});
 
-  $LeaderboardEntityCopyWith<$Res>? get me;
-  $LeaderboardEntityCopyWith<$Res>? get previousMe;
+  $LeaderboardEntityCopyWith<$Res> get me;
 }
 
 /// @nodoc
@@ -62,29 +54,19 @@ class _$LeaderboardOverviewEntityCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? top = null,
-    Object? me = freezed,
-    Object? around = null,
-    Object? previousMe = freezed,
+    Object? entries = null,
+    Object? me = null,
     Object? total = null,
   }) {
     return _then(_value.copyWith(
-      top: null == top
-          ? _value.top
-          : top // ignore: cast_nullable_to_non_nullable
+      entries: null == entries
+          ? _value.entries
+          : entries // ignore: cast_nullable_to_non_nullable
               as List<LeaderboardEntity>,
-      me: freezed == me
+      me: null == me
           ? _value.me
           : me // ignore: cast_nullable_to_non_nullable
-              as LeaderboardEntity?,
-      around: null == around
-          ? _value.around
-          : around // ignore: cast_nullable_to_non_nullable
-              as List<LeaderboardEntity>,
-      previousMe: freezed == previousMe
-          ? _value.previousMe
-          : previousMe // ignore: cast_nullable_to_non_nullable
-              as LeaderboardEntity?,
+              as LeaderboardEntity,
       total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -96,27 +78,9 @@ class _$LeaderboardOverviewEntityCopyWithImpl<$Res,
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $LeaderboardEntityCopyWith<$Res>? get me {
-    if (_value.me == null) {
-      return null;
-    }
-
-    return $LeaderboardEntityCopyWith<$Res>(_value.me!, (value) {
+  $LeaderboardEntityCopyWith<$Res> get me {
+    return $LeaderboardEntityCopyWith<$Res>(_value.me, (value) {
       return _then(_value.copyWith(me: value) as $Val);
-    });
-  }
-
-  /// Create a copy of LeaderboardOverviewEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $LeaderboardEntityCopyWith<$Res>? get previousMe {
-    if (_value.previousMe == null) {
-      return null;
-    }
-
-    return $LeaderboardEntityCopyWith<$Res>(_value.previousMe!, (value) {
-      return _then(_value.copyWith(previousMe: value) as $Val);
     });
   }
 }
@@ -130,17 +94,10 @@ abstract class _$$LeaderboardOverviewEntityImplCopyWith<$Res>
       __$$LeaderboardOverviewEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<LeaderboardEntity> top,
-      LeaderboardEntity? me,
-      List<LeaderboardEntity> around,
-      LeaderboardEntity? previousMe,
-      int total});
+  $Res call({List<LeaderboardEntity> entries, LeaderboardEntity me, int total});
 
   @override
-  $LeaderboardEntityCopyWith<$Res>? get me;
-  @override
-  $LeaderboardEntityCopyWith<$Res>? get previousMe;
+  $LeaderboardEntityCopyWith<$Res> get me;
 }
 
 /// @nodoc
@@ -158,29 +115,19 @@ class __$$LeaderboardOverviewEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? top = null,
-    Object? me = freezed,
-    Object? around = null,
-    Object? previousMe = freezed,
+    Object? entries = null,
+    Object? me = null,
     Object? total = null,
   }) {
     return _then(_$LeaderboardOverviewEntityImpl(
-      top: null == top
-          ? _value._top
-          : top // ignore: cast_nullable_to_non_nullable
+      entries: null == entries
+          ? _value._entries
+          : entries // ignore: cast_nullable_to_non_nullable
               as List<LeaderboardEntity>,
-      me: freezed == me
+      me: null == me
           ? _value.me
           : me // ignore: cast_nullable_to_non_nullable
-              as LeaderboardEntity?,
-      around: null == around
-          ? _value._around
-          : around // ignore: cast_nullable_to_non_nullable
-              as List<LeaderboardEntity>,
-      previousMe: freezed == previousMe
-          ? _value.previousMe
-          : previousMe // ignore: cast_nullable_to_non_nullable
-              as LeaderboardEntity?,
+              as LeaderboardEntity,
       total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -193,40 +140,27 @@ class __$$LeaderboardOverviewEntityImplCopyWithImpl<$Res>
 
 class _$LeaderboardOverviewEntityImpl implements _LeaderboardOverviewEntity {
   const _$LeaderboardOverviewEntityImpl(
-      {required final List<LeaderboardEntity> top,
-      this.me,
-      required final List<LeaderboardEntity> around,
-      this.previousMe,
+      {required final List<LeaderboardEntity> entries,
+      required this.me,
       required this.total})
-      : _top = top,
-        _around = around;
+      : _entries = entries;
 
-  final List<LeaderboardEntity> _top;
+  final List<LeaderboardEntity> _entries;
   @override
-  List<LeaderboardEntity> get top {
-    if (_top is EqualUnmodifiableListView) return _top;
+  List<LeaderboardEntity> get entries {
+    if (_entries is EqualUnmodifiableListView) return _entries;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_top);
+    return EqualUnmodifiableListView(_entries);
   }
 
   @override
-  final LeaderboardEntity? me;
-  final List<LeaderboardEntity> _around;
-  @override
-  List<LeaderboardEntity> get around {
-    if (_around is EqualUnmodifiableListView) return _around;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_around);
-  }
-
-  @override
-  final LeaderboardEntity? previousMe;
+  final LeaderboardEntity me;
   @override
   final int total;
 
   @override
   String toString() {
-    return 'LeaderboardOverviewEntity(top: $top, me: $me, around: $around, previousMe: $previousMe, total: $total)';
+    return 'LeaderboardOverviewEntity(entries: $entries, me: $me, total: $total)';
   }
 
   @override
@@ -234,22 +168,14 @@ class _$LeaderboardOverviewEntityImpl implements _LeaderboardOverviewEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LeaderboardOverviewEntityImpl &&
-            const DeepCollectionEquality().equals(other._top, _top) &&
+            const DeepCollectionEquality().equals(other._entries, _entries) &&
             (identical(other.me, me) || other.me == me) &&
-            const DeepCollectionEquality().equals(other._around, _around) &&
-            (identical(other.previousMe, previousMe) ||
-                other.previousMe == previousMe) &&
             (identical(other.total, total) || other.total == total));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_top),
-      me,
-      const DeepCollectionEquality().hash(_around),
-      previousMe,
-      total);
+      runtimeType, const DeepCollectionEquality().hash(_entries), me, total);
 
   /// Create a copy of LeaderboardOverviewEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -263,20 +189,14 @@ class _$LeaderboardOverviewEntityImpl implements _LeaderboardOverviewEntity {
 
 abstract class _LeaderboardOverviewEntity implements LeaderboardOverviewEntity {
   const factory _LeaderboardOverviewEntity(
-      {required final List<LeaderboardEntity> top,
-      final LeaderboardEntity? me,
-      required final List<LeaderboardEntity> around,
-      final LeaderboardEntity? previousMe,
+      {required final List<LeaderboardEntity> entries,
+      required final LeaderboardEntity me,
       required final int total}) = _$LeaderboardOverviewEntityImpl;
 
   @override
-  List<LeaderboardEntity> get top;
+  List<LeaderboardEntity> get entries;
   @override
-  LeaderboardEntity? get me;
-  @override
-  List<LeaderboardEntity> get around;
-  @override
-  LeaderboardEntity? get previousMe;
+  LeaderboardEntity get me;
   @override
   int get total;
 

@@ -20,21 +20,19 @@ LeaderboardDto _$LeaderboardDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$LeaderboardDto {
+  @JsonKey(name: 'season_id')
+  String get seasonId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id')
   String get userId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'userEmail')
-  String get email => throw _privateConstructorUsedError;
-  @JsonKey(name: 'userName')
-  String? get name => throw _privateConstructorUsedError;
-  @JsonKey(defaultValue: 0)
-  int get points => throw _privateConstructorUsedError;
-  @JsonKey(defaultValue: 0)
-  int get questionsAnswered => throw _privateConstructorUsedError;
-  @JsonKey(defaultValue: 0)
-  int get correctAnswers => throw _privateConstructorUsedError;
-  @JsonKey(defaultValue: 0.0)
-  double get accuracy => throw _privateConstructorUsedError;
-  @JsonKey(name: 'rank', defaultValue: 0)
-  int get rank => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_name')
+  String? get userName => throw _privateConstructorUsedError;
+  int get rating => throw _privateConstructorUsedError;
+  @JsonKey(name: 'best_rating')
+  int get bestRating => throw _privateConstructorUsedError;
+  @JsonKey(name: 'official_answers')
+  int get officialAnswers => throw _privateConstructorUsedError;
+  bool get provisional => throw _privateConstructorUsedError;
+  int? get rank => throw _privateConstructorUsedError;
 
   /// Serializes this LeaderboardDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -53,14 +51,14 @@ abstract class $LeaderboardDtoCopyWith<$Res> {
       _$LeaderboardDtoCopyWithImpl<$Res, LeaderboardDto>;
   @useResult
   $Res call(
-      {String userId,
-      @JsonKey(name: 'userEmail') String email,
-      @JsonKey(name: 'userName') String? name,
-      @JsonKey(defaultValue: 0) int points,
-      @JsonKey(defaultValue: 0) int questionsAnswered,
-      @JsonKey(defaultValue: 0) int correctAnswers,
-      @JsonKey(defaultValue: 0.0) double accuracy,
-      @JsonKey(name: 'rank', defaultValue: 0) int rank});
+      {@JsonKey(name: 'season_id') String seasonId,
+      @JsonKey(name: 'user_id') String userId,
+      @JsonKey(name: 'user_name') String? userName,
+      int rating,
+      @JsonKey(name: 'best_rating') int bestRating,
+      @JsonKey(name: 'official_answers') int officialAnswers,
+      bool provisional,
+      int? rank});
 }
 
 /// @nodoc
@@ -78,48 +76,48 @@ class _$LeaderboardDtoCopyWithImpl<$Res, $Val extends LeaderboardDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? seasonId = null,
     Object? userId = null,
-    Object? email = null,
-    Object? name = freezed,
-    Object? points = null,
-    Object? questionsAnswered = null,
-    Object? correctAnswers = null,
-    Object? accuracy = null,
-    Object? rank = null,
+    Object? userName = freezed,
+    Object? rating = null,
+    Object? bestRating = null,
+    Object? officialAnswers = null,
+    Object? provisional = null,
+    Object? rank = freezed,
   }) {
     return _then(_value.copyWith(
+      seasonId: null == seasonId
+          ? _value.seasonId
+          : seasonId // ignore: cast_nullable_to_non_nullable
+              as String,
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
               as String?,
-      points: null == points
-          ? _value.points
-          : points // ignore: cast_nullable_to_non_nullable
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
               as int,
-      questionsAnswered: null == questionsAnswered
-          ? _value.questionsAnswered
-          : questionsAnswered // ignore: cast_nullable_to_non_nullable
+      bestRating: null == bestRating
+          ? _value.bestRating
+          : bestRating // ignore: cast_nullable_to_non_nullable
               as int,
-      correctAnswers: null == correctAnswers
-          ? _value.correctAnswers
-          : correctAnswers // ignore: cast_nullable_to_non_nullable
+      officialAnswers: null == officialAnswers
+          ? _value.officialAnswers
+          : officialAnswers // ignore: cast_nullable_to_non_nullable
               as int,
-      accuracy: null == accuracy
-          ? _value.accuracy
-          : accuracy // ignore: cast_nullable_to_non_nullable
-              as double,
-      rank: null == rank
+      provisional: null == provisional
+          ? _value.provisional
+          : provisional // ignore: cast_nullable_to_non_nullable
+              as bool,
+      rank: freezed == rank
           ? _value.rank
           : rank // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ) as $Val);
   }
 }
@@ -133,14 +131,14 @@ abstract class _$$LeaderboardDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String userId,
-      @JsonKey(name: 'userEmail') String email,
-      @JsonKey(name: 'userName') String? name,
-      @JsonKey(defaultValue: 0) int points,
-      @JsonKey(defaultValue: 0) int questionsAnswered,
-      @JsonKey(defaultValue: 0) int correctAnswers,
-      @JsonKey(defaultValue: 0.0) double accuracy,
-      @JsonKey(name: 'rank', defaultValue: 0) int rank});
+      {@JsonKey(name: 'season_id') String seasonId,
+      @JsonKey(name: 'user_id') String userId,
+      @JsonKey(name: 'user_name') String? userName,
+      int rating,
+      @JsonKey(name: 'best_rating') int bestRating,
+      @JsonKey(name: 'official_answers') int officialAnswers,
+      bool provisional,
+      int? rank});
 }
 
 /// @nodoc
@@ -156,48 +154,48 @@ class __$$LeaderboardDtoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? seasonId = null,
     Object? userId = null,
-    Object? email = null,
-    Object? name = freezed,
-    Object? points = null,
-    Object? questionsAnswered = null,
-    Object? correctAnswers = null,
-    Object? accuracy = null,
-    Object? rank = null,
+    Object? userName = freezed,
+    Object? rating = null,
+    Object? bestRating = null,
+    Object? officialAnswers = null,
+    Object? provisional = null,
+    Object? rank = freezed,
   }) {
     return _then(_$LeaderboardDtoImpl(
+      seasonId: null == seasonId
+          ? _value.seasonId
+          : seasonId // ignore: cast_nullable_to_non_nullable
+              as String,
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
               as String?,
-      points: null == points
-          ? _value.points
-          : points // ignore: cast_nullable_to_non_nullable
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
               as int,
-      questionsAnswered: null == questionsAnswered
-          ? _value.questionsAnswered
-          : questionsAnswered // ignore: cast_nullable_to_non_nullable
+      bestRating: null == bestRating
+          ? _value.bestRating
+          : bestRating // ignore: cast_nullable_to_non_nullable
               as int,
-      correctAnswers: null == correctAnswers
-          ? _value.correctAnswers
-          : correctAnswers // ignore: cast_nullable_to_non_nullable
+      officialAnswers: null == officialAnswers
+          ? _value.officialAnswers
+          : officialAnswers // ignore: cast_nullable_to_non_nullable
               as int,
-      accuracy: null == accuracy
-          ? _value.accuracy
-          : accuracy // ignore: cast_nullable_to_non_nullable
-              as double,
-      rank: null == rank
+      provisional: null == provisional
+          ? _value.provisional
+          : provisional // ignore: cast_nullable_to_non_nullable
+              as bool,
+      rank: freezed == rank
           ? _value.rank
           : rank // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
@@ -206,45 +204,43 @@ class __$$LeaderboardDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$LeaderboardDtoImpl implements _LeaderboardDto {
   const _$LeaderboardDtoImpl(
-      {required this.userId,
-      @JsonKey(name: 'userEmail') required this.email,
-      @JsonKey(name: 'userName') this.name,
-      @JsonKey(defaultValue: 0) required this.points,
-      @JsonKey(defaultValue: 0) required this.questionsAnswered,
-      @JsonKey(defaultValue: 0) required this.correctAnswers,
-      @JsonKey(defaultValue: 0.0) required this.accuracy,
-      @JsonKey(name: 'rank', defaultValue: 0) required this.rank});
+      {@JsonKey(name: 'season_id') required this.seasonId,
+      @JsonKey(name: 'user_id') required this.userId,
+      @JsonKey(name: 'user_name') this.userName,
+      required this.rating,
+      @JsonKey(name: 'best_rating') required this.bestRating,
+      @JsonKey(name: 'official_answers') required this.officialAnswers,
+      required this.provisional,
+      this.rank});
 
   factory _$LeaderboardDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$LeaderboardDtoImplFromJson(json);
 
   @override
+  @JsonKey(name: 'season_id')
+  final String seasonId;
+  @override
+  @JsonKey(name: 'user_id')
   final String userId;
   @override
-  @JsonKey(name: 'userEmail')
-  final String email;
+  @JsonKey(name: 'user_name')
+  final String? userName;
   @override
-  @JsonKey(name: 'userName')
-  final String? name;
+  final int rating;
   @override
-  @JsonKey(defaultValue: 0)
-  final int points;
+  @JsonKey(name: 'best_rating')
+  final int bestRating;
   @override
-  @JsonKey(defaultValue: 0)
-  final int questionsAnswered;
+  @JsonKey(name: 'official_answers')
+  final int officialAnswers;
   @override
-  @JsonKey(defaultValue: 0)
-  final int correctAnswers;
+  final bool provisional;
   @override
-  @JsonKey(defaultValue: 0.0)
-  final double accuracy;
-  @override
-  @JsonKey(name: 'rank', defaultValue: 0)
-  final int rank;
+  final int? rank;
 
   @override
   String toString() {
-    return 'LeaderboardDto(userId: $userId, email: $email, name: $name, points: $points, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, rank: $rank)';
+    return 'LeaderboardDto(seasonId: $seasonId, userId: $userId, userName: $userName, rating: $rating, bestRating: $bestRating, officialAnswers: $officialAnswers, provisional: $provisional, rank: $rank)';
   }
 
   @override
@@ -252,23 +248,25 @@ class _$LeaderboardDtoImpl implements _LeaderboardDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LeaderboardDtoImpl &&
+            (identical(other.seasonId, seasonId) ||
+                other.seasonId == seasonId) &&
             (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.points, points) || other.points == points) &&
-            (identical(other.questionsAnswered, questionsAnswered) ||
-                other.questionsAnswered == questionsAnswered) &&
-            (identical(other.correctAnswers, correctAnswers) ||
-                other.correctAnswers == correctAnswers) &&
-            (identical(other.accuracy, accuracy) ||
-                other.accuracy == accuracy) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.bestRating, bestRating) ||
+                other.bestRating == bestRating) &&
+            (identical(other.officialAnswers, officialAnswers) ||
+                other.officialAnswers == officialAnswers) &&
+            (identical(other.provisional, provisional) ||
+                other.provisional == provisional) &&
             (identical(other.rank, rank) || other.rank == rank));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, userId, email, name, points,
-      questionsAnswered, correctAnswers, accuracy, rank);
+  int get hashCode => Object.hash(runtimeType, seasonId, userId, userName,
+      rating, bestRating, officialAnswers, provisional, rank);
 
   /// Create a copy of LeaderboardDto
   /// with the given fields replaced by the non-null parameter values.
@@ -289,42 +287,39 @@ class _$LeaderboardDtoImpl implements _LeaderboardDto {
 
 abstract class _LeaderboardDto implements LeaderboardDto {
   const factory _LeaderboardDto(
-          {required final String userId,
-          @JsonKey(name: 'userEmail') required final String email,
-          @JsonKey(name: 'userName') final String? name,
-          @JsonKey(defaultValue: 0) required final int points,
-          @JsonKey(defaultValue: 0) required final int questionsAnswered,
-          @JsonKey(defaultValue: 0) required final int correctAnswers,
-          @JsonKey(defaultValue: 0.0) required final double accuracy,
-          @JsonKey(name: 'rank', defaultValue: 0) required final int rank}) =
-      _$LeaderboardDtoImpl;
+      {@JsonKey(name: 'season_id') required final String seasonId,
+      @JsonKey(name: 'user_id') required final String userId,
+      @JsonKey(name: 'user_name') final String? userName,
+      required final int rating,
+      @JsonKey(name: 'best_rating') required final int bestRating,
+      @JsonKey(name: 'official_answers') required final int officialAnswers,
+      required final bool provisional,
+      final int? rank}) = _$LeaderboardDtoImpl;
 
   factory _LeaderboardDto.fromJson(Map<String, dynamic> json) =
       _$LeaderboardDtoImpl.fromJson;
 
   @override
+  @JsonKey(name: 'season_id')
+  String get seasonId;
+  @override
+  @JsonKey(name: 'user_id')
   String get userId;
   @override
-  @JsonKey(name: 'userEmail')
-  String get email;
+  @JsonKey(name: 'user_name')
+  String? get userName;
   @override
-  @JsonKey(name: 'userName')
-  String? get name;
+  int get rating;
   @override
-  @JsonKey(defaultValue: 0)
-  int get points;
+  @JsonKey(name: 'best_rating')
+  int get bestRating;
   @override
-  @JsonKey(defaultValue: 0)
-  int get questionsAnswered;
+  @JsonKey(name: 'official_answers')
+  int get officialAnswers;
   @override
-  @JsonKey(defaultValue: 0)
-  int get correctAnswers;
+  bool get provisional;
   @override
-  @JsonKey(defaultValue: 0.0)
-  double get accuracy;
-  @override
-  @JsonKey(name: 'rank', defaultValue: 0)
-  int get rank;
+  int? get rank;
 
   /// Create a copy of LeaderboardDto
   /// with the given fields replaced by the non-null parameter values.

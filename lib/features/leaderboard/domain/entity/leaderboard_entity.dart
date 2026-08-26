@@ -5,13 +5,13 @@ part 'leaderboard_entity.freezed.dart';
 @freezed
 class LeaderboardEntity with _$LeaderboardEntity {
   const factory LeaderboardEntity({
+    required String seasonId,
     required String userId,
-    required String email,
-    String? name,
-    required int points,
-    required int questionsAnswered,
-    required int correctAnswers,
-    required double accuracy,
-    required int rank,
+    String? userName,
+    required int rating,
+    required int bestRating,
+    required int officialAnswers,
+    required bool provisional,
+    int? rank,
   }) = _LeaderboardEntity;
 }

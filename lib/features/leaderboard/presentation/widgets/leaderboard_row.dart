@@ -47,7 +47,9 @@ class LeaderboardRow extends StatelessWidget {
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () => isMe ? context.go('/profile') : context.push('/rating/user/${entry.userId}'),
+      onTap: () => isMe
+          ? context.go('/profile')
+          : context.push('/rating/user/${entry.userId}'),
       child: Container(
         decoration: BoxDecoration(
           color: isMe ? colors.background.dynamic : null,
@@ -71,7 +73,9 @@ class LeaderboardRow extends StatelessWidget {
                   maxLines: 1,
                   style: GoogleFonts.unbounded(
                     fontSize: 22,
-                    fontWeight: entry.rank > 0 && entry.rank <= 3 ? FontWeight.w800 : FontWeight.w700,
+                    fontWeight: entry.rank != null && entry.rank! <= 3
+                        ? FontWeight.w800
+                        : FontWeight.w700,
                     color: _rankColor(context, entry.rank),
                   ),
                 ),
@@ -93,7 +97,9 @@ class LeaderboardRow extends StatelessWidget {
                   ),
                   const SizedBox(height: 1),
                   Text(
-                    '${context.t.leaderboard.accuracy_label} ${entry.accuracyPercent}',
+                    context.t.leaderboard.official_answers(
+                      n: entry.officialAnswers,
+                    ),
                     style: GoogleFonts.jetBrainsMono(
                       fontSize: 9,
                       fontWeight: FontWeight.w500,
@@ -105,7 +111,7 @@ class LeaderboardRow extends StatelessWidget {
             ),
             const SizedBox(width: 12),
             Text(
-              entry.points.toString(),
+              entry.rating.toString(),
               style: GoogleFonts.unbounded(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
@@ -118,7 +124,7 @@ class LeaderboardRow extends StatelessWidget {
     );
   }
 
-  Color _rankColor(BuildContext context, int rank) {
+  Color _rankColor(BuildContext context, int? rank) {
     final colors = context.palette;
 
     if (isMe) return colors.text.accent;
@@ -131,8 +137,7 @@ class LeaderboardRow extends StatelessWidget {
     };
   }
 
-  String _rankValueText(int rank) {
-    if (rank <= 0) return '—';
-    return rank.toString();
+  String _rankValueText(int? rank) {
+    return rank?.toString() ?? '—';
   }
 }

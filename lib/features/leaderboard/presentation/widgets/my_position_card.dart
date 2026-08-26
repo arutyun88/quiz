@@ -9,12 +9,10 @@ class MyPositionCard extends StatelessWidget {
   const MyPositionCard({
     super.key,
     required this.entry,
-    this.previousEntry,
     this.onTap,
   });
 
   final LeaderboardEntity entry;
-  final LeaderboardEntity? previousEntry;
   final VoidCallback? onTap;
 
   @override
@@ -22,11 +20,9 @@ class MyPositionCard extends StatelessWidget {
     final colors = context.palette;
     final foreground = colors.background.static;
     final mutedForeground = Color.lerp(foreground, colors.text.primary, 0.42)!;
-    final rankDelta = _rankDeltaText(entry, previousEntry);
-    final title = [
-      context.t.leaderboard.my_position.toUpperCase(),
-      if (rankDelta != null) rankDelta,
-    ].join(' · ');
+    final title = entry.provisional
+        ? context.t.leaderboard.provisional.toUpperCase()
+        : context.t.leaderboard.my_position.toUpperCase();
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
@@ -100,27 +96,12 @@ class MyPositionCard extends StatelessWidget {
   }
 
   String _summaryText(BuildContext context, LeaderboardEntity entry) {
-    final pointsLabel = context.t.leaderboard.points_header;
-
-    return '${entry.points} $pointsLabel · ${entry.accuracyPercent} · ${entry.correctAnswers}/${entry.questionsAnswered}';
+    return '${entry.rating} ${context.t.leaderboard.rating_header} · '
+        '${context.t.leaderboard.best_rating}: ${entry.bestRating} · '
+        '${context.t.leaderboard.official_answers(n: entry.officialAnswers)}';
   }
 
-  String _rankText(int rank) {
-    if (rank <= 0) return '#—';
-    return '#$rank';
-  }
-
-  String? _rankDeltaText(
-    LeaderboardEntity current,
-    LeaderboardEntity? previous,
-  ) {
-    if (previous == null || current.rank <= 0 || previous.rank <= 0) {
-      return null;
-    }
-
-    final delta = previous.rank - current.rank;
-    if (delta > 0) return '↑$delta';
-    if (delta < 0) return '↓${delta.abs()}';
-    return null;
+  String _rankText(int? rank) {
+    return rank == null ? '#—' : '#$rank';
   }
 }

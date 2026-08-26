@@ -4,31 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz/app/core/model/base_state.dart';
 import 'package:quiz/features/leaderboard/domain/entity/leaderboard_overview_entity.dart';
-import 'package:quiz/features/leaderboard/domain/entity/leaderboard_period.dart';
 import 'package:quiz/features/leaderboard/presentation/model/leaderboard_row_item.dart';
 import 'package:quiz/features/leaderboard/presentation/provider/leaderboard_provider.dart';
-import 'package:quiz/features/leaderboard/presentation/widgets/leaderboard_gap_row.dart';
 import 'package:quiz/features/leaderboard/presentation/widgets/leaderboard_placeholders.dart';
 import 'package:quiz/features/leaderboard/presentation/widgets/leaderboard_row.dart';
 import 'package:quiz/features/leaderboard/presentation/widgets/leaderboard_table_header.dart';
+import 'package:quiz/features/leaderboard/presentation/widgets/leaderboard_total_footer.dart';
 import 'package:quiz/features/leaderboard/presentation/widgets/my_position_card.dart';
 
-class LeaderboardPeriodView extends ConsumerStatefulWidget {
-  const LeaderboardPeriodView({super.key, required this.period});
-
-  final LeaderboardPeriod period;
+class LeaderboardSeasonView extends ConsumerStatefulWidget {
+  const LeaderboardSeasonView({super.key});
 
   @override
-  ConsumerState<LeaderboardPeriodView> createState() => _LeaderboardPeriodViewState();
+  ConsumerState<LeaderboardSeasonView> createState() =>
+      _LeaderboardSeasonViewState();
 }
 
-class _LeaderboardPeriodViewState extends ConsumerState<LeaderboardPeriodView> with AutomaticKeepAliveClientMixin {
+class _LeaderboardSeasonViewState extends ConsumerState<LeaderboardSeasonView> {
   static const _topPadding = 14.0;
 
   final _scrollController = ScrollController();
-
-  @override
-  bool get wantKeepAlive => true;
 
   @override
   void dispose() {
@@ -38,13 +33,9 @@ class _LeaderboardPeriodViewState extends ConsumerState<LeaderboardPeriodView> w
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    final seasonState = ref.watch(leaderboardProvider);
 
-    final periodState = ref.watch(
-      leaderboardProvider.select((state) => state.stateFor(widget.period)),
-    );
-
-    return switch (periodState) {
+    return switch (seasonState) {
       BaseLoadingState() => const LeaderboardLoading(),
       BaseDataState(:final data) => _DataView(
           overview: data,
@@ -52,13 +43,14 @@ class _LeaderboardPeriodViewState extends ConsumerState<LeaderboardPeriodView> w
           onScrollToMe: _scrollToMe,
         ),
       _ => LeaderboardError(
-          onRetry: () => ref.read(leaderboardProvider.notifier).fetch(widget.period),
+          onRetry: () => ref.read(leaderboardProvider.notifier).fetch(),
         ),
     };
   }
 
   void _scrollToMe(List<LeaderboardRowItem> items) {
-    final myIndex = items.indexWhere((item) => item is EntryRowItem && item.isMe);
+    final myIndex =
+        items.indexWhere((item) => item is EntryRowItem && item.isMe);
     if (myIndex < 0 || !_scrollController.hasClients) return;
 
     var offset = _topPadding;
@@ -67,7 +59,8 @@ class _LeaderboardPeriodViewState extends ConsumerState<LeaderboardPeriodView> w
     }
 
     final position = _scrollController.position;
-    final centered = offset - (position.viewportDimension - items[myIndex].height) / 2;
+    final centered =
+        offset - (position.viewportDimension - items[myIndex].height) / 2;
     final target = centered.clamp(0.0, position.maxScrollExtent);
 
     _scrollController.animateTo(
@@ -94,14 +87,17 @@ class _DataView extends StatelessWidget {
     final items = buildLeaderboardRowItems(overview);
     if (items.isEmpty) return const LeaderboardEmpty();
 
-    final maxRank = items.whereType<EntryRowItem>().fold(0, (max, item) => math.max(max, item.entry.rank));
+    final maxRank = items.whereType<EntryRowItem>().fold(
+          0,
+          (max, item) => math.max(max, item.entry.rank ?? 0),
+        );
     final rankColumnWidth = LeaderboardRow.columnWidthFor(maxRank);
 
     return ListView.builder(
       controller: scrollController,
       padding: const EdgeInsets.fromLTRB(
         22,
-        _LeaderboardPeriodViewState._topPadding,
+        _LeaderboardSeasonViewState._topPadding,
         22,
         24,
       ),
@@ -110,22 +106,22 @@ class _DataView extends StatelessWidget {
         final item = items[index];
 
         final child = switch (item) {
-          MyPositionCardItem(:final entry, :final previousEntry) => Padding(
+          MyPositionCardItem(:final entry) => Padding(
               padding: const EdgeInsets.only(bottom: 16),
               child: MyPositionCard(
                 entry: entry,
-                previousEntry: previousEntry,
                 onTap: () => onScrollToMe(items),
               ),
             ),
-          TableHeaderItem() => LeaderboardTableHeader(rankColumnWidth: rankColumnWidth),
-          EntryRowItem(:final entry, :final isFirst, :final isMe) => LeaderboardRow(
+          TableHeaderItem() =>
+            LeaderboardTableHeader(rankColumnWidth: rankColumnWidth),
+          EntryRowItem(:final entry, :final isFirst, :final isMe) =>
+            LeaderboardRow(
               entry: entry,
               isFirst: isFirst,
               isMe: isMe,
               rankColumnWidth: rankColumnWidth,
             ),
-          GapRowItem(:final hiddenCount) => LeaderboardGapRow(hiddenCount: hiddenCount),
           TotalFooterItem(:final total) => LeaderboardTotalFooter(total: total),
         };
 

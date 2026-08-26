@@ -199,12 +199,18 @@
     },
     "leaderboard": {
         "title": "Leaderboard",
+        "current_season": "Current 28-day season",
         "my_position": "My position",
-        "empty": "No activity yet for this period",
+        "provisional": "Provisional rating",
+        "empty": "No ranked players in this season yet",
         "rank_header": "RANK",
         "participant_header": "PLAYER",
-        "points_header": "POINTS",
-        "accuracy_label": "ACCURACY",
+        "rating_header": "RATING",
+        "best_rating": "BEST",
+        "official_answers(n)": {
+            "one": "$n OFFICIAL ANSWER",
+            "other": "$n OFFICIAL ANSWERS"
+        },
         "gap_row(n)": {
             "one": "$n MORE PLAYER",
             "other": "$n MORE PLAYERS"
@@ -214,36 +220,7 @@
             "other": "$n PLAYERS TOTAL"
         },
         "retry": "RETRY",
-        "load_failed": "Could not load leaderboard",
-        "period_tabs": {
-            "daily": "DAY",
-            "weekly": "WEEK",
-            "monthly": "MONTH",
-            "yearly": "YEAR"
-        },
-        "periods": {
-            "daily": "today",
-            "weekly": "this week",
-            "monthly": "this month",
-            "yearly": "this year"
-        },
-        "history": {
-            "title": "Rank trend",
-            "current_rank_label": "Current rank",
-            "delta_label(n)": {
-                "one": "over $n day",
-                "other": "over $n days"
-            },
-            "chart_end": "Today",
-            "by_days_title": "by day",
-            "today": "Today",
-            "yesterday": "Yesterday",
-            "points(n)": "$n pts",
-            "not_played": "Not played",
-            "empty": "No history yet — play an edition to enter the daily rating",
-            "error": "Failed to load history",
-            "retry": "Retry"
-        }
+        "load_failed": "Could not load leaderboard"
     },
     "gamification": {
         "level": "Level $level",

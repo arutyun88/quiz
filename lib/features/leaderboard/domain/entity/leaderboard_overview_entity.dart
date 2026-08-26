@@ -6,10 +6,8 @@ part 'leaderboard_overview_entity.freezed.dart';
 @freezed
 class LeaderboardOverviewEntity with _$LeaderboardOverviewEntity {
   const factory LeaderboardOverviewEntity({
-    required List<LeaderboardEntity> top,
-    LeaderboardEntity? me,
-    required List<LeaderboardEntity> around,
-    LeaderboardEntity? previousMe,
+    required List<LeaderboardEntity> entries,
+    required LeaderboardEntity me,
     required int total,
   }) = _LeaderboardOverviewEntity;
 }

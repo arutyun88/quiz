@@ -111,12 +111,20 @@ class _Translations$leaderboard$ru implements Translations$leaderboard$en {
 
 	// Translations
 	@override String get title => 'Рейтинг';
+	@override String get current_season => 'Текущий сезон · 28 дней';
 	@override String get my_position => 'Моя позиция';
-	@override String get empty => 'Нет активности за этот период';
+	@override String get provisional => 'Предварительный рейтинг';
+	@override String get empty => 'В этом сезоне пока нет участников с местом';
 	@override String get rank_header => 'МЕСТО';
 	@override String get participant_header => 'УЧАСТНИК';
-	@override String get points_header => 'ОЧКИ';
-	@override String get accuracy_label => 'ТОЧНОСТЬ';
+	@override String get rating_header => 'РЕЙТИНГ';
+	@override String get best_rating => 'ЛУЧШИЙ';
+	@override String official_answers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+		one: '${n} ОФИЦИАЛЬНЫЙ ОТВЕТ',
+		few: '${n} ОФИЦИАЛЬНЫХ ОТВЕТА',
+		many: '${n} ОФИЦИАЛЬНЫХ ОТВЕТОВ',
+		other: '${n} ОФИЦИАЛЬНОГО ОТВЕТА',
+	);
 	@override String gap_row({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
 		one: 'ЕЩЁ ${n} УЧАСТНИК',
 		few: 'ЕЩЁ ${n} УЧАСТНИКА',
@@ -131,9 +139,6 @@ class _Translations$leaderboard$ru implements Translations$leaderboard$en {
 	);
 	@override String get retry => 'ПОВТОРИТЬ';
 	@override String get load_failed => 'Не удалось загрузить рейтинг';
-	@override late final _Translations$leaderboard$period_tabs$ru period_tabs = _Translations$leaderboard$period_tabs$ru._(_root);
-	@override late final _Translations$leaderboard$periods$ru periods = _Translations$leaderboard$periods$ru._(_root);
-	@override late final _Translations$leaderboard$history$ru history = _Translations$leaderboard$history$ru._(_root);
 }
 
 // Path: gamification
@@ -554,58 +559,6 @@ class _Translations$authentication$sign_up$ru implements Translations$authentica
 	@override late final _Translations$authentication$sign_up$confirm_password$ru confirm_password = _Translations$authentication$sign_up$confirm_password$ru._(_root);
 	@override String get button => 'Зарегистрироваться';
 	@override String get title => 'Зарегистрироваться';
-}
-
-// Path: leaderboard.period_tabs
-class _Translations$leaderboard$period_tabs$ru implements Translations$leaderboard$period_tabs$en {
-	_Translations$leaderboard$period_tabs$ru._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get daily => 'ДЕНЬ';
-	@override String get weekly => 'НЕДЕЛЯ';
-	@override String get monthly => 'МЕСЯЦ';
-	@override String get yearly => 'ГОД';
-}
-
-// Path: leaderboard.periods
-class _Translations$leaderboard$periods$ru implements Translations$leaderboard$periods$en {
-	_Translations$leaderboard$periods$ru._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get daily => 'дня';
-	@override String get weekly => 'недели';
-	@override String get monthly => 'месяца';
-	@override String get yearly => 'года';
-}
-
-// Path: leaderboard.history
-class _Translations$leaderboard$history$ru implements Translations$leaderboard$history$en {
-	_Translations$leaderboard$history$ru._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Динамика места';
-	@override String get current_rank_label => 'Текущее место';
-	@override String delta_label({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
-		one: 'за ${n} день',
-		few: 'за ${n} дня',
-		many: 'за ${n} дней',
-		other: 'за ${n} дней',
-	);
-	@override String get chart_end => 'Сегодня';
-	@override String get by_days_title => 'по дням';
-	@override String get today => 'Сегодня';
-	@override String get yesterday => 'Вчера';
-	@override String points({required Object n}) => '${n} очк';
-	@override String get not_played => 'Не играли';
-	@override String get empty => 'Пока нет истории — сыграйте выпуск, чтобы попасть в дневной рейтинг';
-	@override String get error => 'Не удалось загрузить историю';
-	@override String get retry => 'Повторить';
 }
 
 // Path: achievements.categories
@@ -1226,36 +1179,19 @@ extension on TranslationsRu {
 			'authentication.sign_up.title' => 'Зарегистрироваться',
 			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '), link('Пользовательскому соглашению'), ]), 
 			'leaderboard.title' => 'Рейтинг',
+			'leaderboard.current_season' => 'Текущий сезон · 28 дней',
 			'leaderboard.my_position' => 'Моя позиция',
-			'leaderboard.empty' => 'Нет активности за этот период',
+			'leaderboard.provisional' => 'Предварительный рейтинг',
+			'leaderboard.empty' => 'В этом сезоне пока нет участников с местом',
 			'leaderboard.rank_header' => 'МЕСТО',
 			'leaderboard.participant_header' => 'УЧАСТНИК',
-			'leaderboard.points_header' => 'ОЧКИ',
-			'leaderboard.accuracy_label' => 'ТОЧНОСТЬ',
+			'leaderboard.rating_header' => 'РЕЙТИНГ',
+			'leaderboard.best_rating' => 'ЛУЧШИЙ',
+			'leaderboard.official_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} ОФИЦИАЛЬНЫЙ ОТВЕТ', few: '${n} ОФИЦИАЛЬНЫХ ОТВЕТА', many: '${n} ОФИЦИАЛЬНЫХ ОТВЕТОВ', other: '${n} ОФИЦИАЛЬНОГО ОТВЕТА', ),
 			'leaderboard.gap_row' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'ЕЩЁ ${n} УЧАСТНИК', few: 'ЕЩЁ ${n} УЧАСТНИКА', many: 'ЕЩЁ ${n} УЧАСТНИКОВ', other: 'ЕЩЁ ${n} УЧАСТНИКА', ), 
 			'leaderboard.total_participants' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'ВСЕГО ${n} УЧАСТНИК', few: 'ВСЕГО ${n} УЧАСТНИКА', many: 'ВСЕГО ${n} УЧАСТНИКОВ', other: 'ВСЕГО ${n} УЧАСТНИКА', ), 
 			'leaderboard.retry' => 'ПОВТОРИТЬ',
 			'leaderboard.load_failed' => 'Не удалось загрузить рейтинг',
-			'leaderboard.period_tabs.daily' => 'ДЕНЬ',
-			'leaderboard.period_tabs.weekly' => 'НЕДЕЛЯ',
-			'leaderboard.period_tabs.monthly' => 'МЕСЯЦ',
-			'leaderboard.period_tabs.yearly' => 'ГОД',
-			'leaderboard.periods.daily' => 'дня',
-			'leaderboard.periods.weekly' => 'недели',
-			'leaderboard.periods.monthly' => 'месяца',
-			'leaderboard.periods.yearly' => 'года',
-			'leaderboard.history.title' => 'Динамика места',
-			'leaderboard.history.current_rank_label' => 'Текущее место',
-			'leaderboard.history.delta_label' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'за ${n} день', few: 'за ${n} дня', many: 'за ${n} дней', other: 'за ${n} дней', ), 
-			'leaderboard.history.chart_end' => 'Сегодня',
-			'leaderboard.history.by_days_title' => 'по дням',
-			'leaderboard.history.today' => 'Сегодня',
-			'leaderboard.history.yesterday' => 'Вчера',
-			'leaderboard.history.points' => ({required Object n}) => '${n} очк',
-			'leaderboard.history.not_played' => 'Не играли',
-			'leaderboard.history.empty' => 'Пока нет истории — сыграйте выпуск, чтобы попасть в дневной рейтинг',
-			'leaderboard.history.error' => 'Не удалось загрузить историю',
-			'leaderboard.history.retry' => 'Повторить',
 			'gamification.level' => ({required Object level}) => 'Уровень ${level}',
 			'gamification.level_short' => ({required Object level}) => 'Ур. ${level}',
 			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',

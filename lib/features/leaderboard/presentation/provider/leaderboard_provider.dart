@@ -3,69 +3,35 @@ import 'package:quiz/app/core/model/base_state.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/leaderboard/domain/entity/leaderboard_overview_entity.dart';
-import 'package:quiz/features/leaderboard/domain/entity/leaderboard_period.dart';
 import 'package:quiz/features/leaderboard/domain/repository/leaderboard_repository.dart';
-import 'package:quiz/features/leaderboard/presentation/provider/leaderboard_state.dart';
 
-export 'leaderboard_state.dart';
-
-final leaderboardProvider = StateNotifierProvider<LeaderboardNotifier, LeaderboardState>(
+final leaderboardProvider = StateNotifierProvider<LeaderboardNotifier,
+    BaseState<LeaderboardOverviewEntity>>(
   (ref) => LeaderboardNotifier(
     repository: getIt<LeaderboardRepository>(),
   ),
 );
 
-class LeaderboardNotifier extends StateNotifier<LeaderboardState> {
+class LeaderboardNotifier
+    extends StateNotifier<BaseState<LeaderboardOverviewEntity>> {
   final LeaderboardRepository _repository;
 
   LeaderboardNotifier({required LeaderboardRepository repository})
       : _repository = repository,
-        super(LeaderboardState.initial()) {
-    fetch(LeaderboardPeriod.daily);
-    _preloadAdjacent(LeaderboardPeriod.daily);
+        super(BaseState.loading()) {
+    fetch();
   }
 
-  Future<void> fetch(LeaderboardPeriod period) async {
-    state = state.updatePeriod(period, BaseState.loading());
+  Future<void> fetch() async {
+    state = BaseState.loading();
 
-    final result = await _repository.fetchOverview(period);
+    final result = await _repository.fetchCurrentSeason();
 
     switch (result) {
       case ResultOk(data: final overview):
-        state = state.updatePeriod(period, BaseState.data(overview));
+        state = BaseState.data(overview);
       case ResultFailed(error: final failure):
-        state = state.updatePeriod(period, BaseState.failed(failure));
+        state = BaseState.failed(failure);
     }
-  }
-
-  void changePeriod(LeaderboardPeriod period) {
-    if (period == state.currentPeriod) return;
-
-    state = state.copyWith(currentPeriod: period);
-
-    final periodState = state.periodStates[period];
-    final shouldFetch = periodState == null || periodState is BaseFailedState<LeaderboardOverviewEntity>;
-
-    if (shouldFetch) fetch(period);
-
-    _preloadAdjacent(period);
-  }
-
-  void _preloadAdjacent(LeaderboardPeriod period) {
-    final index = LeaderboardPeriod.values.indexOf(period);
-    final previousIndex = index - 1;
-    final nextIndex = index + 1;
-
-    if (previousIndex >= 0) {
-      _fetchIfMissing(LeaderboardPeriod.values[previousIndex]);
-    }
-    if (nextIndex < LeaderboardPeriod.values.length) {
-      _fetchIfMissing(LeaderboardPeriod.values[nextIndex]);
-    }
-  }
-
-  void _fetchIfMissing(LeaderboardPeriod period) {
-    if (state.periodStates.containsKey(period)) return;
-    fetch(period);
   }
 }

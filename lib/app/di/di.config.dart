@@ -45,8 +45,6 @@ import '../../features/gamification/domain/repository/gamification_repository.da
     as _i31;
 import '../../features/leaderboard/data/converter/leaderboard_converter.dart'
     as _i1065;
-import '../../features/leaderboard/data/converter/leaderboard_timeline_converter.dart'
-    as _i1036;
 import '../../features/leaderboard/di/di.dart' as _i946;
 import '../../features/leaderboard/domain/repository/leaderboard_repository.dart'
     as _i914;
@@ -131,12 +129,12 @@ extension GetItInjectableX on _i174.GetIt {
     final authenticationModule = _$AuthenticationModule();
     final questionModule = _$QuestionModule();
     final userModule = _$UserModule();
-    final leaderboardModule = _$LeaderboardModule();
     final appSettingsModule = _$AppSettingsModule();
     final achievementsModule = _$AchievementsModule();
     final reviewModule = _$ReviewModule();
     final gamificationModule = _$GamificationModule();
     final masteryModule = _$MasteryModule();
+    final leaderboardModule = _$LeaderboardModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
       () => firebaseConfigModule.firebase(),
       preResolve: true,
@@ -185,8 +183,6 @@ extension GetItInjectableX on _i174.GetIt {
           answerConverter: gh<_i498.AnswerConverter>(),
         ));
     gh.factory<_i812.UserDaoConverter>(() => _i812.UserDaoConverterImpl());
-    gh.factory<_i1036.LeaderboardTimelineConverter>(
-        () => _i1036.LeaderboardTimelineConverterImpl());
     gh.factory<_i11.UserConverter>(() => _i11.UserConverterImpl());
     gh.factory<_i692.AnswerDbConverter>(() => _i692.AnswerDbConverterImpl());
     gh.singleton<_i941.UnauthorizedEventService>(
@@ -232,9 +228,6 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i935.AppDatabase>(),
           answeredQuestionDbConverter: gh<_i988.AnsweredQuestionDbConverter>(),
         ));
-    gh.factory<_i1065.LeaderboardOverviewConverter>(() =>
-        _i1065.LeaderboardOverviewConverterImpl(
-            gh<_i1065.LeaderboardConverter>()));
     gh.lazySingleton<_i776.DemoRepository>(() => _i676.RemoteDemoRepository(
           client: gh<_i782.ApiClient>(),
           questionPageConverter: gh<_i622.QuestionPageConverter>(),
@@ -243,13 +236,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => userModule.userStatisticsRepository(
               gh<_i782.ApiClient>(),
               gh<_i740.UserStatisticsConverter>(),
-            ));
-    gh.lazySingleton<_i914.LeaderboardRepository>(
-        () => leaderboardModule.leaderboardRepository(
-              client: gh<_i782.ApiClient>(),
-              converter: gh<_i1065.LeaderboardConverter>(),
-              overviewConverter: gh<_i1065.LeaderboardOverviewConverter>(),
-              timelineConverter: gh<_i1036.LeaderboardTimelineConverter>(),
             ));
     gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
         .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
@@ -283,6 +269,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i918.RemoteAgeAccessRepository(client: gh<_i782.ApiClient>()));
     gh.lazySingleton<_i797.AuthenticationRepository>(
         () => authenticationModule.repository(client: gh<_i782.ApiClient>()));
+    gh.lazySingleton<_i914.LeaderboardRepository>(
+        () => leaderboardModule.leaderboardRepository(
+              client: gh<_i782.ApiClient>(),
+              converter: gh<_i1065.LeaderboardConverter>(),
+            ));
     gh.lazySingleton<_i547.SignInWithEmailGateway>(
         () => _i547.SignInWithEmailGateway(
               authenticationRepository: gh<_i797.AuthenticationRepository>(),
@@ -326,8 +317,6 @@ class _$QuestionModule extends _i906.QuestionModule {}
 
 class _$UserModule extends _i527.UserModule {}
 
-class _$LeaderboardModule extends _i946.LeaderboardModule {}
-
 class _$AppSettingsModule extends _i913.AppSettingsModule {}
 
 class _$AchievementsModule extends _i134.AchievementsModule {}
@@ -337,3 +326,5 @@ class _$ReviewModule extends _i1035.ReviewModule {}
 class _$GamificationModule extends _i941.GamificationModule {}
 
 class _$MasteryModule extends _i963.MasteryModule {}
+
+class _$LeaderboardModule extends _i946.LeaderboardModule {}
