@@ -14,6 +14,7 @@ enum DailyRunStatus {
 enum DailyAssignmentKind {
   main,
   bonus,
+  review,
   unknown,
 }
 

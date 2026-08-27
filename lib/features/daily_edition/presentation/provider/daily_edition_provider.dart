@@ -156,6 +156,48 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     }
   }
 
+  /// Opens the server-owned run and reserves an unseen question related to an
+  /// incorrect historical attempt. The server owns both source validation and
+  /// continuation capacity; this client never grants a local allowance.
+  Future<void> bootstrapReviewReplacement({
+    required String sourceAttemptId,
+    String? timezoneId,
+  }) async {
+    if (_bootstrapping) return;
+    final accountId = _accountId;
+    if (accountId == null) {
+      state = const DailyEditionFailedState(
+        failure: Failure.authentication(
+          AuthenticationFailureType.unauthenticated,
+        ),
+      );
+      return;
+    }
+    _bootstrapping = true;
+    state = const DailyEditionLoadingState();
+    try {
+      final openResult = await _repository.open(timezoneId: timezoneId);
+      switch (openResult) {
+        case ResultOk(data: final run):
+          final result = await _repository.reserveReviewReplacement(
+            runId: run.runId,
+            clientEventId: _clientEventIdFactory(),
+            sourceAttemptId: sourceAttemptId,
+          );
+          switch (result) {
+            case ResultOk(data: final assignment):
+              await _showAssignment(run, assignment);
+            case ResultFailed(error: final failure):
+              state = DailyEditionFailedState(failure: failure, run: run);
+          }
+        case ResultFailed(error: final failure):
+          state = DailyEditionFailedState(failure: failure);
+      }
+    } finally {
+      _bootstrapping = false;
+    }
+  }
+
   Future<void> useHint() async {
     final current = state;
     if (current is! DailyEditionActiveState ||

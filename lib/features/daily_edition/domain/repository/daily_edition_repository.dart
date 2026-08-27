@@ -7,6 +7,12 @@ abstract interface class DailyEditionRepository {
 
   Future<Result<DailyAssignmentEntity, Failure>> fetchCurrent(String runId);
 
+  Future<Result<DailyAssignmentEntity, Failure>> reserveReviewReplacement({
+    required String runId,
+    required String clientEventId,
+    required String sourceAttemptId,
+  });
+
   Future<Result<DailyRunEntity, Failure>> close(String runId);
 
   Future<Result<DailyHintEntity, Failure>> useHint({

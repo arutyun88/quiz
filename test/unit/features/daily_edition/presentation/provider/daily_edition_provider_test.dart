@@ -168,6 +168,35 @@ void main() {
     verify(() => repository.fetchCurrent('run-1')).called(1);
   });
 
+  test('review bootstrap opens a run and reserves through the server',
+      () async {
+    when(() => repository.open(timezoneId: 'Asia/Yekaterinburg'))
+        .thenAnswer((_) async => Result.ok(completedRun));
+    when(
+      () => repository.reserveReviewReplacement(
+        runId: 'run-1',
+        clientEventId: 'event-1',
+        sourceAttemptId: 'attempt-incorrect-1',
+      ),
+    ).thenAnswer((_) async => const Result.ok(assignment));
+
+    await notifier.bootstrapReviewReplacement(
+      sourceAttemptId: 'attempt-incorrect-1',
+      timezoneId: 'Asia/Yekaterinburg',
+    );
+
+    final state = notifier.state as DailyEditionActiveState;
+    expect(state.assignment, assignment);
+    verify(
+      () => repository.reserveReviewReplacement(
+        runId: 'run-1',
+        clientEventId: 'event-1',
+        sourceAttemptId: 'attempt-incorrect-1',
+      ),
+    ).called(1);
+    verifyNever(() => repository.fetchCurrent(any()));
+  });
+
   test('bootstrap fails closed without an authenticated account', () async {
     final unauthenticatedNotifier = DailyEditionNotifier(
       accountId: null,

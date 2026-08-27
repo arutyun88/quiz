@@ -38,6 +38,26 @@ class RemoteDailyEditionRepository implements DailyEditionRepository {
       );
 
   @override
+  Future<Result<DailyAssignmentEntity, Failure>> reserveReviewReplacement({
+    required String runId,
+    required String clientEventId,
+    required String sourceAttemptId,
+  }) async =>
+      await _client.post(
+        '/daily-editions/$runId/review-replacements',
+        body: {
+          'client_event_id': clientEventId,
+          'source_attempt_id': sourceAttemptId,
+        },
+        mapper: (json) => DataDto.fromJson(
+          json,
+          (data) => DailyAssignmentDto.fromJson(data as Json),
+        ),
+        converter: (dto) => dto.data.toEntity(),
+        enableLocale: true,
+      );
+
+  @override
   Future<Result<DailyRunEntity, Failure>> close(String runId) async =>
       await _client.post(
         '/daily-editions/$runId/close',

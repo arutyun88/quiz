@@ -178,6 +178,46 @@ void main() {
     ).called(1);
   });
 
+  test('review replacement sends only server identity and idempotency fields',
+      () async {
+    when(
+      () => client.post<DailyAssignmentEntity, DataDto<DailyAssignmentDto>>(
+        any(),
+        body: any(named: 'body'),
+        queryParameters: any(named: 'queryParameters'),
+        headers: any(named: 'headers'),
+        mapper: any(named: 'mapper'),
+        converter: any(named: 'converter'),
+        enableLocale: any(named: 'enableLocale'),
+        onSuccess: any(named: 'onSuccess'),
+      ),
+    ).thenAnswer((_) async => const Result.ok(assignment));
+
+    await repository.reserveReviewReplacement(
+      runId: 'run-1',
+      clientEventId: 'reservation-1',
+      sourceAttemptId: 'attempt-1',
+    );
+
+    final captured = verify(
+      () => client.post<DailyAssignmentEntity, DataDto<DailyAssignmentDto>>(
+        '/daily-editions/run-1/review-replacements',
+        body: captureAny(named: 'body'),
+        queryParameters: any(named: 'queryParameters'),
+        headers: any(named: 'headers'),
+        mapper: any(named: 'mapper'),
+        converter: any(named: 'converter'),
+        enableLocale: true,
+        onSuccess: any(named: 'onSuccess'),
+      ),
+    ).captured.single as Map<String, dynamic>;
+
+    expect(captured, {
+      'client_event_id': 'reservation-1',
+      'source_attempt_id': 'attempt-1',
+    });
+  });
+
   test('close uses the run-scoped endpoint without local state', () async {
     when(
       () => client.post<DailyRunEntity, DataDto<DailyOpenDto>>(

@@ -5,7 +5,9 @@ import 'package:quiz/features/daily_edition/presentation/daily_quiz_page.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 
 class DailyQuizFlow extends ConsumerStatefulWidget {
-  const DailyQuizFlow({super.key});
+  const DailyQuizFlow({super.key, this.reviewSourceAttemptId});
+
+  final String? reviewSourceAttemptId;
 
   @override
   ConsumerState<DailyQuizFlow> createState() => _DailyQuizFlowState();
@@ -20,9 +22,16 @@ class _DailyQuizFlowState extends ConsumerState<DailyQuizFlow> {
       final timezoneId = ref.read(authenticationProvider).mapOrNull(
             authenticated: (state) => state.user?.timezoneId,
           );
-      ref.read(dailyEditionProvider.notifier).bootstrap(
-            timezoneId: timezoneId,
-          );
+      final notifier = ref.read(dailyEditionProvider.notifier);
+      final sourceAttemptId = widget.reviewSourceAttemptId;
+      if (sourceAttemptId == null) {
+        notifier.bootstrap(timezoneId: timezoneId);
+      } else {
+        notifier.bootstrapReviewReplacement(
+          sourceAttemptId: sourceAttemptId,
+          timezoneId: timezoneId,
+        );
+      }
     });
   }
 

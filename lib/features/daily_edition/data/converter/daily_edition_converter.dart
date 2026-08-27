@@ -147,6 +147,7 @@ DailyRunStatus _runStatus(String value) => switch (value) {
 DailyAssignmentKind _assignmentKind(String value) => switch (value) {
       'MAIN' => DailyAssignmentKind.main,
       'BONUS' => DailyAssignmentKind.bonus,
+      'REVIEW' => DailyAssignmentKind.review,
       _ => DailyAssignmentKind.unknown,
     };
 

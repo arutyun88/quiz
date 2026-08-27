@@ -33,7 +33,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 
 	late final TranslationsRu _root = this; // ignore: unused_field
 
-	@override 
+	@override
 	TranslationsRu $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsRu(meta: meta ?? this.$meta);
 
 	// Translations
@@ -401,16 +401,23 @@ class _Translations$review$ru implements Translations$review$en {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'На повторение';
-	@override String get info_banner => 'Вручную вызвать нельзя — интервальное повторение хранит честность рейтинга';
-	@override String due_days({required Object n}) => '${n}д';
-	@override String get due_label => 'Через';
-	@override String wrong_times({required Object n}) => 'Ошибка ${n}×';
-	@override String mastered_times({required Object n}) => 'Освоено ${n}×';
-	@override String get queued_label => 'В очереди на повтор';
-	@override String get mastered_label => 'Уже освоено';
-	@override String get footer => 'Повтор приходит в следующих выпусках';
-	@override String get empty => 'Очередь пуста — в последних выпусках не было ошибок';
+	@override String get title => 'История ошибок';
+	@override String get info_banner => 'Разберите точную попытку или потренируйтесь на новом непройденном вопросе';
+	@override String total({required Object n}) => 'Ошибок: ${n}';
+	@override String get your_answer => 'Ваш ответ';
+	@override String get correct_answer => 'Правильный ответ';
+	@override String get explanation => 'Объяснение';
+	@override String get used_hint => 'Использованная подсказка';
+	@override String get skipped => 'Пропущено';
+	@override String get content_redacted => 'Попытка скрыта текущими настройками доступа к контенту';
+	@override String get version_current => 'Текущая версия';
+	@override String get version_updated => 'Версия обновлена';
+	@override String get version_withdrawn => 'Снято с публикации';
+	@override String get version_unknown => 'Неизвестная версия';
+	@override String get practice_cta => 'Потренировать тему';
+	@override String get load_more => 'Показать ещё';
+	@override String get load_more_error => 'Не удалось загрузить следующие попытки. Повторите ещё раз.';
+	@override String get empty => 'Ошибок пока нет — здесь появятся завершённые неправильные попытки';
 	@override String get error => 'Не удалось загрузить';
 	@override String get retry => 'Повторить';
 }
@@ -1177,7 +1184,7 @@ extension on TranslationsRu {
 			'authentication.sign_up.confirm_password.validation_message' => 'Пароли не совпадают',
 			'authentication.sign_up.button' => 'Зарегистрироваться',
 			'authentication.sign_up.title' => 'Зарегистрироваться',
-			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '), link('Пользовательскому соглашению'), ]), 
+			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '), link('Пользовательскому соглашению'), ]),
 			'leaderboard.title' => 'Рейтинг',
 			'leaderboard.current_season' => 'Текущий сезон · 28 дней',
 			'leaderboard.my_position' => 'Моя позиция',
@@ -1188,16 +1195,16 @@ extension on TranslationsRu {
 			'leaderboard.rating_header' => 'РЕЙТИНГ',
 			'leaderboard.best_rating' => 'ЛУЧШИЙ',
 			'leaderboard.official_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} ОФИЦИАЛЬНЫЙ ОТВЕТ', few: '${n} ОФИЦИАЛЬНЫХ ОТВЕТА', many: '${n} ОФИЦИАЛЬНЫХ ОТВЕТОВ', other: '${n} ОФИЦИАЛЬНОГО ОТВЕТА', ),
-			'leaderboard.gap_row' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'ЕЩЁ ${n} УЧАСТНИК', few: 'ЕЩЁ ${n} УЧАСТНИКА', many: 'ЕЩЁ ${n} УЧАСТНИКОВ', other: 'ЕЩЁ ${n} УЧАСТНИКА', ), 
-			'leaderboard.total_participants' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'ВСЕГО ${n} УЧАСТНИК', few: 'ВСЕГО ${n} УЧАСТНИКА', many: 'ВСЕГО ${n} УЧАСТНИКОВ', other: 'ВСЕГО ${n} УЧАСТНИКА', ), 
+			'leaderboard.gap_row' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'ЕЩЁ ${n} УЧАСТНИК', few: 'ЕЩЁ ${n} УЧАСТНИКА', many: 'ЕЩЁ ${n} УЧАСТНИКОВ', other: 'ЕЩЁ ${n} УЧАСТНИКА', ),
+			'leaderboard.total_participants' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'ВСЕГО ${n} УЧАСТНИК', few: 'ВСЕГО ${n} УЧАСТНИКА', many: 'ВСЕГО ${n} УЧАСТНИКОВ', other: 'ВСЕГО ${n} УЧАСТНИКА', ),
 			'leaderboard.retry' => 'ПОВТОРИТЬ',
 			'leaderboard.load_failed' => 'Не удалось загрузить рейтинг',
 			'gamification.level' => ({required Object level}) => 'Уровень ${level}',
 			'gamification.level_short' => ({required Object level}) => 'Ур. ${level}',
 			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',
 			'gamification.xp_remaining' => ({required Object remaining}) => 'ещё ${remaining} XP',
-			'gamification.streak' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} день подряд', few: '${n} дня подряд', many: '${n} дней подряд', other: '${n} дней подряд', ), 
-			'gamification.points' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} очко', few: '${n} очка', many: '${n} очков', other: '${n} очков', ), 
+			'gamification.streak' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} день подряд', few: '${n} дня подряд', many: '${n} дней подряд', other: '${n} дней подряд', ),
+			'gamification.points' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} очко', few: '${n} очка', many: '${n} очков', other: '${n} очков', ),
 			'gamification.accuracy' => ({required Object value}) => '${value}% точность',
 			'gamification.achievements_link' => 'Достижения',
 			'gamification.streak_badge_label' => 'СЕРИЯ',
@@ -1228,7 +1235,7 @@ extension on TranslationsRu {
 			'question.answer_reveal.correct' => 'ВЕРНО',
 			'question.answer_reveal.incorrect' => 'НЕВЕРНО',
 			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',
-			'question.answer_reveal.streak_bonus' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '+${n} СЕРИЯ', few: '+${n} СЕРИИ', many: '+${n} СЕРИЙ', other: '+${n} СЕРИИ', ), 
+			'question.answer_reveal.streak_bonus' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '+${n} СЕРИЯ', few: '+${n} СЕРИИ', many: '+${n} СЕРИЙ', other: '+${n} СЕРИИ', ),
 			'question.answer_reveal.next_question' => 'СЛЕДУЮЩИЙ ВОПРОС',
 			'question.dialog.correct.header.0' => 'Отлично, вы абсолютно правы',
 			'question.dialog.correct.header.1' => 'Верно, так держать',
@@ -1341,16 +1348,23 @@ extension on TranslationsRu {
 			'mastery.paywall.tagline' => 'Мастерство тем',
 			'mastery.paywall.description' => 'Узнайте, где вы сильны, а где стоит подтянуть — и алгоритм сделает остальное.',
 			'mastery.paywall.cta' => 'Попробовать Quiz+',
-			'review.title' => 'На повторение',
-			'review.info_banner' => 'Вручную вызвать нельзя — интервальное повторение хранит честность рейтинга',
-			'review.due_days' => ({required Object n}) => '${n}д',
-			'review.due_label' => 'Через',
-			'review.wrong_times' => ({required Object n}) => 'Ошибка ${n}×',
-			'review.mastered_times' => ({required Object n}) => 'Освоено ${n}×',
-			'review.queued_label' => 'В очереди на повтор',
-			'review.mastered_label' => 'Уже освоено',
-			'review.footer' => 'Повтор приходит в следующих выпусках',
-			'review.empty' => 'Очередь пуста — в последних выпусках не было ошибок',
+			'review.title' => 'История ошибок',
+			'review.info_banner' => 'Разберите точную попытку или потренируйтесь на новом непройденном вопросе',
+			'review.total' => ({required Object n}) => 'Ошибок: ${n}',
+			'review.your_answer' => 'Ваш ответ',
+			'review.correct_answer' => 'Правильный ответ',
+			'review.explanation' => 'Объяснение',
+			'review.used_hint' => 'Использованная подсказка',
+			'review.skipped' => 'Пропущено',
+			'review.content_redacted' => 'Попытка скрыта текущими настройками доступа к контенту',
+			'review.version_current' => 'Текущая версия',
+			'review.version_updated' => 'Версия обновлена',
+			'review.version_withdrawn' => 'Снято с публикации',
+			'review.version_unknown' => 'Неизвестная версия',
+			'review.practice_cta' => 'Потренировать тему',
+			'review.load_more' => 'Показать ещё',
+			'review.load_more_error' => 'Не удалось загрузить следующие попытки. Повторите ещё раз.',
+			'review.empty' => 'Ошибок пока нет — здесь появятся завершённые неправильные попытки',
 			'review.error' => 'Не удалось загрузить',
 			'review.retry' => 'Повторить',
 			_ => null,

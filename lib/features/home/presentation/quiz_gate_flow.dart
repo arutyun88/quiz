@@ -5,13 +5,17 @@ import 'package:quiz/features/daily_edition/presentation/daily_quiz_flow.dart';
 import 'package:quiz/features/demo/presentation/demo_quiz_flow.dart';
 
 class QuizGateFlow extends ConsumerWidget {
-  const QuizGateFlow({super.key});
+  const QuizGateFlow({super.key, this.reviewSourceAttemptId});
+
+  final String? reviewSourceAttemptId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isAuthenticated = ref.watch(
       authenticationProvider.select((state) => state.isAuthenticated),
     );
-    return isAuthenticated ? const DailyQuizFlow() : const DemoQuizFlow();
+    return isAuthenticated
+        ? DailyQuizFlow(reviewSourceAttemptId: reviewSourceAttemptId)
+        : const DemoQuizFlow();
   }
 }

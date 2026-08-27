@@ -605,35 +605,56 @@ class Translations$review$en {
 
 	// Translations
 
-	/// ru: 'На повторение'
-	String get title => 'Review queue';
+	/// ru: 'История ошибок'
+	String get title => 'Mistake history';
 
-	/// ru: 'Вручную вызвать нельзя — интервальное повторение хранит честность рейтинга'
-	String get info_banner => 'No manual trigger — spaced repetition keeps the leaderboard fair';
+	/// ru: 'Разберите точную попытку или потренируйтесь на новом непройденном вопросе'
+	String get info_banner => 'Review the exact attempt or practice with a new unseen question';
 
-	/// ru: '${n}д'
-	String due_days({required Object n}) => '${n}d';
+	/// ru: 'Ошибок: $n'
+	String total({required Object n}) => '${n} mistakes';
 
-	/// ru: 'Через'
-	String get due_label => 'In';
+	/// ru: 'Ваш ответ'
+	String get your_answer => 'Your answer';
 
-	/// ru: 'Ошибка $n×'
-	String wrong_times({required Object n}) => 'Missed ${n}×';
+	/// ru: 'Правильный ответ'
+	String get correct_answer => 'Correct answer';
 
-	/// ru: 'Освоено $n×'
-	String mastered_times({required Object n}) => 'Mastered ${n}×';
+	/// ru: 'Объяснение'
+	String get explanation => 'Explanation';
 
-	/// ru: 'В очереди на повтор'
-	String get queued_label => 'Queued for review';
+	/// ru: 'Использованная подсказка'
+	String get used_hint => 'Hint used';
 
-	/// ru: 'Уже освоено'
-	String get mastered_label => 'Already mastered';
+	/// ru: 'Пропущено'
+	String get skipped => 'Skipped';
 
-	/// ru: 'Повтор приходит в следующих выпусках'
-	String get footer => 'Repeats come back in the next issues';
+	/// ru: 'Попытка скрыта текущими настройками доступа к контенту'
+	String get content_redacted => 'This attempt is hidden by your current content access settings';
 
-	/// ru: 'Очередь пуста — в последних выпусках не было ошибок'
-	String get empty => 'The queue is empty — no misses in the recent issues';
+	/// ru: 'Текущая версия'
+	String get version_current => 'Current version';
+
+	/// ru: 'Версия обновлена'
+	String get version_updated => 'Updated version';
+
+	/// ru: 'Снято с публикации'
+	String get version_withdrawn => 'Withdrawn';
+
+	/// ru: 'Неизвестная версия'
+	String get version_unknown => 'Unknown version';
+
+	/// ru: 'Потренировать тему'
+	String get practice_cta => 'Practice this topic';
+
+	/// ru: 'Показать ещё'
+	String get load_more => 'Load more';
+
+	/// ru: 'Не удалось загрузить следующие попытки. Повторите ещё раз.'
+	String get load_more_error => 'Could not load more attempts. Try again.';
+
+	/// ru: 'Ошибок пока нет — здесь появятся завершённые неправильные попытки'
+	String get empty => 'No mistakes yet — completed incorrect attempts will appear here';
 
 	/// ru: 'Не удалось загрузить'
 	String get error => 'Failed to load';
@@ -1770,7 +1791,7 @@ extension on Translations {
 			'authentication.sign_up.confirm_password.validation_message' => 'Passwords do not match',
 			'authentication.sign_up.button' => 'Sign up',
 			'authentication.sign_up.title' => 'Sign up',
-			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'By using the app, you accept '), link('User Agreement'), ]), 
+			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'By using the app, you accept '), link('User Agreement'), ]),
 			'leaderboard.title' => 'Leaderboard',
 			'leaderboard.current_season' => 'Current 28-day season',
 			'leaderboard.my_position' => 'My position',
@@ -1781,16 +1802,16 @@ extension on Translations {
 			'leaderboard.rating_header' => 'RATING',
 			'leaderboard.best_rating' => 'BEST',
 			'leaderboard.official_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} OFFICIAL ANSWER', other: '${n} OFFICIAL ANSWERS', ),
-			'leaderboard.gap_row' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} MORE PLAYER', other: '${n} MORE PLAYERS', ), 
-			'leaderboard.total_participants' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} PLAYER TOTAL', other: '${n} PLAYERS TOTAL', ), 
+			'leaderboard.gap_row' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} MORE PLAYER', other: '${n} MORE PLAYERS', ),
+			'leaderboard.total_participants' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} PLAYER TOTAL', other: '${n} PLAYERS TOTAL', ),
 			'leaderboard.retry' => 'RETRY',
 			'leaderboard.load_failed' => 'Could not load leaderboard',
 			'gamification.level' => ({required Object level}) => 'Level ${level}',
 			'gamification.level_short' => ({required Object level}) => 'Lvl ${level}',
 			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',
 			'gamification.xp_remaining' => ({required Object remaining}) => '${remaining} XP left',
-			'gamification.streak' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} day streak', other: '${n} days streak', ), 
-			'gamification.points' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} pt', other: '${n} pts', ), 
+			'gamification.streak' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} day streak', other: '${n} days streak', ),
+			'gamification.points' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} pt', other: '${n} pts', ),
 			'gamification.accuracy' => ({required Object value}) => '${value}% accuracy',
 			'gamification.achievements_link' => 'Achievements',
 			'gamification.streak_badge_label' => 'STREAK',
@@ -1821,7 +1842,7 @@ extension on Translations {
 			'question.answer_reveal.correct' => 'CORRECT',
 			'question.answer_reveal.incorrect' => 'INCORRECT',
 			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',
-			'question.answer_reveal.streak_bonus' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '+${n} STREAK', other: '+${n} STREAK', ), 
+			'question.answer_reveal.streak_bonus' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '+${n} STREAK', other: '+${n} STREAK', ),
 			'question.answer_reveal.next_question' => 'NEXT QUESTION',
 			'question.dialog.correct.header.0' => 'Great job! You\'re absolutely correct',
 			'question.dialog.correct.header.1' => 'Well done! That\'s right',
@@ -1934,16 +1955,23 @@ extension on Translations {
 			'mastery.paywall.tagline' => 'Topic mastery',
 			'mastery.paywall.description' => 'See where you\'re strong and what needs work — the algorithm does the rest.',
 			'mastery.paywall.cta' => 'Try Quiz+',
-			'review.title' => 'Review queue',
-			'review.info_banner' => 'No manual trigger — spaced repetition keeps the leaderboard fair',
-			'review.due_days' => ({required Object n}) => '${n}d',
-			'review.due_label' => 'In',
-			'review.wrong_times' => ({required Object n}) => 'Missed ${n}×',
-			'review.mastered_times' => ({required Object n}) => 'Mastered ${n}×',
-			'review.queued_label' => 'Queued for review',
-			'review.mastered_label' => 'Already mastered',
-			'review.footer' => 'Repeats come back in the next issues',
-			'review.empty' => 'The queue is empty — no misses in the recent issues',
+			'review.title' => 'Mistake history',
+			'review.info_banner' => 'Review the exact attempt or practice with a new unseen question',
+			'review.total' => ({required Object n}) => '${n} mistakes',
+			'review.your_answer' => 'Your answer',
+			'review.correct_answer' => 'Correct answer',
+			'review.explanation' => 'Explanation',
+			'review.used_hint' => 'Hint used',
+			'review.skipped' => 'Skipped',
+			'review.content_redacted' => 'This attempt is hidden by your current content access settings',
+			'review.version_current' => 'Current version',
+			'review.version_updated' => 'Updated version',
+			'review.version_withdrawn' => 'Withdrawn',
+			'review.version_unknown' => 'Unknown version',
+			'review.practice_cta' => 'Practice this topic',
+			'review.load_more' => 'Load more',
+			'review.load_more_error' => 'Could not load more attempts. Try again.',
+			'review.empty' => 'No mistakes yet — completed incorrect attempts will appear here',
 			'review.error' => 'Failed to load',
 			'review.retry' => 'Retry',
 			_ => null,

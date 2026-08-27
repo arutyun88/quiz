@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:quiz/app/core/client/api_client.dart';
-import 'package:quiz/features/review/data/converter/review_queue_converter.dart';
+import 'package:quiz/features/review/data/converter/review_history_converter.dart';
 import 'package:quiz/features/review/data/repository/remote_review_repository.dart';
 import 'package:quiz/features/review/domain/repository/review_repository.dart';
 
@@ -9,10 +9,10 @@ abstract class ReviewModule {
   @lazySingleton
   ReviewRepository reviewRepository({
     required ApiClient client,
-    required ReviewQueueConverter reviewQueueConverter,
+    required ReviewHistoryConverter reviewHistoryConverter,
   }) =>
       RemoteReviewRepository(
         client: client,
-        reviewQueueConverter: reviewQueueConverter,
+        reviewHistoryConverter: reviewHistoryConverter,
       );
 }

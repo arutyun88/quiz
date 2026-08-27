@@ -185,6 +185,22 @@ void main() {
     expect(entity.kind, DailyAssignmentKind.unknown);
   });
 
+  test('parses review replacement as an official assignment kind', () {
+    final entity = DailyAssignmentDto.fromJson({
+      'assignment_id': 'assignment-review-1',
+      'question_id': 'question-2',
+      'question_version_id': 'version-2',
+      'position': 11,
+      'kind': 'REVIEW',
+      'topic': 'Science',
+      'text': 'Related question?',
+      'answers': <Map<String, dynamic>>[],
+      'hint_used': false,
+    }).toEntity();
+
+    expect(entity.kind, DailyAssignmentKind.review);
+  });
+
   test('parses summary counters and keeps unknown states representable', () {
     final entity = DailySummaryDto.fromJson({
       'run_id': 'run-1',

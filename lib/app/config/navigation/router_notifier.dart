@@ -90,7 +90,10 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                 GoRoute(
                   path: '/quiz',
                   name: 'quiz',
-                  builder: (context, state) => const QuizGateFlow(),
+                  builder: (context, state) => QuizGateFlow(
+                    reviewSourceAttemptId:
+                        state.uri.queryParameters['reviewAttemptId'],
+                  ),
                 ),
               ],
             ),

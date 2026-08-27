@@ -65,8 +65,8 @@ import '../../features/question/data/converter/topic_converter.dart' as _i625;
 import '../../features/question/data/converter/topic_db_converter.dart'
     as _i952;
 import '../../features/question/di/di.dart' as _i906;
-import '../../features/review/data/converter/review_queue_converter.dart'
-    as _i283;
+import '../../features/review/data/converter/review_history_converter.dart'
+    as _i49;
 import '../../features/review/di/di.dart' as _i1035;
 import '../../features/review/domain/repository/review_repository.dart'
     as _i489;
@@ -131,8 +131,8 @@ extension GetItInjectableX on _i174.GetIt {
     final userModule = _$UserModule();
     final appSettingsModule = _$AppSettingsModule();
     final achievementsModule = _$AchievementsModule();
-    final reviewModule = _$ReviewModule();
     final gamificationModule = _$GamificationModule();
+    final reviewModule = _$ReviewModule();
     final masteryModule = _$MasteryModule();
     final leaderboardModule = _$LeaderboardModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
@@ -157,8 +157,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i498.AnswerConverter>(() => _i498.AnswerConverterImpl());
     gh.factory<_i606.UserAchievementConverter>(
         () => _i606.UserAchievementConverterImpl());
-    gh.factory<_i283.ReviewQueueConverter>(
-        () => _i283.ReviewQueueConverterImpl());
     await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(
       () => firebaseConfigModule
           .remoteConfigService(gh<_i627.FirebaseRemoteConfig>()),
@@ -176,6 +174,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1065.LeaderboardConverter>(
         () => _i1065.LeaderboardConverterImpl());
     gh.factory<_i952.TopicDbConverter>(() => _i952.TopicDbConverterImpl());
+    gh.factory<_i49.ReviewHistoryConverter>(
+        () => _i49.ReviewHistoryConverterImpl());
     gh.factory<_i740.UserStatisticsConverter>(
         () => _i740.UserStatisticsConverterImpl());
     gh.factory<_i622.QuestionConverter>(() => _i622.QuestionConverterImpl(
@@ -248,15 +248,15 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i606.UserAchievementConverter>(),
               gh<_i724.PageInfoConverter>(),
             ));
-    gh.lazySingleton<_i489.ReviewRepository>(
-        () => reviewModule.reviewRepository(
-              client: gh<_i782.ApiClient>(),
-              reviewQueueConverter: gh<_i283.ReviewQueueConverter>(),
-            ));
     gh.lazySingleton<_i31.GamificationRepository>(
         () => gamificationModule.gamificationRepository(
               gh<_i782.ApiClient>(),
               gh<_i508.UserLevelConverter>(),
+            ));
+    gh.lazySingleton<_i489.ReviewRepository>(
+        () => reviewModule.reviewRepository(
+              client: gh<_i782.ApiClient>(),
+              reviewHistoryConverter: gh<_i49.ReviewHistoryConverter>(),
             ));
     gh.lazySingleton<_i871.MasteryRepository>(
         () => masteryModule.masteryRepository(
@@ -321,9 +321,9 @@ class _$AppSettingsModule extends _i913.AppSettingsModule {}
 
 class _$AchievementsModule extends _i134.AchievementsModule {}
 
-class _$ReviewModule extends _i1035.ReviewModule {}
-
 class _$GamificationModule extends _i941.GamificationModule {}
+
+class _$ReviewModule extends _i1035.ReviewModule {}
 
 class _$MasteryModule extends _i963.MasteryModule {}
 
