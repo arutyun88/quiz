@@ -217,8 +217,6 @@ class DailyQuizPage extends ConsumerWidget {
       interaction: PartnerInteraction(
         campaignId: partner.campaignId,
         attemptId: attempt.attemptId,
-        assignmentId: attempt.assignmentId,
-        questionVersionId: attempt.questionVersionId,
       ),
       tracker: ref.read(partnerInteractionTrackerProvider),
       launcher: ref.read(partnerLinkLauncherProvider),

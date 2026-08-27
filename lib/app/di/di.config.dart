@@ -29,12 +29,16 @@ import '../../features/authentication/domain/repository/password_reset_gateway.d
     as _i959;
 import '../../features/daily_edition/data/repository/remote_daily_edition_repository.dart'
     as _i522;
+import '../../features/daily_edition/data/service/remote_partner_interaction_tracker.dart'
+    as _i589;
 import '../../features/daily_edition/data/service/shared_preferences_daily_attempt_outbox.dart'
     as _i1070;
 import '../../features/daily_edition/domain/repository/daily_edition_repository.dart'
     as _i824;
 import '../../features/daily_edition/domain/service/daily_attempt_outbox.dart'
     as _i66;
+import '../../features/daily_edition/domain/service/partner_interaction_tracker.dart'
+    as _i594;
 import '../../features/demo/data/repository/remote_demo_repository.dart'
     as _i676;
 import '../../features/demo/domain/repository/demo_repository.dart' as _i776;
@@ -219,6 +223,8 @@ extension GetItInjectableX on _i174.GetIt {
           answerConverter: gh<_i692.AnswerDbConverter>(),
           topicConverter: gh<_i952.TopicDbConverter>(),
         ));
+    gh.lazySingleton<_i594.PartnerInteractionTracker>(() =>
+        _i589.RemotePartnerInteractionTracker(client: gh<_i782.ApiClient>()));
     gh.lazySingleton<_i678.FetchCurrentUserGateway>(
         () => userModule.fetchUserGateway(
               gh<_i450.UserRepository>(),

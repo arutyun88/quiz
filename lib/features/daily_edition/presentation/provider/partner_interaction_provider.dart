@@ -1,9 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/daily_edition/domain/service/partner_interaction_tracker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 final partnerInteractionTrackerProvider = Provider<PartnerInteractionTracker>(
-  (_) => const NoopPartnerInteractionTracker(),
+  (_) => getIt<PartnerInteractionTracker>(),
 );
 
 final partnerLinkLauncherProvider = Provider<PartnerLinkLauncher>(
