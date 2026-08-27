@@ -122,8 +122,38 @@ class Translations$leaderboard$en {
 	/// ru: 'Рейтинг'
 	String get title => 'Leaderboard';
 
-	/// ru: 'Текущий сезон · 28 дней'
-	String get current_season => 'Current 28-day season';
+	/// ru: 'Текущий сезон'
+	String get current_tab => 'Current season';
+
+	/// ru: 'Моя история'
+	String get history_tab => 'My history';
+
+	/// ru: 'Текущий'
+	String get current_badge => 'Current';
+
+	/// ru: 'Рейтинг сезона'
+	String get season_rating => 'Season rating';
+
+	/// ru: 'ПРЕДВ.'
+	String get provisional_short => 'PROV.';
+
+	/// ru: 'Точность'
+	String get accuracy_label => 'Accuracy';
+
+	/// ru: 'Верных: $correct · официальных: $total'
+	String season_answers({required Object correct, required Object total}) => '${correct} correct · ${total} official';
+
+	/// ru: 'Ответьте на официальный вопрос, чтобы появилась история сезонов'
+	String get history_empty => 'Complete an official answer to start your season history';
+
+	/// ru: 'Не удалось загрузить историю сезонов'
+	String get history_load_failed => 'Could not load season history';
+
+	/// ru: 'Показать ещё'
+	String get load_more => 'Load more';
+
+	/// ru: 'Не удалось загрузить следующие сезоны. Повторите ещё раз.'
+	String get load_more_failed => 'Could not load more seasons. Try again.';
 
 	/// ru: 'Моя позиция'
 	String get my_position => 'My position';
@@ -1793,7 +1823,17 @@ extension on Translations {
 			'authentication.sign_up.title' => 'Sign up',
 			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'By using the app, you accept '), link('User Agreement'), ]),
 			'leaderboard.title' => 'Leaderboard',
-			'leaderboard.current_season' => 'Current 28-day season',
+			'leaderboard.current_tab' => 'Current season',
+			'leaderboard.history_tab' => 'My history',
+			'leaderboard.current_badge' => 'Current',
+			'leaderboard.season_rating' => 'Season rating',
+			'leaderboard.provisional_short' => 'PROV.',
+			'leaderboard.accuracy_label' => 'Accuracy',
+			'leaderboard.season_answers' => ({required Object correct, required Object total}) => '${correct} correct · ${total} official',
+			'leaderboard.history_empty' => 'Complete an official answer to start your season history',
+			'leaderboard.history_load_failed' => 'Could not load season history',
+			'leaderboard.load_more' => 'Load more',
+			'leaderboard.load_more_failed' => 'Could not load more seasons. Try again.',
 			'leaderboard.my_position' => 'My position',
 			'leaderboard.provisional' => 'Provisional rating',
 			'leaderboard.empty' => 'No ranked players in this season yet',

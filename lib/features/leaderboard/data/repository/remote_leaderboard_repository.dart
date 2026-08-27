@@ -5,8 +5,11 @@ import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/json.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/features/leaderboard/data/converter/leaderboard_converter.dart';
+import 'package:quiz/features/leaderboard/data/converter/season_history_converter.dart';
 import 'package:quiz/features/leaderboard/data/dto/leaderboard_dto.dart';
+import 'package:quiz/features/leaderboard/data/dto/season_history_dto.dart';
 import 'package:quiz/features/leaderboard/domain/entity/leaderboard_overview_entity.dart';
+import 'package:quiz/features/leaderboard/domain/entity/season_history_entity.dart';
 import 'package:quiz/features/leaderboard/domain/repository/leaderboard_repository.dart';
 
 class RemoteLeaderboardRepository implements LeaderboardRepository {
@@ -59,4 +62,22 @@ class RemoteLeaderboardRepository implements LeaderboardRepository {
       ResultFailed(error: final failure) => Result.failed(failure),
     };
   }
+
+  @override
+  Future<Result<SeasonHistoryPageEntity, Failure>> fetchSeasonHistory({
+    required int limit,
+    required int offset,
+  }) async =>
+      await _client.get(
+        '/gamification/leaderboard/me/seasons',
+        queryParameters: {'limit': limit, 'offset': offset},
+        mapper: (json) => DataPageDto.fromJson(
+          json,
+          (json) => SeasonHistoryDto.fromJson(json as Json),
+        ),
+        converter: (page) => SeasonHistoryPageEntity(
+          items: page.data.map((item) => item.toEntity()).toList(),
+          total: page.meta.total,
+        ),
+      );
 }

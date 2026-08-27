@@ -111,7 +111,17 @@ class _Translations$leaderboard$ru implements Translations$leaderboard$en {
 
 	// Translations
 	@override String get title => 'Рейтинг';
-	@override String get current_season => 'Текущий сезон · 28 дней';
+	@override String get current_tab => 'Текущий сезон';
+	@override String get history_tab => 'Моя история';
+	@override String get current_badge => 'Текущий';
+	@override String get season_rating => 'Рейтинг сезона';
+	@override String get provisional_short => 'ПРЕДВ.';
+	@override String get accuracy_label => 'Точность';
+	@override String season_answers({required Object correct, required Object total}) => 'Верных: ${correct} · официальных: ${total}';
+	@override String get history_empty => 'Ответьте на официальный вопрос, чтобы появилась история сезонов';
+	@override String get history_load_failed => 'Не удалось загрузить историю сезонов';
+	@override String get load_more => 'Показать ещё';
+	@override String get load_more_failed => 'Не удалось загрузить следующие сезоны. Повторите ещё раз.';
 	@override String get my_position => 'Моя позиция';
 	@override String get provisional => 'Предварительный рейтинг';
 	@override String get empty => 'В этом сезоне пока нет участников с местом';
@@ -1186,7 +1196,17 @@ extension on TranslationsRu {
 			'authentication.sign_up.title' => 'Зарегистрироваться',
 			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '), link('Пользовательскому соглашению'), ]),
 			'leaderboard.title' => 'Рейтинг',
-			'leaderboard.current_season' => 'Текущий сезон · 28 дней',
+			'leaderboard.current_tab' => 'Текущий сезон',
+			'leaderboard.history_tab' => 'Моя история',
+			'leaderboard.current_badge' => 'Текущий',
+			'leaderboard.season_rating' => 'Рейтинг сезона',
+			'leaderboard.provisional_short' => 'ПРЕДВ.',
+			'leaderboard.accuracy_label' => 'Точность',
+			'leaderboard.season_answers' => ({required Object correct, required Object total}) => 'Верных: ${correct} · официальных: ${total}',
+			'leaderboard.history_empty' => 'Ответьте на официальный вопрос, чтобы появилась история сезонов',
+			'leaderboard.history_load_failed' => 'Не удалось загрузить историю сезонов',
+			'leaderboard.load_more' => 'Показать ещё',
+			'leaderboard.load_more_failed' => 'Не удалось загрузить следующие сезоны. Повторите ещё раз.',
 			'leaderboard.my_position' => 'Моя позиция',
 			'leaderboard.provisional' => 'Предварительный рейтинг',
 			'leaderboard.empty' => 'В этом сезоне пока нет участников с местом',

@@ -6,8 +6,10 @@ import 'package:quiz/app/core/model/data_page/meta.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/features/leaderboard/data/converter/leaderboard_converter.dart';
 import 'package:quiz/features/leaderboard/data/dto/leaderboard_dto.dart';
+import 'package:quiz/features/leaderboard/data/dto/season_history_dto.dart';
 import 'package:quiz/features/leaderboard/data/repository/remote_leaderboard_repository.dart';
 import 'package:quiz/features/leaderboard/domain/entity/leaderboard_entity.dart';
+import 'package:quiz/features/leaderboard/domain/entity/season_history_entity.dart';
 
 import '../../../../../support/mock_api_client.dart';
 
@@ -96,6 +98,34 @@ void main() {
       () => client.get<LeaderboardEntity, DataDto<LeaderboardDto>>(
         '/gamification/leaderboard/me',
         queryParameters: any(named: 'queryParameters'),
+        headers: any(named: 'headers'),
+        mapper: any(named: 'mapper'),
+        converter: any(named: 'converter'),
+        enableLocale: false,
+      ),
+    ).called(1);
+  });
+
+  test('fetches own season history with explicit server pagination', () async {
+    const page = SeasonHistoryPageEntity(items: [], total: 31);
+    when(
+      () => client.get<SeasonHistoryPageEntity, DataPageDto<SeasonHistoryDto>>(
+        any(),
+        queryParameters: any(named: 'queryParameters'),
+        headers: any(named: 'headers'),
+        mapper: any(named: 'mapper'),
+        converter: any(named: 'converter'),
+        enableLocale: any(named: 'enableLocale'),
+      ),
+    ).thenAnswer((_) async => const Result.ok(page));
+
+    final result = await repository.fetchSeasonHistory(limit: 20, offset: 20);
+
+    expect(result, const Result.ok(page));
+    verify(
+      () => client.get<SeasonHistoryPageEntity, DataPageDto<SeasonHistoryDto>>(
+        '/gamification/leaderboard/me/seasons',
+        queryParameters: {'limit': 20, 'offset': 20},
         headers: any(named: 'headers'),
         mapper: any(named: 'mapper'),
         converter: any(named: 'converter'),
