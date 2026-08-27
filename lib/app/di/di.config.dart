@@ -78,6 +78,10 @@ import '../../features/review/data/converter/review_history_converter.dart'
 import '../../features/review/di/di.dart' as _i1035;
 import '../../features/review/domain/repository/review_repository.dart'
     as _i489;
+import '../../features/subscription/data/gateway/revenue_cat_quiz_plus_purchase_gateway.dart'
+    as _i902;
+import '../../features/subscription/domain/gateway/quiz_plus_purchase_gateway.dart'
+    as _i138;
 import '../../features/user/data/converter/user_converter.dart' as _i11;
 import '../../features/user/data/converter/user_dao_converter.dart' as _i812;
 import '../../features/user/data/converter/user_statistics_converter.dart'
@@ -186,6 +190,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i49.ReviewHistoryConverterImpl());
     gh.factory<_i740.UserStatisticsConverter>(
         () => _i740.UserStatisticsConverterImpl());
+    gh.lazySingleton<_i138.QuizPlusPurchaseGateway>(
+        () => _i902.RevenueCatQuizPlusPurchaseGateway());
     gh.factory<_i622.QuestionConverter>(() => _i622.QuestionConverterImpl(
           topicConverter: gh<_i625.TopicConverter>(),
           answerConverter: gh<_i498.AnswerConverter>(),

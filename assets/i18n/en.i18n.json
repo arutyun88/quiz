@@ -109,16 +109,17 @@
                 "plan_monthly": "Monthly",
                 "plan_yearly": "Yearly",
                 "next_billing": "Next billing · $date",
-                "change_plan": "Change plan",
-                "payment_method": "Payment method",
-                "payment_history": "Payment history",
-                "cancel": "Cancel subscription",
-                "cancel_dialog": {
-                    "title": "Cancel subscription?",
-                    "message": "Quiz+ turns off immediately. Debug builds only — there is no real billing yet.",
-                    "confirm": "Cancel subscription",
-                    "cancel": "Back"
-                }
+                "choose_plan": "Choose a plan",
+                "subscribe": "Subscribe for $price",
+                "restore": "Restore purchases",
+                "billing_unavailable": "Purchases are not configured for this build",
+                "no_offerings": "No Quiz+ plans are available right now",
+                "processing": "Checking the purchase with the server…",
+                "awaiting_server": "Purchase received. Quiz+ will activate after server confirmation.",
+                "restored_without_entitlement": "Restore completed, but the server has not confirmed Quiz+ yet.",
+                "store_pending": "The store is still processing this purchase.",
+                "failed": "Could not complete the purchase. Please try again.",
+                "activated": "Quiz+ is active on your account"
             }
         },
         "edit": {

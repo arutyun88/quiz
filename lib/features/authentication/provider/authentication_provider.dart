@@ -13,11 +13,13 @@ import 'package:quiz/features/user/domain/repository/sign_in_with_email_gateway.
 import 'package:quiz/features/user/domain/repository/sign_up_with_email_gateway.dart';
 import 'package:quiz/features/user/domain/repository/user_logout_gateway.dart';
 import 'package:quiz/features/user/domain/repository/user_repository.dart';
+import 'package:quiz/features/subscription/domain/gateway/quiz_plus_purchase_gateway.dart';
 
 part 'authentication_provider.freezed.dart';
 part 'authentication_state.dart';
 
-final authenticationProvider = StateNotifierProvider<AuthenticationNotifier, AuthenticationState>(
+final authenticationProvider =
+    StateNotifierProvider<AuthenticationNotifier, AuthenticationState>(
   (ref) {
     final notifier = AuthenticationNotifier(
       tokenService: getIt<AuthTokenService>(),
@@ -27,6 +29,7 @@ final authenticationProvider = StateNotifierProvider<AuthenticationNotifier, Aut
       userLogoutGateway: getIt<UserLogoutGateway>(),
       userRepository: getIt<UserRepository>(),
       unauthorizedEventService: getIt<UnauthorizedEventService>(),
+      quizPlusPurchaseGateway: getIt<QuizPlusPurchaseGateway>(),
     );
     ref.onDispose(() => notifier.dispose());
     return notifier;
@@ -41,6 +44,7 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
   final UserLogoutGateway _userLogoutGateway;
   final UserRepository _userRepository;
   final UnauthorizedEventService _unauthorizedEventService;
+  final QuizPlusPurchaseGateway _quizPlusPurchaseGateway;
   StreamSubscription<void>? _unauthorizedSubscription;
 
   AuthenticationNotifier({
@@ -51,6 +55,7 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
     required UserLogoutGateway userLogoutGateway,
     required UserRepository userRepository,
     required UnauthorizedEventService unauthorizedEventService,
+    required QuizPlusPurchaseGateway quizPlusPurchaseGateway,
   })  : _tokenService = tokenService,
         _fetchCurrentUserGateway = fetchCurrentUserGateway,
         _signInWithEmailGateway = signInWithEmailGateway,
@@ -58,9 +63,13 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
         _userLogoutGateway = userLogoutGateway,
         _userRepository = userRepository,
         _unauthorizedEventService = unauthorizedEventService,
+        _quizPlusPurchaseGateway = quizPlusPurchaseGateway,
         super(const AuthenticationState.unauthenticated()) {
     _unauthorizedSubscription = _unauthorizedEventService.stream.listen(
-      (_) => state = const AuthenticationState.unauthenticated(),
+      (_) {
+        unawaited(_clearBillingIdentity());
+        state = const AuthenticationState.unauthenticated();
+      },
     );
   }
 
@@ -75,8 +84,10 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
       final result = await _fetchCurrentUserGateway.call();
 
       state = switch (result) {
-        ResultOk(data: final user) => AuthenticationState.authenticated(user: user),
-        ResultFailed(error: final failure) => AuthenticationState.unauthenticated(failure: failure),
+        ResultOk(data: final user) =>
+          AuthenticationState.authenticated(user: user),
+        ResultFailed(error: final failure) =>
+          AuthenticationState.unauthenticated(failure: failure),
       };
     }
   }
@@ -96,8 +107,10 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
     final result = await _fetchCurrentUserGateway.call();
 
     state = switch (result) {
-      ResultOk(data: final user) => AuthenticationState.authenticated(user: user),
-      ResultFailed(error: final failure) => AuthenticationState.unauthenticated(failure: failure),
+      ResultOk(data: final user) =>
+        AuthenticationState.authenticated(user: user),
+      ResultFailed(error: final failure) =>
+        AuthenticationState.unauthenticated(failure: failure),
     };
   }
 
@@ -117,13 +130,16 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
     final result = await _fetchCurrentUserGateway.call();
 
     state = switch (result) {
-      ResultOk(data: final user) => AuthenticationState.authenticated(user: user),
-      ResultFailed(error: final failure) => AuthenticationState.unauthenticated(failure: failure),
+      ResultOk(data: final user) =>
+        AuthenticationState.authenticated(user: user),
+      ResultFailed(error: final failure) =>
+        AuthenticationState.unauthenticated(failure: failure),
     };
   }
 
-  void logout() async {
+  Future<void> logout() async {
     await _userLogoutGateway.call();
+    await _clearBillingIdentity();
     state = const AuthenticationState.unauthenticated();
   }
 
@@ -133,10 +149,19 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
     switch (result) {
       case ResultOk():
         await _userLogoutGateway.call();
+        await _clearBillingIdentity();
         state = const AuthenticationState.unauthenticated();
         return true;
       case ResultFailed():
         return false;
+    }
+  }
+
+  Future<void> _clearBillingIdentity() async {
+    try {
+      await _quizPlusPurchaseGateway.clearIdentity();
+    } catch (_) {
+      // Billing cleanup must never keep the user signed in locally.
     }
   }
 }

@@ -11,4 +11,4 @@ class SubscriptionEntity with _$SubscriptionEntity {
   }) = _SubscriptionEntity;
 }
 
-enum SubscriptionPlan { monthly, yearly }
+enum SubscriptionPlan { monthly, yearly, unknown }

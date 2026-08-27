@@ -840,11 +840,17 @@ class _Translations$profile$settings$subscription_page$ru implements Translation
 	@override String get plan_monthly => 'Месячная';
 	@override String get plan_yearly => 'Годовая';
 	@override String next_billing({required Object date}) => 'Следующее списание · ${date}';
-	@override String get change_plan => 'Изменить план';
-	@override String get payment_method => 'Способ оплаты';
-	@override String get payment_history => 'История платежей';
-	@override String get cancel => 'Отменить подписку';
-	@override late final _Translations$profile$settings$subscription_page$cancel_dialog$ru cancel_dialog = _Translations$profile$settings$subscription_page$cancel_dialog$ru._(_root);
+	@override String get choose_plan => 'Выберите план';
+	@override String subscribe({required Object price}) => 'Подписаться за ${price}';
+	@override String get restore => 'Восстановить покупки';
+	@override String get billing_unavailable => 'Покупки не настроены для этой сборки';
+	@override String get no_offerings => 'Сейчас нет доступных планов Quiz+';
+	@override String get processing => 'Проверяем покупку на сервере…';
+	@override String get awaiting_server => 'Покупка получена. Quiz+ включится после подтверждения сервера.';
+	@override String get restored_without_entitlement => 'Восстановление завершено, но сервер пока не подтвердил Quiz+.';
+	@override String get store_pending => 'Магазин ещё обрабатывает эту покупку.';
+	@override String get failed => 'Не удалось завершить покупку. Попробуйте ещё раз.';
+	@override String get activated => 'Quiz+ активен для вашего аккаунта';
 }
 
 // Path: profile.edit.delete_dialog
@@ -989,19 +995,6 @@ class _Translations$question$error_snackbar$save_failed_retry_later$ru implement
 	@override String get button => 'Попробую позже';
 }
 
-// Path: profile.settings.subscription_page.cancel_dialog
-class _Translations$profile$settings$subscription_page$cancel_dialog$ru implements Translations$profile$settings$subscription_page$cancel_dialog$en {
-	_Translations$profile$settings$subscription_page$cancel_dialog$ru._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Отменить подписку?';
-	@override String get message => 'Quiz+ отключится сразу. Действие доступно только в debug-сборке — реального биллинга пока нет.';
-	@override String get confirm => 'Отменить подписку';
-	@override String get cancel => 'Назад';
-}
-
 // Path: authentication.sign_in.forget_password.dialog
 class _Translations$authentication$sign_in$forget_password$dialog$ru implements Translations$authentication$sign_in$forget_password$dialog$en {
 	_Translations$authentication$sign_in$forget_password$dialog$ru._(this._root);
@@ -1142,14 +1135,17 @@ extension on TranslationsRu {
 			'profile.settings.subscription_page.plan_monthly' => 'Месячная',
 			'profile.settings.subscription_page.plan_yearly' => 'Годовая',
 			'profile.settings.subscription_page.next_billing' => ({required Object date}) => 'Следующее списание · ${date}',
-			'profile.settings.subscription_page.change_plan' => 'Изменить план',
-			'profile.settings.subscription_page.payment_method' => 'Способ оплаты',
-			'profile.settings.subscription_page.payment_history' => 'История платежей',
-			'profile.settings.subscription_page.cancel' => 'Отменить подписку',
-			'profile.settings.subscription_page.cancel_dialog.title' => 'Отменить подписку?',
-			'profile.settings.subscription_page.cancel_dialog.message' => 'Quiz+ отключится сразу. Действие доступно только в debug-сборке — реального биллинга пока нет.',
-			'profile.settings.subscription_page.cancel_dialog.confirm' => 'Отменить подписку',
-			'profile.settings.subscription_page.cancel_dialog.cancel' => 'Назад',
+			'profile.settings.subscription_page.choose_plan' => 'Выберите план',
+			'profile.settings.subscription_page.subscribe' => ({required Object price}) => 'Подписаться за ${price}',
+			'profile.settings.subscription_page.restore' => 'Восстановить покупки',
+			'profile.settings.subscription_page.billing_unavailable' => 'Покупки не настроены для этой сборки',
+			'profile.settings.subscription_page.no_offerings' => 'Сейчас нет доступных планов Quiz+',
+			'profile.settings.subscription_page.processing' => 'Проверяем покупку на сервере…',
+			'profile.settings.subscription_page.awaiting_server' => 'Покупка получена. Quiz+ включится после подтверждения сервера.',
+			'profile.settings.subscription_page.restored_without_entitlement' => 'Восстановление завершено, но сервер пока не подтвердил Quiz+.',
+			'profile.settings.subscription_page.store_pending' => 'Магазин ещё обрабатывает эту покупку.',
+			'profile.settings.subscription_page.failed' => 'Не удалось завершить покупку. Попробуйте ещё раз.',
+			'profile.settings.subscription_page.activated' => 'Quiz+ активен для вашего аккаунта',
 			'profile.edit.title' => 'Редактирование',
 			'profile.edit.done' => 'Готово',
 			'profile.edit.name_label' => 'Имя',

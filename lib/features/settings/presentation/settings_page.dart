@@ -46,12 +46,11 @@ class SettingsPage extends ConsumerWidget {
                     onTap: () =>
                         context.push('/profile/settings/adult-content'),
                   ),
-                  if (hasQuizPlus)
-                    SettingsLinkRow(
-                      label: t.subscription,
-                      onTap: () =>
-                          context.push('/profile/settings/subscription'),
-                    ),
+                  SettingsLinkRow(
+                    label: t.subscription,
+                    value: hasQuizPlus ? 'QUIZ+' : null,
+                    onTap: () => context.push('/profile/settings/subscription'),
+                  ),
                 ],
               ),
               const SizedBox(height: 26),

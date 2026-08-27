@@ -42,11 +42,15 @@ final class UserConverterImpl extends UserConverter {
   SubscriptionEntity? _convertSubscription(SubscriptionDto? dto) {
     if (dto == null) return null;
 
+    final plan = dto.plan.toLowerCase();
+
     return SubscriptionEntity(
       active: dto.active,
-      plan: dto.plan == 'MONTHLY'
-          ? SubscriptionPlan.monthly
-          : SubscriptionPlan.yearly,
+      plan: plan.contains('year') || plan.contains('annual')
+          ? SubscriptionPlan.yearly
+          : plan.contains('month')
+              ? SubscriptionPlan.monthly
+              : SubscriptionPlan.unknown,
       renewsAt: dto.renewsAt,
     );
   }

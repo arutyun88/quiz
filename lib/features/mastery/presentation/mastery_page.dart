@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
@@ -25,8 +26,10 @@ class MasteryPage extends ConsumerWidget {
       title: context.t.mastery.title,
       body: switch (state) {
         BaseLoadingState() => const _MasteryLoading(),
-        BaseDataState(:final data) => _MasteryView(mastery: data, locked: !hasQuizPlus),
-        _ => _MasteryError(onRetry: () => ref.read(masteryProvider.notifier).fetch()),
+        BaseDataState(:final data) =>
+          _MasteryView(mastery: data, locked: !hasQuizPlus),
+        _ => _MasteryError(
+            onRetry: () => ref.read(masteryProvider.notifier).fetch()),
       },
     );
   }
@@ -49,7 +52,8 @@ class _MasteryView extends StatelessWidget {
           child: Text(
             t.empty,
             textAlign: TextAlign.center,
-            style: GoogleFonts.spectral(fontSize: 17, color: context.palette.text.primary),
+            style: GoogleFonts.spectral(
+                fontSize: 17, color: context.palette.text.primary),
           ),
         ),
       );
@@ -71,10 +75,13 @@ class _MasteryView extends StatelessWidget {
           _TopicRow(
             topic: mastery.topics[i],
             isBest: i == 0 && mastery.topics.length > 1,
-            isWeakest: i == mastery.topics.length - 1 && mastery.topics.length > 1,
+            isWeakest:
+                i == mastery.topics.length - 1 && mastery.topics.length > 1,
           ),
-        if (mastery.weakest case final MasteryTopicEntity weakest) _WeakestBlock(weakest: weakest),
-        if (mastery.weeklyAccuracyDelta != null || mastery.bestDayOfWeek != null)
+        if (mastery.weakest case final MasteryTopicEntity weakest)
+          _WeakestBlock(weakest: weakest),
+        if (mastery.weeklyAccuracyDelta != null ||
+            mastery.bestDayOfWeek != null)
           _StatsRow(
             weeklyAccuracyDelta: mastery.weeklyAccuracyDelta,
             bestDayOfWeek: mastery.bestDayOfWeek,
@@ -190,11 +197,13 @@ class _WeakestBlock extends StatelessWidget {
           const SizedBox(height: 6),
           RichText(
             text: TextSpan(
-              style: GoogleFonts.spectral(fontSize: 19, height: 1.35, color: colors.text.primary),
+              style: GoogleFonts.spectral(
+                  fontSize: 19, height: 1.35, color: colors.text.primary),
               children: [
                 TextSpan(text: '${weakest.name} — '),
                 TextSpan(
-                  text: t.weakest_accuracy(percent: (weakest.accuracy * 100).round()),
+                  text: t.weakest_accuracy(
+                      percent: (weakest.accuracy * 100).round()),
                   style: const TextStyle(fontStyle: FontStyle.italic),
                 ),
                 TextSpan(text: t.weakest_tail),
@@ -247,11 +256,15 @@ class _StatsRow extends StatelessWidget {
               child: Container(
                 decoration: weeklyAccuracyDelta != null
                     ? BoxDecoration(
-                        border: BorderDirectional(start: BorderSide(color: context.palette.divider)),
+                        border: BorderDirectional(
+                            start: BorderSide(color: context.palette.divider)),
                       )
                     : null,
-                padding: weeklyAccuracyDelta != null ? const EdgeInsetsDirectional.only(start: 14) : null,
-                child: _Stat(value: _bestDayText(locale), label: t.best_day_label),
+                padding: weeklyAccuracyDelta != null
+                    ? const EdgeInsetsDirectional.only(start: 14)
+                    : null,
+                child:
+                    _Stat(value: _bestDayText(locale), label: t.best_day_label),
               ),
             ),
         ],
@@ -351,7 +364,10 @@ class _LockedMasteryViewState extends State<_LockedMasteryView> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               stops: const [0, 0.3],
-              colors: [scrim.withValues(alpha: 0), scrim.withValues(alpha: 0.65)],
+              colors: [
+                scrim.withValues(alpha: 0),
+                scrim.withValues(alpha: 0.65)
+              ],
             ),
           ),
         ),
@@ -374,71 +390,75 @@ class _PaywallPanel extends StatelessWidget {
 
     return Material(
       type: MaterialType.transparency,
-      child: Container(
-        color: colors.bottomSheet.headerBackground,
-        child: SafeArea(
-          top: false,
-          minimum: const EdgeInsets.fromLTRB(22, 20, 22, 28),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.baseline,
-                textBaseline: TextBaseline.alphabetic,
-                children: [
-                  Expanded(
-                    child: Text(
-                      'QUIZ+',
-                      style: GoogleFonts.unbounded(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: 0.5,
-                        color: colors.bottomSheet.headerForeground,
+      child: InkWell(
+        onTap: () => context.push('/profile/settings/subscription'),
+        child: Container(
+          color: colors.bottomSheet.headerBackground,
+          child: SafeArea(
+            top: false,
+            minimum: const EdgeInsets.fromLTRB(22, 20, 22, 28),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.alphabetic,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'QUIZ+',
+                        style: GoogleFonts.unbounded(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 0.5,
+                          color: colors.bottomSheet.headerForeground,
+                        ),
                       ),
                     ),
-                  ),
-                  Text(
-                    context.t.mastery.paywall.tagline.toUpperCase(),
-                    style: GoogleFonts.jetBrainsMono(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 1,
-                      color: colors.text.accent,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Text(
-                context.t.mastery.paywall.description,
-                style: GoogleFonts.spectral(
-                  fontSize: 16,
-                  height: 1.5,
-                  fontStyle: FontStyle.italic,
-                  color: _panelSecondaryText,
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Divider(height: 1, thickness: 1, color: _panelDivider),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      context.t.mastery.paywall.cta.toUpperCase(),
+                    Text(
+                      context.t.mastery.paywall.tagline.toUpperCase(),
                       style: GoogleFonts.jetBrainsMono(
-                        fontSize: 12,
+                        fontSize: 11,
                         fontWeight: FontWeight.w500,
-                        letterSpacing: 1.5,
-                        color: colors.bottomSheet.headerForeground,
+                        letterSpacing: 1,
+                        color: colors.text.accent,
                       ),
                     ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  context.t.mastery.paywall.description,
+                  style: GoogleFonts.spectral(
+                    fontSize: 16,
+                    height: 1.5,
+                    fontStyle: FontStyle.italic,
+                    color: _panelSecondaryText,
                   ),
-                  Icon(Icons.arrow_forward, size: 20, color: colors.bottomSheet.headerForeground),
-                ],
-              ),
-            ],
+                ),
+                const SizedBox(height: 16),
+                const Divider(height: 1, thickness: 1, color: _panelDivider),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        context.t.mastery.paywall.cta.toUpperCase(),
+                        style: GoogleFonts.jetBrainsMono(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 1.5,
+                          color: colors.bottomSheet.headerForeground,
+                        ),
+                      ),
+                    ),
+                    Icon(Icons.arrow_forward,
+                        size: 20, color: colors.bottomSheet.headerForeground),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -498,7 +518,8 @@ class _MasteryError extends StatelessWidget {
               Text(
                 context.t.mastery.error,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.spectral(fontSize: 17, color: colors.text.primary),
+                style: GoogleFonts.spectral(
+                    fontSize: 17, color: colors.text.primary),
               ),
               const SizedBox(height: 16),
               GestureDetector(
@@ -508,7 +529,8 @@ class _MasteryError extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border.all(color: colors.text.primary, width: 1.5),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
