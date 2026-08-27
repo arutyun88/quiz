@@ -22,6 +22,10 @@ import '../../features/achievements/data/converter/user_achievement_converter.da
 import '../../features/achievements/di/di.dart' as _i134;
 import '../../features/achievements/domain/repository/user_achievement_repository.dart'
     as _i518;
+import '../../features/attribution/data/repository/remote_acquisition_attribution_repository.dart'
+    as _i209;
+import '../../features/attribution/domain/repository/acquisition_attribution_repository.dart'
+    as _i566;
 import '../../features/authentication/di/di.dart' as _i415;
 import '../../features/authentication/domain/repository/authentication_repository.dart'
     as _i797;
@@ -264,6 +268,9 @@ extension GetItInjectableX on _i174.GetIt {
               client: gh<_i782.ApiClient>(),
               reviewHistoryConverter: gh<_i49.ReviewHistoryConverter>(),
             ));
+    gh.lazySingleton<_i566.AcquisitionAttributionRepository>(() =>
+        _i209.RemoteAcquisitionAttributionRepository(
+            client: gh<_i782.ApiClient>()));
     gh.lazySingleton<_i871.MasteryRepository>(
         () => masteryModule.masteryRepository(
               client: gh<_i782.ApiClient>(),
