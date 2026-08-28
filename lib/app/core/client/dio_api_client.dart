@@ -136,6 +136,40 @@ class DioApiClient implements ApiClient {
   }
 
   @override
+  Future<Result<TEntity, Failure>> put<TEntity, TDto>(
+    String path, {
+    Json? body,
+    Json? queryParameters,
+    Json? headers,
+    JsonMapper<TDto>? mapper,
+    TEntity Function(TDto)? converter,
+    bool enableLocale = false,
+  }) async {
+    assert(
+      (mapper == null) == (converter == null),
+      'Both mapper and converter must be either provided or null',
+    );
+
+    try {
+      final requestHeaders = _prepareHeaders(headers, enableLocale);
+      final result = await _dio.put(
+        path,
+        data: body != null ? jsonEncode(body) : null,
+        queryParameters: queryParameters,
+        options: Options(headers: requestHeaders),
+      );
+
+      if (mapper == null || converter == null || result.data is! Json) {
+        return Result.ok(null as TEntity);
+      }
+
+      return Result.ok(converter(mapper(result.data)));
+    } on DioException catch (e) {
+      return Result.failed(_handleError(e));
+    }
+  }
+
+  @override
   Future<Result<void, Failure>> delete(
     String path, {
     Json? queryParameters,

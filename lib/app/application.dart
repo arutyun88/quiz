@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:quiz/app/config/navigation/router.dart';
 import 'package:quiz/app/core/theme/provider/theme_provider.dart';
 import 'package:quiz/app/di/di.dart';
@@ -10,6 +11,7 @@ import 'package:quiz/features/ads/domain/rewarded_ads_gateway.dart';
 import 'package:quiz/features/analytics/domain/product_analytics.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/observability/domain/app_error_reporter.dart';
+import 'package:quiz/features/push/domain/push_notifications_gateway.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class Application extends ConsumerStatefulWidget {
@@ -20,9 +22,15 @@ class Application extends ConsumerStatefulWidget {
 }
 
 class _ApplicationState extends ConsumerState<Application> {
+  StreamSubscription<PushDestination>? _pushDestinationSubscription;
+
   @override
   void initState() {
     super.initState();
+    final pushGateway = getIt<PushNotificationsGateway>();
+    _pushDestinationSubscription = pushGateway.openedDestinations.listen(
+      _openPushDestination,
+    );
     ref.listenManual(
       authenticationProvider,
       (previous, next) {
@@ -34,9 +42,11 @@ class _ApplicationState extends ConsumerState<Application> {
         if (nextUserId != null) {
           unawaited(analytics.identify(nextUserId));
           unawaited(errorReporter.setUser(nextUserId));
+          unawaited(pushGateway.activate());
         } else {
           unawaited(analytics.resetIdentity());
           unawaited(errorReporter.clearUser());
+          unawaited(pushGateway.deactivate());
         }
       },
       fireImmediately: true,
@@ -44,6 +54,21 @@ class _ApplicationState extends ConsumerState<Application> {
     if (getIt.isRegistered<RewardedAdsGateway>()) {
       unawaited(getIt<RewardedAdsGateway>().initializeConsent());
     }
+  }
+
+  @override
+  void dispose() {
+    _pushDestinationSubscription?.cancel();
+    super.dispose();
+  }
+
+  void _openPushDestination(PushDestination destination) {
+    if (!mounted) return;
+    context.go(switch (destination) {
+      PushDestination.home || PushDestination.dailyEdition => '/',
+      PushDestination.rating => '/rating',
+      PushDestination.review => '/profile/review',
+    });
   }
 
   @override

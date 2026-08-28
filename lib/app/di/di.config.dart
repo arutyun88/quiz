@@ -10,6 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:firebase_core/firebase_core.dart' as _i982;
+import 'package:firebase_messaging/firebase_messaging.dart' as _i892;
 import 'package:firebase_remote_config/firebase_remote_config.dart' as _i627;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -66,6 +67,13 @@ import '../../features/mastery/domain/repository/mastery_repository.dart'
     as _i871;
 import '../../features/observability/data/sentry_error_reporter.dart' as _i122;
 import '../../features/observability/domain/app_error_reporter.dart' as _i279;
+import '../../features/push/data/firebase_push_notifications_gateway.dart'
+    as _i814;
+import '../../features/push/data/repository/remote_push_repository.dart'
+    as _i305;
+import '../../features/push/di/di.dart' as _i705;
+import '../../features/push/domain/push_notifications_gateway.dart' as _i404;
+import '../../features/push/domain/repository/push_repository.dart' as _i783;
 import '../../features/question/data/converter/answer_converter.dart' as _i498;
 import '../../features/question/data/converter/answer_db_converter.dart'
     as _i692;
@@ -144,6 +152,7 @@ extension GetItInjectableX on _i174.GetIt {
     final localStorageModule = _$LocalStorageModule();
     final networkModule = _$NetworkModule();
     final databaseModule = _$DatabaseModule();
+    final pushModule = _$PushModule();
     final authenticationModule = _$AuthenticationModule();
     final questionModule = _$QuestionModule();
     final userModule = _$UserModule();
@@ -168,6 +177,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i161.InternetConnection>(
         () => networkModule.internetConnection);
     gh.lazySingleton<_i935.AppDatabase>(() => databaseModule.database());
+    gh.lazySingleton<_i892.FirebaseMessaging>(() => pushModule.messaging());
     gh.lazySingleton<_i959.PasswordResetGateway>(
         () => authenticationModule.passwordResetGateway());
     gh.factory<_i625.TopicConverter>(() => _i625.TopicConverterImpl());
@@ -224,6 +234,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i941.UnauthorizedEventService>(),
           gh<_i218.SettingsLocalStorageService>(),
         ));
+    gh.lazySingleton<_i783.PushRepository>(
+        () => _i305.RemotePushRepository(client: gh<_i782.ApiClient>()));
     gh.factory<_i622.QuestionPageConverter>(
         () => questionModule.questionpageConverter(
               gh<_i622.QuestionConverter>(),
@@ -285,6 +297,14 @@ extension GetItInjectableX on _i174.GetIt {
               client: gh<_i782.ApiClient>(),
               reviewHistoryConverter: gh<_i49.ReviewHistoryConverter>(),
             ));
+    gh.lazySingleton<_i404.PushNotificationsGateway>(
+        () => _i814.FirebasePushNotificationsGateway(
+              messaging: gh<_i892.FirebaseMessaging>(),
+              repository: gh<_i783.PushRepository>(),
+              deviceIdService: gh<_i709.DeviceIdService>(),
+              settingsStorage: gh<_i218.SettingsLocalStorageService>(),
+              errorReporter: gh<_i279.AppErrorReporter>(),
+            ));
     gh.lazySingleton<_i566.AcquisitionAttributionRepository>(() =>
         _i209.RemoteAcquisitionAttributionRepository(
             client: gh<_i782.ApiClient>()));
@@ -340,6 +360,8 @@ class _$LocalStorageModule extends _i913.LocalStorageModule {}
 class _$NetworkModule extends _i567.NetworkModule {}
 
 class _$DatabaseModule extends _i913.DatabaseModule {}
+
+class _$PushModule extends _i705.PushModule {}
 
 class _$AuthenticationModule extends _i415.AuthenticationModule {}
 

@@ -14,6 +14,7 @@ import 'package:quiz/features/user/domain/repository/sign_up_with_email_gateway.
 import 'package:quiz/features/user/domain/repository/user_logout_gateway.dart';
 import 'package:quiz/features/user/domain/repository/user_repository.dart';
 import 'package:quiz/features/subscription/domain/gateway/quiz_plus_purchase_gateway.dart';
+import 'package:quiz/features/push/domain/push_notifications_gateway.dart';
 
 part 'authentication_provider.freezed.dart';
 part 'authentication_state.dart';
@@ -30,6 +31,7 @@ final authenticationProvider =
       userRepository: getIt<UserRepository>(),
       unauthorizedEventService: getIt<UnauthorizedEventService>(),
       quizPlusPurchaseGateway: getIt<QuizPlusPurchaseGateway>(),
+      pushNotificationsGateway: getIt<PushNotificationsGateway>(),
     );
     ref.onDispose(() => notifier.dispose());
     return notifier;
@@ -45,6 +47,7 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
   final UserRepository _userRepository;
   final UnauthorizedEventService _unauthorizedEventService;
   final QuizPlusPurchaseGateway _quizPlusPurchaseGateway;
+  final PushNotificationsGateway _pushNotificationsGateway;
   StreamSubscription<void>? _unauthorizedSubscription;
 
   AuthenticationNotifier({
@@ -56,6 +59,7 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
     required UserRepository userRepository,
     required UnauthorizedEventService unauthorizedEventService,
     required QuizPlusPurchaseGateway quizPlusPurchaseGateway,
+    required PushNotificationsGateway pushNotificationsGateway,
   })  : _tokenService = tokenService,
         _fetchCurrentUserGateway = fetchCurrentUserGateway,
         _signInWithEmailGateway = signInWithEmailGateway,
@@ -64,10 +68,12 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
         _userRepository = userRepository,
         _unauthorizedEventService = unauthorizedEventService,
         _quizPlusPurchaseGateway = quizPlusPurchaseGateway,
+        _pushNotificationsGateway = pushNotificationsGateway,
         super(const AuthenticationState.unauthenticated()) {
     _unauthorizedSubscription = _unauthorizedEventService.stream.listen(
       (_) {
         unawaited(_clearBillingIdentity());
+        unawaited(_pushNotificationsGateway.deactivate());
         state = const AuthenticationState.unauthenticated();
       },
     );
@@ -138,12 +144,14 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
   }
 
   Future<void> logout() async {
+    await _pushNotificationsGateway.unregister();
     await _userLogoutGateway.call();
     await _clearBillingIdentity();
     state = const AuthenticationState.unauthenticated();
   }
 
   Future<bool> deleteAccount() async {
+    await _pushNotificationsGateway.unregister();
     final result = await _userRepository.deleteAccount();
 
     switch (result) {
@@ -153,6 +161,7 @@ class AuthenticationNotifier extends StateNotifier<AuthenticationState> {
         state = const AuthenticationState.unauthenticated();
         return true;
       case ResultFailed():
+        await _pushNotificationsGateway.activate();
         return false;
     }
   }

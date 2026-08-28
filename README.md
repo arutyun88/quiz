@@ -83,3 +83,22 @@ text, request payloads, or free-form user input to Sentry tags and contexts.
 Configure release symbol upload in CI before distributing obfuscated or
 release builds; the DSN is a public client configuration value, while Sentry
 auth tokens used for symbol upload must remain CI secrets.
+
+## Firebase Cloud Messaging
+
+The app asks for notification permission only from the Notifications settings
+screen. After authorization it registers the current FCM token against the
+server-owned installation UUID, refreshes the registration when Firebase
+rotates the token, and removes the installation before logout. Notification
+category choices are account-scoped server state rather than local flags.
+
+Push payloads may navigate only to the fixed `HOME`, `DAILY_EDITION`, `RATING`,
+or `REVIEW` destinations. Arbitrary routes, URLs, and entity identifiers are
+ignored.
+
+For delivery to physical iOS devices, upload the APNs authentication key in the
+Firebase console and enable Push Notifications for the production App ID and
+provisioning profiles. Do not commit the APNs private key. Server-side Firebase
+Admin credentials and message scheduling are also required before production
+notifications can be sent; the current server contract only stores devices and
+authoritative preferences.

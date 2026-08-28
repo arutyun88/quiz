@@ -31,6 +31,16 @@ abstract interface class ApiClient {
     void Function(TEntity)? onSuccess,
   });
 
+  Future<Result<TEntity, Failure>> put<TEntity, TDto>(
+    String path, {
+    Json? body,
+    Json? queryParameters,
+    Json? headers,
+    JsonMapper<TDto>? mapper,
+    TEntity Function(TDto)? converter,
+    bool enableLocale = false,
+  });
+
   Future<Result<void, Failure>> delete(
     String path, {
     Json? queryParameters,

@@ -80,6 +80,11 @@
                 "revoke_dialog_body": "Future assignments will use general content. Previously accepted rating events and XP will not change."
             },
             "notifications_page": {
+                "permission_title": "Allow notifications",
+                "permission_body": "Choose whether Quiz may send the notification categories below.",
+                "permission_denied": "Notifications are disabled in system settings. Your category choices remain synchronized.",
+                "allow": "CONTINUE",
+                "sync_error": "Could not synchronize notification settings. Try again later.",
                 "daily_issue": "Daily issue reminder",
                 "streak_risk": "Streak at risk",
                 "rank_change": "Leaderboard position changes",

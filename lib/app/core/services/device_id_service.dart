@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
@@ -22,21 +19,13 @@ class DeviceIdServicePrefs implements DeviceIdService {
 
   static Future<DeviceIdServicePrefs> init(SharedPreferences prefs) async {
     final id = prefs.getString(_tokensKey);
-    if (id case String id) {
+    if (id case String id when Uuid.isValidUUID(fromString: id)) {
       return DeviceIdServicePrefs._(deviceId: id);
     }
 
-    final String deviceId;
-    final plugin = DeviceInfoPlugin();
-    if (Platform.isAndroid) {
-      final info = await plugin.androidInfo;
-      deviceId = info.id;
-    } else if (Platform.isIOS) {
-      final info = await plugin.iosInfo;
-      deviceId = info.identifierForVendor ?? const Uuid().v4();
-    } else {
-      deviceId = const Uuid().v4();
-    }
+    // Server installation identifiers are UUIDs. Do not reuse hardware IDs:
+    // they are platform-specific, can be reset, and are unnecessary PII.
+    final deviceId = const Uuid().v4();
 
     await prefs.setString(_tokensKey, deviceId);
 

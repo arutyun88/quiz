@@ -1297,6 +1297,21 @@ class Translations$profile$settings$notifications_page$en {
 
 	// Translations
 
+	/// ru: 'Разрешить уведомления'
+	String get permission_title => 'Allow notifications';
+
+	/// ru: 'Выберите, может ли Quiz отправлять уведомления указанных ниже категорий.'
+	String get permission_body => 'Choose whether Quiz may send the notification categories below.';
+
+	/// ru: 'Уведомления отключены в настройках системы. Выбранные категории продолжают синхронизироваться.'
+	String get permission_denied => 'Notifications are disabled in system settings. Your category choices remain synchronized.';
+
+	/// ru: 'ПРОДОЛЖИТЬ'
+	String get allow => 'CONTINUE';
+
+	/// ru: 'Не удалось синхронизировать настройки уведомлений. Попробуйте позже.'
+	String get sync_error => 'Could not synchronize notification settings. Try again later.';
+
 	/// ru: 'Напоминание о выпуске дня'
 	String get daily_issue => 'Daily issue reminder';
 
@@ -1759,6 +1774,11 @@ extension on Translations {
 			'profile.settings.adult_content.confirm_dialog_body' => 'Eligible 18+ questions may appear in future editions. This one-time confirmation is synchronized across your devices.',
 			'profile.settings.adult_content.revoke_dialog_title' => 'Disable adult content?',
 			'profile.settings.adult_content.revoke_dialog_body' => 'Future assignments will use general content. Previously accepted rating events and XP will not change.',
+			'profile.settings.notifications_page.permission_title' => 'Allow notifications',
+			'profile.settings.notifications_page.permission_body' => 'Choose whether Quiz may send the notification categories below.',
+			'profile.settings.notifications_page.permission_denied' => 'Notifications are disabled in system settings. Your category choices remain synchronized.',
+			'profile.settings.notifications_page.allow' => 'CONTINUE',
+			'profile.settings.notifications_page.sync_error' => 'Could not synchronize notification settings. Try again later.',
 			'profile.settings.notifications_page.daily_issue' => 'Daily issue reminder',
 			'profile.settings.notifications_page.streak_risk' => 'Streak at risk',
 			'profile.settings.notifications_page.rank_change' => 'Leaderboard position changes',

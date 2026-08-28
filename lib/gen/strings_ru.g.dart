@@ -794,6 +794,11 @@ class _Translations$profile$settings$notifications_page$ru implements Translatio
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
+	@override String get permission_title => 'Разрешить уведомления';
+	@override String get permission_body => 'Выберите, может ли Quiz отправлять уведомления указанных ниже категорий.';
+	@override String get permission_denied => 'Уведомления отключены в настройках системы. Выбранные категории продолжают синхронизироваться.';
+	@override String get allow => 'ПРОДОЛЖИТЬ';
+	@override String get sync_error => 'Не удалось синхронизировать настройки уведомлений. Попробуйте позже.';
 	@override String get daily_issue => 'Напоминание о выпуске дня';
 	@override String get streak_risk => 'Серия под угрозой';
 	@override String get rank_change => 'Изменение позиции в рейтинге';
@@ -1117,6 +1122,11 @@ extension on TranslationsRu {
 			'profile.settings.adult_content.confirm_dialog_body' => 'В будущих выпусках могут появляться допустимые вопросы 18+. Однократное подтверждение синхронизируется между устройствами.',
 			'profile.settings.adult_content.revoke_dialog_title' => 'Отключить контент 18+?',
 			'profile.settings.adult_content.revoke_dialog_body' => 'Будущие назначения будут использовать общий контент. Уже принятые изменения рейтинга и XP не изменятся.',
+			'profile.settings.notifications_page.permission_title' => 'Разрешить уведомления',
+			'profile.settings.notifications_page.permission_body' => 'Выберите, может ли Quiz отправлять уведомления указанных ниже категорий.',
+			'profile.settings.notifications_page.permission_denied' => 'Уведомления отключены в настройках системы. Выбранные категории продолжают синхронизироваться.',
+			'profile.settings.notifications_page.allow' => 'ПРОДОЛЖИТЬ',
+			'profile.settings.notifications_page.sync_error' => 'Не удалось синхронизировать настройки уведомлений. Попробуйте позже.',
 			'profile.settings.notifications_page.daily_issue' => 'Напоминание о выпуске дня',
 			'profile.settings.notifications_page.streak_risk' => 'Серия под угрозой',
 			'profile.settings.notifications_page.rank_change' => 'Изменение позиции в рейтинге',

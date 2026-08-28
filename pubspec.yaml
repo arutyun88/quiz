@@ -17,7 +17,6 @@ dependencies:
   google_fonts: ^8.1.0
 
   # Info
-  device_info_plus: ^11.3.0
   uuid: ^4.5.1
 
   # Localization
@@ -29,6 +28,7 @@ dependencies:
 
   # Firebase
   firebase_core: ^3.11.0
+  firebase_messaging: ^15.2.10
   firebase_remote_config: ^5.4.2
 
   # Api
