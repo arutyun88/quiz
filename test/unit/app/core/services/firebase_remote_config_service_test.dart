@@ -74,8 +74,13 @@ void main() {
 
     final defaults = await loadBundledRemoteConfigDefaults();
 
-    expect(defaults['guest_demo_question_count'], 3);
-    expect(defaults['app_launch_date'], '');
+    final guestDemoQuestionCount = defaults[guestDemoQuestionCountKey];
+    final appLaunchDate = defaults[appLaunchDateKey];
+    expect(
+      parseGuestDemoQuestionCount(guestDemoQuestionCount),
+      guestDemoQuestionCount,
+    );
+    expect(parseAppLaunchDate(appLaunchDate), appLaunchDate);
   });
 
   test('keeps bundled values when Firebase initialization and fetch fail',

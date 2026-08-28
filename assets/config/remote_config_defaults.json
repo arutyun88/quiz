@@ -1,4 +1,5 @@
 {
-  "app_launch_date": "",
+  "start_day_config": "{\"question_count\":10,\"estimated_minutes\":4}",
+  "app_launch_date": "2026-06-25",
   "guest_demo_question_count": 3
 }
