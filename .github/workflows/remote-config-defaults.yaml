@@ -13,14 +13,14 @@ jobs:
   verify-snapshot:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: google-github-actions/auth@v3
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_REMOTE_CONFIG_SERVICE_ACCOUNT }}
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: '22'
 
@@ -43,7 +43,7 @@ jobs:
       - name: Verify committed snapshot is current
         run: git diff --exit-code -- assets/config/remote_config_defaults.json
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: current-remote-config-defaults
