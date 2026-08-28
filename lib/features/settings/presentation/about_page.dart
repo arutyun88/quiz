@@ -3,11 +3,27 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
+import 'package:quiz/app/di/di.dart';
+import 'package:quiz/features/ads/domain/rewarded_ads_gateway.dart';
 import 'package:quiz/features/settings/presentation/widgets/settings_rows.dart';
 import 'package:quiz/gen/strings.g.dart';
 
-class AboutPage extends StatelessWidget {
+class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
+
+  @override
+  State<AboutPage> createState() => _AboutPageState();
+}
+
+class _AboutPageState extends State<AboutPage> {
+  late final RewardedAdsGateway _ads = getIt<RewardedAdsGateway>();
+  late Future<bool> _privacyOptionsRequired;
+
+  @override
+  void initState() {
+    super.initState();
+    _privacyOptionsRequired = _ads.privacyOptionsRequired();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +67,15 @@ class AboutPage extends StatelessWidget {
               children: [
                 SettingsLinkRow(label: t.about_page.terms),
                 SettingsLinkRow(label: t.about_page.privacy),
+                FutureBuilder<bool>(
+                  future: _privacyOptionsRequired,
+                  builder: (context, snapshot) => snapshot.data == true
+                      ? SettingsLinkRow(
+                          label: t.about_page.privacy_choices,
+                          onTap: _showPrivacyOptions,
+                        )
+                      : const SizedBox.shrink(),
+                ),
                 SettingsLinkRow(label: t.about_page.support),
               ],
             ),
@@ -58,6 +83,14 @@ class AboutPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _showPrivacyOptions() async {
+    await _ads.showPrivacyOptions();
+    if (!mounted) return;
+    setState(() {
+      _privacyOptionsRequired = _ads.privacyOptionsRequired();
+    });
   }
 }
 

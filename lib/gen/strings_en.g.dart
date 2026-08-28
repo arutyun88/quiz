@@ -533,8 +533,20 @@ class Translations$daily_limit$en {
 		other: '+${n} QUESTIONS · FREE',
 	);
 
-	/// ru: 'СЕРВИС РОЛИКОВ ПОКА НЕ ПОДКЛЮЧЁН'
-	String get ad_unavailable => 'VIDEO SERVICE IS NOT CONNECTED YET';
+	/// ru: 'СЕРВИС РОЛИКОВ НЕДОСТУПЕН'
+	String get ad_unavailable => 'VIDEO SERVICE IS NOT AVAILABLE';
+
+	/// ru: 'Загружаем ролик…'
+	String get ad_loading => 'Loading video…';
+
+	/// ru: 'Ролик завершён. Ждём подтверждения сервера…'
+	String get ad_awaiting_confirmation => 'Video completed. Waiting for server confirmation…';
+
+	/// ru: 'Подтверждение задерживается. Обновите через несколько секунд — рекламный лимит не потрачен.'
+	String get ad_confirmation_delayed => 'Confirmation is delayed. Refresh in a moment; no video allowance was spent.';
+
+	/// ru: 'Не удалось завершить ролик. Рекламный лимит не потрачен.'
+	String get ad_failed => 'The video could not be completed. No allowance was spent.';
 
 	/// ru: 'На сегодня доп. вопросы закончились'
 	String get ad_exhausted => 'No more extra questions today';
@@ -1315,6 +1327,9 @@ class Translations$profile$settings$about_page$en {
 	/// ru: 'Политика конфиденциальности'
 	String get privacy => 'Privacy policy';
 
+	/// ru: 'Настройки конфиденциальности'
+	String get privacy_choices => 'Privacy choices';
+
 	/// ru: 'Написать в поддержку'
 	String get support => 'Contact support';
 }
@@ -1751,6 +1766,7 @@ extension on Translations {
 			'profile.settings.about_page.version' => ({required Object version, required Object build}) => 'Version ${version} (${build})',
 			'profile.settings.about_page.terms' => 'Terms of service',
 			'profile.settings.about_page.privacy' => 'Privacy policy',
+			'profile.settings.about_page.privacy_choices' => 'Privacy choices',
 			'profile.settings.about_page.support' => 'Contact support',
 			'profile.settings.language_sync.title' => 'Updating questions',
 			'profile.settings.language_sync.syncing' => 'Loading questions, topics, and answers in the selected language',
@@ -1957,7 +1973,11 @@ extension on Translations {
 			'daily_limit.next_ad_in' => 'Next video available in',
 			'daily_limit.watch_ad' => 'Watch a video',
 			'daily_limit.watch_ad_caption' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '+${n} QUESTION · FREE', other: '+${n} QUESTIONS · FREE', ),
-			'daily_limit.ad_unavailable' => 'VIDEO SERVICE IS NOT CONNECTED YET',
+			'daily_limit.ad_unavailable' => 'VIDEO SERVICE IS NOT AVAILABLE',
+			'daily_limit.ad_loading' => 'Loading video…',
+			'daily_limit.ad_awaiting_confirmation' => 'Video completed. Waiting for server confirmation…',
+			'daily_limit.ad_confirmation_delayed' => 'Confirmation is delayed. Refresh in a moment; no video allowance was spent.',
+			'daily_limit.ad_failed' => 'The video could not be completed. No allowance was spent.',
 			'daily_limit.ad_exhausted' => 'No more extra questions today',
 			'daily_limit.keep_playing' => 'KEEP PLAYING',
 			'demo.start.badge' => 'GUEST DEMO',

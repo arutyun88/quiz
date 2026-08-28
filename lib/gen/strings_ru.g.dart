@@ -344,7 +344,11 @@ class _Translations$daily_limit$ru implements Translations$daily_limit$en {
 		many: '+${n} ВОПРОСОВ · БЕСПЛАТНО',
 		other: '+${n} ВОПРОСА · БЕСПЛАТНО',
 	);
-	@override String get ad_unavailable => 'СЕРВИС РОЛИКОВ ПОКА НЕ ПОДКЛЮЧЁН';
+	@override String get ad_unavailable => 'СЕРВИС РОЛИКОВ НЕДОСТУПЕН';
+	@override String get ad_loading => 'Загружаем ролик…';
+	@override String get ad_awaiting_confirmation => 'Ролик завершён. Ждём подтверждения сервера…';
+	@override String get ad_confirmation_delayed => 'Подтверждение задерживается. Обновите через несколько секунд — рекламный лимит не потрачен.';
+	@override String get ad_failed => 'Не удалось завершить ролик. Рекламный лимит не потрачен.';
 	@override String get ad_exhausted => 'На сегодня доп. вопросы закончились';
 	@override String get keep_playing => 'ИГРАТЬ ДАЛЬШЕ';
 }
@@ -806,6 +810,7 @@ class _Translations$profile$settings$about_page$ru implements Translations$profi
 	@override String version({required Object version, required Object build}) => 'Версия ${version} (${build})';
 	@override String get terms => 'Пользовательское соглашение';
 	@override String get privacy => 'Политика конфиденциальности';
+	@override String get privacy_choices => 'Настройки конфиденциальности';
 	@override String get support => 'Написать в поддержку';
 }
 
@@ -1119,6 +1124,7 @@ extension on TranslationsRu {
 			'profile.settings.about_page.version' => ({required Object version, required Object build}) => 'Версия ${version} (${build})',
 			'profile.settings.about_page.terms' => 'Пользовательское соглашение',
 			'profile.settings.about_page.privacy' => 'Политика конфиденциальности',
+			'profile.settings.about_page.privacy_choices' => 'Настройки конфиденциальности',
 			'profile.settings.about_page.support' => 'Написать в поддержку',
 			'profile.settings.language_sync.title' => 'Обновляем вопросы',
 			'profile.settings.language_sync.syncing' => 'Загружаем вопросы, темы и ответы на выбранном языке',
@@ -1325,7 +1331,11 @@ extension on TranslationsRu {
 			'daily_limit.next_ad_in' => 'Следующий ролик через',
 			'daily_limit.watch_ad' => 'Посмотреть ролик',
 			'daily_limit.watch_ad_caption' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '+${n} ВОПРОС · БЕСПЛАТНО', few: '+${n} ВОПРОСА · БЕСПЛАТНО', many: '+${n} ВОПРОСОВ · БЕСПЛАТНО', other: '+${n} ВОПРОСА · БЕСПЛАТНО', ),
-			'daily_limit.ad_unavailable' => 'СЕРВИС РОЛИКОВ ПОКА НЕ ПОДКЛЮЧЁН',
+			'daily_limit.ad_unavailable' => 'СЕРВИС РОЛИКОВ НЕДОСТУПЕН',
+			'daily_limit.ad_loading' => 'Загружаем ролик…',
+			'daily_limit.ad_awaiting_confirmation' => 'Ролик завершён. Ждём подтверждения сервера…',
+			'daily_limit.ad_confirmation_delayed' => 'Подтверждение задерживается. Обновите через несколько секунд — рекламный лимит не потрачен.',
+			'daily_limit.ad_failed' => 'Не удалось завершить ролик. Рекламный лимит не потрачен.',
 			'daily_limit.ad_exhausted' => 'На сегодня доп. вопросы закончились',
 			'daily_limit.keep_playing' => 'ИГРАТЬ ДАЛЬШЕ',
 			'demo.start.badge' => 'ГОСТЕВОЕ ДЕМО',

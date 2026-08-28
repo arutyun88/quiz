@@ -18,6 +18,7 @@ class DailyLimitPage extends StatelessWidget {
     required this.onClose,
     required this.onRefresh,
     this.onWatchAd,
+    this.adStatus,
   });
 
   final DailyContinuationEntity continuation;
@@ -26,6 +27,7 @@ class DailyLimitPage extends StatelessWidget {
   final VoidCallback onClose;
   final VoidCallback onRefresh;
   final VoidCallback? onWatchAd;
+  final String? adStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -124,6 +126,18 @@ class DailyLimitPage extends StatelessWidget {
                         padding: const EdgeInsets.only(bottom: 30),
                         child: Text(
                           t.ad_exhausted,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.spectral(
+                            fontSize: 14,
+                            color: colors.text.secondary,
+                          ),
+                        ),
+                      ),
+                    if (adStatus != null)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 18),
+                        child: Text(
+                          adStatus!,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.spectral(
                             fontSize: 14,

@@ -89,6 +89,7 @@
                 "version": "Version $version ($build)",
                 "terms": "Terms of service",
                 "privacy": "Privacy policy",
+                "privacy_choices": "Privacy choices",
                 "support": "Contact support"
             },
             "language_sync": {
@@ -411,7 +412,11 @@
             "one": "+$n QUESTION · FREE",
             "other": "+$n QUESTIONS · FREE"
         },
-        "ad_unavailable": "VIDEO SERVICE IS NOT CONNECTED YET",
+        "ad_unavailable": "VIDEO SERVICE IS NOT AVAILABLE",
+        "ad_loading": "Loading video…",
+        "ad_awaiting_confirmation": "Video completed. Waiting for server confirmation…",
+        "ad_confirmation_delayed": "Confirmation is delayed. Refresh in a moment; no video allowance was spent.",
+        "ad_failed": "The video could not be completed. No allowance was spent.",
         "ad_exhausted": "No more extra questions today",
         "keep_playing": "KEEP PLAYING"
     },

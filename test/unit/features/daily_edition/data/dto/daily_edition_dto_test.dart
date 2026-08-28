@@ -287,24 +287,6 @@ void main() {
     expect(entity.action, DailyAttemptAction.unknown);
     expect(() => entity.action.apiValue, throwsStateError);
   });
-
-  test('parses the authoritative rewarded-ad grant', () {
-    final entity = RewardedAdDto.fromJson({
-      'client_event_id': 'event-1',
-      'granted_questions': 5,
-      'continuation': _continuationJson(
-        nextAction: 'PLAY_QUESTION',
-        bonusRemaining: 5,
-      ),
-    }).toEntity();
-
-    expect(entity.clientEventId, 'event-1');
-    expect(entity.grantedQuestions, 5);
-    expect(
-      entity.continuation.nextAction,
-      DailyContinuationAction.playQuestion,
-    );
-  });
 }
 
 Map<String, dynamic> _continuationJson({

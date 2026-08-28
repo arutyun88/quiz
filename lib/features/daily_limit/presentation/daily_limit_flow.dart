@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quiz/app/di/di.dart';
+import 'package:quiz/features/ads/domain/rewarded_ads_gateway.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 import 'package:quiz/features/daily_limit/presentation/daily_limit_page.dart';
 import 'package:quiz/features/home/presentation/widgets/quiz/quiz_state_views.dart';
+import 'package:quiz/gen/strings.g.dart';
+import 'package:uuid/uuid.dart';
 
 class DailyLimitFlow extends ConsumerStatefulWidget {
   const DailyLimitFlow({super.key});
@@ -14,6 +18,10 @@ class DailyLimitFlow extends ConsumerStatefulWidget {
 }
 
 class _DailyLimitFlowState extends ConsumerState<DailyLimitFlow> {
+  late final RewardedAdsGateway _ads = getIt<RewardedAdsGateway>();
+  bool _adBusy = false;
+  String? _adStatus;
+
   @override
   void initState() {
     super.initState();
@@ -43,12 +51,14 @@ class _DailyLimitFlowState extends ConsumerState<DailyLimitFlow> {
         DailyEditionSummaryState(:final summary, :final isBusy) =>
           DailyLimitPage(
             continuation: summary.continuation,
-            isBusy: isBusy,
+            isBusy: isBusy || _adBusy,
             onKeepPlaying: () =>
                 ref.read(dailyEditionProvider.notifier).continueEdition(),
             onRefresh: () =>
                 ref.read(dailyEditionProvider.notifier).refreshContinuation(),
             onClose: () => context.goNamed('home'),
+            onWatchAd: _ads.available ? _watchAd : null,
+            adStatus: _adStatus,
           ),
         DailyEditionFailedState(:final failure) => Scaffold(
             body: SafeArea(child: QuizError(failure: failure)),
@@ -58,5 +68,61 @@ class _DailyLimitFlowState extends ConsumerState<DailyLimitFlow> {
           ),
       },
     );
+  }
+
+  Future<void> _watchAd() async {
+    final edition = ref.read(dailyEditionProvider);
+    final userId = ref.read(authenticationProvider).mapOrNull(
+          authenticated: (state) => state.user?.id,
+        );
+    if (_adBusy || edition is! DailyEditionSummaryState || userId == null) {
+      return;
+    }
+
+    final previousRewardedVideosUsed =
+        edition.summary.continuation.rewardedVideosUsed;
+    setState(() {
+      _adBusy = true;
+      _adStatus = context.t.daily_limit.ad_loading;
+    });
+    final outcome = await _ads.showRewarded(
+      userId: userId,
+      runId: edition.run.runId,
+      clientEventId: const Uuid().v4(),
+    );
+    if (!mounted) return;
+
+    switch (outcome) {
+      case RewardedAdShowOutcome.earned:
+        setState(() {
+          _adStatus = context.t.daily_limit.ad_awaiting_confirmation;
+        });
+        final confirmed = await ref
+            .read(dailyEditionProvider.notifier)
+            .waitForRewardedAdConfirmation(
+              previousRewardedVideosUsed: previousRewardedVideosUsed,
+            );
+        if (!mounted) return;
+        setState(() {
+          _adBusy = false;
+          _adStatus =
+              confirmed ? null : context.t.daily_limit.ad_confirmation_delayed;
+        });
+      case RewardedAdShowOutcome.dismissed:
+        setState(() {
+          _adBusy = false;
+          _adStatus = null;
+        });
+      case RewardedAdShowOutcome.failed:
+        setState(() {
+          _adBusy = false;
+          _adStatus = context.t.daily_limit.ad_failed;
+        });
+      case RewardedAdShowOutcome.unavailable:
+        setState(() {
+          _adBusy = false;
+          _adStatus = context.t.daily_limit.ad_unavailable;
+        });
+    }
   }
 }

@@ -22,6 +22,8 @@ import '../../features/achievements/data/converter/user_achievement_converter.da
 import '../../features/achievements/di/di.dart' as _i134;
 import '../../features/achievements/domain/repository/user_achievement_repository.dart'
     as _i518;
+import '../../features/ads/data/admob_rewarded_ads_gateway.dart' as _i437;
+import '../../features/ads/domain/rewarded_ads_gateway.dart' as _i353;
 import '../../features/attribution/data/repository/remote_acquisition_attribution_repository.dart'
     as _i209;
 import '../../features/attribution/domain/repository/acquisition_attribution_repository.dart'
@@ -201,6 +203,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i692.AnswerDbConverter>(() => _i692.AnswerDbConverterImpl());
     gh.singleton<_i941.UnauthorizedEventService>(
         () => _i941.UnauthorizedEventServiceImpl());
+    gh.lazySingleton<_i353.RewardedAdsGateway>(
+        () => _i437.AdMobRewardedAdsGateway());
     gh.singleton<_i724.PageInfoConverter>(() => _i724.PageInfoConverterImpl());
     gh.singleton<_i422.AuthTokenService>(() =>
         _i422.AuthTokenServicePrefs(prefs: gh<_i460.SharedPreferences>()));

@@ -148,6 +148,7 @@ void main() {
       outbox: outbox,
       clientEventIdFactory: () => 'event-1',
       now: () => DateTime.parse('2026-08-26T00:00:00Z'),
+      delay: (_) async {},
     );
   });
 
@@ -290,43 +291,61 @@ void main() {
     verifyNever(() => repository.fetchCurrent(any()));
   });
 
-  test('reward confirmation trusts only the returned server continuation',
-      () async {
-    final reward = RewardedAdEntity(
-      clientEventId: 'ad-event-1',
-      grantedQuestions: 5,
-      continuation: continuation.copyWith(
-        nextAction: DailyContinuationAction.playQuestion,
-        bonusQuestionsGranted: 5,
-        bonusQuestionsRemaining: 5,
-      ),
-    );
+  test('reward completion waits for the server continuation', () async {
+    var continuationRequests = 0;
     when(() => repository.open(timezoneId: null))
         .thenAnswer((_) async => Result.ok(completedRun));
     when(() => repository.fetchSummary('run-1'))
         .thenAnswer((_) async => Result.ok(summary));
-    when(
-      () => repository.confirmRewardedAd(
-        runId: 'run-1',
-        clientEventId: 'ad-event-1',
-        providerEventId: 'provider-event-1',
-        verificationToken: 'token-1',
-      ),
-    ).thenAnswer((_) async => Result.ok(reward));
+    when(() => repository.fetchContinuation('run-1')).thenAnswer((_) async {
+      continuationRequests++;
+      if (continuationRequests == 1) return Result.ok(summary.continuation);
+      return Result.ok(
+        summary.continuation.copyWith(
+          nextAction: DailyContinuationAction.playQuestion,
+          rewardedVideosUsed: 1,
+          rewardedVideosRemaining: 5,
+          rollingVideosUsed: 1,
+          bonusQuestionsGranted: 5,
+          bonusQuestionsRemaining: 5,
+        ),
+      );
+    });
     await notifier.bootstrap();
 
-    await notifier.confirmRewardedAd(
-      clientEventId: 'ad-event-1',
-      providerEventId: 'provider-event-1',
-      verificationToken: 'token-1',
+    final confirmed = await notifier.waitForRewardedAdConfirmation(
+      previousRewardedVideosUsed: 0,
     );
 
     final state = notifier.state as DailyEditionSummaryState;
+    expect(confirmed, isTrue);
+    expect(continuationRequests, 2);
     expect(state.summary.continuation.bonusQuestionsRemaining, 5);
     expect(
       state.summary.continuation.nextAction,
       DailyContinuationAction.playQuestion,
     );
+  });
+
+  test('an unconfirmed client reward never grants questions locally', () async {
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(completedRun));
+    when(() => repository.fetchSummary('run-1'))
+        .thenAnswer((_) async => Result.ok(summary));
+    when(() => repository.fetchContinuation('run-1'))
+        .thenAnswer((_) async => Result.ok(summary.continuation));
+    await notifier.bootstrap();
+
+    final confirmed = await notifier.waitForRewardedAdConfirmation(
+      previousRewardedVideosUsed: 0,
+      maxAttempts: 2,
+    );
+
+    final state = notifier.state as DailyEditionSummaryState;
+    expect(confirmed, isFalse);
+    expect(state.summary.continuation.bonusQuestionsGranted, 0);
+    expect(state.summary.continuation.bonusQuestionsRemaining, 0);
+    verify(() => repository.fetchContinuation('run-1')).called(2);
   });
 
   test('hint text and usage come only from the server response', () async {

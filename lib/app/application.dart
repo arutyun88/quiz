@@ -1,15 +1,32 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz/app/config/navigation/router.dart';
 import 'package:quiz/app/core/theme/provider/theme_provider.dart';
+import 'package:quiz/app/di/di.dart';
+import 'package:quiz/features/ads/domain/rewarded_ads_gateway.dart';
 import 'package:quiz/gen/strings.g.dart';
 
-class Application extends ConsumerWidget {
+class Application extends ConsumerStatefulWidget {
   const Application({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<Application> createState() => _ApplicationState();
+}
+
+class _ApplicationState extends ConsumerState<Application> {
+  @override
+  void initState() {
+    super.initState();
+    if (getIt.isRegistered<RewardedAdsGateway>()) {
+      unawaited(getIt<RewardedAdsGateway>().initializeConsent());
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final router = ref.watch(routerProvider);
     final theme = ref.watch(themeProvider);
 

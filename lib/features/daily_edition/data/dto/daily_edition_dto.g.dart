@@ -284,34 +284,3 @@ Map<String, dynamic> _$$DailySummaryDtoImplToJson(
       'season_rank_delta': instance.seasonRankDelta,
       'continuation': instance.continuation,
     };
-
-_$RewardedAdRequestDtoImpl _$$RewardedAdRequestDtoImplFromJson(
-        Map<String, dynamic> json) =>
-    _$RewardedAdRequestDtoImpl(
-      clientEventId: json['client_event_id'] as String,
-      providerEventId: json['provider_event_id'] as String,
-      verificationToken: json['verification_token'] as String,
-    );
-
-Map<String, dynamic> _$$RewardedAdRequestDtoImplToJson(
-        _$RewardedAdRequestDtoImpl instance) =>
-    <String, dynamic>{
-      'client_event_id': instance.clientEventId,
-      'provider_event_id': instance.providerEventId,
-      'verification_token': instance.verificationToken,
-    };
-
-_$RewardedAdDtoImpl _$$RewardedAdDtoImplFromJson(Map<String, dynamic> json) =>
-    _$RewardedAdDtoImpl(
-      clientEventId: json['client_event_id'] as String,
-      grantedQuestions: (json['granted_questions'] as num).toInt(),
-      continuation: DailyContinuationDto.fromJson(
-          json['continuation'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$$RewardedAdDtoImplToJson(_$RewardedAdDtoImpl instance) =>
-    <String, dynamic>{
-      'client_event_id': instance.clientEventId,
-      'granted_questions': instance.grantedQuestions,
-      'continuation': instance.continuation,
-    };

@@ -39,6 +39,9 @@ dependencies:
   # Purchases
   purchases_flutter: ^10.10.0
 
+  # Ads and consent
+  google_mobile_ads: ^9.1.0
+
   # DI
   get_it: ^8.0.3
   injectable: ^2.5.0

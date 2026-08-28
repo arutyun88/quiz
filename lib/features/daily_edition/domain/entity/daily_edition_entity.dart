@@ -174,12 +174,3 @@ class DailySummaryEntity with _$DailySummaryEntity {
     required DailyContinuationEntity continuation,
   }) = _DailySummaryEntity;
 }
-
-@freezed
-class RewardedAdEntity with _$RewardedAdEntity {
-  const factory RewardedAdEntity({
-    required String clientEventId,
-    required int grantedQuestions,
-    required DailyContinuationEntity continuation,
-  }) = _RewardedAdEntity;
-}

@@ -113,12 +113,14 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     required DailyAttemptOutbox outbox,
     String Function()? clientEventIdFactory,
     DateTime Function()? now,
+    Future<void> Function(Duration)? delay,
   })  : _accountId = accountId,
         _repository = repository,
         _outbox = outbox,
         _clientEventIdFactory =
             clientEventIdFactory ?? (() => const Uuid().v4()),
         _now = now ?? DateTime.now,
+        _delay = delay ?? Future.delayed,
         super(const DailyEditionInitialState());
 
   final String? _accountId;
@@ -126,6 +128,7 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
   final DailyAttemptOutbox _outbox;
   final String Function() _clientEventIdFactory;
   final DateTime Function() _now;
+  final Future<void> Function(Duration) _delay;
   bool _bootstrapping = false;
 
   /// Opens or restores the account's authoritative run. The server decides the
@@ -400,37 +403,45 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     }
   }
 
-  Future<void> confirmRewardedAd({
-    required String clientEventId,
-    required String providerEventId,
-    required String verificationToken,
+  Future<bool> waitForRewardedAdConfirmation({
+    required int previousRewardedVideosUsed,
+    int maxAttempts = 10,
   }) async {
     final current = state;
-    if (current is! DailyEditionSummaryState ||
-        current.isBusy ||
-        !current.summary.continuation.rewardedAdAvailable) {
-      return;
+    if (current is! DailyEditionSummaryState || current.isBusy) {
+      return false;
+    }
+    if (current.summary.continuation.rewardedVideosUsed >
+        previousRewardedVideosUsed) {
+      return true;
     }
 
     state = current.copyWith(isBusy: true, clearFailure: true);
-    final result = await _repository.confirmRewardedAd(
-      runId: current.run.runId,
-      clientEventId: clientEventId,
-      providerEventId: providerEventId,
-      verificationToken: verificationToken,
-    );
-    switch (result) {
-      case ResultOk(data: final reward):
-        state = current.copyWith(
-          summary: current.summary.copyWith(
-            continuation: reward.continuation,
-          ),
-          isBusy: false,
-          clearFailure: true,
-        );
-      case ResultFailed(error: final failure):
-        state = current.copyWith(isBusy: false, failure: failure);
+    var latest = current;
+    for (var attempt = 0; attempt < maxAttempts; attempt++) {
+      final result = await _repository.fetchContinuation(current.run.runId);
+      switch (result) {
+        case ResultOk(data: final continuation):
+          latest = latest.copyWith(
+            summary: latest.summary.copyWith(continuation: continuation),
+            isBusy: true,
+            clearFailure: true,
+          );
+          state = latest;
+          if (continuation.rewardedVideosUsed > previousRewardedVideosUsed) {
+            state = latest.copyWith(isBusy: false, clearFailure: true);
+            return true;
+          }
+        case ResultFailed(error: final failure):
+          state = latest.copyWith(isBusy: false, failure: failure);
+          return false;
+      }
+      if (attempt + 1 < maxAttempts) {
+        await _delay(const Duration(seconds: 1));
+      }
     }
+    state = latest.copyWith(isBusy: false, clearFailure: true);
+    return false;
   }
 
   Future<void> _loadRun(DailyRunEntity run) async {

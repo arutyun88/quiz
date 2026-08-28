@@ -101,16 +101,6 @@ void main() {
     ),
   );
 
-  final rewardedAd = RewardedAdEntity(
-    clientEventId: 'ad-event-1',
-    grantedQuestions: 5,
-    continuation: continuation.copyWith(
-      nextAction: DailyContinuationAction.playQuestion,
-      bonusQuestionsGranted: 5,
-      bonusQuestionsRemaining: 5,
-    ),
-  );
-
   setUpAll(() {
     registerFallbackValue(<String, dynamic>{});
   });
@@ -414,48 +404,5 @@ void main() {
 
     expect(captured, containsPair('action', 'SKIP'));
     expect(captured, isNot(contains('answer_id')));
-  });
-
-  test('confirmRewardedAd forwards only server-verifiable identifiers',
-      () async {
-    when(
-      () => client.post<RewardedAdEntity, DataDto<RewardedAdDto>>(
-        any(),
-        body: any(named: 'body'),
-        queryParameters: any(named: 'queryParameters'),
-        headers: any(named: 'headers'),
-        mapper: any(named: 'mapper'),
-        converter: any(named: 'converter'),
-        enableLocale: any(named: 'enableLocale'),
-        onSuccess: any(named: 'onSuccess'),
-      ),
-    ).thenAnswer((_) async => Result.ok(rewardedAd));
-
-    await repository.confirmRewardedAd(
-      runId: 'run-1',
-      clientEventId: 'ad-event-1',
-      providerEventId: 'provider-event-1',
-      verificationToken: 'ssv-token',
-    );
-
-    final captured = verify(
-      () => client.post<RewardedAdEntity, DataDto<RewardedAdDto>>(
-        '/daily-editions/run-1/rewarded-ads',
-        body: captureAny(named: 'body'),
-        queryParameters: any(named: 'queryParameters'),
-        headers: any(named: 'headers'),
-        mapper: any(named: 'mapper'),
-        converter: any(named: 'converter'),
-        enableLocale: false,
-        onSuccess: any(named: 'onSuccess'),
-      ),
-    ).captured.single as Map<String, dynamic>;
-
-    expect(captured, {
-      'client_event_id': 'ad-event-1',
-      'provider_event_id': 'provider-event-1',
-      'verification_token': 'ssv-token',
-    });
-    expect(captured, isNot(contains('granted_questions')));
   });
 }

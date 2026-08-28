@@ -127,14 +127,6 @@ extension DailySummaryDtoConverter on DailySummaryDto {
       );
 }
 
-extension RewardedAdDtoConverter on RewardedAdDto {
-  RewardedAdEntity toEntity() => RewardedAdEntity(
-        clientEventId: clientEventId,
-        grantedQuestions: grantedQuestions,
-        continuation: continuation.toEntity(),
-      );
-}
-
 DailyRunStatus _runStatus(String value) => switch (value) {
       'IN_PROGRESS' => DailyRunStatus.inProgress,
       'COMPLETED' => DailyRunStatus.completed,

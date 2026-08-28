@@ -179,27 +179,3 @@ class DailySummaryDto with _$DailySummaryDto {
   factory DailySummaryDto.fromJson(Map<String, dynamic> json) =>
       _$DailySummaryDtoFromJson(json);
 }
-
-@freezed
-class RewardedAdRequestDto with _$RewardedAdRequestDto {
-  const factory RewardedAdRequestDto({
-    @JsonKey(name: 'client_event_id') required String clientEventId,
-    @JsonKey(name: 'provider_event_id') required String providerEventId,
-    @JsonKey(name: 'verification_token') required String verificationToken,
-  }) = _RewardedAdRequestDto;
-
-  factory RewardedAdRequestDto.fromJson(Map<String, dynamic> json) =>
-      _$RewardedAdRequestDtoFromJson(json);
-}
-
-@freezed
-class RewardedAdDto with _$RewardedAdDto {
-  const factory RewardedAdDto({
-    @JsonKey(name: 'client_event_id') required String clientEventId,
-    @JsonKey(name: 'granted_questions') required int grantedQuestions,
-    required DailyContinuationDto continuation,
-  }) = _RewardedAdDto;
-
-  factory RewardedAdDto.fromJson(Map<String, dynamic> json) =>
-      _$RewardedAdDtoFromJson(json);
-}
