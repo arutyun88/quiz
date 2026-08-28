@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:quiz/app/config/firebase/firebase_options.dart';
@@ -25,22 +26,25 @@ abstract class DatabaseModule {
 @module
 abstract class FirebaseConfigModule {
   @preResolve
-  Future<FirebaseApp> firebase() async => await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  Future<FirebaseApp> firebase() async => await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform);
 
   @preResolve
   Future<FirebaseRemoteConfig> remoteConfig() async {
     final remoteConfig = FirebaseRemoteConfig.instance;
     await remoteConfig.setConfigSettings(
       RemoteConfigSettings(
-        fetchTimeout: const Duration(seconds: 10),
-        minimumFetchInterval: const Duration(seconds: 10),
+        fetchTimeout: const Duration(seconds: 5),
+        minimumFetchInterval:
+            kDebugMode ? const Duration(minutes: 1) : const Duration(hours: 12),
       ),
     );
     return remoteConfig;
   }
 
   @preResolve
-  Future<FirebaseRemoteConfigService> remoteConfigService(FirebaseRemoteConfig config) async {
+  Future<FirebaseRemoteConfigService> remoteConfigService(
+      FirebaseRemoteConfig config) async {
     final service = FirebaseRemoteConfigService(config);
     await service.init();
     return service;
@@ -50,16 +54,19 @@ abstract class FirebaseConfigModule {
 @module
 abstract class LocalStorageModule {
   @preResolve
-  Future<SharedPreferences> sharedPreferences() async => await SharedPreferences.getInstance();
+  Future<SharedPreferences> sharedPreferences() async =>
+      await SharedPreferences.getInstance();
 
   @lazySingleton
-  SettingsLocalStorageService settingsLocalStorageService(SharedPreferences preferences) =>
+  SettingsLocalStorageService settingsLocalStorageService(
+          SharedPreferences preferences) =>
       SettingsLocalStorageService(prefs: preferences);
 }
 
 @module
 abstract class AppSettingsModule {
   @lazySingleton
-  ChangeLocaleGateway changeLocaleGateway(SettingsLocalStorageService storageService) =>
+  ChangeLocaleGateway changeLocaleGateway(
+          SettingsLocalStorageService storageService) =>
       ChangeLocaleGateway(storageService: storageService);
 }

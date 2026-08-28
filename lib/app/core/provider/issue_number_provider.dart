@@ -3,14 +3,10 @@ import 'package:quiz/app/di/di.dart';
 import 'package:quiz/app/core/services/firebase_remote_config_service.dart';
 
 final issueNumberProvider = Provider<int>((ref) {
-  const key = 'app_launch_date';
-  final raw = getIt<FirebaseRemoteConfigService>().fetchByKey(key);
-  if (raw.isEmpty) return 1;
-  final launchDate = DateTime.tryParse(raw);
+  final launchDate = getIt<FirebaseRemoteConfigService>().appLaunchDate;
   if (launchDate == null) return 1;
-  final now = DateTime.now();
-  final days = DateTime(now.year, now.month, now.day)
-      .difference(DateTime(launchDate.year, launchDate.month, launchDate.day))
-      .inDays;
-  return days + 1;
+  final now = DateTime.now().toUtc();
+  final today = DateTime.utc(now.year, now.month, now.day);
+  final days = today.difference(launchDate).inDays;
+  return days < 0 ? 1 : days + 1;
 });

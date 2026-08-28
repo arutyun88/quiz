@@ -84,6 +84,45 @@ Configure release symbol upload in CI before distributing obfuscated or
 release builds; the DSN is a public client configuration value, while Sentry
 auth tokens used for symbol upload must remain CI secrets.
 
+## Firebase Remote Config
+
+Remote Config is limited to non-authoritative mobile presentation parameters.
+Configure these optional keys in the Firebase console:
+
+- `guest_demo_question_count`: integer from 1 to 10; the in-app default is 3.
+- `app_launch_date`: an ISO date-only value such as `2026-08-29`; an absent or
+  invalid value displays issue number 1.
+
+Cached values activate during startup and network refresh continues in the
+background. Production fetches are limited to once per 12 hours; debug builds
+use a one-minute interval. Realtime updates are activated while the app is
+running. Invalid values and Firebase failures fall back to the bundled
+`assets/config/remote_config_defaults.json` snapshot.
+
+To refresh the bundled snapshot directly from Firebase, authenticate the
+Firebase CLI with Application Default Credentials and run:
+
+```sh
+scripts/firebase/update_remote_config_defaults.sh
+```
+
+The command downloads the active template for `quiz-df891`, copies all default
+values (including parameter groups), atomically replaces the bundled snapshot,
+and runs its contract tests. `FIREBASE_PROJECT_ID` may select a different
+project. Commit the resulting JSON together with the code that consumes it;
+never pass service-account credentials to the app.
+
+The scheduled `Remote Config defaults` workflow performs the same refresh and
+fails when the committed snapshot differs from Firebase. Configure GitHub OIDC
+secrets `GCP_WORKLOAD_IDENTITY_PROVIDER` and
+`GCP_REMOTE_CONFIG_SERVICE_ACCOUNT`; the service account needs read access to
+Remote Config. On failure, the workflow uploads the current snapshot as an
+artifact, but never commits or pushes automatically.
+
+Never add Daily Edition quotas or deadlines, rewarded grants, Quiz+
+entitlement, rating, streak, age access, assignment eligibility, or navigation
+authorization to Remote Config. Those decisions remain server-owned.
+
 ## Firebase Cloud Messaging
 
 The app asks for notification permission only from the Notifications settings

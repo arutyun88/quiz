@@ -1,0 +1,50 @@
+name: Remote Config defaults
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 3 * * *'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  verify-snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_REMOTE_CONFIG_SERVICE_ACCOUNT }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Firebase CLI
+        run: npm install --global firebase-tools@15.28.2
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.7'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Refresh bundled defaults
+        env:
+          FIREBASE_PROJECT_ID: quiz-df891
+        run: scripts/firebase/update_remote_config_defaults.sh
+
+      - name: Verify committed snapshot is current
+        run: git diff --exit-code -- assets/config/remote_config_defaults.json
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: current-remote-config-defaults
+          path: assets/config/remote_config_defaults.json
