@@ -64,6 +64,8 @@ import '../../features/mastery/data/converter/mastery_converter.dart' as _i78;
 import '../../features/mastery/di/di.dart' as _i963;
 import '../../features/mastery/domain/repository/mastery_repository.dart'
     as _i871;
+import '../../features/observability/data/sentry_error_reporter.dart' as _i122;
+import '../../features/observability/domain/app_error_reporter.dart' as _i279;
 import '../../features/question/data/converter/answer_converter.dart' as _i498;
 import '../../features/question/data/converter/answer_db_converter.dart'
     as _i692;
@@ -173,6 +175,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1027.ProductAnalytics>(
         () => _i332.PostHogProductAnalytics());
     gh.factory<_i498.AnswerConverter>(() => _i498.AnswerConverterImpl());
+    gh.lazySingleton<_i279.AppErrorReporter>(() => _i122.SentryErrorReporter());
     gh.factory<_i606.UserAchievementConverter>(
         () => _i606.UserAchievementConverterImpl());
     await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(

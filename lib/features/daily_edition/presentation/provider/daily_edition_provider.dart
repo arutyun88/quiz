@@ -6,6 +6,7 @@ import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/analytics/domain/product_analytics.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
+import 'package:quiz/features/observability/domain/app_error_reporter.dart';
 import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.dart';
 import 'package:quiz/features/daily_edition/domain/entity/pending_daily_attempt_entity.dart';
 import 'package:quiz/features/daily_edition/domain/repository/daily_edition_repository.dart';
@@ -23,6 +24,7 @@ final dailyEditionProvider =
     repository: getIt<DailyEditionRepository>(),
     outbox: getIt<DailyAttemptOutbox>(),
     analytics: getIt<ProductAnalytics>(),
+    errorReporter: getIt<AppErrorReporter>(),
   );
 });
 
@@ -119,6 +121,7 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     DateTime Function()? now,
     Future<void> Function(Duration)? delay,
     ProductAnalytics? analytics,
+    AppErrorReporter? errorReporter,
   })  : _accountId = accountId,
         _repository = repository,
         _outbox = outbox,
@@ -127,6 +130,7 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
         _now = now ?? DateTime.now,
         _delay = delay ?? Future.delayed,
         _analytics = analytics,
+        _errorReporter = errorReporter,
         super(const DailyEditionInitialState());
 
   final String? _accountId;
@@ -136,6 +140,7 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
   final DateTime Function() _now;
   final Future<void> Function(Duration) _delay;
   final ProductAnalytics? _analytics;
+  final AppErrorReporter? _errorReporter;
   bool _bootstrapping = false;
 
   /// Opens or restores the account's authoritative run. The server decides the
@@ -266,7 +271,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     );
     try {
       await _outbox.save(pending);
-    } on Object catch (error) {
+    } on Object catch (error, stackTrace) {
+      _report(error, stackTrace, 'daily_attempt_outbox_save');
       state = current.copyWith(
         isBusy: false,
         failure: Failure.unknown(error),
@@ -291,7 +297,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
       if (pending == null) return;
       state = current.copyWith(isBusy: true, clearFailure: true);
       await _sendPending(current, pending);
-    } on Object catch (error) {
+    } on Object catch (error, stackTrace) {
+      _report(error, stackTrace, 'daily_attempt_outbox_retry');
       state = current.copyWith(
         isBusy: false,
         failure: Failure.unknown(error),
@@ -323,7 +330,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
             clearFailure: true,
           );
           _trackAttempt(attempt, assignmentKind: current.assignment.kind);
-        } on Object catch (error) {
+        } on Object catch (error, stackTrace) {
+          _report(error, stackTrace, 'daily_attempt_outbox_clear');
           state = current.copyWith(
             isBusy: false,
             failure: Failure.unknown(error),
@@ -523,7 +531,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     final PendingDailyAttemptEntity? pending;
     try {
       pending = await _outbox.load(accountId: accountId);
-    } on Object catch (error) {
+    } on Object catch (error, stackTrace) {
+      _report(error, stackTrace, 'daily_attempt_outbox_restore');
       state = DailyEditionFailedState(
         run: run,
         failure: Failure.unknown(error),
@@ -541,7 +550,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
           accountId: accountId,
           clientEventId: pending.clientEventId,
         );
-      } on Object catch (error) {
+      } on Object catch (error, stackTrace) {
+        _report(error, stackTrace, 'daily_attempt_outbox_drop_stale');
         state = DailyEditionFailedState(
           run: run,
           failure: Failure.unknown(error),
@@ -566,7 +576,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
             accountId: accountId,
             clientEventId: pending.clientEventId,
           );
-        } on Object catch (error) {
+        } on Object catch (error, stackTrace) {
+          _report(error, stackTrace, 'daily_attempt_outbox_replay_clear');
           state = DailyEditionFailedState(
             run: run,
             failure: Failure.unknown(error),
@@ -597,7 +608,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
         accountId: pending.accountId,
         clientEventId: pending.clientEventId,
       );
-    } on Object catch (error) {
+    } on Object catch (error, stackTrace) {
+      _report(error, stackTrace, 'daily_attempt_outbox_reconcile_clear');
       state = DailyEditionFailedState(
         run: run,
         failure: Failure.unknown(error),
@@ -656,6 +668,17 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
               if (attempt.ratingDelta != null)
                 'rating_delta': attempt.ratingDelta!,
             },
+          ) ??
+          Future.value(),
+    );
+  }
+
+  void _report(Object error, StackTrace stackTrace, String operation) {
+    unawaited(
+      _errorReporter?.captureException(
+            error,
+            stackTrace,
+            operation: operation,
           ) ??
           Future.value(),
     );

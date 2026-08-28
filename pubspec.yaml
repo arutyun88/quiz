@@ -45,6 +45,9 @@ dependencies:
   # Product analytics
   posthog_flutter: ^5.38.0
 
+  # Crash and error reporting
+  sentry_flutter: ^9.28.0
+
   # DI
   get_it: ^8.0.3
   injectable: ^2.5.0

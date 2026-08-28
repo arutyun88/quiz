@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/analytics/domain/product_analytics.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
+import 'package:quiz/features/observability/domain/app_error_reporter.dart';
 import 'package:quiz/features/subscription/domain/entity/quiz_plus_package_entity.dart';
 import 'package:quiz/features/subscription/domain/gateway/quiz_plus_purchase_gateway.dart';
 
@@ -63,6 +64,7 @@ final quizPlusPurchaseProvider = StateNotifierProvider.autoDispose<
             ) ??
         false,
     analytics: getIt<ProductAnalytics>(),
+    errorReporter: getIt<AppErrorReporter>(),
   );
   if (userId != null) unawaited(notifier.load(userId));
   return notifier;
@@ -75,11 +77,13 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
     required bool Function() isServerEntitled,
     Future<void> Function(Duration) delay = Future.delayed,
     ProductAnalytics? analytics,
+    AppErrorReporter? errorReporter,
   })  : _gateway = gateway,
         _reloadServerProfile = reloadServerProfile,
         _isServerEntitled = isServerEntitled,
         _delay = delay,
         _analytics = analytics,
+        _errorReporter = errorReporter,
         super(const QuizPlusPurchaseState());
 
   final QuizPlusPurchaseGateway _gateway;
@@ -87,6 +91,7 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
   final bool Function() _isServerEntitled;
   final Future<void> Function(Duration) _delay;
   final ProductAnalytics? _analytics;
+  final AppErrorReporter? _errorReporter;
 
   Future<void> load(String userId) async {
     state = state.copyWith(loading: true, status: QuizPlusPurchaseStatus.idle);
@@ -102,7 +107,8 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
         available: true,
         packages: packages,
       );
-    } catch (_) {
+    } on Object catch (error, stackTrace) {
+      _report(error, stackTrace, 'revenuecat_load_offerings');
       state = state.copyWith(
         loading: false,
         available: false,
@@ -147,7 +153,8 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
             packageId: packageId,
           );
       }
-    } catch (_) {
+    } on Object catch (error, stackTrace) {
+      _report(error, stackTrace, 'revenuecat_purchase');
       state = state.copyWith(
         processing: false,
         status: QuizPlusPurchaseStatus.failed,
@@ -172,7 +179,8 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
         QuizPlusPurchaseStatus.restoredWithoutEntitlement,
         action: 'restore',
       );
-    } catch (_) {
+    } on Object catch (error, stackTrace) {
+      _report(error, stackTrace, 'revenuecat_restore');
       state = state.copyWith(
         processing: false,
         status: QuizPlusPurchaseStatus.failed,
@@ -223,6 +231,17 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
               'outcome': outcome,
               if (packageId != null) 'package_id': packageId,
             },
+          ) ??
+          Future.value(),
+    );
+  }
+
+  void _report(Object error, StackTrace stackTrace, String operation) {
+    unawaited(
+      _errorReporter?.captureException(
+            error,
+            stackTrace,
+            operation: operation,
           ) ??
           Future.value(),
     );
