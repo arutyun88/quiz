@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/ads/domain/rewarded_ads_gateway.dart';
+import 'package:quiz/features/analytics/domain/product_analytics.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 import 'package:quiz/features/daily_limit/presentation/daily_limit_page.dart';
@@ -19,6 +22,7 @@ class DailyLimitFlow extends ConsumerStatefulWidget {
 
 class _DailyLimitFlowState extends ConsumerState<DailyLimitFlow> {
   late final RewardedAdsGateway _ads = getIt<RewardedAdsGateway>();
+  late final ProductAnalytics _analytics = getIt<ProductAnalytics>();
   bool _adBusy = false;
   String? _adStatus;
 
@@ -108,21 +112,40 @@ class _DailyLimitFlowState extends ConsumerState<DailyLimitFlow> {
           _adStatus =
               confirmed ? null : context.t.daily_limit.ad_confirmation_delayed;
         });
+        _trackAd(outcome, serverConfirmed: confirmed);
       case RewardedAdShowOutcome.dismissed:
         setState(() {
           _adBusy = false;
           _adStatus = null;
         });
+        _trackAd(outcome);
       case RewardedAdShowOutcome.failed:
         setState(() {
           _adBusy = false;
           _adStatus = context.t.daily_limit.ad_failed;
         });
+        _trackAd(outcome);
       case RewardedAdShowOutcome.unavailable:
         setState(() {
           _adBusy = false;
           _adStatus = context.t.daily_limit.ad_unavailable;
         });
+        _trackAd(outcome);
     }
+  }
+
+  void _trackAd(
+    RewardedAdShowOutcome outcome, {
+    bool serverConfirmed = false,
+  }) {
+    unawaited(
+      _analytics.capture(
+        ProductAnalyticsEvent.rewardedAdFinished,
+        properties: {
+          'sdk_outcome': outcome.name,
+          'server_confirmed': serverConfirmed,
+        },
+      ),
+    );
   }
 }

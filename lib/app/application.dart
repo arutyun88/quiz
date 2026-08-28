@@ -7,6 +7,8 @@ import 'package:quiz/app/config/navigation/router.dart';
 import 'package:quiz/app/core/theme/provider/theme_provider.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/ads/domain/rewarded_ads_gateway.dart';
+import 'package:quiz/features/analytics/domain/product_analytics.dart';
+import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class Application extends ConsumerStatefulWidget {
@@ -20,6 +22,21 @@ class _ApplicationState extends ConsumerState<Application> {
   @override
   void initState() {
     super.initState();
+    ref.listenManual(
+      authenticationProvider,
+      (previous, next) {
+        final analytics = getIt<ProductAnalytics>();
+        final nextUserId = next.mapOrNull(
+          authenticated: (state) => state.user?.id,
+        );
+        if (nextUserId != null) {
+          unawaited(analytics.identify(nextUserId));
+        } else {
+          unawaited(analytics.resetIdentity());
+        }
+      },
+      fireImmediately: true,
+    );
     if (getIt.isRegistered<RewardedAdsGateway>()) {
       unawaited(getIt<RewardedAdsGateway>().initializeConsent());
     }

@@ -42,6 +42,9 @@ dependencies:
   # Ads and consent
   google_mobile_ads: ^9.1.0
 
+  # Product analytics
+  posthog_flutter: ^5.38.0
+
   # DI
   get_it: ^8.0.3
   injectable: ^2.5.0

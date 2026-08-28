@@ -4,6 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/app/main_layout.dart';
+import 'package:quiz/app/di/di.dart';
+import 'package:quiz/features/analytics/domain/product_analytics.dart';
+import 'package:quiz/features/analytics/presentation/product_analytics_navigator_observer.dart';
 import 'package:quiz/features/achievements/presentation/achievements_flow.dart';
 import 'package:quiz/features/authentication/presentation/forgot_password/forgot_password_flow.dart';
 import 'package:quiz/features/authentication/presentation/sign_in/sign_in_flow.dart';
@@ -34,8 +37,10 @@ import 'package:quiz/features/user/presentation/pages/public_profile_page.dart';
 class RouterNotifier extends AsyncNotifier<GoRouter> {
   @override
   FutureOr<GoRouter> build() {
+    final analytics = getIt<ProductAnalytics>();
     return GoRouter(
       initialLocation: '/splash',
+      observers: [ProductAnalyticsNavigatorObserver(analytics)],
       routes: [
         GoRoute(
           path: '/splash',
@@ -81,6 +86,7 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
               MainLayout(navigationShell: navigationShell),
           branches: [
             StatefulShellBranch(
+              observers: [ProductAnalyticsNavigatorObserver(analytics)],
               routes: [
                 GoRoute(
                   path: '/',
@@ -98,6 +104,7 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
               ],
             ),
             StatefulShellBranch(
+              observers: [ProductAnalyticsNavigatorObserver(analytics)],
               routes: [
                 GoRoute(
                   path: '/rating',
@@ -125,6 +132,7 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
               ],
             ),
             StatefulShellBranch(
+              observers: [ProductAnalyticsNavigatorObserver(analytics)],
               routes: [
                 GoRoute(
                   path: '/profile',

@@ -43,3 +43,22 @@ the app exposes it under About.
 The client sets the server user UUID as `user_id` and `runId:clientEventId` as
 SSV `custom_data`. The SDK's local reward callback never grants questions; it
 only starts polling the authoritative server continuation.
+
+## PostHog EU
+
+Product analytics is disabled when its public project token is absent. Enable
+it for a build with:
+
+```sh
+fvm flutter run --dart-define=POSTHOG_PROJECT_TOKEN=phc_...
+```
+
+The SDK is pinned to the EU ingestion host (`https://eu.i.posthog.com`) and
+identifies an authenticated account only by its server UUID. Do not add email,
+name, age-access fields, question text, answer text, or free-form error data to
+analytics properties.
+
+PostHog session replay, surveys, feature flags, error capture, and push token
+capture are disabled. Quiz uses Firebase Remote Config, Sentry, and FCM for
+those responsibilities. Product analytics is best-effort and must never decide
+entitlement, rewarded quota, rating, streak, or navigation eligibility.

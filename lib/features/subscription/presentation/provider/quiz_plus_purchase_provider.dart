@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz/app/di/di.dart';
+import 'package:quiz/features/analytics/domain/product_analytics.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/subscription/domain/entity/quiz_plus_package_entity.dart';
 import 'package:quiz/features/subscription/domain/gateway/quiz_plus_purchase_gateway.dart';
@@ -61,6 +62,7 @@ final quizPlusPurchaseProvider = StateNotifierProvider.autoDispose<
               authenticated: (state) => state.user?.subscription?.active,
             ) ??
         false,
+    analytics: getIt<ProductAnalytics>(),
   );
   if (userId != null) unawaited(notifier.load(userId));
   return notifier;
@@ -72,16 +74,19 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
     required Future<void> Function() reloadServerProfile,
     required bool Function() isServerEntitled,
     Future<void> Function(Duration) delay = Future.delayed,
+    ProductAnalytics? analytics,
   })  : _gateway = gateway,
         _reloadServerProfile = reloadServerProfile,
         _isServerEntitled = isServerEntitled,
         _delay = delay,
+        _analytics = analytics,
         super(const QuizPlusPurchaseState());
 
   final QuizPlusPurchaseGateway _gateway;
   final Future<void> Function() _reloadServerProfile;
   final bool Function() _isServerEntitled;
   final Future<void> Function(Duration) _delay;
+  final ProductAnalytics? _analytics;
 
   Future<void> load(String userId) async {
     state = state.copyWith(loading: true, status: QuizPlusPurchaseStatus.idle);
@@ -120,18 +125,37 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
             processing: false,
             status: QuizPlusPurchaseStatus.cancelled,
           );
+          _trackPurchase(
+            action: 'purchase',
+            outcome: 'cancelled',
+            packageId: packageId,
+          );
         case QuizPlusPurchaseOutcome.pending:
           state = state.copyWith(
             processing: false,
             status: QuizPlusPurchaseStatus.storePending,
           );
+          _trackPurchase(
+            action: 'purchase',
+            outcome: 'store_pending',
+            packageId: packageId,
+          );
         case QuizPlusPurchaseOutcome.completed:
-          await _waitForServer(QuizPlusPurchaseStatus.awaitingServer);
+          await _waitForServer(
+            QuizPlusPurchaseStatus.awaitingServer,
+            action: 'purchase',
+            packageId: packageId,
+          );
       }
     } catch (_) {
       state = state.copyWith(
         processing: false,
         status: QuizPlusPurchaseStatus.failed,
+      );
+      _trackPurchase(
+        action: 'purchase',
+        outcome: 'failed',
+        packageId: packageId,
       );
     }
   }
@@ -144,16 +168,24 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
     );
     try {
       await _gateway.restore();
-      await _waitForServer(QuizPlusPurchaseStatus.restoredWithoutEntitlement);
+      await _waitForServer(
+        QuizPlusPurchaseStatus.restoredWithoutEntitlement,
+        action: 'restore',
+      );
     } catch (_) {
       state = state.copyWith(
         processing: false,
         status: QuizPlusPurchaseStatus.failed,
       );
+      _trackPurchase(action: 'restore', outcome: 'failed');
     }
   }
 
-  Future<void> _waitForServer(QuizPlusPurchaseStatus fallback) async {
+  Future<void> _waitForServer(
+    QuizPlusPurchaseStatus fallback, {
+    required String action,
+    String? packageId,
+  }) async {
     for (var attempt = 0; attempt < 5; attempt++) {
       await _reloadServerProfile();
       if (_isServerEntitled()) {
@@ -161,10 +193,38 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
           processing: false,
           status: QuizPlusPurchaseStatus.activated,
         );
+        _trackPurchase(
+          action: action,
+          outcome: 'server_activated',
+          packageId: packageId,
+        );
         return;
       }
       if (attempt < 4) await _delay(const Duration(seconds: 2));
     }
     state = state.copyWith(processing: false, status: fallback);
+    _trackPurchase(
+      action: action,
+      outcome: 'awaiting_server',
+      packageId: packageId,
+    );
+  }
+
+  void _trackPurchase({
+    required String action,
+    required String outcome,
+    String? packageId,
+  }) {
+    unawaited(
+      _analytics?.capture(
+            ProductAnalyticsEvent.quizPlusPurchaseFinished,
+            properties: {
+              'action': action,
+              'outcome': outcome,
+              if (packageId != null) 'package_id': packageId,
+            },
+          ) ??
+          Future.value(),
+    );
   }
 }

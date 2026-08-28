@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/di/di.dart';
+import 'package:quiz/features/analytics/domain/product_analytics.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.dart';
 import 'package:quiz/features/daily_edition/domain/entity/pending_daily_attempt_entity.dart';
@@ -19,6 +22,7 @@ final dailyEditionProvider =
     accountId: accountId,
     repository: getIt<DailyEditionRepository>(),
     outbox: getIt<DailyAttemptOutbox>(),
+    analytics: getIt<ProductAnalytics>(),
   );
 });
 
@@ -114,6 +118,7 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     String Function()? clientEventIdFactory,
     DateTime Function()? now,
     Future<void> Function(Duration)? delay,
+    ProductAnalytics? analytics,
   })  : _accountId = accountId,
         _repository = repository,
         _outbox = outbox,
@@ -121,6 +126,7 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
             clientEventIdFactory ?? (() => const Uuid().v4()),
         _now = now ?? DateTime.now,
         _delay = delay ?? Future.delayed,
+        _analytics = analytics,
         super(const DailyEditionInitialState());
 
   final String? _accountId;
@@ -129,6 +135,7 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
   final String Function() _clientEventIdFactory;
   final DateTime Function() _now;
   final Future<void> Function(Duration) _delay;
+  final ProductAnalytics? _analytics;
   bool _bootstrapping = false;
 
   /// Opens or restores the account's authoritative run. The server decides the
@@ -150,6 +157,13 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
       final result = await _repository.open(timezoneId: timezoneId);
       switch (result) {
         case ResultOk(data: final run):
+          unawaited(
+            _analytics?.capture(
+                  ProductAnalyticsEvent.dailyEditionOpened,
+                  properties: {'run_status': run.status.name},
+                ) ??
+                Future.value(),
+          );
           await _restoreOrLoadRun(accountId, run);
         case ResultFailed(error: final failure):
           state = DailyEditionFailedState(failure: failure);
@@ -308,6 +322,7 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
             isBusy: false,
             clearFailure: true,
           );
+          _trackAttempt(attempt, assignmentKind: current.assignment.kind);
         } on Object catch (error) {
           state = current.copyWith(
             isBusy: false,
@@ -559,8 +574,10 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
           return;
         }
         if (attempt.runCompleted) {
+          _trackAttempt(attempt);
           await _loadSummary(run, latestAttempt: attempt);
         } else {
+          _trackAttempt(attempt);
           await _loadRun(run);
         }
       case ResultFailed(error: final failure)
@@ -602,9 +619,46 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
           summary: summary,
           latestAttempt: latestAttempt,
         );
+        unawaited(
+          _analytics?.capture(
+                ProductAnalyticsEvent.dailySummaryViewed,
+                properties: {
+                  'run_status': summary.status.name,
+                  'resolved_count': summary.resolvedCount,
+                  'correct_count': summary.correctCount,
+                  'skipped_count': summary.skippedCount,
+                  'hint_count': summary.hintCount,
+                  'bonus_served': summary.bonusServed,
+                },
+              ) ??
+              Future.value(),
+        );
       case ResultFailed(error: final failure):
         state = DailyEditionFailedState(failure: failure, run: run);
     }
+  }
+
+  void _trackAttempt(
+    DailyAttemptEntity attempt, {
+    DailyAssignmentKind? assignmentKind,
+  }) {
+    unawaited(
+      _analytics?.capture(
+            ProductAnalyticsEvent.dailyAttemptAccepted,
+            properties: {
+              r'$insert_id': attempt.clientEventId,
+              'action': attempt.action.name,
+              'correct': attempt.isCorrect,
+              'hint_used': attempt.hintUsed,
+              'run_completed': attempt.runCompleted,
+              if (assignmentKind != null)
+                'assignment_kind': assignmentKind.name,
+              if (attempt.ratingDelta != null)
+                'rating_delta': attempt.ratingDelta!,
+            },
+          ) ??
+          Future.value(),
+    );
   }
 }
 

@@ -24,6 +24,8 @@ import '../../features/achievements/domain/repository/user_achievement_repositor
     as _i518;
 import '../../features/ads/data/admob_rewarded_ads_gateway.dart' as _i437;
 import '../../features/ads/domain/rewarded_ads_gateway.dart' as _i353;
+import '../../features/analytics/data/posthog_product_analytics.dart' as _i332;
+import '../../features/analytics/domain/product_analytics.dart' as _i1027;
 import '../../features/attribution/data/repository/remote_acquisition_attribution_repository.dart'
     as _i209;
 import '../../features/attribution/domain/repository/acquisition_attribution_repository.dart'
@@ -168,6 +170,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => authenticationModule.passwordResetGateway());
     gh.factory<_i625.TopicConverter>(() => _i625.TopicConverterImpl());
     gh.factory<_i78.MasteryConverter>(() => _i78.MasteryConverterImpl());
+    gh.lazySingleton<_i1027.ProductAnalytics>(
+        () => _i332.PostHogProductAnalytics());
     gh.factory<_i498.AnswerConverter>(() => _i498.AnswerConverterImpl());
     gh.factory<_i606.UserAchievementConverter>(
         () => _i606.UserAchievementConverterImpl());
