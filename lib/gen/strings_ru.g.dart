@@ -651,6 +651,7 @@ class _Translations$question$hint$ru implements Translations$question$hint$en {
 	@override String get confirm_message => 'Подсказка вдвое уменьшит прибавку к рейтингу за правильный ответ. Штраф за ошибку, XP и серия не изменятся.';
 	@override String get confirm_button => 'ПОКАЗАТЬ ПОДСКАЗКУ';
 	@override String get cancel_button => 'ОТМЕНА';
+	@override String get unavailable => 'Текст подсказки недоступен';
 }
 
 // Path: question.dialog
@@ -1289,6 +1290,7 @@ extension on TranslationsRu {
 			'question.hint.confirm_message' => 'Подсказка вдвое уменьшит прибавку к рейтингу за правильный ответ. Штраф за ошибку, XP и серия не изменятся.',
 			'question.hint.confirm_button' => 'ПОКАЗАТЬ ПОДСКАЗКУ',
 			'question.hint.cancel_button' => 'ОТМЕНА',
+			'question.hint.unavailable' => 'Текст подсказки недоступен',
 			'question.dialog.correct.header.0' => 'Отлично, вы абсолютно правы',
 			'question.dialog.correct.header.1' => 'Верно, так держать',
 			'question.dialog.correct.prompt.0' => 'Готовы продолжить?',

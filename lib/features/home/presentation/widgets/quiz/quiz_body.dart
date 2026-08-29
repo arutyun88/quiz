@@ -16,6 +16,7 @@ class QuizBody extends StatelessWidget {
     required this.questionNumber,
     required this.totalQuestions,
     required this.onSelect,
+    this.questionSupplement,
   });
 
   final QuestionEntity question;
@@ -23,6 +24,7 @@ class QuizBody extends StatelessWidget {
   final int questionNumber;
   final int totalQuestions;
   final void Function(AnswerEntity)? onSelect;
+  final Widget? questionSupplement;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,10 @@ class QuizBody extends StatelessWidget {
               color: palette.text.primary,
             ),
           ),
+          if (questionSupplement case final supplement?) ...[
+            const SizedBox(height: 12),
+            supplement,
+          ],
           Expanded(
             child: AnimatedAlign(
               duration: answerRevealTransitionDuration,

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
@@ -9,61 +11,65 @@ class DailyHintPanel extends StatelessWidget {
     super.key,
     required this.hintUsed,
     required this.hint,
+    required this.obscuredText,
     required this.enabled,
     required this.onUseHint,
   });
 
   final bool hintUsed;
   final String? hint;
+  final String obscuredText;
   final bool enabled;
   final Future<void> Function() onUseHint;
 
   @override
   Widget build(BuildContext context) {
-    if (hintUsed) {
-      return Container(
-        margin: const EdgeInsets.fromLTRB(22, 0, 22, 12),
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          border: Border.all(color: context.palette.text.accent),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(
-              Icons.lightbulb_outline,
-              size: 20,
-              color: context.palette.text.accent,
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: hint == null
-                  ? const LinearProgressIndicator()
-                  : Text(
-                      hint!,
-                      style: GoogleFonts.spectral(
-                        fontSize: 16,
-                        height: 1.35,
-                        color: context.palette.text.primary,
-                      ),
-                    ),
-            ),
-          ],
-        ),
-      );
-    }
+    final t = context.t.question.hint;
+    final colors = context.palette;
+    final style = GoogleFonts.spectral(
+      fontSize: 15,
+      height: 1.35,
+      fontStyle: FontStyle.italic,
+      color: colors.text.secondary,
+    );
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(22, 0, 22, 12),
-      child: OutlinedButton.icon(
-        onPressed: enabled ? () => _confirm(context) : null,
-        icon: const Icon(Icons.lightbulb_outline, size: 18),
-        label: Text(
-          context.t.question.hint.action,
-          style: GoogleFonts.jetBrainsMono(
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 1,
+    return LayoutBuilder(
+      builder: (context, constraints) => Align(
+        alignment: Alignment.centerRight,
+        child: SizedBox(
+          width: constraints.maxWidth * 2 / 3,
+          child: Semantics(
+            button: !hintUsed,
+            enabled: !hintUsed && enabled,
+            label: hintUsed ? null : t.action,
+            excludeSemantics: !hintUsed,
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: !hintUsed && enabled ? () => _confirm(context) : null,
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 180),
+                switchInCurve: Curves.easeOut,
+                switchOutCurve: Curves.easeIn,
+                child: hintUsed
+                    ? Text(
+                        hint ?? t.unavailable,
+                        key: const ValueKey('hint-visible'),
+                        textAlign: TextAlign.right,
+                        style: style,
+                      )
+                    : ImageFiltered(
+                        key: const ValueKey('hint-obscured'),
+                        imageFilter: ImageFilter.blur(sigmaX: 5.5, sigmaY: 5.5),
+                        child: Text(
+                          obscuredText,
+                          maxLines: 2,
+                          overflow: TextOverflow.clip,
+                          textAlign: TextAlign.right,
+                          style: style,
+                        ),
+                      ),
+              ),
+            ),
           ),
         ),
       ),

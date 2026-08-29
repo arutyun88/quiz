@@ -1067,6 +1067,9 @@ class Translations$question$hint$en {
 
 	/// ru: 'ОТМЕНА'
 	String get cancel_button => 'CANCEL';
+
+	/// ru: 'Текст подсказки недоступен'
+	String get unavailable => 'Hint text is unavailable';
 }
 
 // Path: question.dialog
@@ -1951,6 +1954,7 @@ extension on Translations {
 			'question.hint.confirm_message' => 'A hint halves the rating gain for a correct answer. The penalty for a wrong answer, XP, and streak remain unchanged.',
 			'question.hint.confirm_button' => 'SHOW HINT',
 			'question.hint.cancel_button' => 'CANCEL',
+			'question.hint.unavailable' => 'Hint text is unavailable',
 			'question.dialog.correct.header.0' => 'Great job! You\'re absolutely correct',
 			'question.dialog.correct.header.1' => 'Well done! That\'s right',
 			'question.dialog.correct.prompt.0' => 'Ready to continue?',

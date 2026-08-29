@@ -102,15 +102,17 @@ class DailyQuizPage extends ConsumerWidget {
                                 answerState is QuestionAnswerSelectedState)
                         ? ref.read(dailyQuestionProvider.notifier).select
                         : null,
+                    questionSupplement: DailyHintPanel(
+                      hintUsed: assignment.hintUsed,
+                      hint: hint?.hint,
+                      obscuredText: question.question,
+                      enabled:
+                          !isBusy && answerState is QuestionAnswerWaitingState,
+                      onUseHint:
+                          ref.read(dailyEditionProvider.notifier).useHint,
+                    ),
                   ),
                 ),
-                if (answerState is QuestionAnswerWaitingState)
-                  DailyHintPanel(
-                    hintUsed: assignment.hintUsed,
-                    hint: hint?.hint,
-                    enabled: !isBusy,
-                    onUseHint: ref.read(dailyEditionProvider.notifier).useHint,
-                  ),
               ],
             ),
           null => QuizError(
