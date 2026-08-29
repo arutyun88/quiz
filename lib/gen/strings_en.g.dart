@@ -300,6 +300,7 @@ class Translations$question$en {
 	late final Translations$question$meta$en meta = Translations$question$meta$en._(_root);
 	late final Translations$question$state$en state = Translations$question$state$en._(_root);
 	late final Translations$question$answer_reveal$en answer_reveal = Translations$question$answer_reveal$en._(_root);
+	late final Translations$question$hint$en hint = Translations$question$hint$en._(_root);
 	late final Translations$question$dialog$en dialog = Translations$question$dialog$en._(_root);
 	late final Translations$question$error_snackbar$en error_snackbar = Translations$question$error_snackbar$en._(_root);
 }
@@ -1042,6 +1043,30 @@ class Translations$question$answer_reveal$en {
 
 	/// ru: 'СЛЕДУЮЩИЙ ВОПРОС'
 	String get next_question => 'NEXT QUESTION';
+}
+
+// Path: question.hint
+class Translations$question$hint$en {
+	Translations$question$hint$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'ПОДСКАЗКА'
+	String get action => 'HINT';
+
+	/// ru: 'Использовать подсказку?'
+	String get confirm_title => 'Use a hint?';
+
+	/// ru: 'Подсказка вдвое уменьшит прибавку к рейтингу за правильный ответ. Штраф за ошибку, XP и серия не изменятся.'
+	String get confirm_message => 'A hint halves the rating gain for a correct answer. The penalty for a wrong answer, XP, and streak remain unchanged.';
+
+	/// ru: 'ПОКАЗАТЬ ПОДСКАЗКУ'
+	String get confirm_button => 'SHOW HINT';
+
+	/// ru: 'ОТМЕНА'
+	String get cancel_button => 'CANCEL';
 }
 
 // Path: question.dialog
@@ -1858,7 +1883,7 @@ extension on Translations {
 			'authentication.sign_up.confirm_password.validation_message' => 'Passwords do not match',
 			'authentication.sign_up.button' => 'Sign up',
 			'authentication.sign_up.title' => 'Sign up',
-			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'By using the app, you accept '), link('User Agreement'), ]),
+			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'By using the app, you accept '), link('User Agreement'), ]), 
 			'leaderboard.title' => 'Leaderboard',
 			'leaderboard.current_tab' => 'Current season',
 			'leaderboard.history_tab' => 'My history',
@@ -1878,17 +1903,17 @@ extension on Translations {
 			'leaderboard.participant_header' => 'PLAYER',
 			'leaderboard.rating_header' => 'RATING',
 			'leaderboard.best_rating' => 'BEST',
-			'leaderboard.official_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} OFFICIAL ANSWER', other: '${n} OFFICIAL ANSWERS', ),
-			'leaderboard.gap_row' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} MORE PLAYER', other: '${n} MORE PLAYERS', ),
-			'leaderboard.total_participants' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} PLAYER TOTAL', other: '${n} PLAYERS TOTAL', ),
+			'leaderboard.official_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} OFFICIAL ANSWER', other: '${n} OFFICIAL ANSWERS', ), 
+			'leaderboard.gap_row' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} MORE PLAYER', other: '${n} MORE PLAYERS', ), 
+			'leaderboard.total_participants' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} PLAYER TOTAL', other: '${n} PLAYERS TOTAL', ), 
 			'leaderboard.retry' => 'RETRY',
 			'leaderboard.load_failed' => 'Could not load leaderboard',
 			'gamification.level' => ({required Object level}) => 'Level ${level}',
 			'gamification.level_short' => ({required Object level}) => 'Lvl ${level}',
 			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',
 			'gamification.xp_remaining' => ({required Object remaining}) => '${remaining} XP left',
-			'gamification.streak' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} day streak', other: '${n} days streak', ),
-			'gamification.points' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} pt', other: '${n} pts', ),
+			'gamification.streak' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} day streak', other: '${n} days streak', ), 
+			'gamification.points' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} pt', other: '${n} pts', ), 
 			'gamification.accuracy' => ({required Object value}) => '${value}% accuracy',
 			'gamification.achievements_link' => 'Achievements',
 			'gamification.streak_badge_label' => 'STREAK',
@@ -1919,8 +1944,13 @@ extension on Translations {
 			'question.answer_reveal.correct' => 'CORRECT',
 			'question.answer_reveal.incorrect' => 'INCORRECT',
 			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',
-			'question.answer_reveal.streak_bonus' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '+${n} STREAK', other: '+${n} STREAK', ),
+			'question.answer_reveal.streak_bonus' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '+${n} STREAK', other: '+${n} STREAK', ), 
 			'question.answer_reveal.next_question' => 'NEXT QUESTION',
+			'question.hint.action' => 'HINT',
+			'question.hint.confirm_title' => 'Use a hint?',
+			'question.hint.confirm_message' => 'A hint halves the rating gain for a correct answer. The penalty for a wrong answer, XP, and streak remain unchanged.',
+			'question.hint.confirm_button' => 'SHOW HINT',
+			'question.hint.cancel_button' => 'CANCEL',
 			'question.dialog.correct.header.0' => 'Great job! You\'re absolutely correct',
 			'question.dialog.correct.header.1' => 'Well done! That\'s right',
 			'question.dialog.correct.prompt.0' => 'Ready to continue?',
@@ -1982,7 +2012,7 @@ extension on Translations {
 			'daily_result.accuracy_label' => 'ACCURACY',
 			'daily_result.percentile_label' => 'ISSUE PERCENTILE',
 			'daily_result.season_rank_label' => 'SEASON POSITION',
-			'daily_result.streak_value' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} DAY STREAK', other: '${n} DAY STREAK', ),
+			'daily_result.streak_value' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} DAY STREAK', other: '${n} DAY STREAK', ), 
 			'daily_result.continue_button' => 'KEEP PLAYING',
 			'daily_result.footer' => 'TODAY\'S ISSUE IS CLOSED · A NEW ONE TOMORROW',
 			'daily_limit.title' => 'MORE QUESTIONS',
@@ -1992,7 +2022,7 @@ extension on Translations {
 			'daily_limit.next_issue_in' => 'New issue in',
 			'daily_limit.next_ad_in' => 'Next video available in',
 			'daily_limit.watch_ad' => 'Watch a video',
-			'daily_limit.watch_ad_caption' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '+${n} QUESTION · FREE', other: '+${n} QUESTIONS · FREE', ),
+			'daily_limit.watch_ad_caption' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '+${n} QUESTION · FREE', other: '+${n} QUESTIONS · FREE', ), 
 			'daily_limit.ad_unavailable' => 'VIDEO SERVICE IS NOT AVAILABLE',
 			'daily_limit.ad_loading' => 'Loading video…',
 			'daily_limit.ad_awaiting_confirmation' => 'Video completed. Waiting for server confirmation…',
@@ -2002,7 +2032,7 @@ extension on Translations {
 			'daily_limit.keep_playing' => 'KEEP PLAYING',
 			'demo.start.badge' => 'GUEST DEMO',
 			'demo.start.title' => 'Try Quiz before signing up',
-			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'Answer one short question, use a hint, and see how answer explanations work.', other: 'Answer ${n} short questions, use a hint, and see how answer explanations work.', ),
+			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'Answer one short question, use a hint, and see how answer explanations work.', other: 'Answer ${n} short questions, use a hint, and see how answer explanations work.', ), 
 			'demo.start.notice' => 'Demo answers are not saved and never affect rating, XP, or streak.',
 			'demo.start.start_button' => 'START DEMO',
 			'demo.start.sign_in_button' => 'I ALREADY HAVE AN ACCOUNT',

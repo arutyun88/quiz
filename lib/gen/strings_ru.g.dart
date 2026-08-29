@@ -33,7 +33,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 
 	late final TranslationsRu _root = this; // ignore: unused_field
 
-	@override
+	@override 
 	TranslationsRu $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsRu(meta: meta ?? this.$meta);
 
 	// Translations
@@ -215,6 +215,7 @@ class _Translations$question$ru implements Translations$question$en {
 	@override late final _Translations$question$meta$ru meta = _Translations$question$meta$ru._(_root);
 	@override late final _Translations$question$state$ru state = _Translations$question$state$ru._(_root);
 	@override late final _Translations$question$answer_reveal$ru answer_reveal = _Translations$question$answer_reveal$ru._(_root);
+	@override late final _Translations$question$hint$ru hint = _Translations$question$hint$ru._(_root);
 	@override late final _Translations$question$dialog$ru dialog = _Translations$question$dialog$ru._(_root);
 	@override late final _Translations$question$error_snackbar$ru error_snackbar = _Translations$question$error_snackbar$ru._(_root);
 }
@@ -636,6 +637,20 @@ class _Translations$question$answer_reveal$ru implements Translations$question$a
 		other: '+${n} СЕРИИ',
 	);
 	@override String get next_question => 'СЛЕДУЮЩИЙ ВОПРОС';
+}
+
+// Path: question.hint
+class _Translations$question$hint$ru implements Translations$question$hint$en {
+	_Translations$question$hint$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get action => 'ПОДСКАЗКА';
+	@override String get confirm_title => 'Использовать подсказку?';
+	@override String get confirm_message => 'Подсказка вдвое уменьшит прибавку к рейтингу за правильный ответ. Штраф за ошибку, XP и серия не изменятся.';
+	@override String get confirm_button => 'ПОКАЗАТЬ ПОДСКАЗКУ';
+	@override String get cancel_button => 'ОТМЕНА';
 }
 
 // Path: question.dialog
@@ -1206,7 +1221,7 @@ extension on TranslationsRu {
 			'authentication.sign_up.confirm_password.validation_message' => 'Пароли не совпадают',
 			'authentication.sign_up.button' => 'Зарегистрироваться',
 			'authentication.sign_up.title' => 'Зарегистрироваться',
-			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '), link('Пользовательскому соглашению'), ]),
+			'authentication.agreement' => ({required InlineSpanBuilder link}) => TextSpan(children: [ const TextSpan(text: 'Используя приложение, вы соглашаетесь на обработку персональных данных согласно '), link('Пользовательскому соглашению'), ]), 
 			'leaderboard.title' => 'Рейтинг',
 			'leaderboard.current_tab' => 'Текущий сезон',
 			'leaderboard.history_tab' => 'Моя история',
@@ -1226,17 +1241,17 @@ extension on TranslationsRu {
 			'leaderboard.participant_header' => 'УЧАСТНИК',
 			'leaderboard.rating_header' => 'РЕЙТИНГ',
 			'leaderboard.best_rating' => 'ЛУЧШИЙ',
-			'leaderboard.official_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} ОФИЦИАЛЬНЫЙ ОТВЕТ', few: '${n} ОФИЦИАЛЬНЫХ ОТВЕТА', many: '${n} ОФИЦИАЛЬНЫХ ОТВЕТОВ', other: '${n} ОФИЦИАЛЬНОГО ОТВЕТА', ),
-			'leaderboard.gap_row' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'ЕЩЁ ${n} УЧАСТНИК', few: 'ЕЩЁ ${n} УЧАСТНИКА', many: 'ЕЩЁ ${n} УЧАСТНИКОВ', other: 'ЕЩЁ ${n} УЧАСТНИКА', ),
-			'leaderboard.total_participants' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'ВСЕГО ${n} УЧАСТНИК', few: 'ВСЕГО ${n} УЧАСТНИКА', many: 'ВСЕГО ${n} УЧАСТНИКОВ', other: 'ВСЕГО ${n} УЧАСТНИКА', ),
+			'leaderboard.official_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} ОФИЦИАЛЬНЫЙ ОТВЕТ', few: '${n} ОФИЦИАЛЬНЫХ ОТВЕТА', many: '${n} ОФИЦИАЛЬНЫХ ОТВЕТОВ', other: '${n} ОФИЦИАЛЬНОГО ОТВЕТА', ), 
+			'leaderboard.gap_row' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'ЕЩЁ ${n} УЧАСТНИК', few: 'ЕЩЁ ${n} УЧАСТНИКА', many: 'ЕЩЁ ${n} УЧАСТНИКОВ', other: 'ЕЩЁ ${n} УЧАСТНИКА', ), 
+			'leaderboard.total_participants' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'ВСЕГО ${n} УЧАСТНИК', few: 'ВСЕГО ${n} УЧАСТНИКА', many: 'ВСЕГО ${n} УЧАСТНИКОВ', other: 'ВСЕГО ${n} УЧАСТНИКА', ), 
 			'leaderboard.retry' => 'ПОВТОРИТЬ',
 			'leaderboard.load_failed' => 'Не удалось загрузить рейтинг',
 			'gamification.level' => ({required Object level}) => 'Уровень ${level}',
 			'gamification.level_short' => ({required Object level}) => 'Ур. ${level}',
 			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',
 			'gamification.xp_remaining' => ({required Object remaining}) => 'ещё ${remaining} XP',
-			'gamification.streak' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} день подряд', few: '${n} дня подряд', many: '${n} дней подряд', other: '${n} дней подряд', ),
-			'gamification.points' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} очко', few: '${n} очка', many: '${n} очков', other: '${n} очков', ),
+			'gamification.streak' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} день подряд', few: '${n} дня подряд', many: '${n} дней подряд', other: '${n} дней подряд', ), 
+			'gamification.points' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} очко', few: '${n} очка', many: '${n} очков', other: '${n} очков', ), 
 			'gamification.accuracy' => ({required Object value}) => '${value}% точность',
 			'gamification.achievements_link' => 'Достижения',
 			'gamification.streak_badge_label' => 'СЕРИЯ',
@@ -1267,8 +1282,13 @@ extension on TranslationsRu {
 			'question.answer_reveal.correct' => 'ВЕРНО',
 			'question.answer_reveal.incorrect' => 'НЕВЕРНО',
 			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',
-			'question.answer_reveal.streak_bonus' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '+${n} СЕРИЯ', few: '+${n} СЕРИИ', many: '+${n} СЕРИЙ', other: '+${n} СЕРИИ', ),
+			'question.answer_reveal.streak_bonus' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '+${n} СЕРИЯ', few: '+${n} СЕРИИ', many: '+${n} СЕРИЙ', other: '+${n} СЕРИИ', ), 
 			'question.answer_reveal.next_question' => 'СЛЕДУЮЩИЙ ВОПРОС',
+			'question.hint.action' => 'ПОДСКАЗКА',
+			'question.hint.confirm_title' => 'Использовать подсказку?',
+			'question.hint.confirm_message' => 'Подсказка вдвое уменьшит прибавку к рейтингу за правильный ответ. Штраф за ошибку, XP и серия не изменятся.',
+			'question.hint.confirm_button' => 'ПОКАЗАТЬ ПОДСКАЗКУ',
+			'question.hint.cancel_button' => 'ОТМЕНА',
 			'question.dialog.correct.header.0' => 'Отлично, вы абсолютно правы',
 			'question.dialog.correct.header.1' => 'Верно, так держать',
 			'question.dialog.correct.prompt.0' => 'Готовы продолжить?',
@@ -1330,7 +1350,7 @@ extension on TranslationsRu {
 			'daily_result.accuracy_label' => 'ТОЧНОСТЬ',
 			'daily_result.percentile_label' => 'ПРОЦЕНТИЛЬ ВЫПУСКА',
 			'daily_result.season_rank_label' => 'ПОЗИЦИЯ В СЕЗОНЕ',
-			'daily_result.streak_value' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'СЕРИЯ ${n} ДЕНЬ', few: 'СЕРИЯ ${n} ДНЯ', many: 'СЕРИЯ ${n} ДНЕЙ', other: 'СЕРИЯ ${n} ДНЯ', ),
+			'daily_result.streak_value' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'СЕРИЯ ${n} ДЕНЬ', few: 'СЕРИЯ ${n} ДНЯ', many: 'СЕРИЯ ${n} ДНЕЙ', other: 'СЕРИЯ ${n} ДНЯ', ), 
 			'daily_result.continue_button' => 'ИГРАТЬ ДАЛЬШЕ',
 			'daily_result.footer' => 'ВЫПУСК ДНЯ ЗАКРЫТ · НОВЫЙ ЗАВТРА',
 			'daily_limit.title' => 'ЕЩЁ ВОПРОСЫ',
@@ -1340,7 +1360,7 @@ extension on TranslationsRu {
 			'daily_limit.next_issue_in' => 'Новый выпуск через',
 			'daily_limit.next_ad_in' => 'Следующий ролик через',
 			'daily_limit.watch_ad' => 'Посмотреть ролик',
-			'daily_limit.watch_ad_caption' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '+${n} ВОПРОС · БЕСПЛАТНО', few: '+${n} ВОПРОСА · БЕСПЛАТНО', many: '+${n} ВОПРОСОВ · БЕСПЛАТНО', other: '+${n} ВОПРОСА · БЕСПЛАТНО', ),
+			'daily_limit.watch_ad_caption' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '+${n} ВОПРОС · БЕСПЛАТНО', few: '+${n} ВОПРОСА · БЕСПЛАТНО', many: '+${n} ВОПРОСОВ · БЕСПЛАТНО', other: '+${n} ВОПРОСА · БЕСПЛАТНО', ), 
 			'daily_limit.ad_unavailable' => 'СЕРВИС РОЛИКОВ НЕДОСТУПЕН',
 			'daily_limit.ad_loading' => 'Загружаем ролик…',
 			'daily_limit.ad_awaiting_confirmation' => 'Ролик завершён. Ждём подтверждения сервера…',
@@ -1350,7 +1370,7 @@ extension on TranslationsRu {
 			'daily_limit.keep_playing' => 'ИГРАТЬ ДАЛЬШЕ',
 			'demo.start.badge' => 'ГОСТЕВОЕ ДЕМО',
 			'demo.start.title' => 'Попробуйте Quiz без регистрации',
-			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'Ответьте на один короткий вопрос, воспользуйтесь подсказкой и посмотрите разбор ответа.', few: 'Ответьте на ${n} коротких вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.', many: 'Ответьте на ${n} коротких вопросов, воспользуйтесь подсказкой и посмотрите разбор ответа.', other: 'Ответьте на ${n} короткого вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.', ),
+			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'Ответьте на один короткий вопрос, воспользуйтесь подсказкой и посмотрите разбор ответа.', few: 'Ответьте на ${n} коротких вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.', many: 'Ответьте на ${n} коротких вопросов, воспользуйтесь подсказкой и посмотрите разбор ответа.', other: 'Ответьте на ${n} короткого вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.', ), 
 			'demo.start.notice' => 'Ответы демо не сохраняются и никогда не влияют на рейтинг, XP или серию.',
 			'demo.start.start_button' => 'НАЧАТЬ ДЕМО',
 			'demo.start.sign_in_button' => 'У МЕНЯ УЖЕ ЕСТЬ АККАУНТ',

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
+import 'package:quiz/app/core/widgets/dialog/app_confirm_dialog.dart';
+import 'package:quiz/gen/strings.g.dart';
 
 class DailyHintPanel extends StatelessWidget {
   const DailyHintPanel({
@@ -57,7 +59,7 @@ class DailyHintPanel extends StatelessWidget {
         onPressed: enabled ? () => _confirm(context) : null,
         icon: const Icon(Icons.lightbulb_outline, size: 18),
         label: Text(
-          'Δ+ ×0.5',
+          context.t.question.hint.action,
           style: GoogleFonts.jetBrainsMono(
             fontSize: 12,
             fontWeight: FontWeight.w700,
@@ -69,35 +71,14 @@ class DailyHintPanel extends StatelessWidget {
   }
 
   Future<void> _confirm(BuildContext context) async {
-    final material = MaterialLocalizations.of(context);
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        icon: const Icon(Icons.lightbulb_outline),
-        title: const Text('Δ+ ×0.5'),
-        content: const Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('✓   Δ+ ×0.5'),
-            SizedBox(height: 8),
-            Text('✕   Δ− ×1'),
-            SizedBox(height: 8),
-            Text('XP ×1'),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(material.cancelButtonLabel),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(material.okButtonLabel),
-          ),
-        ],
-      ),
+    final t = context.t.question.hint;
+    final confirmed = await showAppConfirmDialog(
+      context,
+      title: t.confirm_title,
+      message: t.confirm_message,
+      confirmLabel: t.confirm_button,
+      cancelLabel: t.cancel_button,
     );
-    if (confirmed == true) await onUseHint();
+    if (confirmed) await onUseHint();
   }
 }

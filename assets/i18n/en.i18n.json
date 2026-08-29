@@ -301,6 +301,13 @@
             },
             "next_question": "NEXT QUESTION"
         },
+        "hint": {
+            "action": "HINT",
+            "confirm_title": "Use a hint?",
+            "confirm_message": "A hint halves the rating gain for a correct answer. The penalty for a wrong answer, XP, and streak remain unchanged.",
+            "confirm_button": "SHOW HINT",
+            "cancel_button": "CANCEL"
+        },
         "dialog": {
             "correct": {
                 "header": [
