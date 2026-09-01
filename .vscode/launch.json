@@ -5,6 +5,16 @@
             "name": "app",
             "request": "launch",
             "type": "dart"
+        },
+        {
+            "name": "Quiz: local server",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "preLaunchTask": "prepare local API",
+            "toolArgs": [
+                "--dart-define-from-file=.dart_tool/vscode_ios_api/debug_defines.json"
+            ]
         }
     ]
 }

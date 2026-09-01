@@ -25,7 +25,12 @@ abstract class NetworkModule {
     UnauthorizedEventService unauthorizedEventService,
     SettingsLocalStorageService settingsStorage,
   ) {
-    final config = ApiClientConfig(baseUrl: 'http://localhost:8081/api');
+    final config = ApiClientConfig(
+      baseUrl: const String.fromEnvironment(
+        'API_BASE_URL',
+        defaultValue: 'http://localhost:8081/api',
+      ),
+    );
     return DioApiClient(
       config: config,
       deviceId: deviceService.deviceId,
