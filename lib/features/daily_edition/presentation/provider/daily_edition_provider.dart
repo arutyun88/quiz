@@ -14,7 +14,7 @@ import 'package:quiz/features/daily_edition/domain/service/daily_attempt_outbox.
 import 'package:uuid/uuid.dart';
 
 final dailyEditionProvider =
-    StateNotifierProvider.autoDispose<DailyEditionNotifier, DailyEditionState>(
+    StateNotifierProvider<DailyEditionNotifier, DailyEditionState>(
         (ref) {
   final accountId = ref.watch(authenticationProvider).mapOrNull(
         authenticated: (state) => state.user?.id,
