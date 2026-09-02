@@ -27,12 +27,12 @@ class AdMobRewardedAdsGateway implements RewardedAdsGateway {
   String? get _adUnitId {
     if (kIsWeb) return null;
     return switch (defaultTargetPlatform) {
+      TargetPlatform.android when kDebugMode => _androidTestRewardedAdUnitId,
+      TargetPlatform.iOS when kDebugMode => _iosTestRewardedAdUnitId,
       TargetPlatform.android when _androidRewardedAdUnitId.isNotEmpty =>
         _androidRewardedAdUnitId,
       TargetPlatform.iOS when _iosRewardedAdUnitId.isNotEmpty =>
         _iosRewardedAdUnitId,
-      TargetPlatform.android when kDebugMode => _androidTestRewardedAdUnitId,
-      TargetPlatform.iOS when kDebugMode => _iosTestRewardedAdUnitId,
       _ => null,
     };
   }

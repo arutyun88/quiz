@@ -22,16 +22,17 @@ an external attribution provider is selected for paid acquisition.
 
 ## AdMob rewarded ads
 
-Debug builds use Google's official sample app and rewarded ad unit IDs. Before
-release, replace the sample application IDs in `AndroidManifest.xml` and
-`Info.plist`, then pass the production rewarded unit for the target platform:
+The production application IDs are configured in `AndroidManifest.xml` and
+`Info.plist`. Debug builds always use Google's official rewarded test units,
+even when a production define is present. Pass the production rewarded unit
+when building a distributable artifact for the target platform:
 
 ```sh
 fvm flutter build apk \
-  --dart-define=ADMOB_ANDROID_REWARDED_AD_UNIT_ID=ca-app-pub-.../...
+  --dart-define=ADMOB_ANDROID_REWARDED_AD_UNIT_ID=ca-app-pub-9071277865237468/2887263570
 
 fvm flutter build ios \
-  --dart-define=ADMOB_IOS_REWARDED_AD_UNIT_ID=ca-app-pub-.../...
+  --dart-define=ADMOB_IOS_REWARDED_AD_UNIT_ID=ca-app-pub-9071277865237468/6259532378
 ```
 
 Create the required privacy messages in AdMob Privacy & messaging and configure
