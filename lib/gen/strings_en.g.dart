@@ -483,6 +483,18 @@ class Translations$start_day$en {
 		accent('keep your streak'),
 	]);
 
+	/// ru: 'За вчера нет завершённого выпуска — ${accent(итоги пока не сформированы)}'
+	TextSpan no_previous_summary_notice({required InlineSpanBuilder accent}) => TextSpan(children: [
+		const TextSpan(text: 'There is no completed edition from yesterday — '),
+		accent('your results are not ready yet'),
+	]);
+
+	/// ru: 'Сыграйте сегодня — ${accent(завтра здесь появятся ваши результаты)}'
+	TextSpan no_previous_summary_advice({required InlineSpanBuilder accent}) => TextSpan(children: [
+		const TextSpan(text: 'Play today — '),
+		accent('your results will be here tomorrow'),
+	]);
+
 	/// ru: 'Вы пропустили вчерашний день — ${accent(заморозка применена автоматически.)} Осталось $left / $total'
 	TextSpan freeze_applied_notice({required InlineSpanBuilder accent, required InlineSpan left, required InlineSpan total}) => TextSpan(children: [
 		const TextSpan(text: 'You missed yesterday — '),
@@ -2094,6 +2106,8 @@ extension on Translations {
 			'start_day.question_count_label' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'question', other: 'questions', ), 
 			'start_day.estimated_time' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '~ ${n} MINUTE', other: '~ ${n} MINUTES', ), 
 			'start_day.streak_warning' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today to '), accent('keep your streak'), ]), 
+			'start_day.no_previous_summary_notice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'There is no completed edition from yesterday — '), accent('your results are not ready yet'), ]),
+			'start_day.no_previous_summary_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today — '), accent('your results will be here tomorrow'), ]),
 			'start_day.freeze_applied_notice' => ({required InlineSpanBuilder accent, required InlineSpan left, required InlineSpan total}) => TextSpan(children: [ const TextSpan(text: 'You missed yesterday — '), accent('a streak freeze was applied automatically.'), const TextSpan(text: ' '), left, const TextSpan(text: ' / '), total, const TextSpan(text: ' left'), ]), 
 			'start_day.freeze_applied_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today to '), accent('avoid spending freezes when you don\'t need to'), ]), 
 			'start_day.streak_lost_notice' => ({required InlineSpan days, required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Your streak of '), days, const TextSpan(text: ' '), accent('is lost'), const TextSpan(text: ' — no freezes left'), ]), 

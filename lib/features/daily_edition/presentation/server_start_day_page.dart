@@ -149,8 +149,11 @@ class _RunOverview extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            _StatsRow(summary: run.previousDaySummary),
-            if (streakDays > 0) const _StreakWarning(),
+            if (run.previousDaySummary case final summary?) ...[
+              _StatsRow(summary: summary),
+              if (streakDays > 0) const _StreakWarning(),
+            ] else
+              const _NoPreviousDaySummary(),
           ],
           const Spacer(),
           SizedBox(
@@ -287,13 +290,13 @@ class _TopicChip extends StatelessWidget {
 class _StatsRow extends StatelessWidget {
   const _StatsRow({required this.summary});
 
-  final PreviousDaySummaryEntity? summary;
+  final PreviousDaySummaryEntity summary;
 
   @override
   Widget build(BuildContext context) {
     final colors = context.palette;
     final t = context.t.start_day;
-    final rank = summary?.rank;
+    final rank = summary.rank;
     return Container(
       decoration: BoxDecoration(
         border: Border(top: BorderSide(color: colors.text.primary, width: 1.5)),
@@ -305,19 +308,74 @@ class _StatsRow extends StatelessWidget {
             label: t.rank_label,
           ),
           _StatCell(
-            value: summary?.points.toString() ?? '—',
+            value: summary.points.toString(),
             label: t.points_label,
             leftBorder: true,
           ),
           _StatCell(
-            value:
-                summary == null ? '—' : '${(summary!.accuracy * 100).round()}%',
+            value: '${(summary.accuracy * 100).round()}%',
             label: t.accuracy_label,
             leftBorder: true,
             accent: true,
           ),
         ],
       ),
+    );
+  }
+}
+
+class _NoPreviousDaySummary extends StatelessWidget {
+  const _NoPreviousDaySummary();
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.palette;
+    final t = context.t.start_day;
+    final textStyle =
+        GoogleFonts.spectral(fontSize: 13, color: colors.text.primary);
+    const accentStyle = TextStyle(fontStyle: FontStyle.italic);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            border:
+                Border(top: BorderSide(color: colors.text.primary, width: 1.5)),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 2),
+          child: Text.rich(
+            t.no_previous_summary_notice(
+              accent: (text) => TextSpan(text: text, style: accentStyle),
+            ),
+            style: textStyle,
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(color: colors.divider),
+              bottom: BorderSide(color: colors.text.primary, width: 1.5),
+            ),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 2),
+          child: Row(
+            children: [
+              Icon(Icons.bolt, size: 18, color: colors.text.accent),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text.rich(
+                  t.no_previous_summary_advice(
+                    accent: (text) =>
+                        TextSpan(text: text, style: accentStyle),
+                  ),
+                  style: textStyle,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

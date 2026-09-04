@@ -409,6 +409,8 @@
             "other": "~ $n MINUTES"
         },
         "streak_warning(rich)": "Play today to ${accent(keep your streak)}",
+        "no_previous_summary_notice(rich)": "There is no completed edition from yesterday — ${accent(your results are not ready yet)}",
+        "no_previous_summary_advice(rich)": "Play today — ${accent(your results will be here tomorrow)}",
         "freeze_applied_notice(rich)": "You missed yesterday — ${accent(a streak freeze was applied automatically.)} $left / $total left",
         "freeze_applied_advice(rich)": "Play today to ${accent(avoid spending freezes when you don't need to)}",
         "streak_lost_notice(rich)": "Your streak of $days ${accent(is lost)} — no freezes left",
