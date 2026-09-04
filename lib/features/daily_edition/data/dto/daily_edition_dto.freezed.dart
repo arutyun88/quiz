@@ -595,7 +595,6 @@ mixin _$DailyOpenDto {
   @JsonKey(name: 'previous_day_summary')
   PreviousDaySummaryDto? get previousDaySummary =>
       throw _privateConstructorUsedError;
-  DailyContinuationDto get continuation => throw _privateConstructorUsedError;
 
   /// Serializes this DailyOpenDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -624,11 +623,9 @@ abstract class $DailyOpenDtoCopyWith<$Res> {
       @JsonKey(name: 'rating_at_open') int ratingAtOpen,
       List<DailyTopicDto> topics,
       @JsonKey(name: 'previous_day_summary')
-      PreviousDaySummaryDto? previousDaySummary,
-      DailyContinuationDto continuation});
+      PreviousDaySummaryDto? previousDaySummary});
 
   $PreviousDaySummaryDtoCopyWith<$Res>? get previousDaySummary;
-  $DailyContinuationDtoCopyWith<$Res> get continuation;
 }
 
 /// @nodoc
@@ -656,7 +653,6 @@ class _$DailyOpenDtoCopyWithImpl<$Res, $Val extends DailyOpenDto>
     Object? ratingAtOpen = null,
     Object? topics = null,
     Object? previousDaySummary = freezed,
-    Object? continuation = null,
   }) {
     return _then(_value.copyWith(
       runId: null == runId
@@ -699,10 +695,6 @@ class _$DailyOpenDtoCopyWithImpl<$Res, $Val extends DailyOpenDto>
           ? _value.previousDaySummary
           : previousDaySummary // ignore: cast_nullable_to_non_nullable
               as PreviousDaySummaryDto?,
-      continuation: null == continuation
-          ? _value.continuation
-          : continuation // ignore: cast_nullable_to_non_nullable
-              as DailyContinuationDto,
     ) as $Val);
   }
 
@@ -718,16 +710,6 @@ class _$DailyOpenDtoCopyWithImpl<$Res, $Val extends DailyOpenDto>
     return $PreviousDaySummaryDtoCopyWith<$Res>(_value.previousDaySummary!,
         (value) {
       return _then(_value.copyWith(previousDaySummary: value) as $Val);
-    });
-  }
-
-  /// Create a copy of DailyOpenDto
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $DailyContinuationDtoCopyWith<$Res> get continuation {
-    return $DailyContinuationDtoCopyWith<$Res>(_value.continuation, (value) {
-      return _then(_value.copyWith(continuation: value) as $Val);
     });
   }
 }
@@ -751,13 +733,10 @@ abstract class _$$DailyOpenDtoImplCopyWith<$Res>
       @JsonKey(name: 'rating_at_open') int ratingAtOpen,
       List<DailyTopicDto> topics,
       @JsonKey(name: 'previous_day_summary')
-      PreviousDaySummaryDto? previousDaySummary,
-      DailyContinuationDto continuation});
+      PreviousDaySummaryDto? previousDaySummary});
 
   @override
   $PreviousDaySummaryDtoCopyWith<$Res>? get previousDaySummary;
-  @override
-  $DailyContinuationDtoCopyWith<$Res> get continuation;
 }
 
 /// @nodoc
@@ -783,7 +762,6 @@ class __$$DailyOpenDtoImplCopyWithImpl<$Res>
     Object? ratingAtOpen = null,
     Object? topics = null,
     Object? previousDaySummary = freezed,
-    Object? continuation = null,
   }) {
     return _then(_$DailyOpenDtoImpl(
       runId: null == runId
@@ -826,10 +804,6 @@ class __$$DailyOpenDtoImplCopyWithImpl<$Res>
           ? _value.previousDaySummary
           : previousDaySummary // ignore: cast_nullable_to_non_nullable
               as PreviousDaySummaryDto?,
-      continuation: null == continuation
-          ? _value.continuation
-          : continuation // ignore: cast_nullable_to_non_nullable
-              as DailyContinuationDto,
     ));
   }
 }
@@ -847,8 +821,7 @@ class _$DailyOpenDtoImpl implements _DailyOpenDto {
       @JsonKey(name: 'resolved_count') required this.resolvedCount,
       @JsonKey(name: 'rating_at_open') required this.ratingAtOpen,
       final List<DailyTopicDto> topics = const <DailyTopicDto>[],
-      @JsonKey(name: 'previous_day_summary') this.previousDaySummary,
-      required this.continuation})
+      @JsonKey(name: 'previous_day_summary') this.previousDaySummary})
       : _topics = topics;
 
   factory _$DailyOpenDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -889,12 +862,10 @@ class _$DailyOpenDtoImpl implements _DailyOpenDto {
   @override
   @JsonKey(name: 'previous_day_summary')
   final PreviousDaySummaryDto? previousDaySummary;
-  @override
-  final DailyContinuationDto continuation;
 
   @override
   String toString() {
-    return 'DailyOpenDto(runId: $runId, editionDate: $editionDate, status: $status, closesAt: $closesAt, graceEndsAt: $graceEndsAt, requiredCount: $requiredCount, resolvedCount: $resolvedCount, ratingAtOpen: $ratingAtOpen, topics: $topics, previousDaySummary: $previousDaySummary, continuation: $continuation)';
+    return 'DailyOpenDto(runId: $runId, editionDate: $editionDate, status: $status, closesAt: $closesAt, graceEndsAt: $graceEndsAt, requiredCount: $requiredCount, resolvedCount: $resolvedCount, ratingAtOpen: $ratingAtOpen, topics: $topics, previousDaySummary: $previousDaySummary)';
   }
 
   @override
@@ -918,9 +889,7 @@ class _$DailyOpenDtoImpl implements _DailyOpenDto {
                 other.ratingAtOpen == ratingAtOpen) &&
             const DeepCollectionEquality().equals(other._topics, _topics) &&
             (identical(other.previousDaySummary, previousDaySummary) ||
-                other.previousDaySummary == previousDaySummary) &&
-            (identical(other.continuation, continuation) ||
-                other.continuation == continuation));
+                other.previousDaySummary == previousDaySummary));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -936,8 +905,7 @@ class _$DailyOpenDtoImpl implements _DailyOpenDto {
       resolvedCount,
       ratingAtOpen,
       const DeepCollectionEquality().hash(_topics),
-      previousDaySummary,
-      continuation);
+      previousDaySummary);
 
   /// Create a copy of DailyOpenDto
   /// with the given fields replaced by the non-null parameter values.
@@ -967,8 +935,7 @@ abstract class _DailyOpenDto implements DailyOpenDto {
       @JsonKey(name: 'rating_at_open') required final int ratingAtOpen,
       final List<DailyTopicDto> topics,
       @JsonKey(name: 'previous_day_summary')
-      final PreviousDaySummaryDto? previousDaySummary,
-      required final DailyContinuationDto continuation}) = _$DailyOpenDtoImpl;
+      final PreviousDaySummaryDto? previousDaySummary}) = _$DailyOpenDtoImpl;
 
   factory _DailyOpenDto.fromJson(Map<String, dynamic> json) =
       _$DailyOpenDtoImpl.fromJson;
@@ -1001,8 +968,6 @@ abstract class _DailyOpenDto implements DailyOpenDto {
   @override
   @JsonKey(name: 'previous_day_summary')
   PreviousDaySummaryDto? get previousDaySummary;
-  @override
-  DailyContinuationDto get continuation;
 
   /// Create a copy of DailyOpenDto
   /// with the given fields replaced by the non-null parameter values.

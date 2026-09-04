@@ -46,7 +46,6 @@ void main() {
     requiredCount: 10,
     resolvedCount: 3,
     ratingAtOpen: 1000,
-    continuation: continuation,
   );
 
   final completedRun = activeRun.copyWith(status: DailyRunStatus.completed);

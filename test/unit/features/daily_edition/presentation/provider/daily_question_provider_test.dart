@@ -128,7 +128,6 @@ DailyRunEntity _run() => DailyRunEntity(
       requiredCount: 6,
       resolvedCount: 0,
       ratingAtOpen: 1000,
-      continuation: _continuation(),
     );
 
 DailyContinuationEntity _continuation() => DailyContinuationEntity(

@@ -76,7 +76,6 @@ class DailyRunEntity with _$DailyRunEntity {
     required int ratingAtOpen,
     @Default(<DailyTopicEntity>[]) List<DailyTopicEntity> topics,
     PreviousDaySummaryEntity? previousDaySummary,
-    required DailyContinuationEntity continuation,
   }) = _DailyRunEntity;
 }
 

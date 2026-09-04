@@ -71,8 +71,6 @@ _$DailyOpenDtoImpl _$$DailyOpenDtoImplFromJson(Map<String, dynamic> json) =>
           ? null
           : PreviousDaySummaryDto.fromJson(
               json['previous_day_summary'] as Map<String, dynamic>),
-      continuation: DailyContinuationDto.fromJson(
-          json['continuation'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$DailyOpenDtoImplToJson(_$DailyOpenDtoImpl instance) =>
@@ -87,7 +85,6 @@ Map<String, dynamic> _$$DailyOpenDtoImplToJson(_$DailyOpenDtoImpl instance) =>
       'rating_at_open': instance.ratingAtOpen,
       'topics': instance.topics,
       'previous_day_summary': instance.previousDaySummary,
-      'continuation': instance.continuation,
     };
 
 _$DailyTopicDtoImpl _$$DailyTopicDtoImplFromJson(Map<String, dynamic> json) =>

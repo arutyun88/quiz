@@ -48,7 +48,6 @@ class DailyOpenDto with _$DailyOpenDto {
     @Default(<DailyTopicDto>[]) List<DailyTopicDto> topics,
     @JsonKey(name: 'previous_day_summary')
     PreviousDaySummaryDto? previousDaySummary,
-    required DailyContinuationDto continuation,
   }) = _DailyOpenDto;
 
   factory DailyOpenDto.fromJson(Map<String, dynamic> json) =>

@@ -25,7 +25,6 @@ void main() {
         'points': 1240,
         'accuracy': 0.84,
       },
-      'continuation': _continuationJson(nextAction: 'COMPLETE_MAIN'),
     });
 
     final entity = dto.toEntity();
@@ -51,7 +50,6 @@ void main() {
       'required_count': 10,
       'resolved_count': 0,
       'rating_at_open': 1000,
-      'continuation': _continuationJson(nextAction: 'COMPLETE_MAIN'),
     }).toEntity();
 
     expect(entity.topics, isEmpty);
@@ -190,14 +188,9 @@ void main() {
       'required_count': 0,
       'resolved_count': 0,
       'rating_at_open': 1000,
-      'continuation': _continuationJson(nextAction: 'FUTURE_ACTION'),
     }).toEntity();
 
     expect(entity.status, DailyRunStatus.unknown);
-    expect(
-      entity.continuation.nextAction,
-      DailyContinuationAction.unknown,
-    );
   });
 
   test('unknown assignment kinds stay representable for safe rollout', () {

@@ -41,7 +41,6 @@ void main() {
     requiredCount: 10,
     resolvedCount: 0,
     ratingAtOpen: 1000,
-    continuation: continuation,
   );
 
   const assignment = DailyAssignmentEntity(

@@ -500,8 +500,6 @@ mixin _$DailyRunEntity {
   List<DailyTopicEntity> get topics => throw _privateConstructorUsedError;
   PreviousDaySummaryEntity? get previousDaySummary =>
       throw _privateConstructorUsedError;
-  DailyContinuationEntity get continuation =>
-      throw _privateConstructorUsedError;
 
   /// Create a copy of DailyRunEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -526,11 +524,9 @@ abstract class $DailyRunEntityCopyWith<$Res> {
       int resolvedCount,
       int ratingAtOpen,
       List<DailyTopicEntity> topics,
-      PreviousDaySummaryEntity? previousDaySummary,
-      DailyContinuationEntity continuation});
+      PreviousDaySummaryEntity? previousDaySummary});
 
   $PreviousDaySummaryEntityCopyWith<$Res>? get previousDaySummary;
-  $DailyContinuationEntityCopyWith<$Res> get continuation;
 }
 
 /// @nodoc
@@ -558,7 +554,6 @@ class _$DailyRunEntityCopyWithImpl<$Res, $Val extends DailyRunEntity>
     Object? ratingAtOpen = null,
     Object? topics = null,
     Object? previousDaySummary = freezed,
-    Object? continuation = null,
   }) {
     return _then(_value.copyWith(
       runId: null == runId
@@ -601,10 +596,6 @@ class _$DailyRunEntityCopyWithImpl<$Res, $Val extends DailyRunEntity>
           ? _value.previousDaySummary
           : previousDaySummary // ignore: cast_nullable_to_non_nullable
               as PreviousDaySummaryEntity?,
-      continuation: null == continuation
-          ? _value.continuation
-          : continuation // ignore: cast_nullable_to_non_nullable
-              as DailyContinuationEntity,
     ) as $Val);
   }
 
@@ -620,16 +611,6 @@ class _$DailyRunEntityCopyWithImpl<$Res, $Val extends DailyRunEntity>
     return $PreviousDaySummaryEntityCopyWith<$Res>(_value.previousDaySummary!,
         (value) {
       return _then(_value.copyWith(previousDaySummary: value) as $Val);
-    });
-  }
-
-  /// Create a copy of DailyRunEntity
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $DailyContinuationEntityCopyWith<$Res> get continuation {
-    return $DailyContinuationEntityCopyWith<$Res>(_value.continuation, (value) {
-      return _then(_value.copyWith(continuation: value) as $Val);
     });
   }
 }
@@ -652,13 +633,10 @@ abstract class _$$DailyRunEntityImplCopyWith<$Res>
       int resolvedCount,
       int ratingAtOpen,
       List<DailyTopicEntity> topics,
-      PreviousDaySummaryEntity? previousDaySummary,
-      DailyContinuationEntity continuation});
+      PreviousDaySummaryEntity? previousDaySummary});
 
   @override
   $PreviousDaySummaryEntityCopyWith<$Res>? get previousDaySummary;
-  @override
-  $DailyContinuationEntityCopyWith<$Res> get continuation;
 }
 
 /// @nodoc
@@ -684,7 +662,6 @@ class __$$DailyRunEntityImplCopyWithImpl<$Res>
     Object? ratingAtOpen = null,
     Object? topics = null,
     Object? previousDaySummary = freezed,
-    Object? continuation = null,
   }) {
     return _then(_$DailyRunEntityImpl(
       runId: null == runId
@@ -727,10 +704,6 @@ class __$$DailyRunEntityImplCopyWithImpl<$Res>
           ? _value.previousDaySummary
           : previousDaySummary // ignore: cast_nullable_to_non_nullable
               as PreviousDaySummaryEntity?,
-      continuation: null == continuation
-          ? _value.continuation
-          : continuation // ignore: cast_nullable_to_non_nullable
-              as DailyContinuationEntity,
     ));
   }
 }
@@ -748,8 +721,7 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
       required this.resolvedCount,
       required this.ratingAtOpen,
       final List<DailyTopicEntity> topics = const <DailyTopicEntity>[],
-      this.previousDaySummary,
-      required this.continuation})
+      this.previousDaySummary})
       : _topics = topics;
 
   @override
@@ -779,12 +751,10 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
 
   @override
   final PreviousDaySummaryEntity? previousDaySummary;
-  @override
-  final DailyContinuationEntity continuation;
 
   @override
   String toString() {
-    return 'DailyRunEntity(runId: $runId, editionDate: $editionDate, status: $status, closesAt: $closesAt, graceEndsAt: $graceEndsAt, requiredCount: $requiredCount, resolvedCount: $resolvedCount, ratingAtOpen: $ratingAtOpen, topics: $topics, previousDaySummary: $previousDaySummary, continuation: $continuation)';
+    return 'DailyRunEntity(runId: $runId, editionDate: $editionDate, status: $status, closesAt: $closesAt, graceEndsAt: $graceEndsAt, requiredCount: $requiredCount, resolvedCount: $resolvedCount, ratingAtOpen: $ratingAtOpen, topics: $topics, previousDaySummary: $previousDaySummary)';
   }
 
   @override
@@ -808,9 +778,7 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
                 other.ratingAtOpen == ratingAtOpen) &&
             const DeepCollectionEquality().equals(other._topics, _topics) &&
             (identical(other.previousDaySummary, previousDaySummary) ||
-                other.previousDaySummary == previousDaySummary) &&
-            (identical(other.continuation, continuation) ||
-                other.continuation == continuation));
+                other.previousDaySummary == previousDaySummary));
   }
 
   @override
@@ -825,8 +793,7 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
       resolvedCount,
       ratingAtOpen,
       const DeepCollectionEquality().hash(_topics),
-      previousDaySummary,
-      continuation);
+      previousDaySummary);
 
   /// Create a copy of DailyRunEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -849,8 +816,7 @@ abstract class _DailyRunEntity implements DailyRunEntity {
           required final int resolvedCount,
           required final int ratingAtOpen,
           final List<DailyTopicEntity> topics,
-          final PreviousDaySummaryEntity? previousDaySummary,
-          required final DailyContinuationEntity continuation}) =
+          final PreviousDaySummaryEntity? previousDaySummary}) =
       _$DailyRunEntityImpl;
 
   @override
@@ -873,8 +839,6 @@ abstract class _DailyRunEntity implements DailyRunEntity {
   List<DailyTopicEntity> get topics;
   @override
   PreviousDaySummaryEntity? get previousDaySummary;
-  @override
-  DailyContinuationEntity get continuation;
 
   /// Create a copy of DailyRunEntity
   /// with the given fields replaced by the non-null parameter values.

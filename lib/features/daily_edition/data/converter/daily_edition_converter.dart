@@ -22,7 +22,6 @@ extension DailyOpenDtoConverter on DailyOpenDto {
                 points: previousDaySummary!.points,
                 accuracy: previousDaySummary!.accuracy,
               ),
-        continuation: continuation.toEntity(),
       );
 }
 
