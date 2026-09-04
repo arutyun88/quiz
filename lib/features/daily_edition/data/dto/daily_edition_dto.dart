@@ -45,11 +45,38 @@ class DailyOpenDto with _$DailyOpenDto {
     @JsonKey(name: 'required_count') required int requiredCount,
     @JsonKey(name: 'resolved_count') required int resolvedCount,
     @JsonKey(name: 'rating_at_open') required int ratingAtOpen,
+    @Default(<DailyTopicDto>[]) List<DailyTopicDto> topics,
+    @JsonKey(name: 'previous_day_summary')
+    PreviousDaySummaryDto? previousDaySummary,
     required DailyContinuationDto continuation,
   }) = _DailyOpenDto;
 
   factory DailyOpenDto.fromJson(Map<String, dynamic> json) =>
       _$DailyOpenDtoFromJson(json);
+}
+
+@freezed
+class DailyTopicDto with _$DailyTopicDto {
+  const factory DailyTopicDto({
+    required String id,
+    required String name,
+  }) = _DailyTopicDto;
+
+  factory DailyTopicDto.fromJson(Map<String, dynamic> json) =>
+      _$DailyTopicDtoFromJson(json);
+}
+
+@freezed
+class PreviousDaySummaryDto with _$PreviousDaySummaryDto {
+  const factory PreviousDaySummaryDto({
+    required String date,
+    int? rank,
+    required int points,
+    required double accuracy,
+  }) = _PreviousDaySummaryDto;
+
+  factory PreviousDaySummaryDto.fromJson(Map<String, dynamic> json) =>
+      _$PreviousDaySummaryDtoFromJson(json);
 }
 
 @freezed

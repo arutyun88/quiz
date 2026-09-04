@@ -119,7 +119,7 @@ void main() {
         headers: any(named: 'headers'),
         mapper: any(named: 'mapper'),
         converter: any(named: 'converter'),
-        enableLocale: any(named: 'enableLocale'),
+        enableLocale: true,
         onSuccess: any(named: 'onSuccess'),
       ),
     ).thenAnswer((_) async => Result.ok(run));
@@ -232,7 +232,7 @@ void main() {
         headers: any(named: 'headers'),
         mapper: any(named: 'mapper'),
         converter: any(named: 'converter'),
-        enableLocale: false,
+        enableLocale: true,
         onSuccess: any(named: 'onSuccess'),
       ),
     ).called(1);

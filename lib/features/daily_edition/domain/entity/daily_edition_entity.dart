@@ -74,8 +74,28 @@ class DailyRunEntity with _$DailyRunEntity {
     required int requiredCount,
     required int resolvedCount,
     required int ratingAtOpen,
+    @Default(<DailyTopicEntity>[]) List<DailyTopicEntity> topics,
+    PreviousDaySummaryEntity? previousDaySummary,
     required DailyContinuationEntity continuation,
   }) = _DailyRunEntity;
+}
+
+@freezed
+class DailyTopicEntity with _$DailyTopicEntity {
+  const factory DailyTopicEntity({
+    required String id,
+    required String name,
+  }) = _DailyTopicEntity;
+}
+
+@freezed
+class PreviousDaySummaryEntity with _$PreviousDaySummaryEntity {
+  const factory PreviousDaySummaryEntity({
+    required String date,
+    required int? rank,
+    required int points,
+    required double accuracy,
+  }) = _PreviousDaySummaryEntity;
 }
 
 @freezed

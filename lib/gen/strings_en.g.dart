@@ -452,6 +452,85 @@ class Translations$start_day$en {
 
 	/// ru: 'ВЫПУСК ДНЯ ГОТОВ'
 	String get ready_title => 'DAILY EDITION READY';
+
+	/// ru: 'ИТОГИ ВЧЕРАШНЕГО ДНЯ'
+	String get last_session_stats_title => 'YESTERDAY\'S RESULTS';
+
+	/// ru: 'В РЕЙТИНГЕ'
+	String get rank_label => 'RANK';
+
+	/// ru: 'ОЧКОВ'
+	String get points_label => 'POINTS';
+
+	/// ru: 'ТОЧНОСТЬ'
+	String get accuracy_label => 'ACCURACY';
+
+	/// ru: '(one) {вопрос} (few) {вопроса} (many) {вопросов} (other) {вопросов}'
+	String question_count_label({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: 'question',
+		other: 'questions',
+	);
+
+	/// ru: '(one) {~ $n МИНУТА} (few) {~ $n МИНУТЫ} (many) {~ $n МИНУТ} (other) {~ $n МИНУТ}'
+	String estimated_time({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: '~ ${n} MINUTE',
+		other: '~ ${n} MINUTES',
+	);
+
+	/// ru: 'Сыграйте сегодня, чтобы ${accent(не потерять серию)}'
+	TextSpan streak_warning({required InlineSpanBuilder accent}) => TextSpan(children: [
+		const TextSpan(text: 'Play today to '),
+		accent('keep your streak'),
+	]);
+
+	/// ru: 'Вы пропустили вчерашний день — ${accent(заморозка применена автоматически.)} Осталось $left / $total'
+	TextSpan freeze_applied_notice({required InlineSpanBuilder accent, required InlineSpan left, required InlineSpan total}) => TextSpan(children: [
+		const TextSpan(text: 'You missed yesterday — '),
+		accent('a streak freeze was applied automatically.'),
+		const TextSpan(text: ' '),
+		left,
+		const TextSpan(text: ' / '),
+		total,
+		const TextSpan(text: ' left'),
+	]);
+
+	/// ru: 'Сыграйте сегодня, чтобы ${accent(не расходовать заморозки без нужды)}'
+	TextSpan freeze_applied_advice({required InlineSpanBuilder accent}) => TextSpan(children: [
+		const TextSpan(text: 'Play today to '),
+		accent('avoid spending freezes when you don\'t need to'),
+	]);
+
+	/// ru: 'Серия из $days ${accent(потеряна)} — заморозок не осталось'
+	TextSpan streak_lost_notice({required InlineSpan days, required InlineSpanBuilder accent}) => TextSpan(children: [
+		const TextSpan(text: 'Your streak of '),
+		days,
+		const TextSpan(text: ' '),
+		accent('is lost'),
+		const TextSpan(text: ' — no freezes left'),
+	]);
+
+	/// ru: 'Серия из $days ${accent(потеряна)}'
+	TextSpan streak_lost_notice_free({required InlineSpan days, required InlineSpanBuilder accent}) => TextSpan(children: [
+		const TextSpan(text: 'Your streak of '),
+		days,
+		const TextSpan(text: ' '),
+		accent('is lost'),
+	]);
+
+	/// ru: '(one) {$n дня} (few) {$n дней} (many) {$n дней} (other) {$n дней}'
+	String streak_lost_days({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: '${n} day',
+		other: '${n} days',
+	);
+
+	/// ru: 'Начните новую серию сегодня — ${accent(до первого достижения всего 3 дня)}'
+	TextSpan streak_lost_advice({required InlineSpanBuilder accent}) => TextSpan(children: [
+		const TextSpan(text: 'Start a new streak today — '),
+		accent('your first achievement is just 3 days away'),
+	]);
+
+	/// ru: 'НАЧАТЬ НОВУЮ СЕРИЮ'
+	String get start_new_streak_button => 'START A NEW STREAK';
 }
 
 // Path: daily_result
@@ -2008,6 +2087,20 @@ extension on Translations {
 			'forgot_password.error' => 'Failed to send the link. Please try again later.',
 			'start_day.start_button' => 'START EDITION',
 			'start_day.ready_title' => 'DAILY EDITION READY',
+			'start_day.last_session_stats_title' => 'YESTERDAY\'S RESULTS',
+			'start_day.rank_label' => 'RANK',
+			'start_day.points_label' => 'POINTS',
+			'start_day.accuracy_label' => 'ACCURACY',
+			'start_day.question_count_label' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'question', other: 'questions', ), 
+			'start_day.estimated_time' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '~ ${n} MINUTE', other: '~ ${n} MINUTES', ), 
+			'start_day.streak_warning' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today to '), accent('keep your streak'), ]), 
+			'start_day.freeze_applied_notice' => ({required InlineSpanBuilder accent, required InlineSpan left, required InlineSpan total}) => TextSpan(children: [ const TextSpan(text: 'You missed yesterday — '), accent('a streak freeze was applied automatically.'), const TextSpan(text: ' '), left, const TextSpan(text: ' / '), total, const TextSpan(text: ' left'), ]), 
+			'start_day.freeze_applied_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today to '), accent('avoid spending freezes when you don\'t need to'), ]), 
+			'start_day.streak_lost_notice' => ({required InlineSpan days, required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Your streak of '), days, const TextSpan(text: ' '), accent('is lost'), const TextSpan(text: ' — no freezes left'), ]), 
+			'start_day.streak_lost_notice_free' => ({required InlineSpan days, required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Your streak of '), days, const TextSpan(text: ' '), accent('is lost'), ]), 
+			'start_day.streak_lost_days' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} day', other: '${n} days', ), 
+			'start_day.streak_lost_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Start a new streak today — '), accent('your first achievement is just 3 days away'), ]), 
+			'start_day.start_new_streak_button' => 'START A NEW STREAK',
 			'daily_result.goal_completed' => 'DAILY GOAL COMPLETED',
 			'daily_result.ring_label' => ({required Object total}) => 'OF ${total}',
 			'daily_result.correct_label' => 'CORRECT',

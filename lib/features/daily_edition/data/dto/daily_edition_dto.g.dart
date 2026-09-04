@@ -63,6 +63,14 @@ _$DailyOpenDtoImpl _$$DailyOpenDtoImplFromJson(Map<String, dynamic> json) =>
       requiredCount: (json['required_count'] as num).toInt(),
       resolvedCount: (json['resolved_count'] as num).toInt(),
       ratingAtOpen: (json['rating_at_open'] as num).toInt(),
+      topics: (json['topics'] as List<dynamic>?)
+              ?.map((e) => DailyTopicDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <DailyTopicDto>[],
+      previousDaySummary: json['previous_day_summary'] == null
+          ? null
+          : PreviousDaySummaryDto.fromJson(
+              json['previous_day_summary'] as Map<String, dynamic>),
       continuation: DailyContinuationDto.fromJson(
           json['continuation'] as Map<String, dynamic>),
     );
@@ -77,7 +85,39 @@ Map<String, dynamic> _$$DailyOpenDtoImplToJson(_$DailyOpenDtoImpl instance) =>
       'required_count': instance.requiredCount,
       'resolved_count': instance.resolvedCount,
       'rating_at_open': instance.ratingAtOpen,
+      'topics': instance.topics,
+      'previous_day_summary': instance.previousDaySummary,
       'continuation': instance.continuation,
+    };
+
+_$DailyTopicDtoImpl _$$DailyTopicDtoImplFromJson(Map<String, dynamic> json) =>
+    _$DailyTopicDtoImpl(
+      id: json['id'] as String,
+      name: json['name'] as String,
+    );
+
+Map<String, dynamic> _$$DailyTopicDtoImplToJson(_$DailyTopicDtoImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+    };
+
+_$PreviousDaySummaryDtoImpl _$$PreviousDaySummaryDtoImplFromJson(
+        Map<String, dynamic> json) =>
+    _$PreviousDaySummaryDtoImpl(
+      date: json['date'] as String,
+      rank: (json['rank'] as num?)?.toInt(),
+      points: (json['points'] as num).toInt(),
+      accuracy: (json['accuracy'] as num).toDouble(),
+    );
+
+Map<String, dynamic> _$$PreviousDaySummaryDtoImplToJson(
+        _$PreviousDaySummaryDtoImpl instance) =>
+    <String, dynamic>{
+      'date': instance.date,
+      'rank': instance.rank,
+      'points': instance.points,
+      'accuracy': instance.accuracy,
     };
 
 _$DailyAssignmentAnswerDtoImpl _$$DailyAssignmentAnswerDtoImplFromJson(

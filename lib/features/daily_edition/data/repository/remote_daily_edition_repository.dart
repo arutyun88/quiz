@@ -24,6 +24,7 @@ class RemoteDailyEditionRepository implements DailyEditionRepository {
         mapper: (json) => DataDto.fromJson(
             json, (data) => DailyOpenDto.fromJson(data as Json)),
         converter: (dto) => dto.data.toEntity(),
+        enableLocale: true,
       );
 
   @override
@@ -64,6 +65,7 @@ class RemoteDailyEditionRepository implements DailyEditionRepository {
         mapper: (json) => DataDto.fromJson(
             json, (data) => DailyOpenDto.fromJson(data as Json)),
         converter: (dto) => dto.data.toEntity(),
+        enableLocale: true,
       );
 
   @override

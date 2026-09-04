@@ -15,6 +15,16 @@ void main() {
       'required_count': 10,
       'resolved_count': 2,
       'rating_at_open': 1000,
+      'topics': [
+        {'id': 'topic-1', 'name': 'Science'},
+        {'id': 'topic-2', 'name': 'History'},
+      ],
+      'previous_day_summary': {
+        'date': '2026-08-24',
+        'rank': 12,
+        'points': 1240,
+        'accuracy': 0.84,
+      },
       'continuation': _continuationJson(nextAction: 'COMPLETE_MAIN'),
     });
 
@@ -25,6 +35,27 @@ void main() {
     expect(entity.closesAt, DateTime.parse('2026-08-25T23:00:00Z'));
     expect(entity.requiredCount, 10);
     expect(entity.resolvedCount, 2);
+    expect(entity.topics.map((topic) => topic.name), ['Science', 'History']);
+    expect(entity.previousDaySummary?.rank, 12);
+    expect(entity.previousDaySummary?.points, 1240);
+    expect(entity.previousDaySummary?.accuracy, 0.84);
+  });
+
+  test('keeps new start-day fields optional during a rolling deployment', () {
+    final entity = DailyOpenDto.fromJson({
+      'run_id': 'run-1',
+      'edition_date': '2026-08-25',
+      'status': 'IN_PROGRESS',
+      'closes_at': '2026-08-25T23:00:00Z',
+      'grace_ends_at': '2026-08-25T23:30:00Z',
+      'required_count': 10,
+      'resolved_count': 0,
+      'rating_at_open': 1000,
+      'continuation': _continuationJson(nextAction: 'COMPLETE_MAIN'),
+    }).toEntity();
+
+    expect(entity.topics, isEmpty);
+    expect(entity.previousDaySummary, isNull);
   });
 
   test('parses assignment identity and exact question version', () {

@@ -11,6 +11,17 @@ extension DailyOpenDtoConverter on DailyOpenDto {
         requiredCount: requiredCount,
         resolvedCount: resolvedCount,
         ratingAtOpen: ratingAtOpen,
+        topics: topics
+            .map((topic) => DailyTopicEntity(id: topic.id, name: topic.name))
+            .toList(growable: false),
+        previousDaySummary: previousDaySummary == null
+            ? null
+            : PreviousDaySummaryEntity(
+                date: previousDaySummary!.date,
+                rank: previousDaySummary!.rank,
+                points: previousDaySummary!.points,
+                accuracy: previousDaySummary!.accuracy,
+              ),
         continuation: continuation.toEntity(),
       );
 }

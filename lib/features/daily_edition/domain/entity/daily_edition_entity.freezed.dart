@@ -497,6 +497,9 @@ mixin _$DailyRunEntity {
   int get requiredCount => throw _privateConstructorUsedError;
   int get resolvedCount => throw _privateConstructorUsedError;
   int get ratingAtOpen => throw _privateConstructorUsedError;
+  List<DailyTopicEntity> get topics => throw _privateConstructorUsedError;
+  PreviousDaySummaryEntity? get previousDaySummary =>
+      throw _privateConstructorUsedError;
   DailyContinuationEntity get continuation =>
       throw _privateConstructorUsedError;
 
@@ -522,8 +525,11 @@ abstract class $DailyRunEntityCopyWith<$Res> {
       int requiredCount,
       int resolvedCount,
       int ratingAtOpen,
+      List<DailyTopicEntity> topics,
+      PreviousDaySummaryEntity? previousDaySummary,
       DailyContinuationEntity continuation});
 
+  $PreviousDaySummaryEntityCopyWith<$Res>? get previousDaySummary;
   $DailyContinuationEntityCopyWith<$Res> get continuation;
 }
 
@@ -550,6 +556,8 @@ class _$DailyRunEntityCopyWithImpl<$Res, $Val extends DailyRunEntity>
     Object? requiredCount = null,
     Object? resolvedCount = null,
     Object? ratingAtOpen = null,
+    Object? topics = null,
+    Object? previousDaySummary = freezed,
     Object? continuation = null,
   }) {
     return _then(_value.copyWith(
@@ -585,11 +593,34 @@ class _$DailyRunEntityCopyWithImpl<$Res, $Val extends DailyRunEntity>
           ? _value.ratingAtOpen
           : ratingAtOpen // ignore: cast_nullable_to_non_nullable
               as int,
+      topics: null == topics
+          ? _value.topics
+          : topics // ignore: cast_nullable_to_non_nullable
+              as List<DailyTopicEntity>,
+      previousDaySummary: freezed == previousDaySummary
+          ? _value.previousDaySummary
+          : previousDaySummary // ignore: cast_nullable_to_non_nullable
+              as PreviousDaySummaryEntity?,
       continuation: null == continuation
           ? _value.continuation
           : continuation // ignore: cast_nullable_to_non_nullable
               as DailyContinuationEntity,
     ) as $Val);
+  }
+
+  /// Create a copy of DailyRunEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PreviousDaySummaryEntityCopyWith<$Res>? get previousDaySummary {
+    if (_value.previousDaySummary == null) {
+      return null;
+    }
+
+    return $PreviousDaySummaryEntityCopyWith<$Res>(_value.previousDaySummary!,
+        (value) {
+      return _then(_value.copyWith(previousDaySummary: value) as $Val);
+    });
   }
 
   /// Create a copy of DailyRunEntity
@@ -620,8 +651,12 @@ abstract class _$$DailyRunEntityImplCopyWith<$Res>
       int requiredCount,
       int resolvedCount,
       int ratingAtOpen,
+      List<DailyTopicEntity> topics,
+      PreviousDaySummaryEntity? previousDaySummary,
       DailyContinuationEntity continuation});
 
+  @override
+  $PreviousDaySummaryEntityCopyWith<$Res>? get previousDaySummary;
   @override
   $DailyContinuationEntityCopyWith<$Res> get continuation;
 }
@@ -647,6 +682,8 @@ class __$$DailyRunEntityImplCopyWithImpl<$Res>
     Object? requiredCount = null,
     Object? resolvedCount = null,
     Object? ratingAtOpen = null,
+    Object? topics = null,
+    Object? previousDaySummary = freezed,
     Object? continuation = null,
   }) {
     return _then(_$DailyRunEntityImpl(
@@ -682,6 +719,14 @@ class __$$DailyRunEntityImplCopyWithImpl<$Res>
           ? _value.ratingAtOpen
           : ratingAtOpen // ignore: cast_nullable_to_non_nullable
               as int,
+      topics: null == topics
+          ? _value._topics
+          : topics // ignore: cast_nullable_to_non_nullable
+              as List<DailyTopicEntity>,
+      previousDaySummary: freezed == previousDaySummary
+          ? _value.previousDaySummary
+          : previousDaySummary // ignore: cast_nullable_to_non_nullable
+              as PreviousDaySummaryEntity?,
       continuation: null == continuation
           ? _value.continuation
           : continuation // ignore: cast_nullable_to_non_nullable
@@ -702,7 +747,10 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
       required this.requiredCount,
       required this.resolvedCount,
       required this.ratingAtOpen,
-      required this.continuation});
+      final List<DailyTopicEntity> topics = const <DailyTopicEntity>[],
+      this.previousDaySummary,
+      required this.continuation})
+      : _topics = topics;
 
   @override
   final String runId;
@@ -720,12 +768,23 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
   final int resolvedCount;
   @override
   final int ratingAtOpen;
+  final List<DailyTopicEntity> _topics;
+  @override
+  @JsonKey()
+  List<DailyTopicEntity> get topics {
+    if (_topics is EqualUnmodifiableListView) return _topics;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_topics);
+  }
+
+  @override
+  final PreviousDaySummaryEntity? previousDaySummary;
   @override
   final DailyContinuationEntity continuation;
 
   @override
   String toString() {
-    return 'DailyRunEntity(runId: $runId, editionDate: $editionDate, status: $status, closesAt: $closesAt, graceEndsAt: $graceEndsAt, requiredCount: $requiredCount, resolvedCount: $resolvedCount, ratingAtOpen: $ratingAtOpen, continuation: $continuation)';
+    return 'DailyRunEntity(runId: $runId, editionDate: $editionDate, status: $status, closesAt: $closesAt, graceEndsAt: $graceEndsAt, requiredCount: $requiredCount, resolvedCount: $resolvedCount, ratingAtOpen: $ratingAtOpen, topics: $topics, previousDaySummary: $previousDaySummary, continuation: $continuation)';
   }
 
   @override
@@ -747,6 +806,9 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
                 other.resolvedCount == resolvedCount) &&
             (identical(other.ratingAtOpen, ratingAtOpen) ||
                 other.ratingAtOpen == ratingAtOpen) &&
+            const DeepCollectionEquality().equals(other._topics, _topics) &&
+            (identical(other.previousDaySummary, previousDaySummary) ||
+                other.previousDaySummary == previousDaySummary) &&
             (identical(other.continuation, continuation) ||
                 other.continuation == continuation));
   }
@@ -762,6 +824,8 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
       requiredCount,
       resolvedCount,
       ratingAtOpen,
+      const DeepCollectionEquality().hash(_topics),
+      previousDaySummary,
       continuation);
 
   /// Create a copy of DailyRunEntity
@@ -784,6 +848,8 @@ abstract class _DailyRunEntity implements DailyRunEntity {
           required final int requiredCount,
           required final int resolvedCount,
           required final int ratingAtOpen,
+          final List<DailyTopicEntity> topics,
+          final PreviousDaySummaryEntity? previousDaySummary,
           required final DailyContinuationEntity continuation}) =
       _$DailyRunEntityImpl;
 
@@ -804,6 +870,10 @@ abstract class _DailyRunEntity implements DailyRunEntity {
   @override
   int get ratingAtOpen;
   @override
+  List<DailyTopicEntity> get topics;
+  @override
+  PreviousDaySummaryEntity? get previousDaySummary;
+  @override
   DailyContinuationEntity get continuation;
 
   /// Create a copy of DailyRunEntity
@@ -812,6 +882,343 @@ abstract class _DailyRunEntity implements DailyRunEntity {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DailyRunEntityImplCopyWith<_$DailyRunEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$DailyTopicEntity {
+  String get id => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+
+  /// Create a copy of DailyTopicEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $DailyTopicEntityCopyWith<DailyTopicEntity> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DailyTopicEntityCopyWith<$Res> {
+  factory $DailyTopicEntityCopyWith(
+          DailyTopicEntity value, $Res Function(DailyTopicEntity) then) =
+      _$DailyTopicEntityCopyWithImpl<$Res, DailyTopicEntity>;
+  @useResult
+  $Res call({String id, String name});
+}
+
+/// @nodoc
+class _$DailyTopicEntityCopyWithImpl<$Res, $Val extends DailyTopicEntity>
+    implements $DailyTopicEntityCopyWith<$Res> {
+  _$DailyTopicEntityCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of DailyTopicEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$DailyTopicEntityImplCopyWith<$Res>
+    implements $DailyTopicEntityCopyWith<$Res> {
+  factory _$$DailyTopicEntityImplCopyWith(_$DailyTopicEntityImpl value,
+          $Res Function(_$DailyTopicEntityImpl) then) =
+      __$$DailyTopicEntityImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String id, String name});
+}
+
+/// @nodoc
+class __$$DailyTopicEntityImplCopyWithImpl<$Res>
+    extends _$DailyTopicEntityCopyWithImpl<$Res, _$DailyTopicEntityImpl>
+    implements _$$DailyTopicEntityImplCopyWith<$Res> {
+  __$$DailyTopicEntityImplCopyWithImpl(_$DailyTopicEntityImpl _value,
+      $Res Function(_$DailyTopicEntityImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DailyTopicEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+  }) {
+    return _then(_$DailyTopicEntityImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DailyTopicEntityImpl implements _DailyTopicEntity {
+  const _$DailyTopicEntityImpl({required this.id, required this.name});
+
+  @override
+  final String id;
+  @override
+  final String name;
+
+  @override
+  String toString() {
+    return 'DailyTopicEntity(id: $id, name: $name)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DailyTopicEntityImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name);
+
+  /// Create a copy of DailyTopicEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DailyTopicEntityImplCopyWith<_$DailyTopicEntityImpl> get copyWith =>
+      __$$DailyTopicEntityImplCopyWithImpl<_$DailyTopicEntityImpl>(
+          this, _$identity);
+}
+
+abstract class _DailyTopicEntity implements DailyTopicEntity {
+  const factory _DailyTopicEntity(
+      {required final String id,
+      required final String name}) = _$DailyTopicEntityImpl;
+
+  @override
+  String get id;
+  @override
+  String get name;
+
+  /// Create a copy of DailyTopicEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DailyTopicEntityImplCopyWith<_$DailyTopicEntityImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$PreviousDaySummaryEntity {
+  String get date => throw _privateConstructorUsedError;
+  int? get rank => throw _privateConstructorUsedError;
+  int get points => throw _privateConstructorUsedError;
+  double get accuracy => throw _privateConstructorUsedError;
+
+  /// Create a copy of PreviousDaySummaryEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $PreviousDaySummaryEntityCopyWith<PreviousDaySummaryEntity> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PreviousDaySummaryEntityCopyWith<$Res> {
+  factory $PreviousDaySummaryEntityCopyWith(PreviousDaySummaryEntity value,
+          $Res Function(PreviousDaySummaryEntity) then) =
+      _$PreviousDaySummaryEntityCopyWithImpl<$Res, PreviousDaySummaryEntity>;
+  @useResult
+  $Res call({String date, int? rank, int points, double accuracy});
+}
+
+/// @nodoc
+class _$PreviousDaySummaryEntityCopyWithImpl<$Res,
+        $Val extends PreviousDaySummaryEntity>
+    implements $PreviousDaySummaryEntityCopyWith<$Res> {
+  _$PreviousDaySummaryEntityCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of PreviousDaySummaryEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? date = null,
+    Object? rank = freezed,
+    Object? points = null,
+    Object? accuracy = null,
+  }) {
+    return _then(_value.copyWith(
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String,
+      rank: freezed == rank
+          ? _value.rank
+          : rank // ignore: cast_nullable_to_non_nullable
+              as int?,
+      points: null == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as int,
+      accuracy: null == accuracy
+          ? _value.accuracy
+          : accuracy // ignore: cast_nullable_to_non_nullable
+              as double,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$PreviousDaySummaryEntityImplCopyWith<$Res>
+    implements $PreviousDaySummaryEntityCopyWith<$Res> {
+  factory _$$PreviousDaySummaryEntityImplCopyWith(
+          _$PreviousDaySummaryEntityImpl value,
+          $Res Function(_$PreviousDaySummaryEntityImpl) then) =
+      __$$PreviousDaySummaryEntityImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String date, int? rank, int points, double accuracy});
+}
+
+/// @nodoc
+class __$$PreviousDaySummaryEntityImplCopyWithImpl<$Res>
+    extends _$PreviousDaySummaryEntityCopyWithImpl<$Res,
+        _$PreviousDaySummaryEntityImpl>
+    implements _$$PreviousDaySummaryEntityImplCopyWith<$Res> {
+  __$$PreviousDaySummaryEntityImplCopyWithImpl(
+      _$PreviousDaySummaryEntityImpl _value,
+      $Res Function(_$PreviousDaySummaryEntityImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PreviousDaySummaryEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? date = null,
+    Object? rank = freezed,
+    Object? points = null,
+    Object? accuracy = null,
+  }) {
+    return _then(_$PreviousDaySummaryEntityImpl(
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String,
+      rank: freezed == rank
+          ? _value.rank
+          : rank // ignore: cast_nullable_to_non_nullable
+              as int?,
+      points: null == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as int,
+      accuracy: null == accuracy
+          ? _value.accuracy
+          : accuracy // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PreviousDaySummaryEntityImpl implements _PreviousDaySummaryEntity {
+  const _$PreviousDaySummaryEntityImpl(
+      {required this.date,
+      required this.rank,
+      required this.points,
+      required this.accuracy});
+
+  @override
+  final String date;
+  @override
+  final int? rank;
+  @override
+  final int points;
+  @override
+  final double accuracy;
+
+  @override
+  String toString() {
+    return 'PreviousDaySummaryEntity(date: $date, rank: $rank, points: $points, accuracy: $accuracy)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PreviousDaySummaryEntityImpl &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.rank, rank) || other.rank == rank) &&
+            (identical(other.points, points) || other.points == points) &&
+            (identical(other.accuracy, accuracy) ||
+                other.accuracy == accuracy));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, date, rank, points, accuracy);
+
+  /// Create a copy of PreviousDaySummaryEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PreviousDaySummaryEntityImplCopyWith<_$PreviousDaySummaryEntityImpl>
+      get copyWith => __$$PreviousDaySummaryEntityImplCopyWithImpl<
+          _$PreviousDaySummaryEntityImpl>(this, _$identity);
+}
+
+abstract class _PreviousDaySummaryEntity implements PreviousDaySummaryEntity {
+  const factory _PreviousDaySummaryEntity(
+      {required final String date,
+      required final int? rank,
+      required final int points,
+      required final double accuracy}) = _$PreviousDaySummaryEntityImpl;
+
+  @override
+  String get date;
+  @override
+  int? get rank;
+  @override
+  int get points;
+  @override
+  double get accuracy;
+
+  /// Create a copy of PreviousDaySummaryEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PreviousDaySummaryEntityImplCopyWith<_$PreviousDaySummaryEntityImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
