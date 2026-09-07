@@ -14,11 +14,14 @@ import 'package:quiz/features/daily_edition/domain/service/daily_attempt_outbox.
 import 'package:uuid/uuid.dart';
 
 final dailyEditionProvider =
-    StateNotifierProvider<DailyEditionNotifier, DailyEditionState>(
-        (ref) {
-  final accountId = ref.watch(authenticationProvider).mapOrNull(
+    StateNotifierProvider<DailyEditionNotifier, DailyEditionState>((ref) {
+  final accountId = ref.watch(
+    authenticationProvider.select(
+      (state) => state.mapOrNull(
         authenticated: (state) => state.user?.id,
-      );
+      ),
+    ),
+  );
   return DailyEditionNotifier(
     accountId: accountId,
     repository: getIt<DailyEditionRepository>(),
