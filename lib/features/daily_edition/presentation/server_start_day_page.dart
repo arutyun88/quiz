@@ -512,8 +512,8 @@ class _StreakNoticeBlock extends StatelessWidget {
           adviceText = t.freeze_applied_last_advice(
             accent: (text) => TextSpan(text: text, style: accentStyle),
           );
-          adviceIcon = Icons.local_fire_department_outlined;
-          adviceIconColor = colors.text.danger;
+          adviceIcon = Icons.ac_unit;
+          adviceIconColor = colors.text.accent;
         }
       case StreakNoticeType.streakLost:
         final days =
