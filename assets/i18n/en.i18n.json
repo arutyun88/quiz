@@ -413,8 +413,8 @@
         "no_previous_summary_advice(rich)": "Play today — ${accent(your results will be here tomorrow)}",
         "freeze_applied_notice(rich)": "You missed yesterday — ${accent(a streak freeze was applied automatically.)} $left / $total left",
         "freeze_applied_advice(rich)": "Play today to ${accent(avoid spending freezes when you don't need to)}",
+        "freeze_applied_last_advice(rich)": "Play today — ${accent(with no freezes left, your streak could end tomorrow)}",
         "streak_lost_notice(rich)": "Your streak of $days ${accent(is lost)} — no freezes left",
-        "streak_lost_notice_free(rich)": "Your streak of $days ${accent(is lost)}",
         "streak_lost_days(n)": {
             "one": "$n day",
             "other": "$n days"

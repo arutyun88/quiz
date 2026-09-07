@@ -429,8 +429,8 @@
         "no_previous_summary_advice(rich)": "Сыграйте сегодня — ${accent(завтра здесь появятся ваши результаты)}",
         "freeze_applied_notice(rich)": "Вы пропустили вчерашний день — ${accent(заморозка применена автоматически.)} Осталось $left / $total",
         "freeze_applied_advice(rich)": "Сыграйте сегодня, чтобы ${accent(не расходовать заморозки без нужды)}",
+        "freeze_applied_last_advice(rich)": "Сыграйте сегодня — ${accent(без заморозок серия может прерваться уже завтра)}",
         "streak_lost_notice(rich)": "Серия из $days ${accent(потеряна)} — заморозок не осталось",
-        "streak_lost_notice_free(rich)": "Серия из $days ${accent(потеряна)}",
         "streak_lost_days(n)": {
             "one": "$n дня",
             "few": "$n дней",

@@ -13,7 +13,6 @@ import 'package:quiz/features/gamification/domain/entity/user_level_entity.dart'
 import 'package:quiz/features/gamification/presentation/provider/gamification_provider.dart';
 import 'package:quiz/features/home/presentation/widgets/quiz/quiz_state_views.dart';
 import 'package:quiz/features/home/presentation/widgets/start_day_header.dart';
-import 'package:quiz/features/user/presentation/provider/quiz_plus_provider.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class ServerStartDayPage extends ConsumerWidget {
@@ -333,7 +332,11 @@ class _NoPreviousDaySummary extends StatelessWidget {
     final t = context.t.start_day;
     final textStyle =
         GoogleFonts.spectral(fontSize: 13, color: colors.text.primary);
-    const accentStyle = TextStyle(fontStyle: FontStyle.italic);
+    final accentStyle = GoogleFonts.spectral(
+      fontSize: 13,
+      fontStyle: FontStyle.italic,
+      color: colors.text.primary,
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -453,7 +456,11 @@ class _StreakWarning extends StatelessWidget {
               context.t.start_day.streak_warning(
                 accent: (text) => TextSpan(
                   text: text,
-                  style: const TextStyle(fontStyle: FontStyle.italic),
+                  style: GoogleFonts.spectral(
+                    fontSize: 13,
+                    fontStyle: FontStyle.italic,
+                    color: colors.text.primary,
+                  ),
                 ),
               ),
               style: GoogleFonts.spectral(
@@ -466,20 +473,24 @@ class _StreakWarning extends StatelessWidget {
   }
 }
 
-class _StreakNoticeBlock extends ConsumerWidget {
+class _StreakNoticeBlock extends StatelessWidget {
   const _StreakNoticeBlock({required this.notice});
 
   final StreakNoticeEntity notice;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final colors = context.palette;
     final t = context.t.start_day;
-    final textStyle =
-        GoogleFonts.spectral(fontSize: 13, color: colors.text.primary);
-    const accentStyle = TextStyle(fontStyle: FontStyle.italic);
-    final hasQuizPlus = ref.watch(quizPlusProvider);
-
+    final textStyle = GoogleFonts.spectral(
+      fontSize: 13,
+      color: colors.text.primary,
+    );
+    final accentStyle = GoogleFonts.spectral(
+      fontSize: 13,
+      fontStyle: FontStyle.italic,
+      color: colors.text.primary,
+    );
     final TextSpan noticeText;
     final TextSpan adviceText;
     final IconData adviceIcon;
@@ -491,27 +502,30 @@ class _StreakNoticeBlock extends ConsumerWidget {
           left: TextSpan(text: notice.freezesLeft.toString()),
           total: TextSpan(text: notice.freezesTotal.toString()),
         );
-        adviceText = t.freeze_applied_advice(
-          accent: (text) => TextSpan(text: text, style: accentStyle),
-        );
-        adviceIcon = Icons.ac_unit;
-        adviceIconColor = colors.text.accent;
+        if (notice.freezesLeft > 0) {
+          adviceText = t.freeze_applied_advice(
+            accent: (text) => TextSpan(text: text, style: accentStyle),
+          );
+          adviceIcon = Icons.ac_unit;
+          adviceIconColor = colors.text.accent;
+        } else {
+          adviceText = t.freeze_applied_last_advice(
+            accent: (text) => TextSpan(text: text, style: accentStyle),
+          );
+          adviceIcon = Icons.local_fire_department_outlined;
+          adviceIconColor = colors.text.danger;
+        }
       case StreakNoticeType.streakLost:
         final days =
             TextSpan(text: t.streak_lost_days(n: notice.lostStreakDays));
-        noticeText = hasQuizPlus && notice.freezesLeft == 0
-            ? t.streak_lost_notice(
-                accent: (text) => TextSpan(text: text, style: accentStyle),
-                days: days,
-              )
-            : t.streak_lost_notice_free(
-                accent: (text) => TextSpan(text: text, style: accentStyle),
-                days: days,
-              );
+        noticeText = t.streak_lost_notice(
+          accent: (text) => TextSpan(text: text, style: accentStyle),
+          days: days,
+        );
         adviceText = t.streak_lost_advice(
           accent: (text) => TextSpan(text: text, style: accentStyle),
         );
-        adviceIcon = Icons.local_fire_department;
+        adviceIcon = Icons.local_fire_department_outlined;
         adviceIconColor = colors.text.danger;
     }
 
