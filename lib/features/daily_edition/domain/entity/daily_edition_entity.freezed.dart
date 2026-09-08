@@ -492,6 +492,7 @@ mixin _$DailyRunEntity {
   String get runId => throw _privateConstructorUsedError;
   String get editionDate => throw _privateConstructorUsedError;
   DailyRunStatus get status => throw _privateConstructorUsedError;
+  DateTime? get startedAt => throw _privateConstructorUsedError;
   DateTime get closesAt => throw _privateConstructorUsedError;
   DateTime get graceEndsAt => throw _privateConstructorUsedError;
   int get requiredCount => throw _privateConstructorUsedError;
@@ -518,6 +519,7 @@ abstract class $DailyRunEntityCopyWith<$Res> {
       {String runId,
       String editionDate,
       DailyRunStatus status,
+      DateTime? startedAt,
       DateTime closesAt,
       DateTime graceEndsAt,
       int requiredCount,
@@ -547,6 +549,7 @@ class _$DailyRunEntityCopyWithImpl<$Res, $Val extends DailyRunEntity>
     Object? runId = null,
     Object? editionDate = null,
     Object? status = null,
+    Object? startedAt = freezed,
     Object? closesAt = null,
     Object? graceEndsAt = null,
     Object? requiredCount = null,
@@ -568,6 +571,10 @@ class _$DailyRunEntityCopyWithImpl<$Res, $Val extends DailyRunEntity>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as DailyRunStatus,
+      startedAt: freezed == startedAt
+          ? _value.startedAt
+          : startedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       closesAt: null == closesAt
           ? _value.closesAt
           : closesAt // ignore: cast_nullable_to_non_nullable
@@ -627,6 +634,7 @@ abstract class _$$DailyRunEntityImplCopyWith<$Res>
       {String runId,
       String editionDate,
       DailyRunStatus status,
+      DateTime? startedAt,
       DateTime closesAt,
       DateTime graceEndsAt,
       int requiredCount,
@@ -655,6 +663,7 @@ class __$$DailyRunEntityImplCopyWithImpl<$Res>
     Object? runId = null,
     Object? editionDate = null,
     Object? status = null,
+    Object? startedAt = freezed,
     Object? closesAt = null,
     Object? graceEndsAt = null,
     Object? requiredCount = null,
@@ -676,6 +685,10 @@ class __$$DailyRunEntityImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as DailyRunStatus,
+      startedAt: freezed == startedAt
+          ? _value.startedAt
+          : startedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       closesAt: null == closesAt
           ? _value.closesAt
           : closesAt // ignore: cast_nullable_to_non_nullable
@@ -715,6 +728,7 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
       {required this.runId,
       required this.editionDate,
       required this.status,
+      this.startedAt,
       required this.closesAt,
       required this.graceEndsAt,
       required this.requiredCount,
@@ -730,6 +744,8 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
   final String editionDate;
   @override
   final DailyRunStatus status;
+  @override
+  final DateTime? startedAt;
   @override
   final DateTime closesAt;
   @override
@@ -754,7 +770,7 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
 
   @override
   String toString() {
-    return 'DailyRunEntity(runId: $runId, editionDate: $editionDate, status: $status, closesAt: $closesAt, graceEndsAt: $graceEndsAt, requiredCount: $requiredCount, resolvedCount: $resolvedCount, ratingAtOpen: $ratingAtOpen, topics: $topics, previousDaySummary: $previousDaySummary)';
+    return 'DailyRunEntity(runId: $runId, editionDate: $editionDate, status: $status, startedAt: $startedAt, closesAt: $closesAt, graceEndsAt: $graceEndsAt, requiredCount: $requiredCount, resolvedCount: $resolvedCount, ratingAtOpen: $ratingAtOpen, topics: $topics, previousDaySummary: $previousDaySummary)';
   }
 
   @override
@@ -766,6 +782,8 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
             (identical(other.editionDate, editionDate) ||
                 other.editionDate == editionDate) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.startedAt, startedAt) ||
+                other.startedAt == startedAt) &&
             (identical(other.closesAt, closesAt) ||
                 other.closesAt == closesAt) &&
             (identical(other.graceEndsAt, graceEndsAt) ||
@@ -787,6 +805,7 @@ class _$DailyRunEntityImpl implements _DailyRunEntity {
       runId,
       editionDate,
       status,
+      startedAt,
       closesAt,
       graceEndsAt,
       requiredCount,
@@ -810,6 +829,7 @@ abstract class _DailyRunEntity implements DailyRunEntity {
           {required final String runId,
           required final String editionDate,
           required final DailyRunStatus status,
+          final DateTime? startedAt,
           required final DateTime closesAt,
           required final DateTime graceEndsAt,
           required final int requiredCount,
@@ -825,6 +845,8 @@ abstract class _DailyRunEntity implements DailyRunEntity {
   String get editionDate;
   @override
   DailyRunStatus get status;
+  @override
+  DateTime? get startedAt;
   @override
   DateTime get closesAt;
   @override

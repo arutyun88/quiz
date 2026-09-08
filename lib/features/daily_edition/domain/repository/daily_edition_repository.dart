@@ -5,6 +5,8 @@ import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.d
 abstract interface class DailyEditionRepository {
   Future<Result<DailyRunEntity, Failure>> open({String? timezoneId});
 
+  Future<Result<DailyRunEntity, Failure>> start(String runId);
+
   Future<Result<DailyAssignmentEntity, Failure>> fetchCurrent(String runId);
 
   Future<Result<DailyAssignmentEntity, Failure>> reserveReviewReplacement({

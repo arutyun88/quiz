@@ -10,6 +10,7 @@ void main() {
       'run_id': 'run-1',
       'edition_date': '2026-08-25',
       'status': 'IN_PROGRESS',
+      'started_at': '2026-08-25T08:15:00Z',
       'closes_at': '2026-08-25T23:00:00Z',
       'grace_ends_at': '2026-08-25T23:30:00Z',
       'required_count': 10,
@@ -31,6 +32,7 @@ void main() {
 
     expect(entity.editionDate, '2026-08-25');
     expect(entity.status, DailyRunStatus.inProgress);
+    expect(entity.startedAt, DateTime.parse('2026-08-25T08:15:00Z'));
     expect(entity.closesAt, DateTime.parse('2026-08-25T23:00:00Z'));
     expect(entity.requiredCount, 10);
     expect(entity.resolvedCount, 2);
@@ -54,6 +56,7 @@ void main() {
 
     expect(entity.topics, isEmpty);
     expect(entity.previousDaySummary, isNull);
+    expect(entity.startedAt, isNull);
   });
 
   test('parses assignment identity and exact question version', () {

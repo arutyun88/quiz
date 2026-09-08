@@ -28,6 +28,16 @@ class RemoteDailyEditionRepository implements DailyEditionRepository {
       );
 
   @override
+  Future<Result<DailyRunEntity, Failure>> start(String runId) async =>
+      await _client.post(
+        '/daily-editions/$runId/start',
+        mapper: (json) => DataDto.fromJson(
+            json, (data) => DailyOpenDto.fromJson(data as Json)),
+        converter: (dto) => dto.data.toEntity(),
+        enableLocale: true,
+      );
+
+  @override
   Future<Result<DailyAssignmentEntity, Failure>> fetchCurrent(
           String runId) async =>
       await _client.get(

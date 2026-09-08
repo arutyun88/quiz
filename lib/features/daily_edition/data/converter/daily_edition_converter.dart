@@ -6,6 +6,7 @@ extension DailyOpenDtoConverter on DailyOpenDto {
         runId: runId,
         editionDate: editionDate,
         status: _runStatus(status),
+        startedAt: startedAt,
         closesAt: closesAt,
         graceEndsAt: graceEndsAt,
         requiredCount: requiredCount,

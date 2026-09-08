@@ -69,6 +69,7 @@ class DailyRunEntity with _$DailyRunEntity {
     required String runId,
     required String editionDate,
     required DailyRunStatus status,
+    DateTime? startedAt,
     required DateTime closesAt,
     required DateTime graceEndsAt,
     required int requiredCount,

@@ -53,6 +53,7 @@ class ServerStartDayPage extends ConsumerWidget {
               Expanded(
                 child: _buildBody(
                   context,
+                  ref,
                   state,
                   gamification.whenOrNull(data: (data) => data),
                 ),
@@ -66,6 +67,7 @@ class ServerStartDayPage extends ConsumerWidget {
 
   Widget _buildBody(
     BuildContext context,
+    WidgetRef ref,
     DailyEditionState state,
     UserLevelEntity? gamification,
   ) {
@@ -79,7 +81,11 @@ class ServerStartDayPage extends ConsumerWidget {
           fallbackTopic: assignment.topic,
           streakDays: gamification?.streakDays ?? 0,
           notice: gamification?.streakNotice,
-          onStart: () => context.goNamed('quiz'),
+          onStart: () async {
+            final started =
+                await ref.read(dailyEditionProvider.notifier).startEdition();
+            if (started && context.mounted) context.goNamed('quiz');
+          },
         ),
       DailyEditionSummaryState(:final summary) => _SummaryOverview(
           summary: summary,
@@ -110,7 +116,7 @@ class _RunOverview extends StatelessWidget {
   final String? fallbackTopic;
   final int streakDays;
   final StreakNoticeEntity? notice;
-  final VoidCallback onStart;
+  final Future<void> Function() onStart;
 
   @override
   Widget build(BuildContext context) {
@@ -161,10 +167,9 @@ class _RunOverview extends StatelessWidget {
               label: notice?.type == StreakNoticeType.streakLost
                   ? t.start_new_streak_button
                   : t.start_button,
-              onTap: (complete) {
+              onTap: (complete) async {
+                await onStart();
                 complete();
-                onStart();
-                return null;
               },
             ),
           ),

@@ -40,6 +40,7 @@ class DailyOpenDto with _$DailyOpenDto {
     @JsonKey(name: 'run_id') required String runId,
     @JsonKey(name: 'edition_date') required String editionDate,
     required String status,
+    @JsonKey(name: 'started_at') DateTime? startedAt,
     @JsonKey(name: 'closes_at') required DateTime closesAt,
     @JsonKey(name: 'grace_ends_at') required DateTime graceEndsAt,
     @JsonKey(name: 'required_count') required int requiredCount,

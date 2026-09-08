@@ -68,7 +68,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
 
     ref.listen(authenticationProvider, (_, next) {
       next.when(
-        authenticated: (user) => routeAuthenticatedUser(context, user),
+        authenticated: (user) => routeAuthenticatedUser(context, ref, user),
         unauthenticated: (failure) {
           if (failure case Failure failure
               when failure is AuthenticationFailure) {

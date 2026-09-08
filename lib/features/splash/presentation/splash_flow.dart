@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -17,7 +19,9 @@ class SplashFlow extends ConsumerWidget {
       (_, state) => state.whenData(
         (_) {
           ref.read(authenticationProvider).whenOrNull(
-                authenticated: (user) => routeAuthenticatedUser(context, user),
+                authenticated: (user) => unawaited(
+                  routeAuthenticatedUser(context, ref, user),
+                ),
                 unauthenticated: (_) {
                   final storage = getIt<SettingsLocalStorageService>();
                   if (storage.isOnboardingSeen) {

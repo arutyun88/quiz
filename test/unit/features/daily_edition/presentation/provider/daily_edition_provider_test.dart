@@ -168,6 +168,29 @@ void main() {
     verify(() => repository.fetchCurrent('run-1')).called(1);
   });
 
+  test('startEdition persists start before navigating to the first question',
+      () async {
+    final startedRun = activeRun.copyWith(
+      startedAt: DateTime.parse('2026-08-25T12:00:00Z'),
+    );
+    when(() => repository.open(timezoneId: 'Asia/Yekaterinburg'))
+        .thenAnswer((_) async => Result.ok(activeRun));
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(assignment));
+    when(() => repository.start('run-1'))
+        .thenAnswer((_) async => Result.ok(startedRun));
+
+    await notifier.bootstrap(timezoneId: 'Asia/Yekaterinburg');
+    final started = await notifier.startEdition();
+
+    expect(started, isTrue);
+    expect(
+      (notifier.state as DailyEditionActiveState).run.startedAt,
+      startedRun.startedAt,
+    );
+    verify(() => repository.start('run-1')).called(1);
+  });
+
   test('review bootstrap opens a run and reserves through the server',
       () async {
     when(() => repository.open(timezoneId: 'Asia/Yekaterinburg'))

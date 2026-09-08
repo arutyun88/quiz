@@ -581,6 +581,8 @@ mixin _$DailyOpenDto {
   @JsonKey(name: 'edition_date')
   String get editionDate => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'started_at')
+  DateTime? get startedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'closes_at')
   DateTime get closesAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'grace_ends_at')
@@ -616,6 +618,7 @@ abstract class $DailyOpenDtoCopyWith<$Res> {
       {@JsonKey(name: 'run_id') String runId,
       @JsonKey(name: 'edition_date') String editionDate,
       String status,
+      @JsonKey(name: 'started_at') DateTime? startedAt,
       @JsonKey(name: 'closes_at') DateTime closesAt,
       @JsonKey(name: 'grace_ends_at') DateTime graceEndsAt,
       @JsonKey(name: 'required_count') int requiredCount,
@@ -646,6 +649,7 @@ class _$DailyOpenDtoCopyWithImpl<$Res, $Val extends DailyOpenDto>
     Object? runId = null,
     Object? editionDate = null,
     Object? status = null,
+    Object? startedAt = freezed,
     Object? closesAt = null,
     Object? graceEndsAt = null,
     Object? requiredCount = null,
@@ -667,6 +671,10 @@ class _$DailyOpenDtoCopyWithImpl<$Res, $Val extends DailyOpenDto>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
+      startedAt: freezed == startedAt
+          ? _value.startedAt
+          : startedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       closesAt: null == closesAt
           ? _value.closesAt
           : closesAt // ignore: cast_nullable_to_non_nullable
@@ -726,6 +734,7 @@ abstract class _$$DailyOpenDtoImplCopyWith<$Res>
       {@JsonKey(name: 'run_id') String runId,
       @JsonKey(name: 'edition_date') String editionDate,
       String status,
+      @JsonKey(name: 'started_at') DateTime? startedAt,
       @JsonKey(name: 'closes_at') DateTime closesAt,
       @JsonKey(name: 'grace_ends_at') DateTime graceEndsAt,
       @JsonKey(name: 'required_count') int requiredCount,
@@ -755,6 +764,7 @@ class __$$DailyOpenDtoImplCopyWithImpl<$Res>
     Object? runId = null,
     Object? editionDate = null,
     Object? status = null,
+    Object? startedAt = freezed,
     Object? closesAt = null,
     Object? graceEndsAt = null,
     Object? requiredCount = null,
@@ -776,6 +786,10 @@ class __$$DailyOpenDtoImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
+      startedAt: freezed == startedAt
+          ? _value.startedAt
+          : startedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       closesAt: null == closesAt
           ? _value.closesAt
           : closesAt // ignore: cast_nullable_to_non_nullable
@@ -815,6 +829,7 @@ class _$DailyOpenDtoImpl implements _DailyOpenDto {
       {@JsonKey(name: 'run_id') required this.runId,
       @JsonKey(name: 'edition_date') required this.editionDate,
       required this.status,
+      @JsonKey(name: 'started_at') this.startedAt,
       @JsonKey(name: 'closes_at') required this.closesAt,
       @JsonKey(name: 'grace_ends_at') required this.graceEndsAt,
       @JsonKey(name: 'required_count') required this.requiredCount,
@@ -835,6 +850,9 @@ class _$DailyOpenDtoImpl implements _DailyOpenDto {
   final String editionDate;
   @override
   final String status;
+  @override
+  @JsonKey(name: 'started_at')
+  final DateTime? startedAt;
   @override
   @JsonKey(name: 'closes_at')
   final DateTime closesAt;
@@ -865,7 +883,7 @@ class _$DailyOpenDtoImpl implements _DailyOpenDto {
 
   @override
   String toString() {
-    return 'DailyOpenDto(runId: $runId, editionDate: $editionDate, status: $status, closesAt: $closesAt, graceEndsAt: $graceEndsAt, requiredCount: $requiredCount, resolvedCount: $resolvedCount, ratingAtOpen: $ratingAtOpen, topics: $topics, previousDaySummary: $previousDaySummary)';
+    return 'DailyOpenDto(runId: $runId, editionDate: $editionDate, status: $status, startedAt: $startedAt, closesAt: $closesAt, graceEndsAt: $graceEndsAt, requiredCount: $requiredCount, resolvedCount: $resolvedCount, ratingAtOpen: $ratingAtOpen, topics: $topics, previousDaySummary: $previousDaySummary)';
   }
 
   @override
@@ -877,6 +895,8 @@ class _$DailyOpenDtoImpl implements _DailyOpenDto {
             (identical(other.editionDate, editionDate) ||
                 other.editionDate == editionDate) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.startedAt, startedAt) ||
+                other.startedAt == startedAt) &&
             (identical(other.closesAt, closesAt) ||
                 other.closesAt == closesAt) &&
             (identical(other.graceEndsAt, graceEndsAt) ||
@@ -899,6 +919,7 @@ class _$DailyOpenDtoImpl implements _DailyOpenDto {
       runId,
       editionDate,
       status,
+      startedAt,
       closesAt,
       graceEndsAt,
       requiredCount,
@@ -928,6 +949,7 @@ abstract class _DailyOpenDto implements DailyOpenDto {
       {@JsonKey(name: 'run_id') required final String runId,
       @JsonKey(name: 'edition_date') required final String editionDate,
       required final String status,
+      @JsonKey(name: 'started_at') final DateTime? startedAt,
       @JsonKey(name: 'closes_at') required final DateTime closesAt,
       @JsonKey(name: 'grace_ends_at') required final DateTime graceEndsAt,
       @JsonKey(name: 'required_count') required final int requiredCount,
@@ -948,6 +970,9 @@ abstract class _DailyOpenDto implements DailyOpenDto {
   String get editionDate;
   @override
   String get status;
+  @override
+  @JsonKey(name: 'started_at')
+  DateTime? get startedAt;
   @override
   @JsonKey(name: 'closes_at')
   DateTime get closesAt;

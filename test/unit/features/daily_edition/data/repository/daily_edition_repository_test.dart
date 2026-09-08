@@ -167,6 +167,36 @@ void main() {
     ).called(1);
   });
 
+  test('start uses the idempotent run-scoped endpoint', () async {
+    when(
+      () => client.post<DailyRunEntity, DataDto<DailyOpenDto>>(
+        any(),
+        body: any(named: 'body'),
+        queryParameters: any(named: 'queryParameters'),
+        headers: any(named: 'headers'),
+        mapper: any(named: 'mapper'),
+        converter: any(named: 'converter'),
+        enableLocale: any(named: 'enableLocale'),
+        onSuccess: any(named: 'onSuccess'),
+      ),
+    ).thenAnswer((_) async => Result.ok(run));
+
+    await repository.start('run-1');
+
+    verify(
+      () => client.post<DailyRunEntity, DataDto<DailyOpenDto>>(
+        '/daily-editions/run-1/start',
+        body: any(named: 'body'),
+        queryParameters: any(named: 'queryParameters'),
+        headers: any(named: 'headers'),
+        mapper: any(named: 'mapper'),
+        converter: any(named: 'converter'),
+        enableLocale: true,
+        onSuccess: any(named: 'onSuccess'),
+      ),
+    ).called(1);
+  });
+
   test('review replacement sends only server identity and idempotency fields',
       () async {
     when(

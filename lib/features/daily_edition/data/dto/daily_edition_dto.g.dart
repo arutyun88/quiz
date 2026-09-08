@@ -58,6 +58,9 @@ _$DailyOpenDtoImpl _$$DailyOpenDtoImplFromJson(Map<String, dynamic> json) =>
       runId: json['run_id'] as String,
       editionDate: json['edition_date'] as String,
       status: json['status'] as String,
+      startedAt: json['started_at'] == null
+          ? null
+          : DateTime.parse(json['started_at'] as String),
       closesAt: DateTime.parse(json['closes_at'] as String),
       graceEndsAt: DateTime.parse(json['grace_ends_at'] as String),
       requiredCount: (json['required_count'] as num).toInt(),
@@ -78,6 +81,7 @@ Map<String, dynamic> _$$DailyOpenDtoImplToJson(_$DailyOpenDtoImpl instance) =>
       'run_id': instance.runId,
       'edition_date': instance.editionDate,
       'status': instance.status,
+      'started_at': instance.startedAt?.toIso8601String(),
       'closes_at': instance.closesAt.toIso8601String(),
       'grace_ends_at': instance.graceEndsAt.toIso8601String(),
       'required_count': instance.requiredCount,

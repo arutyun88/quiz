@@ -25,7 +25,10 @@ class _DailyQuizFlowState extends ConsumerState<DailyQuizFlow> {
       final notifier = ref.read(dailyEditionProvider.notifier);
       final sourceAttemptId = widget.reviewSourceAttemptId;
       if (sourceAttemptId == null) {
-        notifier.bootstrap(timezoneId: timezoneId);
+        final state = ref.read(dailyEditionProvider);
+        if (state is! DailyEditionActiveState) {
+          notifier.bootstrap(timezoneId: timezoneId);
+        }
       } else {
         notifier.bootstrapReviewReplacement(
           sourceAttemptId: sourceAttemptId,
