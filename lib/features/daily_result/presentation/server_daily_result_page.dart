@@ -41,8 +41,11 @@ class ServerDailyResultPage extends StatelessWidget {
             const AppDivider(indent: 22, endIndent: 22),
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(22, 30, 22, 0),
-                child: DailyResultReport(summary: summary),
+                padding: const EdgeInsets.fromLTRB(22, 20, 22, 0),
+                child: DailyResultReport(
+                  summary: summary,
+                  onReview: () => context.goNamed('profile-review'),
+                ),
               ),
             ),
             Padding(

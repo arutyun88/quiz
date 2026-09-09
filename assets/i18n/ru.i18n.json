@@ -454,6 +454,14 @@
         "percentile_insight(percentile)": "Результат лучше, чем у $percentile% участников выпуска",
         "streak_insight(day)": "Серия продолжается — завтра будет $day день",
         "completed_insight": "Результат сохранён — новый выпуск будет доступен завтра",
+        "by_topic": "ПО ТЕМАМ",
+        "review_answers": "Разбор ответов",
+        "mistakes(n)": {
+            "one": "$n ошибка",
+            "few": "$n ошибки",
+            "many": "$n ошибок",
+            "other": "$n ошибки"
+        },
         "percentile_label": "ПРОЦЕНТИЛЬ ВЫПУСКА",
         "season_rank_label": "ПОЗИЦИЯ В СЕЗОНЕ",
         "streak_value(n)": {

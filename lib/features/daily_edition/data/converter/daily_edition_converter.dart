@@ -134,6 +134,16 @@ extension DailySummaryDtoConverter on DailySummaryDto {
         seasonRankBefore: seasonRankBefore,
         seasonRankAfter: seasonRankAfter,
         seasonRankDelta: seasonRankDelta,
+        topicResults: topicResults
+            .map(
+              (result) => DailyTopicResultEntity(
+                topicId: result.topicId,
+                topic: result.topic,
+                correctCount: result.correctCount,
+                totalCount: result.totalCount,
+              ),
+            )
+            .toList(growable: false),
         continuation: continuation.toEntity(),
       );
 }

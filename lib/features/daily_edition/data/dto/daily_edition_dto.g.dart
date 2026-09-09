@@ -265,6 +265,24 @@ Map<String, dynamic> _$$DailyHintDtoImplToJson(_$DailyHintDtoImpl instance) =>
       'hint': instance.hint,
     };
 
+_$DailyTopicResultDtoImpl _$$DailyTopicResultDtoImplFromJson(
+        Map<String, dynamic> json) =>
+    _$DailyTopicResultDtoImpl(
+      topicId: json['topic_id'] as String,
+      topic: json['topic'] as String,
+      correctCount: (json['correct_count'] as num).toInt(),
+      totalCount: (json['total_count'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$$DailyTopicResultDtoImplToJson(
+        _$DailyTopicResultDtoImpl instance) =>
+    <String, dynamic>{
+      'topic_id': instance.topicId,
+      'topic': instance.topic,
+      'correct_count': instance.correctCount,
+      'total_count': instance.totalCount,
+    };
+
 _$DailySummaryDtoImpl _$$DailySummaryDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$DailySummaryDtoImpl(
@@ -292,6 +310,11 @@ _$DailySummaryDtoImpl _$$DailySummaryDtoImplFromJson(
       seasonRankBefore: (json['season_rank_before'] as num?)?.toInt(),
       seasonRankAfter: (json['season_rank_after'] as num?)?.toInt(),
       seasonRankDelta: (json['season_rank_delta'] as num?)?.toInt(),
+      topicResults: (json['topic_results'] as List<dynamic>?)
+              ?.map((e) =>
+                  DailyTopicResultDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <DailyTopicResultDto>[],
       continuation: DailyContinuationDto.fromJson(
           json['continuation'] as Map<String, dynamic>),
     );
@@ -323,5 +346,6 @@ Map<String, dynamic> _$$DailySummaryDtoImplToJson(
       'season_rank_before': instance.seasonRankBefore,
       'season_rank_after': instance.seasonRankAfter,
       'season_rank_delta': instance.seasonRankDelta,
+      'topic_results': instance.topicResults,
       'continuation': instance.continuation,
     };

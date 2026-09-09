@@ -174,6 +174,19 @@ class DailyHintDto with _$DailyHintDto {
 }
 
 @freezed
+class DailyTopicResultDto with _$DailyTopicResultDto {
+  const factory DailyTopicResultDto({
+    @JsonKey(name: 'topic_id') required String topicId,
+    required String topic,
+    @JsonKey(name: 'correct_count') required int correctCount,
+    @JsonKey(name: 'total_count') required int totalCount,
+  }) = _DailyTopicResultDto;
+
+  factory DailyTopicResultDto.fromJson(Map<String, dynamic> json) =>
+      _$DailyTopicResultDtoFromJson(json);
+}
+
+@freezed
 class DailySummaryDto with _$DailySummaryDto {
   const factory DailySummaryDto({
     @JsonKey(name: 'run_id') required String runId,
@@ -200,6 +213,9 @@ class DailySummaryDto with _$DailySummaryDto {
     @JsonKey(name: 'season_rank_before') int? seasonRankBefore,
     @JsonKey(name: 'season_rank_after') int? seasonRankAfter,
     @JsonKey(name: 'season_rank_delta') int? seasonRankDelta,
+    @JsonKey(name: 'topic_results')
+    @Default(<DailyTopicResultDto>[])
+    List<DailyTopicResultDto> topicResults,
     required DailyContinuationDto continuation,
   }) = _DailySummaryDto;
 

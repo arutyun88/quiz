@@ -165,6 +165,16 @@ class DailyHintEntity with _$DailyHintEntity {
 }
 
 @freezed
+class DailyTopicResultEntity with _$DailyTopicResultEntity {
+  const factory DailyTopicResultEntity({
+    required String topicId,
+    required String topic,
+    required int correctCount,
+    required int totalCount,
+  }) = _DailyTopicResultEntity;
+}
+
+@freezed
 class DailySummaryEntity with _$DailySummaryEntity {
   const factory DailySummaryEntity({
     required String runId,
@@ -191,6 +201,8 @@ class DailySummaryEntity with _$DailySummaryEntity {
     int? seasonRankBefore,
     int? seasonRankAfter,
     int? seasonRankDelta,
+    @Default(<DailyTopicResultEntity>[])
+    List<DailyTopicResultEntity> topicResults,
     required DailyContinuationEntity continuation,
   }) = _DailySummaryEntity;
 }

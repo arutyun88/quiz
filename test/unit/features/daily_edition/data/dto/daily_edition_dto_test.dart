@@ -254,6 +254,14 @@ void main() {
       'season_rank_before': null,
       'season_rank_after': null,
       'season_rank_delta': null,
+      'topic_results': [
+        {
+          'topic_id': 'topic-science',
+          'topic': 'Science',
+          'correct_count': 2,
+          'total_count': 3,
+        },
+      ],
       'continuation': _continuationJson(nextAction: 'FUTURE_ACTION'),
     }).toEntity();
 
@@ -268,6 +276,14 @@ void main() {
     expect(entity.streakAfter, 5);
     expect(entity.percentile, isNull);
     expect(entity.seasonRankDelta, isNull);
+    expect(entity.topicResults, [
+      const DailyTopicResultEntity(
+        topicId: 'topic-science',
+        topic: 'Science',
+        correctCount: 2,
+        totalCount: 3,
+      ),
+    ]);
   });
 
   test('accepts an unfinished summary without completion metrics', () {

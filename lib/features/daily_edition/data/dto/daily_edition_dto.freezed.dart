@@ -3138,6 +3138,233 @@ abstract class _DailyHintDto implements DailyHintDto {
       throw _privateConstructorUsedError;
 }
 
+DailyTopicResultDto _$DailyTopicResultDtoFromJson(Map<String, dynamic> json) {
+  return _DailyTopicResultDto.fromJson(json);
+}
+
+/// @nodoc
+mixin _$DailyTopicResultDto {
+  @JsonKey(name: 'topic_id')
+  String get topicId => throw _privateConstructorUsedError;
+  String get topic => throw _privateConstructorUsedError;
+  @JsonKey(name: 'correct_count')
+  int get correctCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'total_count')
+  int get totalCount => throw _privateConstructorUsedError;
+
+  /// Serializes this DailyTopicResultDto to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of DailyTopicResultDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $DailyTopicResultDtoCopyWith<DailyTopicResultDto> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DailyTopicResultDtoCopyWith<$Res> {
+  factory $DailyTopicResultDtoCopyWith(
+          DailyTopicResultDto value, $Res Function(DailyTopicResultDto) then) =
+      _$DailyTopicResultDtoCopyWithImpl<$Res, DailyTopicResultDto>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'topic_id') String topicId,
+      String topic,
+      @JsonKey(name: 'correct_count') int correctCount,
+      @JsonKey(name: 'total_count') int totalCount});
+}
+
+/// @nodoc
+class _$DailyTopicResultDtoCopyWithImpl<$Res, $Val extends DailyTopicResultDto>
+    implements $DailyTopicResultDtoCopyWith<$Res> {
+  _$DailyTopicResultDtoCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of DailyTopicResultDto
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? topicId = null,
+    Object? topic = null,
+    Object? correctCount = null,
+    Object? totalCount = null,
+  }) {
+    return _then(_value.copyWith(
+      topicId: null == topicId
+          ? _value.topicId
+          : topicId // ignore: cast_nullable_to_non_nullable
+              as String,
+      topic: null == topic
+          ? _value.topic
+          : topic // ignore: cast_nullable_to_non_nullable
+              as String,
+      correctCount: null == correctCount
+          ? _value.correctCount
+          : correctCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalCount: null == totalCount
+          ? _value.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$DailyTopicResultDtoImplCopyWith<$Res>
+    implements $DailyTopicResultDtoCopyWith<$Res> {
+  factory _$$DailyTopicResultDtoImplCopyWith(_$DailyTopicResultDtoImpl value,
+          $Res Function(_$DailyTopicResultDtoImpl) then) =
+      __$$DailyTopicResultDtoImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'topic_id') String topicId,
+      String topic,
+      @JsonKey(name: 'correct_count') int correctCount,
+      @JsonKey(name: 'total_count') int totalCount});
+}
+
+/// @nodoc
+class __$$DailyTopicResultDtoImplCopyWithImpl<$Res>
+    extends _$DailyTopicResultDtoCopyWithImpl<$Res, _$DailyTopicResultDtoImpl>
+    implements _$$DailyTopicResultDtoImplCopyWith<$Res> {
+  __$$DailyTopicResultDtoImplCopyWithImpl(_$DailyTopicResultDtoImpl _value,
+      $Res Function(_$DailyTopicResultDtoImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DailyTopicResultDto
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? topicId = null,
+    Object? topic = null,
+    Object? correctCount = null,
+    Object? totalCount = null,
+  }) {
+    return _then(_$DailyTopicResultDtoImpl(
+      topicId: null == topicId
+          ? _value.topicId
+          : topicId // ignore: cast_nullable_to_non_nullable
+              as String,
+      topic: null == topic
+          ? _value.topic
+          : topic // ignore: cast_nullable_to_non_nullable
+              as String,
+      correctCount: null == correctCount
+          ? _value.correctCount
+          : correctCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalCount: null == totalCount
+          ? _value.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$DailyTopicResultDtoImpl implements _DailyTopicResultDto {
+  const _$DailyTopicResultDtoImpl(
+      {@JsonKey(name: 'topic_id') required this.topicId,
+      required this.topic,
+      @JsonKey(name: 'correct_count') required this.correctCount,
+      @JsonKey(name: 'total_count') required this.totalCount});
+
+  factory _$DailyTopicResultDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DailyTopicResultDtoImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'topic_id')
+  final String topicId;
+  @override
+  final String topic;
+  @override
+  @JsonKey(name: 'correct_count')
+  final int correctCount;
+  @override
+  @JsonKey(name: 'total_count')
+  final int totalCount;
+
+  @override
+  String toString() {
+    return 'DailyTopicResultDto(topicId: $topicId, topic: $topic, correctCount: $correctCount, totalCount: $totalCount)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DailyTopicResultDtoImpl &&
+            (identical(other.topicId, topicId) || other.topicId == topicId) &&
+            (identical(other.topic, topic) || other.topic == topic) &&
+            (identical(other.correctCount, correctCount) ||
+                other.correctCount == correctCount) &&
+            (identical(other.totalCount, totalCount) ||
+                other.totalCount == totalCount));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, topicId, topic, correctCount, totalCount);
+
+  /// Create a copy of DailyTopicResultDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DailyTopicResultDtoImplCopyWith<_$DailyTopicResultDtoImpl> get copyWith =>
+      __$$DailyTopicResultDtoImplCopyWithImpl<_$DailyTopicResultDtoImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$DailyTopicResultDtoImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _DailyTopicResultDto implements DailyTopicResultDto {
+  const factory _DailyTopicResultDto(
+          {@JsonKey(name: 'topic_id') required final String topicId,
+          required final String topic,
+          @JsonKey(name: 'correct_count') required final int correctCount,
+          @JsonKey(name: 'total_count') required final int totalCount}) =
+      _$DailyTopicResultDtoImpl;
+
+  factory _DailyTopicResultDto.fromJson(Map<String, dynamic> json) =
+      _$DailyTopicResultDtoImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'topic_id')
+  String get topicId;
+  @override
+  String get topic;
+  @override
+  @JsonKey(name: 'correct_count')
+  int get correctCount;
+  @override
+  @JsonKey(name: 'total_count')
+  int get totalCount;
+
+  /// Create a copy of DailyTopicResultDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DailyTopicResultDtoImplCopyWith<_$DailyTopicResultDtoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 DailySummaryDto _$DailySummaryDtoFromJson(Map<String, dynamic> json) {
   return _DailySummaryDto.fromJson(json);
 }
@@ -3189,6 +3416,9 @@ mixin _$DailySummaryDto {
   int? get seasonRankAfter => throw _privateConstructorUsedError;
   @JsonKey(name: 'season_rank_delta')
   int? get seasonRankDelta => throw _privateConstructorUsedError;
+  @JsonKey(name: 'topic_results')
+  List<DailyTopicResultDto> get topicResults =>
+      throw _privateConstructorUsedError;
   DailyContinuationDto get continuation => throw _privateConstructorUsedError;
 
   /// Serializes this DailySummaryDto to a JSON map.
@@ -3232,6 +3462,7 @@ abstract class $DailySummaryDtoCopyWith<$Res> {
       @JsonKey(name: 'season_rank_before') int? seasonRankBefore,
       @JsonKey(name: 'season_rank_after') int? seasonRankAfter,
       @JsonKey(name: 'season_rank_delta') int? seasonRankDelta,
+      @JsonKey(name: 'topic_results') List<DailyTopicResultDto> topicResults,
       DailyContinuationDto continuation});
 
   $DailyContinuationDtoCopyWith<$Res> get continuation;
@@ -3276,6 +3507,7 @@ class _$DailySummaryDtoCopyWithImpl<$Res, $Val extends DailySummaryDto>
     Object? seasonRankBefore = freezed,
     Object? seasonRankAfter = freezed,
     Object? seasonRankDelta = freezed,
+    Object? topicResults = null,
     Object? continuation = null,
   }) {
     return _then(_value.copyWith(
@@ -3375,6 +3607,10 @@ class _$DailySummaryDtoCopyWithImpl<$Res, $Val extends DailySummaryDto>
           ? _value.seasonRankDelta
           : seasonRankDelta // ignore: cast_nullable_to_non_nullable
               as int?,
+      topicResults: null == topicResults
+          ? _value.topicResults
+          : topicResults // ignore: cast_nullable_to_non_nullable
+              as List<DailyTopicResultDto>,
       continuation: null == continuation
           ? _value.continuation
           : continuation // ignore: cast_nullable_to_non_nullable
@@ -3426,6 +3662,7 @@ abstract class _$$DailySummaryDtoImplCopyWith<$Res>
       @JsonKey(name: 'season_rank_before') int? seasonRankBefore,
       @JsonKey(name: 'season_rank_after') int? seasonRankAfter,
       @JsonKey(name: 'season_rank_delta') int? seasonRankDelta,
+      @JsonKey(name: 'topic_results') List<DailyTopicResultDto> topicResults,
       DailyContinuationDto continuation});
 
   @override
@@ -3469,6 +3706,7 @@ class __$$DailySummaryDtoImplCopyWithImpl<$Res>
     Object? seasonRankBefore = freezed,
     Object? seasonRankAfter = freezed,
     Object? seasonRankDelta = freezed,
+    Object? topicResults = null,
     Object? continuation = null,
   }) {
     return _then(_$DailySummaryDtoImpl(
@@ -3568,6 +3806,10 @@ class __$$DailySummaryDtoImplCopyWithImpl<$Res>
           ? _value.seasonRankDelta
           : seasonRankDelta // ignore: cast_nullable_to_non_nullable
               as int?,
+      topicResults: null == topicResults
+          ? _value._topicResults
+          : topicResults // ignore: cast_nullable_to_non_nullable
+              as List<DailyTopicResultDto>,
       continuation: null == continuation
           ? _value.continuation
           : continuation // ignore: cast_nullable_to_non_nullable
@@ -3604,7 +3846,11 @@ class _$DailySummaryDtoImpl implements _DailySummaryDto {
       @JsonKey(name: 'season_rank_before') this.seasonRankBefore,
       @JsonKey(name: 'season_rank_after') this.seasonRankAfter,
       @JsonKey(name: 'season_rank_delta') this.seasonRankDelta,
-      required this.continuation});
+      @JsonKey(name: 'topic_results')
+      final List<DailyTopicResultDto> topicResults =
+          const <DailyTopicResultDto>[],
+      required this.continuation})
+      : _topicResults = topicResults;
 
   factory _$DailySummaryDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$DailySummaryDtoImplFromJson(json);
@@ -3678,12 +3924,21 @@ class _$DailySummaryDtoImpl implements _DailySummaryDto {
   @override
   @JsonKey(name: 'season_rank_delta')
   final int? seasonRankDelta;
+  final List<DailyTopicResultDto> _topicResults;
+  @override
+  @JsonKey(name: 'topic_results')
+  List<DailyTopicResultDto> get topicResults {
+    if (_topicResults is EqualUnmodifiableListView) return _topicResults;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_topicResults);
+  }
+
   @override
   final DailyContinuationDto continuation;
 
   @override
   String toString() {
-    return 'DailySummaryDto(runId: $runId, editionDate: $editionDate, status: $status, requiredCount: $requiredCount, resolvedCount: $resolvedCount, correctCount: $correctCount, skippedCount: $skippedCount, hintCount: $hintCount, answerXp: $answerXp, completionXp: $completionXp, totalXp: $totalXp, bonusGranted: $bonusGranted, bonusServed: $bonusServed, ratingBefore: $ratingBefore, ratingAfter: $ratingAfter, ratingDelta: $ratingDelta, accuracy: $accuracy, percentile: $percentile, streakBefore: $streakBefore, streakAfter: $streakAfter, streakDelta: $streakDelta, seasonRankBefore: $seasonRankBefore, seasonRankAfter: $seasonRankAfter, seasonRankDelta: $seasonRankDelta, continuation: $continuation)';
+    return 'DailySummaryDto(runId: $runId, editionDate: $editionDate, status: $status, requiredCount: $requiredCount, resolvedCount: $resolvedCount, correctCount: $correctCount, skippedCount: $skippedCount, hintCount: $hintCount, answerXp: $answerXp, completionXp: $completionXp, totalXp: $totalXp, bonusGranted: $bonusGranted, bonusServed: $bonusServed, ratingBefore: $ratingBefore, ratingAfter: $ratingAfter, ratingDelta: $ratingDelta, accuracy: $accuracy, percentile: $percentile, streakBefore: $streakBefore, streakAfter: $streakAfter, streakDelta: $streakDelta, seasonRankBefore: $seasonRankBefore, seasonRankAfter: $seasonRankAfter, seasonRankDelta: $seasonRankDelta, topicResults: $topicResults, continuation: $continuation)';
   }
 
   @override
@@ -3736,6 +3991,8 @@ class _$DailySummaryDtoImpl implements _DailySummaryDto {
                 other.seasonRankAfter == seasonRankAfter) &&
             (identical(other.seasonRankDelta, seasonRankDelta) ||
                 other.seasonRankDelta == seasonRankDelta) &&
+            const DeepCollectionEquality()
+                .equals(other._topicResults, _topicResults) &&
             (identical(other.continuation, continuation) ||
                 other.continuation == continuation));
   }
@@ -3768,6 +4025,7 @@ class _$DailySummaryDtoImpl implements _DailySummaryDto {
         seasonRankBefore,
         seasonRankAfter,
         seasonRankDelta,
+        const DeepCollectionEquality().hash(_topicResults),
         continuation
       ]);
 
@@ -3814,6 +4072,8 @@ abstract class _DailySummaryDto implements DailySummaryDto {
           @JsonKey(name: 'season_rank_before') final int? seasonRankBefore,
           @JsonKey(name: 'season_rank_after') final int? seasonRankAfter,
           @JsonKey(name: 'season_rank_delta') final int? seasonRankDelta,
+          @JsonKey(name: 'topic_results')
+          final List<DailyTopicResultDto> topicResults,
           required final DailyContinuationDto continuation}) =
       _$DailySummaryDtoImpl;
 
@@ -3889,6 +4149,9 @@ abstract class _DailySummaryDto implements DailySummaryDto {
   @override
   @JsonKey(name: 'season_rank_delta')
   int? get seasonRankDelta;
+  @override
+  @JsonKey(name: 'topic_results')
+  List<DailyTopicResultDto> get topicResults;
   @override
   DailyContinuationDto get continuation;
 

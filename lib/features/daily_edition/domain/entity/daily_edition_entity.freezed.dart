@@ -2582,6 +2582,198 @@ abstract class _DailyHintEntity implements DailyHintEntity {
 }
 
 /// @nodoc
+mixin _$DailyTopicResultEntity {
+  String get topicId => throw _privateConstructorUsedError;
+  String get topic => throw _privateConstructorUsedError;
+  int get correctCount => throw _privateConstructorUsedError;
+  int get totalCount => throw _privateConstructorUsedError;
+
+  /// Create a copy of DailyTopicResultEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $DailyTopicResultEntityCopyWith<DailyTopicResultEntity> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DailyTopicResultEntityCopyWith<$Res> {
+  factory $DailyTopicResultEntityCopyWith(DailyTopicResultEntity value,
+          $Res Function(DailyTopicResultEntity) then) =
+      _$DailyTopicResultEntityCopyWithImpl<$Res, DailyTopicResultEntity>;
+  @useResult
+  $Res call({String topicId, String topic, int correctCount, int totalCount});
+}
+
+/// @nodoc
+class _$DailyTopicResultEntityCopyWithImpl<$Res,
+        $Val extends DailyTopicResultEntity>
+    implements $DailyTopicResultEntityCopyWith<$Res> {
+  _$DailyTopicResultEntityCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of DailyTopicResultEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? topicId = null,
+    Object? topic = null,
+    Object? correctCount = null,
+    Object? totalCount = null,
+  }) {
+    return _then(_value.copyWith(
+      topicId: null == topicId
+          ? _value.topicId
+          : topicId // ignore: cast_nullable_to_non_nullable
+              as String,
+      topic: null == topic
+          ? _value.topic
+          : topic // ignore: cast_nullable_to_non_nullable
+              as String,
+      correctCount: null == correctCount
+          ? _value.correctCount
+          : correctCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalCount: null == totalCount
+          ? _value.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$DailyTopicResultEntityImplCopyWith<$Res>
+    implements $DailyTopicResultEntityCopyWith<$Res> {
+  factory _$$DailyTopicResultEntityImplCopyWith(
+          _$DailyTopicResultEntityImpl value,
+          $Res Function(_$DailyTopicResultEntityImpl) then) =
+      __$$DailyTopicResultEntityImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String topicId, String topic, int correctCount, int totalCount});
+}
+
+/// @nodoc
+class __$$DailyTopicResultEntityImplCopyWithImpl<$Res>
+    extends _$DailyTopicResultEntityCopyWithImpl<$Res,
+        _$DailyTopicResultEntityImpl>
+    implements _$$DailyTopicResultEntityImplCopyWith<$Res> {
+  __$$DailyTopicResultEntityImplCopyWithImpl(
+      _$DailyTopicResultEntityImpl _value,
+      $Res Function(_$DailyTopicResultEntityImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DailyTopicResultEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? topicId = null,
+    Object? topic = null,
+    Object? correctCount = null,
+    Object? totalCount = null,
+  }) {
+    return _then(_$DailyTopicResultEntityImpl(
+      topicId: null == topicId
+          ? _value.topicId
+          : topicId // ignore: cast_nullable_to_non_nullable
+              as String,
+      topic: null == topic
+          ? _value.topic
+          : topic // ignore: cast_nullable_to_non_nullable
+              as String,
+      correctCount: null == correctCount
+          ? _value.correctCount
+          : correctCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalCount: null == totalCount
+          ? _value.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DailyTopicResultEntityImpl implements _DailyTopicResultEntity {
+  const _$DailyTopicResultEntityImpl(
+      {required this.topicId,
+      required this.topic,
+      required this.correctCount,
+      required this.totalCount});
+
+  @override
+  final String topicId;
+  @override
+  final String topic;
+  @override
+  final int correctCount;
+  @override
+  final int totalCount;
+
+  @override
+  String toString() {
+    return 'DailyTopicResultEntity(topicId: $topicId, topic: $topic, correctCount: $correctCount, totalCount: $totalCount)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DailyTopicResultEntityImpl &&
+            (identical(other.topicId, topicId) || other.topicId == topicId) &&
+            (identical(other.topic, topic) || other.topic == topic) &&
+            (identical(other.correctCount, correctCount) ||
+                other.correctCount == correctCount) &&
+            (identical(other.totalCount, totalCount) ||
+                other.totalCount == totalCount));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, topicId, topic, correctCount, totalCount);
+
+  /// Create a copy of DailyTopicResultEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DailyTopicResultEntityImplCopyWith<_$DailyTopicResultEntityImpl>
+      get copyWith => __$$DailyTopicResultEntityImplCopyWithImpl<
+          _$DailyTopicResultEntityImpl>(this, _$identity);
+}
+
+abstract class _DailyTopicResultEntity implements DailyTopicResultEntity {
+  const factory _DailyTopicResultEntity(
+      {required final String topicId,
+      required final String topic,
+      required final int correctCount,
+      required final int totalCount}) = _$DailyTopicResultEntityImpl;
+
+  @override
+  String get topicId;
+  @override
+  String get topic;
+  @override
+  int get correctCount;
+  @override
+  int get totalCount;
+
+  /// Create a copy of DailyTopicResultEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DailyTopicResultEntityImplCopyWith<_$DailyTopicResultEntityImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$DailySummaryEntity {
   String get runId => throw _privateConstructorUsedError;
   String get editionDate => throw _privateConstructorUsedError;
@@ -2607,6 +2799,8 @@ mixin _$DailySummaryEntity {
   int? get seasonRankBefore => throw _privateConstructorUsedError;
   int? get seasonRankAfter => throw _privateConstructorUsedError;
   int? get seasonRankDelta => throw _privateConstructorUsedError;
+  List<DailyTopicResultEntity> get topicResults =>
+      throw _privateConstructorUsedError;
   DailyContinuationEntity get continuation =>
       throw _privateConstructorUsedError;
 
@@ -2648,6 +2842,7 @@ abstract class $DailySummaryEntityCopyWith<$Res> {
       int? seasonRankBefore,
       int? seasonRankAfter,
       int? seasonRankDelta,
+      List<DailyTopicResultEntity> topicResults,
       DailyContinuationEntity continuation});
 
   $DailyContinuationEntityCopyWith<$Res> get continuation;
@@ -2692,6 +2887,7 @@ class _$DailySummaryEntityCopyWithImpl<$Res, $Val extends DailySummaryEntity>
     Object? seasonRankBefore = freezed,
     Object? seasonRankAfter = freezed,
     Object? seasonRankDelta = freezed,
+    Object? topicResults = null,
     Object? continuation = null,
   }) {
     return _then(_value.copyWith(
@@ -2791,6 +2987,10 @@ class _$DailySummaryEntityCopyWithImpl<$Res, $Val extends DailySummaryEntity>
           ? _value.seasonRankDelta
           : seasonRankDelta // ignore: cast_nullable_to_non_nullable
               as int?,
+      topicResults: null == topicResults
+          ? _value.topicResults
+          : topicResults // ignore: cast_nullable_to_non_nullable
+              as List<DailyTopicResultEntity>,
       continuation: null == continuation
           ? _value.continuation
           : continuation // ignore: cast_nullable_to_non_nullable
@@ -2842,6 +3042,7 @@ abstract class _$$DailySummaryEntityImplCopyWith<$Res>
       int? seasonRankBefore,
       int? seasonRankAfter,
       int? seasonRankDelta,
+      List<DailyTopicResultEntity> topicResults,
       DailyContinuationEntity continuation});
 
   @override
@@ -2885,6 +3086,7 @@ class __$$DailySummaryEntityImplCopyWithImpl<$Res>
     Object? seasonRankBefore = freezed,
     Object? seasonRankAfter = freezed,
     Object? seasonRankDelta = freezed,
+    Object? topicResults = null,
     Object? continuation = null,
   }) {
     return _then(_$DailySummaryEntityImpl(
@@ -2984,6 +3186,10 @@ class __$$DailySummaryEntityImplCopyWithImpl<$Res>
           ? _value.seasonRankDelta
           : seasonRankDelta // ignore: cast_nullable_to_non_nullable
               as int?,
+      topicResults: null == topicResults
+          ? _value._topicResults
+          : topicResults // ignore: cast_nullable_to_non_nullable
+              as List<DailyTopicResultEntity>,
       continuation: null == continuation
           ? _value.continuation
           : continuation // ignore: cast_nullable_to_non_nullable
@@ -3020,7 +3226,10 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
       this.seasonRankBefore,
       this.seasonRankAfter,
       this.seasonRankDelta,
-      required this.continuation});
+      final List<DailyTopicResultEntity> topicResults =
+          const <DailyTopicResultEntity>[],
+      required this.continuation})
+      : _topicResults = topicResults;
 
   @override
   final String runId;
@@ -3070,12 +3279,21 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
   final int? seasonRankAfter;
   @override
   final int? seasonRankDelta;
+  final List<DailyTopicResultEntity> _topicResults;
+  @override
+  @JsonKey()
+  List<DailyTopicResultEntity> get topicResults {
+    if (_topicResults is EqualUnmodifiableListView) return _topicResults;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_topicResults);
+  }
+
   @override
   final DailyContinuationEntity continuation;
 
   @override
   String toString() {
-    return 'DailySummaryEntity(runId: $runId, editionDate: $editionDate, status: $status, requiredCount: $requiredCount, resolvedCount: $resolvedCount, correctCount: $correctCount, skippedCount: $skippedCount, hintCount: $hintCount, answerXp: $answerXp, completionXp: $completionXp, totalXp: $totalXp, bonusGranted: $bonusGranted, bonusServed: $bonusServed, ratingBefore: $ratingBefore, ratingAfter: $ratingAfter, ratingDelta: $ratingDelta, accuracy: $accuracy, percentile: $percentile, streakBefore: $streakBefore, streakAfter: $streakAfter, streakDelta: $streakDelta, seasonRankBefore: $seasonRankBefore, seasonRankAfter: $seasonRankAfter, seasonRankDelta: $seasonRankDelta, continuation: $continuation)';
+    return 'DailySummaryEntity(runId: $runId, editionDate: $editionDate, status: $status, requiredCount: $requiredCount, resolvedCount: $resolvedCount, correctCount: $correctCount, skippedCount: $skippedCount, hintCount: $hintCount, answerXp: $answerXp, completionXp: $completionXp, totalXp: $totalXp, bonusGranted: $bonusGranted, bonusServed: $bonusServed, ratingBefore: $ratingBefore, ratingAfter: $ratingAfter, ratingDelta: $ratingDelta, accuracy: $accuracy, percentile: $percentile, streakBefore: $streakBefore, streakAfter: $streakAfter, streakDelta: $streakDelta, seasonRankBefore: $seasonRankBefore, seasonRankAfter: $seasonRankAfter, seasonRankDelta: $seasonRankDelta, topicResults: $topicResults, continuation: $continuation)';
   }
 
   @override
@@ -3128,6 +3346,8 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
                 other.seasonRankAfter == seasonRankAfter) &&
             (identical(other.seasonRankDelta, seasonRankDelta) ||
                 other.seasonRankDelta == seasonRankDelta) &&
+            const DeepCollectionEquality()
+                .equals(other._topicResults, _topicResults) &&
             (identical(other.continuation, continuation) ||
                 other.continuation == continuation));
   }
@@ -3159,6 +3379,7 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
         seasonRankBefore,
         seasonRankAfter,
         seasonRankDelta,
+        const DeepCollectionEquality().hash(_topicResults),
         continuation
       ]);
 
@@ -3198,6 +3419,7 @@ abstract class _DailySummaryEntity implements DailySummaryEntity {
           final int? seasonRankBefore,
           final int? seasonRankAfter,
           final int? seasonRankDelta,
+          final List<DailyTopicResultEntity> topicResults,
           required final DailyContinuationEntity continuation}) =
       _$DailySummaryEntityImpl;
 
@@ -3249,6 +3471,8 @@ abstract class _DailySummaryEntity implements DailySummaryEntity {
   int? get seasonRankAfter;
   @override
   int? get seasonRankDelta;
+  @override
+  List<DailyTopicResultEntity> get topicResults;
   @override
   DailyContinuationEntity get continuation;
 

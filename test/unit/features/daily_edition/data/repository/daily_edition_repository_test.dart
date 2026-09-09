@@ -300,7 +300,7 @@ void main() {
     ).called(1);
   });
 
-  test('fetchSummary uses the run-scoped non-localized endpoint', () async {
+  test('fetchSummary uses the run-scoped localized endpoint', () async {
     when(
       () => client.get<DailySummaryEntity, DataDto<DailySummaryDto>>(
         any(),
@@ -321,7 +321,7 @@ void main() {
         headers: any(named: 'headers'),
         mapper: any(named: 'mapper'),
         converter: any(named: 'converter'),
-        enableLocale: false,
+        enableLocale: true,
       ),
     ).called(1);
   });

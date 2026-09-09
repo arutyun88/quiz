@@ -382,6 +382,14 @@ class _Translations$daily_result$ru implements Translations$daily_result$en {
 	@override String percentile_insight({required Object percentile}) => 'Результат лучше, чем у ${percentile}% участников выпуска';
 	@override String streak_insight({required Object day}) => 'Серия продолжается — завтра будет ${day} день';
 	@override String get completed_insight => 'Результат сохранён — новый выпуск будет доступен завтра';
+	@override String get by_topic => 'ПО ТЕМАМ';
+	@override String get review_answers => 'Разбор ответов';
+	@override String mistakes({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+		one: '${n} ошибка',
+		few: '${n} ошибки',
+		many: '${n} ошибок',
+		other: '${n} ошибки',
+	);
 	@override String get percentile_label => 'ПРОЦЕНТИЛЬ ВЫПУСКА';
 	@override String get season_rank_label => 'ПОЗИЦИЯ В СЕЗОНЕ';
 	@override String streak_value({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
@@ -1446,6 +1454,9 @@ extension on TranslationsRu {
 			'daily_result.percentile_insight' => ({required Object percentile}) => 'Результат лучше, чем у ${percentile}% участников выпуска',
 			'daily_result.streak_insight' => ({required Object day}) => 'Серия продолжается — завтра будет ${day} день',
 			'daily_result.completed_insight' => 'Результат сохранён — новый выпуск будет доступен завтра',
+			'daily_result.by_topic' => 'ПО ТЕМАМ',
+			'daily_result.review_answers' => 'Разбор ответов',
+			'daily_result.mistakes' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} ошибка', few: '${n} ошибки', many: '${n} ошибок', other: '${n} ошибки', ), 
 			'daily_result.percentile_label' => 'ПРОЦЕНТИЛЬ ВЫПУСКА',
 			'daily_result.season_rank_label' => 'ПОЗИЦИЯ В СЕЗОНЕ',
 			'daily_result.streak_value' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'СЕРИЯ ${n} ДЕНЬ', few: 'СЕРИЯ ${n} ДНЯ', many: 'СЕРИЯ ${n} ДНЕЙ', other: 'СЕРИЯ ${n} ДНЯ', ), 

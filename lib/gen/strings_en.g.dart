@@ -590,6 +590,18 @@ class Translations$daily_result$en {
 	/// ru: 'Результат сохранён — новый выпуск будет доступен завтра'
 	String get completed_insight => 'Your result is saved — a new issue arrives tomorrow';
 
+	/// ru: 'ПО ТЕМАМ'
+	String get by_topic => 'BY TOPIC';
+
+	/// ru: 'Разбор ответов'
+	String get review_answers => 'Review answers';
+
+	/// ru: '(one) {$n ошибка} (few) {$n ошибки} (many) {$n ошибок} (other) {$n ошибки}'
+	String mistakes({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: '${n} mistake',
+		other: '${n} mistakes',
+	);
+
 	/// ru: 'ПРОЦЕНТИЛЬ ВЫПУСКА'
 	String get percentile_label => 'ISSUE PERCENTILE';
 
@@ -2159,6 +2171,9 @@ extension on Translations {
 			'daily_result.percentile_insight' => ({required Object percentile}) => 'A better result than ${percentile}% of players in this issue',
 			'daily_result.streak_insight' => ({required Object day}) => 'Your streak continues — tomorrow will be the ${day} day',
 			'daily_result.completed_insight' => 'Your result is saved — a new issue arrives tomorrow',
+			'daily_result.by_topic' => 'BY TOPIC',
+			'daily_result.review_answers' => 'Review answers',
+			'daily_result.mistakes' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} mistake', other: '${n} mistakes', ), 
 			'daily_result.percentile_label' => 'ISSUE PERCENTILE',
 			'daily_result.season_rank_label' => 'SEASON POSITION',
 			'daily_result.streak_value' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} DAY STREAK', other: '${n} DAY STREAK', ), 

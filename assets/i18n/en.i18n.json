@@ -436,6 +436,12 @@
         "percentile_insight(percentile)": "A better result than $percentile% of players in this issue",
         "streak_insight(day)": "Your streak continues — tomorrow will be the $day day",
         "completed_insight": "Your result is saved — a new issue arrives tomorrow",
+        "by_topic": "BY TOPIC",
+        "review_answers": "Review answers",
+        "mistakes(n)": {
+            "one": "$n mistake",
+            "other": "$n mistakes"
+        },
         "percentile_label": "ISSUE PERCENTILE",
         "season_rank_label": "SEASON POSITION",
         "streak_value(n)": {

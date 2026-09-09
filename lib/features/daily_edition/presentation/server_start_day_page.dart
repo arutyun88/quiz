@@ -600,12 +600,20 @@ class _SummaryOverview extends StatelessWidget {
     final colors = context.palette;
     final t = context.t.daily_result;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(22, 30, 22, 12),
+      padding: const EdgeInsets.fromLTRB(22, 0, 22, 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          DailyResultReport(summary: summary),
-          const Spacer(),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.only(top: 20),
+              child: DailyResultReport(
+                summary: summary,
+                onReview: () => context.goNamed('profile-review'),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
           AppButtonV2(
             label: _buttonLabel(context),
             onTap: (complete) async {
