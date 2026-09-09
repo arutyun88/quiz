@@ -551,11 +551,17 @@ class Translations$daily_result$en {
 
 	// Translations
 
-	/// ru: 'ЕЖЕДНЕВНАЯ ЦЕЛЬ ВЫПОЛНЕНА'
-	String get goal_completed => 'DAILY GOAL COMPLETED';
+	/// ru: 'ВЫПУСК ДНЯ ЗАВЕРШЁН'
+	String get goal_completed => 'TODAY\'S ISSUE COMPLETED';
 
 	/// ru: 'ИЗ $total'
 	String ring_label({required Object total}) => 'OF ${total}';
+
+	/// ru: 'ВЕРНЫХ ОТВЕТОВ · $accuracy% ТОЧНОСТЬ'
+	String score_caption({required Object accuracy}) => 'CORRECT ANSWERS · ${accuracy}% ACCURACY';
+
+	/// ru: '$correct верных ответов из $total'
+	String score_semantics({required Object correct, required Object total}) => '${correct} correct answers out of ${total}';
 
 	/// ru: 'ВЕРНО'
 	String get correct_label => 'CORRECT';
@@ -563,11 +569,26 @@ class Translations$daily_result$en {
 	/// ru: 'ПОДСКАЗКИ'
 	String get hints_label => 'HINTS';
 
+	/// ru: 'XP ПОЛУЧЕНО'
+	String get xp_label => 'XP EARNED';
+
 	/// ru: 'РЕЙТИНГ'
 	String get rating_label => 'RATING';
 
 	/// ru: 'ТОЧНОСТЬ'
 	String get accuracy_label => 'ACCURACY';
+
+	/// ru: 'К СЕРИИ'
+	String get streak_stat_label => 'TO STREAK';
+
+	/// ru: 'Результат лучше, чем у $percentile% участников выпуска'
+	String percentile_insight({required Object percentile}) => 'A better result than ${percentile}% of players in this issue';
+
+	/// ru: 'Серия продолжается — завтра будет $day день'
+	String streak_insight({required Object day}) => 'Your streak continues — tomorrow will be the ${day} day';
+
+	/// ru: 'Результат сохранён — новый выпуск будет доступен завтра'
+	String get completed_insight => 'Your result is saved — a new issue arrives tomorrow';
 
 	/// ru: 'ПРОЦЕНТИЛЬ ВЫПУСКА'
 	String get percentile_label => 'ISSUE PERCENTILE';
@@ -583,6 +604,18 @@ class Translations$daily_result$en {
 
 	/// ru: 'ИГРАТЬ ДАЛЬШЕ'
 	String get continue_button => 'KEEP PLAYING';
+
+	/// ru: 'ЕЩЁ ВОПРОСЫ'
+	String get more_questions_button => 'MORE QUESTIONS';
+
+	/// ru: 'НА ГЛАВНУЮ'
+	String get home_button => 'GO HOME';
+
+	/// ru: 'СМОТРЕТЬ РЕЙТИНГ'
+	String get rating_button => 'VIEW RATING';
+
+	/// ru: 'ОСНОВНАЯ ЦЕЛЬ ВЫПОЛНЕНА · МОЖНО ИГРАТЬ ДАЛЬШЕ'
+	String get continue_footer => 'DAILY GOAL COMPLETED · KEEP PLAYING';
 
 	/// ru: 'ВЫПУСК ДНЯ ЗАКРЫТ · НОВЫЙ ЗАВТРА'
 	String get footer => 'TODAY\'S ISSUE IS CLOSED · A NEW ONE TOMORROW';
@@ -2104,25 +2137,36 @@ extension on Translations {
 			'start_day.question_count_label' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'question', other: 'questions', ), 
 			'start_day.estimated_time' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '~ ${n} MINUTE', other: '~ ${n} MINUTES', ), 
 			'start_day.streak_warning' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today to '), accent('keep your streak'), ]), 
-			'start_day.no_previous_summary_notice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'There is no completed edition from yesterday — '), accent('your results are not ready yet'), ]),
-			'start_day.no_previous_summary_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today — '), accent('your results will be here tomorrow'), ]),
+			'start_day.no_previous_summary_notice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'There is no completed edition from yesterday — '), accent('your results are not ready yet'), ]), 
+			'start_day.no_previous_summary_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today — '), accent('your results will be here tomorrow'), ]), 
 			'start_day.freeze_applied_notice' => ({required InlineSpanBuilder accent, required InlineSpan left, required InlineSpan total}) => TextSpan(children: [ const TextSpan(text: 'You missed yesterday — '), accent('a streak freeze was applied automatically.'), const TextSpan(text: ' '), left, const TextSpan(text: ' / '), total, const TextSpan(text: ' left'), ]), 
 			'start_day.freeze_applied_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today to '), accent('avoid spending freezes when you don\'t need to'), ]), 
-			'start_day.freeze_applied_last_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today — '), accent('with no freezes left, your streak could end tomorrow'), ]),
+			'start_day.freeze_applied_last_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today — '), accent('with no freezes left, your streak could end tomorrow'), ]), 
 			'start_day.streak_lost_notice' => ({required InlineSpan days, required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Your streak of '), days, const TextSpan(text: ' '), accent('is lost'), const TextSpan(text: ' — no freezes left'), ]), 
 			'start_day.streak_lost_days' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} day', other: '${n} days', ), 
 			'start_day.streak_lost_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Start a new streak today — '), accent('your first achievement is just 3 days away'), ]), 
 			'start_day.start_new_streak_button' => 'START A NEW STREAK',
-			'daily_result.goal_completed' => 'DAILY GOAL COMPLETED',
+			'daily_result.goal_completed' => 'TODAY\'S ISSUE COMPLETED',
 			'daily_result.ring_label' => ({required Object total}) => 'OF ${total}',
+			'daily_result.score_caption' => ({required Object accuracy}) => 'CORRECT ANSWERS · ${accuracy}% ACCURACY',
+			'daily_result.score_semantics' => ({required Object correct, required Object total}) => '${correct} correct answers out of ${total}',
 			'daily_result.correct_label' => 'CORRECT',
 			'daily_result.hints_label' => 'HINTS',
+			'daily_result.xp_label' => 'XP EARNED',
 			'daily_result.rating_label' => 'RATING',
 			'daily_result.accuracy_label' => 'ACCURACY',
+			'daily_result.streak_stat_label' => 'TO STREAK',
+			'daily_result.percentile_insight' => ({required Object percentile}) => 'A better result than ${percentile}% of players in this issue',
+			'daily_result.streak_insight' => ({required Object day}) => 'Your streak continues — tomorrow will be the ${day} day',
+			'daily_result.completed_insight' => 'Your result is saved — a new issue arrives tomorrow',
 			'daily_result.percentile_label' => 'ISSUE PERCENTILE',
 			'daily_result.season_rank_label' => 'SEASON POSITION',
 			'daily_result.streak_value' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} DAY STREAK', other: '${n} DAY STREAK', ), 
 			'daily_result.continue_button' => 'KEEP PLAYING',
+			'daily_result.more_questions_button' => 'MORE QUESTIONS',
+			'daily_result.home_button' => 'GO HOME',
+			'daily_result.rating_button' => 'VIEW RATING',
+			'daily_result.continue_footer' => 'DAILY GOAL COMPLETED · KEEP PLAYING',
 			'daily_result.footer' => 'TODAY\'S ISSUE IS CLOSED · A NEW ONE TOMORROW',
 			'daily_limit.title' => 'MORE QUESTIONS',
 			'daily_limit.extras_section' => 'EXTRA QUESTIONS TODAY',

@@ -369,12 +369,19 @@ class _Translations$daily_result$ru implements Translations$daily_result$en {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get goal_completed => 'ЕЖЕДНЕВНАЯ ЦЕЛЬ ВЫПОЛНЕНА';
+	@override String get goal_completed => 'ВЫПУСК ДНЯ ЗАВЕРШЁН';
 	@override String ring_label({required Object total}) => 'ИЗ ${total}';
+	@override String score_caption({required Object accuracy}) => 'ВЕРНЫХ ОТВЕТОВ · ${accuracy}% ТОЧНОСТЬ';
+	@override String score_semantics({required Object correct, required Object total}) => '${correct} верных ответов из ${total}';
 	@override String get correct_label => 'ВЕРНО';
 	@override String get hints_label => 'ПОДСКАЗКИ';
+	@override String get xp_label => 'XP ПОЛУЧЕНО';
 	@override String get rating_label => 'РЕЙТИНГ';
 	@override String get accuracy_label => 'ТОЧНОСТЬ';
+	@override String get streak_stat_label => 'К СЕРИИ';
+	@override String percentile_insight({required Object percentile}) => 'Результат лучше, чем у ${percentile}% участников выпуска';
+	@override String streak_insight({required Object day}) => 'Серия продолжается — завтра будет ${day} день';
+	@override String get completed_insight => 'Результат сохранён — новый выпуск будет доступен завтра';
 	@override String get percentile_label => 'ПРОЦЕНТИЛЬ ВЫПУСКА';
 	@override String get season_rank_label => 'ПОЗИЦИЯ В СЕЗОНЕ';
 	@override String streak_value({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
@@ -384,6 +391,10 @@ class _Translations$daily_result$ru implements Translations$daily_result$en {
 		other: 'СЕРИЯ ${n} ДНЯ',
 	);
 	@override String get continue_button => 'ИГРАТЬ ДАЛЬШЕ';
+	@override String get more_questions_button => 'ЕЩЁ ВОПРОСЫ';
+	@override String get home_button => 'НА ГЛАВНУЮ';
+	@override String get rating_button => 'СМОТРЕТЬ РЕЙТИНГ';
+	@override String get continue_footer => 'ОСНОВНАЯ ЦЕЛЬ ВЫПОЛНЕНА · МОЖНО ИГРАТЬ ДАЛЬШЕ';
 	@override String get footer => 'ВЫПУСК ДНЯ ЗАКРЫТ · НОВЫЙ ЗАВТРА';
 }
 
@@ -1413,25 +1424,36 @@ extension on TranslationsRu {
 			'start_day.question_count_label' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'вопрос', few: 'вопроса', many: 'вопросов', other: 'вопросов', ), 
 			'start_day.estimated_time' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '~ ${n} МИНУТА', few: '~ ${n} МИНУТЫ', many: '~ ${n} МИНУТ', other: '~ ${n} МИНУТ', ), 
 			'start_day.streak_warning' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Сыграйте сегодня, чтобы '), accent('не потерять серию'), ]), 
-			'start_day.no_previous_summary_notice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'За вчера нет завершённого выпуска — '), accent('итоги пока не сформированы'), ]),
-			'start_day.no_previous_summary_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Сыграйте сегодня — '), accent('завтра здесь появятся ваши результаты'), ]),
+			'start_day.no_previous_summary_notice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'За вчера нет завершённого выпуска — '), accent('итоги пока не сформированы'), ]), 
+			'start_day.no_previous_summary_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Сыграйте сегодня — '), accent('завтра здесь появятся ваши результаты'), ]), 
 			'start_day.freeze_applied_notice' => ({required InlineSpanBuilder accent, required InlineSpan left, required InlineSpan total}) => TextSpan(children: [ const TextSpan(text: 'Вы пропустили вчерашний день — '), accent('заморозка применена автоматически.'), const TextSpan(text: ' Осталось '), left, const TextSpan(text: ' / '), total, ]), 
 			'start_day.freeze_applied_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Сыграйте сегодня, чтобы '), accent('не расходовать заморозки без нужды'), ]), 
-			'start_day.freeze_applied_last_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Сыграйте сегодня — '), accent('без заморозок серия может прерваться уже завтра'), ]),
+			'start_day.freeze_applied_last_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Сыграйте сегодня — '), accent('без заморозок серия может прерваться уже завтра'), ]), 
 			'start_day.streak_lost_notice' => ({required InlineSpan days, required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Серия из '), days, const TextSpan(text: ' '), accent('потеряна'), const TextSpan(text: ' — заморозок не осталось'), ]), 
 			'start_day.streak_lost_days' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} дня', few: '${n} дней', many: '${n} дней', other: '${n} дней', ), 
 			'start_day.streak_lost_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Начните новую серию сегодня — '), accent('до первого достижения всего 3 дня'), ]), 
 			'start_day.start_new_streak_button' => 'НАЧАТЬ НОВУЮ СЕРИЮ',
-			'daily_result.goal_completed' => 'ЕЖЕДНЕВНАЯ ЦЕЛЬ ВЫПОЛНЕНА',
+			'daily_result.goal_completed' => 'ВЫПУСК ДНЯ ЗАВЕРШЁН',
 			'daily_result.ring_label' => ({required Object total}) => 'ИЗ ${total}',
+			'daily_result.score_caption' => ({required Object accuracy}) => 'ВЕРНЫХ ОТВЕТОВ · ${accuracy}% ТОЧНОСТЬ',
+			'daily_result.score_semantics' => ({required Object correct, required Object total}) => '${correct} верных ответов из ${total}',
 			'daily_result.correct_label' => 'ВЕРНО',
 			'daily_result.hints_label' => 'ПОДСКАЗКИ',
+			'daily_result.xp_label' => 'XP ПОЛУЧЕНО',
 			'daily_result.rating_label' => 'РЕЙТИНГ',
 			'daily_result.accuracy_label' => 'ТОЧНОСТЬ',
+			'daily_result.streak_stat_label' => 'К СЕРИИ',
+			'daily_result.percentile_insight' => ({required Object percentile}) => 'Результат лучше, чем у ${percentile}% участников выпуска',
+			'daily_result.streak_insight' => ({required Object day}) => 'Серия продолжается — завтра будет ${day} день',
+			'daily_result.completed_insight' => 'Результат сохранён — новый выпуск будет доступен завтра',
 			'daily_result.percentile_label' => 'ПРОЦЕНТИЛЬ ВЫПУСКА',
 			'daily_result.season_rank_label' => 'ПОЗИЦИЯ В СЕЗОНЕ',
 			'daily_result.streak_value' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'СЕРИЯ ${n} ДЕНЬ', few: 'СЕРИЯ ${n} ДНЯ', many: 'СЕРИЯ ${n} ДНЕЙ', other: 'СЕРИЯ ${n} ДНЯ', ), 
 			'daily_result.continue_button' => 'ИГРАТЬ ДАЛЬШЕ',
+			'daily_result.more_questions_button' => 'ЕЩЁ ВОПРОСЫ',
+			'daily_result.home_button' => 'НА ГЛАВНУЮ',
+			'daily_result.rating_button' => 'СМОТРЕТЬ РЕЙТИНГ',
+			'daily_result.continue_footer' => 'ОСНОВНАЯ ЦЕЛЬ ВЫПОЛНЕНА · МОЖНО ИГРАТЬ ДАЛЬШЕ',
 			'daily_result.footer' => 'ВЫПУСК ДНЯ ЗАКРЫТ · НОВЫЙ ЗАВТРА',
 			'daily_limit.title' => 'ЕЩЁ ВОПРОСЫ',
 			'daily_limit.extras_section' => 'ДОП. ВОПРОСЫ НА СЕГОДНЯ',

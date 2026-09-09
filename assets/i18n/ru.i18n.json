@@ -441,12 +441,19 @@
         "start_new_streak_button": "НАЧАТЬ НОВУЮ СЕРИЮ"
     },
     "daily_result": {
-        "goal_completed": "ЕЖЕДНЕВНАЯ ЦЕЛЬ ВЫПОЛНЕНА",
+        "goal_completed": "ВЫПУСК ДНЯ ЗАВЕРШЁН",
         "ring_label": "ИЗ $total",
+        "score_caption(accuracy)": "ВЕРНЫХ ОТВЕТОВ · $accuracy% ТОЧНОСТЬ",
+        "score_semantics(correct, total)": "$correct верных ответов из $total",
         "correct_label": "ВЕРНО",
         "hints_label": "ПОДСКАЗКИ",
+        "xp_label": "XP ПОЛУЧЕНО",
         "rating_label": "РЕЙТИНГ",
         "accuracy_label": "ТОЧНОСТЬ",
+        "streak_stat_label": "К СЕРИИ",
+        "percentile_insight(percentile)": "Результат лучше, чем у $percentile% участников выпуска",
+        "streak_insight(day)": "Серия продолжается — завтра будет $day день",
+        "completed_insight": "Результат сохранён — новый выпуск будет доступен завтра",
         "percentile_label": "ПРОЦЕНТИЛЬ ВЫПУСКА",
         "season_rank_label": "ПОЗИЦИЯ В СЕЗОНЕ",
         "streak_value(n)": {
@@ -456,6 +463,10 @@
             "other": "СЕРИЯ $n ДНЯ"
         },
         "continue_button": "ИГРАТЬ ДАЛЬШЕ",
+        "more_questions_button": "ЕЩЁ ВОПРОСЫ",
+        "home_button": "НА ГЛАВНУЮ",
+        "rating_button": "СМОТРЕТЬ РЕЙТИНГ",
+        "continue_footer": "ОСНОВНАЯ ЦЕЛЬ ВЫПОЛНЕНА · МОЖНО ИГРАТЬ ДАЛЬШЕ",
         "footer": "ВЫПУСК ДНЯ ЗАКРЫТ · НОВЫЙ ЗАВТРА"
     },
     "daily_limit": {

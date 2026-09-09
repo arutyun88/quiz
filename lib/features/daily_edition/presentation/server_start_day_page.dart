@@ -5,10 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
-import 'package:quiz/app/core/widgets/app_progress_ring.dart';
 import 'package:quiz/app/core/widgets/button/app_button_v2.dart';
 import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
+import 'package:quiz/features/daily_result/presentation/widgets/daily_result_report.dart';
 import 'package:quiz/features/gamification/domain/entity/user_level_entity.dart';
 import 'package:quiz/features/gamification/presentation/provider/gamification_provider.dart';
 import 'package:quiz/features/home/presentation/widgets/quiz/quiz_state_views.dart';
@@ -89,8 +89,32 @@ class ServerStartDayPage extends ConsumerWidget {
         ),
       DailyEditionSummaryState(:final summary) => _SummaryOverview(
           summary: summary,
+          onContinue: () => _continueFromSummary(context, ref, summary),
         ),
     };
+  }
+
+  Future<void> _continueFromSummary(
+    BuildContext context,
+    WidgetRef ref,
+    DailySummaryEntity summary,
+  ) async {
+    switch (summary.continuation.nextAction) {
+      case DailyContinuationAction.playQuestion:
+        await ref.read(dailyEditionProvider.notifier).continueEdition();
+        if (context.mounted &&
+            ref.read(dailyEditionProvider) is DailyEditionActiveState) {
+          context.goNamed('quiz');
+        }
+      case DailyContinuationAction.watchRewarded:
+      case DailyContinuationAction.waitForRewarded:
+      case DailyContinuationAction.limitReached:
+        if (context.mounted) context.goNamed('daily-limit');
+      case DailyContinuationAction.completeMain:
+      case DailyContinuationAction.closed:
+      case DailyContinuationAction.unknown:
+        if (context.mounted) context.goNamed('rating');
+    }
   }
 }
 
@@ -374,8 +398,7 @@ class _NoPreviousDaySummary extends StatelessWidget {
               Expanded(
                 child: Text.rich(
                   t.no_previous_summary_advice(
-                    accent: (text) =>
-                        TextSpan(text: text, style: accentStyle),
+                    accent: (text) => TextSpan(text: text, style: accentStyle),
                   ),
                   style: textStyle,
                 ),
@@ -567,56 +590,32 @@ class _StreakNoticeBlock extends StatelessWidget {
 }
 
 class _SummaryOverview extends StatelessWidget {
-  const _SummaryOverview({required this.summary});
+  const _SummaryOverview({required this.summary, required this.onContinue});
 
   final DailySummaryEntity summary;
+  final Future<void> Function() onContinue;
 
   @override
   Widget build(BuildContext context) {
     final colors = context.palette;
     final t = context.t.daily_result;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(22, 30, 22, 30),
+      padding: const EdgeInsets.fromLTRB(22, 30, 22, 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            t.goal_completed,
-            style: GoogleFonts.jetBrainsMono(
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
-              letterSpacing: 2,
-              color: colors.text.accent,
-            ),
-          ),
-          const SizedBox(height: 20),
-          _EditionProgress(
-            resolvedCount: summary.resolvedCount,
-            requiredCount: summary.requiredCount,
-          ),
-          const SizedBox(height: 24),
-          Container(
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(color: colors.text.primary, width: 1.5),
-                bottom: BorderSide(color: colors.text.primary, width: 1.5),
-              ),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _SummaryValue(
-                  value: summary.correctCount.toString(),
-                  label: t.correct_label,
-                ),
-                _SummaryValue(value: '+${summary.totalXp}', label: 'XP'),
-              ],
-            ),
-          ),
+          DailyResultReport(summary: summary),
           const Spacer(),
+          AppButtonV2(
+            label: _buttonLabel(context),
+            onTap: (complete) async {
+              await onContinue();
+              complete();
+            },
+          ),
+          const SizedBox(height: 12),
           Text(
-            t.footer,
+            _canContinue ? t.continue_footer : t.footer,
             textAlign: TextAlign.center,
             style: GoogleFonts.jetBrainsMono(
               fontSize: 10,
@@ -628,62 +627,25 @@ class _SummaryOverview extends StatelessWidget {
       ),
     );
   }
-}
 
-class _EditionProgress extends StatelessWidget {
-  const _EditionProgress({
-    required this.resolvedCount,
-    required this.requiredCount,
-  });
+  bool get _canContinue => switch (summary.continuation.nextAction) {
+        DailyContinuationAction.playQuestion ||
+        DailyContinuationAction.watchRewarded ||
+        DailyContinuationAction.waitForRewarded ||
+        DailyContinuationAction.limitReached =>
+          true,
+        _ => false,
+      };
 
-  final int resolvedCount;
-  final int requiredCount;
-
-  @override
-  Widget build(BuildContext context) {
-    final progress = requiredCount == 0
-        ? 0.0
-        : (resolvedCount / requiredCount).clamp(0.0, 1.0);
-    return Center(
-      child: AppProgressRing(
-        size: 200,
-        progress: progress,
-        value: resolvedCount.toString(),
-        label: context.t.daily_result.ring_label(total: requiredCount),
-        valueFontSize: 64,
-      ),
-    );
-  }
-}
-
-class _SummaryValue extends StatelessWidget {
-  const _SummaryValue({required this.value, required this.label});
-
-  final String value;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          value,
-          style: GoogleFonts.unbounded(
-            fontSize: 26,
-            fontWeight: FontWeight.w800,
-            color: context.palette.text.primary,
-          ),
-        ),
-        const SizedBox(height: 2),
-        Text(
-          label,
-          style: GoogleFonts.jetBrainsMono(
-            fontSize: 9,
-            letterSpacing: 0.5,
-            color: context.palette.text.secondary,
-          ),
-        ),
-      ],
-    );
+  String _buttonLabel(BuildContext context) {
+    final t = context.t.daily_result;
+    return switch (summary.continuation.nextAction) {
+      DailyContinuationAction.playQuestion => t.continue_button,
+      DailyContinuationAction.watchRewarded ||
+      DailyContinuationAction.waitForRewarded ||
+      DailyContinuationAction.limitReached =>
+        t.more_questions_button,
+      _ => t.rating_button,
+    };
   }
 }

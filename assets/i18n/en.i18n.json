@@ -423,12 +423,19 @@
         "start_new_streak_button": "START A NEW STREAK"
     },
     "daily_result": {
-        "goal_completed": "DAILY GOAL COMPLETED",
+        "goal_completed": "TODAY'S ISSUE COMPLETED",
         "ring_label": "OF $total",
+        "score_caption(accuracy)": "CORRECT ANSWERS · $accuracy% ACCURACY",
+        "score_semantics(correct, total)": "$correct correct answers out of $total",
         "correct_label": "CORRECT",
         "hints_label": "HINTS",
+        "xp_label": "XP EARNED",
         "rating_label": "RATING",
         "accuracy_label": "ACCURACY",
+        "streak_stat_label": "TO STREAK",
+        "percentile_insight(percentile)": "A better result than $percentile% of players in this issue",
+        "streak_insight(day)": "Your streak continues — tomorrow will be the $day day",
+        "completed_insight": "Your result is saved — a new issue arrives tomorrow",
         "percentile_label": "ISSUE PERCENTILE",
         "season_rank_label": "SEASON POSITION",
         "streak_value(n)": {
@@ -436,6 +443,10 @@
             "other": "$n DAY STREAK"
         },
         "continue_button": "KEEP PLAYING",
+        "more_questions_button": "MORE QUESTIONS",
+        "home_button": "GO HOME",
+        "rating_button": "VIEW RATING",
+        "continue_footer": "DAILY GOAL COMPLETED · KEEP PLAYING",
         "footer": "TODAY'S ISSUE IS CLOSED · A NEW ONE TOMORROW"
     },
     "daily_limit": {
