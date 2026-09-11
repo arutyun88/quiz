@@ -46,6 +46,7 @@ class DailyContinuationEntity with _$DailyContinuationEntity {
   const factory DailyContinuationEntity({
     required String runId,
     required DateTime serverTime,
+    DateTime? receivedAt,
     required DateTime closesAt,
     required DailyContinuationAction nextAction,
     required bool quizPlus,
@@ -190,6 +191,7 @@ class DailySummaryEntity with _$DailySummaryEntity {
     required int totalXp,
     required int bonusGranted,
     required int bonusServed,
+    @Default(false) bool summaryAcknowledged,
     int? ratingBefore,
     int? ratingAfter,
     int? ratingDelta,

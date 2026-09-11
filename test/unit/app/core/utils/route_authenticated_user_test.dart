@@ -33,9 +33,56 @@ void main() {
       AuthenticatedUserDestination.quiz,
     );
   });
+
+  test('acknowledged daily result routes directly to the limit screen', () {
+    expect(
+      authenticatedUserDestination(user, _acknowledgedSummaryState()),
+      AuthenticatedUserDestination.dailyLimit,
+    );
+  });
 }
 
-DailyEditionState _activeState({required DateTime? startedAt}) =>
+DailyEditionState _acknowledgedSummaryState() => DailyEditionSummaryState(
+      run: _activeState(startedAt: DateTime.utc(2026, 9, 9)).run.copyWith(
+            status: DailyRunStatus.completed,
+          ),
+      summary: DailySummaryEntity(
+        runId: 'run-1',
+        editionDate: '2026-09-09',
+        status: DailyRunStatus.completed,
+        requiredCount: 10,
+        resolvedCount: 10,
+        correctCount: 8,
+        skippedCount: 0,
+        hintCount: 0,
+        answerXp: 80,
+        completionXp: 25,
+        totalXp: 105,
+        bonusGranted: 0,
+        bonusServed: 0,
+        summaryAcknowledged: true,
+        continuation: DailyContinuationEntity(
+          runId: 'run-1',
+          serverTime: DateTime.parse('2026-09-09T12:00:00Z'),
+          closesAt: DateTime.parse('2026-09-10T00:00:00Z'),
+          nextAction: DailyContinuationAction.watchRewarded,
+          quizPlus: false,
+          bonusQuestionsGranted: 0,
+          bonusQuestionsServed: 0,
+          bonusQuestionsRemaining: 0,
+          questionsPerReward: 5,
+          rewardedVideosUsed: 0,
+          rewardedVideosMax: 6,
+          rewardedVideosRemaining: 6,
+          rollingVideosUsed: 0,
+          rollingVideosMax: 2,
+          rewardedAdAvailable: true,
+          rewardedAdNextAvailableAt: null,
+        ),
+      ),
+    );
+
+DailyEditionActiveState _activeState({required DateTime? startedAt}) =>
     DailyEditionActiveState(
       run: DailyRunEntity(
         runId: 'run-1',

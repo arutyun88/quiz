@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
+import 'package:quiz/app/core/utils/open_daily_limit.dart';
 import 'package:quiz/app/core/widgets/button/app_button_v2.dart';
 import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
@@ -30,6 +31,22 @@ class ServerStartDayPage extends ConsumerWidget {
       _ => null,
     };
     final colors = context.palette;
+
+    if (state case DailyEditionSummaryState(resumeContinuation: true)) {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        if (!context.mounted) return;
+        await ref
+            .read(dailyEditionProvider.notifier)
+            .resumeAcknowledgedSummary();
+        if (!context.mounted) return;
+        final resumed = ref.read(dailyEditionProvider);
+        if (resumed is DailyEditionActiveState) {
+          context.goNamed('quiz');
+        } else {
+          openDailyLimit(context);
+        }
+      });
+    }
 
     return PopScope(
       canPop: false,
@@ -87,6 +104,9 @@ class ServerStartDayPage extends ConsumerWidget {
             if (started && context.mounted) context.goNamed('quiz');
           },
         ),
+      DailyEditionSummaryState(:final summary)
+          when summary.summaryAcknowledged =>
+        const QuizLoading(),
       DailyEditionSummaryState(:final summary) => _SummaryOverview(
           summary: summary,
           onContinue: () => _continueFromSummary(context, ref, summary),
@@ -99,7 +119,15 @@ class ServerStartDayPage extends ConsumerWidget {
     WidgetRef ref,
     DailySummaryEntity summary,
   ) async {
-    switch (summary.continuation.nextAction) {
+    final acknowledged =
+        await ref.read(dailyEditionProvider.notifier).acknowledgeSummary();
+    if (!acknowledged || !context.mounted) return;
+    final current = ref.read(dailyEditionProvider);
+    final nextAction = current is DailyEditionSummaryState
+        ? current.summary.continuation.nextAction
+        : summary.continuation.nextAction;
+
+    switch (nextAction) {
       case DailyContinuationAction.playQuestion:
         await ref.read(dailyEditionProvider.notifier).continueEdition();
         if (context.mounted &&
@@ -109,7 +137,7 @@ class ServerStartDayPage extends ConsumerWidget {
       case DailyContinuationAction.watchRewarded:
       case DailyContinuationAction.waitForRewarded:
       case DailyContinuationAction.limitReached:
-        if (context.mounted) context.goNamed('daily-limit');
+        if (context.mounted) openDailyLimit(context);
       case DailyContinuationAction.completeMain:
       case DailyContinuationAction.closed:
       case DailyContinuationAction.unknown:

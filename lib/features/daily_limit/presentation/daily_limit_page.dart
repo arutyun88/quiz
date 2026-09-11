@@ -294,7 +294,11 @@ class _CountdownBlockState extends State<_CountdownBlock> {
   }
 
   Duration _calculateRemaining() {
-    final serverNow = widget.continuation.serverTime.add(_elapsed.elapsed);
+    final receivedAt = widget.continuation.receivedAt;
+    final elapsed = receivedAt == null
+        ? _elapsed.elapsed
+        : DateTime.now().toUtc().difference(receivedAt);
+    final serverNow = widget.continuation.serverTime.add(elapsed);
     final difference = _target.difference(serverNow);
     return difference.isNegative ? Duration.zero : difference;
   }

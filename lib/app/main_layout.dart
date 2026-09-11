@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
+import 'package:quiz/app/core/utils/open_daily_limit.dart';
+import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.dart';
+import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 import 'package:quiz/gen/strings.g.dart';
 
-class MainLayout extends StatelessWidget {
+class MainLayout extends ConsumerWidget {
   const MainLayout({
     super.key,
     required this.navigationShell,
@@ -13,14 +17,46 @@ class MainLayout extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: _BottomNavBar(
         currentIndex: navigationShell.currentIndex,
-        onTap: navigationShell.goBranch,
+        onTap: (index) => _openBranch(context, ref, index),
       ),
     );
+  }
+
+  Future<void> _openBranch(
+    BuildContext context,
+    WidgetRef ref,
+    int index,
+  ) async {
+    if (index != 0) {
+      navigationShell.goBranch(index);
+      return;
+    }
+
+    final state = ref.read(dailyEditionProvider);
+    if (state case DailyEditionSummaryState(:final summary)
+        when summary.summaryAcknowledged) {
+      if (summary.continuation.nextAction ==
+          DailyContinuationAction.playQuestion) {
+        await ref.read(dailyEditionProvider.notifier).continueEdition();
+        if (!context.mounted) return;
+        final resumed = ref.read(dailyEditionProvider);
+        if (resumed is DailyEditionActiveState) {
+          context.goNamed('quiz');
+        } else {
+          openDailyLimit(context);
+        }
+      } else {
+        openDailyLimit(context);
+      }
+      return;
+    }
+
+    navigationShell.goBranch(index);
   }
 }
 
@@ -72,7 +108,8 @@ class _BottomNavBar extends StatelessWidget {
                             duration: const Duration(milliseconds: 100),
                             curve: Curves.easeOut,
                             alignment: Alignment.center,
-                            child: Container(height: 1.5, color: colors.text.accent),
+                            child: Container(
+                                height: 1.5, color: colors.text.accent),
                           ),
                         ),
                       ),
@@ -82,7 +119,9 @@ class _BottomNavBar extends StatelessWidget {
                           Icon(
                             item.icon,
                             size: 21,
-                            color: isActive ? colors.text.primary : colors.text.secondary,
+                            color: isActive
+                                ? colors.text.primary
+                                : colors.text.secondary,
                           ),
                           const SizedBox(height: 4),
                           Text(
@@ -91,7 +130,9 @@ class _BottomNavBar extends StatelessWidget {
                               fontSize: 8,
                               fontWeight: FontWeight.w500,
                               letterSpacing: 1,
-                              color: isActive ? colors.text.primary : colors.text.secondary,
+                              color: isActive
+                                  ? colors.text.primary
+                                  : colors.text.secondary,
                             ),
                           ),
                         ],

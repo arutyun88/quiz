@@ -20,7 +20,8 @@ class DailyLimitFlow extends ConsumerStatefulWidget {
   ConsumerState<DailyLimitFlow> createState() => _DailyLimitFlowState();
 }
 
-class _DailyLimitFlowState extends ConsumerState<DailyLimitFlow> {
+class _DailyLimitFlowState extends ConsumerState<DailyLimitFlow>
+    with WidgetsBindingObserver {
   late final RewardedAdsGateway _ads = getIt<RewardedAdsGateway>();
   late final ProductAnalytics _analytics = getIt<ProductAnalytics>();
   bool _adBusy = false;
@@ -29,8 +30,10 @@ class _DailyLimitFlowState extends ConsumerState<DailyLimitFlow> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
+      if (ref.read(dailyEditionProvider) is! DailyEditionInitialState) return;
       final timezoneId = ref.read(authenticationProvider).mapOrNull(
             authenticated: (state) => state.user?.timezoneId,
           );
@@ -41,37 +44,48 @@ class _DailyLimitFlowState extends ConsumerState<DailyLimitFlow> {
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      ref.read(dailyEditionProvider.notifier).refreshContinuation();
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final state = ref.watch(dailyEditionProvider);
     if (state is DailyEditionActiveState) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) context.goNamed('quiz');
+        if (mounted) {
+          context.goNamed(state.run.startedAt == null ? 'home' : 'quiz');
+        }
       });
     }
 
-    return PopScope(
-      canPop: false,
-      child: switch (state) {
-        DailyEditionSummaryState(:final summary, :final isBusy) =>
-          DailyLimitPage(
-            continuation: summary.continuation,
-            isBusy: isBusy || _adBusy,
-            onKeepPlaying: () =>
-                ref.read(dailyEditionProvider.notifier).continueEdition(),
-            onRefresh: () =>
-                ref.read(dailyEditionProvider.notifier).refreshContinuation(),
-            onClose: () => context.goNamed('home'),
-            onWatchAd: _ads.available ? _watchAd : null,
-            adStatus: _adStatus,
-          ),
-        DailyEditionFailedState(:final failure) => Scaffold(
-            body: SafeArea(child: QuizError(failure: failure)),
-          ),
-        _ => const Scaffold(
-            body: SafeArea(child: QuizLoading()),
-          ),
-      },
-    );
+    return switch (state) {
+      DailyEditionSummaryState(:final summary, :final isBusy) => DailyLimitPage(
+          continuation: summary.continuation,
+          isBusy: isBusy || _adBusy,
+          onKeepPlaying: () =>
+              ref.read(dailyEditionProvider.notifier).continueEdition(),
+          onRefresh: () =>
+              ref.read(dailyEditionProvider.notifier).refreshContinuation(),
+          onClose: () => context.pop(),
+          onWatchAd: _ads.available ? _watchAd : null,
+          adStatus: _adStatus,
+        ),
+      DailyEditionFailedState(:final failure) => Scaffold(
+          body: SafeArea(child: QuizError(failure: failure)),
+        ),
+      _ => const Scaffold(
+          body: SafeArea(child: QuizLoading()),
+        ),
+    };
   }
 
   Future<void> _watchAd() async {

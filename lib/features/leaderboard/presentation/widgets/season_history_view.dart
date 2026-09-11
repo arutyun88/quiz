@@ -103,7 +103,8 @@ class _SeasonCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  '${_date(season.startsAt)} — ${_date(season.endsAt)}',
+                  '${_date(season.startsAt)} — '
+                  '${_date(season.endsAt.subtract(const Duration(days: 1)))}',
                   style: GoogleFonts.jetBrainsMono(
                     fontSize: 10,
                     fontWeight: FontWeight.w600,

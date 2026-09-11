@@ -30,6 +30,7 @@ extension DailyContinuationDtoConverter on DailyContinuationDto {
   DailyContinuationEntity toEntity() => DailyContinuationEntity(
         runId: runId,
         serverTime: serverTime,
+        receivedAt: DateTime.now().toUtc(),
         closesAt: closesAt,
         nextAction: _continuationAction(nextAction),
         quizPlus: quizPlus,
@@ -123,6 +124,7 @@ extension DailySummaryDtoConverter on DailySummaryDto {
         totalXp: totalXp,
         bonusGranted: bonusGranted,
         bonusServed: bonusServed,
+        summaryAcknowledged: summaryAcknowledged,
         ratingBefore: ratingBefore,
         ratingAfter: ratingAfter,
         ratingDelta: ratingDelta,

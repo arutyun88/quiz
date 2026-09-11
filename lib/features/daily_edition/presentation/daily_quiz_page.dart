@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/model/failure.dart';
+import 'package:quiz/app/core/utils/open_daily_limit.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_question_provider.dart';
@@ -31,9 +32,15 @@ class DailyQuizPage extends ConsumerWidget {
     final palette = context.palette;
 
     ref.listen(dailyEditionProvider, (_, next) {
-      if (next is DailyEditionSummaryState) {
+      if (next case DailyEditionSummaryState(:final summary)) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (context.mounted) context.goNamed('daily-result');
+          if (context.mounted) {
+            if (summary.summaryAcknowledged) {
+              openDailyLimit(context);
+            } else {
+              context.goNamed('daily-result');
+            }
+          }
         });
       }
     });

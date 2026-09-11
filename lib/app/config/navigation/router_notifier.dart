@@ -72,9 +72,8 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
           name: 'forgot-password',
           builder: (context, state) => const ForgotPasswordFlow(),
         ),
-        // В1/В2/В4 — full-screen, no tab bar. Fade transition (not the default forward
-        // slide) so closing them does not read as «going deeper». Siblings (not nested)
-        // so returning В4 → В2 rebuilds В2 fresh with the updated counter.
+        // Daily result is directionless; the continuation limit behaves like a
+        // full-screen sheet and therefore enters from and exits toward the bottom.
         GoRoute(
           path: '/daily-result',
           name: 'daily-result',
@@ -85,7 +84,7 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
           path: '/daily-limit',
           name: 'daily-limit',
           pageBuilder: (context, state) =>
-              _fadePage(const DailyLimitFlow(), state),
+              _bottomSheetPage(const DailyLimitFlow(), state),
         ),
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) =>
@@ -256,5 +255,30 @@ CustomTransitionPage<void> _fadePage(Widget child, GoRouterState state) {
     reverseTransitionDuration: const Duration(milliseconds: 220),
     transitionsBuilder: (context, animation, secondaryAnimation, child) =>
         FadeTransition(opacity: animation, child: child),
+  );
+}
+
+CustomTransitionPage<void> _bottomSheetPage(
+  Widget child,
+  GoRouterState state,
+) {
+  return CustomTransitionPage<void>(
+    key: state.pageKey,
+    child: child,
+    transitionDuration: const Duration(milliseconds: 280),
+    reverseTransitionDuration: const Duration(milliseconds: 240),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      final position = Tween<Offset>(
+        begin: const Offset(0, 1),
+        end: Offset.zero,
+      ).animate(
+        CurvedAnimation(
+          parent: animation,
+          curve: Curves.easeOutCubic,
+          reverseCurve: Curves.easeInCubic,
+        ),
+      );
+      return SlideTransition(position: position, child: child);
+    },
   );
 }

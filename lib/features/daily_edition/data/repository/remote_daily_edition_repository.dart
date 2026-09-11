@@ -125,6 +125,17 @@ class RemoteDailyEditionRepository implements DailyEditionRepository {
       );
 
   @override
+  Future<Result<DailySummaryEntity, Failure>> acknowledgeSummary(
+          String runId) async =>
+      await _client.post(
+        '/daily-editions/$runId/summary/acknowledge',
+        mapper: (json) => DataDto.fromJson(
+            json, (data) => DailySummaryDto.fromJson(data as Json)),
+        converter: (dto) => dto.data.toEntity(),
+        enableLocale: true,
+      );
+
+  @override
   Future<Result<DailyContinuationEntity, Failure>> fetchContinuation(
     String runId,
   ) async =>

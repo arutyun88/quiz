@@ -3396,6 +3396,8 @@ mixin _$DailySummaryDto {
   int get bonusGranted => throw _privateConstructorUsedError;
   @JsonKey(name: 'bonus_served')
   int get bonusServed => throw _privateConstructorUsedError;
+  @JsonKey(name: 'summary_acknowledged')
+  bool get summaryAcknowledged => throw _privateConstructorUsedError;
   @JsonKey(name: 'rating_before')
   int? get ratingBefore => throw _privateConstructorUsedError;
   @JsonKey(name: 'rating_after')
@@ -3451,6 +3453,7 @@ abstract class $DailySummaryDtoCopyWith<$Res> {
       @JsonKey(name: 'total_xp') int totalXp,
       @JsonKey(name: 'bonus_granted') int bonusGranted,
       @JsonKey(name: 'bonus_served') int bonusServed,
+      @JsonKey(name: 'summary_acknowledged') bool summaryAcknowledged,
       @JsonKey(name: 'rating_before') int? ratingBefore,
       @JsonKey(name: 'rating_after') int? ratingAfter,
       @JsonKey(name: 'rating_delta') int? ratingDelta,
@@ -3496,6 +3499,7 @@ class _$DailySummaryDtoCopyWithImpl<$Res, $Val extends DailySummaryDto>
     Object? totalXp = null,
     Object? bonusGranted = null,
     Object? bonusServed = null,
+    Object? summaryAcknowledged = null,
     Object? ratingBefore = freezed,
     Object? ratingAfter = freezed,
     Object? ratingDelta = freezed,
@@ -3563,6 +3567,10 @@ class _$DailySummaryDtoCopyWithImpl<$Res, $Val extends DailySummaryDto>
           ? _value.bonusServed
           : bonusServed // ignore: cast_nullable_to_non_nullable
               as int,
+      summaryAcknowledged: null == summaryAcknowledged
+          ? _value.summaryAcknowledged
+          : summaryAcknowledged // ignore: cast_nullable_to_non_nullable
+              as bool,
       ratingBefore: freezed == ratingBefore
           ? _value.ratingBefore
           : ratingBefore // ignore: cast_nullable_to_non_nullable
@@ -3651,6 +3659,7 @@ abstract class _$$DailySummaryDtoImplCopyWith<$Res>
       @JsonKey(name: 'total_xp') int totalXp,
       @JsonKey(name: 'bonus_granted') int bonusGranted,
       @JsonKey(name: 'bonus_served') int bonusServed,
+      @JsonKey(name: 'summary_acknowledged') bool summaryAcknowledged,
       @JsonKey(name: 'rating_before') int? ratingBefore,
       @JsonKey(name: 'rating_after') int? ratingAfter,
       @JsonKey(name: 'rating_delta') int? ratingDelta,
@@ -3695,6 +3704,7 @@ class __$$DailySummaryDtoImplCopyWithImpl<$Res>
     Object? totalXp = null,
     Object? bonusGranted = null,
     Object? bonusServed = null,
+    Object? summaryAcknowledged = null,
     Object? ratingBefore = freezed,
     Object? ratingAfter = freezed,
     Object? ratingDelta = freezed,
@@ -3762,6 +3772,10 @@ class __$$DailySummaryDtoImplCopyWithImpl<$Res>
           ? _value.bonusServed
           : bonusServed // ignore: cast_nullable_to_non_nullable
               as int,
+      summaryAcknowledged: null == summaryAcknowledged
+          ? _value.summaryAcknowledged
+          : summaryAcknowledged // ignore: cast_nullable_to_non_nullable
+              as bool,
       ratingBefore: freezed == ratingBefore
           ? _value.ratingBefore
           : ratingBefore // ignore: cast_nullable_to_non_nullable
@@ -3835,6 +3849,7 @@ class _$DailySummaryDtoImpl implements _DailySummaryDto {
       @JsonKey(name: 'total_xp') required this.totalXp,
       @JsonKey(name: 'bonus_granted') required this.bonusGranted,
       @JsonKey(name: 'bonus_served') required this.bonusServed,
+      @JsonKey(name: 'summary_acknowledged') this.summaryAcknowledged = false,
       @JsonKey(name: 'rating_before') this.ratingBefore,
       @JsonKey(name: 'rating_after') this.ratingAfter,
       @JsonKey(name: 'rating_delta') this.ratingDelta,
@@ -3894,6 +3909,9 @@ class _$DailySummaryDtoImpl implements _DailySummaryDto {
   @JsonKey(name: 'bonus_served')
   final int bonusServed;
   @override
+  @JsonKey(name: 'summary_acknowledged')
+  final bool summaryAcknowledged;
+  @override
   @JsonKey(name: 'rating_before')
   final int? ratingBefore;
   @override
@@ -3938,7 +3956,7 @@ class _$DailySummaryDtoImpl implements _DailySummaryDto {
 
   @override
   String toString() {
-    return 'DailySummaryDto(runId: $runId, editionDate: $editionDate, status: $status, requiredCount: $requiredCount, resolvedCount: $resolvedCount, correctCount: $correctCount, skippedCount: $skippedCount, hintCount: $hintCount, answerXp: $answerXp, completionXp: $completionXp, totalXp: $totalXp, bonusGranted: $bonusGranted, bonusServed: $bonusServed, ratingBefore: $ratingBefore, ratingAfter: $ratingAfter, ratingDelta: $ratingDelta, accuracy: $accuracy, percentile: $percentile, streakBefore: $streakBefore, streakAfter: $streakAfter, streakDelta: $streakDelta, seasonRankBefore: $seasonRankBefore, seasonRankAfter: $seasonRankAfter, seasonRankDelta: $seasonRankDelta, topicResults: $topicResults, continuation: $continuation)';
+    return 'DailySummaryDto(runId: $runId, editionDate: $editionDate, status: $status, requiredCount: $requiredCount, resolvedCount: $resolvedCount, correctCount: $correctCount, skippedCount: $skippedCount, hintCount: $hintCount, answerXp: $answerXp, completionXp: $completionXp, totalXp: $totalXp, bonusGranted: $bonusGranted, bonusServed: $bonusServed, summaryAcknowledged: $summaryAcknowledged, ratingBefore: $ratingBefore, ratingAfter: $ratingAfter, ratingDelta: $ratingDelta, accuracy: $accuracy, percentile: $percentile, streakBefore: $streakBefore, streakAfter: $streakAfter, streakDelta: $streakDelta, seasonRankBefore: $seasonRankBefore, seasonRankAfter: $seasonRankAfter, seasonRankDelta: $seasonRankDelta, topicResults: $topicResults, continuation: $continuation)';
   }
 
   @override
@@ -3969,6 +3987,8 @@ class _$DailySummaryDtoImpl implements _DailySummaryDto {
                 other.bonusGranted == bonusGranted) &&
             (identical(other.bonusServed, bonusServed) ||
                 other.bonusServed == bonusServed) &&
+            (identical(other.summaryAcknowledged, summaryAcknowledged) ||
+                other.summaryAcknowledged == summaryAcknowledged) &&
             (identical(other.ratingBefore, ratingBefore) ||
                 other.ratingBefore == ratingBefore) &&
             (identical(other.ratingAfter, ratingAfter) ||
@@ -4014,6 +4034,7 @@ class _$DailySummaryDtoImpl implements _DailySummaryDto {
         totalXp,
         bonusGranted,
         bonusServed,
+        summaryAcknowledged,
         ratingBefore,
         ratingAfter,
         ratingDelta,
@@ -4061,6 +4082,7 @@ abstract class _DailySummaryDto implements DailySummaryDto {
           @JsonKey(name: 'total_xp') required final int totalXp,
           @JsonKey(name: 'bonus_granted') required final int bonusGranted,
           @JsonKey(name: 'bonus_served') required final int bonusServed,
+          @JsonKey(name: 'summary_acknowledged') final bool summaryAcknowledged,
           @JsonKey(name: 'rating_before') final int? ratingBefore,
           @JsonKey(name: 'rating_after') final int? ratingAfter,
           @JsonKey(name: 'rating_delta') final int? ratingDelta,
@@ -4118,6 +4140,9 @@ abstract class _DailySummaryDto implements DailySummaryDto {
   @override
   @JsonKey(name: 'bonus_served')
   int get bonusServed;
+  @override
+  @JsonKey(name: 'summary_acknowledged')
+  bool get summaryAcknowledged;
   @override
   @JsonKey(name: 'rating_before')
   int? get ratingBefore;

@@ -326,6 +326,36 @@ void main() {
     ).called(1);
   });
 
+  test('acknowledgeSummary uses the run-scoped localized endpoint', () async {
+    when(
+      () => client.post<DailySummaryEntity, DataDto<DailySummaryDto>>(
+        any(),
+        body: any(named: 'body'),
+        queryParameters: any(named: 'queryParameters'),
+        headers: any(named: 'headers'),
+        mapper: any(named: 'mapper'),
+        converter: any(named: 'converter'),
+        enableLocale: any(named: 'enableLocale'),
+        onSuccess: any(named: 'onSuccess'),
+      ),
+    ).thenAnswer((_) async => Result.ok(summary));
+
+    await repository.acknowledgeSummary('run-1');
+
+    verify(
+      () => client.post<DailySummaryEntity, DataDto<DailySummaryDto>>(
+        '/daily-editions/run-1/summary/acknowledge',
+        body: any(named: 'body'),
+        queryParameters: any(named: 'queryParameters'),
+        headers: any(named: 'headers'),
+        mapper: any(named: 'mapper'),
+        converter: any(named: 'converter'),
+        enableLocale: true,
+        onSuccess: any(named: 'onSuccess'),
+      ),
+    ).called(1);
+  });
+
   test('fetchContinuation uses the run-scoped authoritative endpoint',
       () async {
     when(

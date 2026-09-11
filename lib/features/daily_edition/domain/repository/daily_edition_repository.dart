@@ -32,6 +32,8 @@ abstract interface class DailyEditionRepository {
 
   Future<Result<DailySummaryEntity, Failure>> fetchSummary(String runId);
 
+  Future<Result<DailySummaryEntity, Failure>> acknowledgeSummary(String runId);
+
   Future<Result<DailyContinuationEntity, Failure>> fetchContinuation(
     String runId,
   );

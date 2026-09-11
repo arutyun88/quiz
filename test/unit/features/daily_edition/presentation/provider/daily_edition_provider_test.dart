@@ -254,6 +254,49 @@ void main() {
     verify(() => repository.fetchSummary('run-1')).called(1);
   });
 
+  test('acknowledges the summary through the server', () async {
+    final acknowledged = summary.copyWith(summaryAcknowledged: true);
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(completedRun));
+    when(() => repository.fetchSummary('run-1'))
+        .thenAnswer((_) async => Result.ok(summary));
+    when(() => repository.acknowledgeSummary('run-1'))
+        .thenAnswer((_) async => Result.ok(acknowledged));
+    await notifier.bootstrap();
+
+    expect(await notifier.acknowledgeSummary(), isTrue);
+
+    final state = notifier.state as DailyEditionSummaryState;
+    expect(state.summary.summaryAcknowledged, isTrue);
+    verify(() => repository.acknowledgeSummary('run-1')).called(1);
+  });
+
+  test('restores an acknowledged summary directly into its next question',
+      () async {
+    final acknowledged = summary.copyWith(
+      summaryAcknowledged: true,
+      continuation: summary.continuation.copyWith(
+        nextAction: DailyContinuationAction.playQuestion,
+      ),
+    );
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(completedRun));
+    when(() => repository.fetchSummary('run-1'))
+        .thenAnswer((_) async => Result.ok(acknowledged));
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(assignment));
+    await notifier.bootstrap();
+
+    expect(
+      (notifier.state as DailyEditionSummaryState).resumeContinuation,
+      isTrue,
+    );
+    await notifier.resumeAcknowledgedSummary();
+
+    expect(notifier.state, isA<DailyEditionActiveState>());
+    verify(() => repository.fetchCurrent('run-1')).called(1);
+  });
+
   test('refreshContinuation replaces only the server continuation snapshot',
       () async {
     final refreshed = continuation.copyWith(
@@ -276,6 +319,36 @@ void main() {
       DailyContinuationAction.waitForRewarded,
     );
     expect(state.summary.totalXp, summary.totalXp);
+  });
+
+  test('expired continuation opens the new server day at the exact boundary',
+      () async {
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(completedRun));
+    when(() => repository.fetchSummary('run-1'))
+        .thenAnswer((_) async => Result.ok(summary));
+    await notifier.bootstrap();
+
+    final newRun = activeRun.copyWith(
+      runId: 'run-2',
+      editionDate: '2026-08-26',
+      resolvedCount: 0,
+    );
+    when(() => repository.fetchContinuation('run-1')).thenAnswer(
+      (_) async => Result.ok(continuation.copyWith(
+        serverTime: continuation.closesAt,
+        nextAction: DailyContinuationAction.closed,
+      )),
+    );
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(newRun));
+    when(() => repository.fetchCurrent('run-2'))
+        .thenAnswer((_) async => const Result.ok(assignment));
+
+    await notifier.refreshContinuation();
+
+    expect(notifier.state, isA<DailyEditionActiveState>());
+    expect((notifier.state as DailyEditionActiveState).run.runId, 'run-2');
   });
 
   test('continueEdition loads an assignment only when the server allows play',

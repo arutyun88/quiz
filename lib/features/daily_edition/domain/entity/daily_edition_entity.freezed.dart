@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$DailyContinuationEntity {
   String get runId => throw _privateConstructorUsedError;
   DateTime get serverTime => throw _privateConstructorUsedError;
+  DateTime? get receivedAt => throw _privateConstructorUsedError;
   DateTime get closesAt => throw _privateConstructorUsedError;
   DailyContinuationAction get nextAction => throw _privateConstructorUsedError;
   bool get quizPlus => throw _privateConstructorUsedError;
@@ -49,6 +50,7 @@ abstract class $DailyContinuationEntityCopyWith<$Res> {
   $Res call(
       {String runId,
       DateTime serverTime,
+      DateTime? receivedAt,
       DateTime closesAt,
       DailyContinuationAction nextAction,
       bool quizPlus,
@@ -83,6 +85,7 @@ class _$DailyContinuationEntityCopyWithImpl<$Res,
   $Res call({
     Object? runId = null,
     Object? serverTime = null,
+    Object? receivedAt = freezed,
     Object? closesAt = null,
     Object? nextAction = null,
     Object? quizPlus = null,
@@ -107,6 +110,10 @@ class _$DailyContinuationEntityCopyWithImpl<$Res,
           ? _value.serverTime
           : serverTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      receivedAt: freezed == receivedAt
+          ? _value.receivedAt
+          : receivedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       closesAt: null == closesAt
           ? _value.closesAt
           : closesAt // ignore: cast_nullable_to_non_nullable
@@ -179,6 +186,7 @@ abstract class _$$DailyContinuationEntityImplCopyWith<$Res>
   $Res call(
       {String runId,
       DateTime serverTime,
+      DateTime? receivedAt,
       DateTime closesAt,
       DailyContinuationAction nextAction,
       bool quizPlus,
@@ -212,6 +220,7 @@ class __$$DailyContinuationEntityImplCopyWithImpl<$Res>
   $Res call({
     Object? runId = null,
     Object? serverTime = null,
+    Object? receivedAt = freezed,
     Object? closesAt = null,
     Object? nextAction = null,
     Object? quizPlus = null,
@@ -236,6 +245,10 @@ class __$$DailyContinuationEntityImplCopyWithImpl<$Res>
           ? _value.serverTime
           : serverTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      receivedAt: freezed == receivedAt
+          ? _value.receivedAt
+          : receivedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       closesAt: null == closesAt
           ? _value.closesAt
           : closesAt // ignore: cast_nullable_to_non_nullable
@@ -302,6 +315,7 @@ class _$DailyContinuationEntityImpl implements _DailyContinuationEntity {
   const _$DailyContinuationEntityImpl(
       {required this.runId,
       required this.serverTime,
+      this.receivedAt,
       required this.closesAt,
       required this.nextAction,
       required this.quizPlus,
@@ -321,6 +335,8 @@ class _$DailyContinuationEntityImpl implements _DailyContinuationEntity {
   final String runId;
   @override
   final DateTime serverTime;
+  @override
+  final DateTime? receivedAt;
   @override
   final DateTime closesAt;
   @override
@@ -352,7 +368,7 @@ class _$DailyContinuationEntityImpl implements _DailyContinuationEntity {
 
   @override
   String toString() {
-    return 'DailyContinuationEntity(runId: $runId, serverTime: $serverTime, closesAt: $closesAt, nextAction: $nextAction, quizPlus: $quizPlus, bonusQuestionsGranted: $bonusQuestionsGranted, bonusQuestionsServed: $bonusQuestionsServed, bonusQuestionsRemaining: $bonusQuestionsRemaining, questionsPerReward: $questionsPerReward, rewardedVideosUsed: $rewardedVideosUsed, rewardedVideosMax: $rewardedVideosMax, rewardedVideosRemaining: $rewardedVideosRemaining, rollingVideosUsed: $rollingVideosUsed, rollingVideosMax: $rollingVideosMax, rewardedAdAvailable: $rewardedAdAvailable, rewardedAdNextAvailableAt: $rewardedAdNextAvailableAt)';
+    return 'DailyContinuationEntity(runId: $runId, serverTime: $serverTime, receivedAt: $receivedAt, closesAt: $closesAt, nextAction: $nextAction, quizPlus: $quizPlus, bonusQuestionsGranted: $bonusQuestionsGranted, bonusQuestionsServed: $bonusQuestionsServed, bonusQuestionsRemaining: $bonusQuestionsRemaining, questionsPerReward: $questionsPerReward, rewardedVideosUsed: $rewardedVideosUsed, rewardedVideosMax: $rewardedVideosMax, rewardedVideosRemaining: $rewardedVideosRemaining, rollingVideosUsed: $rollingVideosUsed, rollingVideosMax: $rollingVideosMax, rewardedAdAvailable: $rewardedAdAvailable, rewardedAdNextAvailableAt: $rewardedAdNextAvailableAt)';
   }
 
   @override
@@ -363,6 +379,8 @@ class _$DailyContinuationEntityImpl implements _DailyContinuationEntity {
             (identical(other.runId, runId) || other.runId == runId) &&
             (identical(other.serverTime, serverTime) ||
                 other.serverTime == serverTime) &&
+            (identical(other.receivedAt, receivedAt) ||
+                other.receivedAt == receivedAt) &&
             (identical(other.closesAt, closesAt) ||
                 other.closesAt == closesAt) &&
             (identical(other.nextAction, nextAction) ||
@@ -401,6 +419,7 @@ class _$DailyContinuationEntityImpl implements _DailyContinuationEntity {
       runtimeType,
       runId,
       serverTime,
+      receivedAt,
       closesAt,
       nextAction,
       quizPlus,
@@ -430,6 +449,7 @@ abstract class _DailyContinuationEntity implements DailyContinuationEntity {
   const factory _DailyContinuationEntity(
           {required final String runId,
           required final DateTime serverTime,
+          final DateTime? receivedAt,
           required final DateTime closesAt,
           required final DailyContinuationAction nextAction,
           required final bool quizPlus,
@@ -450,6 +470,8 @@ abstract class _DailyContinuationEntity implements DailyContinuationEntity {
   String get runId;
   @override
   DateTime get serverTime;
+  @override
+  DateTime? get receivedAt;
   @override
   DateTime get closesAt;
   @override
@@ -2788,6 +2810,7 @@ mixin _$DailySummaryEntity {
   int get totalXp => throw _privateConstructorUsedError;
   int get bonusGranted => throw _privateConstructorUsedError;
   int get bonusServed => throw _privateConstructorUsedError;
+  bool get summaryAcknowledged => throw _privateConstructorUsedError;
   int? get ratingBefore => throw _privateConstructorUsedError;
   int? get ratingAfter => throw _privateConstructorUsedError;
   int? get ratingDelta => throw _privateConstructorUsedError;
@@ -2831,6 +2854,7 @@ abstract class $DailySummaryEntityCopyWith<$Res> {
       int totalXp,
       int bonusGranted,
       int bonusServed,
+      bool summaryAcknowledged,
       int? ratingBefore,
       int? ratingAfter,
       int? ratingDelta,
@@ -2876,6 +2900,7 @@ class _$DailySummaryEntityCopyWithImpl<$Res, $Val extends DailySummaryEntity>
     Object? totalXp = null,
     Object? bonusGranted = null,
     Object? bonusServed = null,
+    Object? summaryAcknowledged = null,
     Object? ratingBefore = freezed,
     Object? ratingAfter = freezed,
     Object? ratingDelta = freezed,
@@ -2943,6 +2968,10 @@ class _$DailySummaryEntityCopyWithImpl<$Res, $Val extends DailySummaryEntity>
           ? _value.bonusServed
           : bonusServed // ignore: cast_nullable_to_non_nullable
               as int,
+      summaryAcknowledged: null == summaryAcknowledged
+          ? _value.summaryAcknowledged
+          : summaryAcknowledged // ignore: cast_nullable_to_non_nullable
+              as bool,
       ratingBefore: freezed == ratingBefore
           ? _value.ratingBefore
           : ratingBefore // ignore: cast_nullable_to_non_nullable
@@ -3031,6 +3060,7 @@ abstract class _$$DailySummaryEntityImplCopyWith<$Res>
       int totalXp,
       int bonusGranted,
       int bonusServed,
+      bool summaryAcknowledged,
       int? ratingBefore,
       int? ratingAfter,
       int? ratingDelta,
@@ -3075,6 +3105,7 @@ class __$$DailySummaryEntityImplCopyWithImpl<$Res>
     Object? totalXp = null,
     Object? bonusGranted = null,
     Object? bonusServed = null,
+    Object? summaryAcknowledged = null,
     Object? ratingBefore = freezed,
     Object? ratingAfter = freezed,
     Object? ratingDelta = freezed,
@@ -3142,6 +3173,10 @@ class __$$DailySummaryEntityImplCopyWithImpl<$Res>
           ? _value.bonusServed
           : bonusServed // ignore: cast_nullable_to_non_nullable
               as int,
+      summaryAcknowledged: null == summaryAcknowledged
+          ? _value.summaryAcknowledged
+          : summaryAcknowledged // ignore: cast_nullable_to_non_nullable
+              as bool,
       ratingBefore: freezed == ratingBefore
           ? _value.ratingBefore
           : ratingBefore // ignore: cast_nullable_to_non_nullable
@@ -3215,6 +3250,7 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
       required this.totalXp,
       required this.bonusGranted,
       required this.bonusServed,
+      this.summaryAcknowledged = false,
       this.ratingBefore,
       this.ratingAfter,
       this.ratingDelta,
@@ -3258,6 +3294,9 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
   @override
   final int bonusServed;
   @override
+  @JsonKey()
+  final bool summaryAcknowledged;
+  @override
   final int? ratingBefore;
   @override
   final int? ratingAfter;
@@ -3293,7 +3332,7 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
 
   @override
   String toString() {
-    return 'DailySummaryEntity(runId: $runId, editionDate: $editionDate, status: $status, requiredCount: $requiredCount, resolvedCount: $resolvedCount, correctCount: $correctCount, skippedCount: $skippedCount, hintCount: $hintCount, answerXp: $answerXp, completionXp: $completionXp, totalXp: $totalXp, bonusGranted: $bonusGranted, bonusServed: $bonusServed, ratingBefore: $ratingBefore, ratingAfter: $ratingAfter, ratingDelta: $ratingDelta, accuracy: $accuracy, percentile: $percentile, streakBefore: $streakBefore, streakAfter: $streakAfter, streakDelta: $streakDelta, seasonRankBefore: $seasonRankBefore, seasonRankAfter: $seasonRankAfter, seasonRankDelta: $seasonRankDelta, topicResults: $topicResults, continuation: $continuation)';
+    return 'DailySummaryEntity(runId: $runId, editionDate: $editionDate, status: $status, requiredCount: $requiredCount, resolvedCount: $resolvedCount, correctCount: $correctCount, skippedCount: $skippedCount, hintCount: $hintCount, answerXp: $answerXp, completionXp: $completionXp, totalXp: $totalXp, bonusGranted: $bonusGranted, bonusServed: $bonusServed, summaryAcknowledged: $summaryAcknowledged, ratingBefore: $ratingBefore, ratingAfter: $ratingAfter, ratingDelta: $ratingDelta, accuracy: $accuracy, percentile: $percentile, streakBefore: $streakBefore, streakAfter: $streakAfter, streakDelta: $streakDelta, seasonRankBefore: $seasonRankBefore, seasonRankAfter: $seasonRankAfter, seasonRankDelta: $seasonRankDelta, topicResults: $topicResults, continuation: $continuation)';
   }
 
   @override
@@ -3324,6 +3363,8 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
                 other.bonusGranted == bonusGranted) &&
             (identical(other.bonusServed, bonusServed) ||
                 other.bonusServed == bonusServed) &&
+            (identical(other.summaryAcknowledged, summaryAcknowledged) ||
+                other.summaryAcknowledged == summaryAcknowledged) &&
             (identical(other.ratingBefore, ratingBefore) ||
                 other.ratingBefore == ratingBefore) &&
             (identical(other.ratingAfter, ratingAfter) ||
@@ -3368,6 +3409,7 @@ class _$DailySummaryEntityImpl implements _DailySummaryEntity {
         totalXp,
         bonusGranted,
         bonusServed,
+        summaryAcknowledged,
         ratingBefore,
         ratingAfter,
         ratingDelta,
@@ -3408,6 +3450,7 @@ abstract class _DailySummaryEntity implements DailySummaryEntity {
           required final int totalXp,
           required final int bonusGranted,
           required final int bonusServed,
+          final bool summaryAcknowledged,
           final int? ratingBefore,
           final int? ratingAfter,
           final int? ratingDelta,
@@ -3449,6 +3492,8 @@ abstract class _DailySummaryEntity implements DailySummaryEntity {
   int get bonusGranted;
   @override
   int get bonusServed;
+  @override
+  bool get summaryAcknowledged;
   @override
   int? get ratingBefore;
   @override

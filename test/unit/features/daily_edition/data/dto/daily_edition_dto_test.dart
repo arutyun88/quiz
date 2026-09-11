@@ -243,6 +243,7 @@ void main() {
       'total_xp': 109,
       'bonus_granted': 0,
       'bonus_served': 0,
+      'summary_acknowledged': true,
       'rating_before': 1000,
       'rating_after': 1018,
       'rating_delta': 18,
@@ -271,6 +272,7 @@ void main() {
     expect(entity.totalXp, 109);
     expect(entity.bonusGranted, 0);
     expect(entity.bonusServed, 0);
+    expect(entity.summaryAcknowledged, isTrue);
     expect(entity.ratingDelta, 18);
     expect(entity.accuracy, 0.8);
     expect(entity.streakAfter, 5);

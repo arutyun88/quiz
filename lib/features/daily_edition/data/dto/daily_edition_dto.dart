@@ -202,6 +202,9 @@ class DailySummaryDto with _$DailySummaryDto {
     @JsonKey(name: 'total_xp') required int totalXp,
     @JsonKey(name: 'bonus_granted') required int bonusGranted,
     @JsonKey(name: 'bonus_served') required int bonusServed,
+    @JsonKey(name: 'summary_acknowledged')
+    @Default(false)
+    bool summaryAcknowledged,
     @JsonKey(name: 'rating_before') int? ratingBefore,
     @JsonKey(name: 'rating_after') int? ratingAfter,
     @JsonKey(name: 'rating_delta') int? ratingDelta,
