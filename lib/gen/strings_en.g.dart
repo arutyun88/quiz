@@ -680,8 +680,11 @@ class Translations$daily_limit$en {
 	/// ru: 'Подтверждение задерживается. Обновите через несколько секунд — рекламный лимит не потрачен.'
 	String get ad_confirmation_delayed => 'Confirmation is delayed. Refresh in a moment; no video allowance was spent.';
 
-	/// ru: 'Не удалось завершить ролик. Рекламный лимит не потрачен.'
-	String get ad_failed => 'The video could not be completed. No allowance was spent.';
+	/// ru: 'РЕКЛАМА НЕ ЗАГРУЗИЛАСЬ'
+	String get ad_failed_title => 'AD COULD NOT LOAD';
+
+	/// ru: 'ПОПРОБУЙТЕ ЕЩЁ РАЗ'
+	String get ad_failed_hint => 'PLEASE TRY AGAIN';
 
 	/// ru: 'На сегодня доп. вопросы закончились'
 	String get ad_exhausted => 'No more extra questions today';
@@ -2195,7 +2198,8 @@ extension on Translations {
 			'daily_limit.ad_loading' => 'Loading video…',
 			'daily_limit.ad_awaiting_confirmation' => 'Video completed. Waiting for server confirmation…',
 			'daily_limit.ad_confirmation_delayed' => 'Confirmation is delayed. Refresh in a moment; no video allowance was spent.',
-			'daily_limit.ad_failed' => 'The video could not be completed. No allowance was spent.',
+			'daily_limit.ad_failed_title' => 'AD COULD NOT LOAD',
+			'daily_limit.ad_failed_hint' => 'PLEASE TRY AGAIN',
 			'daily_limit.ad_exhausted' => 'No more extra questions today',
 			'daily_limit.keep_playing' => 'KEEP PLAYING',
 			'demo.start.badge' => 'GUEST DEMO',

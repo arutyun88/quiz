@@ -471,7 +471,8 @@
         "ad_loading": "Loading video…",
         "ad_awaiting_confirmation": "Video completed. Waiting for server confirmation…",
         "ad_confirmation_delayed": "Confirmation is delayed. Refresh in a moment; no video allowance was spent.",
-        "ad_failed": "The video could not be completed. No allowance was spent.",
+        "ad_failed_title": "AD COULD NOT LOAD",
+        "ad_failed_hint": "PLEASE TRY AGAIN",
         "ad_exhausted": "No more extra questions today",
         "keep_playing": "KEEP PLAYING"
     },

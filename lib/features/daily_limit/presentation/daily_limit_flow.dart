@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/app/di/di.dart';
+import 'package:quiz/app/core/widgets/app_snack_bar.dart';
 import 'package:quiz/features/ads/domain/rewarded_ads_gateway.dart';
 import 'package:quiz/features/analytics/domain/product_analytics.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
@@ -136,8 +137,13 @@ class _DailyLimitFlowState extends ConsumerState<DailyLimitFlow>
       case RewardedAdShowOutcome.failed:
         setState(() {
           _adBusy = false;
-          _adStatus = context.t.daily_limit.ad_failed;
+          _adStatus = null;
         });
+        AppSnackBar.showError(
+          context,
+          title: context.t.daily_limit.ad_failed_title,
+          message: context.t.daily_limit.ad_failed_hint,
+        );
         _trackAd(outcome);
       case RewardedAdShowOutcome.unavailable:
         setState(() {

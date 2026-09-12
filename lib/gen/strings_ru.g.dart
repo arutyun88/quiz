@@ -430,7 +430,8 @@ class _Translations$daily_limit$ru implements Translations$daily_limit$en {
 	@override String get ad_loading => 'Загружаем ролик…';
 	@override String get ad_awaiting_confirmation => 'Ролик завершён. Ждём подтверждения сервера…';
 	@override String get ad_confirmation_delayed => 'Подтверждение задерживается. Обновите через несколько секунд — рекламный лимит не потрачен.';
-	@override String get ad_failed => 'Не удалось завершить ролик. Рекламный лимит не потрачен.';
+	@override String get ad_failed_title => 'РЕКЛАМА НЕ ЗАГРУЗИЛАСЬ';
+	@override String get ad_failed_hint => 'ПОПРОБУЙТЕ ЕЩЁ РАЗ';
 	@override String get ad_exhausted => 'На сегодня доп. вопросы закончились';
 	@override String get keep_playing => 'ИГРАТЬ ДАЛЬШЕ';
 }
@@ -1478,7 +1479,8 @@ extension on TranslationsRu {
 			'daily_limit.ad_loading' => 'Загружаем ролик…',
 			'daily_limit.ad_awaiting_confirmation' => 'Ролик завершён. Ждём подтверждения сервера…',
 			'daily_limit.ad_confirmation_delayed' => 'Подтверждение задерживается. Обновите через несколько секунд — рекламный лимит не потрачен.',
-			'daily_limit.ad_failed' => 'Не удалось завершить ролик. Рекламный лимит не потрачен.',
+			'daily_limit.ad_failed_title' => 'РЕКЛАМА НЕ ЗАГРУЗИЛАСЬ',
+			'daily_limit.ad_failed_hint' => 'ПОПРОБУЙТЕ ЕЩЁ РАЗ',
 			'daily_limit.ad_exhausted' => 'На сегодня доп. вопросы закончились',
 			'daily_limit.keep_playing' => 'ИГРАТЬ ДАЛЬШЕ',
 			'demo.start.badge' => 'ГОСТЕВОЕ ДЕМО',
