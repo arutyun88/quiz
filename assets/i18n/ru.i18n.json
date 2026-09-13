@@ -479,6 +479,7 @@
     },
     "daily_limit": {
         "title": "ЕЩЁ ВОПРОСЫ",
+        "available_count": "$count ДОСТУПНО",
         "extras_section": "ДОП. ВОПРОСЫ НА СЕГОДНЯ",
         "slots_hint": "$grants РОЛИКОВ · +$questions ВОПРОСА КАЖДЫЙ",
         "completed_title": "Выпуск дня завершён",
@@ -498,7 +499,8 @@
         "ad_failed_title": "РЕКЛАМА НЕ ЗАГРУЗИЛАСЬ",
         "ad_failed_hint": "ПОПРОБУЙТЕ ЕЩЁ РАЗ",
         "ad_exhausted": "На сегодня доп. вопросы закончились",
-        "keep_playing": "ИГРАТЬ ДАЛЬШЕ"
+        "keep_playing": "ИГРАТЬ ДАЛЬШЕ",
+        "quiz_plus": "БЕЗЛИМИТ С QUIZ+"
     },
     "demo": {
         "start": {

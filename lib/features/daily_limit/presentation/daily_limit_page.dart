@@ -14,7 +14,9 @@ class DailyLimitPage extends StatelessWidget {
     super.key,
     required this.continuation,
     required this.isBusy,
+    required this.isAdBusy,
     required this.onKeepPlaying,
+    required this.onQuizPlus,
     required this.onClose,
     required this.onRefresh,
     this.onWatchAd,
@@ -23,7 +25,9 @@ class DailyLimitPage extends StatelessWidget {
 
   final DailyContinuationEntity continuation;
   final bool isBusy;
+  final bool isAdBusy;
   final VoidCallback onKeepPlaying;
+  final VoidCallback onQuizPlus;
   final VoidCallback onClose;
   final VoidCallback onRefresh;
   final VoidCallback? onWatchAd;
@@ -35,9 +39,7 @@ class DailyLimitPage extends StatelessWidget {
     final t = context.t.daily_limit;
     final canPlay =
         continuation.nextAction == DailyContinuationAction.playQuestion;
-    final canRequestAd =
-        continuation.nextAction == DailyContinuationAction.watchRewarded &&
-            continuation.rewardedAdAvailable;
+    final canRequestAd = continuation.rewardedAdAvailable;
 
     return Scaffold(
       backgroundColor: colors.background.static,
@@ -47,8 +49,6 @@ class DailyLimitPage extends StatelessWidget {
           children: [
             _Header(
               remaining: continuation.bonusQuestionsRemaining,
-              maximum: continuation.rewardedVideosMax *
-                  continuation.questionsPerReward,
               onClose: onClose,
             ),
             const AppDivider(indent: 22, endIndent: 22),
@@ -91,33 +91,33 @@ class DailyLimitPage extends StatelessWidget {
                       onExpired: onRefresh,
                     ),
                     const Spacer(),
-                    if (canPlay)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 14),
-                        child: AppButtonV2(
-                          label: t.keep_playing,
-                          onTap: isBusy
-                              ? null
-                              : (complete) {
-                                  complete();
-                                  onKeepPlaying();
-                                  return null;
-                                },
-                        ),
-                      ),
                     if (canRequestAd)
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 30),
+                        padding: const EdgeInsets.only(bottom: 10),
                         child: AppInfoCard(
                           icon: Icons.smart_display,
                           title: t.watch_ad,
-                          caption: onWatchAd == null
-                              ? t.ad_unavailable
-                              : t.watch_ad_caption(
+                          caption: isAdBusy
+                              ? t.watch_ad_caption(
                                   n: continuation.questionsPerReward,
-                                ),
+                                )
+                              : adStatus ??
+                                  (onWatchAd == null
+                                      ? t.ad_unavailable
+                                      : t.watch_ad_caption(
+                                          n: continuation.questionsPerReward,
+                                        )),
                           trailingIcon:
                               onWatchAd == null ? null : Icons.arrow_forward,
+                          trailing: isAdBusy
+                              ? SizedBox.square(
+                                  dimension: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: colors.text.primary,
+                                  ),
+                                )
+                              : null,
                           onTap: isBusy ? null : onWatchAd,
                         ),
                       )
@@ -133,16 +133,36 @@ class DailyLimitPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                    if (adStatus != null)
+                    if (canPlay)
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 18),
-                        child: Text(
-                          adStatus!,
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.spectral(
-                            fontSize: 14,
-                            color: colors.text.secondary,
-                          ),
+                        padding: EdgeInsets.only(
+                          bottom: continuation.quizPlus ? 30 : 10,
+                        ),
+                        child: AppButtonV2(
+                          label: t.keep_playing,
+                          onTap: isBusy
+                              ? null
+                              : (complete) {
+                                  complete();
+                                  onKeepPlaying();
+                                  return null;
+                                },
+                        ),
+                      ),
+                    if (!continuation.quizPlus)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 30),
+                        child: AppButtonV2(
+                          label: t.quiz_plus,
+                          backgroundColor: colors.text.accent,
+                          foregroundColor: colors.background.static,
+                          onTap: isBusy
+                              ? null
+                              : (complete) {
+                                  complete();
+                                  onQuizPlus();
+                                  return null;
+                                },
                         ),
                       ),
                   ],
@@ -159,12 +179,10 @@ class DailyLimitPage extends StatelessWidget {
 class _Header extends StatelessWidget {
   const _Header({
     required this.remaining,
-    required this.maximum,
     required this.onClose,
   });
 
   final int remaining;
-  final int maximum;
   final VoidCallback onClose;
 
   @override
@@ -172,6 +190,7 @@ class _Header extends StatelessWidget {
     final colors = context.palette;
     final counterColor =
         remaining == 0 ? colors.text.danger : colors.text.primary;
+    final isCompact = MediaQuery.sizeOf(context).width <= 340;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(22, 16, 22, 14),
@@ -186,6 +205,9 @@ class _Header extends StatelessWidget {
           Expanded(
             child: Text(
               context.t.daily_limit.title,
+              maxLines: 1,
+              softWrap: false,
+              overflow: TextOverflow.fade,
               style: GoogleFonts.unbounded(
                 fontSize: 17,
                 fontWeight: FontWeight.w800,
@@ -194,14 +216,27 @@ class _Header extends StatelessWidget {
               ),
             ),
           ),
-          Icon(Icons.bolt, size: 18, color: counterColor),
-          const SizedBox(width: 6),
-          Text(
-            '$remaining/$maximum',
-            style: GoogleFonts.jetBrainsMono(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              color: counterColor,
+          const SizedBox(width: 8),
+          SizedBox(
+            width: isCompact ? 88 : null,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerRight,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.bolt, size: 18, color: counterColor),
+                  const SizedBox(width: 6),
+                  Text(
+                    context.t.daily_limit.available_count(count: remaining),
+                    style: GoogleFonts.jetBrainsMono(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: counterColor,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

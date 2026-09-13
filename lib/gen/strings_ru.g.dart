@@ -414,6 +414,7 @@ class _Translations$daily_limit$ru implements Translations$daily_limit$en {
 
 	// Translations
 	@override String get title => 'ЕЩЁ ВОПРОСЫ';
+	@override String available_count({required Object count}) => '${count} ДОСТУПНО';
 	@override String get extras_section => 'ДОП. ВОПРОСЫ НА СЕГОДНЯ';
 	@override String slots_hint({required Object grants, required Object questions}) => '${grants} РОЛИКОВ · +${questions} ВОПРОСА КАЖДЫЙ';
 	@override String get completed_title => 'Выпуск дня завершён';
@@ -434,6 +435,7 @@ class _Translations$daily_limit$ru implements Translations$daily_limit$en {
 	@override String get ad_failed_hint => 'ПОПРОБУЙТЕ ЕЩЁ РАЗ';
 	@override String get ad_exhausted => 'На сегодня доп. вопросы закончились';
 	@override String get keep_playing => 'ИГРАТЬ ДАЛЬШЕ';
+	@override String get quiz_plus => 'БЕЗЛИМИТ С QUIZ+';
 }
 
 // Path: demo
@@ -1468,6 +1470,7 @@ extension on TranslationsRu {
 			'daily_result.continue_footer' => 'ОСНОВНАЯ ЦЕЛЬ ВЫПОЛНЕНА · МОЖНО ИГРАТЬ ДАЛЬШЕ',
 			'daily_result.footer' => 'ВЫПУСК ДНЯ ЗАКРЫТ · НОВЫЙ ЗАВТРА',
 			'daily_limit.title' => 'ЕЩЁ ВОПРОСЫ',
+			'daily_limit.available_count' => ({required Object count}) => '${count} ДОСТУПНО',
 			'daily_limit.extras_section' => 'ДОП. ВОПРОСЫ НА СЕГОДНЯ',
 			'daily_limit.slots_hint' => ({required Object grants, required Object questions}) => '${grants} РОЛИКОВ · +${questions} ВОПРОСА КАЖДЫЙ',
 			'daily_limit.completed_title' => 'Выпуск дня завершён',
@@ -1483,6 +1486,7 @@ extension on TranslationsRu {
 			'daily_limit.ad_failed_hint' => 'ПОПРОБУЙТЕ ЕЩЁ РАЗ',
 			'daily_limit.ad_exhausted' => 'На сегодня доп. вопросы закончились',
 			'daily_limit.keep_playing' => 'ИГРАТЬ ДАЛЬШЕ',
+			'daily_limit.quiz_plus' => 'БЕЗЛИМИТ С QUIZ+',
 			'demo.start.badge' => 'ГОСТЕВОЕ ДЕМО',
 			'demo.start.title' => 'Попробуйте Quiz без регистрации',
 			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'Ответьте на один короткий вопрос, воспользуйтесь подсказкой и посмотрите разбор ответа.', few: 'Ответьте на ${n} коротких вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.', many: 'Ответьте на ${n} коротких вопросов, воспользуйтесь подсказкой и посмотрите разбор ответа.', other: 'Ответьте на ${n} короткого вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.', ), 

@@ -34,7 +34,9 @@ class DailyQuizPage extends ConsumerWidget {
     ref.listen(dailyEditionProvider, (_, next) {
       if (next case DailyEditionSummaryState(:final summary)) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (context.mounted) {
+          if (context.mounted &&
+              ModalRoute.of(context)?.isCurrent == true &&
+              !Navigator.of(context, rootNavigator: true).canPop()) {
             if (summary.summaryAcknowledged) {
               openDailyLimit(context);
             } else {

@@ -154,6 +154,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
   final ProductAnalytics? _analytics;
   final AppErrorReporter? _errorReporter;
   bool _bootstrapping = false;
+  String? _pendingReviewSource;
+  bool get hasPendingReview => _pendingReviewSource != null;
 
   /// Opens or restores the account's authoritative run. The server decides the
   /// edition date and returns the same active run on a new process or device.
@@ -198,6 +200,7 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     String? timezoneId,
   }) async {
     if (_bootstrapping) return;
+    _pendingReviewSource = sourceAttemptId;
     final accountId = _accountId;
     if (accountId == null) {
       state = const DailyEditionFailedState(
@@ -220,7 +223,34 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
           );
           switch (result) {
             case ResultOk(data: final assignment):
+              _pendingReviewSource = null;
               await _showAssignment(run, assignment);
+            case ResultFailed(error: final failure)
+                when _isDailyRunComplete(failure):
+              final acknowledged =
+                  await _repository.acknowledgeSummary(run.runId);
+              switch (acknowledged) {
+                case ResultOk(data: final summary):
+                  state = DailyEditionSummaryState(
+                    run: run,
+                    summary: summary,
+                    resumeContinuation: true,
+                  );
+                case ResultFailed(error: final error):
+                  state = DailyEditionFailedState(failure: error, run: run);
+              }
+            case ResultFailed(error: final failure)
+                when _hasErrorCode(failure, 'CURRENT_ASSIGNMENT_EXISTS'):
+              final existing = await _repository.fetchCurrent(run.runId);
+              switch (existing) {
+                case ResultOk(data: final assignment):
+                  await _showAssignment(run, assignment);
+                case ResultFailed(error: final error):
+                  state = DailyEditionFailedState(failure: error, run: run);
+              }
+            case ResultFailed(error: final failure)
+                when _hasErrorCode(failure, 'MAIN_EDITION_INCOMPLETE'):
+              await _restoreOrLoadRun(accountId, run);
             case ResultFailed(error: final failure):
               state = DailyEditionFailedState(failure: failure, run: run);
           }
@@ -392,7 +422,16 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
 
     state = current.copyWith(isBusy: true, clearFailure: true);
     if (current.attempt!.runCompleted) {
+      if (_pendingReviewSource case final String source) {
+        await bootstrapReviewReplacement(sourceAttemptId: source);
+        return;
+      }
       await _loadSummary(current.run, latestAttempt: current.attempt);
+      return;
+    }
+
+    if (current.run.status == DailyRunStatus.completed && hasPendingReview) {
+      await bootstrapReviewReplacement(sourceAttemptId: _pendingReviewSource!);
       return;
     }
 
@@ -452,6 +491,10 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
       return;
     }
 
+    if (_pendingReviewSource case final String source) {
+      await bootstrapReviewReplacement(sourceAttemptId: source);
+      return;
+    }
     state = current.copyWith(isBusy: true, clearFailure: true);
     final result = await _repository.fetchCurrent(current.run.runId);
     switch (result) {
@@ -539,6 +582,28 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     }
     state = latest.copyWith(isBusy: false, clearFailure: true);
     return false;
+  }
+
+  Future<bool> confirmDebugRewardedAd({
+    required String clientEventId,
+  }) async {
+    final current = state;
+    if (current is! DailyEditionSummaryState) return false;
+
+    final result = await _repository.confirmDebugRewardedAd(
+      runId: current.run.runId,
+      clientEventId: clientEventId,
+    );
+    switch (result) {
+      case ResultOk(data: final continuation):
+        state = current.copyWith(
+          summary: current.summary.copyWith(continuation: continuation),
+          clearFailure: true,
+        );
+        return true;
+      case ResultFailed():
+        return false;
+    }
   }
 
   Future<void> _loadRun(DailyRunEntity run) async {

@@ -34,7 +34,11 @@ class AppScaffold extends StatelessWidget {
                   GestureDetector(
                     behavior: HitTestBehavior.opaque,
                     onTap: context.pop,
-                    child: Icon(Icons.arrow_back, size: 22, color: colors.text.primary),
+                    child: Icon(
+                      Icons.arrow_back,
+                      size: 22,
+                      color: colors.text.primary,
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(

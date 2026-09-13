@@ -1,7 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:quiz/app/core/utils/open_daily_limit.dart';
 import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 import 'package:quiz/features/user/domain/entity/user_entity.dart';
@@ -55,7 +56,10 @@ Future<void> routeAuthenticatedUser(
     case AuthenticatedUserDestination.quiz:
       context.goNamed('quiz');
     case AuthenticatedUserDestination.dailyLimit:
-      openDailyLimit(context);
+      // Authentication has no calling tab. Establish the app underneath the sheet.
+      final router = GoRouter.of(context);
+      router.goNamed('rating');
+      scheduleMicrotask(() => router.pushNamed<void>('daily-limit'));
     case AuthenticatedUserDestination.profileEdit:
       context.goNamed('profile-edit');
   }

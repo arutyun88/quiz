@@ -147,4 +147,19 @@ class RemoteDailyEditionRepository implements DailyEditionRepository {
         ),
         converter: (dto) => dto.data.toEntity(),
       );
+
+  @override
+  Future<Result<DailyContinuationEntity, Failure>> confirmDebugRewardedAd({
+    required String runId,
+    required String clientEventId,
+  }) async =>
+      await _client.post(
+        '/dev/daily-editions/$runId/rewarded',
+        body: {'client_event_id': clientEventId},
+        mapper: (json) => DataDto.fromJson(
+          json,
+          (data) => DailyContinuationDto.fromJson(data as Json),
+        ),
+        converter: (dto) => dto.data.toEntity(),
+      );
 }

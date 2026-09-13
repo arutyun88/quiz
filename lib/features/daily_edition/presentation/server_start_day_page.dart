@@ -34,7 +34,11 @@ class ServerStartDayPage extends ConsumerWidget {
 
     if (state case DailyEditionSummaryState(resumeContinuation: true)) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
-        if (!context.mounted) return;
+        if (!context.mounted ||
+            ModalRoute.of(context)?.isCurrent != true ||
+            Navigator.of(context, rootNavigator: true).canPop()) {
+          return;
+        }
         await ref
             .read(dailyEditionProvider.notifier)
             .resumeAcknowledgedSummary();

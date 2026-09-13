@@ -43,6 +43,11 @@ class AdMobRewardedAdsGateway implements RewardedAdsGateway {
 
   Future<void> _initializeConsent() async {
     if (!available) return;
+    if (kDebugMode) {
+      await MobileAds.instance.initialize();
+      _adsInitialized = true;
+      return;
+    }
     final completer = Completer<void>();
     ConsentInformation.instance.requestConsentInfoUpdate(
       ConsentRequestParameters(),
@@ -81,7 +86,7 @@ class AdMobRewardedAdsGateway implements RewardedAdsGateway {
 
   @override
   Future<bool> privacyOptionsRequired() async {
-    if (!available) return false;
+    if (!available || kDebugMode) return false;
     await initializeConsent();
     return await ConsentInformation.instance
             .getPrivacyOptionsRequirementStatus() ==
@@ -104,7 +109,7 @@ class AdMobRewardedAdsGateway implements RewardedAdsGateway {
     final adUnitId = _adUnitId;
     if (adUnitId == null) return RewardedAdShowOutcome.unavailable;
     await initializeConsent();
-    if (!await ConsentInformation.instance.canRequestAds()) {
+    if (!kDebugMode && !await ConsentInformation.instance.canRequestAds()) {
       return RewardedAdShowOutcome.unavailable;
     }
 
@@ -115,7 +120,15 @@ class AdMobRewardedAdsGateway implements RewardedAdsGateway {
         request: const AdRequest(),
         rewardedAdLoadCallback: RewardedAdLoadCallback(
           onAdLoaded: (ad) => loaded.complete(ad),
-          onAdFailedToLoad: (_) => loaded.complete(null),
+          onAdFailedToLoad: (error) {
+            if (kDebugMode) {
+              debugPrint(
+                'Rewarded test ad failed to load: '
+                '${error.code} ${error.domain} ${error.message}',
+              );
+            }
+            loaded.complete(null);
+          },
         ),
       );
     } catch (_) {
@@ -144,7 +157,13 @@ class AdMobRewardedAdsGateway implements RewardedAdsGateway {
           );
         }
       },
-      onAdFailedToShowFullScreenContent: (ad, _) {
+      onAdFailedToShowFullScreenContent: (ad, error) {
+        if (kDebugMode) {
+          debugPrint(
+            'Rewarded test ad failed to show: '
+            '${error.code} ${error.domain} ${error.message}',
+          );
+        }
         ad.dispose();
         if (!outcome.isCompleted) {
           outcome.complete(RewardedAdShowOutcome.failed);

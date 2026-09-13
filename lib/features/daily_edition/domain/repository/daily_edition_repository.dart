@@ -37,4 +37,9 @@ abstract interface class DailyEditionRepository {
   Future<Result<DailyContinuationEntity, Failure>> fetchContinuation(
     String runId,
   );
+
+  Future<Result<DailyContinuationEntity, Failure>> confirmDebugRewardedAd({
+    required String runId,
+    required String clientEventId,
+  });
 }

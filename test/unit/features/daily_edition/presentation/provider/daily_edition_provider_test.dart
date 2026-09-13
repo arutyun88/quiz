@@ -220,6 +220,86 @@ void main() {
     verifyNever(() => repository.fetchCurrent(any()));
   });
 
+  test('review without allowance opens acknowledged continuation', () async {
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(completedRun));
+    when(() => repository.reserveReviewReplacement(
+          runId: 'run-1',
+          clientEventId: 'event-1',
+          sourceAttemptId: 'source-1',
+        )).thenAnswer((_) async => const Result.failed(Failure.network(
+          NetworkFailureReason.badResponse('Allowance required',
+              statusCode: 409, errorCode: 'DAILY_RUN_COMPLETE'),
+        )));
+    when(() => repository.acknowledgeSummary('run-1')).thenAnswer(
+        (_) async => Result.ok(summary.copyWith(summaryAcknowledged: true)));
+
+    await notifier.bootstrapReviewReplacement(sourceAttemptId: 'source-1');
+
+    final state = notifier.state as DailyEditionSummaryState;
+    expect(state.summary.summaryAcknowledged, isTrue);
+    expect(state.resumeContinuation, isTrue);
+    verifyNever(() => repository.fetchCurrent(any()));
+
+    when(() => repository.fetchContinuation('run-1')).thenAnswer(
+      (_) async => Result.ok(continuation.copyWith(
+        nextAction: DailyContinuationAction.playQuestion,
+        bonusQuestionsRemaining: 5,
+      )),
+    );
+    when(() => repository.reserveReviewReplacement(
+          runId: 'run-1',
+          clientEventId: 'event-1',
+          sourceAttemptId: 'source-1',
+        )).thenAnswer((_) async => const Result.ok(assignment));
+
+    await notifier.refreshContinuation();
+    await notifier.continueEdition();
+
+    expect(notifier.state, isA<DailyEditionActiveState>());
+    expect(notifier.hasPendingReview, isFalse);
+    verifyNever(() => repository.fetchCurrent(any()));
+  });
+
+  test('review resumes selected topic after resolving current bonus question',
+      () async {
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(completedRun));
+    when(() => repository.reserveReviewReplacement(
+          runId: 'run-1',
+          clientEventId: 'event-1',
+          sourceAttemptId: 'source-1',
+        )).thenAnswer((_) async => const Result.failed(Failure.network(
+          NetworkFailureReason.badResponse('Current question exists',
+              statusCode: 409, errorCode: 'CURRENT_ASSIGNMENT_EXISTS'),
+        )));
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(assignment));
+    when(() => repository.fetchSummary('run-1'))
+        .thenAnswer((_) async => Result.ok(summary));
+
+    await notifier.bootstrapReviewReplacement(sourceAttemptId: 'source-1');
+    expect(notifier.hasPendingReview, isTrue);
+
+    // The current question has now been answered and its reveal is visible.
+    notifier.state = DailyEditionActiveState(
+      run: completedRun,
+      assignment: assignment,
+      attempt: attempt,
+    );
+    when(() => repository.reserveReviewReplacement(
+          runId: 'run-1',
+          clientEventId: 'event-1',
+          sourceAttemptId: 'source-1',
+        )).thenAnswer((_) async => const Result.ok(nextAssignment));
+
+    await notifier.advance();
+
+    expect(
+        (notifier.state as DailyEditionActiveState).assignment, nextAssignment);
+    expect(notifier.hasPendingReview, isFalse);
+  });
+
   test('bootstrap fails closed without an authenticated account', () async {
     final unauthenticatedNotifier = DailyEditionNotifier(
       accountId: null,
@@ -420,6 +500,37 @@ void main() {
       state.summary.continuation.nextAction,
       DailyContinuationAction.playQuestion,
     );
+  });
+
+  test('debug reward confirmation applies the server continuation', () async {
+    final rewardedContinuation = summary.continuation.copyWith(
+      nextAction: DailyContinuationAction.playQuestion,
+      rewardedVideosUsed: 1,
+      rewardedVideosRemaining: 5,
+      rollingVideosUsed: 1,
+      bonusQuestionsGranted: 5,
+      bonusQuestionsRemaining: 5,
+    );
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(completedRun));
+    when(() => repository.fetchSummary('run-1'))
+        .thenAnswer((_) async => Result.ok(summary));
+    when(
+      () => repository.confirmDebugRewardedAd(
+        runId: 'run-1',
+        clientEventId: 'ad-event-1',
+      ),
+    ).thenAnswer((_) async => Result.ok(rewardedContinuation));
+    await notifier.bootstrap();
+
+    final confirmed = await notifier.confirmDebugRewardedAd(
+      clientEventId: 'ad-event-1',
+    );
+
+    final state = notifier.state as DailyEditionSummaryState;
+    expect(confirmed, isTrue);
+    expect(state.summary.continuation.rewardedVideosUsed, 1);
+    expect(state.summary.continuation.bonusQuestionsRemaining, 5);
   });
 
   test('an unconfirmed client reward never grants questions locally', () async {

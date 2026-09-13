@@ -12,6 +12,7 @@ class AppInfoCard extends StatelessWidget {
     required this.title,
     this.caption,
     this.trailingIcon = Icons.arrow_forward,
+    this.trailing,
     this.iconColor,
     this.onTap,
   });
@@ -24,6 +25,7 @@ class AppInfoCard extends StatelessWidget {
 
   /// `null` hides the trailing affordance entirely.
   final IconData? trailingIcon;
+  final Widget? trailing;
   final Color? iconColor;
   final VoidCallback? onTap;
 
@@ -48,7 +50,8 @@ class AppInfoCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: GoogleFonts.spectral(fontSize: 15, color: colors.text.primary),
+                  style: GoogleFonts.spectral(
+                      fontSize: 15, color: colors.text.primary),
                 ),
                 if (caption case final String caption) ...[
                   const SizedBox(height: 1),
@@ -65,9 +68,10 @@ class AppInfoCard extends StatelessWidget {
               ],
             ),
           ),
-          if (trailingIcon case final IconData trailingIcon) ...[
+          if (trailing != null || trailingIcon != null) ...[
             const SizedBox(width: 12),
-            Icon(trailingIcon, size: 20, color: colors.text.primary),
+            trailing ??
+                Icon(trailingIcon, size: 20, color: colors.text.primary),
           ],
         ],
       ),

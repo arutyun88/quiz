@@ -84,7 +84,9 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
           path: '/daily-limit',
           name: 'daily-limit',
           pageBuilder: (context, state) =>
-              _bottomSheetPage(const DailyLimitFlow(), state),
+              _bottomSheetPage(DailyLimitFlow(
+                reviewSourceAttemptId: state.uri.queryParameters['reviewAttemptId'],
+              ), state),
         ),
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) =>

@@ -457,6 +457,7 @@
     },
     "daily_limit": {
         "title": "MORE QUESTIONS",
+        "available_count": "$count AVAILABLE",
         "extras_section": "EXTRA QUESTIONS TODAY",
         "slots_hint": "$grants ADS · +$questions QUESTIONS EACH",
         "completed_title": "Today's issue is done",
@@ -474,7 +475,8 @@
         "ad_failed_title": "AD COULD NOT LOAD",
         "ad_failed_hint": "PLEASE TRY AGAIN",
         "ad_exhausted": "No more extra questions today",
-        "keep_playing": "KEEP PLAYING"
+        "keep_playing": "KEEP PLAYING",
+        "quiz_plus": "UNLIMITED WITH QUIZ+"
     },
     "demo": {
         "start": {

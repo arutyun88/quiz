@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:quiz/app/core/utils/open_daily_limit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/app_shimmer.dart';
@@ -208,9 +208,9 @@ class _ReviewCard extends StatelessWidget {
           const SizedBox(height: 14),
           _OutlineAction(
             label: t.practice_cta,
-            onTap: () => context.goNamed(
-              'quiz',
-              queryParameters: {'reviewAttemptId': item.attemptId},
+            onTap: () => openDailyLimit(
+              context,
+              reviewSourceAttemptId: item.attemptId,
             ),
           ),
         ],

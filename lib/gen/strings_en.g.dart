@@ -644,6 +644,9 @@ class Translations$daily_limit$en {
 	/// ru: 'ЕЩЁ ВОПРОСЫ'
 	String get title => 'MORE QUESTIONS';
 
+	/// ru: '$count ДОСТУПНО'
+	String available_count({required Object count}) => '${count} AVAILABLE';
+
 	/// ru: 'ДОП. ВОПРОСЫ НА СЕГОДНЯ'
 	String get extras_section => 'EXTRA QUESTIONS TODAY';
 
@@ -691,6 +694,9 @@ class Translations$daily_limit$en {
 
 	/// ru: 'ИГРАТЬ ДАЛЬШЕ'
 	String get keep_playing => 'KEEP PLAYING';
+
+	/// ru: 'БЕЗЛИМИТ С QUIZ+'
+	String get quiz_plus => 'UNLIMITED WITH QUIZ+';
 }
 
 // Path: demo
@@ -2187,6 +2193,7 @@ extension on Translations {
 			'daily_result.continue_footer' => 'DAILY GOAL COMPLETED · KEEP PLAYING',
 			'daily_result.footer' => 'TODAY\'S ISSUE IS CLOSED · A NEW ONE TOMORROW',
 			'daily_limit.title' => 'MORE QUESTIONS',
+			'daily_limit.available_count' => ({required Object count}) => '${count} AVAILABLE',
 			'daily_limit.extras_section' => 'EXTRA QUESTIONS TODAY',
 			'daily_limit.slots_hint' => ({required Object grants, required Object questions}) => '${grants} ADS · +${questions} QUESTIONS EACH',
 			'daily_limit.completed_title' => 'Today\'s issue is done',
@@ -2202,6 +2209,7 @@ extension on Translations {
 			'daily_limit.ad_failed_hint' => 'PLEASE TRY AGAIN',
 			'daily_limit.ad_exhausted' => 'No more extra questions today',
 			'daily_limit.keep_playing' => 'KEEP PLAYING',
+			'daily_limit.quiz_plus' => 'UNLIMITED WITH QUIZ+',
 			'demo.start.badge' => 'GUEST DEMO',
 			'demo.start.title' => 'Try Quiz before signing up',
 			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'Answer one short question, use a hint, and see how answer explanations work.', other: 'Answer ${n} short questions, use a hint, and see how answer explanations work.', ), 
