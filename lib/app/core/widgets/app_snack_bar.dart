@@ -10,6 +10,33 @@ abstract final class AppSnackBar {
     required String title,
     required String message,
   }) {
+    _show(
+      context,
+      title: title,
+      message: message,
+      kind: _AppSnackBarKind.error,
+    );
+  }
+
+  static void showOffline(
+    BuildContext context, {
+    required String title,
+    required String message,
+  }) {
+    _show(
+      context,
+      title: title,
+      message: message,
+      kind: _AppSnackBarKind.offline,
+    );
+  }
+
+  static void _show(
+    BuildContext context, {
+    required String title,
+    required String message,
+    required _AppSnackBarKind kind,
+  }) {
     final messenger = ScaffoldMessenger.of(context);
 
     messenger.hideCurrentSnackBar();
@@ -26,6 +53,7 @@ abstract final class AppSnackBar {
         content: _AnimatedSnackBarContent(
           title: title,
           message: message,
+          kind: kind,
           onDismiss: () => controller.close(),
         ),
       ),
@@ -34,15 +62,19 @@ abstract final class AppSnackBar {
   }
 }
 
+enum _AppSnackBarKind { error, offline }
+
 class _AnimatedSnackBarContent extends StatefulWidget {
   const _AnimatedSnackBarContent({
     required this.title,
     required this.message,
+    required this.kind,
     required this.onDismiss,
   });
 
   final String title;
   final String message;
+  final _AppSnackBarKind kind;
   final VoidCallback onDismiss;
 
   @override
@@ -95,6 +127,10 @@ class _AnimatedSnackBarContentState extends State<_AnimatedSnackBarContent>
   @override
   Widget build(BuildContext context) {
     final colors = context.palette;
+    final (icon, iconColor) = switch (widget.kind) {
+      _AppSnackBarKind.error => (Icons.bolt, colors.text.danger),
+      _AppSnackBarKind.offline => (Icons.wifi_off, colors.text.accent),
+    };
     final content = SizedBox(
       height: 56,
       child: DecoratedBox(
@@ -109,9 +145,9 @@ class _AnimatedSnackBarContentState extends State<_AnimatedSnackBarContent>
               color: colors.bottomSheet.headerBackground,
               alignment: Alignment.center,
               child: Icon(
-                Icons.bolt,
+                icon,
                 size: 20,
-                color: colors.text.danger,
+                color: iconColor,
               ),
             ),
             Expanded(

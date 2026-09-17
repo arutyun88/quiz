@@ -702,6 +702,7 @@ class _Translations$question$state$ru implements Translations$question$state$en 
 	// Translations
 	@override String get empty => 'На сегодня вопросы закончились.\nЗаходите завтра!';
 	@override String get error => 'Не удалось загрузить вопрос';
+	@override late final _Translations$question$state$offline$ru offline = _Translations$question$state$offline$ru._(_root);
 }
 
 // Path: question.answer_reveal
@@ -757,9 +758,9 @@ class _Translations$question$error_snackbar$ru implements Translations$question$
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
+	@override late final _Translations$question$error_snackbar$offline$ru offline = _Translations$question$error_snackbar$offline$ru._(_root);
 	@override late final _Translations$question$error_snackbar$answered_on_another_device$ru answered_on_another_device = _Translations$question$error_snackbar$answered_on_another_device$ru._(_root);
 	@override late final _Translations$question$error_snackbar$already_answered$ru already_answered = _Translations$question$error_snackbar$already_answered$ru._(_root);
-	@override late final _Translations$question$error_snackbar$save_failed_retry_later$ru save_failed_retry_later = _Translations$question$error_snackbar$save_failed_retry_later$ru._(_root);
 }
 
 // Path: onboarding.features
@@ -1038,6 +1039,18 @@ class _Translations$authentication$sign_up$confirm_password$ru implements Transl
 	@override String get validation_message => 'Пароли не совпадают';
 }
 
+// Path: question.state.offline
+class _Translations$question$state$offline$ru implements Translations$question$state$offline$en {
+	_Translations$question$state$offline$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'НЕТ СОЕДИНЕНИЯ';
+	@override String get message => 'Подключитесь к интернету, чтобы загрузить выпуск';
+	@override String get retry => 'ПОВТОРИТЬ';
+}
+
 // Path: question.dialog.correct
 class _Translations$question$dialog$correct$ru implements Translations$question$dialog$correct$en {
 	_Translations$question$dialog$correct$ru._(this._root);
@@ -1072,6 +1085,17 @@ class _Translations$question$dialog$incorrect$ru implements Translations$questio
 	];
 }
 
+// Path: question.error_snackbar.offline
+class _Translations$question$error_snackbar$offline$ru implements Translations$question$error_snackbar$offline$en {
+	_Translations$question$error_snackbar$offline$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'НЕТ СОЕДИНЕНИЯ';
+	@override String get message => 'ОТВЕТ СОХРАНЁН · ОТПРАВИМ ПОЗЖЕ';
+}
+
 // Path: question.error_snackbar.answered_on_another_device
 class _Translations$question$error_snackbar$answered_on_another_device$ru implements Translations$question$error_snackbar$answered_on_another_device$en {
 	_Translations$question$error_snackbar$answered_on_another_device$ru._(this._root);
@@ -1092,17 +1116,6 @@ class _Translations$question$error_snackbar$already_answered$ru implements Trans
 	// Translations
 	@override String get text => 'Этот вопрос у вас уже в копилке ответов и не будет перезаписан';
 	@override String get button => 'Понятно';
-}
-
-// Path: question.error_snackbar.save_failed_retry_later
-class _Translations$question$error_snackbar$save_failed_retry_later$ru implements Translations$question$error_snackbar$save_failed_retry_later$en {
-	_Translations$question$error_snackbar$save_failed_retry_later$ru._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get text => 'Упс! Ответ не сохранился, но вопрос вернётся позже. У вас будет ещё шанс!';
-	@override String get button => 'Попробую позже';
 }
 
 // Path: authentication.sign_in.forget_password.dialog
@@ -1364,6 +1377,9 @@ extension on TranslationsRu {
 			'question.meta.topic' => ({required Object topic}) => '// ${topic}',
 			'question.state.empty' => 'На сегодня вопросы закончились.\nЗаходите завтра!',
 			'question.state.error' => 'Не удалось загрузить вопрос',
+			'question.state.offline.title' => 'НЕТ СОЕДИНЕНИЯ',
+			'question.state.offline.message' => 'Подключитесь к интернету, чтобы загрузить выпуск',
+			'question.state.offline.retry' => 'ПОВТОРИТЬ',
 			'question.answer_reveal.correct' => 'ВЕРНО',
 			'question.answer_reveal.incorrect' => 'НЕВЕРНО',
 			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',
@@ -1384,12 +1400,12 @@ extension on TranslationsRu {
 			'question.dialog.incorrect.prompt.0' => 'Не переживайте!\nДавайте двигаться дальше?',
 			'question.dialog.incorrect.prompt.1' => 'Переходим к следующему вопросу?',
 			'question.dialog.button' => 'Продолжить',
+			'question.error_snackbar.offline.title' => 'НЕТ СОЕДИНЕНИЯ',
+			'question.error_snackbar.offline.message' => 'ОТВЕТ СОХРАНЁН · ОТПРАВИМ ПОЗЖЕ',
 			'question.error_snackbar.answered_on_another_device.text' => 'Этот вопрос уже был отвечен на другом устройстве. Он больше не повторится.',
 			'question.error_snackbar.answered_on_another_device.button' => 'Понятно',
 			'question.error_snackbar.already_answered.text' => 'Этот вопрос у вас уже в копилке ответов и не будет перезаписан',
 			'question.error_snackbar.already_answered.button' => 'Понятно',
-			'question.error_snackbar.save_failed_retry_later.text' => 'Упс! Ответ не сохранился, но вопрос вернётся позже. У вас будет ещё шанс!',
-			'question.error_snackbar.save_failed_retry_later.button' => 'Попробую позже',
 			'onboarding.daily_issue' => 'ЕЖЕДНЕВНЫЙ ВЫПУСК',
 			'onboarding.issue_number' => ({required Object n}) => 'ВЫПУСК № ${n}',
 			'onboarding.headline' => 'Десять\nвопросов.\nКаждый день.',

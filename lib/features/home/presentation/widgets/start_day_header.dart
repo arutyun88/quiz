@@ -11,11 +11,13 @@ class StartDayHeader extends StatelessWidget {
     required this.streak,
     required this.level,
     this.subtitle,
+    this.showBadges = true,
   });
 
   final int streak;
   final int? level;
   final String? subtitle;
+  final bool showBadges;
 
   @override
   Widget build(BuildContext context) {
@@ -65,22 +67,24 @@ class StartDayHeader extends StatelessWidget {
               ),
             ],
           ),
-          const Spacer(),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            spacing: 8.0,
-            children: [
-              AppBadge.outlined(
-                value: streak.toString(),
-                label: t.streak_badge_label,
-                muted: streak == 0,
-              ),
-              AppBadge.filled(
-                value: level != null ? level.toString().padLeft(2, '0') : '—',
-                label: t.level_badge_label,
-              ),
-            ],
-          ),
+          if (showBadges) ...[
+            const Spacer(),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              spacing: 8.0,
+              children: [
+                AppBadge.outlined(
+                  value: streak.toString(),
+                  label: t.streak_badge_label,
+                  muted: streak == 0,
+                ),
+                AppBadge.filled(
+                  value: level != null ? level.toString().padLeft(2, '0') : '—',
+                  label: t.level_badge_label,
+                ),
+              ],
+            ),
+          ],
         ],
       ),
     );

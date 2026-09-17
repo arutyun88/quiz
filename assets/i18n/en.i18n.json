@@ -289,7 +289,12 @@
         },
         "state": {
             "empty": "You're done with today's questions.\nCome back tomorrow!",
-            "error": "Could not load the question"
+            "error": "Could not load the question",
+            "offline": {
+                "title": "NO CONNECTION",
+                "message": "Connect to the internet to load today's edition",
+                "retry": "RETRY"
+            }
         },
         "answer_reveal": {
             "correct": "CORRECT",
@@ -333,6 +338,10 @@
             "button": "Continue"
         },
         "error_snackbar": {
+            "offline": {
+                "title": "NO CONNECTION",
+                "message": "ANSWER SAVED · WE'LL SEND IT LATER"
+            },
             "answered_on_another_device": {
                 "text": "This question was already answered on another device. It won't appear again.",
                 "button": "Got it"
@@ -340,10 +349,6 @@
             "already_answered": {
                 "text": "This question is already in your answer collection and won't be overwritten",
                 "button": "Got it"
-            },
-            "save_failed_retry_later": {
-                "text": "Oops! Your answer wasn't saved, but this question will return later. You'll get another chance!",
-                "button": "Try again later"
             }
         }
     },

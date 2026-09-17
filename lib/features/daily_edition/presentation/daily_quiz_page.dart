@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +7,8 @@ import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/utils/open_daily_limit.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
+import 'package:quiz/app/core/widgets/app_snack_bar.dart';
+import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_question_provider.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/partner_interaction_provider.dart';
@@ -21,18 +25,75 @@ import 'package:quiz/features/question/domain/entity/question_entity.dart';
 import 'package:quiz/features/question/presentation/question_answer_state.dart';
 import 'package:quiz/gen/strings.g.dart';
 
-class DailyQuizPage extends ConsumerWidget {
+class DailyQuizPage extends ConsumerStatefulWidget {
   const DailyQuizPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<DailyQuizPage> createState() => _DailyQuizPageState();
+}
+
+class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
+    with WidgetsBindingObserver {
+  String? _scheduledAttemptId;
+  String? _presentedAttemptId;
+  String? _offlineNoticeAssignmentId;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state != AppLifecycleState.resumed) return;
+    final timezoneId = ref.read(authenticationProvider).mapOrNull(
+          authenticated: (state) => state.user?.timezoneId,
+        );
+    final editionState = ref.read(dailyEditionProvider);
+    if (editionState case DailyEditionFailedState(:final failure)
+        when _isOfflineFailure(failure)) {
+      unawaited(
+        ref
+            .read(dailyEditionProvider.notifier)
+            .bootstrap(timezoneId: timezoneId),
+      );
+      return;
+    }
+    unawaited(
+      ref
+          .read(dailyEditionProvider.notifier)
+          .synchronizeActiveRun(timezoneId: timezoneId),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final editionState = ref.watch(dailyEditionProvider);
     final answerState = ref.watch(dailyQuestionProvider);
     final gamification = ref.watch(gamificationProvider);
     final palette = context.palette;
+    final isOffline = switch (editionState) {
+      DailyEditionFailedState(:final failure) when _isOfflineFailure(failure) =>
+        true,
+      _ => false,
+    };
 
     ref.listen(dailyEditionProvider, (_, next) {
-      if (next case DailyEditionSummaryState(:final summary)) {
+      if (next case DailyEditionActiveState(:final run)
+          when run.startedAt == null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (context.mounted && ModalRoute.of(context)?.isCurrent == true) {
+            context.goNamed('home');
+          }
+        });
+      } else if (next case DailyEditionSummaryState(:final summary)) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (context.mounted &&
               ModalRoute.of(context)?.isCurrent == true &&
@@ -46,8 +107,8 @@ class DailyQuizPage extends ConsumerWidget {
         });
       }
     });
-    _listenForReveal(context, ref);
-    _listenForAttemptFailure(context, ref);
+    _listenForReveal(ref, answerState);
+    _listenForOfflineFailure(ref, answerState);
 
     return PopScope(
       canPop: false,
@@ -64,6 +125,7 @@ class DailyQuizPage extends ConsumerWidget {
                     0,
                 level: gamification.whenOrNull(data: (data) => data.level),
                 subtitle: context.t.onboarding.daily_issue,
+                showBadges: !isOffline,
               ),
               AppDivider(indent: 22, endIndent: 22),
               Expanded(
@@ -89,6 +151,8 @@ class DailyQuizPage extends ConsumerWidget {
       DailyEditionInitialState() ||
       DailyEditionLoadingState() =>
         const QuizLoading(),
+      DailyEditionFailedState(:final failure) when _isOfflineFailure(failure) =>
+        QuizOffline(onRetry: () => _retryBootstrap(ref)),
       DailyEditionFailedState(:final failure) => QuizError(failure: failure),
       DailyEditionSummaryState() => const QuizLoading(),
       DailyEditionActiveState(
@@ -133,52 +197,130 @@ class DailyQuizPage extends ConsumerWidget {
     };
   }
 
-  void _listenForReveal(BuildContext context, WidgetRef ref) {
+  Future<void> _retryBootstrap(WidgetRef ref) {
+    final timezoneId = ref.read(authenticationProvider).mapOrNull(
+          authenticated: (state) => state.user?.timezoneId,
+        );
+    return ref
+        .read(dailyEditionProvider.notifier)
+        .bootstrap(timezoneId: timezoneId);
+  }
+
+  void _listenForReveal(
+    WidgetRef ref,
+    QuestionAnswerState currentState,
+  ) {
+    if (currentState case final QuestionAnswerSentState sentState) {
+      _scheduleReveal(ref, sentState);
+    }
     ref.listen(
       dailyQuestionProvider.select(
         (state) => state is QuestionAnswerSentState ? state : null,
       ),
       (_, sentState) {
-        final editionState = ref.read(dailyEditionProvider);
-        if (sentState == null || editionState is! DailyEditionActiveState) {
-          return;
-        }
-        final question = editionState.assignment.toQuestionEntity();
-        if (question == null) return;
-        _showAnswerRevealSheet(
-          context,
-          question: question,
-          sentState: sentState,
-          ratingDelta: editionState.attempt?.ratingDelta,
-          partnerBlock: _partnerBlock(ref, editionState),
-          onNext: ref.read(dailyEditionProvider.notifier).advance,
-        );
+        if (sentState != null) _scheduleReveal(ref, sentState);
       },
     );
   }
 
-  void _listenForAttemptFailure(BuildContext context, WidgetRef ref) {
+  void _listenForOfflineFailure(
+    WidgetRef ref,
+    QuestionAnswerState currentState,
+  ) {
+    if (currentState case final QuestionAnswerFailedState failedState) {
+      _scheduleOfflineNotice(ref, failedState);
+    }
     ref.listen(
       dailyQuestionProvider.select(
         (state) => state is QuestionAnswerFailedState ? state : null,
       ),
       (_, failedState) {
-        if (failedState == null) return;
-        final t = context.t.question.error_snackbar.save_failed_retry_later;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(t.text),
-            action: SnackBarAction(
-              label: t.button,
-              onPressed:
-                  ref.read(dailyEditionProvider.notifier).retryPendingAttempt,
-              textColor: context.palette.text.primary,
-            ),
-            backgroundColor: context.palette.background.danger,
-          ),
-        );
+        if (failedState != null) _scheduleOfflineNotice(ref, failedState);
       },
     );
+  }
+
+  void _scheduleOfflineNotice(
+    WidgetRef ref,
+    QuestionAnswerFailedState failedState,
+  ) {
+    if (!_isOfflineFailure(failedState.failure)) return;
+    final editionState = ref.read(dailyEditionProvider);
+    if (editionState is! DailyEditionActiveState) return;
+    final assignmentId = editionState.assignment.assignmentId;
+    if (_offlineNoticeAssignmentId == assignmentId) return;
+    _offlineNoticeAssignmentId = assignmentId;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final latestState = ref.read(dailyEditionProvider);
+      final latestAnswerState = ref.read(dailyQuestionProvider);
+      if (latestState is! DailyEditionActiveState ||
+          latestState.assignment.assignmentId != assignmentId ||
+          latestAnswerState is! QuestionAnswerFailedState ||
+          !_isOfflineFailure(latestAnswerState.failure)) {
+        return;
+      }
+      AppSnackBar.showOffline(
+        context,
+        title: context.t.question.error_snackbar.offline.title,
+        message: context.t.question.error_snackbar.offline.message,
+      );
+    });
+  }
+
+  void _scheduleReveal(
+    WidgetRef ref,
+    QuestionAnswerSentState sentState,
+  ) {
+    final editionState = ref.read(dailyEditionProvider);
+    if (editionState is! DailyEditionActiveState) return;
+    final attemptId = editionState.attempt?.attemptId;
+    if (attemptId == null ||
+        _scheduledAttemptId == attemptId ||
+        _presentedAttemptId == attemptId) {
+      return;
+    }
+    _scheduledAttemptId = attemptId;
+    unawaited(_presentRevealWhenReady(ref, sentState, attemptId));
+  }
+
+  Future<void> _presentRevealWhenReady(
+    WidgetRef ref,
+    QuestionAnswerSentState sentState,
+    String attemptId,
+  ) async {
+    for (var frame = 0; frame < 120; frame++) {
+      await Future<void>.delayed(const Duration(milliseconds: 16));
+      if (!mounted) {
+        _scheduledAttemptId = null;
+        return;
+      }
+      final latestState = ref.read(dailyEditionProvider);
+      if (latestState is! DailyEditionActiveState ||
+          latestState.attempt?.attemptId != attemptId) {
+        _scheduledAttemptId = null;
+        return;
+      }
+      if (ModalRoute.of(context)?.isCurrent != true) continue;
+      final question = latestState.assignment.toQuestionEntity();
+      if (question == null) {
+        _scheduledAttemptId = null;
+        return;
+      }
+      _scheduledAttemptId = null;
+      _presentedAttemptId = attemptId;
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      await _showAnswerRevealSheet(
+        context,
+        question: question,
+        sentState: sentState,
+        ratingDelta: latestState.attempt?.ratingDelta,
+        partnerBlock: _partnerBlock(ref, latestState),
+        onNext: ref.read(dailyEditionProvider.notifier).advance,
+      );
+      return;
+    }
+    _scheduledAttemptId = null;
   }
 
   Future<void> _showAnswerRevealSheet(
@@ -234,3 +376,15 @@ class DailyQuizPage extends ConsumerWidget {
     );
   }
 }
+
+bool _isOfflineFailure(Failure failure) => switch (failure) {
+      NoConnectionFailure() || ServerUnavailableFailure() => true,
+      NetworkFailure(
+        reason: NetworkFailureTimeoutReason() || NetworkFailureServerReason()
+      ) =>
+        true,
+      NetworkFailure(reason: NetworkFailureBadResponseReason(:final statusCode))
+          when statusCode != null && statusCode >= 500 =>
+        true,
+      _ => false,
+    };

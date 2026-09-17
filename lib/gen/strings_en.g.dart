@@ -1159,6 +1159,8 @@ class Translations$question$state$en {
 
 	/// ru: 'Не удалось загрузить вопрос'
 	String get error => 'Could not load the question';
+
+	late final Translations$question$state$offline$en offline = Translations$question$state$offline$en._(_root);
 }
 
 // Path: question.answer_reveal
@@ -1236,9 +1238,9 @@ class Translations$question$error_snackbar$en {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	late final Translations$question$error_snackbar$offline$en offline = Translations$question$error_snackbar$offline$en._(_root);
 	late final Translations$question$error_snackbar$answered_on_another_device$en answered_on_another_device = Translations$question$error_snackbar$answered_on_another_device$en._(_root);
 	late final Translations$question$error_snackbar$already_answered$en already_answered = Translations$question$error_snackbar$already_answered$en._(_root);
-	late final Translations$question$error_snackbar$save_failed_retry_later$en save_failed_retry_later = Translations$question$error_snackbar$save_failed_retry_later$en._(_root);
 }
 
 // Path: onboarding.features
@@ -1732,6 +1734,24 @@ class Translations$authentication$sign_up$confirm_password$en {
 	String get validation_message => 'Passwords do not match';
 }
 
+// Path: question.state.offline
+class Translations$question$state$offline$en {
+	Translations$question$state$offline$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'НЕТ СОЕДИНЕНИЯ'
+	String get title => 'NO CONNECTION';
+
+	/// ru: 'Подключитесь к интернету, чтобы загрузить выпуск'
+	String get message => 'Connect to the internet to load today\'s edition';
+
+	/// ru: 'ПОВТОРИТЬ'
+	String get retry => 'RETRY';
+}
+
 // Path: question.dialog.correct
 class Translations$question$dialog$correct$en {
 	Translations$question$dialog$correct$en._(this._root);
@@ -1766,6 +1786,21 @@ class Translations$question$dialog$incorrect$en {
 	];
 }
 
+// Path: question.error_snackbar.offline
+class Translations$question$error_snackbar$offline$en {
+	Translations$question$error_snackbar$offline$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'НЕТ СОЕДИНЕНИЯ'
+	String get title => 'NO CONNECTION';
+
+	/// ru: 'ОТВЕТ СОХРАНЁН · ОТПРАВИМ ПОЗЖЕ'
+	String get message => 'ANSWER SAVED · WE\'LL SEND IT LATER';
+}
+
 // Path: question.error_snackbar.answered_on_another_device
 class Translations$question$error_snackbar$answered_on_another_device$en {
 	Translations$question$error_snackbar$answered_on_another_device$en._(this._root);
@@ -1794,21 +1829,6 @@ class Translations$question$error_snackbar$already_answered$en {
 
 	/// ru: 'Понятно'
 	String get button => 'Got it';
-}
-
-// Path: question.error_snackbar.save_failed_retry_later
-class Translations$question$error_snackbar$save_failed_retry_later$en {
-	Translations$question$error_snackbar$save_failed_retry_later$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'Упс! Ответ не сохранился, но вопрос вернётся позже. У вас будет ещё шанс!'
-	String get text => 'Oops! Your answer wasn\'t saved, but this question will return later. You\'ll get another chance!';
-
-	/// ru: 'Попробую позже'
-	String get button => 'Try again later';
 }
 
 // Path: authentication.sign_in.forget_password.dialog
@@ -2087,6 +2107,9 @@ extension on Translations {
 			'question.meta.topic' => ({required Object topic}) => '// ${topic}',
 			'question.state.empty' => 'You\'re done with today\'s questions.\nCome back tomorrow!',
 			'question.state.error' => 'Could not load the question',
+			'question.state.offline.title' => 'NO CONNECTION',
+			'question.state.offline.message' => 'Connect to the internet to load today\'s edition',
+			'question.state.offline.retry' => 'RETRY',
 			'question.answer_reveal.correct' => 'CORRECT',
 			'question.answer_reveal.incorrect' => 'INCORRECT',
 			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',
@@ -2107,12 +2130,12 @@ extension on Translations {
 			'question.dialog.incorrect.prompt.0' => 'No worries!\nLet\'s keep moving forward?',
 			'question.dialog.incorrect.prompt.1' => 'Shall we try the next question?',
 			'question.dialog.button' => 'Continue',
+			'question.error_snackbar.offline.title' => 'NO CONNECTION',
+			'question.error_snackbar.offline.message' => 'ANSWER SAVED · WE\'LL SEND IT LATER',
 			'question.error_snackbar.answered_on_another_device.text' => 'This question was already answered on another device. It won\'t appear again.',
 			'question.error_snackbar.answered_on_another_device.button' => 'Got it',
 			'question.error_snackbar.already_answered.text' => 'This question is already in your answer collection and won\'t be overwritten',
 			'question.error_snackbar.already_answered.button' => 'Got it',
-			'question.error_snackbar.save_failed_retry_later.text' => 'Oops! Your answer wasn\'t saved, but this question will return later. You\'ll get another chance!',
-			'question.error_snackbar.save_failed_retry_later.button' => 'Try again later',
 			'onboarding.daily_issue' => 'DAILY EDITION',
 			'onboarding.issue_number' => ({required Object n}) => 'EDITION № ${n}',
 			'onboarding.headline' => 'Ten\nquestions.\nEvery day.',
