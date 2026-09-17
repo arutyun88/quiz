@@ -11,7 +11,7 @@ class SharedPreferencesDailyAttemptOutbox implements DailyAttemptOutbox {
   SharedPreferencesDailyAttemptOutbox({required SharedPreferences preferences})
       : _preferences = preferences;
 
-  static const int _schemaVersion = 1;
+  static const int _schemaVersion = 2;
   static const String _keyPrefix = 'daily_attempt_outbox_v1:';
 
   final SharedPreferences _preferences;
@@ -49,7 +49,7 @@ class SharedPreferencesDailyAttemptOutbox implements DailyAttemptOutbox {
     final saved = await _preferences.setString(
       _key(attempt.accountId),
       jsonEncode({
-        'schema_version': _schemaVersion,
+        'schema_version': attempt.assignment == null ? 1 : _schemaVersion,
         'account_id': attempt.accountId,
         'run_id': attempt.runId,
         'assignment_id': attempt.assignmentId,
@@ -57,6 +57,8 @@ class SharedPreferencesDailyAttemptOutbox implements DailyAttemptOutbox {
         'action': attempt.action.apiValue,
         if (attempt.answerId != null) 'answer_id': attempt.answerId,
         'created_at': attempt.createdAt.toUtc().toIso8601String(),
+        if (attempt.assignment case final assignment?)
+          'assignment': _encodeAssignment(assignment),
       }),
     );
     if (!saved) throw StateError('Could not persist pending Daily attempt');
@@ -76,7 +78,10 @@ class SharedPreferencesDailyAttemptOutbox implements DailyAttemptOutbox {
     Map<String, dynamic> json, {
     required String accountId,
   }) {
-    if (json['schema_version'] != _schemaVersion ||
+    final schemaVersion = json['schema_version'];
+    if (schemaVersion is! int ||
+        schemaVersion < 1 ||
+        schemaVersion > _schemaVersion ||
         json['account_id'] != accountId) {
       return null;
     }
@@ -94,13 +99,16 @@ class SharedPreferencesDailyAttemptOutbox implements DailyAttemptOutbox {
     final createdAt = createdAtValue is String
         ? DateTime.tryParse(createdAtValue)?.toUtc()
         : null;
+    final assignment =
+        schemaVersion >= 2 ? _decodeAssignment(json['assignment']) : null;
 
     if (runId is! String ||
         assignmentId is! String ||
         clientEventId is! String ||
         action == null ||
         answerId is! String? ||
-        createdAt == null) {
+        createdAt == null ||
+        (schemaVersion >= 2 && assignment == null)) {
       return null;
     }
 
@@ -112,6 +120,7 @@ class SharedPreferencesDailyAttemptOutbox implements DailyAttemptOutbox {
       action: action,
       answerId: answerId,
       createdAt: createdAt,
+      assignment: assignment,
     );
     try {
       _validate(attempt);
@@ -119,6 +128,70 @@ class SharedPreferencesDailyAttemptOutbox implements DailyAttemptOutbox {
     } on ArgumentError {
       return null;
     }
+  }
+
+  Map<String, Object?> _encodeAssignment(DailyAssignmentEntity assignment) => {
+        'assignment_id': assignment.assignmentId,
+        'question_id': assignment.questionId,
+        'question_version_id': assignment.questionVersionId,
+        'position': assignment.position,
+        'kind': assignment.kind.name,
+        'topic': assignment.topic,
+        'text': assignment.text,
+        'hint_used': assignment.hintUsed,
+        'answers': [
+          for (final answer in assignment.answers)
+            {'id': answer.id, 'text': answer.text},
+        ],
+      };
+
+  DailyAssignmentEntity? _decodeAssignment(Object? value) {
+    if (value is! Map<String, dynamic>) return null;
+    final assignmentId = value['assignment_id'];
+    final questionId = value['question_id'];
+    final questionVersionId = value['question_version_id'];
+    final position = value['position'];
+    final kind = switch (value['kind']) {
+      'main' => DailyAssignmentKind.main,
+      'bonus' => DailyAssignmentKind.bonus,
+      'review' => DailyAssignmentKind.review,
+      'unknown' => DailyAssignmentKind.unknown,
+      _ => null,
+    };
+    final topic = value['topic'];
+    final text = value['text'];
+    final hintUsed = value['hint_used'];
+    final answersValue = value['answers'];
+    if (assignmentId is! String ||
+        questionId is! String ||
+        questionVersionId is! String ||
+        position is! int ||
+        kind == null ||
+        topic is! String? ||
+        text is! String? ||
+        hintUsed is! bool ||
+        answersValue is! List) {
+      return null;
+    }
+    final answers = <DailyAssignmentAnswerEntity>[];
+    for (final answerValue in answersValue) {
+      if (answerValue is! Map<String, dynamic>) return null;
+      final id = answerValue['id'];
+      final answerText = answerValue['text'];
+      if (id is! String || answerText is! String?) return null;
+      answers.add(DailyAssignmentAnswerEntity(id: id, text: answerText));
+    }
+    return DailyAssignmentEntity(
+      assignmentId: assignmentId,
+      questionId: questionId,
+      questionVersionId: questionVersionId,
+      position: position,
+      kind: kind,
+      topic: topic,
+      text: text,
+      answers: answers,
+      hintUsed: hintUsed,
+    );
   }
 
   void _validate(PendingDailyAttemptEntity attempt) {

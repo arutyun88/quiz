@@ -168,6 +168,58 @@ void main() {
     verify(() => repository.fetchCurrent('run-1')).called(1);
   });
 
+  test('resume synchronization keeps the authoritative current assignment',
+      () async {
+    final startedRun = activeRun.copyWith(
+      startedAt: DateTime.parse('2026-08-25T12:00:00Z'),
+    );
+    when(() => repository.open(timezoneId: 'Asia/Yekaterinburg'))
+        .thenAnswer((_) async => Result.ok(startedRun));
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(assignment));
+    await notifier.bootstrap(timezoneId: 'Asia/Yekaterinburg');
+
+    await notifier.synchronizeActiveRun(
+      timezoneId: 'Asia/Yekaterinburg',
+    );
+
+    final state = notifier.state as DailyEditionActiveState;
+    expect(state.run.runId, 'run-1');
+    expect(state.assignment.assignmentId, 'assignment-4');
+    verify(() => repository.open(timezoneId: 'Asia/Yekaterinburg')).called(2);
+    verify(() => repository.fetchCurrent('run-1')).called(2);
+  });
+
+  test('resume synchronization replaces a stale run with the new server day',
+      () async {
+    var openCalls = 0;
+    final startedRun = activeRun.copyWith(
+      startedAt: DateTime.parse('2026-08-25T12:00:00Z'),
+    );
+    final nextRun = activeRun.copyWith(
+      runId: 'run-2',
+      editionDate: '2026-08-26',
+      startedAt: null,
+      resolvedCount: 0,
+    );
+    when(() => repository.open(timezoneId: 'Asia/Yekaterinburg')).thenAnswer(
+        (_) async => Result.ok(++openCalls == 1 ? startedRun : nextRun));
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(assignment));
+    when(() => repository.fetchCurrent('run-2'))
+        .thenAnswer((_) async => const Result.ok(nextAssignment));
+    await notifier.bootstrap(timezoneId: 'Asia/Yekaterinburg');
+
+    await notifier.synchronizeActiveRun(
+      timezoneId: 'Asia/Yekaterinburg',
+    );
+
+    final state = notifier.state as DailyEditionActiveState;
+    expect(state.run.runId, 'run-2');
+    expect(state.run.startedAt, isNull);
+    expect(state.assignment.assignmentId, 'assignment-5');
+  });
+
   test('startEdition persists start before navigating to the first question',
       () async {
     final startedRun = activeRun.copyWith(
@@ -826,6 +878,58 @@ void main() {
     );
   });
 
+  test('missing run drops the stale attempt and opens the current server day',
+      () async {
+    var openCalls = 0;
+    final nextRun = activeRun.copyWith(
+      runId: 'run-2',
+      editionDate: '2026-08-26',
+      resolvedCount: 0,
+    );
+    when(() => repository.open(timezoneId: null)).thenAnswer(
+      (_) async => Result.ok(++openCalls == 1 ? activeRun : nextRun),
+    );
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(assignment));
+    when(() => repository.fetchCurrent('run-2'))
+        .thenAnswer((_) async => const Result.ok(nextAssignment));
+    when(
+      () => repository.submitAttempt(
+        runId: 'run-1',
+        assignmentId: 'assignment-4',
+        clientEventId: 'event-1',
+        action: DailyAttemptAction.answer,
+        answerId: 'answer-1',
+      ),
+    ).thenAnswer(
+      (_) async => const Result.failed(
+        NetworkFailure(
+          NetworkFailureReason.badResponse(
+            'Daily run not found',
+            statusCode: 400,
+            errorCode: 'DAILY_RUN_NOT_FOUND',
+          ),
+        ),
+      ),
+    );
+    await notifier.bootstrap();
+
+    await notifier.submitAttempt(
+      action: DailyAttemptAction.answer,
+      answerId: 'answer-1',
+    );
+
+    final state = notifier.state as DailyEditionActiveState;
+    expect(state.run.runId, 'run-2');
+    expect(state.assignment.assignmentId, 'assignment-5');
+    verify(
+      () => outbox.clear(
+        accountId: 'account-1',
+        clientEventId: 'event-1',
+      ),
+    ).called(1);
+  });
+
   test('retry reuses the persisted client event id after a lost response',
       () async {
     var submitCalls = 0;
@@ -898,6 +1002,7 @@ void main() {
       action: DailyAttemptAction.answer,
       answerId: 'answer-1',
       createdAt: DateTime.parse('2026-08-25T23:59:00Z'),
+      assignment: assignment,
     );
     when(() => outbox.load(accountId: 'account-1'))
         .thenAnswer((_) async => pending);
@@ -912,14 +1017,11 @@ void main() {
         answerId: 'answer-1',
       ),
     ).thenAnswer((_) async => const Result.ok(attempt));
-    when(() => repository.fetchCurrent('run-1'))
-        .thenAnswer((_) async => const Result.ok(nextAssignment));
-
     await notifier.bootstrap();
 
     final state = notifier.state as DailyEditionActiveState;
-    expect(state.assignment.assignmentId, 'assignment-5');
-    expect(state.attempt, isNull);
+    expect(state.assignment.assignmentId, 'assignment-4');
+    expect(state.attempt, attempt);
     verifyInOrder([
       () => outbox.load(accountId: 'account-1'),
       () => repository.submitAttempt(
@@ -933,8 +1035,8 @@ void main() {
             accountId: 'account-1',
             clientEventId: 'pending-event',
           ),
-      () => repository.fetchCurrent('run-1'),
     ]);
+    verifyNever(() => repository.fetchCurrent('run-1'));
   });
 
   test('bootstrap drops a stale envelope only after server opens a new run',

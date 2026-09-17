@@ -332,6 +332,7 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
       action: action,
       answerId: answerId,
       createdAt: _now().toUtc(),
+      assignment: current.assignment,
     );
     try {
       await _outbox.save(pending);
@@ -370,6 +371,34 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     }
   }
 
+  /// Reconciles an in-memory question after the app returns from background.
+  /// The current question remains visible while the authoritative run and
+  /// assignment are fetched from the server.
+  Future<void> synchronizeActiveRun({String? timezoneId}) async {
+    final current = state;
+    final accountId = _accountId;
+    if (current is! DailyEditionActiveState ||
+        current.isBusy ||
+        current.attempt != null ||
+        accountId == null ||
+        _bootstrapping) {
+      return;
+    }
+
+    _bootstrapping = true;
+    try {
+      final result = await _repository.open(timezoneId: timezoneId);
+      switch (result) {
+        case ResultOk(data: final run):
+          await _restoreOrLoadRun(accountId, run);
+        case ResultFailed(error: final failure):
+          state = current.copyWith(failure: failure);
+      }
+    } finally {
+      _bootstrapping = false;
+    }
+  }
+
   Future<void> _sendPending(
     DailyEditionActiveState current,
     PendingDailyAttemptEntity pending,
@@ -404,9 +433,34 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
       case ResultFailed(error: final failure)
           when _hasErrorCode(failure, 'ASSIGNMENT_NOT_CURRENT'):
         await _clearPendingAndLoadRun(current.run, pending);
+      case ResultFailed(error: final failure)
+          when _hasErrorCode(failure, 'DAILY_RUN_NOT_FOUND'):
+        await _clearPendingAndBootstrap(current, pending);
       case ResultFailed(error: final failure):
         state = current.copyWith(isBusy: false, failure: failure);
     }
+  }
+
+  Future<void> _clearPendingAndBootstrap(
+    DailyEditionActiveState current,
+    PendingDailyAttemptEntity pending,
+  ) async {
+    try {
+      await _outbox.clear(
+        accountId: pending.accountId,
+        clientEventId: pending.clientEventId,
+      );
+    } on Object catch (error, stackTrace) {
+      _report(error, stackTrace, 'daily_attempt_outbox_drop_missing_run');
+      state = current.copyWith(
+        isBusy: false,
+        failure: Failure.unknown(error),
+      );
+      return;
+    }
+
+    state = const DailyEditionInitialState();
+    await bootstrap();
   }
 
   /// Leaves the authoritative reveal visible until the user advances. A
@@ -723,7 +777,19 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
           );
           return;
         }
-        if (attempt.runCompleted) {
+        final restoredAssignment = pending.assignment;
+        if (restoredAssignment != null &&
+            restoredAssignment.assignmentId == attempt.assignmentId) {
+          state = DailyEditionActiveState(
+            run: run,
+            assignment: restoredAssignment,
+            attempt: attempt,
+          );
+          _trackAttempt(
+            attempt,
+            assignmentKind: restoredAssignment.kind,
+          );
+        } else if (attempt.runCompleted) {
           _trackAttempt(attempt);
           await _loadSummary(run, latestAttempt: attempt);
         } else {

@@ -9,6 +9,7 @@ class PendingDailyAttemptEntity {
     required this.action,
     required this.answerId,
     required this.createdAt,
+    this.assignment,
   });
 
   final String accountId;
@@ -18,4 +19,5 @@ class PendingDailyAttemptEntity {
   final DailyAttemptAction action;
   final String? answerId;
   final DateTime createdAt;
+  final DailyAssignmentEntity? assignment;
 }

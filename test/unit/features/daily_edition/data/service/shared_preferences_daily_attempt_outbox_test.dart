@@ -11,6 +11,19 @@ void main() {
   const accountId = 'account-1';
   const storageKey = 'daily_attempt_outbox_v1:account-1';
   final createdAt = DateTime.parse('2026-08-26T00:00:00Z');
+  const assignment = DailyAssignmentEntity(
+    assignmentId: 'assignment-1',
+    questionId: 'question-1',
+    questionVersionId: 'version-1',
+    position: 1,
+    kind: DailyAssignmentKind.main,
+    topic: 'Science',
+    text: 'Question?',
+    answers: [
+      DailyAssignmentAnswerEntity(id: 'answer-1', text: 'Answer'),
+    ],
+    hintUsed: false,
+  );
 
   PendingDailyAttemptEntity pending({
     String account = accountId,
@@ -24,6 +37,7 @@ void main() {
         action: DailyAttemptAction.answer,
         answerId: 'answer-1',
         createdAt: createdAt,
+        assignment: assignment,
       );
 
   Future<DailyAttemptOutbox> createOutbox() async =>
@@ -46,6 +60,7 @@ void main() {
     expect(restored?.action, DailyAttemptAction.answer);
     expect(restored?.answerId, 'answer-1');
     expect(restored?.createdAt, createdAt);
+    expect(restored?.assignment, assignment);
   });
 
   test('keeps pending attempts isolated by account', () async {
@@ -107,7 +122,7 @@ void main() {
   test('preserves an envelope from a future schema version', () async {
     SharedPreferences.setMockInitialValues({
       storageKey: jsonEncode({
-        'schema_version': 2,
+        'schema_version': 3,
         'account_id': accountId,
       }),
     });
