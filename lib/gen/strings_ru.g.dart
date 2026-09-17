@@ -316,7 +316,7 @@ class _Translations$start_day$ru implements Translations$start_day$en {
 	);
 	@override TextSpan streak_warning({required InlineSpanBuilder accent}) => TextSpan(children: [
 		const TextSpan(text: 'Сыграйте сегодня, чтобы '),
-		accent('не потерять серию'),
+		accent('сохранить заморозку и не потерять серию'),
 	]);
 	@override TextSpan no_previous_summary_notice({required InlineSpanBuilder accent}) => TextSpan(children: [
 		const TextSpan(text: 'За вчера нет завершённого выпуска — '),
@@ -1450,7 +1450,7 @@ extension on TranslationsRu {
 			'start_day.accuracy_label' => 'ТОЧНОСТЬ',
 			'start_day.question_count_label' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'вопрос', few: 'вопроса', many: 'вопросов', other: 'вопросов', ), 
 			'start_day.estimated_time' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '~ ${n} МИНУТА', few: '~ ${n} МИНУТЫ', many: '~ ${n} МИНУТ', other: '~ ${n} МИНУТ', ), 
-			'start_day.streak_warning' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Сыграйте сегодня, чтобы '), accent('не потерять серию'), ]), 
+			'start_day.streak_warning' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Сыграйте сегодня, чтобы '), accent('сохранить заморозку и не потерять серию'), ]),
 			'start_day.no_previous_summary_notice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'За вчера нет завершённого выпуска — '), accent('итоги пока не сформированы'), ]), 
 			'start_day.no_previous_summary_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Сыграйте сегодня — '), accent('завтра здесь появятся ваши результаты'), ]), 
 			'start_day.freeze_applied_notice' => ({required InlineSpanBuilder accent, required InlineSpan left, required InlineSpan total}) => TextSpan(children: [ const TextSpan(text: 'Вы пропустили вчерашний день — '), accent('заморозка применена автоматически.'), const TextSpan(text: ' Осталось '), left, const TextSpan(text: ' / '), total, ]), 

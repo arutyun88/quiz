@@ -477,10 +477,10 @@ class Translations$start_day$en {
 		other: '~ ${n} MINUTES',
 	);
 
-	/// ru: 'Сыграйте сегодня, чтобы ${accent(не потерять серию)}'
+	/// ru: 'Сыграйте сегодня, чтобы ${accent(сохранить заморозку и не потерять серию)}'
 	TextSpan streak_warning({required InlineSpanBuilder accent}) => TextSpan(children: [
 		const TextSpan(text: 'Play today to '),
-		accent('keep your streak'),
+		accent('save a freeze and keep your streak'),
 	]);
 
 	/// ru: 'За вчера нет завершённого выпуска — ${accent(итоги пока не сформированы)}'
@@ -2180,7 +2180,7 @@ extension on Translations {
 			'start_day.accuracy_label' => 'ACCURACY',
 			'start_day.question_count_label' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'question', other: 'questions', ), 
 			'start_day.estimated_time' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '~ ${n} MINUTE', other: '~ ${n} MINUTES', ), 
-			'start_day.streak_warning' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today to '), accent('keep your streak'), ]), 
+			'start_day.streak_warning' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today to '), accent('save a freeze and keep your streak'), ]),
 			'start_day.no_previous_summary_notice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'There is no completed edition from yesterday — '), accent('your results are not ready yet'), ]), 
 			'start_day.no_previous_summary_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today — '), accent('your results will be here tomorrow'), ]), 
 			'start_day.freeze_applied_notice' => ({required InlineSpanBuilder accent, required InlineSpan left, required InlineSpan total}) => TextSpan(children: [ const TextSpan(text: 'You missed yesterday — '), accent('a streak freeze was applied automatically.'), const TextSpan(text: ' '), left, const TextSpan(text: ' / '), total, const TextSpan(text: ' left'), ]), 
