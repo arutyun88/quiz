@@ -33,6 +33,7 @@ class _DailyLimitFlowState extends ConsumerState<DailyLimitFlow>
   bool _adBusy = false;
   String? _adStatus;
   bool _openingReview = false;
+  bool _resumingQuizPlus = false;
 
   @override
   void initState() {
@@ -77,6 +78,11 @@ class _DailyLimitFlowState extends ConsumerState<DailyLimitFlow>
       return const Scaffold(body: SafeArea(child: QuizLoading()));
     }
     final state = ref.watch(dailyEditionProvider);
+    if (state case DailyEditionSummaryState(:final summary)
+        when summary.continuation.quizPlus) {
+      _resumeQuizPlus();
+      return const Scaffold(body: SafeArea(child: QuizLoading()));
+    }
     if (state is DailyEditionActiveState) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
@@ -106,6 +112,15 @@ class _DailyLimitFlowState extends ConsumerState<DailyLimitFlow>
           body: SafeArea(child: QuizLoading()),
         ),
     };
+  }
+
+  void _resumeQuizPlus() {
+    if (_resumingQuizPlus) return;
+    _resumingQuizPlus = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await ref.read(dailyEditionProvider.notifier).continueEdition();
+      if (mounted) _resumingQuizPlus = false;
+    });
   }
 
   Future<void> _watchAd() async {
