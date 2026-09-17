@@ -4,6 +4,7 @@ class ApiClientConfig {
   final Duration receiveTimeout;
   final Duration sendTimeout;
   final bool enableLogging;
+  final Map<String, String> defaultHeaders;
 
   ApiClientConfig({
     required this.baseUrl,
@@ -11,5 +12,6 @@ class ApiClientConfig {
     this.receiveTimeout = const Duration(seconds: 30),
     this.sendTimeout = const Duration(seconds: 30),
     this.enableLogging = true,
+    this.defaultHeaders = const {},
   });
 }

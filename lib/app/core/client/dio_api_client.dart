@@ -43,6 +43,7 @@ class DioApiClient implements ApiClient {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'X-Device-ID': deviceId,
+          ...config.defaultHeaders,
         },
       ),
     );

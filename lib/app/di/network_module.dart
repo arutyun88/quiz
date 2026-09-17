@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:quiz/app/core/client/api_client.dart';
@@ -25,11 +26,19 @@ abstract class NetworkModule {
     UnauthorizedEventService unauthorizedEventService,
     SettingsLocalStorageService settingsStorage,
   ) {
+    const devTime = String.fromEnvironment('QUIZ_DEV_TIME');
+    const devTimeKey = String.fromEnvironment('QUIZ_DEV_TIME_KEY');
     final config = ApiClientConfig(
       baseUrl: const String.fromEnvironment(
         'API_BASE_URL',
         defaultValue: 'http://localhost:8081/api',
       ),
+      defaultHeaders: kDebugMode && devTime.isNotEmpty && devTimeKey.isNotEmpty
+          ? {
+              'X-Quiz-Dev-Time': devTime,
+              'X-Quiz-Dev-Key': devTimeKey,
+            }
+          : const {},
     );
     return DioApiClient(
       config: config,

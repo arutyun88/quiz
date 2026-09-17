@@ -4,6 +4,14 @@ set -euo pipefail
 
 readonly runtime_dir=".dart_tool/vscode_ios_api"
 readonly defines_file="$runtime_dir/debug_defines.json"
+readonly dev_time="${QUIZ_DEV_TIME:-}"
+readonly dev_time_key="${QUIZ_DEV_TIME_KEY:-}"
+
+if [[ -n "$dev_time" && -z "$dev_time_key" ]] ||
+  [[ -z "$dev_time" && -n "$dev_time_key" ]]; then
+  echo "QUIZ_DEV_TIME and QUIZ_DEV_TIME_KEY must be provided together." >&2
+  exit 1
+fi
 
 local_ip=""
 for interface in en0 en1 en2 en3 en4 en5 en6 en7 en8 en9; do
@@ -29,5 +37,10 @@ curl --silent --show-error --max-time 5 --output /dev/null \
   }
 
 mkdir -p "$runtime_dir"
-printf '{\n  "API_BASE_URL": "%s"\n}\n' "$api_base_url" >"$defines_file"
+if [[ -n "$dev_time" ]]; then
+  printf '{\n  "API_BASE_URL": "%s",\n  "QUIZ_DEV_TIME": "%s",\n  "QUIZ_DEV_TIME_KEY": "%s"\n}\n' \
+    "$api_base_url" "$dev_time" "$dev_time_key" >"$defines_file"
+else
+  printf '{\n  "API_BASE_URL": "%s"\n}\n' "$api_base_url" >"$defines_file"
+fi
 echo "Local quiz-server is ready at $api_base_url"
