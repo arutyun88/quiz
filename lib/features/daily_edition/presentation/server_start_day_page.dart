@@ -4,9 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
+import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
 import 'package:quiz/app/core/utils/open_daily_limit.dart';
 import 'package:quiz/app/core/widgets/button/app_button_v2.dart';
+import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 import 'package:quiz/features/daily_result/presentation/widgets/daily_result_report.dart';
@@ -31,6 +33,11 @@ class ServerStartDayPage extends ConsumerWidget {
       _ => null,
     };
     final colors = context.palette;
+    final isOffline = switch (state) {
+      DailyEditionFailedState(:final failure) when _isOfflineFailure(failure) =>
+        true,
+      _ => false,
+    };
 
     if (state case DailyEditionSummaryState(resumeContinuation: true)) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -69,6 +76,7 @@ class ServerStartDayPage extends ConsumerWidget {
                 subtitle: run == null
                     ? context.t.onboarding.daily_issue
                     : _formatEditionDate(run.editionDate),
+                showBadges: !isOffline,
               ),
               const AppDivider(indent: 22, endIndent: 22),
               Expanded(
@@ -96,6 +104,8 @@ class ServerStartDayPage extends ConsumerWidget {
       DailyEditionInitialState() ||
       DailyEditionLoadingState() =>
         const QuizLoading(),
+      DailyEditionFailedState(:final failure) when _isOfflineFailure(failure) =>
+        QuizOffline(onRetry: () => _retryBootstrap(ref)),
       DailyEditionFailedState(:final failure) => QuizError(failure: failure),
       DailyEditionActiveState(:final run, :final assignment) => _RunOverview(
           run: run,
@@ -116,6 +126,15 @@ class ServerStartDayPage extends ConsumerWidget {
           onContinue: () => _continueFromSummary(context, ref, summary),
         ),
     };
+  }
+
+  Future<void> _retryBootstrap(WidgetRef ref) {
+    final timezoneId = ref.read(authenticationProvider).mapOrNull(
+          authenticated: (state) => state.user?.timezoneId,
+        );
+    return ref
+        .read(dailyEditionProvider.notifier)
+        .bootstrap(timezoneId: timezoneId);
   }
 
   Future<void> _continueFromSummary(
@@ -149,6 +168,18 @@ class ServerStartDayPage extends ConsumerWidget {
     }
   }
 }
+
+bool _isOfflineFailure(Failure failure) => switch (failure) {
+      NoConnectionFailure() || ServerUnavailableFailure() => true,
+      NetworkFailure(
+        reason: NetworkFailureTimeoutReason() || NetworkFailureServerReason()
+      ) =>
+        true,
+      NetworkFailure(reason: NetworkFailureBadResponseReason(:final statusCode))
+          when statusCode != null && statusCode >= 500 =>
+        true,
+      _ => false,
+    };
 
 String _formatEditionDate(String value) {
   final date = DateTime.tryParse(value);
@@ -408,10 +439,8 @@ class _NoPreviousDaySummary extends StatelessWidget {
                 Border(top: BorderSide(color: colors.text.primary, width: 1.5)),
           ),
           padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 2),
-          child: Text.rich(
-            t.no_previous_summary_notice(
-              accent: (text) => TextSpan(text: text, style: accentStyle),
-            ),
+          child: Text(
+            t.no_previous_summary_notice,
             style: textStyle,
           ),
         ),

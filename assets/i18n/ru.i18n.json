@@ -430,8 +430,8 @@
             "other": "~ $n МИНУТ"
         },
         "streak_warning(rich)": "Сыграйте сегодня, чтобы ${accent(сохранить заморозку и не потерять серию)}",
-        "no_previous_summary_notice(rich)": "За вчера нет завершённого выпуска — ${accent(итоги пока не сформированы)}",
-        "no_previous_summary_advice(rich)": "Сыграйте сегодня — ${accent(завтра здесь появятся ваши результаты)}",
+        "no_previous_summary_notice": "За вчера нет результатов",
+        "no_previous_summary_advice(rich)": "Завершите сегодняшний выпуск — ${accent(завтра здесь появятся результаты)}",
         "freeze_applied_notice(rich)": "Вы пропустили вчерашний день — ${accent(заморозка применена автоматически.)} Осталось $left / $total",
         "freeze_applied_advice(rich)": "Сыграйте сегодня, чтобы ${accent(не расходовать заморозки без нужды)}",
         "freeze_applied_last_advice(rich)": "Сыграйте сегодня — ${accent(без заморозок серия может прерваться уже завтра)}",

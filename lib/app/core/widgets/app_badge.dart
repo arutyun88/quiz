@@ -37,6 +37,13 @@ class AppBadge extends StatelessWidget {
             : _filled
                 ? colors.background.static
                 : colors.text.accent);
+    final resolvedLabelColor = _filled
+        ? Color.lerp(
+            colors.text.secondary,
+            colors.background.static,
+            0.6,
+          )!
+        : colors.text.secondary;
 
     return SizedBox(
       width: _width,
@@ -44,7 +51,8 @@ class AppBadge extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: _filled ? colors.text.primary : null,
-          border: Border.all(color: muted ? colors.divider : colors.text.primary),
+          border:
+              Border.all(color: muted ? colors.divider : colors.text.primary),
           borderRadius: BorderRadius.circular(5),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 6),
@@ -77,7 +85,7 @@ class AppBadge extends StatelessWidget {
                 style: GoogleFonts.jetBrainsMono(
                   fontSize: 8,
                   letterSpacing: 1,
-                  color: colors.text.secondary,
+                  color: resolvedLabelColor,
                 ),
               ),
             ),
