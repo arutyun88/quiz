@@ -63,18 +63,47 @@ class QuizError extends StatelessWidget {
   }
 }
 
-class QuizOffline extends StatelessWidget {
-  const QuizOffline({
+enum QuizConnectionErrorKind { noInternet, serverUnavailable }
+
+QuizConnectionErrorKind? quizConnectionErrorKind(Failure failure) =>
+    switch (failure) {
+      NoConnectionFailure() => QuizConnectionErrorKind.noInternet,
+      ServerUnavailableFailure() => QuizConnectionErrorKind.serverUnavailable,
+      NetworkFailure(
+        reason: NetworkFailureTimeoutReason() || NetworkFailureServerReason()
+      ) =>
+        QuizConnectionErrorKind.serverUnavailable,
+      NetworkFailure(reason: NetworkFailureBadResponseReason(:final statusCode))
+          when statusCode != null && statusCode >= 500 =>
+        QuizConnectionErrorKind.serverUnavailable,
+      _ => null,
+    };
+
+class QuizConnectionError extends StatelessWidget {
+  const QuizConnectionError({
     super.key,
+    required this.kind,
     required this.onRetry,
   });
 
+  final QuizConnectionErrorKind kind;
   final Future<void> Function() onRetry;
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    final copy = context.t.question.state.offline;
+    final (title, message, retry) = switch (kind) {
+      QuizConnectionErrorKind.noInternet => (
+          context.t.question.state.no_internet.title,
+          context.t.question.state.no_internet.message,
+          context.t.question.state.no_internet.retry,
+        ),
+      QuizConnectionErrorKind.serverUnavailable => (
+          context.t.question.state.server_unavailable.title,
+          context.t.question.state.server_unavailable.message,
+          context.t.question.state.server_unavailable.retry,
+        ),
+    };
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(22, 0, 22, 22),
@@ -92,14 +121,16 @@ class QuizOffline extends StatelessWidget {
                       border: Border.all(color: palette.text.primary),
                     ),
                     child: Icon(
-                      Icons.wifi_off,
+                      kind == QuizConnectionErrorKind.noInternet
+                          ? Icons.wifi_off
+                          : Icons.cloud_off,
                       size: 28,
                       color: palette.text.primary,
                     ),
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    copy.title,
+                    title,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.unbounded(
                       fontSize: 24,
@@ -109,7 +140,7 @@ class QuizOffline extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    copy.message,
+                    message,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.spectral(
                       fontSize: 18,
@@ -121,7 +152,7 @@ class QuizOffline extends StatelessWidget {
             ),
           ),
           AppButtonV2(
-            label: copy.retry,
+            label: retry,
             onTap: (_) => onRetry(),
           ),
         ],

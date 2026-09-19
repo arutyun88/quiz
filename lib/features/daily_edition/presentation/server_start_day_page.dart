@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
-import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
 import 'package:quiz/app/core/utils/open_daily_limit.dart';
 import 'package:quiz/app/core/widgets/button/app_button_v2.dart';
@@ -33,10 +32,10 @@ class ServerStartDayPage extends ConsumerWidget {
       _ => null,
     };
     final colors = context.palette;
-    final isOffline = switch (state) {
-      DailyEditionFailedState(:final failure) when _isOfflineFailure(failure) =>
-        true,
-      _ => false,
+    final connectionError = switch (state) {
+      DailyEditionFailedState(:final failure) =>
+        quizConnectionErrorKind(failure),
+      _ => null,
     };
 
     if (state case DailyEditionSummaryState(resumeContinuation: true)) {
@@ -76,7 +75,7 @@ class ServerStartDayPage extends ConsumerWidget {
                 subtitle: run == null
                     ? context.t.onboarding.daily_issue
                     : _formatEditionDate(run.editionDate),
-                showBadges: !isOffline,
+                showBadges: connectionError == null,
               ),
               const AppDivider(indent: 22, endIndent: 22),
               Expanded(
@@ -104,9 +103,14 @@ class ServerStartDayPage extends ConsumerWidget {
       DailyEditionInitialState() ||
       DailyEditionLoadingState() =>
         const QuizLoading(),
-      DailyEditionFailedState(:final failure) when _isOfflineFailure(failure) =>
-        QuizOffline(onRetry: () => _retryBootstrap(ref)),
-      DailyEditionFailedState(:final failure) => QuizError(failure: failure),
+      DailyEditionFailedState(:final failure) => switch (
+            quizConnectionErrorKind(failure)) {
+          final kind? => QuizConnectionError(
+              kind: kind,
+              onRetry: () => _retryBootstrap(ref),
+            ),
+          null => QuizError(failure: failure),
+        },
       DailyEditionActiveState(:final run, :final assignment) => _RunOverview(
           run: run,
           fallbackTopic: assignment.topic,
@@ -128,13 +132,15 @@ class ServerStartDayPage extends ConsumerWidget {
     };
   }
 
-  Future<void> _retryBootstrap(WidgetRef ref) {
+  Future<void> _retryBootstrap(WidgetRef ref) async {
     final timezoneId = ref.read(authenticationProvider).mapOrNull(
           authenticated: (state) => state.user?.timezoneId,
         );
-    return ref
-        .read(dailyEditionProvider.notifier)
-        .bootstrap(timezoneId: timezoneId);
+    await ref.read(gamificationProvider.notifier).fetch();
+    await ref.read(dailyEditionProvider.notifier).bootstrap(
+          timezoneId: timezoneId,
+          preserveCurrentState: true,
+        );
   }
 
   Future<void> _continueFromSummary(
@@ -168,18 +174,6 @@ class ServerStartDayPage extends ConsumerWidget {
     }
   }
 }
-
-bool _isOfflineFailure(Failure failure) => switch (failure) {
-      NoConnectionFailure() || ServerUnavailableFailure() => true,
-      NetworkFailure(
-        reason: NetworkFailureTimeoutReason() || NetworkFailureServerReason()
-      ) =>
-        true,
-      NetworkFailure(reason: NetworkFailureBadResponseReason(:final statusCode))
-          when statusCode != null && statusCode >= 500 =>
-        true,
-      _ => false,
-    };
 
 String _formatEditionDate(String value) {
   final date = DateTime.tryParse(value);

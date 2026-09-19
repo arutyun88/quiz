@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -216,9 +217,11 @@ class DioApiClient implements ApiClient {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
-        return const Failure.network(
-          NetworkFailureReason.timeout('Timeout error occurred'),
-        );
+        return const Failure.serverUnavailable();
+      case DioExceptionType.connectionError:
+        return _isConnectionRefused(exc)
+            ? const Failure.serverUnavailable()
+            : const Failure.noConnection();
       case DioExceptionType.badResponse:
         final data = exc.response?.data;
         final error = data is Map ? data['error'] : null;
@@ -246,6 +249,18 @@ class DioApiClient implements ApiClient {
           NetworkFailureReason.server('Network error occurred'),
         );
     }
+  }
+
+  bool _isConnectionRefused(DioException exception) {
+    final error = exception.error;
+    if (error is SocketException) {
+      final osError = error.osError;
+      if (osError?.errorCode == 61 || osError?.errorCode == 111) return true;
+      if (osError?.message.toLowerCase().contains('refused') == true) {
+        return true;
+      }
+    }
+    return exception.message?.toLowerCase().contains('refused') == true;
   }
 
   Json _prepareHeaders(Json? headers, bool enableLocale) {

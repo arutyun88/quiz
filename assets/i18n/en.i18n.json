@@ -290,9 +290,14 @@
         "state": {
             "empty": "You're done with today's questions.\nCome back tomorrow!",
             "error": "Could not load the question",
-            "offline": {
-                "title": "NO CONNECTION",
-                "message": "Connect to the internet to load today's edition",
+            "no_internet": {
+                "title": "NO INTERNET",
+                "message": "Check your connection and try again",
+                "retry": "RETRY"
+            },
+            "server_unavailable": {
+                "title": "SERVER UNAVAILABLE",
+                "message": "Could not connect to the server. Please try again later",
                 "retry": "RETRY"
             }
         },

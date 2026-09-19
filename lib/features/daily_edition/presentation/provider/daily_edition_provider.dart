@@ -159,7 +159,10 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
 
   /// Opens or restores the account's authoritative run. The server decides the
   /// edition date and returns the same active run on a new process or device.
-  Future<void> bootstrap({String? timezoneId}) async {
+  Future<void> bootstrap({
+    String? timezoneId,
+    bool preserveCurrentState = false,
+  }) async {
     if (_bootstrapping) return;
     final accountId = _accountId;
     if (accountId == null) {
@@ -171,7 +174,9 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
       return;
     }
     _bootstrapping = true;
-    state = const DailyEditionLoadingState();
+    if (!preserveCurrentState) {
+      state = const DailyEditionLoadingState();
+    }
     try {
       final result = await _repository.open(timezoneId: timezoneId);
       switch (result) {

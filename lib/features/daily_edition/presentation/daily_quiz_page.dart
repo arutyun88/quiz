@@ -58,11 +58,12 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
         );
     final editionState = ref.read(dailyEditionProvider);
     if (editionState case DailyEditionFailedState(:final failure)
-        when _isOfflineFailure(failure)) {
+        when quizConnectionErrorKind(failure) != null) {
       unawaited(
-        ref
-            .read(dailyEditionProvider.notifier)
-            .bootstrap(timezoneId: timezoneId),
+        ref.read(dailyEditionProvider.notifier).bootstrap(
+              timezoneId: timezoneId,
+              preserveCurrentState: true,
+            ),
       );
       return;
     }
@@ -79,10 +80,10 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
     final answerState = ref.watch(dailyQuestionProvider);
     final gamification = ref.watch(gamificationProvider);
     final palette = context.palette;
-    final isOffline = switch (editionState) {
-      DailyEditionFailedState(:final failure) when _isOfflineFailure(failure) =>
-        true,
-      _ => false,
+    final connectionError = switch (editionState) {
+      DailyEditionFailedState(:final failure) =>
+        quizConnectionErrorKind(failure),
+      _ => null,
     };
 
     ref.listen(dailyEditionProvider, (_, next) {
@@ -125,7 +126,7 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
                     0,
                 level: gamification.whenOrNull(data: (data) => data.level),
                 subtitle: context.t.onboarding.daily_issue,
-                showBadges: !isOffline,
+                showBadges: connectionError == null,
               ),
               AppDivider(indent: 22, endIndent: 22),
               Expanded(
@@ -151,9 +152,14 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
       DailyEditionInitialState() ||
       DailyEditionLoadingState() =>
         const QuizLoading(),
-      DailyEditionFailedState(:final failure) when _isOfflineFailure(failure) =>
-        QuizOffline(onRetry: () => _retryBootstrap(ref)),
-      DailyEditionFailedState(:final failure) => QuizError(failure: failure),
+      DailyEditionFailedState(:final failure) => switch (
+            quizConnectionErrorKind(failure)) {
+          final kind? => QuizConnectionError(
+              kind: kind,
+              onRetry: () => _retryBootstrap(ref),
+            ),
+          null => QuizError(failure: failure),
+        },
       DailyEditionSummaryState() => const QuizLoading(),
       DailyEditionActiveState(
         :final run,
@@ -201,9 +207,10 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
     final timezoneId = ref.read(authenticationProvider).mapOrNull(
           authenticated: (state) => state.user?.timezoneId,
         );
-    return ref
-        .read(dailyEditionProvider.notifier)
-        .bootstrap(timezoneId: timezoneId);
+    return ref.read(dailyEditionProvider.notifier).bootstrap(
+          timezoneId: timezoneId,
+          preserveCurrentState: true,
+        );
   }
 
   void _listenForReveal(
@@ -244,7 +251,7 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
     WidgetRef ref,
     QuestionAnswerFailedState failedState,
   ) {
-    if (!_isOfflineFailure(failedState.failure)) return;
+    if (quizConnectionErrorKind(failedState.failure) == null) return;
     final editionState = ref.read(dailyEditionProvider);
     if (editionState is! DailyEditionActiveState) return;
     final assignmentId = editionState.assignment.assignmentId;
@@ -257,7 +264,7 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
       if (latestState is! DailyEditionActiveState ||
           latestState.assignment.assignmentId != assignmentId ||
           latestAnswerState is! QuestionAnswerFailedState ||
-          !_isOfflineFailure(latestAnswerState.failure)) {
+          quizConnectionErrorKind(latestAnswerState.failure) == null) {
         return;
       }
       AppSnackBar.showOffline(
@@ -376,15 +383,3 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
     );
   }
 }
-
-bool _isOfflineFailure(Failure failure) => switch (failure) {
-      NoConnectionFailure() || ServerUnavailableFailure() => true,
-      NetworkFailure(
-        reason: NetworkFailureTimeoutReason() || NetworkFailureServerReason()
-      ) =>
-        true,
-      NetworkFailure(reason: NetworkFailureBadResponseReason(:final statusCode))
-          when statusCode != null && statusCode >= 500 =>
-        true,
-      _ => false,
-    };

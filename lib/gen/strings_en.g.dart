@@ -1157,7 +1157,8 @@ class Translations$question$state$en {
 	/// ru: 'Не удалось загрузить вопрос'
 	String get error => 'Could not load the question';
 
-	late final Translations$question$state$offline$en offline = Translations$question$state$offline$en._(_root);
+	late final Translations$question$state$no_internet$en no_internet = Translations$question$state$no_internet$en._(_root);
+	late final Translations$question$state$server_unavailable$en server_unavailable = Translations$question$state$server_unavailable$en._(_root);
 }
 
 // Path: question.answer_reveal
@@ -1731,19 +1732,37 @@ class Translations$authentication$sign_up$confirm_password$en {
 	String get validation_message => 'Passwords do not match';
 }
 
-// Path: question.state.offline
-class Translations$question$state$offline$en {
-	Translations$question$state$offline$en._(this._root);
+// Path: question.state.no_internet
+class Translations$question$state$no_internet$en {
+	Translations$question$state$no_internet$en._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// ru: 'НЕТ СОЕДИНЕНИЯ'
-	String get title => 'NO CONNECTION';
+	/// ru: 'НЕТ ИНТЕРНЕТА'
+	String get title => 'NO INTERNET';
 
-	/// ru: 'Подключитесь к интернету, чтобы загрузить выпуск'
-	String get message => 'Connect to the internet to load today\'s edition';
+	/// ru: 'Проверьте подключение и попробуйте ещё раз'
+	String get message => 'Check your connection and try again';
+
+	/// ru: 'ПОВТОРИТЬ'
+	String get retry => 'RETRY';
+}
+
+// Path: question.state.server_unavailable
+class Translations$question$state$server_unavailable$en {
+	Translations$question$state$server_unavailable$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'СЕРВЕР НЕДОСТУПЕН'
+	String get title => 'SERVER UNAVAILABLE';
+
+	/// ru: 'Не удалось подключиться к серверу. Попробуйте ещё раз позже'
+	String get message => 'Could not connect to the server. Please try again later';
 
 	/// ru: 'ПОВТОРИТЬ'
 	String get retry => 'RETRY';
@@ -2104,9 +2123,12 @@ extension on Translations {
 			'question.meta.topic' => ({required Object topic}) => '// ${topic}',
 			'question.state.empty' => 'You\'re done with today\'s questions.\nCome back tomorrow!',
 			'question.state.error' => 'Could not load the question',
-			'question.state.offline.title' => 'NO CONNECTION',
-			'question.state.offline.message' => 'Connect to the internet to load today\'s edition',
-			'question.state.offline.retry' => 'RETRY',
+			'question.state.no_internet.title' => 'NO INTERNET',
+			'question.state.no_internet.message' => 'Check your connection and try again',
+			'question.state.no_internet.retry' => 'RETRY',
+			'question.state.server_unavailable.title' => 'SERVER UNAVAILABLE',
+			'question.state.server_unavailable.message' => 'Could not connect to the server. Please try again later',
+			'question.state.server_unavailable.retry' => 'RETRY',
 			'question.answer_reveal.correct' => 'CORRECT',
 			'question.answer_reveal.incorrect' => 'INCORRECT',
 			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',

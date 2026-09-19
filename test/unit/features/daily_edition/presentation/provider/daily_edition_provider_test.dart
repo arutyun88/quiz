@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:quiz/app/core/model/failure.dart';
@@ -166,6 +168,40 @@ void main() {
     expect(state.assignment.assignmentId, 'assignment-4');
     verify(() => repository.open(timezoneId: 'Asia/Yekaterinburg')).called(1);
     verify(() => repository.fetchCurrent('run-1')).called(1);
+  });
+
+  test('retry keeps the connection error visible until bootstrap succeeds',
+      () async {
+    final retryResult = Completer<Result<DailyRunEntity, Failure>>();
+    var openCalls = 0;
+    when(() => repository.open(timezoneId: 'Asia/Yekaterinburg'))
+        .thenAnswer((_) {
+      openCalls += 1;
+      if (openCalls == 1) {
+        return Future.value(
+          const Result.failed(Failure.serverUnavailable()),
+        );
+      }
+      return retryResult.future;
+    });
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(assignment));
+
+    await notifier.bootstrap(timezoneId: 'Asia/Yekaterinburg');
+    final failedState = notifier.state;
+
+    final retry = notifier.bootstrap(
+      timezoneId: 'Asia/Yekaterinburg',
+      preserveCurrentState: true,
+    );
+    await Future<void>.delayed(Duration.zero);
+
+    expect(notifier.state, same(failedState));
+
+    retryResult.complete(Result.ok(activeRun));
+    await retry;
+
+    expect(notifier.state, isA<DailyEditionActiveState>());
   });
 
   test('resume synchronization keeps the authoritative current assignment',

@@ -699,7 +699,8 @@ class _Translations$question$state$ru implements Translations$question$state$en 
 	// Translations
 	@override String get empty => 'На сегодня вопросы закончились.\nЗаходите завтра!';
 	@override String get error => 'Не удалось загрузить вопрос';
-	@override late final _Translations$question$state$offline$ru offline = _Translations$question$state$offline$ru._(_root);
+	@override late final _Translations$question$state$no_internet$ru no_internet = _Translations$question$state$no_internet$ru._(_root);
+	@override late final _Translations$question$state$server_unavailable$ru server_unavailable = _Translations$question$state$server_unavailable$ru._(_root);
 }
 
 // Path: question.answer_reveal
@@ -1036,15 +1037,27 @@ class _Translations$authentication$sign_up$confirm_password$ru implements Transl
 	@override String get validation_message => 'Пароли не совпадают';
 }
 
-// Path: question.state.offline
-class _Translations$question$state$offline$ru implements Translations$question$state$offline$en {
-	_Translations$question$state$offline$ru._(this._root);
+// Path: question.state.no_internet
+class _Translations$question$state$no_internet$ru implements Translations$question$state$no_internet$en {
+	_Translations$question$state$no_internet$ru._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'НЕТ СОЕДИНЕНИЯ';
-	@override String get message => 'Подключитесь к интернету, чтобы загрузить выпуск';
+	@override String get title => 'НЕТ ИНТЕРНЕТА';
+	@override String get message => 'Проверьте подключение и попробуйте ещё раз';
+	@override String get retry => 'ПОВТОРИТЬ';
+}
+
+// Path: question.state.server_unavailable
+class _Translations$question$state$server_unavailable$ru implements Translations$question$state$server_unavailable$en {
+	_Translations$question$state$server_unavailable$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'СЕРВЕР НЕДОСТУПЕН';
+	@override String get message => 'Не удалось подключиться к серверу. Попробуйте ещё раз позже';
 	@override String get retry => 'ПОВТОРИТЬ';
 }
 
@@ -1374,9 +1387,12 @@ extension on TranslationsRu {
 			'question.meta.topic' => ({required Object topic}) => '// ${topic}',
 			'question.state.empty' => 'На сегодня вопросы закончились.\nЗаходите завтра!',
 			'question.state.error' => 'Не удалось загрузить вопрос',
-			'question.state.offline.title' => 'НЕТ СОЕДИНЕНИЯ',
-			'question.state.offline.message' => 'Подключитесь к интернету, чтобы загрузить выпуск',
-			'question.state.offline.retry' => 'ПОВТОРИТЬ',
+			'question.state.no_internet.title' => 'НЕТ ИНТЕРНЕТА',
+			'question.state.no_internet.message' => 'Проверьте подключение и попробуйте ещё раз',
+			'question.state.no_internet.retry' => 'ПОВТОРИТЬ',
+			'question.state.server_unavailable.title' => 'СЕРВЕР НЕДОСТУПЕН',
+			'question.state.server_unavailable.message' => 'Не удалось подключиться к серверу. Попробуйте ещё раз позже',
+			'question.state.server_unavailable.retry' => 'ПОВТОРИТЬ',
 			'question.answer_reveal.correct' => 'ВЕРНО',
 			'question.answer_reveal.incorrect' => 'НЕВЕРНО',
 			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',
