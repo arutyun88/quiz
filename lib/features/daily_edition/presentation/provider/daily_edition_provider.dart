@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
+import 'package:quiz/app/core/services/connectivity_service.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/analytics/domain/product_analytics.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
@@ -26,6 +28,7 @@ final dailyEditionProvider =
     accountId: accountId,
     repository: getIt<DailyEditionRepository>(),
     outbox: getIt<DailyAttemptOutbox>(),
+    connectivityService: getIt<ConnectivityService>(),
     analytics: getIt<ProductAnalytics>(),
     errorReporter: getIt<AppErrorReporter>(),
   );
@@ -129,33 +132,56 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     required String? accountId,
     required DailyEditionRepository repository,
     required DailyAttemptOutbox outbox,
+    ConnectivityService? connectivityService,
     String Function()? clientEventIdFactory,
     DateTime Function()? now,
     Future<void> Function(Duration)? delay,
+    Future<void> Function(Duration)? automaticRetryDelay,
     ProductAnalytics? analytics,
     AppErrorReporter? errorReporter,
   })  : _accountId = accountId,
         _repository = repository,
         _outbox = outbox,
+        _connectivityService = connectivityService,
         _clientEventIdFactory =
             clientEventIdFactory ?? (() => const Uuid().v4()),
         _now = now ?? DateTime.now,
         _delay = delay ?? Future.delayed,
+        _automaticRetryDelay = automaticRetryDelay ?? Future.delayed,
         _analytics = analytics,
         _errorReporter = errorReporter,
-        super(const DailyEditionInitialState());
+        super(const DailyEditionInitialState()) {
+    _connectivitySubscription = connectivityService?.onStatusChange.listen(
+      _handleConnectivityStatus,
+    );
+  }
 
   final String? _accountId;
   final DailyEditionRepository _repository;
   final DailyAttemptOutbox _outbox;
+  final ConnectivityService? _connectivityService;
   final String Function() _clientEventIdFactory;
   final DateTime Function() _now;
   final Future<void> Function(Duration) _delay;
+  final Future<void> Function(Duration) _automaticRetryDelay;
   final ProductAnalytics? _analytics;
   final AppErrorReporter? _errorReporter;
+  StreamSubscription<InternetStatus>? _connectivitySubscription;
   bool _bootstrapping = false;
+  bool _automaticRetryRunning = false;
+  bool _waitingForConnection = false;
+  bool _disposed = false;
+  int _automaticRetryGeneration = 0;
+  int _serverRetryIndex = 0;
   String? _pendingReviewSource;
   bool get hasPendingReview => _pendingReviewSource != null;
+
+  static const _serverRetryDelays = <Duration>[
+    Duration(seconds: 2),
+    Duration(seconds: 5),
+    Duration(seconds: 10),
+    Duration(seconds: 30),
+  ];
 
   /// Opens or restores the account's authoritative run. The server decides the
   /// edition date and returns the same active run on a new process or device.
@@ -352,27 +378,30 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     await _sendPending(current, pending);
   }
 
-  Future<void> retryPendingAttempt() async {
+  Future<bool> retryPendingAttempt() async {
     final current = state;
     final accountId = _accountId;
     if (current is! DailyEditionActiveState ||
         accountId == null ||
         current.isBusy ||
         current.attempt != null) {
-      return;
+      return false;
     }
 
+    _cancelAutomaticRetryWait(resetBackoff: false);
     try {
       final pending = await _outbox.load(accountId: accountId);
-      if (pending == null) return;
+      if (pending == null) return false;
       state = current.copyWith(isBusy: true, clearFailure: true);
       await _sendPending(current, pending);
+      return true;
     } on Object catch (error, stackTrace) {
       _report(error, stackTrace, 'daily_attempt_outbox_retry');
       state = current.copyWith(
         isBusy: false,
         failure: Failure.unknown(error),
       );
+      return false;
     }
   }
 
@@ -417,6 +446,7 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     );
     switch (result) {
       case ResultOk(data: final attempt):
+        _cancelAutomaticRetryWait();
         try {
           await _outbox.clear(
             accountId: pending.accountId,
@@ -437,14 +467,102 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
         }
       case ResultFailed(error: final failure)
           when _hasErrorCode(failure, 'ASSIGNMENT_NOT_CURRENT'):
+        _cancelAutomaticRetryWait();
         await _clearPendingAndLoadRun(current.run, pending);
       case ResultFailed(error: final failure)
           when _hasErrorCode(failure, 'DAILY_RUN_NOT_FOUND'):
+        _cancelAutomaticRetryWait();
         await _clearPendingAndBootstrap(current, pending);
       case ResultFailed(error: final failure):
         state = current.copyWith(isBusy: false, failure: failure);
+        _scheduleAutomaticRetry(failure);
     }
   }
+
+  void _scheduleAutomaticRetry(Failure failure) {
+    if (_connectivityService == null || _disposed) return;
+
+    if (failure is NoConnectionFailure) {
+      _serverRetryIndex = 0;
+      _waitForConnection();
+      return;
+    }
+    if (!_isRetryableServerFailure(failure)) {
+      _cancelAutomaticRetryWait();
+      return;
+    }
+
+    _waitingForConnection = false;
+    final delayIndex = _serverRetryIndex.clamp(
+      0,
+      _serverRetryDelays.length - 1,
+    );
+    final retryDelay = _serverRetryDelays[delayIndex];
+    if (_serverRetryIndex < _serverRetryDelays.length - 1) {
+      _serverRetryIndex += 1;
+    }
+    final generation = ++_automaticRetryGeneration;
+    unawaited(_retryAfterDelay(retryDelay, generation));
+  }
+
+  Future<void> _retryAfterDelay(Duration delay, int generation) async {
+    await _automaticRetryDelay(delay);
+    if (_disposed || generation != _automaticRetryGeneration) return;
+    await _runAutomaticRetry();
+  }
+
+  void _waitForConnection() {
+    _waitingForConnection = true;
+    final generation = ++_automaticRetryGeneration;
+    unawaited(_retryIfConnectionAlreadyRestored(generation));
+  }
+
+  Future<void> _retryIfConnectionAlreadyRestored(int generation) async {
+    final connected = await _connectivityService!.hasInternetConnection();
+    if (_disposed ||
+        generation != _automaticRetryGeneration ||
+        !_waitingForConnection ||
+        !connected) {
+      return;
+    }
+    await _runAutomaticRetry();
+  }
+
+  void _handleConnectivityStatus(InternetStatus status) {
+    if (status != InternetStatus.connected || !_waitingForConnection) return;
+    unawaited(_runAutomaticRetry());
+  }
+
+  Future<void> _runAutomaticRetry() async {
+    if (_disposed || _automaticRetryRunning) return;
+    _automaticRetryRunning = true;
+    _cancelAutomaticRetryWait(resetBackoff: false);
+    try {
+      await retryPendingAttempt();
+    } finally {
+      _automaticRetryRunning = false;
+    }
+  }
+
+  void _cancelAutomaticRetryWait({bool resetBackoff = true}) {
+    _automaticRetryGeneration += 1;
+    _waitingForConnection = false;
+    if (resetBackoff) _serverRetryIndex = 0;
+  }
+
+  bool _isRetryableServerFailure(Failure failure) => switch (failure) {
+        ServerUnavailableFailure() => true,
+        NetworkFailure(
+          reason: NetworkFailureTimeoutReason() || NetworkFailureServerReason()
+        ) =>
+          true,
+        NetworkFailure(
+          reason: NetworkFailureBadResponseReason(:final statusCode)
+        )
+            when statusCode != null && statusCode >= 500 =>
+          true,
+        _ => false,
+      };
 
   Future<void> _clearPendingAndBootstrap(
     DailyEditionActiveState current,
@@ -894,6 +1012,14 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
           ) ??
           Future.value(),
     );
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    _cancelAutomaticRetryWait();
+    unawaited(_connectivitySubscription?.cancel() ?? Future.value());
+    super.dispose();
   }
 }
 

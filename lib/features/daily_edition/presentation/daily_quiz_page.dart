@@ -53,25 +53,26 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state != AppLifecycleState.resumed) return;
+    unawaited(_synchronizeAfterResume());
+  }
+
+  Future<void> _synchronizeAfterResume() async {
     final timezoneId = ref.read(authenticationProvider).mapOrNull(
           authenticated: (state) => state.user?.timezoneId,
         );
     final editionState = ref.read(dailyEditionProvider);
     if (editionState case DailyEditionFailedState(:final failure)
         when quizConnectionErrorKind(failure) != null) {
-      unawaited(
-        ref.read(dailyEditionProvider.notifier).bootstrap(
-              timezoneId: timezoneId,
-              preserveCurrentState: true,
-            ),
-      );
+      await ref.read(dailyEditionProvider.notifier).bootstrap(
+            timezoneId: timezoneId,
+            preserveCurrentState: true,
+          );
       return;
     }
-    unawaited(
-      ref
-          .read(dailyEditionProvider.notifier)
-          .synchronizeActiveRun(timezoneId: timezoneId),
-    );
+    final notifier = ref.read(dailyEditionProvider.notifier);
+    final retriedPendingAttempt = await notifier.retryPendingAttempt();
+    if (!mounted || retriedPendingAttempt) return;
+    await notifier.synchronizeActiveRun(timezoneId: timezoneId);
   }
 
   @override

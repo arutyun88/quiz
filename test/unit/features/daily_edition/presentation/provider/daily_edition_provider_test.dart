@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
+import 'package:quiz/app/core/services/connectivity_service.dart';
 import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.dart';
 import 'package:quiz/features/daily_edition/domain/entity/pending_daily_attempt_entity.dart';
 import 'package:quiz/features/daily_edition/domain/repository/daily_edition_repository.dart';
@@ -14,6 +16,26 @@ class MockDailyEditionRepository extends Mock
     implements DailyEditionRepository {}
 
 class MockDailyAttemptOutbox extends Mock implements DailyAttemptOutbox {}
+
+class FakeConnectivityService implements ConnectivityService {
+  FakeConnectivityService({required bool connected}) : _connected = connected;
+
+  final _controller = StreamController<InternetStatus>.broadcast();
+  bool _connected;
+
+  @override
+  Future<bool> hasInternetConnection() async => _connected;
+
+  @override
+  Stream<InternetStatus> get onStatusChange => _controller.stream;
+
+  void emit(InternetStatus status) {
+    _connected = status == InternetStatus.connected;
+    _controller.add(status);
+  }
+
+  Future<void> dispose() => _controller.close();
+}
 
 void main() {
   late MockDailyEditionRepository repository;
@@ -1026,6 +1048,147 @@ void main() {
         clientEventId: 'event-1',
       ),
     ).called(1);
+  });
+
+  test('server recovery retries the pending attempt with increasing backoff',
+      () async {
+    final connectivity = FakeConnectivityService(connected: true);
+    final retryWaiters = <Completer<void>>[];
+    final retryDelays = <Duration>[];
+    PendingDailyAttemptEntity? savedPending;
+    var submitCalls = 0;
+    final secondSubmitStarted = Completer<void>();
+    final thirdSubmitStarted = Completer<void>();
+    final coordinatedNotifier = DailyEditionNotifier(
+      accountId: 'account-1',
+      repository: repository,
+      outbox: outbox,
+      connectivityService: connectivity,
+      clientEventIdFactory: () => 'event-1',
+      now: () => DateTime.parse('2026-08-26T00:00:00Z'),
+      automaticRetryDelay: (duration) {
+        retryDelays.add(duration);
+        final waiter = Completer<void>();
+        retryWaiters.add(waiter);
+        return waiter.future;
+      },
+    );
+    addTearDown(coordinatedNotifier.dispose);
+    addTearDown(connectivity.dispose);
+    when(() => outbox.save(any())).thenAnswer((invocation) async {
+      savedPending =
+          invocation.positionalArguments.single as PendingDailyAttemptEntity;
+    });
+    when(() => outbox.load(accountId: 'account-1'))
+        .thenAnswer((_) async => savedPending);
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(activeRun));
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(assignment));
+    when(
+      () => repository.submitAttempt(
+        runId: 'run-1',
+        assignmentId: 'assignment-4',
+        clientEventId: 'event-1',
+        action: DailyAttemptAction.answer,
+        answerId: 'answer-1',
+      ),
+    ).thenAnswer((_) async {
+      submitCalls += 1;
+      if (submitCalls == 2) secondSubmitStarted.complete();
+      if (submitCalls == 3) thirdSubmitStarted.complete();
+      return submitCalls < 3
+          ? const Result.failed(Failure.serverUnavailable())
+          : const Result.ok(attempt);
+    });
+
+    await coordinatedNotifier.bootstrap();
+    await coordinatedNotifier.submitAttempt(
+      action: DailyAttemptAction.answer,
+      answerId: 'answer-1',
+    );
+
+    expect(retryDelays, [const Duration(seconds: 2)]);
+    retryWaiters[0].complete();
+    await secondSubmitStarted.future;
+    await Future<void>.delayed(Duration.zero);
+    expect(retryDelays, [
+      const Duration(seconds: 2),
+      const Duration(seconds: 5),
+    ]);
+
+    retryWaiters[1].complete();
+    await thirdSubmitStarted.future;
+    await Future<void>.delayed(Duration.zero);
+
+    final state = coordinatedNotifier.state as DailyEditionActiveState;
+    expect(state.attempt?.clientEventId, 'event-1');
+    verify(
+      () => repository.submitAttempt(
+        runId: 'run-1',
+        assignmentId: 'assignment-4',
+        clientEventId: 'event-1',
+        action: DailyAttemptAction.answer,
+        answerId: 'answer-1',
+      ),
+    ).called(3);
+  });
+
+  test('internet recovery immediately retries the pending attempt', () async {
+    final connectivity = FakeConnectivityService(connected: false);
+    PendingDailyAttemptEntity? savedPending;
+    var submitCalls = 0;
+    final retryStarted = Completer<void>();
+    final coordinatedNotifier = DailyEditionNotifier(
+      accountId: 'account-1',
+      repository: repository,
+      outbox: outbox,
+      connectivityService: connectivity,
+      clientEventIdFactory: () => 'event-1',
+      now: () => DateTime.parse('2026-08-26T00:00:00Z'),
+    );
+    addTearDown(coordinatedNotifier.dispose);
+    addTearDown(connectivity.dispose);
+    when(() => outbox.save(any())).thenAnswer((invocation) async {
+      savedPending =
+          invocation.positionalArguments.single as PendingDailyAttemptEntity;
+    });
+    when(() => outbox.load(accountId: 'account-1'))
+        .thenAnswer((_) async => savedPending);
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(activeRun));
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(assignment));
+    when(
+      () => repository.submitAttempt(
+        runId: 'run-1',
+        assignmentId: 'assignment-4',
+        clientEventId: 'event-1',
+        action: DailyAttemptAction.answer,
+        answerId: 'answer-1',
+      ),
+    ).thenAnswer((_) async {
+      submitCalls += 1;
+      if (submitCalls == 2) retryStarted.complete();
+      return submitCalls == 1
+          ? const Result.failed(Failure.noConnection())
+          : const Result.ok(attempt);
+    });
+
+    await coordinatedNotifier.bootstrap();
+    await coordinatedNotifier.submitAttempt(
+      action: DailyAttemptAction.answer,
+      answerId: 'answer-1',
+    );
+    expect(submitCalls, 1);
+
+    connectivity.emit(InternetStatus.connected);
+    await retryStarted.future;
+    await Future<void>.delayed(Duration.zero);
+
+    final state = coordinatedNotifier.state as DailyEditionActiveState;
+    expect(state.attempt?.clientEventId, 'event-1');
+    expect(submitCalls, 2);
   });
 
   test('bootstrap replays pending attempt before loading current assignment',
