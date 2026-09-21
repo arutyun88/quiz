@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quiz/app/config/navigation/quiz_navigation.dart';
 import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 import 'package:quiz/features/user/domain/entity/user_entity.dart';
@@ -54,7 +55,7 @@ Future<void> routeAuthenticatedUser(
     case AuthenticatedUserDestination.home:
       context.go('/');
     case AuthenticatedUserDestination.quiz:
-      context.goNamed('quiz');
+      context.goNamed('quiz', extra: QuizRouteTransition.immediate);
     case AuthenticatedUserDestination.dailyLimit:
       // Authentication has no calling tab. Establish the app underneath the sheet.
       final router = GoRouter.of(context);

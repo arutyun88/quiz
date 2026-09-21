@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quiz/app/config/navigation/quiz_navigation.dart';
 import 'package:quiz/app/main_layout.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/analytics/domain/product_analytics.dart';
@@ -106,10 +107,22 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                 GoRoute(
                   path: '/quiz',
                   name: 'quiz',
-                  builder: (context, state) => QuizGateFlow(
-                    reviewSourceAttemptId:
-                        state.uri.queryParameters['reviewAttemptId'],
-                  ),
+                  pageBuilder: (context, state) {
+                    final child = QuizGateFlow(
+                      reviewSourceAttemptId:
+                          state.uri.queryParameters['reviewAttemptId'],
+                    );
+                    if (state.extra == QuizRouteTransition.immediate) {
+                      return NoTransitionPage<void>(
+                        key: state.pageKey,
+                        child: child,
+                      );
+                    }
+                    return MaterialPage<void>(
+                      key: state.pageKey,
+                      child: child,
+                    );
+                  },
                 ),
               ],
             ),

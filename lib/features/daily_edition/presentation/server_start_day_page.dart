@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:quiz/app/config/navigation/quiz_navigation.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
 import 'package:quiz/app/core/utils/open_daily_limit.dart';
@@ -54,6 +55,13 @@ class ServerStartDayPage extends ConsumerWidget {
           context.goNamed('quiz');
         } else {
           openDailyLimit(context);
+        }
+      });
+    }
+    if (shouldResumeDailyEdition(state)) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (context.mounted && ModalRoute.of(context)?.isCurrent == true) {
+          context.goNamed('quiz', extra: QuizRouteTransition.immediate);
         }
       });
     }
@@ -111,6 +119,8 @@ class ServerStartDayPage extends ConsumerWidget {
             ),
           null => QuizError(failure: failure),
         },
+      DailyEditionActiveState(:final run) when run.startedAt != null =>
+        const QuizLoading(),
       DailyEditionActiveState(:final run, :final assignment) => _RunOverview(
           run: run,
           fallbackTopic: assignment.topic,

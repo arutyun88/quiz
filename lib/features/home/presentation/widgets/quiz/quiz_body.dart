@@ -71,6 +71,7 @@ class QuizBody extends StatelessWidget {
                 child: SizedBox(
                   width: double.infinity,
                   child: QuizAnswersList(
+                    key: ValueKey(question.id),
                     answers: question.answers,
                     answerState: answerState,
                     onSelect: onSelect,
