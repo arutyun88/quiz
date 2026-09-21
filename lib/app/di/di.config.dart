@@ -65,8 +65,6 @@ import '../../features/mastery/data/converter/mastery_converter.dart' as _i78;
 import '../../features/mastery/di/di.dart' as _i963;
 import '../../features/mastery/domain/repository/mastery_repository.dart'
     as _i871;
-import '../../features/observability/data/sentry_error_reporter.dart' as _i122;
-import '../../features/observability/domain/app_error_reporter.dart' as _i279;
 import '../../features/push/data/firebase_push_notifications_gateway.dart'
     as _i814;
 import '../../features/push/data/repository/remote_push_repository.dart'
@@ -185,7 +183,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1027.ProductAnalytics>(
         () => _i332.PostHogProductAnalytics());
     gh.factory<_i498.AnswerConverter>(() => _i498.AnswerConverterImpl());
-    gh.lazySingleton<_i279.AppErrorReporter>(() => _i122.SentryErrorReporter());
     gh.factory<_i606.UserAchievementConverter>(
         () => _i606.UserAchievementConverterImpl());
     await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(
@@ -276,6 +273,13 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i782.ApiClient>(),
               gh<_i740.UserStatisticsConverter>(),
             ));
+    gh.lazySingleton<_i404.PushNotificationsGateway>(
+        () => _i814.FirebasePushNotificationsGateway(
+              messaging: gh<_i892.FirebaseMessaging>(),
+              repository: gh<_i783.PushRepository>(),
+              deviceIdService: gh<_i709.DeviceIdService>(),
+              settingsStorage: gh<_i218.SettingsLocalStorageService>(),
+            ));
     gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
         .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
     gh.lazySingleton<_i482.ChangeUserInfoGateway>(
@@ -296,14 +300,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => reviewModule.reviewRepository(
               client: gh<_i782.ApiClient>(),
               reviewHistoryConverter: gh<_i49.ReviewHistoryConverter>(),
-            ));
-    gh.lazySingleton<_i404.PushNotificationsGateway>(
-        () => _i814.FirebasePushNotificationsGateway(
-              messaging: gh<_i892.FirebaseMessaging>(),
-              repository: gh<_i783.PushRepository>(),
-              deviceIdService: gh<_i709.DeviceIdService>(),
-              settingsStorage: gh<_i218.SettingsLocalStorageService>(),
-              errorReporter: gh<_i279.AppErrorReporter>(),
             ));
     gh.lazySingleton<_i566.AcquisitionAttributionRepository>(() =>
         _i209.RemoteAcquisitionAttributionRepository(

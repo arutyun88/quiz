@@ -7,7 +7,6 @@ import 'package:quiz/app/main_layout.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/analytics/domain/product_analytics.dart';
 import 'package:quiz/features/analytics/presentation/product_analytics_navigator_observer.dart';
-import 'package:quiz/features/observability/domain/app_error_reporter.dart';
 import 'package:quiz/features/observability/presentation/error_reporting_navigator_observer.dart';
 import 'package:quiz/features/achievements/presentation/achievements_flow.dart';
 import 'package:quiz/features/authentication/presentation/forgot_password/forgot_password_flow.dart';
@@ -40,12 +39,11 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
   @override
   FutureOr<GoRouter> build() {
     final analytics = getIt<ProductAnalytics>();
-    final errorReporter = getIt<AppErrorReporter>();
     return GoRouter(
       initialLocation: '/splash',
       observers: [
         ProductAnalyticsNavigatorObserver(analytics),
-        ErrorReportingNavigatorObserver(errorReporter),
+        ErrorReportingNavigatorObserver(),
       ],
       routes: [
         GoRoute(
@@ -83,10 +81,12 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
         GoRoute(
           path: '/daily-limit',
           name: 'daily-limit',
-          pageBuilder: (context, state) =>
-              _bottomSheetPage(DailyLimitFlow(
-                reviewSourceAttemptId: state.uri.queryParameters['reviewAttemptId'],
-              ), state),
+          pageBuilder: (context, state) => _bottomSheetPage(
+              DailyLimitFlow(
+                reviewSourceAttemptId:
+                    state.uri.queryParameters['reviewAttemptId'],
+              ),
+              state),
         ),
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) =>
@@ -95,7 +95,7 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
             StatefulShellBranch(
               observers: [
                 ProductAnalyticsNavigatorObserver(analytics),
-                ErrorReportingNavigatorObserver(errorReporter),
+                ErrorReportingNavigatorObserver(),
               ],
               routes: [
                 GoRoute(
@@ -116,7 +116,7 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
             StatefulShellBranch(
               observers: [
                 ProductAnalyticsNavigatorObserver(analytics),
-                ErrorReportingNavigatorObserver(errorReporter),
+                ErrorReportingNavigatorObserver(),
               ],
               routes: [
                 GoRoute(
@@ -147,7 +147,7 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
             StatefulShellBranch(
               observers: [
                 ProductAnalyticsNavigatorObserver(analytics),
-                ErrorReportingNavigatorObserver(errorReporter),
+                ErrorReportingNavigatorObserver(),
               ],
               routes: [
                 GoRoute(

@@ -93,6 +93,12 @@ Configure these optional keys in the Firebase console:
 - `guest_demo_question_count`: integer from 1 to 10; the in-app default is 3.
 - `app_launch_date`: an ISO date-only value such as `2026-08-29`; an absent or
   invalid value displays issue number 1.
+- `log_levels`: JSON object with `production` and `debug` minimum breadcrumb
+  levels as `package:logging` numeric values from 0 (`ALL`) to 2000 (`OFF`).
+  `production` controls Sentry breadcrumbs and `debug` controls local console
+  output. The in-app default is `{"production":400,"debug":0}`: Sentry keeps
+  `FINER` and above, while the local console keeps all logs. Its threshold can
+  also be overridden at runtime.
 
 Cached values activate during startup and network refresh continues in the
 background. Production fetches are limited to once per 12 hours; debug builds

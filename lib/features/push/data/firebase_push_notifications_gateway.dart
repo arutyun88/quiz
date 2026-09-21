@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/core/services/device_id_service.dart';
 import 'package:quiz/app/core/services/settings_local_storage_service.dart';
-import 'package:quiz/features/observability/domain/app_error_reporter.dart';
+import 'package:quiz/features/observability/domain/logger.dart';
 import 'package:quiz/features/push/domain/push_notifications_gateway.dart';
 import 'package:quiz/features/push/domain/repository/push_repository.dart';
 
@@ -18,18 +18,15 @@ final class FirebasePushNotificationsGateway
     required PushRepository repository,
     required DeviceIdService deviceIdService,
     required SettingsLocalStorageService settingsStorage,
-    required AppErrorReporter errorReporter,
   })  : _messaging = messaging,
         _repository = repository,
         _installationId = deviceIdService.deviceId,
-        _settingsStorage = settingsStorage,
-        _errorReporter = errorReporter;
+        _settingsStorage = settingsStorage;
 
   final FirebaseMessaging _messaging;
   final PushRepository _repository;
   final String _installationId;
   final SettingsLocalStorageService _settingsStorage;
-  final AppErrorReporter _errorReporter;
   final StreamController<PushDestination> _openedDestinations =
       StreamController.broadcast();
 
@@ -68,12 +65,11 @@ final class FirebasePushNotificationsGateway
     _active = true;
     _tokenSubscription ??= _messaging.onTokenRefresh.listen(
       (token) => unawaited(_register(token)),
-      onError: (Object error, StackTrace stackTrace) => unawaited(
-        _errorReporter.captureException(
-          error,
-          stackTrace,
-          operation: 'push_token_refresh',
-        ),
+      onError: (Object error, StackTrace stackTrace) => log.error(
+        'Push token refresh failed',
+        error: error,
+        stackTrace: stackTrace,
+        data: {'operation': 'push_token_refresh'},
       ),
     );
     _openedSubscription ??= FirebaseMessaging.onMessageOpenedApp.listen(
@@ -97,10 +93,12 @@ final class FirebasePushNotificationsGateway
   Future<void> unregister() async {
     final result = await _repository.unregisterDevice(_installationId);
     if (result case ResultFailed(error: final failure)) {
-      await _errorReporter.captureException(
+      log.failure(
         failure,
-        StackTrace.current,
-        operation: 'push_device_unregister',
+        failure,
+        stackTrace: StackTrace.current,
+        message: 'Push device unregister failed',
+        extra: {'operation': 'push_device_unregister'},
       );
     }
     await deactivate();
@@ -124,10 +122,12 @@ final class FirebasePushNotificationsGateway
       locale: _settingsStorage.fetchLocale(),
     );
     if (result case ResultFailed(error: final failure)) {
-      await _errorReporter.captureException(
+      log.failure(
         failure,
-        StackTrace.current,
-        operation: 'push_device_register',
+        failure,
+        stackTrace: StackTrace.current,
+        message: 'Push device registration failed',
+        extra: {'operation': 'push_device_register'},
       );
     }
   }

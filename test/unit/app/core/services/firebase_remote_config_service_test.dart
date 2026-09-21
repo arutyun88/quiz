@@ -35,6 +35,7 @@ void main() {
     expect(defaults, {
       'guest_demo_question_count': 3,
       'app_launch_date': '',
+      'log_levels': '{"production":400,"debug":0}',
     });
     verify(() => remoteConfig.activate()).called(1);
     verify(() => remoteConfig.fetchAndActivate()).called(1);
@@ -68,6 +69,18 @@ void main() {
     expect(service.appLaunchDate, isNull);
   });
 
+  test('exposes independent production and debug logging levels', () {
+    when(() => remoteConfig.getString('log_levels'))
+        .thenReturn('{"production":400,"debug":0}');
+    expect(service.productionLoggingLevel, 400);
+    expect(service.debugLoggingLevel, 0);
+
+    when(() => remoteConfig.getString('log_levels'))
+        .thenReturn('{"production":-1,"debug":2001}');
+    expect(service.productionLoggingLevel, 400);
+    expect(service.debugLoggingLevel, 0);
+  });
+
   test('bundled asset contains the defaults used by the mobile client',
       () async {
     TestWidgetsFlutterBinding.ensureInitialized();
@@ -76,11 +89,13 @@ void main() {
 
     final guestDemoQuestionCount = defaults[guestDemoQuestionCountKey];
     final appLaunchDate = defaults[appLaunchDateKey];
+    final logLevels = defaults[logLevelsKey];
     expect(
       parseGuestDemoQuestionCount(guestDemoQuestionCount),
       guestDemoQuestionCount,
     );
     expect(parseAppLaunchDate(appLaunchDate), appLaunchDate);
+    expect(parseLogLevels(logLevels), defaultLogLevels);
   });
 
   test('keeps bundled values when Firebase initialization and fetch fail',
@@ -90,6 +105,7 @@ void main() {
       loadDefaults: () async => const {
         'guest_demo_question_count': 6,
         'app_launch_date': '',
+        'log_levels': '{"production":400,"debug":0}',
       },
     );
     when(() => remoteConfig.setDefaults(any()))

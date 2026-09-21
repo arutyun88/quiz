@@ -2,10 +2,17 @@ import 'dart:convert';
 
 const String guestDemoQuestionCountKey = 'guest_demo_question_count';
 const String appLaunchDateKey = 'app_launch_date';
+const String logLevelsKey = 'log_levels';
+const String defaultLogLevelsValue = '{"production":400,"debug":0}';
+
+typedef LogLevels = ({int production, int debug});
+
+const LogLevels defaultLogLevels = (production: 400, debug: 0);
 
 const Map<String, Object> emergencyRemoteConfigDefaults = {
   guestDemoQuestionCountKey: 3,
   appLaunchDateKey: '',
+  logLevelsKey: defaultLogLevelsValue,
 };
 
 int? parseGuestDemoQuestionCount(Object? value) {
@@ -26,6 +33,26 @@ String? parseAppLaunchDate(Object? value) {
   return date.toIso8601String().substring(0, 10) == value ? value : null;
 }
 
+LogLevels? parseLogLevels(Object? value) {
+  Object? decoded = value;
+  if (value is String) {
+    try {
+      decoded = jsonDecode(value);
+    } on FormatException {
+      return null;
+    }
+  }
+  if (decoded is! Map) return null;
+
+  final production = decoded['production'];
+  final debug = decoded['debug'];
+  if (production is! int || debug is! int) return null;
+  if (production < 0 || production > 2000 || debug < 0 || debug > 2000) {
+    return null;
+  }
+  return (production: production, debug: debug);
+}
+
 Map<String, Object> normalizeRemoteConfigDefaults(
   Map<String, dynamic> values,
 ) {
@@ -44,5 +71,10 @@ Map<String, Object> normalizeRemoteConfigDefaults(
           emergencyRemoteConfigDefaults[guestDemoQuestionCountKey]!;
   normalized[appLaunchDateKey] = parseAppLaunchDate(values[appLaunchDateKey]) ??
       emergencyRemoteConfigDefaults[appLaunchDateKey]!;
+  final logLevels = parseLogLevels(values[logLevelsKey]) ?? defaultLogLevels;
+  normalized[logLevelsKey] = jsonEncode({
+    'production': logLevels.production,
+    'debug': logLevels.debug,
+  });
   return normalized;
 }

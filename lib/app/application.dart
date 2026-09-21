@@ -10,7 +10,7 @@ import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/ads/domain/rewarded_ads_gateway.dart';
 import 'package:quiz/features/analytics/domain/product_analytics.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
-import 'package:quiz/features/observability/domain/app_error_reporter.dart';
+import 'package:quiz/features/observability/data/sentry_user_context.dart';
 import 'package:quiz/features/push/domain/push_notifications_gateway.dart';
 import 'package:quiz/gen/strings.g.dart';
 
@@ -35,17 +35,16 @@ class _ApplicationState extends ConsumerState<Application> {
       authenticationProvider,
       (previous, next) {
         final analytics = getIt<ProductAnalytics>();
-        final errorReporter = getIt<AppErrorReporter>();
         final nextUserId = next.mapOrNull(
           authenticated: (state) => state.user?.id,
         );
         if (nextUserId != null) {
           unawaited(analytics.identify(nextUserId));
-          unawaited(errorReporter.setUser(nextUserId));
+          unawaited(SentryUserContext.set(nextUserId));
           unawaited(pushGateway.activate());
         } else {
           unawaited(analytics.resetIdentity());
-          unawaited(errorReporter.clearUser());
+          unawaited(SentryUserContext.set(null));
           unawaited(pushGateway.deactivate());
         }
       },

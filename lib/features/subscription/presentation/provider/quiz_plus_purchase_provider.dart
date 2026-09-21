@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/analytics/domain/product_analytics.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
-import 'package:quiz/features/observability/domain/app_error_reporter.dart';
+import 'package:quiz/features/observability/domain/logger.dart';
 import 'package:quiz/features/subscription/domain/entity/quiz_plus_package_entity.dart';
 import 'package:quiz/features/subscription/domain/gateway/quiz_plus_purchase_gateway.dart';
 
@@ -64,7 +64,6 @@ final quizPlusPurchaseProvider = StateNotifierProvider.autoDispose<
             ) ??
         false,
     analytics: getIt<ProductAnalytics>(),
-    errorReporter: getIt<AppErrorReporter>(),
   );
   if (userId != null) unawaited(notifier.load(userId));
   return notifier;
@@ -77,13 +76,11 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
     required bool Function() isServerEntitled,
     Future<void> Function(Duration) delay = Future.delayed,
     ProductAnalytics? analytics,
-    AppErrorReporter? errorReporter,
   })  : _gateway = gateway,
         _reloadServerProfile = reloadServerProfile,
         _isServerEntitled = isServerEntitled,
         _delay = delay,
         _analytics = analytics,
-        _errorReporter = errorReporter,
         super(const QuizPlusPurchaseState());
 
   final QuizPlusPurchaseGateway _gateway;
@@ -91,7 +88,6 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
   final bool Function() _isServerEntitled;
   final Future<void> Function(Duration) _delay;
   final ProductAnalytics? _analytics;
-  final AppErrorReporter? _errorReporter;
 
   Future<void> load(String userId) async {
     state = state.copyWith(loading: true, status: QuizPlusPurchaseStatus.idle);
@@ -237,13 +233,11 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
   }
 
   void _report(Object error, StackTrace stackTrace, String operation) {
-    unawaited(
-      _errorReporter?.captureException(
-            error,
-            stackTrace,
-            operation: operation,
-          ) ??
-          Future.value(),
+    log.error(
+      'Quiz+ purchase operation failed',
+      error: error,
+      stackTrace: stackTrace,
+      data: {'operation': operation},
     );
   }
 }

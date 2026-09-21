@@ -25,6 +25,7 @@ void main() {
       'app_launch_date': '2026-08-29',
       'daily_question_quota': '999',
       'guest_demo_question_count': 4,
+      'log_levels': '{"production":400,"debug":0}',
     });
   });
 
@@ -45,6 +46,7 @@ void main() {
     expect(defaults, {
       'app_launch_date': '',
       'guest_demo_question_count': 3,
+      'log_levels': '{"production":400,"debug":0}',
       'welcome_title': 'Hello',
     });
   });
@@ -73,6 +75,7 @@ void main() {
     expect(jsonDecode(await output.readAsString()), {
       'app_launch_date': '',
       'guest_demo_question_count': 5,
+      'log_levels': '{"production":400,"debug":0}',
     });
   });
 }

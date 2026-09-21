@@ -72,9 +72,7 @@ abstract final class SentryBootstrap {
   static Breadcrumb? scrubBreadcrumb(Breadcrumb? breadcrumb, Hint hint) {
     final category = breadcrumb?.category?.toLowerCase();
     if (category == null) return breadcrumb;
-    if (category.contains('http') ||
-        category.contains('network') ||
-        category.contains('console')) {
+    if (category.contains('http') || category.contains('network')) {
       return null;
     }
     return breadcrumb;

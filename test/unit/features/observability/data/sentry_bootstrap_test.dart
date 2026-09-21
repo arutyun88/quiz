@@ -46,7 +46,7 @@ void main() {
     expect(scrubbed.user?.data, isNull);
   });
 
-  test('drops network and console breadcrumbs but keeps safe navigation', () {
+  test('drops network breadcrumbs but keeps logger and navigation records', () {
     expect(
       SentryBootstrap.scrubBreadcrumb(
         Breadcrumb(category: 'http.client', message: 'private-url'),
@@ -59,7 +59,7 @@ void main() {
         Breadcrumb(category: 'console', message: 'private-value'),
         Hint(),
       ),
-      isNull,
+      isNotNull,
     );
     expect(
       SentryBootstrap.scrubBreadcrumb(

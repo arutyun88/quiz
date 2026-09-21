@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:quiz/app/core/client/api_client.dart';
 import 'package:quiz/app/core/client/api_client_config.dart';
+import 'package:quiz/app/core/client/api_log_interceptor.dart';
 import 'package:quiz/app/core/client/auth_interceptor.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/json.dart';
@@ -57,16 +57,7 @@ class DioApiClient implements ApiClient {
     );
 
     if (config.enableLogging) {
-      dio.interceptors.add(
-        PrettyDioLogger(
-          // Headers and payloads can contain tokens, credentials,
-          // and private age state.
-          requestHeader: false,
-          requestBody: false,
-          responseBody: false,
-          responseHeader: false,
-        ),
-      );
+      dio.interceptors.add(ApiLogInterceptor());
     }
 
     return dio;

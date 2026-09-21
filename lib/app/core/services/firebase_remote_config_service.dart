@@ -100,6 +100,18 @@ class FirebaseRemoteConfigService {
     return DateTime.utc(parsed.year, parsed.month, parsed.day);
   }
 
+  LogLevels get logLevels {
+    final remote = parseLogLevels(
+      _remoteConfig.getString(logLevelsKey),
+    );
+    final bundled = parseLogLevels(_bundledDefaults[logLevelsKey]);
+    return remote ?? bundled ?? defaultLogLevels;
+  }
+
+  int get productionLoggingLevel => logLevels.production;
+
+  int get debugLoggingLevel => logLevels.debug;
+
   void _listenForUpdates() {
     try {
       _updatesSubscription ??= _remoteConfig.onConfigUpdated.listen(
