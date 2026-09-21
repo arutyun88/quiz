@@ -52,6 +52,7 @@ void main() {
       error: error,
       stackTrace: trace,
       data: {'retry': 2},
+      fingerprint: const ['api', 'POST', '/attempts'],
     );
 
     final record = records.single;
@@ -60,6 +61,11 @@ void main() {
     expect(record.stackTrace, trace);
     expect(record.message, 'Failed to submit attempt');
     expect((record.object as StringRecord).toJson(), {'retry': 2});
+    expect(LoggingSetup.eventFingerprint(record), [
+      'api',
+      'POST',
+      '/attempts',
+    ]);
   });
 
   test('error helper keeps the Quiz shorthand', () {

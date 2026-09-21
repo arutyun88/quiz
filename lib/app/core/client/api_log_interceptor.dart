@@ -12,6 +12,7 @@ class ApiLogInterceptor extends Interceptor {
 
   final ExtendedLogger _logger;
   final DateTime Function() _now;
+  final Set<ApiTransportFailureKind> _activeTransportIncidents = {};
 
   @override
   void onRequest(
@@ -38,6 +39,18 @@ class ApiLogInterceptor extends Interceptor {
       '${options.method} ${_requestTarget(options)} '
       '${_elapsedMilliseconds(options, completedAt)} ms',
     );
+    if (_activeTransportIncidents.isNotEmpty) {
+      final resolvedIncidents = _activeTransportIncidents
+          .map((incident) => incident.key)
+          .toList(growable: false);
+      _activeTransportIncidents.clear();
+      _logger.info(
+        StringRecord(
+          'API CONNECTION RESTORED',
+          {'resolved_transport_failures': resolvedIncidents},
+        ),
+      );
+    }
     handler.next(response);
   }
 
@@ -51,20 +64,75 @@ class ApiLogInterceptor extends Interceptor {
     final logError = err.error ??
         (err.message?.trim().isNotEmpty ?? false ? err.message! : 'no details');
     final duration = _elapsedMilliseconds(options, completedAt);
+    final normalizedPath = normalizeApiPathForGrouping(options.uri.path);
+    final message = '${err.type.name} '
+        '${options.method} ${_requestTarget(options)} '
+        '$duration ms';
+    final data = <String, Object?>{
+      'method': options.method,
+      'path': options.uri.path,
+      'normalized_path': normalizedPath,
+      'duration_ms': duration,
+      'dio_type': err.type.name,
+      'cause_type': logError.runtimeType.toString(),
+      'cause': logError.toString(),
+      if (err.response?.statusCode case final statusCode?)
+        'status_code': statusCode,
+    };
+
+    if (err.type == DioExceptionType.cancel) {
+      _logger.fine(StringRecord(message, data));
+      handler.next(err);
+      return;
+    }
+
+    final transportFailure = classifyApiTransportFailure(err, logError);
+    if (transportFailure != null) {
+      data['transport_failure'] = transportFailure.key;
+      if (_activeTransportIncidents.add(transportFailure)) {
+        _logger.error(
+          ApiTransportException(
+            kind: transportFailure,
+            cause: logError,
+          ),
+          trace: err.stackTrace,
+          message: message,
+          data: data,
+          fingerprint: ['api', 'transport', transportFailure.key],
+        );
+      } else {
+        _logger.warning(
+          StringRecord(
+            message,
+            {...data, 'sentry_event_suppressed': true},
+          ),
+        );
+      }
+      handler.next(err);
+      return;
+    }
+
+    final apiError = ApiRequestException(
+      method: options.method,
+      path: normalizedPath,
+      type: err.type,
+      cause: logError,
+    );
     _logger.error(
-      logError,
+      apiError,
       trace: err.stackTrace,
-      message: '${err.type.name} '
-          '${options.method} ${_requestTarget(options)} '
-          '$duration ms',
-      data: {
-        'method': options.method,
-        'path': options.uri.path,
-        'duration_ms': duration,
-        'dio_type': err.type.name,
+      message: message,
+      data: data,
+      fingerprint: [
+        'api',
+        options.method.toUpperCase(),
+        normalizedPath,
+        err.type.name,
         if (err.response?.statusCode case final statusCode?)
-          'status_code': statusCode,
-      },
+          'status:$statusCode'
+        else
+          'error:${logError.runtimeType}',
+      ],
     );
     handler.next(err);
   }
@@ -79,6 +147,85 @@ class ApiLogInterceptor extends Interceptor {
     return options.uri.path;
   }
 }
+
+enum ApiTransportFailureKind {
+  connectionRefused('connection_refused', 'connection refused'),
+  connectionInterrupted('connection_interrupted', 'connection interrupted'),
+  networkUnavailable('network_unavailable', 'network unavailable'),
+  connectionFailed('connection_failed', 'connection failed');
+
+  const ApiTransportFailureKind(this.key, this.description);
+
+  final String key;
+  final String description;
+}
+
+final class ApiTransportException implements Exception {
+  const ApiTransportException({
+    required this.kind,
+    required this.cause,
+  });
+
+  final ApiTransportFailureKind kind;
+  final Object cause;
+
+  @override
+  String toString() => kind.description;
+}
+
+final class ApiRequestException implements Exception {
+  const ApiRequestException({
+    required this.method,
+    required this.path,
+    required this.type,
+    required this.cause,
+  });
+
+  final String method;
+  final String path;
+  final DioExceptionType type;
+  final Object cause;
+
+  @override
+  String toString() => '${type.name} ${method.toUpperCase()} $path';
+}
+
+ApiTransportFailureKind? classifyApiTransportFailure(
+  DioException exception,
+  Object cause,
+) {
+  final description = cause.toString().toLowerCase();
+
+  if (description.contains('failed host lookup') ||
+      description.contains('network is unreachable') ||
+      description.contains('network unreachable') ||
+      description.contains('no route to host') ||
+      description.contains('network is down') ||
+      description.contains('not connected to the internet') ||
+      description.contains('internet connection appears to be offline')) {
+    return ApiTransportFailureKind.networkUnavailable;
+  }
+  if (description.contains('connection refused')) {
+    return ApiTransportFailureKind.connectionRefused;
+  }
+  if (description.contains('connection reset') ||
+      description.contains('connection closed before full header') ||
+      description.contains('broken pipe')) {
+    return ApiTransportFailureKind.connectionInterrupted;
+  }
+  if (exception.type == DioExceptionType.connectionError) {
+    return ApiTransportFailureKind.connectionFailed;
+  }
+  return null;
+}
+
+String normalizeApiPathForGrouping(String path) => path.replaceAll(
+      RegExp(
+        r'(?<=/)[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}(?=/|$)',
+        caseSensitive: false,
+      ),
+      '{id}',
+    );
 
 class _RequestLogEntry {
   const _RequestLogEntry(this.startedAt);

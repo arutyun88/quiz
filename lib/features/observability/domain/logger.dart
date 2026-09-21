@@ -35,6 +35,7 @@ extension type ExtendedLogger(Logger _logger) implements Logger {
     StackTrace? trace,
     String? message,
     Object? data,
+    List<String>? fingerprint,
   }) {
     assert(stackTrace == null || trace == null);
     final resolvedError = error ?? value;
@@ -42,7 +43,13 @@ extension type ExtendedLogger(Logger _logger) implements Logger {
         (error == null ? resolvedError.toString() : value.toString());
     log(
       errorLogLevel,
-      data == null ? resolvedMessage : StringRecord(resolvedMessage, data),
+      data == null && fingerprint == null
+          ? resolvedMessage
+          : StringRecord(
+              resolvedMessage,
+              data ?? const <String, Object?>{},
+              fingerprint: fingerprint,
+            ),
       resolvedError,
       stackTrace ?? trace ?? StackTrace.current,
     );
@@ -69,10 +76,15 @@ extension type ExtendedLogger(Logger _logger) implements Logger {
 }
 
 class StringRecord {
-  const StringRecord(this.message, this.data);
+  const StringRecord(
+    this.message,
+    this.data, {
+    this.fingerprint,
+  });
 
   final String message;
   final Object data;
+  final List<String>? fingerprint;
 
   @override
   String toString() => message;

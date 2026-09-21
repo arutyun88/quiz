@@ -141,6 +141,7 @@ abstract final class LoggingSetup {
         message: SentryMessage(
           failureRecord?.message ?? record.message,
         ),
+        fingerprint: eventFingerprint(record),
         level: sentryLevel(record.level),
         logger: record.loggerName,
         timestamp: record.time.toUtc(),
@@ -159,6 +160,13 @@ abstract final class LoggingSetup {
       },
     );
   }
+
+  @visibleForTesting
+  static List<String>? eventFingerprint(LogRecord record) =>
+      switch (record.object) {
+        StringRecord(:final fingerprint) => fingerprint,
+        _ => null,
+      };
 
   static Future<void> _addBreadcrumb(
     LogRecord record,
