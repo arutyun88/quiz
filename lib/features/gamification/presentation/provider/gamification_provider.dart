@@ -17,9 +17,7 @@ class GamificationNotifier extends StateNotifier<BaseState<UserLevelEntity>> {
   GamificationNotifier({
     required GamificationRepository gamificationRepository,
   })  : _gamificationRepository = gamificationRepository,
-        super(BaseState.loading()) {
-    fetch();
-  }
+        super(BaseState.loading());
 
   Future<void> fetch() async {
     final previousState = state;
