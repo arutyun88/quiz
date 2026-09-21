@@ -81,9 +81,15 @@ user-interaction breadcrumbs, and network/console breadcrumbs are disabled.
 Never attach auth tokens, email, name, age-access state, question or answer
 text, request payloads, or free-form user input to Sentry tags and contexts.
 
-Configure release symbol upload in CI before distributing obfuscated or
-release builds; the DSN is a public client configuration value, while Sentry
-auth tokens used for symbol upload must remain CI secrets.
+Before publishing a release build:
+
+- pass `SENTRY_DSN` to the production build;
+- explicitly set `SENTRY_ENVIRONMENT=production` and do not reuse the local
+  `.dart_tool/vscode/common_defines.json` configuration;
+- configure release symbol upload in CI before distributing obfuscated builds.
+
+The DSN is a public client configuration value, while Sentry auth tokens used
+for symbol upload must remain CI secrets.
 
 ## Firebase Remote Config
 

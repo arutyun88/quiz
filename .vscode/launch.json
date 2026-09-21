@@ -4,7 +4,11 @@
         {
             "name": "app",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "preLaunchTask": "prepare common defines",
+            "toolArgs": [
+                "--dart-define-from-file=.dart_tool/vscode/common_defines.json"
+            ]
         },
         {
             "name": "Quiz: local server",
@@ -13,7 +17,8 @@
             "flutterMode": "debug",
             "preLaunchTask": "prepare local API",
             "toolArgs": [
-                "--dart-define-from-file=.dart_tool/vscode_ios_api/debug_defines.json"
+                "--dart-define-from-file=.dart_tool/vscode/common_defines.json",
+                "--dart-define-from-file=.dart_tool/vscode/local_api_defines.json"
             ]
         }
     ]

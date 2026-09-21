@@ -2,6 +2,20 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "prepare common defines",
+            "type": "shell",
+            "command": "scripts/dev/vscode_common_defines.sh",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "dedicated",
+                "close": true
+            }
+        },
+        {
             "label": "prepare local API",
             "type": "shell",
             "command": "scripts/dev/ios_local_api.sh",

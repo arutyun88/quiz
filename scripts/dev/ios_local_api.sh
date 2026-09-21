@@ -2,8 +2,18 @@
 
 set -euo pipefail
 
-readonly runtime_dir=".dart_tool/vscode_ios_api"
-readonly defines_file="$runtime_dir/debug_defines.json"
+readonly runtime_dir=".dart_tool/vscode"
+readonly defines_file="$runtime_dir/local_api_defines.json"
+readonly local_env_file="$runtime_dir/local.env"
+
+mkdir -p "$runtime_dir"
+if [[ -f "$local_env_file" ]]; then
+  set -a
+  # shellcheck disable=SC1090
+  source "$local_env_file"
+  set +a
+fi
+
 readonly dev_time="${QUIZ_DEV_TIME:-}"
 readonly dev_time_key="${QUIZ_DEV_TIME_KEY:-}"
 
@@ -36,11 +46,14 @@ curl --silent --show-error --max-time 5 --output /dev/null \
     exit 1
   }
 
-mkdir -p "$runtime_dir"
-if [[ -n "$dev_time" ]]; then
-  printf '{\n  "API_BASE_URL": "%s",\n  "QUIZ_DEV_TIME": "%s",\n  "QUIZ_DEV_TIME_KEY": "%s"\n}\n' \
-    "$api_base_url" "$dev_time" "$dev_time_key" >"$defines_file"
-else
-  printf '{\n  "API_BASE_URL": "%s"\n}\n' "$api_base_url" >"$defines_file"
-fi
+scripts/dev/vscode_common_defines.sh
+
+{
+  printf '{\n  "API_BASE_URL": "%s"' "$api_base_url"
+  if [[ -n "$dev_time" ]]; then
+    printf ',\n  "QUIZ_DEV_TIME": "%s",\n  "QUIZ_DEV_TIME_KEY": "%s"' \
+      "$dev_time" "$dev_time_key"
+  fi
+  printf '\n}\n'
+} >"$defines_file"
 echo "Local quiz-server is ready at $api_base_url"
