@@ -32,6 +32,11 @@ class MainLayout extends ConsumerWidget {
     WidgetRef ref,
     int index,
   ) async {
+    if (index == navigationShell.currentIndex && context.canPop()) {
+      context.pop();
+      return;
+    }
+
     if (index != 0) {
       navigationShell.goBranch(index);
       return;
