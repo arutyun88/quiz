@@ -483,7 +483,15 @@ class _Translations$mastery$ru implements Translations$mastery$en {
 	@override String weakest_accuracy({required Object percent}) => '${percent}% точности';
 	@override String get weakest_tail => ' за 30 дней. Алгоритм чаще будет давать эти вопросы в выпусках.';
 	@override String get weekly_delta_label => 'За неделю';
-	@override String get best_day_label => 'Лучший день';
+	@override String get rhythm_section => 'Ваш ритм';
+	@override String rhythm_best_summary({required Object answers}) => 'Лучший день за 30 дней · ${answers}';
+	@override String rhythm_answers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
+		one: '${n} ответ',
+		few: '${n} ответа',
+		many: '${n} ответов',
+		other: '${n} ответа',
+	);
+	@override String get rhythm_insufficient => 'Пока мало ответов, чтобы определить лучший день';
 	@override String get empty => 'Пока нет данных — сыграйте выпуск дня, и мастерство появится здесь';
 	@override String get error => 'Не удалось загрузить';
 	@override String get retry => 'Повторить';
@@ -1555,7 +1563,10 @@ extension on TranslationsRu {
 			'mastery.weakest_accuracy' => ({required Object percent}) => '${percent}% точности',
 			'mastery.weakest_tail' => ' за 30 дней. Алгоритм чаще будет давать эти вопросы в выпусках.',
 			'mastery.weekly_delta_label' => 'За неделю',
-			'mastery.best_day_label' => 'Лучший день',
+			'mastery.rhythm_section' => 'Ваш ритм',
+			'mastery.rhythm_best_summary' => ({required Object answers}) => 'Лучший день за 30 дней · ${answers}',
+			'mastery.rhythm_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} ответ', few: '${n} ответа', many: '${n} ответов', other: '${n} ответа', ),
+			'mastery.rhythm_insufficient' => 'Пока мало ответов, чтобы определить лучший день',
 			'mastery.empty' => 'Пока нет данных — сыграйте выпуск дня, и мастерство появится здесь',
 			'mastery.error' => 'Не удалось загрузить',
 			'mastery.retry' => 'Повторить',

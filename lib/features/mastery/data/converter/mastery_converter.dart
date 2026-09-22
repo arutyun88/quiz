@@ -12,9 +12,26 @@ final class MasteryConverterImpl extends MasteryConverter {
   MasteryEntity convert(DataDto<MasteryDto> dto) {
     return MasteryEntity(
       topics: dto.data.topics.map(_convertTopic).toList(),
-      weakest: dto.data.weakest == null ? null : _convertTopic(dto.data.weakest!),
+      weakest:
+          dto.data.weakest == null ? null : _convertTopic(dto.data.weakest!),
       weeklyAccuracyDelta: dto.data.weeklyAccuracyDelta,
       bestDayOfWeek: dto.data.bestDayOfWeek,
+      dailyAccuracy: dto.data.dailyAccuracy
+          .map(
+            (day) => MasteryDayEntity(
+              dayOfWeek: day.dayOfWeek,
+              accuracy: day.accuracy,
+              answers: day.answers,
+            ),
+          )
+          .toList(),
+      bestDay: dto.data.bestDay == null
+          ? null
+          : MasteryBestDayEntity(
+              date: dto.data.bestDay!.date,
+              accuracy: dto.data.bestDay!.accuracy,
+              answers: dto.data.bestDay!.answers,
+            ),
     );
   }
 

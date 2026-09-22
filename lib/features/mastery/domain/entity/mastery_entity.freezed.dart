@@ -22,8 +22,15 @@ mixin _$MasteryEntity {
   /// Accuracy of the last 7 days minus the 7 days before; null without data.
   double? get weeklyAccuracyDelta => throw _privateConstructorUsedError;
 
-  /// ISO day of week (1 = Monday); null without data.
+  /// ISO day of week (1 = Monday); null without a representative sample.
   int? get bestDayOfWeek => throw _privateConstructorUsedError;
+
+  /// Accuracy by ISO day of week over the last 30 days.
+  List<MasteryDayEntity> get dailyAccuracy =>
+      throw _privateConstructorUsedError;
+
+  /// Strongest local calendar day over the last 30 days.
+  MasteryBestDayEntity? get bestDay => throw _privateConstructorUsedError;
 
   /// Create a copy of MasteryEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -42,9 +49,12 @@ abstract class $MasteryEntityCopyWith<$Res> {
       {List<MasteryTopicEntity> topics,
       MasteryTopicEntity? weakest,
       double? weeklyAccuracyDelta,
-      int? bestDayOfWeek});
+      int? bestDayOfWeek,
+      List<MasteryDayEntity> dailyAccuracy,
+      MasteryBestDayEntity? bestDay});
 
   $MasteryTopicEntityCopyWith<$Res>? get weakest;
+  $MasteryBestDayEntityCopyWith<$Res>? get bestDay;
 }
 
 /// @nodoc
@@ -66,6 +76,8 @@ class _$MasteryEntityCopyWithImpl<$Res, $Val extends MasteryEntity>
     Object? weakest = freezed,
     Object? weeklyAccuracyDelta = freezed,
     Object? bestDayOfWeek = freezed,
+    Object? dailyAccuracy = null,
+    Object? bestDay = freezed,
   }) {
     return _then(_value.copyWith(
       topics: null == topics
@@ -84,6 +96,14 @@ class _$MasteryEntityCopyWithImpl<$Res, $Val extends MasteryEntity>
           ? _value.bestDayOfWeek
           : bestDayOfWeek // ignore: cast_nullable_to_non_nullable
               as int?,
+      dailyAccuracy: null == dailyAccuracy
+          ? _value.dailyAccuracy
+          : dailyAccuracy // ignore: cast_nullable_to_non_nullable
+              as List<MasteryDayEntity>,
+      bestDay: freezed == bestDay
+          ? _value.bestDay
+          : bestDay // ignore: cast_nullable_to_non_nullable
+              as MasteryBestDayEntity?,
     ) as $Val);
   }
 
@@ -100,6 +120,20 @@ class _$MasteryEntityCopyWithImpl<$Res, $Val extends MasteryEntity>
       return _then(_value.copyWith(weakest: value) as $Val);
     });
   }
+
+  /// Create a copy of MasteryEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $MasteryBestDayEntityCopyWith<$Res>? get bestDay {
+    if (_value.bestDay == null) {
+      return null;
+    }
+
+    return $MasteryBestDayEntityCopyWith<$Res>(_value.bestDay!, (value) {
+      return _then(_value.copyWith(bestDay: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -114,10 +148,14 @@ abstract class _$$MasteryEntityImplCopyWith<$Res>
       {List<MasteryTopicEntity> topics,
       MasteryTopicEntity? weakest,
       double? weeklyAccuracyDelta,
-      int? bestDayOfWeek});
+      int? bestDayOfWeek,
+      List<MasteryDayEntity> dailyAccuracy,
+      MasteryBestDayEntity? bestDay});
 
   @override
   $MasteryTopicEntityCopyWith<$Res>? get weakest;
+  @override
+  $MasteryBestDayEntityCopyWith<$Res>? get bestDay;
 }
 
 /// @nodoc
@@ -137,6 +175,8 @@ class __$$MasteryEntityImplCopyWithImpl<$Res>
     Object? weakest = freezed,
     Object? weeklyAccuracyDelta = freezed,
     Object? bestDayOfWeek = freezed,
+    Object? dailyAccuracy = null,
+    Object? bestDay = freezed,
   }) {
     return _then(_$MasteryEntityImpl(
       topics: null == topics
@@ -155,6 +195,14 @@ class __$$MasteryEntityImplCopyWithImpl<$Res>
           ? _value.bestDayOfWeek
           : bestDayOfWeek // ignore: cast_nullable_to_non_nullable
               as int?,
+      dailyAccuracy: null == dailyAccuracy
+          ? _value._dailyAccuracy
+          : dailyAccuracy // ignore: cast_nullable_to_non_nullable
+              as List<MasteryDayEntity>,
+      bestDay: freezed == bestDay
+          ? _value.bestDay
+          : bestDay // ignore: cast_nullable_to_non_nullable
+              as MasteryBestDayEntity?,
     ));
   }
 }
@@ -166,8 +214,11 @@ class _$MasteryEntityImpl implements _MasteryEntity {
       {required final List<MasteryTopicEntity> topics,
       this.weakest,
       this.weeklyAccuracyDelta,
-      this.bestDayOfWeek})
-      : _topics = topics;
+      this.bestDayOfWeek,
+      final List<MasteryDayEntity> dailyAccuracy = const [],
+      this.bestDay})
+      : _topics = topics,
+        _dailyAccuracy = dailyAccuracy;
 
   final List<MasteryTopicEntity> _topics;
   @override
@@ -184,13 +235,29 @@ class _$MasteryEntityImpl implements _MasteryEntity {
   @override
   final double? weeklyAccuracyDelta;
 
-  /// ISO day of week (1 = Monday); null without data.
+  /// ISO day of week (1 = Monday); null without a representative sample.
   @override
   final int? bestDayOfWeek;
 
+  /// Accuracy by ISO day of week over the last 30 days.
+  final List<MasteryDayEntity> _dailyAccuracy;
+
+  /// Accuracy by ISO day of week over the last 30 days.
+  @override
+  @JsonKey()
+  List<MasteryDayEntity> get dailyAccuracy {
+    if (_dailyAccuracy is EqualUnmodifiableListView) return _dailyAccuracy;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_dailyAccuracy);
+  }
+
+  /// Strongest local calendar day over the last 30 days.
+  @override
+  final MasteryBestDayEntity? bestDay;
+
   @override
   String toString() {
-    return 'MasteryEntity(topics: $topics, weakest: $weakest, weeklyAccuracyDelta: $weeklyAccuracyDelta, bestDayOfWeek: $bestDayOfWeek)';
+    return 'MasteryEntity(topics: $topics, weakest: $weakest, weeklyAccuracyDelta: $weeklyAccuracyDelta, bestDayOfWeek: $bestDayOfWeek, dailyAccuracy: $dailyAccuracy, bestDay: $bestDay)';
   }
 
   @override
@@ -203,7 +270,10 @@ class _$MasteryEntityImpl implements _MasteryEntity {
             (identical(other.weeklyAccuracyDelta, weeklyAccuracyDelta) ||
                 other.weeklyAccuracyDelta == weeklyAccuracyDelta) &&
             (identical(other.bestDayOfWeek, bestDayOfWeek) ||
-                other.bestDayOfWeek == bestDayOfWeek));
+                other.bestDayOfWeek == bestDayOfWeek) &&
+            const DeepCollectionEquality()
+                .equals(other._dailyAccuracy, _dailyAccuracy) &&
+            (identical(other.bestDay, bestDay) || other.bestDay == bestDay));
   }
 
   @override
@@ -212,7 +282,9 @@ class _$MasteryEntityImpl implements _MasteryEntity {
       const DeepCollectionEquality().hash(_topics),
       weakest,
       weeklyAccuracyDelta,
-      bestDayOfWeek);
+      bestDayOfWeek,
+      const DeepCollectionEquality().hash(_dailyAccuracy),
+      bestDay);
 
   /// Create a copy of MasteryEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -228,7 +300,9 @@ abstract class _MasteryEntity implements MasteryEntity {
       {required final List<MasteryTopicEntity> topics,
       final MasteryTopicEntity? weakest,
       final double? weeklyAccuracyDelta,
-      final int? bestDayOfWeek}) = _$MasteryEntityImpl;
+      final int? bestDayOfWeek,
+      final List<MasteryDayEntity> dailyAccuracy,
+      final MasteryBestDayEntity? bestDay}) = _$MasteryEntityImpl;
 
   @override
   List<MasteryTopicEntity> get topics;
@@ -239,9 +313,17 @@ abstract class _MasteryEntity implements MasteryEntity {
   @override
   double? get weeklyAccuracyDelta;
 
-  /// ISO day of week (1 = Monday); null without data.
+  /// ISO day of week (1 = Monday); null without a representative sample.
   @override
   int? get bestDayOfWeek;
+
+  /// Accuracy by ISO day of week over the last 30 days.
+  @override
+  List<MasteryDayEntity> get dailyAccuracy;
+
+  /// Strongest local calendar day over the last 30 days.
+  @override
+  MasteryBestDayEntity? get bestDay;
 
   /// Create a copy of MasteryEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -249,6 +331,341 @@ abstract class _MasteryEntity implements MasteryEntity {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MasteryEntityImplCopyWith<_$MasteryEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$MasteryDayEntity {
+  int get dayOfWeek => throw _privateConstructorUsedError;
+  double get accuracy => throw _privateConstructorUsedError;
+  int get answers => throw _privateConstructorUsedError;
+
+  /// Create a copy of MasteryDayEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $MasteryDayEntityCopyWith<MasteryDayEntity> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MasteryDayEntityCopyWith<$Res> {
+  factory $MasteryDayEntityCopyWith(
+          MasteryDayEntity value, $Res Function(MasteryDayEntity) then) =
+      _$MasteryDayEntityCopyWithImpl<$Res, MasteryDayEntity>;
+  @useResult
+  $Res call({int dayOfWeek, double accuracy, int answers});
+}
+
+/// @nodoc
+class _$MasteryDayEntityCopyWithImpl<$Res, $Val extends MasteryDayEntity>
+    implements $MasteryDayEntityCopyWith<$Res> {
+  _$MasteryDayEntityCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of MasteryDayEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? dayOfWeek = null,
+    Object? accuracy = null,
+    Object? answers = null,
+  }) {
+    return _then(_value.copyWith(
+      dayOfWeek: null == dayOfWeek
+          ? _value.dayOfWeek
+          : dayOfWeek // ignore: cast_nullable_to_non_nullable
+              as int,
+      accuracy: null == accuracy
+          ? _value.accuracy
+          : accuracy // ignore: cast_nullable_to_non_nullable
+              as double,
+      answers: null == answers
+          ? _value.answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$MasteryDayEntityImplCopyWith<$Res>
+    implements $MasteryDayEntityCopyWith<$Res> {
+  factory _$$MasteryDayEntityImplCopyWith(_$MasteryDayEntityImpl value,
+          $Res Function(_$MasteryDayEntityImpl) then) =
+      __$$MasteryDayEntityImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int dayOfWeek, double accuracy, int answers});
+}
+
+/// @nodoc
+class __$$MasteryDayEntityImplCopyWithImpl<$Res>
+    extends _$MasteryDayEntityCopyWithImpl<$Res, _$MasteryDayEntityImpl>
+    implements _$$MasteryDayEntityImplCopyWith<$Res> {
+  __$$MasteryDayEntityImplCopyWithImpl(_$MasteryDayEntityImpl _value,
+      $Res Function(_$MasteryDayEntityImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MasteryDayEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? dayOfWeek = null,
+    Object? accuracy = null,
+    Object? answers = null,
+  }) {
+    return _then(_$MasteryDayEntityImpl(
+      dayOfWeek: null == dayOfWeek
+          ? _value.dayOfWeek
+          : dayOfWeek // ignore: cast_nullable_to_non_nullable
+              as int,
+      accuracy: null == accuracy
+          ? _value.accuracy
+          : accuracy // ignore: cast_nullable_to_non_nullable
+              as double,
+      answers: null == answers
+          ? _value.answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$MasteryDayEntityImpl implements _MasteryDayEntity {
+  const _$MasteryDayEntityImpl(
+      {required this.dayOfWeek, required this.accuracy, required this.answers});
+
+  @override
+  final int dayOfWeek;
+  @override
+  final double accuracy;
+  @override
+  final int answers;
+
+  @override
+  String toString() {
+    return 'MasteryDayEntity(dayOfWeek: $dayOfWeek, accuracy: $accuracy, answers: $answers)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MasteryDayEntityImpl &&
+            (identical(other.dayOfWeek, dayOfWeek) ||
+                other.dayOfWeek == dayOfWeek) &&
+            (identical(other.accuracy, accuracy) ||
+                other.accuracy == accuracy) &&
+            (identical(other.answers, answers) || other.answers == answers));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, dayOfWeek, accuracy, answers);
+
+  /// Create a copy of MasteryDayEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MasteryDayEntityImplCopyWith<_$MasteryDayEntityImpl> get copyWith =>
+      __$$MasteryDayEntityImplCopyWithImpl<_$MasteryDayEntityImpl>(
+          this, _$identity);
+}
+
+abstract class _MasteryDayEntity implements MasteryDayEntity {
+  const factory _MasteryDayEntity(
+      {required final int dayOfWeek,
+      required final double accuracy,
+      required final int answers}) = _$MasteryDayEntityImpl;
+
+  @override
+  int get dayOfWeek;
+  @override
+  double get accuracy;
+  @override
+  int get answers;
+
+  /// Create a copy of MasteryDayEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MasteryDayEntityImplCopyWith<_$MasteryDayEntityImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$MasteryBestDayEntity {
+  DateTime get date => throw _privateConstructorUsedError;
+  double get accuracy => throw _privateConstructorUsedError;
+  int get answers => throw _privateConstructorUsedError;
+
+  /// Create a copy of MasteryBestDayEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $MasteryBestDayEntityCopyWith<MasteryBestDayEntity> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MasteryBestDayEntityCopyWith<$Res> {
+  factory $MasteryBestDayEntityCopyWith(MasteryBestDayEntity value,
+          $Res Function(MasteryBestDayEntity) then) =
+      _$MasteryBestDayEntityCopyWithImpl<$Res, MasteryBestDayEntity>;
+  @useResult
+  $Res call({DateTime date, double accuracy, int answers});
+}
+
+/// @nodoc
+class _$MasteryBestDayEntityCopyWithImpl<$Res,
+        $Val extends MasteryBestDayEntity>
+    implements $MasteryBestDayEntityCopyWith<$Res> {
+  _$MasteryBestDayEntityCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of MasteryBestDayEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? date = null,
+    Object? accuracy = null,
+    Object? answers = null,
+  }) {
+    return _then(_value.copyWith(
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      accuracy: null == accuracy
+          ? _value.accuracy
+          : accuracy // ignore: cast_nullable_to_non_nullable
+              as double,
+      answers: null == answers
+          ? _value.answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$MasteryBestDayEntityImplCopyWith<$Res>
+    implements $MasteryBestDayEntityCopyWith<$Res> {
+  factory _$$MasteryBestDayEntityImplCopyWith(_$MasteryBestDayEntityImpl value,
+          $Res Function(_$MasteryBestDayEntityImpl) then) =
+      __$$MasteryBestDayEntityImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({DateTime date, double accuracy, int answers});
+}
+
+/// @nodoc
+class __$$MasteryBestDayEntityImplCopyWithImpl<$Res>
+    extends _$MasteryBestDayEntityCopyWithImpl<$Res, _$MasteryBestDayEntityImpl>
+    implements _$$MasteryBestDayEntityImplCopyWith<$Res> {
+  __$$MasteryBestDayEntityImplCopyWithImpl(_$MasteryBestDayEntityImpl _value,
+      $Res Function(_$MasteryBestDayEntityImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MasteryBestDayEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? date = null,
+    Object? accuracy = null,
+    Object? answers = null,
+  }) {
+    return _then(_$MasteryBestDayEntityImpl(
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      accuracy: null == accuracy
+          ? _value.accuracy
+          : accuracy // ignore: cast_nullable_to_non_nullable
+              as double,
+      answers: null == answers
+          ? _value.answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$MasteryBestDayEntityImpl implements _MasteryBestDayEntity {
+  const _$MasteryBestDayEntityImpl(
+      {required this.date, required this.accuracy, required this.answers});
+
+  @override
+  final DateTime date;
+  @override
+  final double accuracy;
+  @override
+  final int answers;
+
+  @override
+  String toString() {
+    return 'MasteryBestDayEntity(date: $date, accuracy: $accuracy, answers: $answers)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MasteryBestDayEntityImpl &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.accuracy, accuracy) ||
+                other.accuracy == accuracy) &&
+            (identical(other.answers, answers) || other.answers == answers));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, date, accuracy, answers);
+
+  /// Create a copy of MasteryBestDayEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MasteryBestDayEntityImplCopyWith<_$MasteryBestDayEntityImpl>
+      get copyWith =>
+          __$$MasteryBestDayEntityImplCopyWithImpl<_$MasteryBestDayEntityImpl>(
+              this, _$identity);
+}
+
+abstract class _MasteryBestDayEntity implements MasteryBestDayEntity {
+  const factory _MasteryBestDayEntity(
+      {required final DateTime date,
+      required final double accuracy,
+      required final int answers}) = _$MasteryBestDayEntityImpl;
+
+  @override
+  DateTime get date;
+  @override
+  double get accuracy;
+  @override
+  int get answers;
+
+  /// Create a copy of MasteryBestDayEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MasteryBestDayEntityImplCopyWith<_$MasteryBestDayEntityImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc

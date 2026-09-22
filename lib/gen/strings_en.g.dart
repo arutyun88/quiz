@@ -765,8 +765,20 @@ class Translations$mastery$en {
 	/// ru: 'За неделю'
 	String get weekly_delta_label => 'This week';
 
-	/// ru: 'Лучший день'
-	String get best_day_label => 'Best day';
+	/// ru: 'Ваш ритм'
+	String get rhythm_section => 'Your rhythm';
+
+	/// ru: 'Лучший день за 30 дней · $answers'
+	String rhythm_best_summary({required Object answers}) => 'Best day in 30 days · ${answers}';
+
+	/// ru: '(one) {$n ответ} (few) {$n ответа} (many) {$n ответов} (other) {$n ответа}'
+	String rhythm_answers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: '${n} answer',
+		other: '${n} answers',
+	);
+
+	/// ru: 'Пока мало ответов, чтобы определить лучший день'
+	String get rhythm_insufficient => 'Not enough answers yet to identify your best day';
 
 	/// ru: 'Пока нет данных — сыграйте выпуск дня, и мастерство появится здесь'
 	String get empty => 'No data yet — play a daily issue and your mastery will show up here';
@@ -2303,7 +2315,10 @@ extension on Translations {
 			'mastery.weakest_accuracy' => ({required Object percent}) => '${percent}% accuracy',
 			'mastery.weakest_tail' => ' over the last 30 days. The algorithm will serve these questions more often.',
 			'mastery.weekly_delta_label' => 'This week',
-			'mastery.best_day_label' => 'Best day',
+			'mastery.rhythm_section' => 'Your rhythm',
+			'mastery.rhythm_best_summary' => ({required Object answers}) => 'Best day in 30 days · ${answers}',
+			'mastery.rhythm_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} answer', other: '${n} answers', ),
+			'mastery.rhythm_insufficient' => 'Not enough answers yet to identify your best day',
 			'mastery.empty' => 'No data yet — play a daily issue and your mastery will show up here',
 			'mastery.error' => 'Failed to load',
 			'mastery.retry' => 'Retry',

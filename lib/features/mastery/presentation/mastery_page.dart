@@ -95,12 +95,12 @@ class _MasteryView extends StatelessWidget {
           ),
         if (mastery.weakest case final MasteryTopicEntity weakest)
           _WeakestBlock(weakest: weakest),
-        if (mastery.weeklyAccuracyDelta != null ||
-            mastery.bestDayOfWeek != null)
-          _StatsRow(
-            weeklyAccuracyDelta: mastery.weeklyAccuracyDelta,
-            bestDayOfWeek: mastery.bestDayOfWeek,
-          ),
+        _RhythmBlock(
+          weeklyAccuracyDelta: mastery.weeklyAccuracyDelta,
+          bestDayOfWeek: mastery.bestDayOfWeek,
+          dailyAccuracy: mastery.dailyAccuracy,
+          bestDay: mastery.bestDay,
+        ),
       ],
     );
 
@@ -231,55 +231,140 @@ class _WeakestBlock extends StatelessWidget {
   }
 }
 
-class _StatsRow extends StatelessWidget {
-  const _StatsRow({
+class _RhythmBlock extends StatelessWidget {
+  const _RhythmBlock({
     required this.weeklyAccuracyDelta,
     required this.bestDayOfWeek,
+    required this.dailyAccuracy,
+    required this.bestDay,
   });
 
   final double? weeklyAccuracyDelta;
   final int? bestDayOfWeek;
+  final List<MasteryDayEntity> dailyAccuracy;
+  final MasteryBestDayEntity? bestDay;
 
   String get _deltaText {
     final percent = (weeklyAccuracyDelta! * 100).round();
     return percent > 0 ? '+$percent%' : '$percent%';
   }
 
-  String _bestDayText(String locale) {
-    // 2024-01-01 is a Monday; shift to the ISO day of week we got
-    final date = DateTime(2024, 1, bestDayOfWeek!);
-    final name = DateFormat.E(locale).format(date);
+  String _dayName(int dayOfWeek, String locale, {required bool full}) {
+    final date = DateTime(2024, 1, dayOfWeek);
+    final name =
+        (full ? DateFormat.EEEE(locale) : DateFormat.E(locale)).format(date);
     return name.isEmpty ? name : name[0].toUpperCase() + name.substring(1);
+  }
+
+  String _bestDateText(String locale) {
+    final value = DateFormat('EEEE, d MMMM', locale).format(bestDay!.date);
+    return value.isEmpty ? value : value[0].toUpperCase() + value.substring(1);
   }
 
   @override
   Widget build(BuildContext context) {
     final locale = LocaleSettings.instance.currentLocale.languageCode;
     final t = context.t.mastery;
+    final colors = context.palette;
+    final daysByNumber = {
+      for (final day in dailyAccuracy) day.dayOfWeek: day,
+    };
+    final calendarBestDay = bestDay;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 18),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.only(top: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (weeklyAccuracyDelta != null)
-            Expanded(
-              child: _Stat(value: _deltaText, label: t.weekly_delta_label),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  '// ${t.rhythm_section.toUpperCase()}',
+                  style: GoogleFonts.jetBrainsMono(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 2,
+                    color: colors.text.accent,
+                  ),
+                ),
+              ),
+              if (weeklyAccuracyDelta != null)
+                Text(
+                  '$_deltaText ${t.weekly_delta_label.toUpperCase()}',
+                  style: GoogleFonts.jetBrainsMono(
+                    fontSize: 9,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1,
+                    color: weeklyAccuracyDelta! >= 0
+                        ? colors.answer.success
+                        : colors.text.danger,
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 18),
+          SizedBox(
+            height: 84,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                for (var dayOfWeek = 1; dayOfWeek <= 7; dayOfWeek++) ...[
+                  if (dayOfWeek > 1) const SizedBox(width: 7),
+                  Expanded(
+                    child: _RhythmDay(
+                      label: _dayName(dayOfWeek, locale, full: false),
+                      day: daysByNumber[dayOfWeek],
+                      isBest: dayOfWeek == bestDayOfWeek,
+                    ),
+                  ),
+                ],
+              ],
             ),
-          if (bestDayOfWeek != null)
-            Expanded(
-              child: Container(
-                decoration: weeklyAccuracyDelta != null
-                    ? BoxDecoration(
-                        border: BorderDirectional(
-                            start: BorderSide(color: context.palette.divider)),
-                      )
-                    : null,
-                padding: weeklyAccuracyDelta != null
-                    ? const EdgeInsetsDirectional.only(start: 14)
-                    : null,
-                child:
-                    _Stat(value: _bestDayText(locale), label: t.best_day_label),
+          ),
+          const SizedBox(height: 16),
+          if (calendarBestDay != null) ...[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              textBaseline: TextBaseline.alphabetic,
+              children: [
+                Expanded(
+                  child: Text(
+                    _bestDateText(locale),
+                    style: GoogleFonts.spectral(
+                      fontSize: 20,
+                      color: colors.text.primary,
+                    ),
+                  ),
+                ),
+                Text(
+                  '${(calendarBestDay.accuracy * 100).round()}%',
+                  style: GoogleFonts.unbounded(
+                    fontSize: 19,
+                    fontWeight: FontWeight.w700,
+                    color: colors.answer.success,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 2),
+            Text(
+              t.rhythm_best_summary(
+                answers: t.rhythm_answers(n: calendarBestDay.answers),
+              ),
+              style: GoogleFonts.jetBrainsMono(
+                fontSize: 9,
+                height: 1.4,
+                color: colors.text.secondary,
+              ),
+            ),
+          ] else
+            Text(
+              t.rhythm_insufficient,
+              style: GoogleFonts.spectral(
+                fontSize: 15,
+                height: 1.35,
+                color: colors.text.secondary,
               ),
             ),
         ],
@@ -288,32 +373,43 @@ class _StatsRow extends StatelessWidget {
   }
 }
 
-class _Stat extends StatelessWidget {
-  const _Stat({required this.value, required this.label});
+class _RhythmDay extends StatelessWidget {
+  const _RhythmDay({
+    required this.label,
+    required this.day,
+    required this.isBest,
+  });
 
-  final String value;
   final String label;
+  final MasteryDayEntity? day;
+  final bool isBest;
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.palette;
+    final value = day?.accuracy.clamp(0.0, 1.0) ?? 0.0;
+    final barColor = isBest ? colors.answer.success : colors.text.primary;
+
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          value,
-          style: GoogleFonts.unbounded(
-            fontSize: 24,
-            fontWeight: FontWeight.w800,
-            color: context.palette.text.primary,
+        Expanded(
+          child: Container(
+            color: colors.background.dynamic,
+            alignment: Alignment.bottomCenter,
+            child: FractionallySizedBox(
+              heightFactor: value,
+              widthFactor: 1,
+              child: ColoredBox(color: barColor),
+            ),
           ),
         ),
-        const SizedBox(height: 2),
+        const SizedBox(height: 6),
         Text(
           label.toUpperCase(),
           style: GoogleFonts.jetBrainsMono(
             fontSize: 9,
-            fontWeight: FontWeight.w500,
-            color: context.palette.text.secondary,
+            fontWeight: isBest ? FontWeight.w700 : FontWeight.w500,
+            color: isBest ? colors.answer.success : colors.text.secondary,
           ),
         ),
       ],

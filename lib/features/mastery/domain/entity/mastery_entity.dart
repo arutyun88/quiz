@@ -12,9 +12,33 @@ class MasteryEntity with _$MasteryEntity {
     /// Accuracy of the last 7 days minus the 7 days before; null without data.
     double? weeklyAccuracyDelta,
 
-    /// ISO day of week (1 = Monday); null without data.
+    /// ISO day of week (1 = Monday); null without a representative sample.
     int? bestDayOfWeek,
+
+    /// Accuracy by ISO day of week over the last 30 days.
+    @Default([]) List<MasteryDayEntity> dailyAccuracy,
+
+    /// Strongest local calendar day over the last 30 days.
+    MasteryBestDayEntity? bestDay,
   }) = _MasteryEntity;
+}
+
+@freezed
+class MasteryDayEntity with _$MasteryDayEntity {
+  const factory MasteryDayEntity({
+    required int dayOfWeek,
+    required double accuracy,
+    required int answers,
+  }) = _MasteryDayEntity;
+}
+
+@freezed
+class MasteryBestDayEntity with _$MasteryBestDayEntity {
+  const factory MasteryBestDayEntity({
+    required DateTime date,
+    required double accuracy,
+    required int answers,
+  }) = _MasteryBestDayEntity;
 }
 
 @freezed
