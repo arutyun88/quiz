@@ -49,9 +49,30 @@ class ReviewNotifier extends StateNotifier<ReviewState> {
 
   static const _pageSize = 20;
   final ReviewRepository _reviewRepository;
+  Future<void>? _pendingFetch;
 
-  Future<void> fetch() async {
+  Future<void> fetch() {
+    final pendingFetch = _pendingFetch;
+    if (pendingFetch != null) return pendingFetch;
     state = const ReviewLoadingState();
+    return _startFetch();
+  }
+
+  Future<void> refresh() {
+    if (state case ReviewDataState(isLoadingMore: true)) {
+      return Future.value();
+    }
+    return _pendingFetch ??= _fetch().whenComplete(
+      () => _pendingFetch = null,
+    );
+  }
+
+  Future<void> _startFetch() => _pendingFetch = _fetch().whenComplete(
+        () => _pendingFetch = null,
+      );
+
+  Future<void> _fetch() async {
+    final previousState = state;
     final result = await _reviewRepository.fetch(limit: _pageSize, offset: 0);
     switch (result) {
       case ResultOk(data: final history):
@@ -60,13 +81,16 @@ class ReviewNotifier extends StateNotifier<ReviewState> {
           total: history.total,
         );
       case ResultFailed(error: final failure):
-        state = ReviewFailedState(failure);
+        if (previousState is! ReviewDataState) {
+          state = ReviewFailedState(failure);
+        }
     }
   }
 
   Future<void> loadMore() async {
     final current = state;
-    if (current is! ReviewDataState ||
+    if (_pendingFetch != null ||
+        current is! ReviewDataState ||
         current.isLoadingMore ||
         !current.hasMore) {
       return;

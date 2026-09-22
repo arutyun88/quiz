@@ -28,6 +28,7 @@ class ProfileView extends StatelessWidget {
     final t = context.t.profile.view;
 
     return ListView(
+      physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(22, 18, 22, 24),
       children: [
         ProfileUserBlock(profile: profile, isPublic: isPublic),

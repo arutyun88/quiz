@@ -4,6 +4,7 @@ import 'package:quiz/app/core/utils/open_daily_limit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/app_shimmer.dart';
+import 'package:quiz/app/core/widgets/app_refresh_indicator.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
 import 'package:quiz/features/review/domain/entity/review_history_entity.dart';
 import 'package:quiz/features/review/presentation/provider/review_provider.dart';
@@ -17,16 +18,19 @@ class ReviewPage extends ConsumerWidget {
     final state = ref.watch(reviewProvider);
     return AppScaffold(
       title: context.t.review.title,
-      body: switch (state) {
-        ReviewLoadingState() => const _ReviewLoading(),
-        ReviewDataState() => _ReviewHistory(
-            state: state,
-            onLoadMore: ref.read(reviewProvider.notifier).loadMore,
-          ),
-        ReviewFailedState() => _ReviewError(
-            onRetry: ref.read(reviewProvider.notifier).fetch,
-          ),
-      },
+      body: AppRefreshIndicator(
+        onRefresh: ref.read(reviewProvider.notifier).refresh,
+        child: switch (state) {
+          ReviewLoadingState() => const _ReviewLoading(),
+          ReviewDataState() => _ReviewHistory(
+              state: state,
+              onLoadMore: ref.read(reviewProvider.notifier).loadMore,
+            ),
+          ReviewFailedState() => _ReviewError(
+              onRetry: ref.read(reviewProvider.notifier).fetch,
+            ),
+        },
+      ),
     );
   }
 }
@@ -41,6 +45,7 @@ class _ReviewHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = context.t.review;
     return ListView(
+      physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(22, 16, 22, 32),
       children: [
         const _InfoBanner(),
@@ -367,6 +372,7 @@ class _ReviewError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(22, 28, 22, 24),
         children: [
           Text(

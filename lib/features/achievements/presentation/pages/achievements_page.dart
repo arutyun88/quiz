@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/model/base_state.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
+import 'package:quiz/app/core/widgets/app_refresh_indicator.dart';
 import 'package:quiz/app/core/widgets/app_shimmer.dart';
 import 'package:quiz/features/achievements/domain/entity/user_achievement_entity.dart';
 import 'package:quiz/features/achievements/presentation/provider/achievements_provider.dart';
@@ -41,7 +42,9 @@ class _AchievementsPageState extends ConsumerState<AchievementsPage> {
   @override
   Widget build(BuildContext context) {
     final colors = context.palette;
-    final state = userId == null ? ref.watch(achievementsProvider) : ref.watch(publicAchievementsProvider(userId!));
+    final state = userId == null
+        ? ref.watch(achievementsProvider)
+        : ref.watch(publicAchievementsProvider(userId!));
 
     final items = switch (state) {
       BaseDataState(:final data) => data.items,
@@ -59,15 +62,25 @@ class _AchievementsPageState extends ConsumerState<AchievementsPage> {
             _UnlockedBar(items: items),
             const AppDivider(indent: 22, endIndent: 22),
             Expanded(
-              child: switch (state) {
-                BaseLoadingState() => const _AchievementsLoading(),
-                BaseDataState() => _AchievementsList(items: items!),
-                _ => _AchievementsError(
-                    onRetry: () => userId == null
-                        ? ref.read(achievementsProvider.notifier).fetch()
-                        : ref.read(publicAchievementsProvider(userId!).notifier).fetch(),
-                  ),
-              },
+              child: AppRefreshIndicator(
+                onRefresh: () => userId == null
+                    ? ref.read(achievementsProvider.notifier).refresh()
+                    : ref
+                        .read(publicAchievementsProvider(userId!).notifier)
+                        .refresh(),
+                child: switch (state) {
+                  BaseLoadingState() => const _AchievementsLoading(),
+                  BaseDataState() => _AchievementsList(items: items!),
+                  _ => _AchievementsError(
+                      onRetry: () => userId == null
+                          ? ref.read(achievementsProvider.notifier).fetch()
+                          : ref
+                              .read(
+                                  publicAchievementsProvider(userId!).notifier)
+                              .fetch(),
+                    ),
+                },
+              ),
             ),
           ],
         ),
@@ -189,6 +202,7 @@ class _AchievementsList extends StatelessWidget {
         .toList();
 
     return ListView.builder(
+      physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(22, 18, 22, 32),
       itemCount: orderedCategories.length,
       itemBuilder: (context, index) {
@@ -245,8 +259,12 @@ class _CategorySection extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               border: Border(
-                top: i == 0 ? BorderSide(color: colors.text.primary, width: 1.5) : BorderSide(color: colors.divider),
-                bottom: i == items.length - 1 ? BorderSide(color: colors.divider) : BorderSide.none,
+                top: i == 0
+                    ? BorderSide(color: colors.text.primary, width: 1.5)
+                    : BorderSide(color: colors.divider),
+                bottom: i == items.length - 1
+                    ? BorderSide(color: colors.divider)
+                    : BorderSide.none,
               ),
             ),
             child: _AchievementRow(achievement: items[i]),
@@ -265,23 +283,29 @@ class _AchievementRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.palette;
     final unlocked = achievement.unlocked;
-    final hasProgress = !unlocked && achievement.progressCurrent != null && achievement.progressTarget != null;
+    final hasProgress = !unlocked &&
+        achievement.progressCurrent != null &&
+        achievement.progressTarget != null;
 
     final row = Padding(
       padding: const EdgeInsets.symmetric(vertical: 14),
       child: Row(
-        crossAxisAlignment: hasProgress ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+        crossAxisAlignment:
+            hasProgress ? CrossAxisAlignment.start : CrossAxisAlignment.center,
         children: [
           Container(
             width: 36,
             height: 36,
             decoration: unlocked
                 ? BoxDecoration(color: colors.text.accent)
-                : BoxDecoration(border: Border.all(color: colors.text.secondary, width: 1.5)),
+                : BoxDecoration(
+                    border:
+                        Border.all(color: colors.text.secondary, width: 1.5)),
             child: Icon(
               unlocked ? Icons.check : Icons.lock_outline,
               size: unlocked ? 20 : 18,
-              color: unlocked ? colors.background.static : colors.text.secondary,
+              color:
+                  unlocked ? colors.background.static : colors.text.secondary,
             ),
           ),
           const SizedBox(width: 14),
@@ -293,7 +317,8 @@ class _AchievementRow extends StatelessWidget {
                   achievement.name,
                   style: GoogleFonts.spectral(
                     fontSize: 18,
-                    color: unlocked ? colors.text.primary : colors.text.secondary,
+                    color:
+                        unlocked ? colors.text.primary : colors.text.secondary,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -309,7 +334,8 @@ class _AchievementRow extends StatelessWidget {
                   const SizedBox(height: 8),
                   _ProgressBar(
                     height: 3,
-                    fraction: achievement.progressCurrent! / achievement.progressTarget!,
+                    fraction: achievement.progressCurrent! /
+                        achievement.progressTarget!,
                     fillColor: colors.text.secondary,
                   ),
                 ],
@@ -328,7 +354,9 @@ class _AchievementRow extends StatelessWidget {
             )
           else if (achievement.points case final int points)
             Text(
-              unlocked ? context.t.achievements.xp_reward(points: points) : '+$points',
+              unlocked
+                  ? context.t.achievements.xp_reward(points: points)
+                  : '+$points',
               style: GoogleFonts.jetBrainsMono(
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
@@ -360,20 +388,25 @@ class _AchievementsLoading extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(width: 90, height: 10, color: colors.background.dynamic),
+              Container(
+                  width: 90, height: 10, color: colors.background.dynamic),
               const SizedBox(height: 10),
               for (var i = 0; i < 3; i++)
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   child: Row(
                     children: [
-                      Container(width: 36, height: 36, color: colors.background.dynamic),
+                      Container(
+                          width: 36,
+                          height: 36,
+                          color: colors.background.dynamic),
                       const SizedBox(width: 14),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(height: 16, color: colors.background.dynamic),
+                            Container(
+                                height: 16, color: colors.background.dynamic),
                             const SizedBox(height: 6),
                             Container(
                               width: 140,
@@ -404,6 +437,7 @@ class _AchievementsError extends StatelessWidget {
     final colors = context.palette;
 
     return ListView(
+      physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(22, 28, 22, 24),
       children: [
         Container(
@@ -432,7 +466,8 @@ class _AchievementsError extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border.all(color: colors.text.primary, width: 1.5),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -469,7 +504,8 @@ class _AnimatedEntry extends StatefulWidget {
   State<_AnimatedEntry> createState() => _AnimatedEntryState();
 }
 
-class _AnimatedEntryState extends State<_AnimatedEntry> with SingleTickerProviderStateMixin {
+class _AnimatedEntryState extends State<_AnimatedEntry>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
   late final Animation<double> _opacity;
   late final Animation<Offset> _slide;

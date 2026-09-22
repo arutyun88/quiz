@@ -67,6 +67,7 @@ class ProfileError extends StatelessWidget {
     final colors = context.palette;
 
     return ListView(
+      physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(22, 28, 22, 24),
       children: [
         Container(
@@ -95,7 +96,8 @@ class ProfileError extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border.all(color: colors.text.primary, width: 1.5),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

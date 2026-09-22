@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/model/base_state.dart';
+import 'package:quiz/app/core/widgets/app_refresh_indicator.dart';
 import 'package:quiz/app/core/widgets/app_shimmer.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
 import 'package:quiz/features/mastery/domain/entity/mastery_entity.dart';
@@ -24,13 +25,16 @@ class MasteryPage extends ConsumerWidget {
 
     return AppScaffold(
       title: context.t.mastery.title,
-      body: switch (state) {
-        BaseLoadingState() => const _MasteryLoading(),
-        BaseDataState(:final data) =>
-          _MasteryView(mastery: data, locked: !hasQuizPlus),
-        _ => _MasteryError(
-            onRetry: () => ref.read(masteryProvider.notifier).fetch()),
-      },
+      body: AppRefreshIndicator(
+        onRefresh: ref.read(masteryProvider.notifier).refresh,
+        child: switch (state) {
+          BaseLoadingState() => const _MasteryLoading(),
+          BaseDataState(:final data) =>
+            _MasteryView(mastery: data, locked: !hasQuizPlus),
+          _ => _MasteryError(
+              onRetry: () => ref.read(masteryProvider.notifier).fetch()),
+        },
+      ),
     );
   }
 }
@@ -46,20 +50,31 @@ class _MasteryView extends StatelessWidget {
     final t = context.t.mastery;
 
     if (mastery.topics.isEmpty) {
-      return Center(
-        child: Padding(
-          padding: const EdgeInsets.all(22),
-          child: Text(
-            t.empty,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.spectral(
-                fontSize: 17, color: context.palette.text.primary),
+      return CustomScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(22),
+                child: Text(
+                  t.empty,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.spectral(
+                    fontSize: 17,
+                    color: context.palette.text.primary,
+                  ),
+                ),
+              ),
+            ),
           ),
-        ),
+        ],
       );
     }
 
     final content = ListView(
+      physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(22, 18, 22, 32),
       children: [
         Text(
@@ -503,6 +518,7 @@ class _MasteryError extends StatelessWidget {
     final colors = context.palette;
 
     return ListView(
+      physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(22, 28, 22, 24),
       children: [
         Container(

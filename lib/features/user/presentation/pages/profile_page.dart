@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/model/base_state.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
+import 'package:quiz/app/core/widgets/app_refresh_indicator.dart';
+import 'package:quiz/features/gamification/presentation/provider/gamification_provider.dart';
 import 'package:quiz/features/user/presentation/provider/profile_provider.dart';
 import 'package:quiz/features/user/presentation/widgets/profile_header.dart';
 import 'package:quiz/features/user/presentation/widgets/profile_placeholders.dart';
@@ -57,23 +59,34 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             ),
             const AppDivider(indent: 22, endIndent: 22),
             Expanded(
-              child: switch (profileState) {
-                BaseLoadingState() => const ProfileLoading(),
-                BaseDataState(:final data) => ProfileView(
-                    profile: data,
-                    isPublic: false,
-                    onAchievementsTap: () => context.push('/profile/achievements'),
-                    onMasteryTap: () => context.push('/profile/mastery'),
-                    onReviewTap: () => context.push('/profile/review'),
-                  ),
-                _ => ProfileError(
-                    onRetry: () => ref.read(profileProvider.notifier).fetch(),
-                  ),
-              },
+              child: AppRefreshIndicator(
+                onRefresh: () => _refresh(ref),
+                child: switch (profileState) {
+                  BaseLoadingState() => const ProfileLoading(),
+                  BaseDataState(:final data) => ProfileView(
+                      profile: data,
+                      isPublic: false,
+                      onAchievementsTap: () =>
+                          context.push('/profile/achievements'),
+                      onMasteryTap: () => context.push('/profile/mastery'),
+                      onReviewTap: () => context.push('/profile/review'),
+                    ),
+                  _ => ProfileError(
+                      onRetry: () => ref.read(profileProvider.notifier).fetch(),
+                    ),
+                },
+              ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _refresh(WidgetRef ref) async {
+    await Future.wait([
+      ref.read(profileProvider.notifier).refresh(),
+      ref.read(gamificationProvider.notifier).fetch(),
+    ]);
   }
 }

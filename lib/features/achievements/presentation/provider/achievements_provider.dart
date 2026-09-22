@@ -6,14 +6,17 @@ import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/achievements/domain/entity/user_achievement_entity.dart';
 import 'package:quiz/features/achievements/domain/repository/user_achievement_repository.dart';
 
-final achievementsProvider = StateNotifierProvider<AchievementsNotifier, BaseState<PageEntity<UserAchievementEntity>>>(
+final achievementsProvider = StateNotifierProvider<AchievementsNotifier,
+    BaseState<PageEntity<UserAchievementEntity>>>(
   (ref) => AchievementsNotifier(
     userAchievementRepository: getIt<UserAchievementRepository>(),
   ),
 );
 
-class AchievementsNotifier extends StateNotifier<BaseState<PageEntity<UserAchievementEntity>>> {
+class AchievementsNotifier
+    extends StateNotifier<BaseState<PageEntity<UserAchievementEntity>>> {
   final UserAchievementRepository _userAchievementRepository;
+  Future<void>? _pendingFetch;
 
   AchievementsNotifier({
     required UserAchievementRepository userAchievementRepository,
@@ -22,7 +25,13 @@ class AchievementsNotifier extends StateNotifier<BaseState<PageEntity<UserAchiev
     fetch();
   }
 
-  Future<void> fetch() async {
+  Future<void> fetch() => _pendingFetch ??= _fetch().whenComplete(
+        () => _pendingFetch = null,
+      );
+
+  Future<void> refresh() => fetch();
+
+  Future<void> _fetch() async {
     final previousState = state;
 
     final result = await _userAchievementRepository.fetch();
@@ -32,26 +41,28 @@ class AchievementsNotifier extends StateNotifier<BaseState<PageEntity<UserAchiev
         state = BaseState.data(achievements);
 
       case ResultFailed(error: final failure):
-        state = BaseState.failed(failure);
-
-        if (previousState is BaseDataState) {
-          state = previousState;
+        if (previousState is! BaseDataState) {
+          state = BaseState.failed(failure);
         }
     }
   }
 }
 
-final publicAchievementsProvider = StateNotifierProvider.autoDispose
-    .family<PublicAchievementsNotifier, BaseState<PageEntity<UserAchievementEntity>>, String>(
+final publicAchievementsProvider = StateNotifierProvider.autoDispose.family<
+    PublicAchievementsNotifier,
+    BaseState<PageEntity<UserAchievementEntity>>,
+    String>(
   (ref, userId) => PublicAchievementsNotifier(
     userAchievementRepository: getIt<UserAchievementRepository>(),
     userId: userId,
   ),
 );
 
-class PublicAchievementsNotifier extends StateNotifier<BaseState<PageEntity<UserAchievementEntity>>> {
+class PublicAchievementsNotifier
+    extends StateNotifier<BaseState<PageEntity<UserAchievementEntity>>> {
   final UserAchievementRepository _userAchievementRepository;
   final String _userId;
+  Future<void>? _pendingFetch;
 
   PublicAchievementsNotifier({
     required UserAchievementRepository userAchievementRepository,
@@ -62,8 +73,23 @@ class PublicAchievementsNotifier extends StateNotifier<BaseState<PageEntity<User
     fetch();
   }
 
-  Future<void> fetch() async {
+  Future<void> fetch() {
+    final pendingFetch = _pendingFetch;
+    if (pendingFetch != null) return pendingFetch;
     state = BaseState.loading();
+    return _startFetch();
+  }
+
+  Future<void> refresh() => _pendingFetch ??= _fetch().whenComplete(
+        () => _pendingFetch = null,
+      );
+
+  Future<void> _startFetch() => _pendingFetch = _fetch().whenComplete(
+        () => _pendingFetch = null,
+      );
+
+  Future<void> _fetch() async {
+    final previousState = state;
 
     final result = await _userAchievementRepository.fetchByUserId(_userId);
 
@@ -71,7 +97,9 @@ class PublicAchievementsNotifier extends StateNotifier<BaseState<PageEntity<User
       case ResultOk(data: final achievements):
         state = BaseState.data(achievements);
       case ResultFailed(error: final failure):
-        state = BaseState.failed(failure);
+        if (previousState is! BaseDataState) {
+          state = BaseState.failed(failure);
+        }
     }
   }
 }
