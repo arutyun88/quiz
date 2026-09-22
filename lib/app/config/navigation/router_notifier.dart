@@ -8,7 +8,7 @@ import 'package:quiz/app/main_layout.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/analytics/domain/product_analytics.dart';
 import 'package:quiz/features/analytics/presentation/product_analytics_navigator_observer.dart';
-import 'package:quiz/features/observability/presentation/error_reporting_navigator_observer.dart';
+import 'package:quiz/features/observability/presentation/go_router_navigation_logger.dart';
 import 'package:quiz/features/achievements/presentation/achievements_flow.dart';
 import 'package:quiz/features/authentication/presentation/forgot_password/forgot_password_flow.dart';
 import 'package:quiz/features/authentication/presentation/sign_in/sign_in_flow.dart';
@@ -40,11 +40,10 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
   @override
   FutureOr<GoRouter> build() {
     final analytics = getIt<ProductAnalytics>();
-    return GoRouter(
+    final router = GoRouter(
       initialLocation: '/splash',
       observers: [
         ProductAnalyticsNavigatorObserver(analytics),
-        ErrorReportingNavigatorObserver(),
       ],
       routes: [
         GoRoute(
@@ -96,7 +95,6 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
             StatefulShellBranch(
               observers: [
                 ProductAnalyticsNavigatorObserver(analytics),
-                ErrorReportingNavigatorObserver(),
               ],
               routes: [
                 GoRoute(
@@ -129,7 +127,6 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
             StatefulShellBranch(
               observers: [
                 ProductAnalyticsNavigatorObserver(analytics),
-                ErrorReportingNavigatorObserver(),
               ],
               routes: [
                 GoRoute(
@@ -160,7 +157,6 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
             StatefulShellBranch(
               observers: [
                 ProductAnalyticsNavigatorObserver(analytics),
-                ErrorReportingNavigatorObserver(),
               ],
               routes: [
                 GoRoute(
@@ -257,6 +253,9 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
         ),
       ],
     );
+    final navigationLogger = GoRouterNavigationLogger(router);
+    ref.onDispose(navigationLogger.dispose);
+    return router;
   }
 }
 
