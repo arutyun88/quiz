@@ -794,6 +794,34 @@ void main() {
     expect(state.attempt, isNull);
   });
 
+  test('failed advance keeps the reveal state and can be retried', () async {
+    notifier.state = DailyEditionActiveState(
+      run: activeRun,
+      assignment: assignment,
+      attempt: attempt,
+    );
+    when(() => repository.fetchCurrent('run-1')).thenAnswer(
+      (_) async => const Result.failed(Failure.noConnection()),
+    );
+
+    expect(await notifier.advance(), isFalse);
+
+    final failedState = notifier.state as DailyEditionActiveState;
+    expect(failedState.assignment, assignment);
+    expect(failedState.attempt, attempt);
+    expect(failedState.failure, isA<NoConnectionFailure>());
+    expect(failedState.isBusy, isFalse);
+
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(nextAssignment));
+
+    expect(await notifier.advance(), isTrue);
+    expect(
+      (notifier.state as DailyEditionActiveState).assignment,
+      nextAssignment,
+    );
+  });
+
   test('completed attempt advances to the authoritative summary', () async {
     final completedAttempt = attempt.copyWith(runCompleted: true);
     when(() => repository.open(timezoneId: null))
@@ -823,6 +851,33 @@ void main() {
     expect(state.summary.totalXp, 115);
     expect(state.latestAttempt?.ratingDelta, 12);
     verify(() => repository.fetchCurrent('run-1')).called(1);
+  });
+
+  test('failed summary load keeps the final reveal and can be retried',
+      () async {
+    final completedAttempt = attempt.copyWith(runCompleted: true);
+    notifier.state = DailyEditionActiveState(
+      run: activeRun,
+      assignment: assignment,
+      attempt: completedAttempt,
+    );
+    when(() => repository.fetchSummary('run-1')).thenAnswer(
+      (_) async => const Result.failed(Failure.serverUnavailable()),
+    );
+
+    expect(await notifier.advance(), isFalse);
+
+    final failedState = notifier.state as DailyEditionActiveState;
+    expect(failedState.assignment, assignment);
+    expect(failedState.attempt, completedAttempt);
+    expect(failedState.failure, isA<ServerUnavailableFailure>());
+    expect(failedState.isBusy, isFalse);
+
+    when(() => repository.fetchSummary('run-1'))
+        .thenAnswer((_) async => Result.ok(summary));
+
+    expect(await notifier.advance(), isTrue);
+    expect(notifier.state, isA<DailyEditionSummaryState>());
   });
 
   test('DAILY_RUN_COMPLETE falls back to the server summary', () async {

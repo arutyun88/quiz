@@ -309,7 +309,11 @@
                 "one": "+$n STREAK",
                 "other": "+$n STREAK"
             },
-            "next_question": "NEXT QUESTION"
+            "next_question": "NEXT QUESTION",
+            "finish_issue": "FINISH ISSUE",
+            "retry": "RETRY",
+            "continue_error_title": "COULD NOT CONTINUE",
+            "continue_error": "Could not continue. Please try again"
         },
         "hint": {
             "action": "HINT",

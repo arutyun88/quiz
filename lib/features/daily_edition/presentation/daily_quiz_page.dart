@@ -96,17 +96,7 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
           }
         });
       } else if (next case DailyEditionSummaryState(:final summary)) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (context.mounted &&
-              ModalRoute.of(context)?.isCurrent == true &&
-              !Navigator.of(context, rootNavigator: true).canPop()) {
-            if (summary.summaryAcknowledged) {
-              openDailyLimit(context);
-            } else {
-              context.goNamed('daily-result');
-            }
-          }
-        });
+        _scheduleSummaryNavigation(summary.summaryAcknowledged);
       }
     });
     _listenForReveal(ref, answerState);
@@ -324,8 +314,14 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
         sentState: sentState,
         ratingDelta: latestState.attempt?.ratingDelta,
         partnerBlock: _partnerBlock(ref, latestState),
-        onNext: ref.read(dailyEditionProvider.notifier).advance,
+        isFinalAction: latestState.attempt?.runCompleted == true &&
+            !ref.read(dailyEditionProvider.notifier).hasPendingReview,
+        onNext: () => _advanceFromReveal(ref),
       );
+      if (ref.read(dailyEditionProvider)
+          case DailyEditionSummaryState(:final summary)) {
+        _scheduleSummaryNavigation(summary.summaryAcknowledged);
+      }
       return;
     }
     _scheduledAttemptId = null;
@@ -337,7 +333,8 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
     required QuestionAnswerSentState sentState,
     required int? ratingDelta,
     required Widget? partnerBlock,
-    required Future<void> Function() onNext,
+    required bool isFinalAction,
+    required Future<AnswerRevealFailure?> Function() onNext,
   }) async {
     final palette = context.palette;
     await showModalBottomSheet<void>(
@@ -360,13 +357,61 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
           sentState: sentState,
           ratingDelta: ratingDelta,
           partnerBlock: partnerBlock,
-          onNext: () {
-            Navigator.of(sheetContext).pop();
-            onNext();
+          isFinalAction: isFinalAction,
+          onNext: () async {
+            final errorMessage = await onNext();
+            if (errorMessage == null && sheetContext.mounted) {
+              Navigator.of(sheetContext).pop();
+            }
+            return errorMessage;
           },
         ),
       ),
     );
+  }
+
+  Future<AnswerRevealFailure?> _advanceFromReveal(WidgetRef ref) async {
+    final advanced = await ref.read(dailyEditionProvider.notifier).advance();
+    if (advanced || !mounted) return null;
+
+    final failure = switch (ref.read(dailyEditionProvider)) {
+      DailyEditionActiveState(:final failure) => failure,
+      DailyEditionFailedState(:final failure) => failure,
+      DailyEditionSummaryState(:final failure) => failure,
+      _ => null,
+    };
+    return switch (failure == null ? null : quizConnectionErrorKind(failure)) {
+      QuizConnectionErrorKind.noInternet => AnswerRevealFailure(
+          title: context.t.question.state.no_internet.title,
+          message: context.t.question.state.no_internet.message,
+          kind: AnswerRevealFailureKind.offline,
+        ),
+      QuizConnectionErrorKind.serverUnavailable => AnswerRevealFailure(
+          title: context.t.question.state.server_unavailable.title,
+          message: context.t.question.state.server_unavailable.message,
+          kind: AnswerRevealFailureKind.error,
+        ),
+      null => AnswerRevealFailure(
+          title: context.t.question.answer_reveal.continue_error_title,
+          message: context.t.question.answer_reveal.continue_error,
+          kind: AnswerRevealFailureKind.error,
+        ),
+    };
+  }
+
+  void _scheduleSummaryNavigation(bool summaryAcknowledged) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted ||
+          ModalRoute.of(context)?.isCurrent != true ||
+          Navigator.of(context, rootNavigator: true).canPop()) {
+        return;
+      }
+      if (summaryAcknowledged) {
+        openDailyLimit(context);
+      } else {
+        context.goNamed('daily-result');
+      }
+    });
   }
 
   Widget? _partnerBlock(WidgetRef ref, DailyEditionActiveState state) {

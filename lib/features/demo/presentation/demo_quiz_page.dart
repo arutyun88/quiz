@@ -175,6 +175,7 @@ class DemoQuizPage extends ConsumerWidget {
               onNext: () {
                 Navigator.of(sheetContext).pop();
                 ref.read(demoProvider.notifier).advance();
+                return null;
               },
             ),
           ),

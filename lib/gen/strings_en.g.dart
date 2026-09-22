@@ -1186,6 +1186,18 @@ class Translations$question$answer_reveal$en {
 
 	/// ru: 'СЛЕДУЮЩИЙ ВОПРОС'
 	String get next_question => 'NEXT QUESTION';
+
+	/// ru: 'ЗАВЕРШИТЬ ВЫПУСК'
+	String get finish_issue => 'FINISH ISSUE';
+
+	/// ru: 'ПОВТОРИТЬ'
+	String get retry => 'RETRY';
+
+	/// ru: 'НЕ УДАЛОСЬ ПРОДОЛЖИТЬ'
+	String get continue_error_title => 'COULD NOT CONTINUE';
+
+	/// ru: 'Не удалось продолжить. Попробуйте ещё раз'
+	String get continue_error => 'Could not continue. Please try again';
 }
 
 // Path: question.hint
@@ -2134,6 +2146,10 @@ extension on Translations {
 			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',
 			'question.answer_reveal.streak_bonus' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '+${n} STREAK', other: '+${n} STREAK', ), 
 			'question.answer_reveal.next_question' => 'NEXT QUESTION',
+			'question.answer_reveal.finish_issue' => 'FINISH ISSUE',
+			'question.answer_reveal.retry' => 'RETRY',
+			'question.answer_reveal.continue_error_title' => 'COULD NOT CONTINUE',
+			'question.answer_reveal.continue_error' => 'Could not continue. Please try again',
 			'question.hint.action' => 'HINT',
 			'question.hint.confirm_title' => 'Use a hint?',
 			'question.hint.confirm_message' => 'A hint halves the rating gain for a correct answer. The penalty for a wrong answer, XP, and streak remain unchanged.',
@@ -2199,9 +2215,9 @@ extension on Translations {
 			'start_day.accuracy_label' => 'ACCURACY',
 			'start_day.question_count_label' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'question', other: 'questions', ), 
 			'start_day.estimated_time' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '~ ${n} MINUTE', other: '~ ${n} MINUTES', ), 
-			'start_day.streak_warning' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today to '), accent('save a freeze and keep your streak'), ]),
+			'start_day.streak_warning' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today to '), accent('save a freeze and keep your streak'), ]), 
 			'start_day.no_previous_summary_notice' => 'No results for yesterday',
-			'start_day.no_previous_summary_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Complete today\'s edition — '), accent('your results will appear here tomorrow'), ]),
+			'start_day.no_previous_summary_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Complete today\'s edition — '), accent('your results will appear here tomorrow'), ]), 
 			'start_day.freeze_applied_notice' => ({required InlineSpanBuilder accent, required InlineSpan left, required InlineSpan total}) => TextSpan(children: [ const TextSpan(text: 'You missed yesterday — '), accent('a streak freeze was applied automatically.'), const TextSpan(text: ' '), left, const TextSpan(text: ' / '), total, const TextSpan(text: ' left'), ]), 
 			'start_day.freeze_applied_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today to '), accent('avoid spending freezes when you don\'t need to'), ]), 
 			'start_day.freeze_applied_last_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Play today — '), accent('with no freezes left, your streak could end tomorrow'), ]), 

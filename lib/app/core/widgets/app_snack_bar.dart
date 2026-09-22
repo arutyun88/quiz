@@ -9,12 +9,14 @@ abstract final class AppSnackBar {
     BuildContext context, {
     required String title,
     required String message,
+    bool aboveRoutes = false,
   }) {
     _show(
       context,
       title: title,
       message: message,
       kind: _AppSnackBarKind.error,
+      aboveRoutes: aboveRoutes,
     );
   }
 
@@ -22,13 +24,22 @@ abstract final class AppSnackBar {
     BuildContext context, {
     required String title,
     required String message,
+    bool aboveRoutes = false,
   }) {
     _show(
       context,
       title: title,
       message: message,
       kind: _AppSnackBarKind.offline,
+      aboveRoutes: aboveRoutes,
     );
+  }
+
+  static OverlayEntry? _overlayEntry;
+
+  static void dismissAboveRoutes() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
   }
 
   static void _show(
@@ -36,7 +47,18 @@ abstract final class AppSnackBar {
     required String title,
     required String message,
     required _AppSnackBarKind kind,
+    required bool aboveRoutes,
   }) {
+    if (aboveRoutes) {
+      _showAboveRoutes(
+        context,
+        title: title,
+        message: message,
+        kind: kind,
+      );
+      return;
+    }
+
     final messenger = ScaffoldMessenger.of(context);
 
     messenger.hideCurrentSnackBar();
@@ -59,6 +81,39 @@ abstract final class AppSnackBar {
       ),
       snackBarAnimationStyle: AnimationStyle.noAnimation,
     );
+  }
+
+  static void _showAboveRoutes(
+    BuildContext context, {
+    required String title,
+    required String message,
+    required _AppSnackBarKind kind,
+  }) {
+    dismissAboveRoutes();
+
+    final overlay = Overlay.of(context, rootOverlay: true);
+    late final OverlayEntry entry;
+    entry = OverlayEntry(
+      builder: (overlayContext) => Positioned(
+        left: 22,
+        right: 22,
+        bottom: MediaQuery.viewPaddingOf(overlayContext).bottom + 22,
+        child: Material(
+          type: MaterialType.transparency,
+          child: _AnimatedSnackBarContent(
+            title: title,
+            message: message,
+            kind: kind,
+            onDismiss: () {
+              if (entry.mounted) entry.remove();
+              if (identical(_overlayEntry, entry)) _overlayEntry = null;
+            },
+          ),
+        ),
+      ),
+    );
+    _overlayEntry = entry;
+    overlay.insert(entry);
   }
 }
 
@@ -131,59 +186,66 @@ class _AnimatedSnackBarContentState extends State<_AnimatedSnackBarContent>
       _AppSnackBarKind.error => (Icons.bolt, colors.text.danger),
       _AppSnackBarKind.offline => (Icons.wifi_off, colors.text.accent),
     };
-    final content = SizedBox(
-      height: 56,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: colors.card.background,
-          border: Border.all(color: colors.text.primary, width: 1.5),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 42,
-              color: colors.bottomSheet.headerBackground,
-              alignment: Alignment.center,
-              child: Icon(
-                icon,
-                size: 20,
-                color: iconColor,
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.unbounded(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: colors.text.primary,
-                      ),
-                    ),
-                    const SizedBox(height: 3),
-                    Text(
-                      widget.message,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.jetBrainsMono(
-                        fontSize: 8.5,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 0.8,
-                        color: colors.text.secondary,
-                      ),
-                    ),
-                  ],
+    final content = ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: 68),
+      child: IntrinsicHeight(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: colors.card.background,
+            border: Border.all(color: colors.text.primary, width: 1.5),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                width: 42,
+                color: colors.bottomSheet.headerBackground,
+                alignment: Alignment.center,
+                child: Icon(
+                  icon,
+                  size: 20,
+                  color: iconColor,
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.unbounded(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: colors.text.primary,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        widget.message,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.jetBrainsMono(
+                          fontSize: 9.5,
+                          height: 1.25,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.6,
+                          color: colors.text.secondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

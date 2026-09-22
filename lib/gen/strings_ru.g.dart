@@ -720,6 +720,10 @@ class _Translations$question$answer_reveal$ru implements Translations$question$a
 		other: '+${n} СЕРИИ',
 	);
 	@override String get next_question => 'СЛЕДУЮЩИЙ ВОПРОС';
+	@override String get finish_issue => 'ЗАВЕРШИТЬ ВЫПУСК';
+	@override String get retry => 'ПОВТОРИТЬ';
+	@override String get continue_error_title => 'НЕ УДАЛОСЬ ПРОДОЛЖИТЬ';
+	@override String get continue_error => 'Не удалось продолжить. Попробуйте ещё раз';
 }
 
 // Path: question.hint
@@ -1398,6 +1402,10 @@ extension on TranslationsRu {
 			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',
 			'question.answer_reveal.streak_bonus' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '+${n} СЕРИЯ', few: '+${n} СЕРИИ', many: '+${n} СЕРИЙ', other: '+${n} СЕРИИ', ), 
 			'question.answer_reveal.next_question' => 'СЛЕДУЮЩИЙ ВОПРОС',
+			'question.answer_reveal.finish_issue' => 'ЗАВЕРШИТЬ ВЫПУСК',
+			'question.answer_reveal.retry' => 'ПОВТОРИТЬ',
+			'question.answer_reveal.continue_error_title' => 'НЕ УДАЛОСЬ ПРОДОЛЖИТЬ',
+			'question.answer_reveal.continue_error' => 'Не удалось продолжить. Попробуйте ещё раз',
 			'question.hint.action' => 'ПОДСКАЗКА',
 			'question.hint.confirm_title' => 'Использовать подсказку?',
 			'question.hint.confirm_message' => 'Подсказка вдвое уменьшит прибавку к рейтингу за правильный ответ. Штраф за ошибку, XP и серия не изменятся.',
@@ -1463,9 +1471,9 @@ extension on TranslationsRu {
 			'start_day.accuracy_label' => 'ТОЧНОСТЬ',
 			'start_day.question_count_label' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'вопрос', few: 'вопроса', many: 'вопросов', other: 'вопросов', ), 
 			'start_day.estimated_time' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '~ ${n} МИНУТА', few: '~ ${n} МИНУТЫ', many: '~ ${n} МИНУТ', other: '~ ${n} МИНУТ', ), 
-			'start_day.streak_warning' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Сыграйте сегодня, чтобы '), accent('сохранить заморозку и не потерять серию'), ]),
+			'start_day.streak_warning' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Сыграйте сегодня, чтобы '), accent('сохранить заморозку и не потерять серию'), ]), 
 			'start_day.no_previous_summary_notice' => 'За вчера нет результатов',
-			'start_day.no_previous_summary_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Завершите сегодняшний выпуск — '), accent('завтра здесь появятся результаты'), ]),
+			'start_day.no_previous_summary_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Завершите сегодняшний выпуск — '), accent('завтра здесь появятся результаты'), ]), 
 			'start_day.freeze_applied_notice' => ({required InlineSpanBuilder accent, required InlineSpan left, required InlineSpan total}) => TextSpan(children: [ const TextSpan(text: 'Вы пропустили вчерашний день — '), accent('заморозка применена автоматически.'), const TextSpan(text: ' Осталось '), left, const TextSpan(text: ' / '), total, ]), 
 			'start_day.freeze_applied_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Сыграйте сегодня, чтобы '), accent('не расходовать заморозки без нужды'), ]), 
 			'start_day.freeze_applied_last_advice' => ({required InlineSpanBuilder accent}) => TextSpan(children: [ const TextSpan(text: 'Сыграйте сегодня — '), accent('без заморозок серия может прерваться уже завтра'), ]), 

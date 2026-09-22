@@ -561,35 +561,64 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
   /// Leaves the authoritative reveal visible until the user advances. A
   /// completed attempt goes to the server summary; otherwise the next pinned
   /// assignment is requested from the server.
-  Future<void> advance() async {
+  Future<bool> advance() async {
     final current = state;
-    if (current is! DailyEditionActiveState || current.isBusy || current.attempt == null) {
-      return;
+    if (current is! DailyEditionActiveState ||
+        current.isBusy ||
+        current.attempt == null) {
+      return false;
     }
 
     state = current.copyWith(isBusy: true, clearFailure: true);
     if (current.attempt!.runCompleted) {
       if (_pendingReviewSource case final String source) {
         await bootstrapReviewReplacement(sourceAttemptId: source);
-        return;
+        return _finishReviewAdvance(current);
       }
-      await _loadSummary(current.run, latestAttempt: current.attempt);
-      return;
+      return _loadSummary(
+        current.run,
+        latestAttempt: current.attempt,
+        activeFallback: current,
+      );
     }
 
     if (current.run.status == DailyRunStatus.completed && hasPendingReview) {
       await bootstrapReviewReplacement(sourceAttemptId: _pendingReviewSource!);
-      return;
+      return _finishReviewAdvance(current);
     }
 
     final result = await _repository.fetchCurrent(current.run.runId);
     switch (result) {
       case ResultOk(data: final assignment):
         await _showAssignment(current.run, assignment);
+        return true;
       case ResultFailed(error: final failure) when _isDailyRunComplete(failure):
-        await _loadSummary(current.run, latestAttempt: current.attempt);
+        return _loadSummary(
+          current.run,
+          latestAttempt: current.attempt,
+          activeFallback: current,
+        );
       case ResultFailed(error: final failure):
         state = current.copyWith(isBusy: false, failure: failure);
+        return false;
+    }
+  }
+
+  bool _finishReviewAdvance(DailyEditionActiveState fallback) {
+    switch (state) {
+      case DailyEditionActiveState() || DailyEditionSummaryState():
+        return true;
+      case DailyEditionFailedState(:final failure):
+        state = fallback.copyWith(isBusy: false, failure: failure);
+        return false;
+      default:
+        state = fallback.copyWith(
+          isBusy: false,
+          failure: Failure.unknown(
+            StateError('Review continuation did not finish'),
+          ),
+        );
+        return false;
     }
   }
 
@@ -909,10 +938,11 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     await _loadRun(run);
   }
 
-  Future<void> _loadSummary(
+  Future<bool> _loadSummary(
     DailyRunEntity run, {
     DailyAttemptEntity? latestAttempt,
     bool resumeContinuation = false,
+    DailyEditionActiveState? activeFallback,
   }) async {
     final result = await _repository.fetchSummary(run.runId);
     switch (result) {
@@ -937,8 +967,14 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
               ) ??
               Future.value(),
         );
+        return true;
       case ResultFailed(error: final failure):
-        state = DailyEditionFailedState(failure: failure, run: run);
+        state = activeFallback?.copyWith(
+              isBusy: false,
+              failure: failure,
+            ) ??
+            DailyEditionFailedState(failure: failure, run: run);
+        return false;
     }
   }
 

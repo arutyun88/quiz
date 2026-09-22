@@ -1,10 +1,27 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/button/app_button_v2.dart';
+import 'package:quiz/app/core/widgets/app_snack_bar.dart';
 import 'package:quiz/features/question/domain/entity/question_entity.dart';
 import 'package:quiz/features/question/presentation/question_answer_state.dart';
 import 'package:quiz/gen/strings.g.dart';
+
+enum AnswerRevealFailureKind { error, offline }
+
+class AnswerRevealFailure {
+  const AnswerRevealFailure({
+    required this.title,
+    required this.message,
+    required this.kind,
+  });
+
+  final String title;
+  final String message;
+  final AnswerRevealFailureKind kind;
+}
 
 class AnswerRevealBottomSheet extends StatelessWidget {
   const AnswerRevealBottomSheet({
@@ -12,13 +29,15 @@ class AnswerRevealBottomSheet extends StatelessWidget {
     required this.question,
     required this.sentState,
     required this.onNext,
+    this.isFinalAction = false,
     this.ratingDelta,
     this.partnerBlock,
   });
 
   final QuestionEntity question;
   final QuestionAnswerSentState sentState;
-  final VoidCallback onNext;
+  final FutureOr<AnswerRevealFailure?> Function() onNext;
+  final bool isFinalAction;
   final int? ratingDelta;
   final Widget? partnerBlock;
 
@@ -45,6 +64,7 @@ class AnswerRevealBottomSheet extends StatelessWidget {
             description: sentState.description,
             partnerBlock: partnerBlock,
             onNext: onNext,
+            isFinalAction: isFinalAction,
           ),
         ],
       ),
@@ -127,18 +147,28 @@ class _AnswerRevealHeader extends StatelessWidget {
   }
 }
 
-class _AnswerExplanationPanel extends StatelessWidget {
+class _AnswerExplanationPanel extends StatefulWidget {
   const _AnswerExplanationPanel({
     required this.correctAnswer,
     required this.description,
     required this.partnerBlock,
     required this.onNext,
+    required this.isFinalAction,
   });
 
   final String correctAnswer;
   final String? description;
   final Widget? partnerBlock;
-  final VoidCallback onNext;
+  final FutureOr<AnswerRevealFailure?> Function() onNext;
+  final bool isFinalAction;
+
+  @override
+  State<_AnswerExplanationPanel> createState() =>
+      _AnswerExplanationPanelState();
+}
+
+class _AnswerExplanationPanelState extends State<_AnswerExplanationPanel> {
+  bool _retry = false;
 
   @override
   Widget build(BuildContext context) {
@@ -151,14 +181,14 @@ class _AnswerExplanationPanel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            correctAnswer.toUpperCase(),
+            widget.correctAnswer.toUpperCase(),
             style: GoogleFonts.jetBrainsMono(
               fontSize: 10,
               letterSpacing: 2,
               color: palette.text.accent,
             ),
           ),
-          if (description case String description?) ...[
+          if (widget.description case String description?) ...[
             const SizedBox(height: 8),
             Text(
               description,
@@ -169,16 +199,37 @@ class _AnswerExplanationPanel extends StatelessWidget {
               ),
             ),
           ],
-          if (partnerBlock case final partnerBlock?) partnerBlock,
+          if (widget.partnerBlock case final partnerBlock?) partnerBlock,
           const SizedBox(height: 18),
           AppButtonV2(
-            label: context.t.question.answer_reveal.next_question,
+            label: _retry
+                ? context.t.question.answer_reveal.retry
+                : widget.isFinalAction
+                    ? context.t.question.answer_reveal.finish_issue
+                    : context.t.question.answer_reveal.next_question,
             backgroundColor: sheetColors.buttonBackground,
             foregroundColor: sheetColors.buttonForeground,
-            onTap: (complete) {
-              complete();
-              onNext();
-              return null;
+            onTap: (_) async {
+              AppSnackBar.dismissAboveRoutes();
+              final failure = await widget.onNext();
+              if (!context.mounted || failure == null) return;
+              setState(() => _retry = true);
+              switch (failure.kind) {
+                case AnswerRevealFailureKind.error:
+                  AppSnackBar.showError(
+                    context,
+                    title: failure.title,
+                    message: failure.message,
+                    aboveRoutes: true,
+                  );
+                case AnswerRevealFailureKind.offline:
+                  AppSnackBar.showOffline(
+                    context,
+                    title: failure.title,
+                    message: failure.message,
+                    aboveRoutes: true,
+                  );
+              }
             },
           ),
         ],
