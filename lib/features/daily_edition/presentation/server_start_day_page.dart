@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -20,35 +18,11 @@ import 'package:quiz/features/home/presentation/widgets/quiz/quiz_state_views.da
 import 'package:quiz/features/home/presentation/widgets/start_day_header.dart';
 import 'package:quiz/gen/strings.g.dart';
 
-class ServerStartDayPage extends ConsumerStatefulWidget {
+class ServerStartDayPage extends ConsumerWidget {
   const ServerStartDayPage({super.key});
 
   @override
-  ConsumerState<ServerStartDayPage> createState() => _ServerStartDayPageState();
-}
-
-class _ServerStartDayPageState extends ConsumerState<ServerStartDayPage>
-    with WidgetsBindingObserver {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state != AppLifecycleState.resumed) return;
-    unawaited(ref.read(gamificationProvider.notifier).fetch());
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(dailyEditionProvider);
     final gamification = ref.watch(gamificationProvider);
     final run = switch (state) {

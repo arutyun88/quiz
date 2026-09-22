@@ -10,6 +10,8 @@ import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/ads/domain/rewarded_ads_gateway.dart';
 import 'package:quiz/features/analytics/domain/product_analytics.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
+import 'package:quiz/features/gamification/presentation/gamification_lifecycle_observer.dart';
+import 'package:quiz/features/gamification/presentation/provider/gamification_provider.dart';
 import 'package:quiz/features/observability/data/sentry_user_context.dart';
 import 'package:quiz/features/push/domain/push_notifications_gateway.dart';
 import 'package:quiz/gen/strings.g.dart';
@@ -23,11 +25,17 @@ class Application extends ConsumerStatefulWidget {
 
 class _ApplicationState extends ConsumerState<Application> {
   StreamSubscription<PushDestination>? _pushDestinationSubscription;
+  late final GamificationLifecycleObserver _gamificationLifecycleObserver;
 
   @override
   void initState() {
     super.initState();
     final pushGateway = getIt<PushNotificationsGateway>();
+    _gamificationLifecycleObserver = GamificationLifecycleObserver(
+      onResume: () =>
+          unawaited(ref.read(gamificationProvider.notifier).fetch()),
+    );
+    WidgetsBinding.instance.addObserver(_gamificationLifecycleObserver);
     _pushDestinationSubscription = pushGateway.openedDestinations.listen(
       _openPushDestination,
     );
@@ -57,6 +65,7 @@ class _ApplicationState extends ConsumerState<Application> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(_gamificationLifecycleObserver);
     _pushDestinationSubscription?.cancel();
     super.dispose();
   }

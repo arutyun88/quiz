@@ -57,7 +57,6 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
   }
 
   Future<void> _synchronizeAfterResume() async {
-    unawaited(ref.read(gamificationProvider.notifier).fetch());
     final timezoneId = ref.read(authenticationProvider).mapOrNull(
           authenticated: (state) => state.user?.timezoneId,
         );
