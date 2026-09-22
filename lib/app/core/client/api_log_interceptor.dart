@@ -9,6 +9,11 @@ class ApiLogInterceptor extends Interceptor {
         _now = now ?? DateTime.now;
 
   static const _requestLogEntryKey = 'api_log_entry';
+  static const _expectedConflictCodes = {
+    'CURRENT_ASSIGNMENT_EXISTS',
+    'DAILY_RUN_COMPLETE',
+    'MAIN_EDITION_INCOMPLETE',
+  };
 
   final ExtendedLogger _logger;
   final DateTime Function() _now;
@@ -65,6 +70,7 @@ class ApiLogInterceptor extends Interceptor {
         (err.message?.trim().isNotEmpty ?? false ? err.message! : 'no details');
     final duration = _elapsedMilliseconds(options, completedAt);
     final normalizedPath = normalizeApiPathForGrouping(options.uri.path);
+    final responseErrorCode = _responseErrorCode(err.response?.data);
     final message = '${err.type.name} '
         '${options.method} ${_requestTarget(options)} '
         '$duration ms';
@@ -78,10 +84,24 @@ class ApiLogInterceptor extends Interceptor {
       'cause': logError.toString(),
       if (err.response?.statusCode case final statusCode?)
         'status_code': statusCode,
+      if (responseErrorCode != null) 'error_code': responseErrorCode,
     };
 
     if (err.type == DioExceptionType.cancel) {
       _logger.fine(StringRecord(message, data));
+      handler.next(err);
+      return;
+    }
+
+    if (err.response?.statusCode == 409 &&
+        _expectedConflictCodes.contains(responseErrorCode)) {
+      _logger.fine(
+        StringRecord(
+          'RESPONSE 409 ${options.method} ${_requestTarget(options)} '
+          '$duration ms ($responseErrorCode)',
+          data,
+        ),
+      );
       handler.next(err);
       return;
     }
@@ -145,6 +165,12 @@ class ApiLogInterceptor extends Interceptor {
 
   String _requestTarget(RequestOptions options) {
     return options.uri.path;
+  }
+
+  String? _responseErrorCode(Object? responseData) {
+    if (responseData is! Map) return null;
+    final error = responseData['error'];
+    return error is String ? error : null;
   }
 }
 

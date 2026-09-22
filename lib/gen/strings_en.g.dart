@@ -830,6 +830,12 @@ class Translations$review$en {
 	/// ru: 'Потренировать тему'
 	String get practice_cta => 'Practice this topic';
 
+	/// ru: 'Повторение в очереди'
+	String get queued_title => 'Practice queued';
+
+	/// ru: 'Завершите текущий вопрос — выбранное повторение откроется следующим'
+	String get queued_message => 'Finish the current question — your selected practice question will open next';
+
 	/// ru: 'Показать ещё'
 	String get load_more => 'Load more';
 
@@ -2318,6 +2324,8 @@ extension on Translations {
 			'review.version_withdrawn' => 'Withdrawn',
 			'review.version_unknown' => 'Unknown version',
 			'review.practice_cta' => 'Practice this topic',
+			'review.queued_title' => 'Practice queued',
+			'review.queued_message' => 'Finish the current question — your selected practice question will open next',
 			'review.load_more' => 'Load more',
 			'review.load_more_error' => 'Could not load more attempts. Try again.',
 			'review.empty' => 'No mistakes yet — completed incorrect attempts will appear here',

@@ -564,6 +564,8 @@
         "version_withdrawn": "Withdrawn",
         "version_unknown": "Unknown version",
         "practice_cta": "Practice this topic",
+        "queued_title": "Practice queued",
+        "queued_message": "Finish the current question — your selected practice question will open next",
         "load_more": "Load more",
         "load_more_error": "Could not load more attempts. Try again.",
         "empty": "No mistakes yet — completed incorrect attempts will appear here",

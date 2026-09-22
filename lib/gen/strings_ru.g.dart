@@ -511,6 +511,8 @@ class _Translations$review$ru implements Translations$review$en {
 	@override String get version_withdrawn => 'Снято с публикации';
 	@override String get version_unknown => 'Неизвестная версия';
 	@override String get practice_cta => 'Потренировать тему';
+	@override String get queued_title => 'Повторение в очереди';
+	@override String get queued_message => 'Завершите текущий вопрос — выбранное повторение откроется следующим';
 	@override String get load_more => 'Показать ещё';
 	@override String get load_more_error => 'Не удалось загрузить следующие попытки. Повторите ещё раз.';
 	@override String get empty => 'Ошибок пока нет — здесь появятся завершённые неправильные попытки';
@@ -1574,6 +1576,8 @@ extension on TranslationsRu {
 			'review.version_withdrawn' => 'Снято с публикации',
 			'review.version_unknown' => 'Неизвестная версия',
 			'review.practice_cta' => 'Потренировать тему',
+			'review.queued_title' => 'Повторение в очереди',
+			'review.queued_message' => 'Завершите текущий вопрос — выбранное повторение откроется следующим',
 			'review.load_more' => 'Показать ещё',
 			'review.load_more_error' => 'Не удалось загрузить следующие попытки. Повторите ещё раз.',
 			'review.empty' => 'Ошибок пока нет — здесь появятся завершённые неправильные попытки',

@@ -255,6 +255,49 @@ void main() {
     ]);
   });
 
+  test('logs handled daily edition conflicts without an error event', () async {
+    final interceptor = ApiLogInterceptor(
+      log: logger('ApiLogInterceptorTest'),
+    );
+    final options = RequestOptions(
+      path: '/api/daily-editions/run-1/review-replacements',
+      method: 'POST',
+    );
+    final handler = ErrorInterceptorHandler();
+    // ignore: invalid_use_of_protected_member
+    final forwarded = handler.future.then<void>(
+      (_) {},
+      onError: (Object error, StackTrace stackTrace) {},
+    );
+
+    interceptor.onError(
+      DioException.badResponse(
+        statusCode: 409,
+        requestOptions: options,
+        response: Response<dynamic>(
+          requestOptions: options,
+          statusCode: 409,
+          data: const {
+            'error': 'CURRENT_ASSIGNMENT_EXISTS',
+            'message': 'Resolve the current assignment first',
+          },
+        ),
+      ),
+      handler,
+    );
+    await forwarded;
+
+    final record = records.single;
+    expect(record.level, Level.FINE);
+    expect(
+      record.message,
+      'RESPONSE 409 POST '
+      '/api/daily-editions/run-1/review-replacements 0 ms '
+      '(CURRENT_ASSIGNMENT_EXISTS)',
+    );
+    expect(record.error, isNull);
+  });
+
   test('does not report request cancellation as an error', () async {
     final interceptor = ApiLogInterceptor(
       log: logger('ApiLogInterceptorTest'),

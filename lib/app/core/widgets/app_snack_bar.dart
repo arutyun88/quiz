@@ -5,6 +5,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 
 abstract final class AppSnackBar {
+  static void showNotice(
+    BuildContext context, {
+    required String title,
+    required String message,
+    bool aboveRoutes = false,
+  }) {
+    _show(
+      context,
+      title: title,
+      message: message,
+      kind: _AppSnackBarKind.notice,
+      aboveRoutes: aboveRoutes,
+    );
+  }
+
   static void showError(
     BuildContext context, {
     required String title,
@@ -117,7 +132,7 @@ abstract final class AppSnackBar {
   }
 }
 
-enum _AppSnackBarKind { error, offline }
+enum _AppSnackBarKind { notice, error, offline }
 
 class _AnimatedSnackBarContent extends StatefulWidget {
   const _AnimatedSnackBarContent({
@@ -183,6 +198,7 @@ class _AnimatedSnackBarContentState extends State<_AnimatedSnackBarContent>
   Widget build(BuildContext context) {
     final colors = context.palette;
     final (icon, iconColor) = switch (widget.kind) {
+      _AppSnackBarKind.notice => (Icons.bolt, colors.text.accent),
       _AppSnackBarKind.error => (Icons.bolt, colors.text.danger),
       _AppSnackBarKind.offline => (Icons.wifi_off, colors.text.accent),
     };

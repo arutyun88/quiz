@@ -43,10 +43,19 @@ class _DailyLimitFlowState extends ConsumerState<DailyLimitFlow>
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!mounted) return;
       if (widget.reviewSourceAttemptId case final String source) {
-        await ref
-            .read(dailyEditionProvider.notifier)
-            .bootstrapReviewReplacement(sourceAttemptId: source);
-        if (mounted) setState(() => _openingReview = false);
+        final notifier = ref.read(dailyEditionProvider.notifier);
+        await notifier.bootstrapReviewReplacement(sourceAttemptId: source);
+        if (!mounted) return;
+        if (notifier.hasPendingReview &&
+            ref.read(dailyEditionProvider) is DailyEditionActiveState) {
+          AppSnackBar.showNotice(
+            context,
+            title: context.t.review.queued_title,
+            message: context.t.review.queued_message,
+            aboveRoutes: true,
+          );
+        }
+        setState(() => _openingReview = false);
         return;
       }
       if (ref.read(dailyEditionProvider) is! DailyEditionInitialState) return;
