@@ -5,7 +5,8 @@ import 'package:quiz/features/gamification/data/dto/streak_notice_dto.dart';
 import 'package:quiz/features/gamification/data/dto/user_level_dto.dart';
 import 'package:quiz/features/gamification/domain/entity/user_level_entity.dart';
 
-typedef UserLevelConverter = DtoConverter<UserLevelEntity, DataDto<UserLevelDto>>;
+typedef UserLevelConverter
+    = DtoConverter<UserLevelEntity, DataDto<UserLevelDto>>;
 
 @Injectable(as: UserLevelConverter)
 final class UserLevelConverterImpl extends UserLevelConverter {
@@ -14,11 +15,14 @@ final class UserLevelConverterImpl extends UserLevelConverter {
     return UserLevelEntity(
       level: dto.data.level,
       experience: dto.data.experience,
+      experienceInLevel: dto.data.experienceInLevel,
+      levelExperience: dto.data.levelExperience,
       totalPoints: dto.data.totalPoints,
       questionsAnswered: dto.data.questionsAnswered,
       correctAnswers: dto.data.correctAnswers,
       accuracy: dto.data.accuracy,
       streakDays: dto.data.streakDays,
+      bestStreakDays: dto.data.bestStreakDays,
       streakNotice: _convertNotice(dto.data.streakNotice),
     );
   }

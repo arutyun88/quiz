@@ -24,6 +24,8 @@ mixin _$UserLevelDto {
   int get level => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: 0)
   int get experience => throw _privateConstructorUsedError;
+  int? get experienceInLevel => throw _privateConstructorUsedError;
+  int? get levelExperience => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: 0)
   int get totalPoints => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: 0)
@@ -34,6 +36,7 @@ mixin _$UserLevelDto {
   double get accuracy => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: 0)
   int get streakDays => throw _privateConstructorUsedError;
+  int? get bestStreakDays => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: 0)
   int get freezesLeft => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: 2)
@@ -59,11 +62,14 @@ abstract class $UserLevelDtoCopyWith<$Res> {
   $Res call(
       {@JsonKey(defaultValue: 1) int level,
       @JsonKey(defaultValue: 0) int experience,
+      int? experienceInLevel,
+      int? levelExperience,
       @JsonKey(defaultValue: 0) int totalPoints,
       @JsonKey(defaultValue: 0) int questionsAnswered,
       @JsonKey(defaultValue: 0) int correctAnswers,
       @JsonKey(defaultValue: 0.0) double accuracy,
       @JsonKey(defaultValue: 0) int streakDays,
+      int? bestStreakDays,
       @JsonKey(defaultValue: 0) int freezesLeft,
       @JsonKey(defaultValue: 2) int freezesTotal,
       StreakNoticeDto? streakNotice});
@@ -88,11 +94,14 @@ class _$UserLevelDtoCopyWithImpl<$Res, $Val extends UserLevelDto>
   $Res call({
     Object? level = null,
     Object? experience = null,
+    Object? experienceInLevel = freezed,
+    Object? levelExperience = freezed,
     Object? totalPoints = null,
     Object? questionsAnswered = null,
     Object? correctAnswers = null,
     Object? accuracy = null,
     Object? streakDays = null,
+    Object? bestStreakDays = freezed,
     Object? freezesLeft = null,
     Object? freezesTotal = null,
     Object? streakNotice = freezed,
@@ -106,6 +115,14 @@ class _$UserLevelDtoCopyWithImpl<$Res, $Val extends UserLevelDto>
           ? _value.experience
           : experience // ignore: cast_nullable_to_non_nullable
               as int,
+      experienceInLevel: freezed == experienceInLevel
+          ? _value.experienceInLevel
+          : experienceInLevel // ignore: cast_nullable_to_non_nullable
+              as int?,
+      levelExperience: freezed == levelExperience
+          ? _value.levelExperience
+          : levelExperience // ignore: cast_nullable_to_non_nullable
+              as int?,
       totalPoints: null == totalPoints
           ? _value.totalPoints
           : totalPoints // ignore: cast_nullable_to_non_nullable
@@ -126,6 +143,10 @@ class _$UserLevelDtoCopyWithImpl<$Res, $Val extends UserLevelDto>
           ? _value.streakDays
           : streakDays // ignore: cast_nullable_to_non_nullable
               as int,
+      bestStreakDays: freezed == bestStreakDays
+          ? _value.bestStreakDays
+          : bestStreakDays // ignore: cast_nullable_to_non_nullable
+              as int?,
       freezesLeft: null == freezesLeft
           ? _value.freezesLeft
           : freezesLeft // ignore: cast_nullable_to_non_nullable
@@ -167,11 +188,14 @@ abstract class _$$UserLevelDtoImplCopyWith<$Res>
   $Res call(
       {@JsonKey(defaultValue: 1) int level,
       @JsonKey(defaultValue: 0) int experience,
+      int? experienceInLevel,
+      int? levelExperience,
       @JsonKey(defaultValue: 0) int totalPoints,
       @JsonKey(defaultValue: 0) int questionsAnswered,
       @JsonKey(defaultValue: 0) int correctAnswers,
       @JsonKey(defaultValue: 0.0) double accuracy,
       @JsonKey(defaultValue: 0) int streakDays,
+      int? bestStreakDays,
       @JsonKey(defaultValue: 0) int freezesLeft,
       @JsonKey(defaultValue: 2) int freezesTotal,
       StreakNoticeDto? streakNotice});
@@ -195,11 +219,14 @@ class __$$UserLevelDtoImplCopyWithImpl<$Res>
   $Res call({
     Object? level = null,
     Object? experience = null,
+    Object? experienceInLevel = freezed,
+    Object? levelExperience = freezed,
     Object? totalPoints = null,
     Object? questionsAnswered = null,
     Object? correctAnswers = null,
     Object? accuracy = null,
     Object? streakDays = null,
+    Object? bestStreakDays = freezed,
     Object? freezesLeft = null,
     Object? freezesTotal = null,
     Object? streakNotice = freezed,
@@ -213,6 +240,14 @@ class __$$UserLevelDtoImplCopyWithImpl<$Res>
           ? _value.experience
           : experience // ignore: cast_nullable_to_non_nullable
               as int,
+      experienceInLevel: freezed == experienceInLevel
+          ? _value.experienceInLevel
+          : experienceInLevel // ignore: cast_nullable_to_non_nullable
+              as int?,
+      levelExperience: freezed == levelExperience
+          ? _value.levelExperience
+          : levelExperience // ignore: cast_nullable_to_non_nullable
+              as int?,
       totalPoints: null == totalPoints
           ? _value.totalPoints
           : totalPoints // ignore: cast_nullable_to_non_nullable
@@ -233,6 +268,10 @@ class __$$UserLevelDtoImplCopyWithImpl<$Res>
           ? _value.streakDays
           : streakDays // ignore: cast_nullable_to_non_nullable
               as int,
+      bestStreakDays: freezed == bestStreakDays
+          ? _value.bestStreakDays
+          : bestStreakDays // ignore: cast_nullable_to_non_nullable
+              as int?,
       freezesLeft: null == freezesLeft
           ? _value.freezesLeft
           : freezesLeft // ignore: cast_nullable_to_non_nullable
@@ -255,11 +294,14 @@ class _$UserLevelDtoImpl implements _UserLevelDto {
   const _$UserLevelDtoImpl(
       {@JsonKey(defaultValue: 1) required this.level,
       @JsonKey(defaultValue: 0) required this.experience,
+      this.experienceInLevel,
+      this.levelExperience,
       @JsonKey(defaultValue: 0) required this.totalPoints,
       @JsonKey(defaultValue: 0) required this.questionsAnswered,
       @JsonKey(defaultValue: 0) required this.correctAnswers,
       @JsonKey(defaultValue: 0.0) required this.accuracy,
       @JsonKey(defaultValue: 0) required this.streakDays,
+      this.bestStreakDays,
       @JsonKey(defaultValue: 0) required this.freezesLeft,
       @JsonKey(defaultValue: 2) required this.freezesTotal,
       this.streakNotice});
@@ -273,6 +315,10 @@ class _$UserLevelDtoImpl implements _UserLevelDto {
   @override
   @JsonKey(defaultValue: 0)
   final int experience;
+  @override
+  final int? experienceInLevel;
+  @override
+  final int? levelExperience;
   @override
   @JsonKey(defaultValue: 0)
   final int totalPoints;
@@ -289,6 +335,8 @@ class _$UserLevelDtoImpl implements _UserLevelDto {
   @JsonKey(defaultValue: 0)
   final int streakDays;
   @override
+  final int? bestStreakDays;
+  @override
   @JsonKey(defaultValue: 0)
   final int freezesLeft;
   @override
@@ -299,7 +347,7 @@ class _$UserLevelDtoImpl implements _UserLevelDto {
 
   @override
   String toString() {
-    return 'UserLevelDto(level: $level, experience: $experience, totalPoints: $totalPoints, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, streakDays: $streakDays, freezesLeft: $freezesLeft, freezesTotal: $freezesTotal, streakNotice: $streakNotice)';
+    return 'UserLevelDto(level: $level, experience: $experience, experienceInLevel: $experienceInLevel, levelExperience: $levelExperience, totalPoints: $totalPoints, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, streakDays: $streakDays, bestStreakDays: $bestStreakDays, freezesLeft: $freezesLeft, freezesTotal: $freezesTotal, streakNotice: $streakNotice)';
   }
 
   @override
@@ -310,6 +358,10 @@ class _$UserLevelDtoImpl implements _UserLevelDto {
             (identical(other.level, level) || other.level == level) &&
             (identical(other.experience, experience) ||
                 other.experience == experience) &&
+            (identical(other.experienceInLevel, experienceInLevel) ||
+                other.experienceInLevel == experienceInLevel) &&
+            (identical(other.levelExperience, levelExperience) ||
+                other.levelExperience == levelExperience) &&
             (identical(other.totalPoints, totalPoints) ||
                 other.totalPoints == totalPoints) &&
             (identical(other.questionsAnswered, questionsAnswered) ||
@@ -320,6 +372,8 @@ class _$UserLevelDtoImpl implements _UserLevelDto {
                 other.accuracy == accuracy) &&
             (identical(other.streakDays, streakDays) ||
                 other.streakDays == streakDays) &&
+            (identical(other.bestStreakDays, bestStreakDays) ||
+                other.bestStreakDays == bestStreakDays) &&
             (identical(other.freezesLeft, freezesLeft) ||
                 other.freezesLeft == freezesLeft) &&
             (identical(other.freezesTotal, freezesTotal) ||
@@ -334,11 +388,14 @@ class _$UserLevelDtoImpl implements _UserLevelDto {
       runtimeType,
       level,
       experience,
+      experienceInLevel,
+      levelExperience,
       totalPoints,
       questionsAnswered,
       correctAnswers,
       accuracy,
       streakDays,
+      bestStreakDays,
       freezesLeft,
       freezesTotal,
       streakNotice);
@@ -363,11 +420,14 @@ abstract class _UserLevelDto implements UserLevelDto {
   const factory _UserLevelDto(
       {@JsonKey(defaultValue: 1) required final int level,
       @JsonKey(defaultValue: 0) required final int experience,
+      final int? experienceInLevel,
+      final int? levelExperience,
       @JsonKey(defaultValue: 0) required final int totalPoints,
       @JsonKey(defaultValue: 0) required final int questionsAnswered,
       @JsonKey(defaultValue: 0) required final int correctAnswers,
       @JsonKey(defaultValue: 0.0) required final double accuracy,
       @JsonKey(defaultValue: 0) required final int streakDays,
+      final int? bestStreakDays,
       @JsonKey(defaultValue: 0) required final int freezesLeft,
       @JsonKey(defaultValue: 2) required final int freezesTotal,
       final StreakNoticeDto? streakNotice}) = _$UserLevelDtoImpl;
@@ -381,6 +441,10 @@ abstract class _UserLevelDto implements UserLevelDto {
   @override
   @JsonKey(defaultValue: 0)
   int get experience;
+  @override
+  int? get experienceInLevel;
+  @override
+  int? get levelExperience;
   @override
   @JsonKey(defaultValue: 0)
   int get totalPoints;
@@ -396,6 +460,8 @@ abstract class _UserLevelDto implements UserLevelDto {
   @override
   @JsonKey(defaultValue: 0)
   int get streakDays;
+  @override
+  int? get bestStreakDays;
   @override
   @JsonKey(defaultValue: 0)
   int get freezesLeft;

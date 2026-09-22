@@ -18,11 +18,14 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$UserLevelEntity {
   int get level => throw _privateConstructorUsedError;
   int get experience => throw _privateConstructorUsedError;
+  int? get experienceInLevel => throw _privateConstructorUsedError;
+  int? get levelExperience => throw _privateConstructorUsedError;
   int get totalPoints => throw _privateConstructorUsedError;
   int get questionsAnswered => throw _privateConstructorUsedError;
   int get correctAnswers => throw _privateConstructorUsedError;
   double get accuracy => throw _privateConstructorUsedError;
   int get streakDays => throw _privateConstructorUsedError;
+  int? get bestStreakDays => throw _privateConstructorUsedError;
   StreakNoticeEntity? get streakNotice => throw _privateConstructorUsedError;
 
   /// Create a copy of UserLevelEntity
@@ -41,11 +44,14 @@ abstract class $UserLevelEntityCopyWith<$Res> {
   $Res call(
       {int level,
       int experience,
+      int? experienceInLevel,
+      int? levelExperience,
       int totalPoints,
       int questionsAnswered,
       int correctAnswers,
       double accuracy,
       int streakDays,
+      int? bestStreakDays,
       StreakNoticeEntity? streakNotice});
 
   $StreakNoticeEntityCopyWith<$Res>? get streakNotice;
@@ -68,11 +74,14 @@ class _$UserLevelEntityCopyWithImpl<$Res, $Val extends UserLevelEntity>
   $Res call({
     Object? level = null,
     Object? experience = null,
+    Object? experienceInLevel = freezed,
+    Object? levelExperience = freezed,
     Object? totalPoints = null,
     Object? questionsAnswered = null,
     Object? correctAnswers = null,
     Object? accuracy = null,
     Object? streakDays = null,
+    Object? bestStreakDays = freezed,
     Object? streakNotice = freezed,
   }) {
     return _then(_value.copyWith(
@@ -84,6 +93,14 @@ class _$UserLevelEntityCopyWithImpl<$Res, $Val extends UserLevelEntity>
           ? _value.experience
           : experience // ignore: cast_nullable_to_non_nullable
               as int,
+      experienceInLevel: freezed == experienceInLevel
+          ? _value.experienceInLevel
+          : experienceInLevel // ignore: cast_nullable_to_non_nullable
+              as int?,
+      levelExperience: freezed == levelExperience
+          ? _value.levelExperience
+          : levelExperience // ignore: cast_nullable_to_non_nullable
+              as int?,
       totalPoints: null == totalPoints
           ? _value.totalPoints
           : totalPoints // ignore: cast_nullable_to_non_nullable
@@ -104,6 +121,10 @@ class _$UserLevelEntityCopyWithImpl<$Res, $Val extends UserLevelEntity>
           ? _value.streakDays
           : streakDays // ignore: cast_nullable_to_non_nullable
               as int,
+      bestStreakDays: freezed == bestStreakDays
+          ? _value.bestStreakDays
+          : bestStreakDays // ignore: cast_nullable_to_non_nullable
+              as int?,
       streakNotice: freezed == streakNotice
           ? _value.streakNotice
           : streakNotice // ignore: cast_nullable_to_non_nullable
@@ -137,11 +158,14 @@ abstract class _$$UserLevelEntityImplCopyWith<$Res>
   $Res call(
       {int level,
       int experience,
+      int? experienceInLevel,
+      int? levelExperience,
       int totalPoints,
       int questionsAnswered,
       int correctAnswers,
       double accuracy,
       int streakDays,
+      int? bestStreakDays,
       StreakNoticeEntity? streakNotice});
 
   @override
@@ -163,11 +187,14 @@ class __$$UserLevelEntityImplCopyWithImpl<$Res>
   $Res call({
     Object? level = null,
     Object? experience = null,
+    Object? experienceInLevel = freezed,
+    Object? levelExperience = freezed,
     Object? totalPoints = null,
     Object? questionsAnswered = null,
     Object? correctAnswers = null,
     Object? accuracy = null,
     Object? streakDays = null,
+    Object? bestStreakDays = freezed,
     Object? streakNotice = freezed,
   }) {
     return _then(_$UserLevelEntityImpl(
@@ -179,6 +206,14 @@ class __$$UserLevelEntityImplCopyWithImpl<$Res>
           ? _value.experience
           : experience // ignore: cast_nullable_to_non_nullable
               as int,
+      experienceInLevel: freezed == experienceInLevel
+          ? _value.experienceInLevel
+          : experienceInLevel // ignore: cast_nullable_to_non_nullable
+              as int?,
+      levelExperience: freezed == levelExperience
+          ? _value.levelExperience
+          : levelExperience // ignore: cast_nullable_to_non_nullable
+              as int?,
       totalPoints: null == totalPoints
           ? _value.totalPoints
           : totalPoints // ignore: cast_nullable_to_non_nullable
@@ -199,6 +234,10 @@ class __$$UserLevelEntityImplCopyWithImpl<$Res>
           ? _value.streakDays
           : streakDays // ignore: cast_nullable_to_non_nullable
               as int,
+      bestStreakDays: freezed == bestStreakDays
+          ? _value.bestStreakDays
+          : bestStreakDays // ignore: cast_nullable_to_non_nullable
+              as int?,
       streakNotice: freezed == streakNotice
           ? _value.streakNotice
           : streakNotice // ignore: cast_nullable_to_non_nullable
@@ -213,17 +252,24 @@ class _$UserLevelEntityImpl implements _UserLevelEntity {
   const _$UserLevelEntityImpl(
       {required this.level,
       required this.experience,
+      this.experienceInLevel,
+      this.levelExperience,
       required this.totalPoints,
       required this.questionsAnswered,
       required this.correctAnswers,
       required this.accuracy,
       required this.streakDays,
+      this.bestStreakDays,
       required this.streakNotice});
 
   @override
   final int level;
   @override
   final int experience;
+  @override
+  final int? experienceInLevel;
+  @override
+  final int? levelExperience;
   @override
   final int totalPoints;
   @override
@@ -235,11 +281,13 @@ class _$UserLevelEntityImpl implements _UserLevelEntity {
   @override
   final int streakDays;
   @override
+  final int? bestStreakDays;
+  @override
   final StreakNoticeEntity? streakNotice;
 
   @override
   String toString() {
-    return 'UserLevelEntity(level: $level, experience: $experience, totalPoints: $totalPoints, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, streakDays: $streakDays, streakNotice: $streakNotice)';
+    return 'UserLevelEntity(level: $level, experience: $experience, experienceInLevel: $experienceInLevel, levelExperience: $levelExperience, totalPoints: $totalPoints, questionsAnswered: $questionsAnswered, correctAnswers: $correctAnswers, accuracy: $accuracy, streakDays: $streakDays, bestStreakDays: $bestStreakDays, streakNotice: $streakNotice)';
   }
 
   @override
@@ -250,6 +298,10 @@ class _$UserLevelEntityImpl implements _UserLevelEntity {
             (identical(other.level, level) || other.level == level) &&
             (identical(other.experience, experience) ||
                 other.experience == experience) &&
+            (identical(other.experienceInLevel, experienceInLevel) ||
+                other.experienceInLevel == experienceInLevel) &&
+            (identical(other.levelExperience, levelExperience) ||
+                other.levelExperience == levelExperience) &&
             (identical(other.totalPoints, totalPoints) ||
                 other.totalPoints == totalPoints) &&
             (identical(other.questionsAnswered, questionsAnswered) ||
@@ -260,13 +312,26 @@ class _$UserLevelEntityImpl implements _UserLevelEntity {
                 other.accuracy == accuracy) &&
             (identical(other.streakDays, streakDays) ||
                 other.streakDays == streakDays) &&
+            (identical(other.bestStreakDays, bestStreakDays) ||
+                other.bestStreakDays == bestStreakDays) &&
             (identical(other.streakNotice, streakNotice) ||
                 other.streakNotice == streakNotice));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, level, experience, totalPoints,
-      questionsAnswered, correctAnswers, accuracy, streakDays, streakNotice);
+  int get hashCode => Object.hash(
+      runtimeType,
+      level,
+      experience,
+      experienceInLevel,
+      levelExperience,
+      totalPoints,
+      questionsAnswered,
+      correctAnswers,
+      accuracy,
+      streakDays,
+      bestStreakDays,
+      streakNotice);
 
   /// Create a copy of UserLevelEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -282,17 +347,24 @@ abstract class _UserLevelEntity implements UserLevelEntity {
   const factory _UserLevelEntity(
       {required final int level,
       required final int experience,
+      final int? experienceInLevel,
+      final int? levelExperience,
       required final int totalPoints,
       required final int questionsAnswered,
       required final int correctAnswers,
       required final double accuracy,
       required final int streakDays,
+      final int? bestStreakDays,
       required final StreakNoticeEntity? streakNotice}) = _$UserLevelEntityImpl;
 
   @override
   int get level;
   @override
   int get experience;
+  @override
+  int? get experienceInLevel;
+  @override
+  int? get levelExperience;
   @override
   int get totalPoints;
   @override
@@ -303,6 +375,8 @@ abstract class _UserLevelEntity implements UserLevelEntity {
   double get accuracy;
   @override
   int get streakDays;
+  @override
+  int? get bestStreakDays;
   @override
   StreakNoticeEntity? get streakNotice;
 

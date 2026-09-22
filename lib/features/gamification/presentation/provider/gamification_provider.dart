@@ -5,7 +5,8 @@ import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/gamification/domain/entity/user_level_entity.dart';
 import 'package:quiz/features/gamification/domain/repository/gamification_repository.dart';
 
-final gamificationProvider = StateNotifierProvider<GamificationNotifier, BaseState<UserLevelEntity>>(
+final gamificationProvider =
+    StateNotifierProvider<GamificationNotifier, BaseState<UserLevelEntity>>(
   (ref) => GamificationNotifier(
     gamificationRepository: getIt<GamificationRepository>(),
   ),
@@ -13,13 +14,18 @@ final gamificationProvider = StateNotifierProvider<GamificationNotifier, BaseSta
 
 class GamificationNotifier extends StateNotifier<BaseState<UserLevelEntity>> {
   final GamificationRepository _gamificationRepository;
+  Future<void>? _pendingFetch;
 
   GamificationNotifier({
     required GamificationRepository gamificationRepository,
   })  : _gamificationRepository = gamificationRepository,
         super(BaseState.loading());
 
-  Future<void> fetch() async {
+  Future<void> fetch() => _pendingFetch ??= _fetch().whenComplete(
+        () => _pendingFetch = null,
+      );
+
+  Future<void> _fetch() async {
     final previousState = state;
 
     final result = await _gamificationRepository.fetchLevel();

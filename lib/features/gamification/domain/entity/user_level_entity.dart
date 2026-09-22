@@ -7,11 +7,14 @@ class UserLevelEntity with _$UserLevelEntity {
   const factory UserLevelEntity({
     required int level,
     required int experience,
+    int? experienceInLevel,
+    int? levelExperience,
     required int totalPoints,
     required int questionsAnswered,
     required int correctAnswers,
     required double accuracy,
     required int streakDays,
+    int? bestStreakDays,
     required StreakNoticeEntity? streakNotice,
   }) = _UserLevelEntity;
 }

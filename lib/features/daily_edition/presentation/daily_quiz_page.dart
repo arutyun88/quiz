@@ -57,6 +57,7 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
   }
 
   Future<void> _synchronizeAfterResume() async {
+    unawaited(ref.read(gamificationProvider.notifier).fetch());
     final timezoneId = ref.read(authenticationProvider).mapOrNull(
           authenticated: (state) => state.user?.timezoneId,
         );
@@ -194,14 +195,17 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
     };
   }
 
-  Future<void> _retryBootstrap(WidgetRef ref) {
+  Future<void> _retryBootstrap(WidgetRef ref) async {
     final timezoneId = ref.read(authenticationProvider).mapOrNull(
           authenticated: (state) => state.user?.timezoneId,
         );
-    return ref.read(dailyEditionProvider.notifier).bootstrap(
-          timezoneId: timezoneId,
-          preserveCurrentState: true,
-        );
+    await Future.wait([
+      ref.read(gamificationProvider.notifier).fetch(),
+      ref.read(dailyEditionProvider.notifier).bootstrap(
+            timezoneId: timezoneId,
+            preserveCurrentState: true,
+          ),
+    ]);
   }
 
   void _listenForReveal(
@@ -307,6 +311,7 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
       }
       _scheduledAttemptId = null;
       _presentedAttemptId = attemptId;
+      unawaited(ref.read(gamificationProvider.notifier).fetch());
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       await _showAnswerRevealSheet(
         context,
