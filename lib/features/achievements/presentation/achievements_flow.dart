@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/features/achievements/presentation/pages/achievements_page.dart';
+import 'package:quiz/features/achievements/presentation/pages/public_achievements_page.dart';
 
 class AchievementsFlow extends StatelessWidget {
   const AchievementsFlow({
@@ -10,7 +11,7 @@ class AchievementsFlow extends StatelessWidget {
   final String? userId;
 
   @override
-  Widget build(BuildContext context) {
-    return AchievementsPage(userId: userId);
-  }
+  Widget build(BuildContext context) => userId == null
+      ? const AchievementsPage()
+      : PublicAchievementsPage(userId: userId!);
 }

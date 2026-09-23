@@ -197,6 +197,7 @@ class _Translations$achievements$ru implements Translations$achievements$en {
 	@override String get title => 'Достижения';
 	@override late final _Translations$achievements$categories$ru categories = _Translations$achievements$categories$ru._(_root);
 	@override String xp_reward({required Object points}) => '+${points} XP';
+	@override String get public_empty => 'Пользователь пока не получил ни одного достижения';
 	@override String get error => 'Не удалось загрузить';
 	@override String get retry => 'Повторить';
 }
@@ -1394,6 +1395,7 @@ extension on TranslationsRu {
 			'achievements.categories.streak' => 'Серия',
 			'achievements.categories.points' => 'Очки',
 			'achievements.xp_reward' => ({required Object points}) => '+${points} XP',
+			'achievements.public_empty' => 'Пользователь пока не получил ни одного достижения',
 			'achievements.error' => 'Не удалось загрузить',
 			'achievements.retry' => 'Повторить',
 			'question.answer_letters.0' => 'А',

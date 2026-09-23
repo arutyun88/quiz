@@ -283,6 +283,9 @@ class Translations$achievements$en {
 	/// ru: '+$points XP'
 	String xp_reward({required Object points}) => '+${points} XP';
 
+	/// ru: 'Пользователь пока не получил ни одного достижения'
+	String get public_empty => 'This user hasn\'t unlocked any achievements yet';
+
 	/// ru: 'Не удалось загрузить'
 	String get error => 'Failed to load';
 
@@ -2150,6 +2153,7 @@ extension on Translations {
 			'achievements.categories.streak' => 'Streak',
 			'achievements.categories.points' => 'Points',
 			'achievements.xp_reward' => ({required Object points}) => '+${points} XP',
+			'achievements.public_empty' => 'This user hasn\'t unlocked any achievements yet',
 			'achievements.error' => 'Failed to load',
 			'achievements.retry' => 'Retry',
 			'question.answer_letters.0' => 'A',

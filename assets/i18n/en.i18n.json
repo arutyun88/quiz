@@ -274,6 +274,7 @@
             "points": "Points"
         },
         "xp_reward": "+$points XP",
+        "public_empty": "This user hasn't unlocked any achievements yet",
         "error": "Failed to load",
         "retry": "Retry"
     },

@@ -80,10 +80,6 @@ class PublicAchievementsNotifier
     return _startFetch();
   }
 
-  Future<void> refresh() => _pendingFetch ??= _fetch().whenComplete(
-        () => _pendingFetch = null,
-      );
-
   Future<void> _startFetch() => _pendingFetch = _fetch().whenComplete(
         () => _pendingFetch = null,
       );

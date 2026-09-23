@@ -14,38 +14,27 @@ import 'package:quiz/gen/strings.g.dart';
 const _categoryOrder = ['BEGINNER', 'PROGRESS', 'ACCURACY', 'STREAK', 'POINTS'];
 
 class AchievementsPage extends ConsumerStatefulWidget {
-  const AchievementsPage({super.key, this.userId});
-
-  /// When set, shows another user's achievements (entered from the public profile).
-  final String? userId;
+  const AchievementsPage({super.key});
 
   @override
   ConsumerState<AchievementsPage> createState() => _AchievementsPageState();
 }
 
 class _AchievementsPageState extends ConsumerState<AchievementsPage> {
-  String? get userId => widget.userId;
-
   @override
   void initState() {
     super.initState();
     // Silent refetch on open: the provider outlives the page, so its state can
-    // hold data fetched with a previous X-Lang locale (the public provider is
-    // autoDispose and refetches on its own).
-    if (userId == null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        ref.read(achievementsProvider.notifier).fetch();
-      });
-    }
+    // hold data fetched with a previous X-Lang locale.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(achievementsProvider.notifier).fetch();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final colors = context.palette;
-    final state = userId == null
-        ? ref.watch(achievementsProvider)
-        : ref.watch(publicAchievementsProvider(userId!));
-
+    final state = ref.watch(achievementsProvider);
     final items = switch (state) {
       BaseDataState(:final data) => data.items,
       _ => null,
@@ -63,21 +52,12 @@ class _AchievementsPageState extends ConsumerState<AchievementsPage> {
             const AppDivider(indent: 22, endIndent: 22),
             Expanded(
               child: AppRefreshIndicator(
-                onRefresh: () => userId == null
-                    ? ref.read(achievementsProvider.notifier).refresh()
-                    : ref
-                        .read(publicAchievementsProvider(userId!).notifier)
-                        .refresh(),
+                onRefresh: ref.read(achievementsProvider.notifier).refresh,
                 child: switch (state) {
                   BaseLoadingState() => const _AchievementsLoading(),
                   BaseDataState() => _AchievementsList(items: items!),
                   _ => _AchievementsError(
-                      onRetry: () => userId == null
-                          ? ref.read(achievementsProvider.notifier).fetch()
-                          : ref
-                              .read(
-                                  publicAchievementsProvider(userId!).notifier)
-                              .fetch(),
+                      onRetry: ref.read(achievementsProvider.notifier).fetch,
                     ),
                 },
               ),
