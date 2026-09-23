@@ -49,6 +49,13 @@ final class DailyEditionLoadingState extends DailyEditionState {
   const DailyEditionLoadingState();
 }
 
+enum ReviewReplacementBootstrapResult {
+  opened,
+  queued,
+  failed,
+  busy,
+}
+
 final class DailyEditionActiveState extends DailyEditionState {
   const DailyEditionActiveState({
     required this.run,
@@ -220,11 +227,11 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
   /// Opens the server-owned run and reserves an unseen question related to an
   /// incorrect historical attempt. The server owns both source validation and
   /// continuation capacity; this client never grants a local allowance.
-  Future<void> bootstrapReviewReplacement({
+  Future<ReviewReplacementBootstrapResult> bootstrapReviewReplacement({
     required String sourceAttemptId,
     String? timezoneId,
   }) async {
-    if (_bootstrapping) return;
+    if (_bootstrapping) return ReviewReplacementBootstrapResult.busy;
     _pendingReviewSource = sourceAttemptId;
     final accountId = _accountId;
     if (accountId == null) {
@@ -233,7 +240,7 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
           AuthenticationFailureType.unauthenticated,
         ),
       );
-      return;
+      return ReviewReplacementBootstrapResult.failed;
     }
     _bootstrapping = true;
     state = const DailyEditionLoadingState();
@@ -250,6 +257,7 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
             case ResultOk(data: final assignment):
               _pendingReviewSource = null;
               await _showAssignment(run, assignment);
+              return ReviewReplacementBootstrapResult.opened;
             case ResultFailed(error: final failure) when _isDailyRunComplete(failure):
               final acknowledged = await _repository.acknowledgeSummary(run.runId);
               switch (acknowledged) {
@@ -259,24 +267,33 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
                     summary: summary,
                     resumeContinuation: true,
                   );
+                  return ReviewReplacementBootstrapResult.queued;
                 case ResultFailed(error: final error):
                   state = DailyEditionFailedState(failure: error, run: run);
+                  return ReviewReplacementBootstrapResult.failed;
               }
             case ResultFailed(error: final failure) when _hasErrorCode(failure, 'CURRENT_ASSIGNMENT_EXISTS'):
               final existing = await _repository.fetchCurrent(run.runId);
               switch (existing) {
                 case ResultOk(data: final assignment):
                   await _showAssignment(run, assignment);
+                  return ReviewReplacementBootstrapResult.queued;
                 case ResultFailed(error: final error):
                   state = DailyEditionFailedState(failure: error, run: run);
+                  return ReviewReplacementBootstrapResult.failed;
               }
             case ResultFailed(error: final failure) when _hasErrorCode(failure, 'MAIN_EDITION_INCOMPLETE'):
               await _restoreOrLoadRun(accountId, run);
+              return state is DailyEditionFailedState
+                  ? ReviewReplacementBootstrapResult.failed
+                  : ReviewReplacementBootstrapResult.queued;
             case ResultFailed(error: final failure):
               state = DailyEditionFailedState(failure: failure, run: run);
+              return ReviewReplacementBootstrapResult.failed;
           }
         case ResultFailed(error: final failure):
           state = DailyEditionFailedState(failure: failure);
+          return ReviewReplacementBootstrapResult.failed;
       }
     } finally {
       _bootstrapping = false;

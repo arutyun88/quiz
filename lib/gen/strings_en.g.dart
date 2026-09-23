@@ -854,8 +854,14 @@ class Translations$review$en {
 	/// ru: 'Повторение в очереди'
 	String get queued_title => 'Practice queued';
 
-	/// ru: 'Завершите текущий вопрос — выбранное повторение откроется следующим'
-	String get queued_message => 'Finish the current question — your selected practice question will open next';
+	/// ru: 'Тренировка откроется после выпуска дня, когда будет доступен дополнительный вопрос'
+	String get queued_message => 'Practice will open after the daily issue when an extra question is available';
+
+	/// ru: 'Не удалось добавить тренировку'
+	String get practice_error_title => 'Could not add practice';
+
+	/// ru: 'Попробуйте ещё раз позже'
+	String get practice_error_message => 'Try again later';
 
 	/// ru: 'Показать ещё'
 	String get load_more => 'Load more';
@@ -1165,6 +1171,9 @@ class Translations$question$meta$en {
 
 	/// ru: 'ДОП. ВОПРОС $n'
 	String extra_counter({required Object n}) => 'EXTRA QUESTION ${n}';
+
+	/// ru: 'ПРАКТИКА'
+	String get practice_marker => 'PRACTICE';
 
 	/// ru: '// $topic'
 	String topic({required Object topic}) => '// ${topic}';
@@ -2162,6 +2171,7 @@ extension on Translations {
 			'question.answer_letters.3' => 'D',
 			'question.meta.counter' => ({required Object current, required Object total}) => 'QUESTION ${current} / ${total}',
 			'question.meta.extra_counter' => ({required Object n}) => 'EXTRA QUESTION ${n}',
+			'question.meta.practice_marker' => 'PRACTICE',
 			'question.meta.topic' => ({required Object topic}) => '// ${topic}',
 			'question.state.empty' => 'You\'re done with today\'s questions.\nCome back tomorrow!',
 			'question.state.error' => 'Could not load the question',
@@ -2352,7 +2362,9 @@ extension on Translations {
 			'review.version_unknown' => 'Unknown version',
 			'review.practice_cta' => 'Practice this topic',
 			'review.queued_title' => 'Practice queued',
-			'review.queued_message' => 'Finish the current question — your selected practice question will open next',
+			'review.queued_message' => 'Practice will open after the daily issue when an extra question is available',
+			'review.practice_error_title' => 'Could not add practice',
+			'review.practice_error_message' => 'Try again later',
 			'review.load_more' => 'Load more',
 			'review.load_more_error' => 'Could not load more attempts. Try again.',
 			'review.empty' => 'No mistakes yet — completed incorrect attempts will appear here',

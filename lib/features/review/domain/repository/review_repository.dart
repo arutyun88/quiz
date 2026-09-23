@@ -7,4 +7,6 @@ abstract interface class ReviewRepository {
     required int limit,
     required int offset,
   });
+
+  Future<Result<void, Failure>> requestPractice(String attemptId);
 }

@@ -9,6 +9,7 @@ import 'package:quiz/app/core/utils/open_daily_limit.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
 import 'package:quiz/app/core/widgets/app_snack_bar.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
+import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_question_provider.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/partner_interaction_provider.dart';
@@ -91,7 +92,9 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
       if (next case DailyEditionActiveState(:final run)
           when run.startedAt == null) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (context.mounted && ModalRoute.of(context)?.isCurrent == true) {
+          if (context.mounted &&
+              ModalRoute.of(context)?.isCurrent == true &&
+              _isVisibleQuizRoute()) {
             context.goNamed('home');
           }
         });
@@ -167,6 +170,8 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
                     answerState: answerState,
                     questionNumber: assignment.position,
                     totalQuestions: run.requiredCount,
+                    isTopicPractice:
+                        assignment.kind == DailyAssignmentKind.review,
                     onSelect: !isBusy &&
                             (answerState is QuestionAnswerWaitingState ||
                                 answerState is QuestionAnswerSelectedState)
@@ -407,6 +412,7 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted ||
           ModalRoute.of(context)?.isCurrent != true ||
+          !_isVisibleQuizRoute() ||
           Navigator.of(context, rootNavigator: true).canPop()) {
         return;
       }
@@ -417,6 +423,10 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
       }
     });
   }
+
+  bool _isVisibleQuizRoute() =>
+      GoRouter.of(context).routerDelegate.currentConfiguration.uri.path ==
+      '/quiz';
 
   Widget? _partnerBlock(WidgetRef ref, DailyEditionActiveState state) {
     final attempt = state.attempt;

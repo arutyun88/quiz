@@ -16,6 +16,7 @@ class QuizBody extends StatelessWidget {
     required this.questionNumber,
     required this.totalQuestions,
     required this.onSelect,
+    this.isTopicPractice = false,
     this.questionSupplement,
   });
 
@@ -24,6 +25,7 @@ class QuizBody extends StatelessWidget {
   final int questionNumber;
   final int totalQuestions;
   final void Function(AnswerEntity)? onSelect;
+  final bool isTopicPractice;
   final Widget? questionSupplement;
 
   @override
@@ -41,6 +43,7 @@ class QuizBody extends StatelessWidget {
             questionNumber: questionNumber,
             totalQuestions: totalQuestions,
             topicName: question.topic.name,
+            isTopicPractice: isTopicPractice,
           ),
           const SizedBox(height: 16),
           Text(
@@ -91,11 +94,13 @@ class _QuestionMetaRow extends StatelessWidget {
     required this.questionNumber,
     required this.totalQuestions,
     required this.topicName,
+    required this.isTopicPractice,
   });
 
   final int questionNumber;
   final int totalQuestions;
   final String topicName;
+  final bool isTopicPractice;
 
   @override
   Widget build(BuildContext context) {
@@ -119,13 +124,48 @@ class _QuestionMetaRow extends StatelessWidget {
             color: palette.text.primary,
           ),
         ),
-        const Spacer(),
-        Text(
-          t.topic(topic: topicName.toUpperCase()),
-          style: GoogleFonts.jetBrainsMono(
-            fontSize: 11,
-            letterSpacing: 1.5,
-            color: palette.text.accent,
+        const SizedBox(width: 12),
+        Expanded(
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerRight,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    t.topic(topic: topicName.toUpperCase()),
+                    style: GoogleFonts.jetBrainsMono(
+                      fontSize: 11,
+                      letterSpacing: 1.5,
+                      color: palette.text.accent,
+                    ),
+                  ),
+                  if (isTopicPractice) ...[
+                    const SizedBox(width: 8),
+                    Container(
+                      key: const ValueKey('topic-practice-badge'),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 3,
+                      ),
+                      color: palette.text.accent,
+                      child: Text(
+                        t.practice_marker,
+                        style: GoogleFonts.jetBrainsMono(
+                          fontSize: 8,
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                          letterSpacing: 1,
+                          color: palette.background.static,
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
           ),
         ),
       ],

@@ -523,7 +523,9 @@ class _Translations$review$ru implements Translations$review$en {
 	@override String get version_unknown => 'Неизвестная версия';
 	@override String get practice_cta => 'Потренировать тему';
 	@override String get queued_title => 'Повторение в очереди';
-	@override String get queued_message => 'Завершите текущий вопрос — выбранное повторение откроется следующим';
+	@override String get queued_message => 'Тренировка откроется после выпуска дня, когда будет доступен дополнительный вопрос';
+	@override String get practice_error_title => 'Не удалось добавить тренировку';
+	@override String get practice_error_message => 'Попробуйте ещё раз позже';
 	@override String get load_more => 'Показать ещё';
 	@override String get load_more_error => 'Не удалось загрузить следующие попытки. Повторите ещё раз.';
 	@override String get empty => 'Ошибок пока нет — здесь появятся завершённые неправильные попытки';
@@ -700,6 +702,7 @@ class _Translations$question$meta$ru implements Translations$question$meta$en {
 	// Translations
 	@override String counter({required Object current, required Object total}) => 'ВОПРОС ${current} / ${total}';
 	@override String extra_counter({required Object n}) => 'ДОП. ВОПРОС ${n}';
+	@override String get practice_marker => 'ПРАКТИКА';
 	@override String topic({required Object topic}) => '// ${topic}';
 }
 
@@ -1404,6 +1407,7 @@ extension on TranslationsRu {
 			'question.answer_letters.3' => 'Г',
 			'question.meta.counter' => ({required Object current, required Object total}) => 'ВОПРОС ${current} / ${total}',
 			'question.meta.extra_counter' => ({required Object n}) => 'ДОП. ВОПРОС ${n}',
+			'question.meta.practice_marker' => 'ПРАКТИКА',
 			'question.meta.topic' => ({required Object topic}) => '// ${topic}',
 			'question.state.empty' => 'На сегодня вопросы закончились.\nЗаходите завтра!',
 			'question.state.error' => 'Не удалось загрузить вопрос',
@@ -1594,7 +1598,9 @@ extension on TranslationsRu {
 			'review.version_unknown' => 'Неизвестная версия',
 			'review.practice_cta' => 'Потренировать тему',
 			'review.queued_title' => 'Повторение в очереди',
-			'review.queued_message' => 'Завершите текущий вопрос — выбранное повторение откроется следующим',
+			'review.queued_message' => 'Тренировка откроется после выпуска дня, когда будет доступен дополнительный вопрос',
+			'review.practice_error_title' => 'Не удалось добавить тренировку',
+			'review.practice_error_message' => 'Попробуйте ещё раз позже',
 			'review.load_more' => 'Показать ещё',
 			'review.load_more_error' => 'Не удалось загрузить следующие попытки. Повторите ещё раз.',
 			'review.empty' => 'Ошибок пока нет — здесь появятся завершённые неправильные попытки',

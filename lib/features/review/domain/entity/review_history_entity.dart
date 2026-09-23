@@ -33,6 +33,7 @@ class ReviewHistoryItemEntity with _$ReviewHistoryItemEntity {
     required String? hint,
     required bool hintUsed,
     required ReviewVersionStatus versionStatus,
+    required bool practiceRequested,
     required bool contentRedacted,
   }) = _ReviewHistoryItemEntity;
 }

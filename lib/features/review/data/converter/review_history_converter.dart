@@ -41,6 +41,7 @@ final class ReviewHistoryConverterImpl extends ReviewHistoryConverter {
           'WITHDRAWN' => ReviewVersionStatus.withdrawn,
           _ => ReviewVersionStatus.unknown,
         },
+        practiceRequested: dto.practiceRequested,
         contentRedacted: dto.contentRedacted,
       );
 }

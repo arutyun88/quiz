@@ -20,6 +20,7 @@ void main() {
       'hint': null,
       'hint_used': false,
       'version_status': 'UPDATED',
+      'practice_requested': true,
       'content_redacted': false,
     });
 
@@ -27,6 +28,7 @@ void main() {
     expect(dto.questionVersionId, 'version-2');
     expect(dto.correctAnswer, 'Correct');
     expect(dto.versionStatus, 'UPDATED');
+    expect(dto.practiceRequested, isTrue);
     expect(dto.contentRedacted, isFalse);
   });
 }

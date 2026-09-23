@@ -25,6 +25,7 @@ _$ReviewHistoryItemDtoImpl _$$ReviewHistoryItemDtoImplFromJson(
       hint: json['hint'] as String?,
       hintUsed: json['hint_used'] as bool,
       versionStatus: json['version_status'] as String,
+      practiceRequested: json['practice_requested'] as bool,
       contentRedacted: json['content_redacted'] as bool,
     );
 
@@ -47,5 +48,6 @@ Map<String, dynamic> _$$ReviewHistoryItemDtoImplToJson(
       'hint': instance.hint,
       'hint_used': instance.hintUsed,
       'version_status': instance.versionStatus,
+      'practice_requested': instance.practiceRequested,
       'content_redacted': instance.contentRedacted,
     };

@@ -33,4 +33,10 @@ class RemoteReviewRepository implements ReviewRepository {
         converter: _reviewHistoryConverter.convert,
         enableLocale: true,
       );
+
+  @override
+  Future<Result<void, Failure>> requestPractice(String attemptId) =>
+      _client.post<void, void>(
+        '/questions/review/$attemptId/practice-request',
+      );
 }

@@ -313,11 +313,12 @@ void main() {
       ),
     ).thenAnswer((_) async => const Result.ok(assignment));
 
-    await notifier.bootstrapReviewReplacement(
+    final result = await notifier.bootstrapReviewReplacement(
       sourceAttemptId: 'attempt-incorrect-1',
       timezoneId: 'Asia/Yekaterinburg',
     );
 
+    expect(result, ReviewReplacementBootstrapResult.opened);
     final state = notifier.state as DailyEditionActiveState;
     expect(state.assignment, assignment);
     verify(
@@ -344,8 +345,10 @@ void main() {
     when(() => repository.acknowledgeSummary('run-1')).thenAnswer(
         (_) async => Result.ok(summary.copyWith(summaryAcknowledged: true)));
 
-    await notifier.bootstrapReviewReplacement(sourceAttemptId: 'source-1');
+    final result =
+        await notifier.bootstrapReviewReplacement(sourceAttemptId: 'source-1');
 
+    expect(result, ReviewReplacementBootstrapResult.queued);
     final state = notifier.state as DailyEditionSummaryState;
     expect(state.summary.summaryAcknowledged, isTrue);
     expect(state.resumeContinuation, isTrue);
@@ -369,6 +372,28 @@ void main() {
     expect(notifier.state, isA<DailyEditionActiveState>());
     expect(notifier.hasPendingReview, isFalse);
     verifyNever(() => repository.fetchCurrent(any()));
+  });
+
+  test('review stays queued while the main edition is incomplete', () async {
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(activeRun));
+    when(() => repository.reserveReviewReplacement(
+          runId: 'run-1',
+          clientEventId: 'event-1',
+          sourceAttemptId: 'source-1',
+        )).thenAnswer((_) async => const Result.failed(Failure.network(
+          NetworkFailureReason.badResponse('Main edition is incomplete',
+              statusCode: 409, errorCode: 'MAIN_EDITION_INCOMPLETE'),
+        )));
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => const Result.ok(assignment));
+
+    final result =
+        await notifier.bootstrapReviewReplacement(sourceAttemptId: 'source-1');
+
+    expect(result, ReviewReplacementBootstrapResult.queued);
+    expect(notifier.state, isA<DailyEditionActiveState>());
+    expect(notifier.hasPendingReview, isTrue);
   });
 
   test('review resumes selected topic after resolving current bonus question',

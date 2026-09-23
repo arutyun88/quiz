@@ -118,4 +118,29 @@ class ReviewNotifier extends StateNotifier<ReviewState> {
         );
     }
   }
+
+  Future<bool> requestPractice(String attemptId) async {
+    final result = await _reviewRepository.requestPractice(attemptId);
+    switch (result) {
+      case ResultOk():
+        final current = state;
+        if (current is ReviewDataState) {
+          state = ReviewDataState(
+            items: current.items
+                .map(
+                  (item) => item.attemptId == attemptId
+                      ? item.copyWith(practiceRequested: true)
+                      : item,
+                )
+                .toList(),
+            total: current.total,
+            isLoadingMore: current.isLoadingMore,
+            failure: current.failure,
+          );
+        }
+        return true;
+      case ResultFailed():
+        return false;
+    }
+  }
 }

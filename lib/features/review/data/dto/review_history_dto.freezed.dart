@@ -46,6 +46,8 @@ mixin _$ReviewHistoryItemDto {
   bool get hintUsed => throw _privateConstructorUsedError;
   @JsonKey(name: 'version_status')
   String get versionStatus => throw _privateConstructorUsedError;
+  @JsonKey(name: 'practice_requested')
+  bool get practiceRequested => throw _privateConstructorUsedError;
   @JsonKey(name: 'content_redacted')
   bool get contentRedacted => throw _privateConstructorUsedError;
 
@@ -82,6 +84,7 @@ abstract class $ReviewHistoryItemDtoCopyWith<$Res> {
       String? hint,
       @JsonKey(name: 'hint_used') bool hintUsed,
       @JsonKey(name: 'version_status') String versionStatus,
+      @JsonKey(name: 'practice_requested') bool practiceRequested,
       @JsonKey(name: 'content_redacted') bool contentRedacted});
 }
 
@@ -117,6 +120,7 @@ class _$ReviewHistoryItemDtoCopyWithImpl<$Res,
     Object? hint = freezed,
     Object? hintUsed = null,
     Object? versionStatus = null,
+    Object? practiceRequested = null,
     Object? contentRedacted = null,
   }) {
     return _then(_value.copyWith(
@@ -184,6 +188,10 @@ class _$ReviewHistoryItemDtoCopyWithImpl<$Res,
           ? _value.versionStatus
           : versionStatus // ignore: cast_nullable_to_non_nullable
               as String,
+      practiceRequested: null == practiceRequested
+          ? _value.practiceRequested
+          : practiceRequested // ignore: cast_nullable_to_non_nullable
+              as bool,
       contentRedacted: null == contentRedacted
           ? _value.contentRedacted
           : contentRedacted // ignore: cast_nullable_to_non_nullable
@@ -217,6 +225,7 @@ abstract class _$$ReviewHistoryItemDtoImplCopyWith<$Res>
       String? hint,
       @JsonKey(name: 'hint_used') bool hintUsed,
       @JsonKey(name: 'version_status') String versionStatus,
+      @JsonKey(name: 'practice_requested') bool practiceRequested,
       @JsonKey(name: 'content_redacted') bool contentRedacted});
 }
 
@@ -249,6 +258,7 @@ class __$$ReviewHistoryItemDtoImplCopyWithImpl<$Res>
     Object? hint = freezed,
     Object? hintUsed = null,
     Object? versionStatus = null,
+    Object? practiceRequested = null,
     Object? contentRedacted = null,
   }) {
     return _then(_$ReviewHistoryItemDtoImpl(
@@ -316,6 +326,10 @@ class __$$ReviewHistoryItemDtoImplCopyWithImpl<$Res>
           ? _value.versionStatus
           : versionStatus // ignore: cast_nullable_to_non_nullable
               as String,
+      practiceRequested: null == practiceRequested
+          ? _value.practiceRequested
+          : practiceRequested // ignore: cast_nullable_to_non_nullable
+              as bool,
       contentRedacted: null == contentRedacted
           ? _value.contentRedacted
           : contentRedacted // ignore: cast_nullable_to_non_nullable
@@ -344,6 +358,7 @@ class _$ReviewHistoryItemDtoImpl implements _ReviewHistoryItemDto {
       required this.hint,
       @JsonKey(name: 'hint_used') required this.hintUsed,
       @JsonKey(name: 'version_status') required this.versionStatus,
+      @JsonKey(name: 'practice_requested') required this.practiceRequested,
       @JsonKey(name: 'content_redacted') required this.contentRedacted});
 
   factory _$ReviewHistoryItemDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -392,12 +407,15 @@ class _$ReviewHistoryItemDtoImpl implements _ReviewHistoryItemDto {
   @JsonKey(name: 'version_status')
   final String versionStatus;
   @override
+  @JsonKey(name: 'practice_requested')
+  final bool practiceRequested;
+  @override
   @JsonKey(name: 'content_redacted')
   final bool contentRedacted;
 
   @override
   String toString() {
-    return 'ReviewHistoryItemDto(attemptId: $attemptId, questionId: $questionId, questionVersionId: $questionVersionId, editionDate: $editionDate, answeredAt: $answeredAt, action: $action, answerId: $answerId, correctAnswerId: $correctAnswerId, question: $question, topic: $topic, answer: $answer, correctAnswer: $correctAnswer, description: $description, hint: $hint, hintUsed: $hintUsed, versionStatus: $versionStatus, contentRedacted: $contentRedacted)';
+    return 'ReviewHistoryItemDto(attemptId: $attemptId, questionId: $questionId, questionVersionId: $questionVersionId, editionDate: $editionDate, answeredAt: $answeredAt, action: $action, answerId: $answerId, correctAnswerId: $correctAnswerId, question: $question, topic: $topic, answer: $answer, correctAnswer: $correctAnswer, description: $description, hint: $hint, hintUsed: $hintUsed, versionStatus: $versionStatus, practiceRequested: $practiceRequested, contentRedacted: $contentRedacted)';
   }
 
   @override
@@ -433,6 +451,8 @@ class _$ReviewHistoryItemDtoImpl implements _ReviewHistoryItemDto {
                 other.hintUsed == hintUsed) &&
             (identical(other.versionStatus, versionStatus) ||
                 other.versionStatus == versionStatus) &&
+            (identical(other.practiceRequested, practiceRequested) ||
+                other.practiceRequested == practiceRequested) &&
             (identical(other.contentRedacted, contentRedacted) ||
                 other.contentRedacted == contentRedacted));
   }
@@ -457,6 +477,7 @@ class _$ReviewHistoryItemDtoImpl implements _ReviewHistoryItemDto {
       hint,
       hintUsed,
       versionStatus,
+      practiceRequested,
       contentRedacted);
 
   /// Create a copy of ReviewHistoryItemDto
@@ -497,6 +518,8 @@ abstract class _ReviewHistoryItemDto implements ReviewHistoryItemDto {
       required final String? hint,
       @JsonKey(name: 'hint_used') required final bool hintUsed,
       @JsonKey(name: 'version_status') required final String versionStatus,
+      @JsonKey(name: 'practice_requested')
+      required final bool practiceRequested,
       @JsonKey(name: 'content_redacted')
       required final bool contentRedacted}) = _$ReviewHistoryItemDtoImpl;
 
@@ -545,6 +568,9 @@ abstract class _ReviewHistoryItemDto implements ReviewHistoryItemDto {
   @override
   @JsonKey(name: 'version_status')
   String get versionStatus;
+  @override
+  @JsonKey(name: 'practice_requested')
+  bool get practiceRequested;
   @override
   @JsonKey(name: 'content_redacted')
   bool get contentRedacted;

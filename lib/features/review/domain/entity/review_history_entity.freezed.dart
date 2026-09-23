@@ -227,6 +227,7 @@ mixin _$ReviewHistoryItemEntity {
   String? get hint => throw _privateConstructorUsedError;
   bool get hintUsed => throw _privateConstructorUsedError;
   ReviewVersionStatus get versionStatus => throw _privateConstructorUsedError;
+  bool get practiceRequested => throw _privateConstructorUsedError;
   bool get contentRedacted => throw _privateConstructorUsedError;
 
   /// Create a copy of ReviewHistoryItemEntity
@@ -259,6 +260,7 @@ abstract class $ReviewHistoryItemEntityCopyWith<$Res> {
       String? hint,
       bool hintUsed,
       ReviewVersionStatus versionStatus,
+      bool practiceRequested,
       bool contentRedacted});
 }
 
@@ -294,6 +296,7 @@ class _$ReviewHistoryItemEntityCopyWithImpl<$Res,
     Object? hint = freezed,
     Object? hintUsed = null,
     Object? versionStatus = null,
+    Object? practiceRequested = null,
     Object? contentRedacted = null,
   }) {
     return _then(_value.copyWith(
@@ -361,6 +364,10 @@ class _$ReviewHistoryItemEntityCopyWithImpl<$Res,
           ? _value.versionStatus
           : versionStatus // ignore: cast_nullable_to_non_nullable
               as ReviewVersionStatus,
+      practiceRequested: null == practiceRequested
+          ? _value.practiceRequested
+          : practiceRequested // ignore: cast_nullable_to_non_nullable
+              as bool,
       contentRedacted: null == contentRedacted
           ? _value.contentRedacted
           : contentRedacted // ignore: cast_nullable_to_non_nullable
@@ -395,6 +402,7 @@ abstract class _$$ReviewHistoryItemEntityImplCopyWith<$Res>
       String? hint,
       bool hintUsed,
       ReviewVersionStatus versionStatus,
+      bool practiceRequested,
       bool contentRedacted});
 }
 
@@ -429,6 +437,7 @@ class __$$ReviewHistoryItemEntityImplCopyWithImpl<$Res>
     Object? hint = freezed,
     Object? hintUsed = null,
     Object? versionStatus = null,
+    Object? practiceRequested = null,
     Object? contentRedacted = null,
   }) {
     return _then(_$ReviewHistoryItemEntityImpl(
@@ -496,6 +505,10 @@ class __$$ReviewHistoryItemEntityImplCopyWithImpl<$Res>
           ? _value.versionStatus
           : versionStatus // ignore: cast_nullable_to_non_nullable
               as ReviewVersionStatus,
+      practiceRequested: null == practiceRequested
+          ? _value.practiceRequested
+          : practiceRequested // ignore: cast_nullable_to_non_nullable
+              as bool,
       contentRedacted: null == contentRedacted
           ? _value.contentRedacted
           : contentRedacted // ignore: cast_nullable_to_non_nullable
@@ -524,6 +537,7 @@ class _$ReviewHistoryItemEntityImpl implements _ReviewHistoryItemEntity {
       required this.hint,
       required this.hintUsed,
       required this.versionStatus,
+      required this.practiceRequested,
       required this.contentRedacted});
 
   @override
@@ -559,11 +573,13 @@ class _$ReviewHistoryItemEntityImpl implements _ReviewHistoryItemEntity {
   @override
   final ReviewVersionStatus versionStatus;
   @override
+  final bool practiceRequested;
+  @override
   final bool contentRedacted;
 
   @override
   String toString() {
-    return 'ReviewHistoryItemEntity(attemptId: $attemptId, questionId: $questionId, questionVersionId: $questionVersionId, editionDate: $editionDate, answeredAt: $answeredAt, action: $action, answerId: $answerId, correctAnswerId: $correctAnswerId, question: $question, topic: $topic, answer: $answer, correctAnswer: $correctAnswer, description: $description, hint: $hint, hintUsed: $hintUsed, versionStatus: $versionStatus, contentRedacted: $contentRedacted)';
+    return 'ReviewHistoryItemEntity(attemptId: $attemptId, questionId: $questionId, questionVersionId: $questionVersionId, editionDate: $editionDate, answeredAt: $answeredAt, action: $action, answerId: $answerId, correctAnswerId: $correctAnswerId, question: $question, topic: $topic, answer: $answer, correctAnswer: $correctAnswer, description: $description, hint: $hint, hintUsed: $hintUsed, versionStatus: $versionStatus, practiceRequested: $practiceRequested, contentRedacted: $contentRedacted)';
   }
 
   @override
@@ -599,6 +615,8 @@ class _$ReviewHistoryItemEntityImpl implements _ReviewHistoryItemEntity {
                 other.hintUsed == hintUsed) &&
             (identical(other.versionStatus, versionStatus) ||
                 other.versionStatus == versionStatus) &&
+            (identical(other.practiceRequested, practiceRequested) ||
+                other.practiceRequested == practiceRequested) &&
             (identical(other.contentRedacted, contentRedacted) ||
                 other.contentRedacted == contentRedacted));
   }
@@ -622,6 +640,7 @@ class _$ReviewHistoryItemEntityImpl implements _ReviewHistoryItemEntity {
       hint,
       hintUsed,
       versionStatus,
+      practiceRequested,
       contentRedacted);
 
   /// Create a copy of ReviewHistoryItemEntity
@@ -652,6 +671,7 @@ abstract class _ReviewHistoryItemEntity implements ReviewHistoryItemEntity {
       required final String? hint,
       required final bool hintUsed,
       required final ReviewVersionStatus versionStatus,
+      required final bool practiceRequested,
       required final bool contentRedacted}) = _$ReviewHistoryItemEntityImpl;
 
   @override
@@ -686,6 +706,8 @@ abstract class _ReviewHistoryItemEntity implements ReviewHistoryItemEntity {
   bool get hintUsed;
   @override
   ReviewVersionStatus get versionStatus;
+  @override
+  bool get practiceRequested;
   @override
   bool get contentRedacted;
 

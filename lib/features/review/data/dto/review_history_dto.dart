@@ -22,6 +22,7 @@ class ReviewHistoryItemDto with _$ReviewHistoryItemDto {
     required String? hint,
     @JsonKey(name: 'hint_used') required bool hintUsed,
     @JsonKey(name: 'version_status') required String versionStatus,
+    @JsonKey(name: 'practice_requested') required bool practiceRequested,
     @JsonKey(name: 'content_redacted') required bool contentRedacted,
   }) = _ReviewHistoryItemDto;
 
