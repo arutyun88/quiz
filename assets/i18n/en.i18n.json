@@ -212,7 +212,7 @@
         "season_rating": "Season rating",
         "provisional_short": "PROV.",
         "accuracy_label": "Accuracy",
-        "season_answers": "$correct correct · $total official",
+        "season_answers": "$correct correct · $total total",
         "history_empty": "Complete an official answer to start your season history",
         "history_load_failed": "Could not load season history",
         "load_more": "Load more",
@@ -224,9 +224,11 @@
         "participant_header": "PLAYER",
         "rating_header": "RATING",
         "best_rating": "BEST",
+        "answers_header": "ANSWERS",
+        "show_in_list": "SHOW IN LIST",
         "official_answers(n)": {
-            "one": "$n OFFICIAL ANSWER",
-            "other": "$n OFFICIAL ANSWERS"
+            "one": "$n ANSWER",
+            "other": "$n ANSWERS"
         },
         "gap_row(n)": {
             "one": "$n MORE PLAYER",

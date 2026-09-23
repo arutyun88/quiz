@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
+import 'package:quiz/app/core/widgets/app_refresh_indicator.dart';
 import 'package:quiz/app/core/widgets/app_shimmer.dart';
 import 'package:quiz/features/leaderboard/domain/entity/season_history_entity.dart';
 import 'package:quiz/features/leaderboard/presentation/provider/season_history_provider.dart';
@@ -15,9 +16,12 @@ class SeasonHistoryView extends ConsumerWidget {
     final state = ref.watch(seasonHistoryProvider);
     return switch (state) {
       SeasonHistoryLoadingState() => const _HistoryLoading(),
-      SeasonHistoryDataState() => _HistoryData(
-          state: state,
-          onLoadMore: ref.read(seasonHistoryProvider.notifier).loadMore,
+      SeasonHistoryDataState() => AppRefreshIndicator(
+          onRefresh: ref.read(seasonHistoryProvider.notifier).refresh,
+          child: _HistoryData(
+            state: state,
+            onLoadMore: ref.read(seasonHistoryProvider.notifier).loadMore,
+          ),
         ),
       SeasonHistoryFailedState() => _HistoryError(
           onRetry: ref.read(seasonHistoryProvider.notifier).fetch,
@@ -35,22 +39,33 @@ class _HistoryData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (state.items.isEmpty) {
-      return Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Text(
-            context.t.leaderboard.history_empty,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.spectral(
-              fontSize: 17,
-              color: context.palette.text.secondary,
+      return LayoutBuilder(
+        builder: (context, constraints) => ListView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          children: [
+            SizedBox(
+              height: constraints.maxHeight,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Text(
+                    context.t.leaderboard.history_empty,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.spectral(
+                      fontSize: 17,
+                      color: context.palette.text.secondary,
+                    ),
+                  ),
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       );
     }
 
     return ListView(
+      physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(22, 14, 22, 24),
       children: [
         for (final season in state.items) _SeasonCard(season: season),

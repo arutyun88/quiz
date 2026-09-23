@@ -51,9 +51,30 @@ class SeasonHistoryNotifier extends StateNotifier<SeasonHistoryState> {
 
   static const _pageSize = 20;
   final LeaderboardRepository _repository;
+  Future<void>? _pendingFetch;
 
-  Future<void> fetch() async {
+  Future<void> fetch() {
+    final pendingFetch = _pendingFetch;
+    if (pendingFetch != null) return pendingFetch;
     state = const SeasonHistoryLoadingState();
+    return _startFetch();
+  }
+
+  Future<void> refresh() {
+    if (state case SeasonHistoryDataState(isLoadingMore: true)) {
+      return Future.value();
+    }
+    return _pendingFetch ??= _fetch().whenComplete(
+      () => _pendingFetch = null,
+    );
+  }
+
+  Future<void> _startFetch() => _pendingFetch = _fetch().whenComplete(
+        () => _pendingFetch = null,
+      );
+
+  Future<void> _fetch() async {
+    final previousState = state;
     final result = await _repository.fetchSeasonHistory(
       limit: _pageSize,
       offset: 0,
@@ -62,13 +83,16 @@ class SeasonHistoryNotifier extends StateNotifier<SeasonHistoryState> {
       case ResultOk(data: final page):
         state = SeasonHistoryDataState(items: page.items, total: page.total);
       case ResultFailed(error: final failure):
-        state = SeasonHistoryFailedState(failure);
+        if (previousState is! SeasonHistoryDataState) {
+          state = SeasonHistoryFailedState(failure);
+        }
     }
   }
 
   Future<void> loadMore() async {
     final current = state;
-    if (current is! SeasonHistoryDataState ||
+    if (_pendingFetch != null ||
+        current is! SeasonHistoryDataState ||
         current.isLoadingMore ||
         !current.hasMore) {
       return;

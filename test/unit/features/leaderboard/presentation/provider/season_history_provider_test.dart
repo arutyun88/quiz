@@ -68,6 +68,28 @@ void main() {
     expect(state.items.last.rank, 8);
     verify(() => repository.fetchSeasonHistory(limit: 20, offset: 1)).called(1);
   });
+
+  test('refresh replaces loaded pages with a fresh first page', () async {
+    await pumpEventQueue();
+    when(() => repository.fetchSeasonHistory(limit: 20, offset: 1)).thenAnswer(
+      (_) async => Result.ok(
+        SeasonHistoryPageEntity(items: [second], total: 2),
+      ),
+    );
+    await notifier.loadMore();
+
+    when(() => repository.fetchSeasonHistory(limit: 20, offset: 0)).thenAnswer(
+      (_) async => Result.ok(
+        SeasonHistoryPageEntity(items: [second], total: 1),
+      ),
+    );
+
+    await notifier.refresh();
+
+    final state = notifier.state as SeasonHistoryDataState;
+    expect(state.items, [second]);
+    expect(state.total, 1);
+  });
 }
 
 final _startOne = DateTime.utc(2026, 7, 1);

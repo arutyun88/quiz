@@ -35,6 +35,7 @@ class LeaderboardTableHeader extends StatelessWidget {
               child: Text(t.rank_header, style: style),
             ),
           ),
+          const SizedBox(width: 12),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 8),

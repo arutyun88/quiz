@@ -117,7 +117,7 @@ class _Translations$leaderboard$ru implements Translations$leaderboard$en {
 	@override String get season_rating => 'Рейтинг сезона';
 	@override String get provisional_short => 'ПРЕДВ.';
 	@override String get accuracy_label => 'Точность';
-	@override String season_answers({required Object correct, required Object total}) => 'Верных: ${correct} · официальных: ${total}';
+	@override String season_answers({required Object correct, required Object total}) => 'Верных: ${correct} · всего: ${total}';
 	@override String get history_empty => 'Ответьте на официальный вопрос, чтобы появилась история сезонов';
 	@override String get history_load_failed => 'Не удалось загрузить историю сезонов';
 	@override String get load_more => 'Показать ещё';
@@ -129,11 +129,13 @@ class _Translations$leaderboard$ru implements Translations$leaderboard$en {
 	@override String get participant_header => 'УЧАСТНИК';
 	@override String get rating_header => 'РЕЙТИНГ';
 	@override String get best_rating => 'ЛУЧШИЙ';
+	@override String get answers_header => 'ОТВЕТОВ';
+	@override String get show_in_list => 'ПОКАЗАТЬ В СПИСКЕ';
 	@override String official_answers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
-		one: '${n} ОФИЦИАЛЬНЫЙ ОТВЕТ',
-		few: '${n} ОФИЦИАЛЬНЫХ ОТВЕТА',
-		many: '${n} ОФИЦИАЛЬНЫХ ОТВЕТОВ',
-		other: '${n} ОФИЦИАЛЬНОГО ОТВЕТА',
+		one: '${n} ОТВЕТ',
+		few: '${n} ОТВЕТА',
+		many: '${n} ОТВЕТОВ',
+		other: '${n} ОТВЕТА',
 	);
 	@override String gap_row({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
 		one: 'ЕЩЁ ${n} УЧАСТНИК',
@@ -1351,7 +1353,7 @@ extension on TranslationsRu {
 			'leaderboard.season_rating' => 'Рейтинг сезона',
 			'leaderboard.provisional_short' => 'ПРЕДВ.',
 			'leaderboard.accuracy_label' => 'Точность',
-			'leaderboard.season_answers' => ({required Object correct, required Object total}) => 'Верных: ${correct} · официальных: ${total}',
+			'leaderboard.season_answers' => ({required Object correct, required Object total}) => 'Верных: ${correct} · всего: ${total}',
 			'leaderboard.history_empty' => 'Ответьте на официальный вопрос, чтобы появилась история сезонов',
 			'leaderboard.history_load_failed' => 'Не удалось загрузить историю сезонов',
 			'leaderboard.load_more' => 'Показать ещё',
@@ -1363,7 +1365,9 @@ extension on TranslationsRu {
 			'leaderboard.participant_header' => 'УЧАСТНИК',
 			'leaderboard.rating_header' => 'РЕЙТИНГ',
 			'leaderboard.best_rating' => 'ЛУЧШИЙ',
-			'leaderboard.official_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} ОФИЦИАЛЬНЫЙ ОТВЕТ', few: '${n} ОФИЦИАЛЬНЫХ ОТВЕТА', many: '${n} ОФИЦИАЛЬНЫХ ОТВЕТОВ', other: '${n} ОФИЦИАЛЬНОГО ОТВЕТА', ), 
+			'leaderboard.answers_header' => 'ОТВЕТОВ',
+			'leaderboard.show_in_list' => 'ПОКАЗАТЬ В СПИСКЕ',
+			'leaderboard.official_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} ОТВЕТ', few: '${n} ОТВЕТА', many: '${n} ОТВЕТОВ', other: '${n} ОТВЕТА', ),
 			'leaderboard.gap_row' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'ЕЩЁ ${n} УЧАСТНИК', few: 'ЕЩЁ ${n} УЧАСТНИКА', many: 'ЕЩЁ ${n} УЧАСТНИКОВ', other: 'ЕЩЁ ${n} УЧАСТНИКА', ), 
 			'leaderboard.total_participants' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'ВСЕГО ${n} УЧАСТНИК', few: 'ВСЕГО ${n} УЧАСТНИКА', many: 'ВСЕГО ${n} УЧАСТНИКОВ', other: 'ВСЕГО ${n} УЧАСТНИКА', ), 
 			'leaderboard.retry' => 'ПОВТОРИТЬ',

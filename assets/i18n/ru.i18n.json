@@ -212,7 +212,7 @@
         "season_rating": "Рейтинг сезона",
         "provisional_short": "ПРЕДВ.",
         "accuracy_label": "Точность",
-        "season_answers": "Верных: $correct · официальных: $total",
+        "season_answers": "Верных: $correct · всего: $total",
         "history_empty": "Ответьте на официальный вопрос, чтобы появилась история сезонов",
         "history_load_failed": "Не удалось загрузить историю сезонов",
         "load_more": "Показать ещё",
@@ -224,11 +224,13 @@
         "participant_header": "УЧАСТНИК",
         "rating_header": "РЕЙТИНГ",
         "best_rating": "ЛУЧШИЙ",
+        "answers_header": "ОТВЕТОВ",
+        "show_in_list": "ПОКАЗАТЬ В СПИСКЕ",
         "official_answers(n)": {
-            "one": "$n ОФИЦИАЛЬНЫЙ ОТВЕТ",
-            "few": "$n ОФИЦИАЛЬНЫХ ОТВЕТА",
-            "many": "$n ОФИЦИАЛЬНЫХ ОТВЕТОВ",
-            "other": "$n ОФИЦИАЛЬНОГО ОТВЕТА"
+            "one": "$n ОТВЕТ",
+            "few": "$n ОТВЕТА",
+            "many": "$n ОТВЕТОВ",
+            "other": "$n ОТВЕТА"
         },
         "gap_row(n)": {
             "one": "ЕЩЁ $n УЧАСТНИК",

@@ -140,8 +140,8 @@ class Translations$leaderboard$en {
 	/// ru: 'Точность'
 	String get accuracy_label => 'Accuracy';
 
-	/// ru: 'Верных: $correct · официальных: $total'
-	String season_answers({required Object correct, required Object total}) => '${correct} correct · ${total} official';
+	/// ru: 'Верных: $correct · всего: $total'
+	String season_answers({required Object correct, required Object total}) => '${correct} correct · ${total} total';
 
 	/// ru: 'Ответьте на официальный вопрос, чтобы появилась история сезонов'
 	String get history_empty => 'Complete an official answer to start your season history';
@@ -176,10 +176,16 @@ class Translations$leaderboard$en {
 	/// ru: 'ЛУЧШИЙ'
 	String get best_rating => 'BEST';
 
-	/// ru: '(one) {$n ОФИЦИАЛЬНЫЙ ОТВЕТ} (few) {$n ОФИЦИАЛЬНЫХ ОТВЕТА} (many) {$n ОФИЦИАЛЬНЫХ ОТВЕТОВ} (other) {$n ОФИЦИАЛЬНОГО ОТВЕТА}'
+	/// ru: 'ОТВЕТОВ'
+	String get answers_header => 'ANSWERS';
+
+	/// ru: 'ПОКАЗАТЬ В СПИСКЕ'
+	String get show_in_list => 'SHOW IN LIST';
+
+	/// ru: '(one) {$n ОТВЕТ} (few) {$n ОТВЕТА} (many) {$n ОТВЕТОВ} (other) {$n ОТВЕТА}'
 	String official_answers({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-		one: '${n} OFFICIAL ANSWER',
-		other: '${n} OFFICIAL ANSWERS',
+		one: '${n} ANSWER',
+		other: '${n} ANSWERS',
 	);
 
 	/// ru: '(one) {ЕЩЁ $n УЧАСТНИК} (few) {ЕЩЁ $n УЧАСТНИКА} (many) {ЕЩЁ $n УЧАСТНИКОВ} (other) {ЕЩЁ $n УЧАСТНИКА}'
@@ -2103,7 +2109,7 @@ extension on Translations {
 			'leaderboard.season_rating' => 'Season rating',
 			'leaderboard.provisional_short' => 'PROV.',
 			'leaderboard.accuracy_label' => 'Accuracy',
-			'leaderboard.season_answers' => ({required Object correct, required Object total}) => '${correct} correct · ${total} official',
+			'leaderboard.season_answers' => ({required Object correct, required Object total}) => '${correct} correct · ${total} total',
 			'leaderboard.history_empty' => 'Complete an official answer to start your season history',
 			'leaderboard.history_load_failed' => 'Could not load season history',
 			'leaderboard.load_more' => 'Load more',
@@ -2115,7 +2121,9 @@ extension on Translations {
 			'leaderboard.participant_header' => 'PLAYER',
 			'leaderboard.rating_header' => 'RATING',
 			'leaderboard.best_rating' => 'BEST',
-			'leaderboard.official_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} OFFICIAL ANSWER', other: '${n} OFFICIAL ANSWERS', ), 
+			'leaderboard.answers_header' => 'ANSWERS',
+			'leaderboard.show_in_list' => 'SHOW IN LIST',
+			'leaderboard.official_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} ANSWER', other: '${n} ANSWERS', ),
 			'leaderboard.gap_row' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} MORE PLAYER', other: '${n} MORE PLAYERS', ), 
 			'leaderboard.total_participants' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} PLAYER TOTAL', other: '${n} PLAYERS TOTAL', ), 
 			'leaderboard.retry' => 'RETRY',

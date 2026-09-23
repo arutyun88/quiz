@@ -13,7 +13,16 @@ class MyPositionCardItem extends LeaderboardRowItem {
   final LeaderboardEntity entry;
 
   @override
-  double get height => 104;
+  double get height => 148;
+}
+
+class GapRowItem extends LeaderboardRowItem {
+  const GapRowItem({required this.count});
+
+  final int count;
+
+  @override
+  double get height => 48;
 }
 
 class TableHeaderItem extends LeaderboardRowItem {
@@ -73,6 +82,25 @@ List<LeaderboardRowItem> buildLeaderboardRowItems(
       isFirst: index == 0,
       isMe: entry.userId == me.userId,
     ));
+  }
+
+  final loadedUserIds = overview.entries.map((entry) => entry.userId).toSet();
+  final myRank = me.rank;
+  if (!me.provisional && myRank != null && !loadedUserIds.contains(me.userId)) {
+    final lastLoadedRank = overview.entries
+        .map((entry) => entry.rank ?? 0)
+        .fold(0, (max, rank) => rank > max ? rank : max);
+    final hiddenBeforeMe = myRank - lastLoadedRank - 1;
+    if (hiddenBeforeMe > 0) {
+      items.add(GapRowItem(count: hiddenBeforeMe));
+    }
+
+    items.add(EntryRowItem(entry: me, isFirst: false, isMe: true));
+
+    final hiddenAfterMe = overview.total - myRank;
+    if (hiddenAfterMe > 0) {
+      items.add(GapRowItem(count: hiddenAfterMe));
+    }
   }
 
   if (overview.total > 0) {

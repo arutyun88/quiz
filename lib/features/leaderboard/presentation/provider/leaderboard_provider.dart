@@ -15,6 +15,7 @@ final leaderboardProvider = StateNotifierProvider<LeaderboardNotifier,
 class LeaderboardNotifier
     extends StateNotifier<BaseState<LeaderboardOverviewEntity>> {
   final LeaderboardRepository _repository;
+  Future<void>? _pendingFetch;
 
   LeaderboardNotifier({required LeaderboardRepository repository})
       : _repository = repository,
@@ -22,8 +23,23 @@ class LeaderboardNotifier
     fetch();
   }
 
-  Future<void> fetch() async {
+  Future<void> fetch() {
+    final pendingFetch = _pendingFetch;
+    if (pendingFetch != null) return pendingFetch;
     state = BaseState.loading();
+    return _startFetch();
+  }
+
+  Future<void> refresh() => _pendingFetch ??= _fetch().whenComplete(
+        () => _pendingFetch = null,
+      );
+
+  Future<void> _startFetch() => _pendingFetch = _fetch().whenComplete(
+        () => _pendingFetch = null,
+      );
+
+  Future<void> _fetch() async {
+    final previousState = state;
 
     final result = await _repository.fetchCurrentSeason();
 
@@ -31,7 +47,9 @@ class LeaderboardNotifier
       case ResultOk(data: final overview):
         state = BaseState.data(overview);
       case ResultFailed(error: final failure):
-        state = BaseState.failed(failure);
+        if (previousState is! BaseDataState) {
+          state = BaseState.failed(failure);
+        }
     }
   }
 }

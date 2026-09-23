@@ -19,89 +19,165 @@ class MyPositionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.palette;
     final foreground = colors.background.static;
-    final mutedForeground = Color.lerp(foreground, colors.text.primary, 0.42)!;
+    final accent = colors.text.inverseAccent;
+    final mutedForeground = Color.lerp(foreground, colors.text.primary, 0.38)!;
+    final canShowInList = entry.rank != null && onTap != null;
     final title = entry.provisional
         ? context.t.leaderboard.provisional.toUpperCase()
         : context.t.leaderboard.my_position.toUpperCase();
 
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: onTap,
-      child: Container(
-        color: colors.text.primary,
-        padding: const EdgeInsets.symmetric(horizontal: 18),
-        child: Row(
-          children: [
-            ConstrainedBox(
-              // Не даём длинному рангу (#12345) отжать имя — за пределами
-              // лимита число ужимается, а не растягивает колонку.
-              constraints: const BoxConstraints(maxWidth: 132),
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  _rankText(entry.rank),
-                  maxLines: 1,
-                  style: GoogleFonts.unbounded(
-                    fontSize: 42,
-                    fontWeight: FontWeight.w800,
-                    height: 0.9,
-                    color: foreground,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: canShowInList ? onTap : null,
+        child: Container(
+          decoration: BoxDecoration(
+            color: colors.text.primary,
+          ),
+          padding: const EdgeInsets.fromLTRB(16, 13, 16, 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: [
-                  Text(
-                    title,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.jetBrainsMono(
-                      fontSize: 9,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 2,
-                      color: colors.text.accent,
+                  Expanded(
+                    child: Text(
+                      title,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.jetBrainsMono(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1.5,
+                        color: accent,
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 2),
+                  if (canShowInList) ...[
+                    Text(
+                      context.t.leaderboard.show_in_list,
+                      style: GoogleFonts.jetBrainsMono(
+                        fontSize: 8,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1,
+                        color: accent,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Icon(
+                      Icons.arrow_downward,
+                      size: 13,
+                      color: accent,
+                    ),
+                  ],
+                ],
+              ),
+              const SizedBox(height: 5),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
                   Text(
-                    entry.displayName,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.spectral(
-                      fontSize: 19,
+                    _rankText(entry.rank),
+                    style: GoogleFonts.unbounded(
+                      fontSize: 33,
+                      fontWeight: FontWeight.w800,
+                      height: 1,
                       color: foreground,
                     ),
                   ),
-                  const SizedBox(height: 5),
-                  Text(
-                    _summaryText(context, entry),
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.jetBrainsMono(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
-                      color: mutedForeground,
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 2),
+                      child: Text(
+                        entry.displayName,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.spectral(
+                          fontSize: 19,
+                          height: 1,
+                          color: foreground,
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
-            ),
-          ],
+              const Spacer(),
+              Container(height: 1, color: mutedForeground),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  _Metric(
+                    value: entry.rating.toString(),
+                    label: context.t.leaderboard.rating_header,
+                    foreground: foreground,
+                    mutedForeground: mutedForeground,
+                  ),
+                  _Metric(
+                    value: entry.bestRating.toString(),
+                    label: context.t.leaderboard.best_rating,
+                    foreground: foreground,
+                    mutedForeground: mutedForeground,
+                  ),
+                  _Metric(
+                    value: entry.officialAnswers.toString(),
+                    label: context.t.leaderboard.answers_header,
+                    foreground: foreground,
+                    mutedForeground: mutedForeground,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  String _summaryText(BuildContext context, LeaderboardEntity entry) {
-    return '${entry.rating} ${context.t.leaderboard.rating_header} · '
-        '${context.t.leaderboard.best_rating}: ${entry.bestRating} · '
-        '${context.t.leaderboard.official_answers(n: entry.officialAnswers)}';
-  }
+  String _rankText(int? rank) => rank == null ? '#—' : '#$rank';
+}
 
-  String _rankText(int? rank) {
-    return rank == null ? '#—' : '#$rank';
+class _Metric extends StatelessWidget {
+  const _Metric({
+    required this.value,
+    required this.label,
+    required this.foreground,
+    required this.mutedForeground,
+  });
+
+  final String value;
+  final String label;
+  final Color foreground;
+  final Color mutedForeground;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            value,
+            style: GoogleFonts.unbounded(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: foreground,
+            ),
+          ),
+          const SizedBox(height: 1),
+          Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.jetBrainsMono(
+              fontSize: 8,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 1.1,
+              color: mutedForeground,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

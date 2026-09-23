@@ -15,6 +15,7 @@ class LeaderboardPage extends StatefulWidget {
 
 class _LeaderboardPageState extends State<LeaderboardPage> {
   var _historySelected = false;
+  var _historyVisited = false;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,10 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                       _SectionTab(
                         label: context.t.leaderboard.history_tab,
                         selected: _historySelected,
-                        onTap: () => setState(() => _historySelected = true),
+                        onTap: () => setState(() {
+                          _historySelected = true;
+                          _historyVisited = true;
+                        }),
                       ),
                     ],
                   ),
@@ -62,9 +66,16 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
             ),
             const AppDivider(indent: 22, endIndent: 22),
             Expanded(
-              child: _historySelected
-                  ? const SeasonHistoryView()
-                  : const LeaderboardSeasonView(),
+              child: IndexedStack(
+                index: _historySelected ? 1 : 0,
+                children: [
+                  const LeaderboardSeasonView(),
+                  if (_historyVisited)
+                    const SeasonHistoryView()
+                  else
+                    const SizedBox.shrink(),
+                ],
+              ),
             ),
           ],
         ),

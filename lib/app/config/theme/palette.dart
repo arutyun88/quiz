@@ -45,6 +45,7 @@ class Palette extends ThemeExtension<Palette> {
       primary: const Color(0xFF18160F),
       secondary: const Color(0xFF6E6A5C),
       accent: const Color(0xFF2A39DE),
+      inverseAccent: const Color(0xFF7C84FF),
       danger: const Color(0xFFB23A2A),
     ),
     textField: TextFieldColor(
@@ -104,6 +105,7 @@ class Palette extends ThemeExtension<Palette> {
       primary: const Color(0xFFF3EFE6),
       secondary: const Color(0xFF8A8678),
       accent: const Color(0xFF7C84FF),
+      inverseAccent: const Color(0xFF2A39DE),
       danger: const Color(0xFFD2705A),
     ),
     textField: TextFieldColor(
@@ -244,12 +246,14 @@ class TextColor {
   final Color primary;
   final Color secondary;
   final Color accent;
+  final Color inverseAccent;
   final Color danger;
 
   TextColor({
     required this.primary,
     required this.secondary,
     required this.accent,
+    required this.inverseAccent,
     required this.danger,
   });
 
@@ -259,6 +263,7 @@ class TextColor {
       primary: Color.lerp(primary, other.primary, t)!,
       secondary: Color.lerp(secondary, other.secondary, t)!,
       accent: Color.lerp(accent, other.accent, t)!,
+      inverseAccent: Color.lerp(inverseAccent, other.inverseAccent, t)!,
       danger: Color.lerp(danger, other.danger, t)!,
     );
   }
@@ -283,7 +288,8 @@ class TextFieldColor {
     if (other == null) return this;
     return TextFieldColor(
       background: Color.lerp(background, other.background, t)!,
-      disabledBackground: Color.lerp(disabledBackground, other.disabledBackground, t)!,
+      disabledBackground:
+          Color.lerp(disabledBackground, other.disabledBackground, t)!,
       labelColor: Color.lerp(labelColor, other.labelColor, t)!,
       hintColor: Color.lerp(hintColor, other.hintColor, t)!,
       cursorColor: Color.lerp(cursorColor, other.cursorColor, t)!,
@@ -309,8 +315,10 @@ class ButtonColor {
     return ButtonColor(
       background: Color.lerp(background, other.background, t)!,
       foreground: Color.lerp(foreground, other.foreground, t)!,
-      disabledBackground: Color.lerp(disabledBackground, other.disabledBackground, t)!,
-      disabledForeground: Color.lerp(disabledForeground, other.disabledForeground, t)!,
+      disabledBackground:
+          Color.lerp(disabledBackground, other.disabledBackground, t)!,
+      disabledForeground:
+          Color.lerp(disabledForeground, other.disabledForeground, t)!,
     );
   }
 }
@@ -405,10 +413,14 @@ class BottomSheetColor {
       background: Color.lerp(background, other.background, t)!,
       foreground: Color.lerp(foreground, other.foreground, t)!,
       scrim: Color.lerp(scrim, other.scrim, t)!,
-      headerBackground: Color.lerp(headerBackground, other.headerBackground, t)!,
-      headerForeground: Color.lerp(headerForeground, other.headerForeground, t)!,
-      buttonBackground: Color.lerp(buttonBackground, other.buttonBackground, t)!,
-      buttonForeground: Color.lerp(buttonForeground, other.buttonForeground, t)!,
+      headerBackground:
+          Color.lerp(headerBackground, other.headerBackground, t)!,
+      headerForeground:
+          Color.lerp(headerForeground, other.headerForeground, t)!,
+      buttonBackground:
+          Color.lerp(buttonBackground, other.buttonBackground, t)!,
+      buttonForeground:
+          Color.lerp(buttonForeground, other.buttonForeground, t)!,
     );
   }
 }
