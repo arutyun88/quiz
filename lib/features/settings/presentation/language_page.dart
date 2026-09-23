@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/localization/gateway/change_locale_gateway.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
 import 'package:quiz/app/di/di.dart';
+import 'package:quiz/features/authentication/provider/authentication_provider.dart';
+import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 import 'package:quiz/features/settings/presentation/widgets/settings_rows.dart';
 import 'package:quiz/gen/strings.g.dart';
 
@@ -31,13 +34,13 @@ class LanguagePage extends StatelessWidget {
   }
 }
 
-class _LanguageRow extends StatelessWidget {
+class _LanguageRow extends ConsumerWidget {
   const _LanguageRow({required this.locale});
 
   final AppLocale locale;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.palette;
     final isCurrent = locale.languageCode ==
         LocaleSettings.instance.currentLocale.languageCode;
@@ -48,6 +51,12 @@ class _LanguageRow extends StatelessWidget {
         if (isCurrent) return;
 
         await getIt<ChangeLocaleGateway>().change(locale);
+        final timezoneId = ref.read(authenticationProvider).mapOrNull(
+              authenticated: (state) => state.user?.timezoneId,
+            );
+        await ref
+            .read(dailyEditionProvider.notifier)
+            .synchronizeActiveRun(timezoneId: timezoneId);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 2),
