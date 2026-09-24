@@ -197,25 +197,36 @@ class _AnimatedSnackBarContentState extends State<_AnimatedSnackBarContent>
   @override
   Widget build(BuildContext context) {
     final colors = context.palette;
+    final isDark = context.appTheme.themeMode.isDark;
     final (icon, iconColor) = switch (widget.kind) {
       _AppSnackBarKind.notice => (Icons.bolt, colors.text.accent),
       _AppSnackBarKind.error => (Icons.bolt, colors.text.danger),
       _AppSnackBarKind.offline => (Icons.wifi_off, colors.text.accent),
     };
+    final surfaceColor =
+        isDark ? colors.background.dynamic : colors.card.background;
+    final iconSurfaceColor =
+        isDark ? colors.card.border : colors.bottomSheet.headerBackground;
+    final border = BorderSide(color: colors.text.primary, width: 1.5);
     final content = ConstrainedBox(
       constraints: const BoxConstraints(minHeight: 68),
       child: IntrinsicHeight(
-        child: DecoratedBox(
+        child: Container(
           decoration: BoxDecoration(
-            color: colors.card.background,
-            border: Border.all(color: colors.text.primary, width: 1.5),
+            color: surfaceColor,
+          ),
+          foregroundDecoration: BoxDecoration(
+            border: Border.fromBorderSide(border),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
                 width: 42,
-                color: colors.bottomSheet.headerBackground,
+                decoration: BoxDecoration(
+                  color: iconSurfaceColor,
+                  border: Border(right: border),
+                ),
                 alignment: Alignment.center,
                 child: Icon(
                   icon,
