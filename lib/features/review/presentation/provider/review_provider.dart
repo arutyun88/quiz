@@ -2,12 +2,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/di/di.dart';
+import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/review/domain/entity/review_history_entity.dart';
 import 'package:quiz/features/review/domain/repository/review_repository.dart';
 
-final reviewProvider =
-    StateNotifierProvider.autoDispose<ReviewNotifier, ReviewState>(
-  (ref) => ReviewNotifier(reviewRepository: getIt<ReviewRepository>()),
+final reviewProvider = StateNotifierProvider<ReviewNotifier, ReviewState>(
+  (ref) {
+    final userId = ref.watch(
+      authenticationProvider.select(
+        (state) => state.mapOrNull(
+          authenticated: (state) => state.user?.id,
+        ),
+      ),
+    );
+    return ReviewNotifier(
+      reviewRepository: getIt<ReviewRepository>(),
+      autoFetch: userId != null,
+    );
+  },
 );
 
 sealed class ReviewState {
@@ -41,37 +53,30 @@ final class ReviewFailedState extends ReviewState {
 }
 
 class ReviewNotifier extends StateNotifier<ReviewState> {
-  ReviewNotifier({required ReviewRepository reviewRepository})
-      : _reviewRepository = reviewRepository,
+  ReviewNotifier({
+    required ReviewRepository reviewRepository,
+    bool autoFetch = true,
+  })  : _reviewRepository = reviewRepository,
         super(const ReviewLoadingState()) {
-    fetch();
+    if (autoFetch) fetch();
   }
 
   static const _pageSize = 20;
   final ReviewRepository _reviewRepository;
-  Future<void>? _pendingFetch;
+  Future<bool>? _pendingFetch;
 
-  Future<void> fetch() {
-    final pendingFetch = _pendingFetch;
-    if (pendingFetch != null) return pendingFetch;
-    state = const ReviewLoadingState();
-    return _startFetch();
-  }
-
-  Future<void> refresh() {
-    if (state case ReviewDataState(isLoadingMore: true)) {
-      return Future.value();
-    }
-    return _pendingFetch ??= _fetch().whenComplete(
-      () => _pendingFetch = null,
-    );
-  }
-
-  Future<void> _startFetch() => _pendingFetch = _fetch().whenComplete(
+  Future<bool> fetch() => _pendingFetch ??= _fetch().whenComplete(
         () => _pendingFetch = null,
       );
 
-  Future<void> _fetch() async {
+  Future<bool> refresh() {
+    if (state case ReviewDataState(isLoadingMore: true)) {
+      return Future.value(true);
+    }
+    return fetch();
+  }
+
+  Future<bool> _fetch() async {
     final previousState = state;
     final result = await _reviewRepository.fetch(limit: _pageSize, offset: 0);
     switch (result) {
@@ -80,10 +85,12 @@ class ReviewNotifier extends StateNotifier<ReviewState> {
           items: history.items,
           total: history.total,
         );
+        return true;
       case ResultFailed(error: final failure):
         if (previousState is! ReviewDataState) {
           state = ReviewFailedState(failure);
         }
+        return false;
     }
   }
 

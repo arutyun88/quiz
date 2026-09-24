@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
-import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/utils/open_daily_limit.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
 import 'package:quiz/app/core/widgets/app_snack_bar.dart';
@@ -145,16 +144,18 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
     return switch (editionState) {
       DailyEditionInitialState() ||
       DailyEditionLoadingState() =>
-        const QuizLoading(),
+        const QuizQuestionLoading(),
       DailyEditionFailedState(:final failure) => switch (
             quizConnectionErrorKind(failure)) {
           final kind? => QuizConnectionError(
               kind: kind,
               onRetry: () => _retryBootstrap(ref),
             ),
-          null => QuizError(failure: failure),
+          null => QuizQuestionError(
+              onRetry: () => _retryBootstrap(ref),
+            ),
         },
-      DailyEditionSummaryState() => const QuizLoading(),
+      DailyEditionSummaryState() => const QuizQuestionLoading(),
       DailyEditionActiveState(
         :final run,
         :final assignment,
@@ -190,10 +191,8 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
                 ),
               ],
             ),
-          null => QuizError(
-              failure: Failure.unknown(
-                StateError('Daily assignment content is unavailable'),
-              ),
+          null => QuizQuestionError(
+              onRetry: () => _retryBootstrap(ref),
             ),
         },
     };

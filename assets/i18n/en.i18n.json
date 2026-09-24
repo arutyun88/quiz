@@ -213,9 +213,12 @@
         "provisional_short": "PROV.",
         "accuracy_label": "Accuracy",
         "season_answers": "$correct correct · $total total",
-        "history_empty": "Complete an official answer to start your season history",
-        "history_load_failed": "Could not load season history",
+        "history_empty_title": "NO HISTORY YET",
+        "history_empty_message": "Play your first daily edition to start your season history",
+        "history_error_title": "COULD NOT LOAD HISTORY",
+        "history_error_message": "Something went wrong. Please try again",
         "load_more": "Load more",
+        "load_more_error_title": "COULD NOT LOAD HISTORY",
         "load_more_failed": "Could not load more seasons. Try again.",
         "my_position": "My position",
         "provisional": "Provisional rating",
@@ -239,7 +242,8 @@
             "other": "$n PLAYERS TOTAL"
         },
         "retry": "RETRY",
-        "load_failed": "Could not load leaderboard"
+        "error_title": "COULD NOT LOAD LEADERBOARD",
+        "error_message": "Something went wrong. Please try again"
     },
     "gamification": {
         "level": "Level $level",
@@ -274,9 +278,13 @@
             "points": "Points"
         },
         "xp_reward": "+$points XP",
-        "public_empty": "This user hasn't unlocked any achievements yet",
-        "error": "Failed to load",
-        "retry": "Retry"
+        "public_empty_title": "NO ACHIEVEMENTS YET",
+        "public_empty_message": "This user hasn't unlocked any achievements yet",
+        "error_title": "COULD NOT LOAD ACHIEVEMENTS",
+        "error_message": "Something went wrong. Please try again",
+        "refresh_error_title": "COULD NOT REFRESH ACHIEVEMENTS",
+        "refresh_error_message": "Your current data is still shown. Please try again later",
+        "retry": "RETRY"
     },
     "question": {
         "answer_letters": [
@@ -302,6 +310,11 @@
             "server_unavailable": {
                 "title": "SERVER UNAVAILABLE",
                 "message": "Could not connect to the server. Please try again later",
+                "retry": "RETRY"
+            },
+            "unknown_error": {
+                "title": "COULD NOT LOAD QUESTION",
+                "message": "Something went wrong. Try again",
                 "retry": "RETRY"
             }
         },
@@ -550,9 +563,13 @@
             "other": "$n answers"
         },
         "rhythm_insufficient": "Not enough answers yet to identify your best day",
-        "empty": "No data yet — play a daily issue and your mastery will show up here",
-        "error": "Failed to load",
-        "retry": "Retry",
+        "empty_title": "NO DATA YET",
+        "empty_message": "Play a daily edition to see your statistics for the last 30 days",
+        "error_title": "COULD NOT LOAD",
+        "error_message": "Something went wrong. Please try again",
+        "refresh_error_title": "COULD NOT REFRESH MASTERY",
+        "refresh_error_message": "Your current data is still shown. Please try again later",
+        "retry": "RETRY",
         "paywall": {
             "tagline": "Topic mastery",
             "description": "See where you're strong and what needs work — the algorithm does the rest.",
@@ -579,9 +596,14 @@
         "practice_error_title": "Could not add practice",
         "practice_error_message": "Try again later",
         "load_more": "Load more",
-        "load_more_error": "Could not load more attempts. Try again.",
-        "empty": "No mistakes yet — completed incorrect attempts will appear here",
-        "error": "Failed to load",
-        "retry": "Retry"
+        "load_more_error_title": "COULD NOT LOAD MORE",
+        "load_more_error_message": "Please try again",
+        "empty_title": "NO MISTAKES YET",
+        "empty_message": "Questions you answered incorrectly or skipped will appear here",
+        "error_title": "COULD NOT LOAD",
+        "error_message": "Something went wrong. Please try again",
+        "refresh_error_title": "COULD NOT REFRESH HISTORY",
+        "refresh_error_message": "Your current data is still shown. Please try again later",
+        "retry": "RETRY"
     }
 }

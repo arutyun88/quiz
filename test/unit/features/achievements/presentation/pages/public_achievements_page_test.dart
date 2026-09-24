@@ -28,7 +28,11 @@ void main() {
 
     expect(find.text(_locked.name), findsNothing);
     expect(
-      find.text(t.achievements.public_empty),
+      find.text(t.achievements.public_empty_title),
+      findsOneWidget,
+    );
+    expect(
+      find.text(t.achievements.public_empty_message),
       findsOneWidget,
     );
   });

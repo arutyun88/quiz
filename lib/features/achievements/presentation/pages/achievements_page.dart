@@ -7,8 +7,10 @@ import 'package:quiz/app/core/model/base_state.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
 import 'package:quiz/app/core/widgets/app_refresh_indicator.dart';
 import 'package:quiz/app/core/widgets/app_shimmer.dart';
+import 'package:quiz/app/core/widgets/app_snack_bar.dart';
 import 'package:quiz/features/achievements/domain/entity/user_achievement_entity.dart';
 import 'package:quiz/features/achievements/presentation/provider/achievements_provider.dart';
+import 'package:quiz/features/achievements/presentation/widgets/achievement_state_views.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 const _categoryOrder = ['BEGINNER', 'PROGRESS', 'ACCURACY', 'STREAK', 'POINTS'];
@@ -36,9 +38,10 @@ class _AchievementsPageState extends ConsumerState<AchievementsPage> {
     final colors = context.palette;
     final state = ref.watch(achievementsProvider);
     final items = switch (state) {
-      BaseDataState(:final data) => data.items,
+      BaseDataState(:final data) when data.items.isNotEmpty => data.items,
       _ => null,
     };
+    final isLoading = state is BaseLoadingState;
 
     return Scaffold(
       backgroundColor: colors.background.static,
@@ -47,16 +50,30 @@ class _AchievementsPageState extends ConsumerState<AchievementsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _Header(items: items),
-            _UnlockedBar(items: items),
+            _Header(items: items, loading: isLoading),
+            _UnlockedBar(items: items, loading: isLoading),
             const AppDivider(indent: 22, endIndent: 22),
             Expanded(
               child: AppRefreshIndicator(
-                onRefresh: ref.read(achievementsProvider.notifier).refresh,
+                onRefresh: () async {
+                  final refreshed =
+                      await ref.read(achievementsProvider.notifier).refresh();
+                  if (!refreshed && context.mounted) {
+                    AppSnackBar.showError(
+                      context,
+                      title: context.t.achievements.refresh_error_title,
+                      message: context.t.achievements.refresh_error_message,
+                    );
+                  }
+                },
                 child: switch (state) {
-                  BaseLoadingState() => const _AchievementsLoading(),
+                  BaseLoadingState() => const AchievementsLoadingView(),
+                  BaseDataState(:final data) when data.items.isEmpty =>
+                    AchievementsErrorView(
+                      onRetry: ref.read(achievementsProvider.notifier).fetch,
+                    ),
                   BaseDataState() => _AchievementsList(items: items!),
-                  _ => _AchievementsError(
+                  _ => AchievementsErrorView(
                       onRetry: ref.read(achievementsProvider.notifier).fetch,
                     ),
                 },
@@ -70,9 +87,10 @@ class _AchievementsPageState extends ConsumerState<AchievementsPage> {
 }
 
 class _Header extends StatelessWidget {
-  const _Header({required this.items});
+  const _Header({required this.items, required this.loading});
 
   final List<UserAchievementEntity>? items;
+  final bool loading;
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +118,15 @@ class _Header extends StatelessWidget {
               ),
             ),
           ),
-          if (unlocked != null)
+          if (loading)
+            AppShimmer(
+              child: Container(
+                width: 28,
+                height: 12,
+                color: colors.background.dynamic,
+              ),
+            )
+          else if (unlocked != null)
             Text(
               '$unlocked/${items!.length}',
               style: GoogleFonts.jetBrainsMono(
@@ -116,9 +142,10 @@ class _Header extends StatelessWidget {
 }
 
 class _UnlockedBar extends StatelessWidget {
-  const _UnlockedBar({required this.items});
+  const _UnlockedBar({required this.items, required this.loading});
 
   final List<UserAchievementEntity>? items;
+  final bool loading;
 
   @override
   Widget build(BuildContext context) {
@@ -127,11 +154,18 @@ class _UnlockedBar extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(22, 0, 22, 12),
-      child: _ProgressBar(
-        height: 4,
-        fraction: total == 0 ? 0 : unlocked / total,
-        fillColor: context.palette.text.accent,
-      ),
+      child: loading
+          ? AppShimmer(
+              child: Container(
+                height: 4,
+                color: context.palette.background.dynamic,
+              ),
+            )
+          : _ProgressBar(
+              height: 4,
+              fraction: total == 0 ? 0 : unlocked / total,
+              fillColor: context.palette.text.accent,
+            ),
     );
   }
 }
@@ -348,129 +382,6 @@ class _AchievementRow extends StatelessWidget {
     );
 
     return unlocked ? row : Opacity(opacity: 0.55, child: row);
-  }
-}
-
-class _AchievementsLoading extends StatelessWidget {
-  const _AchievementsLoading();
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.palette;
-
-    return AppShimmer(
-      child: ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(22, 18, 22, 32),
-        itemCount: 2,
-        itemBuilder: (context, section) => Padding(
-          padding: EdgeInsets.only(top: section == 0 ? 0 : 22),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                  width: 90, height: 10, color: colors.background.dynamic),
-              const SizedBox(height: 10),
-              for (var i = 0; i < 3; i++)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  child: Row(
-                    children: [
-                      Container(
-                          width: 36,
-                          height: 36,
-                          color: colors.background.dynamic),
-                      const SizedBox(width: 14),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                                height: 16, color: colors.background.dynamic),
-                            const SizedBox(height: 6),
-                            Container(
-                              width: 140,
-                              height: 9,
-                              color: colors.background.dynamic,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _AchievementsError extends StatelessWidget {
-  const _AchievementsError({required this.onRetry});
-
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.palette;
-
-    return ListView(
-      physics: const AlwaysScrollableScrollPhysics(),
-      padding: const EdgeInsets.fromLTRB(22, 28, 22, 24),
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(color: colors.text.primary, width: 1.5),
-              bottom: BorderSide(color: colors.divider),
-            ),
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 22),
-          child: Column(
-            children: [
-              Text(
-                context.t.achievements.error,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.spectral(
-                  fontSize: 17,
-                  color: colors.text.primary,
-                ),
-              ),
-              const SizedBox(height: 16),
-              GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: onRetry,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: colors.text.primary, width: 1.5),
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.refresh, size: 18, color: colors.text.primary),
-                      const SizedBox(width: 8),
-                      Text(
-                        context.t.achievements.retry.toUpperCase(),
-                        style: GoogleFonts.jetBrainsMono(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 1.5,
-                          color: colors.text.primary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
   }
 }
 

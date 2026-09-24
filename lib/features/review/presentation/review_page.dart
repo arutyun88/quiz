@@ -4,32 +4,69 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/app_refresh_indicator.dart';
-import 'package:quiz/app/core/widgets/app_shimmer.dart';
 import 'package:quiz/app/core/widgets/app_snack_bar.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 import 'package:quiz/features/review/domain/entity/review_history_entity.dart';
 import 'package:quiz/features/review/presentation/provider/review_provider.dart';
+import 'package:quiz/features/review/presentation/widgets/review_state_views.dart';
 import 'package:quiz/gen/strings.g.dart';
 
-class ReviewPage extends ConsumerWidget {
+class ReviewPage extends ConsumerStatefulWidget {
   const ReviewPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ReviewPage> createState() => _ReviewPageState();
+}
+
+class _ReviewPageState extends ConsumerState<ReviewPage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(reviewProvider.notifier).fetch();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final state = ref.watch(reviewProvider);
+    ref.listen(reviewProvider, (previous, next) {
+      final failure = next is ReviewDataState ? next.failure : null;
+      final previousFailure =
+          previous is ReviewDataState ? previous.failure : null;
+      if (failure != null && failure != previousFailure) {
+        AppSnackBar.showError(
+          context,
+          title: context.t.review.load_more_error_title,
+          message: context.t.review.load_more_error_message,
+        );
+      }
+    });
+
     return AppScaffold(
       title: context.t.review.title,
       body: AppRefreshIndicator(
-        onRefresh: ref.read(reviewProvider.notifier).refresh,
+        onRefresh: () async {
+          final refreshed = await ref.read(reviewProvider.notifier).refresh();
+          if (!refreshed && context.mounted) {
+            AppSnackBar.showError(
+              context,
+              title: context.t.review.refresh_error_title,
+              message: context.t.review.refresh_error_message,
+            );
+          }
+        },
         child: switch (state) {
-          ReviewLoadingState() => const _ReviewLoading(),
+          ReviewLoadingState() => const ReviewLoadingView(),
+          ReviewDataState(items: final items) when items.isEmpty =>
+            const _ReviewEmpty(),
           ReviewDataState() => _ReviewHistory(
               state: state,
               onLoadMore: ref.read(reviewProvider.notifier).loadMore,
             ),
-          ReviewFailedState() => _ReviewError(
+          ReviewFailedState() => ReviewErrorView(
               onRetry: ref.read(reviewProvider.notifier).fetch,
             ),
         },
@@ -102,38 +139,24 @@ class _ReviewHistoryState extends State<_ReviewHistory> {
       children: [
         const _InfoBanner(),
         const SizedBox(height: 14),
-        if (widget.state.items.isEmpty)
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 28),
-            child: Text(
-              t.empty,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.spectral(
-                fontSize: 17,
-                color: context.palette.text.primary,
-              ),
-            ),
-          )
-        else ...[
-          Text(
-            t.total(n: widget.state.total).toUpperCase(),
-            style: GoogleFonts.jetBrainsMono(
-              fontSize: 9,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 1,
-              color: context.palette.text.secondary,
-            ),
+        Text(
+          t.total(n: widget.state.total).toUpperCase(),
+          style: GoogleFonts.jetBrainsMono(
+            fontSize: 9,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1,
+            color: context.palette.text.secondary,
           ),
-          const SizedBox(height: 8),
-          for (final item in widget.state.items)
-            _ReviewCard(
-              item: item,
-              controller: _controllerFor(item.attemptId),
-              onExpansionChanged: (expanded) =>
-                  _handleExpansionChanged(item.attemptId, expanded),
-              onPracticeCompleted: () => _collapse(item.attemptId),
-            ),
-        ],
+        ),
+        const SizedBox(height: 8),
+        for (final item in widget.state.items)
+          _ReviewCard(
+            item: item,
+            controller: _controllerFor(item.attemptId),
+            onExpansionChanged: (expanded) =>
+                _handleExpansionChanged(item.attemptId, expanded),
+            onPracticeCompleted: () => _collapse(item.attemptId),
+          ),
         if (widget.state.hasMore)
           Padding(
             padding: const EdgeInsets.only(top: 12),
@@ -143,18 +166,69 @@ class _ReviewHistoryState extends State<_ReviewHistory> {
               onTap: widget.onLoadMore,
             ),
           ),
-        if (widget.state.failure != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Text(
-              t.load_more_error,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.spectral(
-                fontSize: 14,
-                color: context.palette.text.danger,
+      ],
+    );
+  }
+}
+
+class _ReviewEmpty extends StatelessWidget {
+  const _ReviewEmpty();
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.palette;
+
+    return CustomScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      slivers: [
+        const SliverPadding(
+          padding: EdgeInsets.fromLTRB(22, 16, 22, 0),
+          sliver: SliverToBoxAdapter(child: _InfoBanner()),
+        ),
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(32, 24, 32, 48),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: colors.text.primary),
+                    ),
+                    child: Icon(
+                      Icons.fact_check_outlined,
+                      size: 30,
+                      color: colors.text.primary,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    context.t.review.empty_title,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.unbounded(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w800,
+                      color: colors.text.primary,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    context.t.review.empty_message,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.spectral(
+                      fontSize: 18,
+                      color: colors.text.secondary,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
+        ),
       ],
     );
   }
@@ -519,47 +593,3 @@ String _versionLabel(BuildContext context, ReviewVersionStatus status) =>
       ReviewVersionStatus.withdrawn => context.t.review.version_withdrawn,
       ReviewVersionStatus.unknown => context.t.review.version_unknown,
     };
-
-class _ReviewLoading extends StatelessWidget {
-  const _ReviewLoading();
-
-  @override
-  Widget build(BuildContext context) => AppShimmer(
-        child: ListView(
-          physics: const NeverScrollableScrollPhysics(),
-          padding: const EdgeInsets.fromLTRB(22, 16, 22, 32),
-          children: [
-            Container(height: 44, color: context.palette.background.dynamic),
-            const SizedBox(height: 14),
-            for (var i = 0; i < 4; i++) ...[
-              Container(height: 82, color: context.palette.background.dynamic),
-              const SizedBox(height: 10),
-            ],
-          ],
-        ),
-      );
-}
-
-class _ReviewError extends StatelessWidget {
-  const _ReviewError({required this.onRetry});
-
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) => ListView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(22, 28, 22, 24),
-        children: [
-          Text(
-            context.t.review.error,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.spectral(
-              fontSize: 17,
-              color: context.palette.text.primary,
-            ),
-          ),
-          const SizedBox(height: 16),
-          _OutlineAction(label: context.t.review.retry, onTap: onRetry),
-        ],
-      );
-}

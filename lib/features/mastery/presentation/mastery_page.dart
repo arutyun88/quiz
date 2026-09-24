@@ -8,30 +8,53 @@ import 'package:intl/intl.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/model/base_state.dart';
 import 'package:quiz/app/core/widgets/app_refresh_indicator.dart';
-import 'package:quiz/app/core/widgets/app_shimmer.dart';
+import 'package:quiz/app/core/widgets/app_snack_bar.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
 import 'package:quiz/features/mastery/domain/entity/mastery_entity.dart';
 import 'package:quiz/features/mastery/presentation/provider/mastery_provider.dart';
+import 'package:quiz/features/mastery/presentation/widgets/mastery_state_views.dart';
 import 'package:quiz/features/user/presentation/provider/quiz_plus_provider.dart';
 import 'package:quiz/gen/strings.g.dart';
 
-class MasteryPage extends ConsumerWidget {
+class MasteryPage extends ConsumerStatefulWidget {
   const MasteryPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MasteryPage> createState() => _MasteryPageState();
+}
+
+class _MasteryPageState extends ConsumerState<MasteryPage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(masteryProvider.notifier).fetch();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final state = ref.watch(masteryProvider);
     final hasQuizPlus = ref.watch(quizPlusProvider);
 
     return AppScaffold(
       title: context.t.mastery.title,
       body: AppRefreshIndicator(
-        onRefresh: ref.read(masteryProvider.notifier).refresh,
+        onRefresh: () async {
+          final refreshed = await ref.read(masteryProvider.notifier).refresh();
+          if (!refreshed && context.mounted) {
+            AppSnackBar.showError(
+              context,
+              title: context.t.mastery.refresh_error_title,
+              message: context.t.mastery.refresh_error_message,
+            );
+          }
+        },
         child: switch (state) {
-          BaseLoadingState() => const _MasteryLoading(),
+          BaseLoadingState() => const MasteryLoadingView(),
           BaseDataState(:final data) =>
             _MasteryView(mastery: data, locked: !hasQuizPlus),
-          _ => _MasteryError(
+          _ => MasteryErrorView(
               onRetry: () => ref.read(masteryProvider.notifier).fetch()),
         },
       ),
@@ -50,27 +73,7 @@ class _MasteryView extends StatelessWidget {
     final t = context.t.mastery;
 
     if (mastery.topics.isEmpty) {
-      return CustomScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(22),
-                child: Text(
-                  t.empty,
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.spectral(
-                    fontSize: 17,
-                    color: context.palette.text.primary,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      );
+      return const MasteryEmptyView();
     }
 
     final content = ListView(
@@ -93,8 +96,8 @@ class _MasteryView extends StatelessWidget {
             isWeakest:
                 i == mastery.topics.length - 1 && mastery.topics.length > 1,
           ),
-        if (mastery.weakest case final MasteryTopicEntity weakest)
-          _WeakestBlock(weakest: weakest),
+        if (mastery.topics.length > 1 && mastery.weakest != null)
+          _WeakestBlock(weakest: mastery.weakest!),
         _RhythmBlock(
           weeklyAccuracyDelta: mastery.weeklyAccuracyDelta,
           bestDayOfWeek: mastery.bestDayOfWeek,
@@ -573,98 +576,6 @@ class _PaywallPanel extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _MasteryLoading extends StatelessWidget {
-  const _MasteryLoading();
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.palette;
-
-    return AppShimmer(
-      child: ListView(
-        physics: const NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(22, 18, 22, 32),
-        children: [
-          Container(width: 130, height: 10, color: colors.background.dynamic),
-          for (var i = 0; i < 4; i++) ...[
-            const SizedBox(height: 16),
-            Container(height: 17, color: colors.background.dynamic),
-            const SizedBox(height: 7),
-            Container(height: 6, color: colors.background.dynamic),
-          ],
-          const SizedBox(height: 24),
-          Container(height: 90, color: colors.background.dynamic),
-        ],
-      ),
-    );
-  }
-}
-
-class _MasteryError extends StatelessWidget {
-  const _MasteryError({required this.onRetry});
-
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.palette;
-
-    return ListView(
-      physics: const AlwaysScrollableScrollPhysics(),
-      padding: const EdgeInsets.fromLTRB(22, 28, 22, 24),
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(color: colors.text.primary, width: 1.5),
-              bottom: BorderSide(color: colors.divider),
-            ),
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 22),
-          child: Column(
-            children: [
-              Text(
-                context.t.mastery.error,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.spectral(
-                    fontSize: 17, color: colors.text.primary),
-              ),
-              const SizedBox(height: 16),
-              GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: onRetry,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: colors.text.primary, width: 1.5),
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.refresh, size: 18, color: colors.text.primary),
-                      const SizedBox(width: 8),
-                      Text(
-                        context.t.mastery.retry.toUpperCase(),
-                        style: GoogleFonts.jetBrainsMono(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 1.5,
-                          color: colors.text.primary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

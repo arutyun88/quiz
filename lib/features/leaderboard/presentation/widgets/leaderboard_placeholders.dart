@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
+import 'package:quiz/app/core/widgets/button/app_button_v2.dart';
 import 'package:quiz/app/core/widgets/app_shimmer.dart';
 import 'package:quiz/gen/strings.g.dart';
 
@@ -67,99 +68,132 @@ class LeaderboardLoading extends StatelessWidget {
 }
 
 class LeaderboardError extends StatelessWidget {
-  const LeaderboardError({super.key, required this.onRetry});
+  const LeaderboardError({
+    super.key,
+    required this.title,
+    required this.message,
+    required this.onRetry,
+  });
 
-  final VoidCallback onRetry;
+  final String title;
+  final String message;
+  final Future<void> Function() onRetry;
 
   @override
   Widget build(BuildContext context) {
     final colors = context.palette;
 
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(22, 28, 22, 24),
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(color: colors.text.primary, width: 1.5),
-              bottom: BorderSide(color: colors.divider),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(22, 0, 22, 22),
+      child: Column(
+        children: [
+          Expanded(
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: colors.text.primary),
+                    ),
+                    child: Icon(
+                      Icons.priority_high,
+                      size: 28,
+                      color: colors.text.primary,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.unbounded(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w800,
+                      color: colors.text.primary,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    message,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.spectral(
+                      fontSize: 18,
+                      color: colors.text.secondary,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-          padding: const EdgeInsets.symmetric(vertical: 22),
-          child: Column(
-            children: [
-              Text(
-                context.t.leaderboard.load_failed,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.spectral(
-                  fontSize: 17,
-                  color: colors.text.primary,
-                ),
-              ),
-              const SizedBox(height: 16),
-              GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: onRetry,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: colors.text.primary, width: 1.5),
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.refresh, size: 18, color: colors.text.primary),
-                      const SizedBox(width: 8),
-                      Text(
-                        context.t.leaderboard.retry,
-                        style: GoogleFonts.jetBrainsMono(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 1.5,
-                          color: colors.text.primary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+          AppButtonV2(
+            label: context.t.leaderboard.retry,
+            onTap: (_) => onRetry(),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
 
-class LeaderboardEmpty extends StatelessWidget {
-  const LeaderboardEmpty({super.key});
+class LeaderboardHistoryEmpty extends StatelessWidget {
+  const LeaderboardHistoryEmpty({super.key});
 
   @override
   Widget build(BuildContext context) {
     final colors = context.palette;
 
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(22, 14, 22, 24),
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(color: colors.text.primary, width: 1.5),
-              bottom: BorderSide(color: colors.divider),
+    return LayoutBuilder(
+      builder: (context, constraints) => ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        children: [
+          SizedBox(
+            height: constraints.maxHeight,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: colors.text.primary),
+                      ),
+                      child: Icon(
+                        Icons.calendar_month_outlined,
+                        size: 28,
+                        color: colors.text.primary,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      context.t.leaderboard.history_empty_title,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.unbounded(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w800,
+                        color: colors.text.primary,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      context.t.leaderboard.history_empty_message,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.spectral(
+                        fontSize: 18,
+                        color: colors.text.secondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
-          padding: const EdgeInsets.symmetric(vertical: 24),
-          child: Text(
-            context.t.leaderboard.empty,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.spectral(
-              fontSize: 17,
-              color: colors.text.secondary,
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

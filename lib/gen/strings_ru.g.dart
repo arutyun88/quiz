@@ -118,9 +118,12 @@ class _Translations$leaderboard$ru implements Translations$leaderboard$en {
 	@override String get provisional_short => 'ПРЕДВ.';
 	@override String get accuracy_label => 'Точность';
 	@override String season_answers({required Object correct, required Object total}) => 'Верных: ${correct} · всего: ${total}';
-	@override String get history_empty => 'Ответьте на официальный вопрос, чтобы появилась история сезонов';
-	@override String get history_load_failed => 'Не удалось загрузить историю сезонов';
+	@override String get history_empty_title => 'ИСТОРИИ ПОКА НЕТ';
+	@override String get history_empty_message => 'Сыграйте первый выпуск, чтобы здесь появилась история сезонов';
+	@override String get history_error_title => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ ИСТОРИЮ';
+	@override String get history_error_message => 'Что-то пошло не так. Попробуйте ещё раз';
 	@override String get load_more => 'Показать ещё';
+	@override String get load_more_error_title => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ ИСТОРИЮ';
 	@override String get load_more_failed => 'Не удалось загрузить следующие сезоны. Повторите ещё раз.';
 	@override String get my_position => 'Моя позиция';
 	@override String get provisional => 'Предварительный рейтинг';
@@ -150,7 +153,8 @@ class _Translations$leaderboard$ru implements Translations$leaderboard$en {
 		other: 'ВСЕГО ${n} УЧАСТНИКА',
 	);
 	@override String get retry => 'ПОВТОРИТЬ';
-	@override String get load_failed => 'Не удалось загрузить рейтинг';
+	@override String get error_title => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ РЕЙТИНГ';
+	@override String get error_message => 'Что-то пошло не так. Попробуйте ещё раз';
 }
 
 // Path: gamification
@@ -197,9 +201,13 @@ class _Translations$achievements$ru implements Translations$achievements$en {
 	@override String get title => 'Достижения';
 	@override late final _Translations$achievements$categories$ru categories = _Translations$achievements$categories$ru._(_root);
 	@override String xp_reward({required Object points}) => '+${points} XP';
-	@override String get public_empty => 'Пользователь пока не получил ни одного достижения';
-	@override String get error => 'Не удалось загрузить';
-	@override String get retry => 'Повторить';
+	@override String get public_empty_title => 'ДОСТИЖЕНИЙ ПОКА НЕТ';
+	@override String get public_empty_message => 'Пользователь пока не получил ни одного достижения';
+	@override String get error_title => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ ДОСТИЖЕНИЯ';
+	@override String get error_message => 'Что-то пошло не так. Попробуйте ещё раз';
+	@override String get refresh_error_title => 'НЕ УДАЛОСЬ ОБНОВИТЬ ДОСТИЖЕНИЯ';
+	@override String get refresh_error_message => 'Данные остались на экране. Попробуйте ещё раз позже';
+	@override String get retry => 'ПОВТОРИТЬ';
 }
 
 // Path: question
@@ -495,9 +503,13 @@ class _Translations$mastery$ru implements Translations$mastery$en {
 		other: '${n} ответа',
 	);
 	@override String get rhythm_insufficient => 'Пока мало ответов, чтобы определить лучший день';
-	@override String get empty => 'Пока нет данных — сыграйте выпуск дня, и мастерство появится здесь';
-	@override String get error => 'Не удалось загрузить';
-	@override String get retry => 'Повторить';
+	@override String get empty_title => 'ПОКА НЕТ ДАННЫХ';
+	@override String get empty_message => 'Сыграйте выпуск дня — здесь появится статистика за последние 30 дней';
+	@override String get error_title => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ';
+	@override String get error_message => 'Что-то пошло не так. Попробуйте ещё раз';
+	@override String get refresh_error_title => 'НЕ УДАЛОСЬ ОБНОВИТЬ МАСТЕРСТВО';
+	@override String get refresh_error_message => 'Данные остались на экране. Попробуйте ещё раз позже';
+	@override String get retry => 'ПОВТОРИТЬ';
 	@override late final _Translations$mastery$paywall$ru paywall = _Translations$mastery$paywall$ru._(_root);
 }
 
@@ -527,10 +539,15 @@ class _Translations$review$ru implements Translations$review$en {
 	@override String get practice_error_title => 'Не удалось добавить тренировку';
 	@override String get practice_error_message => 'Попробуйте ещё раз позже';
 	@override String get load_more => 'Показать ещё';
-	@override String get load_more_error => 'Не удалось загрузить следующие попытки. Повторите ещё раз.';
-	@override String get empty => 'Ошибок пока нет — здесь появятся завершённые неправильные попытки';
-	@override String get error => 'Не удалось загрузить';
-	@override String get retry => 'Повторить';
+	@override String get load_more_error_title => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ ЕЩЁ';
+	@override String get load_more_error_message => 'Попробуйте ещё раз';
+	@override String get empty_title => 'ОШИБОК ПОКА НЕТ';
+	@override String get empty_message => 'Здесь появятся вопросы, в которых вы ошиблись или которые пропустили';
+	@override String get error_title => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ';
+	@override String get error_message => 'Что-то пошло не так. Попробуйте ещё раз';
+	@override String get refresh_error_title => 'НЕ УДАЛОСЬ ОБНОВИТЬ ИСТОРИЮ';
+	@override String get refresh_error_message => 'Данные остались на экране. Попробуйте ещё раз позже';
+	@override String get retry => 'ПОВТОРИТЬ';
 }
 
 // Path: text_field.email
@@ -717,6 +734,7 @@ class _Translations$question$state$ru implements Translations$question$state$en 
 	@override String get error => 'Не удалось загрузить вопрос';
 	@override late final _Translations$question$state$no_internet$ru no_internet = _Translations$question$state$no_internet$ru._(_root);
 	@override late final _Translations$question$state$server_unavailable$ru server_unavailable = _Translations$question$state$server_unavailable$ru._(_root);
+	@override late final _Translations$question$state$unknown_error$ru unknown_error = _Translations$question$state$unknown_error$ru._(_root);
 }
 
 // Path: question.answer_reveal
@@ -1081,6 +1099,18 @@ class _Translations$question$state$server_unavailable$ru implements Translations
 	@override String get retry => 'ПОВТОРИТЬ';
 }
 
+// Path: question.state.unknown_error
+class _Translations$question$state$unknown_error$ru implements Translations$question$state$unknown_error$en {
+	_Translations$question$state$unknown_error$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ ВОПРОС';
+	@override String get message => 'Что-то пошло не так. Попробуйте ещё раз';
+	@override String get retry => 'ПОВТОРИТЬ';
+}
+
 // Path: question.dialog.correct
 class _Translations$question$dialog$correct$ru implements Translations$question$dialog$correct$en {
 	_Translations$question$dialog$correct$ru._(this._root);
@@ -1358,9 +1388,12 @@ extension on TranslationsRu {
 			'leaderboard.provisional_short' => 'ПРЕДВ.',
 			'leaderboard.accuracy_label' => 'Точность',
 			'leaderboard.season_answers' => ({required Object correct, required Object total}) => 'Верных: ${correct} · всего: ${total}',
-			'leaderboard.history_empty' => 'Ответьте на официальный вопрос, чтобы появилась история сезонов',
-			'leaderboard.history_load_failed' => 'Не удалось загрузить историю сезонов',
+			'leaderboard.history_empty_title' => 'ИСТОРИИ ПОКА НЕТ',
+			'leaderboard.history_empty_message' => 'Сыграйте первый выпуск, чтобы здесь появилась история сезонов',
+			'leaderboard.history_error_title' => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ ИСТОРИЮ',
+			'leaderboard.history_error_message' => 'Что-то пошло не так. Попробуйте ещё раз',
 			'leaderboard.load_more' => 'Показать ещё',
+			'leaderboard.load_more_error_title' => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ ИСТОРИЮ',
 			'leaderboard.load_more_failed' => 'Не удалось загрузить следующие сезоны. Повторите ещё раз.',
 			'leaderboard.my_position' => 'Моя позиция',
 			'leaderboard.provisional' => 'Предварительный рейтинг',
@@ -1371,11 +1404,12 @@ extension on TranslationsRu {
 			'leaderboard.best_rating' => 'ЛУЧШИЙ',
 			'leaderboard.answers_header' => 'ОТВЕТОВ',
 			'leaderboard.show_in_list' => 'ПОКАЗАТЬ В СПИСКЕ',
-			'leaderboard.official_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} ОТВЕТ', few: '${n} ОТВЕТА', many: '${n} ОТВЕТОВ', other: '${n} ОТВЕТА', ),
+			'leaderboard.official_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} ОТВЕТ', few: '${n} ОТВЕТА', many: '${n} ОТВЕТОВ', other: '${n} ОТВЕТА', ), 
 			'leaderboard.gap_row' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'ЕЩЁ ${n} УЧАСТНИК', few: 'ЕЩЁ ${n} УЧАСТНИКА', many: 'ЕЩЁ ${n} УЧАСТНИКОВ', other: 'ЕЩЁ ${n} УЧАСТНИКА', ), 
 			'leaderboard.total_participants' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'ВСЕГО ${n} УЧАСТНИК', few: 'ВСЕГО ${n} УЧАСТНИКА', many: 'ВСЕГО ${n} УЧАСТНИКОВ', other: 'ВСЕГО ${n} УЧАСТНИКА', ), 
 			'leaderboard.retry' => 'ПОВТОРИТЬ',
-			'leaderboard.load_failed' => 'Не удалось загрузить рейтинг',
+			'leaderboard.error_title' => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ РЕЙТИНГ',
+			'leaderboard.error_message' => 'Что-то пошло не так. Попробуйте ещё раз',
 			'gamification.level' => ({required Object level}) => 'Уровень ${level}',
 			'gamification.level_short' => ({required Object level}) => 'Ур. ${level}',
 			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',
@@ -1398,9 +1432,13 @@ extension on TranslationsRu {
 			'achievements.categories.streak' => 'Серия',
 			'achievements.categories.points' => 'Очки',
 			'achievements.xp_reward' => ({required Object points}) => '+${points} XP',
-			'achievements.public_empty' => 'Пользователь пока не получил ни одного достижения',
-			'achievements.error' => 'Не удалось загрузить',
-			'achievements.retry' => 'Повторить',
+			'achievements.public_empty_title' => 'ДОСТИЖЕНИЙ ПОКА НЕТ',
+			'achievements.public_empty_message' => 'Пользователь пока не получил ни одного достижения',
+			'achievements.error_title' => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ ДОСТИЖЕНИЯ',
+			'achievements.error_message' => 'Что-то пошло не так. Попробуйте ещё раз',
+			'achievements.refresh_error_title' => 'НЕ УДАЛОСЬ ОБНОВИТЬ ДОСТИЖЕНИЯ',
+			'achievements.refresh_error_message' => 'Данные остались на экране. Попробуйте ещё раз позже',
+			'achievements.retry' => 'ПОВТОРИТЬ',
 			'question.answer_letters.0' => 'А',
 			'question.answer_letters.1' => 'Б',
 			'question.answer_letters.2' => 'В',
@@ -1417,6 +1455,9 @@ extension on TranslationsRu {
 			'question.state.server_unavailable.title' => 'СЕРВЕР НЕДОСТУПЕН',
 			'question.state.server_unavailable.message' => 'Не удалось подключиться к серверу. Попробуйте ещё раз позже',
 			'question.state.server_unavailable.retry' => 'ПОВТОРИТЬ',
+			'question.state.unknown_error.title' => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ ВОПРОС',
+			'question.state.unknown_error.message' => 'Что-то пошло не так. Попробуйте ещё раз',
+			'question.state.unknown_error.retry' => 'ПОВТОРИТЬ',
 			'question.answer_reveal.correct' => 'ВЕРНО',
 			'question.answer_reveal.incorrect' => 'НЕВЕРНО',
 			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',
@@ -1575,11 +1616,15 @@ extension on TranslationsRu {
 			'mastery.weekly_delta_label' => 'За неделю',
 			'mastery.rhythm_section' => 'Ваш ритм',
 			'mastery.rhythm_best_summary' => ({required Object answers}) => 'Лучший день за 30 дней · ${answers}',
-			'mastery.rhythm_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} ответ', few: '${n} ответа', many: '${n} ответов', other: '${n} ответа', ),
+			'mastery.rhythm_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: '${n} ответ', few: '${n} ответа', many: '${n} ответов', other: '${n} ответа', ), 
 			'mastery.rhythm_insufficient' => 'Пока мало ответов, чтобы определить лучший день',
-			'mastery.empty' => 'Пока нет данных — сыграйте выпуск дня, и мастерство появится здесь',
-			'mastery.error' => 'Не удалось загрузить',
-			'mastery.retry' => 'Повторить',
+			'mastery.empty_title' => 'ПОКА НЕТ ДАННЫХ',
+			'mastery.empty_message' => 'Сыграйте выпуск дня — здесь появится статистика за последние 30 дней',
+			'mastery.error_title' => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ',
+			'mastery.error_message' => 'Что-то пошло не так. Попробуйте ещё раз',
+			'mastery.refresh_error_title' => 'НЕ УДАЛОСЬ ОБНОВИТЬ МАСТЕРСТВО',
+			'mastery.refresh_error_message' => 'Данные остались на экране. Попробуйте ещё раз позже',
+			'mastery.retry' => 'ПОВТОРИТЬ',
 			'mastery.paywall.tagline' => 'Мастерство тем',
 			'mastery.paywall.description' => 'Узнайте, где вы сильны, а где стоит подтянуть — и алгоритм сделает остальное.',
 			'mastery.paywall.cta' => 'Попробовать Quiz+',
@@ -1602,10 +1647,15 @@ extension on TranslationsRu {
 			'review.practice_error_title' => 'Не удалось добавить тренировку',
 			'review.practice_error_message' => 'Попробуйте ещё раз позже',
 			'review.load_more' => 'Показать ещё',
-			'review.load_more_error' => 'Не удалось загрузить следующие попытки. Повторите ещё раз.',
-			'review.empty' => 'Ошибок пока нет — здесь появятся завершённые неправильные попытки',
-			'review.error' => 'Не удалось загрузить',
-			'review.retry' => 'Повторить',
+			'review.load_more_error_title' => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ ЕЩЁ',
+			'review.load_more_error_message' => 'Попробуйте ещё раз',
+			'review.empty_title' => 'ОШИБОК ПОКА НЕТ',
+			'review.empty_message' => 'Здесь появятся вопросы, в которых вы ошиблись или которые пропустили',
+			'review.error_title' => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ',
+			'review.error_message' => 'Что-то пошло не так. Попробуйте ещё раз',
+			'review.refresh_error_title' => 'НЕ УДАЛОСЬ ОБНОВИТЬ ИСТОРИЮ',
+			'review.refresh_error_message' => 'Данные остались на экране. Попробуйте ещё раз позже',
+			'review.retry' => 'ПОВТОРИТЬ',
 			_ => null,
 		};
 	}

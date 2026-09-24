@@ -13,6 +13,7 @@ import 'package:quiz/features/leaderboard/presentation/widgets/leaderboard_row.d
 import 'package:quiz/features/leaderboard/presentation/widgets/leaderboard_table_header.dart';
 import 'package:quiz/features/leaderboard/presentation/widgets/leaderboard_total_footer.dart';
 import 'package:quiz/features/leaderboard/presentation/widgets/my_position_card.dart';
+import 'package:quiz/gen/strings.g.dart';
 
 class LeaderboardSeasonView extends ConsumerStatefulWidget {
   const LeaderboardSeasonView({super.key});
@@ -50,6 +51,8 @@ class _LeaderboardSeasonViewState extends ConsumerState<LeaderboardSeasonView> {
           ),
         ),
       _ => LeaderboardError(
+          title: context.t.leaderboard.error_title,
+          message: context.t.leaderboard.error_message,
           onRetry: () => ref.read(leaderboardProvider.notifier).fetch(),
         ),
     };
@@ -84,7 +87,6 @@ class _DataView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = buildLeaderboardRowItems(overview);
-    if (items.isEmpty) return const LeaderboardEmpty();
 
     final maxRank = items.whereType<EntryRowItem>().fold(
           0,

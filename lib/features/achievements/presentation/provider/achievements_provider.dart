@@ -16,7 +16,7 @@ final achievementsProvider = StateNotifierProvider<AchievementsNotifier,
 class AchievementsNotifier
     extends StateNotifier<BaseState<PageEntity<UserAchievementEntity>>> {
   final UserAchievementRepository _userAchievementRepository;
-  Future<void>? _pendingFetch;
+  Future<bool>? _pendingFetch;
 
   AchievementsNotifier({
     required UserAchievementRepository userAchievementRepository,
@@ -25,13 +25,13 @@ class AchievementsNotifier
     fetch();
   }
 
-  Future<void> fetch() => _pendingFetch ??= _fetch().whenComplete(
+  Future<bool> fetch() => _pendingFetch ??= _fetch().whenComplete(
         () => _pendingFetch = null,
       );
 
-  Future<void> refresh() => fetch();
+  Future<bool> refresh() => fetch();
 
-  Future<void> _fetch() async {
+  Future<bool> _fetch() async {
     final previousState = state;
 
     final result = await _userAchievementRepository.fetch();
@@ -39,11 +39,13 @@ class AchievementsNotifier
     switch (result) {
       case ResultOk(data: final achievements):
         state = BaseState.data(achievements);
+        return true;
 
       case ResultFailed(error: final failure):
         if (previousState is! BaseDataState) {
           state = BaseState.failed(failure);
         }
+        return false;
     }
   }
 }
@@ -62,7 +64,7 @@ class PublicAchievementsNotifier
     extends StateNotifier<BaseState<PageEntity<UserAchievementEntity>>> {
   final UserAchievementRepository _userAchievementRepository;
   final String _userId;
-  Future<void>? _pendingFetch;
+  Future<bool>? _pendingFetch;
 
   PublicAchievementsNotifier({
     required UserAchievementRepository userAchievementRepository,
@@ -73,18 +75,17 @@ class PublicAchievementsNotifier
     fetch();
   }
 
-  Future<void> fetch() {
+  Future<bool> fetch() {
     final pendingFetch = _pendingFetch;
     if (pendingFetch != null) return pendingFetch;
-    state = BaseState.loading();
     return _startFetch();
   }
 
-  Future<void> _startFetch() => _pendingFetch = _fetch().whenComplete(
+  Future<bool> _startFetch() => _pendingFetch = _fetch().whenComplete(
         () => _pendingFetch = null,
       );
 
-  Future<void> _fetch() async {
+  Future<bool> _fetch() async {
     final previousState = state;
 
     final result = await _userAchievementRepository.fetchByUserId(_userId);
@@ -92,10 +93,12 @@ class PublicAchievementsNotifier
     switch (result) {
       case ResultOk(data: final achievements):
         state = BaseState.data(achievements);
+        return true;
       case ResultFailed(error: final failure):
         if (previousState is! BaseDataState) {
           state = BaseState.failed(failure);
         }
+        return false;
     }
   }
 }

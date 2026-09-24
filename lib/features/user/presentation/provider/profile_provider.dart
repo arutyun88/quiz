@@ -31,6 +31,7 @@ class ProfileNotifier extends StateNotifier<BaseState<UserEntity>> {
   final UserRepository _repository;
   final void Function(UserEntity profile)? _onProfileLoaded;
   UserLevelEntity? _gamification;
+  Future<void>? _pendingFetch;
 
   ProfileNotifier({
     required UserRepository repository,
@@ -39,12 +40,22 @@ class ProfileNotifier extends StateNotifier<BaseState<UserEntity>> {
         _onProfileLoaded = onProfileLoaded,
         super(BaseState.loading());
 
-  Future<void> fetch() async {
-    state = BaseState.loading();
-    await refresh();
+  Future<void> fetch() {
+    final pendingFetch = _pendingFetch;
+    if (pendingFetch != null) return pendingFetch;
+    if (state is! BaseFailedState<UserEntity>) {
+      state = BaseState.loading();
+    }
+    return _startFetch();
   }
 
-  Future<void> refresh() async {
+  Future<void> refresh() => _startFetch();
+
+  Future<void> _startFetch() => _pendingFetch ??= _fetch().whenComplete(
+        () => _pendingFetch = null,
+      );
+
+  Future<void> _fetch() async {
     final result = await _repository.fetch();
 
     switch (result) {
@@ -100,6 +111,7 @@ final publicProfileProvider = StateNotifierProvider.autoDispose
 class PublicProfileNotifier extends StateNotifier<BaseState<UserEntity>> {
   final UserRepository _repository;
   final String _userId;
+  Future<void>? _pendingFetch;
 
   PublicProfileNotifier({
     required UserRepository repository,
@@ -110,9 +122,18 @@ class PublicProfileNotifier extends StateNotifier<BaseState<UserEntity>> {
     fetch();
   }
 
-  Future<void> fetch() async {
-    state = BaseState.loading();
+  Future<void> fetch() {
+    final pendingFetch = _pendingFetch;
+    if (pendingFetch != null) return pendingFetch;
+    if (state is! BaseFailedState<UserEntity>) {
+      state = BaseState.loading();
+    }
+    return _pendingFetch ??= _fetch().whenComplete(
+      () => _pendingFetch = null,
+    );
+  }
 
+  Future<void> _fetch() async {
     final result = await _repository.fetchUser(_userId);
 
     switch (result) {

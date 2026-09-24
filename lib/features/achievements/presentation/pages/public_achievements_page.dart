@@ -6,9 +6,9 @@ import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/model/base_state.dart';
 import 'package:quiz/app/core/model/data_page/page_entity.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
-import 'package:quiz/app/core/widgets/app_shimmer.dart';
 import 'package:quiz/features/achievements/domain/entity/user_achievement_entity.dart';
 import 'package:quiz/features/achievements/presentation/provider/achievements_provider.dart';
+import 'package:quiz/features/achievements/presentation/widgets/achievement_state_views.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 const _categoryOrder = ['BEGINNER', 'PROGRESS', 'ACCURACY', 'STREAK', 'POINTS'];
@@ -57,11 +57,11 @@ class PublicAchievementsView extends StatelessWidget {
             const AppDivider(indent: 22, endIndent: 22),
             Expanded(
               child: switch (state) {
-                BaseLoadingState() => const _AchievementsLoading(),
+                BaseLoadingState() => const AchievementsLoadingView(),
                 BaseDataState() when items!.isEmpty =>
-                  const _AchievementsEmpty(),
+                  const PublicAchievementsEmptyView(),
                 BaseDataState() => _AchievementsList(items: items!),
-                _ => _AchievementsError(onRetry: onRetry),
+                _ => AchievementsErrorView(onRetry: onRetry),
               },
             ),
           ],
@@ -249,110 +249,4 @@ class _AchievementRow extends StatelessWidget {
       ),
     );
   }
-}
-
-class _AchievementsEmpty extends StatelessWidget {
-  const _AchievementsEmpty();
-
-  @override
-  Widget build(BuildContext context) => Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.emoji_events_outlined,
-                size: 40,
-                color: context.palette.text.secondary,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                context.t.achievements.public_empty,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.spectral(
-                  fontSize: 17,
-                  color: context.palette.text.secondary,
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-}
-
-class _AchievementsLoading extends StatelessWidget {
-  const _AchievementsLoading();
-
-  @override
-  Widget build(BuildContext context) => AppShimmer(
-        child: ListView(
-          physics: const NeverScrollableScrollPhysics(),
-          padding: const EdgeInsets.fromLTRB(22, 18, 22, 32),
-          children: [
-            Container(
-              width: 90,
-              height: 10,
-              color: context.palette.background.dynamic,
-            ),
-            const SizedBox(height: 24),
-            for (var i = 0; i < 3; i++) ...[
-              Container(
-                height: 64,
-                color: context.palette.background.dynamic,
-              ),
-              const SizedBox(height: 12),
-            ],
-          ],
-        ),
-      );
-}
-
-class _AchievementsError extends StatelessWidget {
-  const _AchievementsError({required this.onRetry});
-
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) => Center(
-        child: Padding(
-          padding: const EdgeInsets.all(22),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                context.t.achievements.error,
-                style: GoogleFonts.spectral(
-                  fontSize: 17,
-                  color: context.palette.text.primary,
-                ),
-              ),
-              const SizedBox(height: 16),
-              GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: onRetry,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: context.palette.text.primary,
-                      width: 1.5,
-                    ),
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
-                  child: Text(
-                    context.t.achievements.retry.toUpperCase(),
-                    style: GoogleFonts.jetBrainsMono(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 1.5,
-                      color: context.palette.text.primary,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
 }

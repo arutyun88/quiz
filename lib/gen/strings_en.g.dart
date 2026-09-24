@@ -143,14 +143,23 @@ class Translations$leaderboard$en {
 	/// ru: 'Верных: $correct · всего: $total'
 	String season_answers({required Object correct, required Object total}) => '${correct} correct · ${total} total';
 
-	/// ru: 'Ответьте на официальный вопрос, чтобы появилась история сезонов'
-	String get history_empty => 'Complete an official answer to start your season history';
+	/// ru: 'ИСТОРИИ ПОКА НЕТ'
+	String get history_empty_title => 'NO HISTORY YET';
 
-	/// ru: 'Не удалось загрузить историю сезонов'
-	String get history_load_failed => 'Could not load season history';
+	/// ru: 'Сыграйте первый выпуск, чтобы здесь появилась история сезонов'
+	String get history_empty_message => 'Play your first daily edition to start your season history';
+
+	/// ru: 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ ИСТОРИЮ'
+	String get history_error_title => 'COULD NOT LOAD HISTORY';
+
+	/// ru: 'Что-то пошло не так. Попробуйте ещё раз'
+	String get history_error_message => 'Something went wrong. Please try again';
 
 	/// ru: 'Показать ещё'
 	String get load_more => 'Load more';
+
+	/// ru: 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ ИСТОРИЮ'
+	String get load_more_error_title => 'COULD NOT LOAD HISTORY';
 
 	/// ru: 'Не удалось загрузить следующие сезоны. Повторите ещё раз.'
 	String get load_more_failed => 'Could not load more seasons. Try again.';
@@ -203,8 +212,11 @@ class Translations$leaderboard$en {
 	/// ru: 'ПОВТОРИТЬ'
 	String get retry => 'RETRY';
 
-	/// ru: 'Не удалось загрузить рейтинг'
-	String get load_failed => 'Could not load leaderboard';
+	/// ru: 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ РЕЙТИНГ'
+	String get error_title => 'COULD NOT LOAD LEADERBOARD';
+
+	/// ru: 'Что-то пошло не так. Попробуйте ещё раз'
+	String get error_message => 'Something went wrong. Please try again';
 }
 
 // Path: gamification
@@ -283,14 +295,26 @@ class Translations$achievements$en {
 	/// ru: '+$points XP'
 	String xp_reward({required Object points}) => '+${points} XP';
 
+	/// ru: 'ДОСТИЖЕНИЙ ПОКА НЕТ'
+	String get public_empty_title => 'NO ACHIEVEMENTS YET';
+
 	/// ru: 'Пользователь пока не получил ни одного достижения'
-	String get public_empty => 'This user hasn\'t unlocked any achievements yet';
+	String get public_empty_message => 'This user hasn\'t unlocked any achievements yet';
 
-	/// ru: 'Не удалось загрузить'
-	String get error => 'Failed to load';
+	/// ru: 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ ДОСТИЖЕНИЯ'
+	String get error_title => 'COULD NOT LOAD ACHIEVEMENTS';
 
-	/// ru: 'Повторить'
-	String get retry => 'Retry';
+	/// ru: 'Что-то пошло не так. Попробуйте ещё раз'
+	String get error_message => 'Something went wrong. Please try again';
+
+	/// ru: 'НЕ УДАЛОСЬ ОБНОВИТЬ ДОСТИЖЕНИЯ'
+	String get refresh_error_title => 'COULD NOT REFRESH ACHIEVEMENTS';
+
+	/// ru: 'Данные остались на экране. Попробуйте ещё раз позже'
+	String get refresh_error_message => 'Your current data is still shown. Please try again later';
+
+	/// ru: 'ПОВТОРИТЬ'
+	String get retry => 'RETRY';
 }
 
 // Path: question
@@ -789,14 +813,26 @@ class Translations$mastery$en {
 	/// ru: 'Пока мало ответов, чтобы определить лучший день'
 	String get rhythm_insufficient => 'Not enough answers yet to identify your best day';
 
-	/// ru: 'Пока нет данных — сыграйте выпуск дня, и мастерство появится здесь'
-	String get empty => 'No data yet — play a daily issue and your mastery will show up here';
+	/// ru: 'ПОКА НЕТ ДАННЫХ'
+	String get empty_title => 'NO DATA YET';
 
-	/// ru: 'Не удалось загрузить'
-	String get error => 'Failed to load';
+	/// ru: 'Сыграйте выпуск дня — здесь появится статистика за последние 30 дней'
+	String get empty_message => 'Play a daily edition to see your statistics for the last 30 days';
 
-	/// ru: 'Повторить'
-	String get retry => 'Retry';
+	/// ru: 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ'
+	String get error_title => 'COULD NOT LOAD';
+
+	/// ru: 'Что-то пошло не так. Попробуйте ещё раз'
+	String get error_message => 'Something went wrong. Please try again';
+
+	/// ru: 'НЕ УДАЛОСЬ ОБНОВИТЬ МАСТЕРСТВО'
+	String get refresh_error_title => 'COULD NOT REFRESH MASTERY';
+
+	/// ru: 'Данные остались на экране. Попробуйте ещё раз позже'
+	String get refresh_error_message => 'Your current data is still shown. Please try again later';
+
+	/// ru: 'ПОВТОРИТЬ'
+	String get retry => 'RETRY';
 
 	late final Translations$mastery$paywall$en paywall = Translations$mastery$paywall$en._(_root);
 }
@@ -866,17 +902,32 @@ class Translations$review$en {
 	/// ru: 'Показать ещё'
 	String get load_more => 'Load more';
 
-	/// ru: 'Не удалось загрузить следующие попытки. Повторите ещё раз.'
-	String get load_more_error => 'Could not load more attempts. Try again.';
+	/// ru: 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ ЕЩЁ'
+	String get load_more_error_title => 'COULD NOT LOAD MORE';
 
-	/// ru: 'Ошибок пока нет — здесь появятся завершённые неправильные попытки'
-	String get empty => 'No mistakes yet — completed incorrect attempts will appear here';
+	/// ru: 'Попробуйте ещё раз'
+	String get load_more_error_message => 'Please try again';
 
-	/// ru: 'Не удалось загрузить'
-	String get error => 'Failed to load';
+	/// ru: 'ОШИБОК ПОКА НЕТ'
+	String get empty_title => 'NO MISTAKES YET';
 
-	/// ru: 'Повторить'
-	String get retry => 'Retry';
+	/// ru: 'Здесь появятся вопросы, в которых вы ошиблись или которые пропустили'
+	String get empty_message => 'Questions you answered incorrectly or skipped will appear here';
+
+	/// ru: 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ'
+	String get error_title => 'COULD NOT LOAD';
+
+	/// ru: 'Что-то пошло не так. Попробуйте ещё раз'
+	String get error_message => 'Something went wrong. Please try again';
+
+	/// ru: 'НЕ УДАЛОСЬ ОБНОВИТЬ ИСТОРИЮ'
+	String get refresh_error_title => 'COULD NOT REFRESH HISTORY';
+
+	/// ru: 'Данные остались на экране. Попробуйте ещё раз позже'
+	String get refresh_error_message => 'Your current data is still shown. Please try again later';
+
+	/// ru: 'ПОВТОРИТЬ'
+	String get retry => 'RETRY';
 }
 
 // Path: text_field.email
@@ -1195,6 +1246,7 @@ class Translations$question$state$en {
 
 	late final Translations$question$state$no_internet$en no_internet = Translations$question$state$no_internet$en._(_root);
 	late final Translations$question$state$server_unavailable$en server_unavailable = Translations$question$state$server_unavailable$en._(_root);
+	late final Translations$question$state$unknown_error$en unknown_error = Translations$question$state$unknown_error$en._(_root);
 }
 
 // Path: question.answer_reveal
@@ -1816,6 +1868,24 @@ class Translations$question$state$server_unavailable$en {
 	String get retry => 'RETRY';
 }
 
+// Path: question.state.unknown_error
+class Translations$question$state$unknown_error$en {
+	Translations$question$state$unknown_error$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ ВОПРОС'
+	String get title => 'COULD NOT LOAD QUESTION';
+
+	/// ru: 'Что-то пошло не так. Попробуйте ещё раз'
+	String get message => 'Something went wrong. Try again';
+
+	/// ru: 'ПОВТОРИТЬ'
+	String get retry => 'RETRY';
+}
+
 // Path: question.dialog.correct
 class Translations$question$dialog$correct$en {
 	Translations$question$dialog$correct$en._(this._root);
@@ -2122,9 +2192,12 @@ extension on Translations {
 			'leaderboard.provisional_short' => 'PROV.',
 			'leaderboard.accuracy_label' => 'Accuracy',
 			'leaderboard.season_answers' => ({required Object correct, required Object total}) => '${correct} correct · ${total} total',
-			'leaderboard.history_empty' => 'Complete an official answer to start your season history',
-			'leaderboard.history_load_failed' => 'Could not load season history',
+			'leaderboard.history_empty_title' => 'NO HISTORY YET',
+			'leaderboard.history_empty_message' => 'Play your first daily edition to start your season history',
+			'leaderboard.history_error_title' => 'COULD NOT LOAD HISTORY',
+			'leaderboard.history_error_message' => 'Something went wrong. Please try again',
 			'leaderboard.load_more' => 'Load more',
+			'leaderboard.load_more_error_title' => 'COULD NOT LOAD HISTORY',
 			'leaderboard.load_more_failed' => 'Could not load more seasons. Try again.',
 			'leaderboard.my_position' => 'My position',
 			'leaderboard.provisional' => 'Provisional rating',
@@ -2135,11 +2208,12 @@ extension on Translations {
 			'leaderboard.best_rating' => 'BEST',
 			'leaderboard.answers_header' => 'ANSWERS',
 			'leaderboard.show_in_list' => 'SHOW IN LIST',
-			'leaderboard.official_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} ANSWER', other: '${n} ANSWERS', ),
+			'leaderboard.official_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} ANSWER', other: '${n} ANSWERS', ), 
 			'leaderboard.gap_row' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} MORE PLAYER', other: '${n} MORE PLAYERS', ), 
 			'leaderboard.total_participants' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} PLAYER TOTAL', other: '${n} PLAYERS TOTAL', ), 
 			'leaderboard.retry' => 'RETRY',
-			'leaderboard.load_failed' => 'Could not load leaderboard',
+			'leaderboard.error_title' => 'COULD NOT LOAD LEADERBOARD',
+			'leaderboard.error_message' => 'Something went wrong. Please try again',
 			'gamification.level' => ({required Object level}) => 'Level ${level}',
 			'gamification.level_short' => ({required Object level}) => 'Lvl ${level}',
 			'gamification.xp' => ({required Object current, required Object total}) => '${current} / ${total} XP',
@@ -2162,9 +2236,13 @@ extension on Translations {
 			'achievements.categories.streak' => 'Streak',
 			'achievements.categories.points' => 'Points',
 			'achievements.xp_reward' => ({required Object points}) => '+${points} XP',
-			'achievements.public_empty' => 'This user hasn\'t unlocked any achievements yet',
-			'achievements.error' => 'Failed to load',
-			'achievements.retry' => 'Retry',
+			'achievements.public_empty_title' => 'NO ACHIEVEMENTS YET',
+			'achievements.public_empty_message' => 'This user hasn\'t unlocked any achievements yet',
+			'achievements.error_title' => 'COULD NOT LOAD ACHIEVEMENTS',
+			'achievements.error_message' => 'Something went wrong. Please try again',
+			'achievements.refresh_error_title' => 'COULD NOT REFRESH ACHIEVEMENTS',
+			'achievements.refresh_error_message' => 'Your current data is still shown. Please try again later',
+			'achievements.retry' => 'RETRY',
 			'question.answer_letters.0' => 'A',
 			'question.answer_letters.1' => 'B',
 			'question.answer_letters.2' => 'C',
@@ -2181,6 +2259,9 @@ extension on Translations {
 			'question.state.server_unavailable.title' => 'SERVER UNAVAILABLE',
 			'question.state.server_unavailable.message' => 'Could not connect to the server. Please try again later',
 			'question.state.server_unavailable.retry' => 'RETRY',
+			'question.state.unknown_error.title' => 'COULD NOT LOAD QUESTION',
+			'question.state.unknown_error.message' => 'Something went wrong. Try again',
+			'question.state.unknown_error.retry' => 'RETRY',
 			'question.answer_reveal.correct' => 'CORRECT',
 			'question.answer_reveal.incorrect' => 'INCORRECT',
 			'question.answer_reveal.xp_bonus' => ({required Object xp}) => '+${xp} XP',
@@ -2339,11 +2420,15 @@ extension on Translations {
 			'mastery.weekly_delta_label' => 'This week',
 			'mastery.rhythm_section' => 'Your rhythm',
 			'mastery.rhythm_best_summary' => ({required Object answers}) => 'Best day in 30 days · ${answers}',
-			'mastery.rhythm_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} answer', other: '${n} answers', ),
+			'mastery.rhythm_answers' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} answer', other: '${n} answers', ), 
 			'mastery.rhythm_insufficient' => 'Not enough answers yet to identify your best day',
-			'mastery.empty' => 'No data yet — play a daily issue and your mastery will show up here',
-			'mastery.error' => 'Failed to load',
-			'mastery.retry' => 'Retry',
+			'mastery.empty_title' => 'NO DATA YET',
+			'mastery.empty_message' => 'Play a daily edition to see your statistics for the last 30 days',
+			'mastery.error_title' => 'COULD NOT LOAD',
+			'mastery.error_message' => 'Something went wrong. Please try again',
+			'mastery.refresh_error_title' => 'COULD NOT REFRESH MASTERY',
+			'mastery.refresh_error_message' => 'Your current data is still shown. Please try again later',
+			'mastery.retry' => 'RETRY',
 			'mastery.paywall.tagline' => 'Topic mastery',
 			'mastery.paywall.description' => 'See where you\'re strong and what needs work — the algorithm does the rest.',
 			'mastery.paywall.cta' => 'Try Quiz+',
@@ -2366,10 +2451,15 @@ extension on Translations {
 			'review.practice_error_title' => 'Could not add practice',
 			'review.practice_error_message' => 'Try again later',
 			'review.load_more' => 'Load more',
-			'review.load_more_error' => 'Could not load more attempts. Try again.',
-			'review.empty' => 'No mistakes yet — completed incorrect attempts will appear here',
-			'review.error' => 'Failed to load',
-			'review.retry' => 'Retry',
+			'review.load_more_error_title' => 'COULD NOT LOAD MORE',
+			'review.load_more_error_message' => 'Please try again',
+			'review.empty_title' => 'NO MISTAKES YET',
+			'review.empty_message' => 'Questions you answered incorrectly or skipped will appear here',
+			'review.error_title' => 'COULD NOT LOAD',
+			'review.error_message' => 'Something went wrong. Please try again',
+			'review.refresh_error_title' => 'COULD NOT REFRESH HISTORY',
+			'review.refresh_error_message' => 'Your current data is still shown. Please try again later',
+			'review.retry' => 'RETRY',
 			_ => null,
 		};
 	}

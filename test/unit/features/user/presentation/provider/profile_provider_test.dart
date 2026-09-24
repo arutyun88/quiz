@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/base_state.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/features/gamification/domain/entity/user_level_entity.dart';
@@ -110,4 +113,75 @@ void main() {
     expect(updated.level, 2);
     expect(updated.totalPoints, 120);
   });
+
+  test('keeps own profile error visible while retry is pending', () async {
+    final repository = _MockUserRepository();
+    final retry = Completer<Result<UserEntity, Failure>>();
+    var callCount = 0;
+    when(() => repository.fetch()).thenAnswer((_) {
+      callCount += 1;
+      return callCount == 1
+          ? Future.value(Result.failed(const Failure.unknown('failed')))
+          : retry.future;
+    });
+    final notifier = ProfileNotifier(repository: repository);
+    addTearDown(notifier.dispose);
+
+    await notifier.refresh();
+    expect(notifier.state, isA<BaseFailedState<UserEntity>>());
+
+    final pendingRetry = notifier.fetch();
+    expect(notifier.state, isA<BaseFailedState<UserEntity>>());
+
+    retry.complete(Result.ok(_profile()));
+    await pendingRetry;
+
+    expect(notifier.state, isA<BaseDataState<UserEntity>>());
+  });
+
+  test('keeps public profile error visible while retry is pending', () async {
+    final repository = _MockUserRepository();
+    final retry = Completer<Result<UserEntity, Failure>>();
+    var callCount = 0;
+    when(() => repository.fetchUser('user-1')).thenAnswer((_) {
+      callCount += 1;
+      return callCount == 1
+          ? Future.value(Result.failed(const Failure.unknown('failed')))
+          : retry.future;
+    });
+    final notifier = PublicProfileNotifier(
+      repository: repository,
+      userId: 'user-1',
+    );
+    addTearDown(notifier.dispose);
+
+    await Future<void>.delayed(Duration.zero);
+    expect(notifier.state, isA<BaseFailedState<UserEntity>>());
+
+    final pendingRetry = notifier.fetch();
+    expect(notifier.state, isA<BaseFailedState<UserEntity>>());
+
+    retry.complete(Result.ok(_profile()));
+    await pendingRetry;
+
+    expect(notifier.state, isA<BaseDataState<UserEntity>>());
+  });
 }
+
+UserEntity _profile() => UserEntity(
+      id: 'user-1',
+      email: 'user@example.com',
+      name: 'User',
+      level: 1,
+      experienceInLevel: 0,
+      levelExperience: 100,
+      streakDays: 0,
+      bestStreakDays: 0,
+      questionsAnswered: 0,
+      correctAnswers: 0,
+      accuracy: 0,
+      totalPoints: 0,
+      memberSince: DateTime.utc(2026),
+      achievementsUnlocked: 0,
+      achievementsTotal: 10,
+    );

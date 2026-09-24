@@ -3,9 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/app_refresh_indicator.dart';
+import 'package:quiz/app/core/widgets/app_snack_bar.dart';
 import 'package:quiz/app/core/widgets/app_shimmer.dart';
 import 'package:quiz/features/leaderboard/domain/entity/season_history_entity.dart';
 import 'package:quiz/features/leaderboard/presentation/provider/season_history_provider.dart';
+import 'package:quiz/features/leaderboard/presentation/widgets/leaderboard_placeholders.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class SeasonHistoryView extends ConsumerWidget {
@@ -14,6 +16,18 @@ class SeasonHistoryView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(seasonHistoryProvider);
+    ref.listen(seasonHistoryProvider, (previous, next) {
+      final failure = next is SeasonHistoryDataState ? next.failure : null;
+      final previousFailure =
+          previous is SeasonHistoryDataState ? previous.failure : null;
+      if (failure != null && failure != previousFailure) {
+        AppSnackBar.showError(
+          context,
+          title: context.t.leaderboard.load_more_error_title,
+          message: context.t.leaderboard.load_more_failed,
+        );
+      }
+    });
     return switch (state) {
       SeasonHistoryLoadingState() => const _HistoryLoading(),
       SeasonHistoryDataState() => AppRefreshIndicator(
@@ -23,7 +37,9 @@ class SeasonHistoryView extends ConsumerWidget {
             onLoadMore: ref.read(seasonHistoryProvider.notifier).loadMore,
           ),
         ),
-      SeasonHistoryFailedState() => _HistoryError(
+      SeasonHistoryFailedState() => LeaderboardError(
+          title: context.t.leaderboard.history_error_title,
+          message: context.t.leaderboard.history_error_message,
           onRetry: ref.read(seasonHistoryProvider.notifier).fetch,
         ),
     };
@@ -39,29 +55,7 @@ class _HistoryData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (state.items.isEmpty) {
-      return LayoutBuilder(
-        builder: (context, constraints) => ListView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          children: [
-            SizedBox(
-              height: constraints.maxHeight,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(32),
-                  child: Text(
-                    context.t.leaderboard.history_empty,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.spectral(
-                      fontSize: 17,
-                      color: context.palette.text.secondary,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
+      return const LeaderboardHistoryEmpty();
     }
 
     return ListView(
@@ -74,18 +68,6 @@ class _HistoryData extends StatelessWidget {
             label: context.t.leaderboard.load_more,
             loading: state.isLoadingMore,
             onTap: onLoadMore,
-          ),
-        if (state.failure != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Text(
-              context.t.leaderboard.load_more_failed,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.spectral(
-                fontSize: 14,
-                color: context.palette.text.danger,
-              ),
-            ),
           ),
       ],
     );
@@ -299,37 +281,6 @@ class _HistoryLoading extends StatelessWidget {
               const SizedBox(height: 12),
             ],
           ],
-        ),
-      );
-}
-
-class _HistoryError extends StatelessWidget {
-  const _HistoryError({required this.onRetry});
-
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) => Center(
-        child: Padding(
-          padding: const EdgeInsets.all(22),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                context.t.leaderboard.history_load_failed,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.spectral(
-                  fontSize: 17,
-                  color: context.palette.text.primary,
-                ),
-              ),
-              const SizedBox(height: 16),
-              _HistoryAction(
-                label: context.t.leaderboard.retry,
-                onTap: onRetry,
-              ),
-            ],
-          ),
         ),
       );
 }
