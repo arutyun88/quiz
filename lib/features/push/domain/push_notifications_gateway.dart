@@ -2,6 +2,18 @@ enum PushPermissionStatus { notDetermined, denied, authorized }
 
 enum PushDestination { home, dailyEdition, rating, review }
 
+class PushMessage {
+  const PushMessage({
+    required this.title,
+    required this.body,
+    required this.destination,
+  });
+
+  final String title;
+  final String body;
+  final PushDestination? destination;
+}
+
 PushDestination? parsePushDestination(Map<String, dynamic> data) =>
     switch (data['destination']) {
       'HOME' => PushDestination.home,
@@ -13,6 +25,8 @@ PushDestination? parsePushDestination(Map<String, dynamic> data) =>
 
 abstract interface class PushNotificationsGateway {
   Stream<PushDestination> get openedDestinations;
+
+  Stream<PushMessage> get receivedMessages;
 
   Future<PushPermissionStatus> permissionStatus();
 

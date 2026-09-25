@@ -25,7 +25,8 @@ class ProfileHeader extends StatelessWidget {
             GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: context.pop,
-              child: Icon(Icons.arrow_back, size: 22, color: colors.text.primary),
+              child:
+                  Icon(Icons.arrow_back, size: 22, color: colors.text.primary),
             ),
             const SizedBox(width: 12),
           ],
@@ -65,10 +66,12 @@ class ProfileHeaderButton extends StatelessWidget {
     super.key,
     required this.icon,
     required this.onTap,
+    this.showIndicator = false,
   });
 
   final IconData icon;
   final VoidCallback onTap;
+  final bool showIndicator;
 
   @override
   Widget build(BuildContext context) {
@@ -77,13 +80,34 @@ class ProfileHeaderButton extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
-      child: Container(
-        width: 34,
-        height: 34,
-        decoration: BoxDecoration(
-          border: Border.all(color: colors.text.primary),
-        ),
-        child: Icon(icon, size: 18, color: colors.text.primary),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            width: 34,
+            height: 34,
+            decoration: BoxDecoration(
+              border: Border.all(color: colors.text.primary),
+            ),
+            child: Icon(icon, size: 18, color: colors.text.primary),
+          ),
+          if (showIndicator)
+            Positioned(
+              top: -3,
+              right: -3,
+              child: Container(
+                width: 9,
+                height: 9,
+                decoration: BoxDecoration(
+                  color: colors.text.accent,
+                  border: Border.all(
+                    color: colors.background.static,
+                    width: 1.5,
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }

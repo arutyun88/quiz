@@ -37,7 +37,7 @@ class SettingsPage extends ConsumerWidget {
                     onTap: () => context.push('/profile/settings/edit'),
                   ),
                   SettingsLinkRow(
-                    label: t.notifications,
+                    label: t.notification_settings,
                     onTap: () =>
                         context.push('/profile/settings/notifications'),
                   ),

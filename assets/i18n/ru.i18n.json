@@ -44,6 +44,7 @@
             "app_section": "Приложение",
             "edit_profile": "Редактировать профиль",
             "notifications": "Уведомления",
+            "notification_settings": "Настройки уведомлений",
             "subscription": "Управление подпиской",
             "language": "Язык",
             "theme": "Тема оформления",
@@ -154,6 +155,28 @@
                 "failed": "Не удалось изменить пароль. Проверьте введённые данные и попробуйте снова"
             }
         }
+    },
+    "notifications": {
+        "title": "Уведомления",
+        "mark_all_read": "ПРОЧИТАТЬ ВСЕ",
+        "today": "СЕГОДНЯ",
+        "yesterday": "ВЧЕРА",
+        "earlier": "РАНЕЕ",
+        "achievement_title": "НОВОЕ ДОСТИЖЕНИЕ",
+        "achievement_message": "$name · +$points XP",
+        "level_title": "НОВЫЙ УРОВЕНЬ",
+        "level_message": "Теперь у вас $level уровень",
+        "system_title": "QUIZ",
+        "empty_title": "ПОКА ТИХО",
+        "empty_message": "Здесь появятся важные события, достижения и новости игры",
+        "error_title": "НЕ УДАЛОСЬ ЗАГРУЗИТЬ",
+        "error_message": "Что-то пошло не так. Попробуйте ещё раз",
+        "retry": "ПОВТОРИТЬ",
+        "load_more": "ПОКАЗАТЬ ЕЩЁ",
+        "refresh_error_title": "НЕ УДАЛОСЬ ОБНОВИТЬ",
+        "refresh_error_message": "Текущие уведомления остались на экране",
+        "action_error_title": "НЕ УДАЛОСЬ СОХРАНИТЬ",
+        "action_error_message": "Попробуйте ещё раз позже"
     },
     "authentication": {
         "failure": {

@@ -46,6 +46,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	};
 	late final Translations$text_field$en text_field = Translations$text_field$en._(_root);
 	late final Translations$profile$en profile = Translations$profile$en._(_root);
+	late final Translations$notifications$en notifications = Translations$notifications$en._(_root);
 	late final Translations$authentication$en authentication = Translations$authentication$en._(_root);
 	late final Translations$leaderboard$en leaderboard = Translations$leaderboard$en._(_root);
 	late final Translations$gamification$en gamification = Translations$gamification$en._(_root);
@@ -91,6 +92,75 @@ class Translations$profile$en {
 	late final Translations$profile$view$en view = Translations$profile$view$en._(_root);
 	late final Translations$profile$settings$en settings = Translations$profile$settings$en._(_root);
 	late final Translations$profile$edit$en edit = Translations$profile$edit$en._(_root);
+}
+
+// Path: notifications
+class Translations$notifications$en {
+	Translations$notifications$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Уведомления'
+	String get title => 'Notifications';
+
+	/// ru: 'ПРОЧИТАТЬ ВСЕ'
+	String get mark_all_read => 'MARK ALL READ';
+
+	/// ru: 'СЕГОДНЯ'
+	String get today => 'TODAY';
+
+	/// ru: 'ВЧЕРА'
+	String get yesterday => 'YESTERDAY';
+
+	/// ru: 'РАНЕЕ'
+	String get earlier => 'EARLIER';
+
+	/// ru: 'НОВОЕ ДОСТИЖЕНИЕ'
+	String get achievement_title => 'NEW ACHIEVEMENT';
+
+	/// ru: '$name · +$points XP'
+	String achievement_message({required Object name, required Object points}) => '${name} · +${points} XP';
+
+	/// ru: 'НОВЫЙ УРОВЕНЬ'
+	String get level_title => 'NEW LEVEL';
+
+	/// ru: 'Теперь у вас $level уровень'
+	String level_message({required Object level}) => 'You are now level ${level}';
+
+	/// ru: 'QUIZ'
+	String get system_title => 'QUIZ';
+
+	/// ru: 'ПОКА ТИХО'
+	String get empty_title => 'ALL QUIET';
+
+	/// ru: 'Здесь появятся важные события, достижения и новости игры'
+	String get empty_message => 'Important events, achievements, and game news will appear here';
+
+	/// ru: 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ'
+	String get error_title => 'COULD NOT LOAD';
+
+	/// ru: 'Что-то пошло не так. Попробуйте ещё раз'
+	String get error_message => 'Something went wrong. Please try again';
+
+	/// ru: 'ПОВТОРИТЬ'
+	String get retry => 'RETRY';
+
+	/// ru: 'ПОКАЗАТЬ ЕЩЁ'
+	String get load_more => 'SHOW MORE';
+
+	/// ru: 'НЕ УДАЛОСЬ ОБНОВИТЬ'
+	String get refresh_error_title => 'COULD NOT REFRESH';
+
+	/// ru: 'Текущие уведомления остались на экране'
+	String get refresh_error_message => 'Your current notifications are still shown';
+
+	/// ru: 'НЕ УДАЛОСЬ СОХРАНИТЬ'
+	String get action_error_title => 'COULD NOT SAVE';
+
+	/// ru: 'Попробуйте ещё раз позже'
+	String get action_error_message => 'Please try again later';
 }
 
 // Path: authentication
@@ -1057,6 +1127,9 @@ class Translations$profile$settings$en {
 
 	/// ru: 'Уведомления'
 	String get notifications => 'Notifications';
+
+	/// ru: 'Настройки уведомлений'
+	String get notification_settings => 'Notification settings';
 
 	/// ru: 'Управление подпиской'
 	String get subscription => 'Manage subscription';
@@ -2068,6 +2141,7 @@ extension on Translations {
 			'profile.settings.app_section' => 'Application',
 			'profile.settings.edit_profile' => 'Edit profile',
 			'profile.settings.notifications' => 'Notifications',
+			'profile.settings.notification_settings' => 'Notification settings',
 			'profile.settings.subscription' => 'Manage subscription',
 			'profile.settings.language' => 'Language',
 			'profile.settings.theme' => 'Theme',
@@ -2159,6 +2233,26 @@ extension on Translations {
 			'profile.edit.password_page.save' => 'Save',
 			'profile.edit.password_page.success' => 'Password changed',
 			'profile.edit.password_page.failed' => 'Failed to change password. Check the entered data and try again',
+			'notifications.title' => 'Notifications',
+			'notifications.mark_all_read' => 'MARK ALL READ',
+			'notifications.today' => 'TODAY',
+			'notifications.yesterday' => 'YESTERDAY',
+			'notifications.earlier' => 'EARLIER',
+			'notifications.achievement_title' => 'NEW ACHIEVEMENT',
+			'notifications.achievement_message' => ({required Object name, required Object points}) => '${name} · +${points} XP',
+			'notifications.level_title' => 'NEW LEVEL',
+			'notifications.level_message' => ({required Object level}) => 'You are now level ${level}',
+			'notifications.system_title' => 'QUIZ',
+			'notifications.empty_title' => 'ALL QUIET',
+			'notifications.empty_message' => 'Important events, achievements, and game news will appear here',
+			'notifications.error_title' => 'COULD NOT LOAD',
+			'notifications.error_message' => 'Something went wrong. Please try again',
+			'notifications.retry' => 'RETRY',
+			'notifications.load_more' => 'SHOW MORE',
+			'notifications.refresh_error_title' => 'COULD NOT REFRESH',
+			'notifications.refresh_error_message' => 'Your current notifications are still shown',
+			'notifications.action_error_title' => 'COULD NOT SAVE',
+			'notifications.action_error_message' => 'Please try again later',
 			'authentication.failure.invalid_credentials' => 'Invalid credentials. Check that the email and password you entered are correct.',
 			'authentication.failure.too_many_requests' => 'Too many login attempts. Try again later or reset your password.',
 			'authentication.failure.already_exist' => 'This email is already being used by another account.',

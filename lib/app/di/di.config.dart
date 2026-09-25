@@ -65,6 +65,9 @@ import '../../features/mastery/data/converter/mastery_converter.dart' as _i78;
 import '../../features/mastery/di/di.dart' as _i963;
 import '../../features/mastery/domain/repository/mastery_repository.dart'
     as _i871;
+import '../../features/notifications/di/di.dart' as _i493;
+import '../../features/notifications/domain/repository/notification_inbox_repository.dart'
+    as _i993;
 import '../../features/push/data/firebase_push_notifications_gateway.dart'
     as _i814;
 import '../../features/push/data/repository/remote_push_repository.dart'
@@ -159,6 +162,7 @@ extension GetItInjectableX on _i174.GetIt {
     final gamificationModule = _$GamificationModule();
     final reviewModule = _$ReviewModule();
     final masteryModule = _$MasteryModule();
+    final notificationInboxModule = _$NotificationInboxModule();
     final leaderboardModule = _$LeaderboardModule();
     await gh.factoryAsync<_i982.FirebaseApp>(
       () => firebaseConfigModule.firebase(),
@@ -315,6 +319,9 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i918.RemoteAgeAccessRepository(client: gh<_i782.ApiClient>()));
     gh.lazySingleton<_i797.AuthenticationRepository>(
         () => authenticationModule.repository(client: gh<_i782.ApiClient>()));
+    gh.lazySingleton<_i993.NotificationInboxRepository>(() =>
+        notificationInboxModule.notificationInboxRepository(
+            client: gh<_i782.ApiClient>()));
     gh.lazySingleton<_i914.LeaderboardRepository>(
         () => leaderboardModule.leaderboardRepository(
               client: gh<_i782.ApiClient>(),
@@ -374,5 +381,7 @@ class _$GamificationModule extends _i941.GamificationModule {}
 class _$ReviewModule extends _i1035.ReviewModule {}
 
 class _$MasteryModule extends _i963.MasteryModule {}
+
+class _$NotificationInboxModule extends _i493.NotificationInboxModule {}
 
 class _$LeaderboardModule extends _i946.LeaderboardModule {}

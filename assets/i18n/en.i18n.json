@@ -44,6 +44,7 @@
             "app_section": "Application",
             "edit_profile": "Edit profile",
             "notifications": "Notifications",
+            "notification_settings": "Notification settings",
             "subscription": "Manage subscription",
             "language": "Language",
             "theme": "Theme",
@@ -154,6 +155,28 @@
                 "failed": "Failed to change password. Check the entered data and try again"
             }
         }
+    },
+    "notifications": {
+        "title": "Notifications",
+        "mark_all_read": "MARK ALL READ",
+        "today": "TODAY",
+        "yesterday": "YESTERDAY",
+        "earlier": "EARLIER",
+        "achievement_title": "NEW ACHIEVEMENT",
+        "achievement_message": "$name · +$points XP",
+        "level_title": "NEW LEVEL",
+        "level_message": "You are now level $level",
+        "system_title": "QUIZ",
+        "empty_title": "ALL QUIET",
+        "empty_message": "Important events, achievements, and game news will appear here",
+        "error_title": "COULD NOT LOAD",
+        "error_message": "Something went wrong. Please try again",
+        "retry": "RETRY",
+        "load_more": "SHOW MORE",
+        "refresh_error_title": "COULD NOT REFRESH",
+        "refresh_error_message": "Your current notifications are still shown",
+        "action_error_title": "COULD NOT SAVE",
+        "action_error_message": "Please try again later"
     },
     "authentication": {
         "failure": {

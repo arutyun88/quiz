@@ -7,6 +7,7 @@ import 'package:quiz/app/core/model/base_state.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
 import 'package:quiz/app/core/widgets/app_refresh_indicator.dart';
 import 'package:quiz/features/gamification/presentation/provider/gamification_provider.dart';
+import 'package:quiz/features/notifications/presentation/provider/notification_inbox_provider.dart';
 import 'package:quiz/features/user/presentation/provider/profile_provider.dart';
 import 'package:quiz/features/user/presentation/widgets/profile_header.dart';
 import 'package:quiz/features/user/presentation/widgets/profile_placeholders.dart';
@@ -32,6 +33,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   Widget build(BuildContext context) {
     final colors = context.palette;
     final profileState = ref.watch(profileProvider);
+    final unreadNotifications = ref.watch(
+      notificationInboxProvider.select((state) => state.unreadCount),
+    );
 
     return Scaffold(
       backgroundColor: colors.background.static,
@@ -50,6 +54,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     ),
                     const SizedBox(width: 8),
                   ],
+                  ProfileHeaderButton(
+                    icon: Icons.notifications_none,
+                    showIndicator: unreadNotifications > 0,
+                    onTap: () => context.push('/profile/notifications'),
+                  ),
+                  const SizedBox(width: 8),
                   ProfileHeaderButton(
                     icon: Icons.settings_outlined,
                     onTap: () => context.push('/profile/settings'),

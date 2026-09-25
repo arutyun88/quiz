@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/app/config/navigation/router.dart';
 import 'package:quiz/app/core/theme/provider/theme_provider.dart';
+import 'package:quiz/app/core/widgets/app_snack_bar.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/ads/domain/rewarded_ads_gateway.dart';
 import 'package:quiz/features/analytics/domain/product_analytics.dart';
@@ -13,6 +14,7 @@ import 'package:quiz/features/authentication/provider/authentication_provider.da
 import 'package:quiz/features/gamification/presentation/gamification_lifecycle_observer.dart';
 import 'package:quiz/features/gamification/presentation/provider/gamification_provider.dart';
 import 'package:quiz/features/observability/data/sentry_user_context.dart';
+import 'package:quiz/features/notifications/presentation/provider/notification_inbox_provider.dart';
 import 'package:quiz/features/push/domain/push_notifications_gateway.dart';
 import 'package:quiz/gen/strings.g.dart';
 
@@ -25,6 +27,7 @@ class Application extends ConsumerStatefulWidget {
 
 class _ApplicationState extends ConsumerState<Application> {
   StreamSubscription<PushDestination>? _pushDestinationSubscription;
+  StreamSubscription<PushMessage>? _pushMessageSubscription;
   late final GamificationLifecycleObserver _gamificationLifecycleObserver;
 
   @override
@@ -32,12 +35,19 @@ class _ApplicationState extends ConsumerState<Application> {
     super.initState();
     final pushGateway = getIt<PushNotificationsGateway>();
     _gamificationLifecycleObserver = GamificationLifecycleObserver(
-      onResume: () =>
-          unawaited(ref.read(gamificationProvider.notifier).fetch()),
+      onResume: () {
+        unawaited(ref.read(gamificationProvider.notifier).fetch());
+        unawaited(
+          ref.read(notificationInboxProvider.notifier).fetchUnreadCount(),
+        );
+      },
     );
     WidgetsBinding.instance.addObserver(_gamificationLifecycleObserver);
     _pushDestinationSubscription = pushGateway.openedDestinations.listen(
       _openPushDestination,
+    );
+    _pushMessageSubscription = pushGateway.receivedMessages.listen(
+      _handlePushMessage,
     );
     ref.listenManual(
       authenticationProvider,
@@ -67,6 +77,7 @@ class _ApplicationState extends ConsumerState<Application> {
   void dispose() {
     WidgetsBinding.instance.removeObserver(_gamificationLifecycleObserver);
     _pushDestinationSubscription?.cancel();
+    _pushMessageSubscription?.cancel();
     super.dispose();
   }
 
@@ -77,6 +88,19 @@ class _ApplicationState extends ConsumerState<Application> {
       PushDestination.rating => '/rating',
       PushDestination.review => '/profile/review',
     });
+  }
+
+  void _handlePushMessage(PushMessage message) {
+    if (!mounted) return;
+    unawaited(
+      ref.read(notificationInboxProvider.notifier).handleIncomingNotification(),
+    );
+    AppSnackBar.showNotice(
+      context,
+      title: message.title,
+      message: message.body,
+      aboveRoutes: true,
+    );
   }
 
   @override

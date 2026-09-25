@@ -123,6 +123,9 @@ class _FakePushGateway implements PushNotificationsGateway {
   Stream<PushDestination> get openedDestinations => const Stream.empty();
 
   @override
+  Stream<PushMessage> get receivedMessages => const Stream.empty();
+
+  @override
   Future<PushPermissionStatus> permissionStatus() async => status;
 
   @override

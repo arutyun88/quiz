@@ -43,6 +43,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	};
 	@override late final _Translations$text_field$ru text_field = _Translations$text_field$ru._(_root);
 	@override late final _Translations$profile$ru profile = _Translations$profile$ru._(_root);
+	@override late final _Translations$notifications$ru notifications = _Translations$notifications$ru._(_root);
 	@override late final _Translations$authentication$ru authentication = _Translations$authentication$ru._(_root);
 	@override late final _Translations$leaderboard$ru leaderboard = _Translations$leaderboard$ru._(_root);
 	@override late final _Translations$gamification$ru gamification = _Translations$gamification$ru._(_root);
@@ -85,6 +86,35 @@ class _Translations$profile$ru implements Translations$profile$en {
 	@override late final _Translations$profile$view$ru view = _Translations$profile$view$ru._(_root);
 	@override late final _Translations$profile$settings$ru settings = _Translations$profile$settings$ru._(_root);
 	@override late final _Translations$profile$edit$ru edit = _Translations$profile$edit$ru._(_root);
+}
+
+// Path: notifications
+class _Translations$notifications$ru implements Translations$notifications$en {
+	_Translations$notifications$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Уведомления';
+	@override String get mark_all_read => 'ПРОЧИТАТЬ ВСЕ';
+	@override String get today => 'СЕГОДНЯ';
+	@override String get yesterday => 'ВЧЕРА';
+	@override String get earlier => 'РАНЕЕ';
+	@override String get achievement_title => 'НОВОЕ ДОСТИЖЕНИЕ';
+	@override String achievement_message({required Object name, required Object points}) => '${name} · +${points} XP';
+	@override String get level_title => 'НОВЫЙ УРОВЕНЬ';
+	@override String level_message({required Object level}) => 'Теперь у вас ${level} уровень';
+	@override String get system_title => 'QUIZ';
+	@override String get empty_title => 'ПОКА ТИХО';
+	@override String get empty_message => 'Здесь появятся важные события, достижения и новости игры';
+	@override String get error_title => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ';
+	@override String get error_message => 'Что-то пошло не так. Попробуйте ещё раз';
+	@override String get retry => 'ПОВТОРИТЬ';
+	@override String get load_more => 'ПОКАЗАТЬ ЕЩЁ';
+	@override String get refresh_error_title => 'НЕ УДАЛОСЬ ОБНОВИТЬ';
+	@override String get refresh_error_message => 'Текущие уведомления остались на экране';
+	@override String get action_error_title => 'НЕ УДАЛОСЬ СОХРАНИТЬ';
+	@override String get action_error_message => 'Попробуйте ещё раз позже';
 }
 
 // Path: authentication
@@ -621,6 +651,7 @@ class _Translations$profile$settings$ru implements Translations$profile$settings
 	@override String get app_section => 'Приложение';
 	@override String get edit_profile => 'Редактировать профиль';
 	@override String get notifications => 'Уведомления';
+	@override String get notification_settings => 'Настройки уведомлений';
 	@override String get subscription => 'Управление подпиской';
 	@override String get language => 'Язык';
 	@override String get theme => 'Тема оформления';
@@ -1264,6 +1295,7 @@ extension on TranslationsRu {
 			'profile.settings.app_section' => 'Приложение',
 			'profile.settings.edit_profile' => 'Редактировать профиль',
 			'profile.settings.notifications' => 'Уведомления',
+			'profile.settings.notification_settings' => 'Настройки уведомлений',
 			'profile.settings.subscription' => 'Управление подпиской',
 			'profile.settings.language' => 'Язык',
 			'profile.settings.theme' => 'Тема оформления',
@@ -1355,6 +1387,26 @@ extension on TranslationsRu {
 			'profile.edit.password_page.save' => 'Сохранить',
 			'profile.edit.password_page.success' => 'Пароль успешно изменён',
 			'profile.edit.password_page.failed' => 'Не удалось изменить пароль. Проверьте введённые данные и попробуйте снова',
+			'notifications.title' => 'Уведомления',
+			'notifications.mark_all_read' => 'ПРОЧИТАТЬ ВСЕ',
+			'notifications.today' => 'СЕГОДНЯ',
+			'notifications.yesterday' => 'ВЧЕРА',
+			'notifications.earlier' => 'РАНЕЕ',
+			'notifications.achievement_title' => 'НОВОЕ ДОСТИЖЕНИЕ',
+			'notifications.achievement_message' => ({required Object name, required Object points}) => '${name} · +${points} XP',
+			'notifications.level_title' => 'НОВЫЙ УРОВЕНЬ',
+			'notifications.level_message' => ({required Object level}) => 'Теперь у вас ${level} уровень',
+			'notifications.system_title' => 'QUIZ',
+			'notifications.empty_title' => 'ПОКА ТИХО',
+			'notifications.empty_message' => 'Здесь появятся важные события, достижения и новости игры',
+			'notifications.error_title' => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ',
+			'notifications.error_message' => 'Что-то пошло не так. Попробуйте ещё раз',
+			'notifications.retry' => 'ПОВТОРИТЬ',
+			'notifications.load_more' => 'ПОКАЗАТЬ ЕЩЁ',
+			'notifications.refresh_error_title' => 'НЕ УДАЛОСЬ ОБНОВИТЬ',
+			'notifications.refresh_error_message' => 'Текущие уведомления остались на экране',
+			'notifications.action_error_title' => 'НЕ УДАЛОСЬ СОХРАНИТЬ',
+			'notifications.action_error_message' => 'Попробуйте ещё раз позже',
 			'authentication.failure.invalid_credentials' => 'Неверные учетные данные. Проверьте правильность введенного email и пароля.',
 			'authentication.failure.too_many_requests' => 'Слишком много попыток входа. Попробуйте позже или сбросьте пароль.',
 			'authentication.failure.already_exist' => 'Этот email уже используется другим аккаунтом.',

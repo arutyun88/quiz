@@ -21,6 +21,7 @@ import 'package:quiz/features/debug/debug_question_page.dart';
 import 'package:quiz/features/home/presentation/home_gate_flow.dart';
 import 'package:quiz/features/home/presentation/quiz_gate_flow.dart';
 import 'package:quiz/features/mastery/presentation/mastery_flow.dart';
+import 'package:quiz/features/notifications/presentation/notification_inbox_flow.dart';
 import 'package:quiz/features/onboarding/presentation/onboarding_flow.dart';
 import 'package:quiz/features/rating/presentation/rating_flow.dart';
 import 'package:quiz/features/review/presentation/review_flow.dart';
@@ -178,6 +179,12 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                       path: 'review',
                       name: 'profile-review',
                       builder: (context, state) => const ReviewFlow(),
+                    ),
+                    GoRoute(
+                      path: 'notifications',
+                      name: 'profile-notifications',
+                      builder: (context, state) =>
+                          const NotificationInboxFlow(),
                     ),
                     GoRoute(
                       path: 'settings',

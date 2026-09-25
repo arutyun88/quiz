@@ -29,14 +29,20 @@ final class FirebasePushNotificationsGateway
   final SettingsLocalStorageService _settingsStorage;
   final StreamController<PushDestination> _openedDestinations =
       StreamController.broadcast();
+  final StreamController<PushMessage> _receivedMessages =
+      StreamController.broadcast();
 
   StreamSubscription<String>? _tokenSubscription;
   StreamSubscription<RemoteMessage>? _openedSubscription;
+  StreamSubscription<RemoteMessage>? _foregroundSubscription;
   bool _active = false;
   bool _initialMessageRead = false;
 
   @override
   Stream<PushDestination> get openedDestinations => _openedDestinations.stream;
+
+  @override
+  Stream<PushMessage> get receivedMessages => _receivedMessages.stream;
 
   @override
   Future<PushPermissionStatus> permissionStatus() async => _mapPermission(
@@ -75,6 +81,9 @@ final class FirebasePushNotificationsGateway
     _openedSubscription ??= FirebaseMessaging.onMessageOpenedApp.listen(
       _emitDestination,
     );
+    _foregroundSubscription ??= FirebaseMessaging.onMessage.listen(
+      _emitMessage,
+    );
 
     if (!_initialMessageRead) {
       _initialMessageRead = true;
@@ -111,6 +120,8 @@ final class FirebasePushNotificationsGateway
     _tokenSubscription = null;
     await _openedSubscription?.cancel();
     _openedSubscription = null;
+    await _foregroundSubscription?.cancel();
+    _foregroundSubscription = null;
   }
 
   Future<void> _register(String token) async {
@@ -135,6 +146,20 @@ final class FirebasePushNotificationsGateway
   void _emitDestination(RemoteMessage message) {
     final destination = parsePushDestination(message.data);
     if (destination != null) _openedDestinations.add(destination);
+  }
+
+  void _emitMessage(RemoteMessage message) {
+    final notification = message.notification;
+    final title = notification?.title ?? message.data['title']?.toString();
+    final body = notification?.body ?? message.data['body']?.toString();
+    if (title == null && body == null) return;
+    _receivedMessages.add(
+      PushMessage(
+        title: title ?? 'QUIZ',
+        body: body ?? '',
+        destination: parsePushDestination(message.data),
+      ),
+    );
   }
 
   static PushPermissionStatus _mapPermission(AuthorizationStatus status) =>
