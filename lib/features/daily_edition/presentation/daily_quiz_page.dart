@@ -23,6 +23,7 @@ import 'package:quiz/features/home/presentation/widgets/quiz/quiz_state_views.da
 import 'package:quiz/features/home/presentation/widgets/start_day_header.dart';
 import 'package:quiz/features/question/domain/entity/question_entity.dart';
 import 'package:quiz/features/question/presentation/question_answer_state.dart';
+import 'package:quiz/features/user/presentation/provider/quiz_plus_provider.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 class DailyQuizPage extends ConsumerStatefulWidget {
@@ -80,6 +81,7 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
     final editionState = ref.watch(dailyEditionProvider);
     final answerState = ref.watch(dailyQuestionProvider);
     final gamification = ref.watch(gamificationProvider);
+    final hasQuizPlus = ref.watch(quizPlusProvider);
     final palette = context.palette;
     final connectionError = switch (editionState) {
       DailyEditionFailedState(:final failure) =>
@@ -127,6 +129,7 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
                   ref,
                   editionState: editionState,
                   answerState: answerState,
+                  hasQuizPlus: hasQuizPlus,
                 ),
               ),
             ],
@@ -140,6 +143,7 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
     WidgetRef ref, {
     required DailyEditionState editionState,
     required QuestionAnswerState answerState,
+    required bool hasQuizPlus,
   }) {
     return switch (editionState) {
       DailyEditionInitialState() ||
@@ -184,6 +188,12 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
                       obscuredText: question.question,
                       enabled:
                           !isBusy && answerState is QuestionAnswerWaitingState,
+                      subscriptionLocked: !hasQuizPlus,
+                      onSubscriptionTap: hasQuizPlus
+                          ? null
+                          : () => context.push(
+                                '/profile/settings/subscription',
+                              ),
                       onUseHint:
                           ref.read(dailyEditionProvider.notifier).useHint,
                     ),

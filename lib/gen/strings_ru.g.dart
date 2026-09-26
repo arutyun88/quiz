@@ -83,6 +83,7 @@ class _Translations$profile$ru implements Translations$profile$en {
 
 	// Translations
 	@override String get title => 'Профиль';
+	@override late final _Translations$profile$guest$ru guest = _Translations$profile$guest$ru._(_root);
 	@override late final _Translations$profile$view$ru view = _Translations$profile$view$ru._(_root);
 	@override late final _Translations$profile$settings$ru settings = _Translations$profile$settings$ru._(_root);
 	@override late final _Translations$profile$edit$ru edit = _Translations$profile$edit$ru._(_root);
@@ -615,6 +616,21 @@ class _Translations$text_field$confirm_password$ru implements Translations$text_
 	@override String get hint => 'Повторите введенный пароль';
 }
 
+// Path: profile.guest
+class _Translations$profile$guest$ru implements Translations$profile$guest$en {
+	_Translations$profile$guest$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ваш прогресс — в одном профиле';
+	@override String get body => 'Войдите или создайте аккаунт, чтобы сохранять результаты и продолжать игру на любом устройстве.';
+	@override String get progress => 'СЕРИЯ, XP И СТАТИСТИКА';
+	@override String get rating => 'РЕЙТИНГ ЗНАНИЙ';
+	@override String get achievements => 'ДОСТИЖЕНИЯ И МАСТЕРСТВО';
+	@override String get sign_in => 'ВОЙТИ';
+}
+
 // Path: profile.view
 class _Translations$profile$view$ru implements Translations$profile$view$en {
 	_Translations$profile$view$ru._(this._root);
@@ -803,6 +819,10 @@ class _Translations$question$hint$ru implements Translations$question$hint$en {
 	@override String get confirm_message => 'Подсказка вдвое уменьшит прибавку к рейтингу за правильный ответ. Штраф за ошибку, XP и серия не изменятся.';
 	@override String get confirm_button => 'ПОКАЗАТЬ ПОДСКАЗКУ';
 	@override String get cancel_button => 'ОТМЕНА';
+	@override String get subscription_title => 'Подсказки доступны в Quiz+';
+	@override String get subscription_required => 'Использовать подсказки могут только пользователи с активной подпиской Quiz+.';
+	@override String get subscription_button => 'ПЕРЕЙТИ К QUIZ+';
+	@override String get subscription_acknowledge => 'ПОНЯТНО';
 	@override String get unavailable => 'Текст подсказки недоступен';
 }
 
@@ -853,10 +873,10 @@ class _Translations$demo$start$ru implements Translations$demo$start$en {
 	@override String get badge => 'ГОСТЕВОЕ ДЕМО';
 	@override String get title => 'Попробуйте Quiz без регистрации';
 	@override String body({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n,
-		one: 'Ответьте на один короткий вопрос, воспользуйтесь подсказкой и посмотрите разбор ответа.',
-		few: 'Ответьте на ${n} коротких вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.',
-		many: 'Ответьте на ${n} коротких вопросов, воспользуйтесь подсказкой и посмотрите разбор ответа.',
-		other: 'Ответьте на ${n} короткого вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.',
+		one: 'Ответьте на один короткий вопрос и посмотрите разбор ответа.',
+		few: 'Ответьте на ${n} коротких вопроса и посмотрите разбор ответа.',
+		many: 'Ответьте на ${n} коротких вопросов и посмотрите разбор ответа.',
+		other: 'Ответьте на ${n} короткого вопроса и посмотрите разбор ответа.',
 	);
 	@override String get notice => 'Ответы демо не сохраняются и никогда не влияют на рейтинг, XP или серию.';
 	@override String get start_button => 'НАЧАТЬ ДЕМО';
@@ -870,9 +890,6 @@ class _Translations$demo$quiz$ru implements Translations$demo$quiz$en {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get header => 'QUIZ · ДЕМО';
-	@override String get exit => 'ВЫЙТИ';
-	@override String get show_hint => 'ПОКАЗАТЬ ПОДСКАЗКУ';
 	@override String get retry => 'ПОВТОРИТЬ';
 }
 
@@ -887,7 +904,6 @@ class _Translations$demo$complete$ru implements Translations$demo$complete$en {
 	@override String get body => 'Создайте аккаунт, чтобы участвовать в официальном выпуске дня, поддерживать серию и получать рейтинг знаний.';
 	@override String get create_account => 'СОЗДАТЬ АККАУНТ';
 	@override String get sign_in => 'ВОЙТИ';
-	@override String get back => 'ВЕРНУТЬСЯ К ДЕМО';
 }
 
 // Path: demo.rating
@@ -1275,6 +1291,12 @@ extension on TranslationsRu {
 			'text_field.confirm_password.label' => 'Подтвердите пароль',
 			'text_field.confirm_password.hint' => 'Повторите введенный пароль',
 			'profile.title' => 'Профиль',
+			'profile.guest.title' => 'Ваш прогресс — в одном профиле',
+			'profile.guest.body' => 'Войдите или создайте аккаунт, чтобы сохранять результаты и продолжать игру на любом устройстве.',
+			'profile.guest.progress' => 'СЕРИЯ, XP И СТАТИСТИКА',
+			'profile.guest.rating' => 'РЕЙТИНГ ЗНАНИЙ',
+			'profile.guest.achievements' => 'ДОСТИЖЕНИЯ И МАСТЕРСТВО',
+			'profile.guest.sign_in' => 'ВОЙТИ',
 			'profile.view.current_level_label' => 'ТЕКУЩИЙ УР.',
 			'profile.view.next_level' => ({required Object n}) => '→ УР. ${n}',
 			'profile.view.stats_section' => '// СТАТИСТИКА',
@@ -1524,6 +1546,10 @@ extension on TranslationsRu {
 			'question.hint.confirm_message' => 'Подсказка вдвое уменьшит прибавку к рейтингу за правильный ответ. Штраф за ошибку, XP и серия не изменятся.',
 			'question.hint.confirm_button' => 'ПОКАЗАТЬ ПОДСКАЗКУ',
 			'question.hint.cancel_button' => 'ОТМЕНА',
+			'question.hint.subscription_title' => 'Подсказки доступны в Quiz+',
+			'question.hint.subscription_required' => 'Использовать подсказки могут только пользователи с активной подпиской Quiz+.',
+			'question.hint.subscription_button' => 'ПЕРЕЙТИ К QUIZ+',
+			'question.hint.subscription_acknowledge' => 'ПОНЯТНО',
 			'question.hint.unavailable' => 'Текст подсказки недоступен',
 			'question.dialog.correct.header.0' => 'Отлично, вы абсолютно правы',
 			'question.dialog.correct.header.1' => 'Верно, так держать',
@@ -1639,19 +1665,15 @@ extension on TranslationsRu {
 			'daily_limit.quiz_plus' => 'БЕЗЛИМИТ С QUIZ+',
 			'demo.start.badge' => 'ГОСТЕВОЕ ДЕМО',
 			'demo.start.title' => 'Попробуйте Quiz без регистрации',
-			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'Ответьте на один короткий вопрос, воспользуйтесь подсказкой и посмотрите разбор ответа.', few: 'Ответьте на ${n} коротких вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.', many: 'Ответьте на ${n} коротких вопросов, воспользуйтесь подсказкой и посмотрите разбор ответа.', other: 'Ответьте на ${n} короткого вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.', ), 
+			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'Ответьте на один короткий вопрос и посмотрите разбор ответа.', few: 'Ответьте на ${n} коротких вопроса и посмотрите разбор ответа.', many: 'Ответьте на ${n} коротких вопросов и посмотрите разбор ответа.', other: 'Ответьте на ${n} короткого вопроса и посмотрите разбор ответа.', ),
 			'demo.start.notice' => 'Ответы демо не сохраняются и никогда не влияют на рейтинг, XP или серию.',
 			'demo.start.start_button' => 'НАЧАТЬ ДЕМО',
 			'demo.start.sign_in_button' => 'У МЕНЯ УЖЕ ЕСТЬ АККАУНТ',
-			'demo.quiz.header' => 'QUIZ · ДЕМО',
-			'demo.quiz.exit' => 'ВЫЙТИ',
-			'demo.quiz.show_hint' => 'ПОКАЗАТЬ ПОДСКАЗКУ',
 			'demo.quiz.retry' => 'ПОВТОРИТЬ',
 			'demo.complete.title' => 'Демо завершено',
 			'demo.complete.body' => 'Создайте аккаунт, чтобы участвовать в официальном выпуске дня, поддерживать серию и получать рейтинг знаний.',
 			'demo.complete.create_account' => 'СОЗДАТЬ АККАУНТ',
 			'demo.complete.sign_in' => 'ВОЙТИ',
-			'demo.complete.back' => 'ВЕРНУТЬСЯ К ДЕМО',
 			'demo.rating.title' => 'Для рейтинга нужен аккаунт',
 			'demo.rating.body' => 'Ответы гостевого демо не сохраняются и не участвуют в официальном рейтинге.',
 			'demo.rating.sign_in' => 'ВОЙТИ',

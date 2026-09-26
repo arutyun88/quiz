@@ -14,6 +14,8 @@ class DailyHintPanel extends StatelessWidget {
     required this.obscuredText,
     required this.enabled,
     required this.onUseHint,
+    this.subscriptionLocked = false,
+    this.onSubscriptionTap,
   });
 
   final bool hintUsed;
@@ -21,6 +23,8 @@ class DailyHintPanel extends StatelessWidget {
   final String obscuredText;
   final bool enabled;
   final Future<void> Function() onUseHint;
+  final bool subscriptionLocked;
+  final VoidCallback? onSubscriptionTap;
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +45,19 @@ class DailyHintPanel extends StatelessWidget {
           child: Semantics(
             button: !hintUsed,
             enabled: !hintUsed && enabled,
-            label: hintUsed ? null : t.action,
+            label: hintUsed
+                ? null
+                : subscriptionLocked
+                    ? t.subscription_title
+                    : t.action,
             excludeSemantics: !hintUsed,
             child: GestureDetector(
               behavior: HitTestBehavior.opaque,
-              onTap: !hintUsed && enabled ? () => _confirm(context) : null,
+              onTap: !hintUsed && enabled
+                  ? () => subscriptionLocked
+                      ? _showSubscriptionDialog(context)
+                      : _confirm(context)
+                  : null,
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 180),
                 switchInCurve: Curves.easeOut,
@@ -86,5 +98,19 @@ class DailyHintPanel extends StatelessWidget {
       cancelLabel: t.cancel_button,
     );
     if (confirmed) await onUseHint();
+  }
+
+  Future<void> _showSubscriptionDialog(BuildContext context) async {
+    final t = context.t.question.hint;
+    final hasAction = onSubscriptionTap != null;
+    final confirmed = await showAppConfirmDialog(
+      context,
+      title: t.subscription_title,
+      message: t.subscription_required,
+      confirmLabel:
+          hasAction ? t.subscription_button : t.subscription_acknowledge,
+      cancelLabel: hasAction ? t.cancel_button : null,
+    );
+    if (confirmed) onSubscriptionTap?.call();
   }
 }

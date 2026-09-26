@@ -5,11 +5,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/app_divider.dart';
 import 'package:quiz/app/core/widgets/button/app_button_v2.dart';
+import 'package:quiz/app/core/widgets/button/app_text_button.dart';
+import 'package:quiz/features/daily_edition/presentation/widgets/daily_hint_panel.dart';
 import 'package:quiz/features/demo/presentation/provider/demo_provider.dart';
-import 'package:quiz/features/demo/presentation/widgets/demo_hint_panel.dart';
 import 'package:quiz/features/home/presentation/widgets/quiz/answer_reveal_bottom_sheet.dart';
 import 'package:quiz/features/home/presentation/widgets/quiz/quiz_body.dart';
 import 'package:quiz/features/home/presentation/widgets/quiz/quiz_state_views.dart';
+import 'package:quiz/features/home/presentation/widgets/start_day_header.dart';
 import 'package:quiz/features/question/domain/entity/answer_entity.dart';
 import 'package:quiz/features/question/presentation/question_answer_state.dart';
 import 'package:quiz/gen/strings.g.dart';
@@ -30,25 +32,11 @@ class DemoQuizPage extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(22, 18, 22, 14),
-                child: Row(
-                  children: [
-                    Text(
-                      context.t.demo.quiz.header,
-                      style: GoogleFonts.unbounded(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: palette.text.primary,
-                      ),
-                    ),
-                    const Spacer(),
-                    TextButton(
-                      onPressed: () => context.goNamed('home'),
-                      child: Text(context.t.demo.quiz.exit),
-                    ),
-                  ],
-                ),
+              StartDayHeader(
+                streak: 0,
+                level: null,
+                subtitle: context.t.onboarding.daily_issue,
+                showBadges: false,
               ),
               const AppDivider(indent: 22, endIndent: 22),
               Expanded(child: _body(context, ref, state)),
@@ -61,19 +49,17 @@ class DemoQuizPage extends ConsumerWidget {
 
   Widget _body(BuildContext context, WidgetRef ref, DemoState state) =>
       switch (state) {
-        DemoLoadingState() => const QuizLoading(),
-        DemoFailedState(:final failure) => Column(
-            children: [
-              Expanded(child: QuizError(failure: failure)),
-              Padding(
-                padding: const EdgeInsets.all(22),
-                child: AppButtonV2(
-                  label: context.t.demo.quiz.retry,
-                  onTap: (_) => ref.read(demoProvider.notifier).bootstrap(),
-                ),
+        DemoLoadingState() => const QuizQuestionLoading(),
+        DemoFailedState(:final failure) => switch (
+              quizConnectionErrorKind(failure)) {
+            final kind? => QuizConnectionError(
+                kind: kind,
+                onRetry: ref.read(demoProvider.notifier).bootstrap,
               ),
-            ],
-          ),
+            null => QuizQuestionError(
+                onRetry: ref.read(demoProvider.notifier).bootstrap,
+              ),
+          },
         DemoCompletedState() => const DemoCompletedPage(),
         DemoActiveState() => _active(context, ref, state),
       };
@@ -92,13 +78,17 @@ class DemoQuizPage extends ConsumerWidget {
                 ? null
                 : (answer) =>
                     ref.read(demoProvider.notifier).submitAnswer(answer.id),
+            questionSupplement: DailyHintPanel(
+              hintUsed: state.hintVisible,
+              hint: state.question.hint,
+              obscuredText: state.question.question,
+              enabled: !state.isSubmitting && state.reveal == null,
+              subscriptionLocked: true,
+              onUseHint: () async {
+                ref.read(demoProvider.notifier).showHint();
+              },
+            ),
           ),
-        ),
-        DemoHintPanel(
-          hint: state.question.hint,
-          visible: state.hintVisible,
-          enabled: !state.isSubmitting && state.reveal == null,
-          onShow: ref.read(demoProvider.notifier).showHint,
         ),
         if (state.failure != null)
           Padding(
@@ -229,13 +219,9 @@ class DemoCompletedPage extends StatelessWidget {
             },
           ),
           const SizedBox(height: 10),
-          TextButton(
-            onPressed: () => context.pushNamed('login'),
-            child: Text(t.sign_in),
-          ),
-          TextButton(
-            onPressed: () => context.goNamed('home'),
-            child: Text(t.back),
+          AppTextButton(
+            label: t.sign_in,
+            onTap: () => context.pushNamed('login'),
           ),
         ],
       ),

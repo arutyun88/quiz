@@ -34,9 +34,32 @@ void main() {
       findsNothing,
     );
   });
+
+  testWidgets('pads both values in the regular question counter',
+      (tester) async {
+    await tester.pumpWidget(
+      _app(
+        isTopicPractice: false,
+        questionNumber: 1,
+        totalQuestions: 3,
+      ),
+    );
+
+    expect(
+      find.text(
+        t.question.meta.counter(current: '01', total: '03'),
+      ),
+      findsOneWidget,
+    );
+  });
 }
 
-Widget _app({required bool isTopicPractice}) => TranslationProvider(
+Widget _app({
+  required bool isTopicPractice,
+  int questionNumber = 11,
+  int totalQuestions = 10,
+}) =>
+    TranslationProvider(
       child: MaterialApp(
         theme: AppTheme.light,
         home: Scaffold(
@@ -55,8 +78,8 @@ Widget _app({required bool isTopicPractice}) => TranslationProvider(
               ],
             ),
             answerState: const QuestionAnswerState.wait(),
-            questionNumber: 11,
-            totalQuestions: 10,
+            questionNumber: questionNumber,
+            totalQuestions: totalQuestions,
             onSelect: null,
             isTopicPractice: isTopicPractice,
           ),

@@ -89,6 +89,7 @@ class Translations$profile$en {
 	/// ru: 'Профиль'
 	String get title => 'Profile';
 
+	late final Translations$profile$guest$en guest = Translations$profile$guest$en._(_root);
 	late final Translations$profile$view$en view = Translations$profile$view$en._(_root);
 	late final Translations$profile$settings$en settings = Translations$profile$settings$en._(_root);
 	late final Translations$profile$edit$en edit = Translations$profile$edit$en._(_root);
@@ -1051,6 +1052,33 @@ class Translations$text_field$confirm_password$en {
 	String get hint => 'Repeat the entered password';
 }
 
+// Path: profile.guest
+class Translations$profile$guest$en {
+	Translations$profile$guest$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Ваш прогресс — в одном профиле'
+	String get title => 'Your progress in one profile';
+
+	/// ru: 'Войдите или создайте аккаунт, чтобы сохранять результаты и продолжать игру на любом устройстве.'
+	String get body => 'Sign in or create an account to save results and continue playing on any device.';
+
+	/// ru: 'СЕРИЯ, XP И СТАТИСТИКА'
+	String get progress => 'STREAK, XP AND STATISTICS';
+
+	/// ru: 'РЕЙТИНГ ЗНАНИЙ'
+	String get rating => 'KNOWLEDGE RATING';
+
+	/// ru: 'ДОСТИЖЕНИЯ И МАСТЕРСТВО'
+	String get achievements => 'ACHIEVEMENTS AND MASTERY';
+
+	/// ru: 'ВОЙТИ'
+	String get sign_in => 'SIGN IN';
+}
+
 // Path: profile.view
 class Translations$profile$view$en {
 	Translations$profile$view$en._(this._root);
@@ -1384,6 +1412,18 @@ class Translations$question$hint$en {
 	/// ru: 'ОТМЕНА'
 	String get cancel_button => 'CANCEL';
 
+	/// ru: 'Подсказки доступны в Quiz+'
+	String get subscription_title => 'Hints are available with Quiz+';
+
+	/// ru: 'Использовать подсказки могут только пользователи с активной подпиской Quiz+.'
+	String get subscription_required => 'Only users with an active Quiz+ subscription can use hints.';
+
+	/// ru: 'ПЕРЕЙТИ К QUIZ+'
+	String get subscription_button => 'GO TO QUIZ+';
+
+	/// ru: 'ПОНЯТНО'
+	String get subscription_acknowledge => 'GOT IT';
+
 	/// ru: 'Текст подсказки недоступен'
 	String get unavailable => 'Hint text is unavailable';
 }
@@ -1449,10 +1489,10 @@ class Translations$demo$start$en {
 	/// ru: 'Попробуйте Quiz без регистрации'
 	String get title => 'Try Quiz before signing up';
 
-	/// ru: '(one) {Ответьте на один короткий вопрос, воспользуйтесь подсказкой и посмотрите разбор ответа.} (few) {Ответьте на $n коротких вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.} (many) {Ответьте на $n коротких вопросов, воспользуйтесь подсказкой и посмотрите разбор ответа.} (other) {Ответьте на $n короткого вопроса, воспользуйтесь подсказкой и посмотрите разбор ответа.}'
+	/// ru: '(one) {Ответьте на один короткий вопрос и посмотрите разбор ответа.} (few) {Ответьте на $n коротких вопроса и посмотрите разбор ответа.} (many) {Ответьте на $n коротких вопросов и посмотрите разбор ответа.} (other) {Ответьте на $n короткого вопроса и посмотрите разбор ответа.}'
 	String body({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-		one: 'Answer one short question, use a hint, and see how answer explanations work.',
-		other: 'Answer ${n} short questions, use a hint, and see how answer explanations work.',
+		one: 'Answer one short question and see how answer explanations work.',
+		other: 'Answer ${n} short questions and see how answer explanations work.',
 	);
 
 	/// ru: 'Ответы демо не сохраняются и никогда не влияют на рейтинг, XP или серию.'
@@ -1472,15 +1512,6 @@ class Translations$demo$quiz$en {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-
-	/// ru: 'QUIZ · ДЕМО'
-	String get header => 'QUIZ · DEMO';
-
-	/// ru: 'ВЫЙТИ'
-	String get exit => 'EXIT';
-
-	/// ru: 'ПОКАЗАТЬ ПОДСКАЗКУ'
-	String get show_hint => 'SHOW HINT';
 
 	/// ru: 'ПОВТОРИТЬ'
 	String get retry => 'TRY AGAIN';
@@ -1505,9 +1536,6 @@ class Translations$demo$complete$en {
 
 	/// ru: 'ВОЙТИ'
 	String get sign_in => 'SIGN IN';
-
-	/// ru: 'ВЕРНУТЬСЯ К ДЕМО'
-	String get back => 'BACK TO DEMO';
 }
 
 // Path: demo.rating
@@ -2121,6 +2149,12 @@ extension on Translations {
 			'text_field.confirm_password.label' => 'Confirm password',
 			'text_field.confirm_password.hint' => 'Repeat the entered password',
 			'profile.title' => 'Profile',
+			'profile.guest.title' => 'Your progress in one profile',
+			'profile.guest.body' => 'Sign in or create an account to save results and continue playing on any device.',
+			'profile.guest.progress' => 'STREAK, XP AND STATISTICS',
+			'profile.guest.rating' => 'KNOWLEDGE RATING',
+			'profile.guest.achievements' => 'ACHIEVEMENTS AND MASTERY',
+			'profile.guest.sign_in' => 'SIGN IN',
 			'profile.view.current_level_label' => 'CURRENT LVL',
 			'profile.view.next_level' => ({required Object n}) => '→ LVL ${n}',
 			'profile.view.stats_section' => '// STATISTICS',
@@ -2370,6 +2404,10 @@ extension on Translations {
 			'question.hint.confirm_message' => 'A hint halves the rating gain for a correct answer. The penalty for a wrong answer, XP, and streak remain unchanged.',
 			'question.hint.confirm_button' => 'SHOW HINT',
 			'question.hint.cancel_button' => 'CANCEL',
+			'question.hint.subscription_title' => 'Hints are available with Quiz+',
+			'question.hint.subscription_required' => 'Only users with an active Quiz+ subscription can use hints.',
+			'question.hint.subscription_button' => 'GO TO QUIZ+',
+			'question.hint.subscription_acknowledge' => 'GOT IT',
 			'question.hint.unavailable' => 'Hint text is unavailable',
 			'question.dialog.correct.header.0' => 'Great job! You\'re absolutely correct',
 			'question.dialog.correct.header.1' => 'Well done! That\'s right',
@@ -2485,19 +2523,15 @@ extension on Translations {
 			'daily_limit.quiz_plus' => 'UNLIMITED WITH QUIZ+',
 			'demo.start.badge' => 'GUEST DEMO',
 			'demo.start.title' => 'Try Quiz before signing up',
-			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'Answer one short question, use a hint, and see how answer explanations work.', other: 'Answer ${n} short questions, use a hint, and see how answer explanations work.', ), 
+			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'Answer one short question and see how answer explanations work.', other: 'Answer ${n} short questions and see how answer explanations work.', ),
 			'demo.start.notice' => 'Demo answers are not saved and never affect rating, XP, or streak.',
 			'demo.start.start_button' => 'START DEMO',
 			'demo.start.sign_in_button' => 'I ALREADY HAVE AN ACCOUNT',
-			'demo.quiz.header' => 'QUIZ · DEMO',
-			'demo.quiz.exit' => 'EXIT',
-			'demo.quiz.show_hint' => 'SHOW HINT',
 			'demo.quiz.retry' => 'TRY AGAIN',
 			'demo.complete.title' => 'Demo complete',
 			'demo.complete.body' => 'Create an account to join the official daily edition, build a streak, and receive a knowledge rating.',
 			'demo.complete.create_account' => 'CREATE ACCOUNT',
 			'demo.complete.sign_in' => 'SIGN IN',
-			'demo.complete.back' => 'BACK TO DEMO',
 			'demo.rating.title' => 'Rating requires an account',
 			'demo.rating.body' => 'Guest demo answers are not saved and do not participate in the official leaderboard.',
 			'demo.rating.sign_in' => 'SIGN IN',

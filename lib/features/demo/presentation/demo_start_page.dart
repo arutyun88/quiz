@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/button/app_button_v2.dart';
+import 'package:quiz/app/core/widgets/button/app_text_button.dart';
 import 'package:quiz/features/demo/presentation/provider/demo_config_provider.dart';
 import 'package:quiz/gen/strings.g.dart';
 
@@ -104,9 +105,9 @@ class DemoStartPage extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 12),
-              TextButton(
-                onPressed: () => context.pushNamed('login'),
-                child: Text(t.sign_in_button),
+              AppTextButton(
+                label: t.sign_in_button,
+                onTap: () => context.pushNamed('login'),
               ),
             ],
           ),

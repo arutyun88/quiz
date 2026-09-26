@@ -7,7 +7,7 @@ Future<bool> showAppConfirmDialog(
   required String title,
   required String message,
   required String confirmLabel,
-  required String cancelLabel,
+  String? cancelLabel,
   bool danger = false,
 }) async {
   final confirmed = await showDialog<bool>(
@@ -37,7 +37,7 @@ class _AppConfirmDialog extends StatelessWidget {
   final String title;
   final String message;
   final String confirmLabel;
-  final String cancelLabel;
+  final String? cancelLabel;
   final bool danger;
 
   @override
@@ -83,13 +83,15 @@ class _AppConfirmDialog extends StatelessWidget {
               color: danger ? colors.text.danger : colors.text.primary,
               onTap: () => Navigator.of(context).pop(true),
             ),
-            const SizedBox(height: 10),
-            _DialogButton(
-              label: cancelLabel,
-              filled: false,
-              color: colors.text.primary,
-              onTap: () => Navigator.of(context).pop(false),
-            ),
+            if (cancelLabel case final cancelLabel?) ...[
+              const SizedBox(height: 10),
+              _DialogButton(
+                label: cancelLabel,
+                filled: false,
+                color: colors.text.primary,
+                onTap: () => Navigator.of(context).pop(false),
+              ),
+            ],
           ],
         ),
       ),
@@ -120,7 +122,9 @@ class _DialogButton extends StatelessWidget {
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 14),
-        decoration: filled ? BoxDecoration(color: color) : BoxDecoration(border: Border.all(color: color)),
+        decoration: filled
+            ? BoxDecoration(color: color)
+            : BoxDecoration(border: Border.all(color: color)),
         alignment: Alignment.center,
         child: Text(
           label.toUpperCase(),

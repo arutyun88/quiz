@@ -15,13 +15,14 @@ class GuestRatingPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: palette.background.static,
       body: SafeArea(
+        bottom: false,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(22, 32, 22, 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Spacer(),
-              Icon(Icons.lock_outline, size: 54, color: palette.text.accent),
+              Icon(Icons.lock_outline, size: 54, color: palette.text.primary),
               const SizedBox(height: 24),
               Text(
                 t.title,
@@ -49,11 +50,6 @@ class GuestRatingPage extends StatelessWidget {
                   complete();
                   context.pushNamed('login');
                 },
-              ),
-              const SizedBox(height: 10),
-              TextButton(
-                onPressed: () => context.pushNamed('registration'),
-                child: Text(t.create_account),
               ),
             ],
           ),

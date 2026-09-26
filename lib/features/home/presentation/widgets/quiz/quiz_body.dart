@@ -111,7 +111,7 @@ class _QuestionMetaRow extends StatelessWidget {
         ? t.extra_counter(n: questionNumber - totalQuestions)
         : t.counter(
             current: questionNumber.toString().padLeft(2, '0'),
-            total: totalQuestions,
+            total: totalQuestions.toString().padLeft(2, '0'),
           );
 
     return Row(
