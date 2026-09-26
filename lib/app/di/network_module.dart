@@ -28,11 +28,14 @@ abstract class NetworkModule {
   ) {
     const devTime = String.fromEnvironment('QUIZ_DEV_TIME');
     const devTimeKey = String.fromEnvironment('QUIZ_DEV_TIME_KEY');
+    const configuredApiBaseUrl = String.fromEnvironment('API_BASE_URL');
+    final apiBaseUrl = configuredApiBaseUrl.isNotEmpty
+        ? configuredApiBaseUrl
+        : kDebugMode && defaultTargetPlatform == TargetPlatform.android
+            ? 'http://10.0.2.2:8081/api'
+            : 'http://localhost:8081/api';
     final config = ApiClientConfig(
-      baseUrl: const String.fromEnvironment(
-        'API_BASE_URL',
-        defaultValue: 'http://localhost:8081/api',
-      ),
+      baseUrl: apiBaseUrl,
       defaultHeaders: kDebugMode && devTime.isNotEmpty && devTimeKey.isNotEmpty
           ? {
               'X-Quiz-Dev-Time': devTime,
