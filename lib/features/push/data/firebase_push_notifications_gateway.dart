@@ -9,6 +9,7 @@ import 'package:quiz/app/core/services/settings_local_storage_service.dart';
 import 'package:quiz/features/observability/domain/logger.dart';
 import 'package:quiz/features/push/domain/push_notifications_gateway.dart';
 import 'package:quiz/features/push/domain/repository/push_repository.dart';
+import 'package:quiz/gen/strings.g.dart';
 
 @LazySingleton(as: PushNotificationsGateway)
 final class FirebasePushNotificationsGateway
@@ -35,6 +36,9 @@ final class FirebasePushNotificationsGateway
   StreamSubscription<String>? _tokenSubscription;
   StreamSubscription<RemoteMessage>? _openedSubscription;
   StreamSubscription<RemoteMessage>? _foregroundSubscription;
+  Timer? _registrationRetryTimer;
+  String? _pendingRegistrationToken;
+  int _registrationRetryAttempt = 0;
   bool _active = false;
   bool _initialMessageRead = false;
 
@@ -116,6 +120,10 @@ final class FirebasePushNotificationsGateway
   @override
   Future<void> deactivate() async {
     _active = false;
+    _pendingRegistrationToken = null;
+    _registrationRetryAttempt = 0;
+    _registrationRetryTimer?.cancel();
+    _registrationRetryTimer = null;
     await _tokenSubscription?.cancel();
     _tokenSubscription = null;
     await _openedSubscription?.cancel();
@@ -126,29 +134,77 @@ final class FirebasePushNotificationsGateway
 
   Future<void> _register(String token) async {
     if (!_active) return;
+    _pendingRegistrationToken = token;
+    _registrationRetryTimer?.cancel();
+    _registrationRetryTimer = null;
     final result = await _repository.registerDevice(
       installationId: _installationId,
       registrationToken: token,
       platform: Platform.isIOS ? 'IOS' : 'ANDROID',
-      locale: _settingsStorage.fetchLocale(),
+      locale: _settingsStorage.fetchLocale() ??
+          LocaleSettings.currentLocale.languageCode,
     );
-    if (result case ResultFailed(error: final failure)) {
-      log.failure(
-        failure,
-        failure,
-        stackTrace: StackTrace.current,
-        message: 'Push device registration failed',
-        extra: {'operation': 'push_device_register'},
-      );
+    if (!_active || _pendingRegistrationToken != token) return;
+    switch (result) {
+      case ResultOk():
+        _registrationRetryAttempt = 0;
+        log.info(
+          'Push device registered'.attach({
+            'operation': 'push_device_register',
+            'platform': Platform.isIOS ? 'IOS' : 'ANDROID',
+          }),
+        );
+      case ResultFailed(error: final failure):
+        log.failure(
+          failure,
+          failure,
+          stackTrace: StackTrace.current,
+          message: 'Push device registration failed',
+          extra: {
+            'operation': 'push_device_register',
+            'retry_attempt': _registrationRetryAttempt,
+          },
+        );
+        _scheduleRegistrationRetry(token);
     }
   }
 
+  void _scheduleRegistrationRetry(String token) {
+    const delays = <Duration>[
+      Duration(seconds: 5),
+      Duration(seconds: 15),
+      Duration(minutes: 1),
+      Duration(minutes: 5),
+    ];
+    final index = _registrationRetryAttempt.clamp(0, delays.length - 1);
+    _registrationRetryAttempt++;
+    _registrationRetryTimer = Timer(delays[index], () {
+      if (_active && _pendingRegistrationToken == token) {
+        unawaited(_register(token));
+      }
+    });
+  }
+
   void _emitDestination(RemoteMessage message) {
-    final destination = parsePushDestination(message.data);
+    final destination = resolvePushOpenDestination(message.data);
+    log.info(
+      'Push opened'.attach({
+        'message_id': message.messageId,
+        'type': message.data['type'],
+        'destination': message.data['destination'],
+      }),
+    );
     if (destination != null) _openedDestinations.add(destination);
   }
 
   void _emitMessage(RemoteMessage message) {
+    log.info(
+      'Push received in foreground'.attach({
+        'message_id': message.messageId,
+        'type': message.data['type'],
+        'destination': message.data['destination'],
+      }),
+    );
     final notification = message.notification;
     final title = notification?.title ?? message.data['title']?.toString();
     final body = notification?.body ?? message.data['body']?.toString();
@@ -157,7 +213,7 @@ final class FirebasePushNotificationsGateway
       PushMessage(
         title: title ?? 'QUIZ',
         body: body ?? '',
-        destination: parsePushDestination(message.data),
+        destination: resolvePushOpenDestination(message.data),
       ),
     );
   }

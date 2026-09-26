@@ -3,10 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:quiz/app/config/navigation/router.dart';
 import 'package:quiz/app/core/theme/provider/theme_provider.dart';
-import 'package:quiz/app/core/widgets/app_snack_bar.dart';
+import 'package:quiz/app/core/widgets/app_notification_banner.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/ads/domain/rewarded_ads_gateway.dart';
 import 'package:quiz/features/analytics/domain/product_analytics.dart';
@@ -28,6 +27,7 @@ class Application extends ConsumerStatefulWidget {
 class _ApplicationState extends ConsumerState<Application> {
   StreamSubscription<PushDestination>? _pushDestinationSubscription;
   StreamSubscription<PushMessage>? _pushMessageSubscription;
+  PushDestination? _pendingPushDestination;
   late final GamificationLifecycleObserver _gamificationLifecycleObserver;
 
   @override
@@ -36,9 +36,12 @@ class _ApplicationState extends ConsumerState<Application> {
     final pushGateway = getIt<PushNotificationsGateway>();
     _gamificationLifecycleObserver = GamificationLifecycleObserver(
       onResume: () {
+        unawaited(pushGateway.activate());
         unawaited(ref.read(gamificationProvider.notifier).fetch());
         unawaited(
-          ref.read(notificationInboxProvider.notifier).fetchUnreadCount(),
+          ref
+              .read(notificationInboxProvider.notifier)
+              .handleIncomingNotification(),
         );
       },
     );
@@ -49,6 +52,9 @@ class _ApplicationState extends ConsumerState<Application> {
     _pushMessageSubscription = pushGateway.receivedMessages.listen(
       _handlePushMessage,
     );
+    ref.listenManual(routerProvider, (_, next) {
+      if (next.value != null) _openPendingPushDestination();
+    });
     ref.listenManual(
       authenticationProvider,
       (previous, next) {
@@ -76,6 +82,7 @@ class _ApplicationState extends ConsumerState<Application> {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(_gamificationLifecycleObserver);
+    AppNotificationBanner.dismiss();
     _pushDestinationSubscription?.cancel();
     _pushMessageSubscription?.cancel();
     super.dispose();
@@ -83,10 +90,21 @@ class _ApplicationState extends ConsumerState<Application> {
 
   void _openPushDestination(PushDestination destination) {
     if (!mounted) return;
-    context.go(switch (destination) {
+    _pendingPushDestination = destination;
+    _openPendingPushDestination();
+  }
+
+  void _openPendingPushDestination() {
+    if (!mounted) return;
+    final destination = _pendingPushDestination;
+    final router = ref.read(routerProvider).value;
+    if (destination == null || router == null) return;
+    _pendingPushDestination = null;
+    router.go(switch (destination) {
       PushDestination.home || PushDestination.dailyEdition => '/',
       PushDestination.rating => '/rating',
       PushDestination.review => '/profile/review',
+      PushDestination.notifications => '/profile/notifications',
     });
   }
 
@@ -95,11 +113,25 @@ class _ApplicationState extends ConsumerState<Application> {
     unawaited(
       ref.read(notificationInboxProvider.notifier).handleIncomingNotification(),
     );
-    AppSnackBar.showNotice(
-      context,
+    _showPushMessage(message);
+  }
+
+  void _showPushMessage(PushMessage message) {
+    final router = ref.read(routerProvider).value;
+    final overlay = router?.routerDelegate.navigatorKey.currentState?.overlay;
+    if (overlay == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _showPushMessage(message);
+      });
+      return;
+    }
+    AppNotificationBanner.show(
+      overlay,
       title: message.title,
       message: message.body,
-      aboveRoutes: true,
+      onTap: message.destination == null
+          ? null
+          : () => _openPushDestination(message.destination!),
     );
   }
 

@@ -25,4 +25,22 @@ void main() {
       isNull,
     );
   });
+
+  test('opens the notification inbox when a destination is not provided', () {
+    expect(
+      resolvePushOpenDestination(const {}),
+      PushDestination.notifications,
+    );
+    expect(
+      resolvePushOpenDestination({'destination': '  '}),
+      PushDestination.notifications,
+    );
+  });
+
+  test('does not navigate when a provided destination is invalid', () {
+    expect(
+      resolvePushOpenDestination({'destination': '/profile'}),
+      isNull,
+    );
+  });
 }
