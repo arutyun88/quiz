@@ -9,6 +9,33 @@ import 'package:quiz/features/subscription/domain/entity/quiz_plus_package_entit
 import 'package:quiz/features/subscription/presentation/provider/quiz_plus_purchase_provider.dart';
 import 'package:quiz/features/user/domain/entity/subscription_entity.dart';
 import 'package:quiz/gen/strings.g.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+final subscriptionManagementLauncherProvider =
+    Provider<SubscriptionManagementLauncher>(
+  (_) => const UrlSubscriptionManagementLauncher(),
+);
+
+abstract interface class SubscriptionManagementLauncher {
+  Future<bool> launch(String url);
+}
+
+class UrlSubscriptionManagementLauncher
+    implements SubscriptionManagementLauncher {
+  const UrlSubscriptionManagementLauncher();
+
+  @override
+  Future<bool> launch(String url) async {
+    final uri = Uri.tryParse(url);
+    if (uri == null ||
+        uri.scheme != 'https' ||
+        uri.host.isEmpty ||
+        uri.userInfo.isNotEmpty) {
+      return false;
+    }
+    return launchUrl(uri, mode: LaunchMode.externalApplication);
+  }
+}
 
 class SubscriptionPage extends ConsumerWidget {
   const SubscriptionPage({super.key});
@@ -20,6 +47,15 @@ class SubscriptionPage extends ConsumerWidget {
         .watch(authenticationProvider)
         .mapOrNull(authenticated: (state) => state.user?.subscription);
     final purchases = ref.watch(quizPlusPurchaseProvider);
+    final entitlementActive = subscription?.entitlementActive == true;
+    final purchaseAvailability =
+        subscription?.purchaseAvailability ?? PurchaseAvailability.unknown;
+    final canPurchase = !entitlementActive &&
+        purchaseAvailability == PurchaseAvailability.available;
+    final canManage = entitlementActive &&
+        subscription?.accessReason == SubscriptionAccessReason.subscription &&
+        subscription?.provider?.isNotEmpty == true &&
+        subscription?.managementUrl?.isNotEmpty == true;
 
     return AppScaffold(
       title: t.title,
@@ -28,9 +64,9 @@ class SubscriptionPage extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _SubscriptionCard(subscription: subscription),
+            SubscriptionSummaryCard(subscription: subscription),
             const SizedBox(height: 24),
-            if (subscription?.active != true) ...[
+            if (canPurchase) ...[
               Text(
                 t.choose_plan.toUpperCase(),
                 style: GoogleFonts.jetBrainsMono(
@@ -43,23 +79,82 @@ class SubscriptionPage extends ConsumerWidget {
               const SizedBox(height: 12),
               _Offerings(purchases: purchases),
               const SizedBox(height: 18),
+            ] else if (!entitlementActive) ...[
+              PurchaseAvailabilityInfo(availability: purchaseAvailability),
+              const SizedBox(height: 18),
             ],
             _PurchaseStatus(status: purchases.status),
             if (purchases.processing) ...[
               const SizedBox(height: 12),
               const LinearProgressIndicator(),
             ],
-            const SizedBox(height: 22),
-            Center(
-              child: TextButton(
-                onPressed: purchases.processing || !purchases.available
-                    ? null
-                    : () =>
-                        ref.read(quizPlusPurchaseProvider.notifier).restore(),
-                child: Text(t.restore.toUpperCase()),
+            if (canPurchase) ...[
+              const SizedBox(height: 22),
+              Center(
+                child: TextButton(
+                  onPressed: purchases.processing || !purchases.available
+                      ? null
+                      : () =>
+                          ref.read(quizPlusPurchaseProvider.notifier).restore(),
+                  child: Text(t.restore.toUpperCase()),
+                ),
               ),
-            ),
+            ],
+            if (canManage) ...[
+              const SizedBox(height: 22),
+              SubscriptionManagementButton(subscription: subscription!),
+            ],
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class PurchaseAvailabilityInfo extends StatelessWidget {
+  const PurchaseAvailabilityInfo({required this.availability, super.key});
+
+  final PurchaseAvailability availability;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.t.profile.settings.subscription_page;
+    return _InfoText(
+      switch (availability) {
+        PurchaseAvailability.comingSoon => t.coming_soon,
+        PurchaseAvailability.temporarilyUnavailable =>
+          t.temporarily_unavailable,
+        _ => t.temporarily_unavailable,
+      },
+    );
+  }
+}
+
+class SubscriptionManagementButton extends ConsumerWidget {
+  const SubscriptionManagementButton({
+    required this.subscription,
+    super.key,
+  });
+
+  final SubscriptionEntity subscription;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final url = subscription.managementUrl;
+    if (!subscription.entitlementActive ||
+        subscription.accessReason != SubscriptionAccessReason.subscription ||
+        subscription.provider?.isNotEmpty != true ||
+        url == null ||
+        url.isEmpty) {
+      return const SizedBox.shrink();
+    }
+    return Center(
+      child: TextButton(
+        onPressed: () =>
+            ref.read(subscriptionManagementLauncherProvider).launch(url),
+        child: Text(
+          context.t.profile.settings.subscription_page.manage_subscription
+              .toUpperCase(),
         ),
       ),
     );
@@ -194,8 +289,8 @@ class _InfoText extends StatelessWidget {
       );
 }
 
-class _SubscriptionCard extends StatelessWidget {
-  const _SubscriptionCard({required this.subscription});
+class SubscriptionSummaryCard extends StatelessWidget {
+  const SubscriptionSummaryCard({required this.subscription, super.key});
 
   final SubscriptionEntity? subscription;
 
@@ -204,7 +299,10 @@ class _SubscriptionCard extends StatelessWidget {
     final colors = context.palette;
     final t = context.t.profile.settings.subscription_page;
     final locale = LocaleSettings.instance.currentLocale.languageCode;
-    final renewsAt = subscription?.renewsAt;
+    final periodEndsAt = subscription?.currentPeriodEndsAt;
+    final entitlementActive = subscription?.entitlementActive == true;
+    final isMarketPreview =
+        subscription?.accessReason == SubscriptionAccessReason.marketPreview;
 
     return Container(
       decoration: BoxDecoration(
@@ -243,13 +341,12 @@ class _SubscriptionCard extends StatelessWidget {
                 ),
               ),
               Text(
-                (subscription?.active == true ? t.active : t.inactive)
-                    .toUpperCase(),
+                (entitlementActive ? t.active : t.inactive).toUpperCase(),
                 style: GoogleFonts.jetBrainsMono(
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 1,
-                  color: subscription?.active == true
+                  color: entitlementActive
                       ? colors.answer.success
                       : colors.text.secondary,
                 ),
@@ -258,11 +355,46 @@ class _SubscriptionCard extends StatelessWidget {
           ),
           if (subscription != null) ...[
             const SizedBox(height: 8),
-            if (subscription!.plan != SubscriptionPlan.unknown)
+            if (isMarketPreview)
               Text(
-                (subscription!.plan == SubscriptionPlan.yearly
-                        ? t.plan_yearly
-                        : t.plan_monthly)
+                t.market_preview.toUpperCase(),
+                style: GoogleFonts.jetBrainsMono(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                  color: colors.text.accent,
+                ),
+              ),
+            if (!isMarketPreview &&
+                subscription!.accessReason ==
+                    SubscriptionAccessReason.promotion)
+              Text(
+                t.promotion_access.toUpperCase(),
+                style: GoogleFonts.jetBrainsMono(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                  color: colors.text.secondary,
+                ),
+              ),
+            if (!isMarketPreview &&
+                subscription!.accessReason ==
+                    SubscriptionAccessReason.adminGrant)
+              Text(
+                t.granted_access.toUpperCase(),
+                style: GoogleFonts.jetBrainsMono(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                  color: colors.text.secondary,
+                ),
+              ),
+            if (periodEndsAt != null &&
+                subscription!.status == SubscriptionStatus.activeRenewing &&
+                subscription!.willRenew) ...[
+              const SizedBox(height: 2),
+              Text(
+                t
+                    .next_billing(
+                        date: DateFormat('dd.MM.yyyy', locale)
+                            .format(periodEndsAt))
                     .toUpperCase(),
                 style: GoogleFonts.jetBrainsMono(
                   fontSize: 11,
@@ -270,13 +402,28 @@ class _SubscriptionCard extends StatelessWidget {
                   color: colors.text.secondary,
                 ),
               ),
-            if (renewsAt != null) ...[
+            ],
+            if (periodEndsAt != null &&
+                subscription!.status == SubscriptionStatus.canceledActive) ...[
               const SizedBox(height: 2),
               Text(
                 t
-                    .next_billing(
-                        date: DateFormat('dd.MM.yyyy', locale).format(renewsAt))
+                    .access_until(
+                        date: DateFormat('dd.MM.yyyy', locale)
+                            .format(periodEndsAt))
                     .toUpperCase(),
+                style: GoogleFonts.jetBrainsMono(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                  color: colors.text.secondary,
+                ),
+              ),
+            ],
+            if (!entitlementActive &&
+                subscription!.status == SubscriptionStatus.pending) ...[
+              const SizedBox(height: 2),
+              Text(
+                t.pending_confirmation.toUpperCase(),
                 style: GoogleFonts.jetBrainsMono(
                   fontSize: 11,
                   fontWeight: FontWeight.w500,

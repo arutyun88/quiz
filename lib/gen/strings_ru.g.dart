@@ -1031,12 +1031,18 @@ class _Translations$profile$settings$subscription_page$ru implements Translation
 	@override String get title => 'Подписка';
 	@override String get active => 'Активна';
 	@override String get inactive => 'Неактивна';
-	@override String get plan_monthly => 'Месячная';
-	@override String get plan_yearly => 'Годовая';
 	@override String next_billing({required Object date}) => 'Следующее списание · ${date}';
+	@override String access_until({required Object date}) => 'Доступ до · ${date}';
+	@override String get pending_confirmation => 'Ожидаем подтверждение сервера';
+	@override String get market_preview => 'Региональный preview-доступ';
+	@override String get promotion_access => 'Промодоступ';
+	@override String get granted_access => 'Предоставленный доступ';
 	@override String get choose_plan => 'Выберите план';
 	@override String subscribe({required Object price}) => 'Подписаться за ${price}';
 	@override String get restore => 'Восстановить покупки';
+	@override String get manage_subscription => 'Управлять подпиской';
+	@override String get coming_soon => 'Покупка Quiz+ скоро станет доступна в вашем регионе.';
+	@override String get temporarily_unavailable => 'Покупка Quiz+ временно недоступна в вашем регионе.';
 	@override String get billing_unavailable => 'Покупки не настроены для этой сборки';
 	@override String get no_offerings => 'Сейчас нет доступных планов Quiz+';
 	@override String get processing => 'Проверяем покупку на сервере…';
@@ -1375,12 +1381,18 @@ extension on TranslationsRu {
 			'profile.settings.subscription_page.title' => 'Подписка',
 			'profile.settings.subscription_page.active' => 'Активна',
 			'profile.settings.subscription_page.inactive' => 'Неактивна',
-			'profile.settings.subscription_page.plan_monthly' => 'Месячная',
-			'profile.settings.subscription_page.plan_yearly' => 'Годовая',
 			'profile.settings.subscription_page.next_billing' => ({required Object date}) => 'Следующее списание · ${date}',
+			'profile.settings.subscription_page.access_until' => ({required Object date}) => 'Доступ до · ${date}',
+			'profile.settings.subscription_page.pending_confirmation' => 'Ожидаем подтверждение сервера',
+			'profile.settings.subscription_page.market_preview' => 'Региональный preview-доступ',
+			'profile.settings.subscription_page.promotion_access' => 'Промодоступ',
+			'profile.settings.subscription_page.granted_access' => 'Предоставленный доступ',
 			'profile.settings.subscription_page.choose_plan' => 'Выберите план',
 			'profile.settings.subscription_page.subscribe' => ({required Object price}) => 'Подписаться за ${price}',
 			'profile.settings.subscription_page.restore' => 'Восстановить покупки',
+			'profile.settings.subscription_page.manage_subscription' => 'Управлять подпиской',
+			'profile.settings.subscription_page.coming_soon' => 'Покупка Quiz+ скоро станет доступна в вашем регионе.',
+			'profile.settings.subscription_page.temporarily_unavailable' => 'Покупка Quiz+ временно недоступна в вашем регионе.',
 			'profile.settings.subscription_page.billing_unavailable' => 'Покупки не настроены для этой сборки',
 			'profile.settings.subscription_page.no_offerings' => 'Сейчас нет доступных планов Quiz+',
 			'profile.settings.subscription_page.processing' => 'Проверяем покупку на сервере…',

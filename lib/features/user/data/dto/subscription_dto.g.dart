@@ -9,17 +9,27 @@ part of 'subscription_dto.dart';
 _$SubscriptionDtoImpl _$$SubscriptionDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$SubscriptionDtoImpl(
-      active: json['active'] as bool,
-      plan: json['plan'] as String,
-      renewsAt: json['renews_at'] == null
+      status: json['status'] as String,
+      entitlementActive: json['entitlement_active'] as bool,
+      willRenew: json['will_renew'] as bool,
+      currentPeriodEndsAt: json['current_period_ends_at'] == null
           ? null
-          : DateTime.parse(json['renews_at'] as String),
+          : DateTime.parse(json['current_period_ends_at'] as String),
+      provider: json['provider'] as String?,
+      managementUrl: json['management_url'] as String?,
+      purchaseAvailability: json['purchase_availability'] as String,
+      accessReason: json['access_reason'] as String?,
     );
 
 Map<String, dynamic> _$$SubscriptionDtoImplToJson(
         _$SubscriptionDtoImpl instance) =>
     <String, dynamic>{
-      'active': instance.active,
-      'plan': instance.plan,
-      'renews_at': instance.renewsAt?.toIso8601String(),
+      'status': instance.status,
+      'entitlement_active': instance.entitlementActive,
+      'will_renew': instance.willRenew,
+      'current_period_ends_at': instance.currentPeriodEndsAt?.toIso8601String(),
+      'provider': instance.provider,
+      'management_url': instance.managementUrl,
+      'purchase_availability': instance.purchaseAvailability,
+      'access_reason': instance.accessReason,
     };

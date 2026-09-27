@@ -42,16 +42,43 @@ final class UserConverterImpl extends UserConverter {
   SubscriptionEntity? _convertSubscription(SubscriptionDto? dto) {
     if (dto == null) return null;
 
-    final plan = dto.plan.toLowerCase();
-
     return SubscriptionEntity(
-      active: dto.active,
-      plan: plan.contains('year') || plan.contains('annual')
-          ? SubscriptionPlan.yearly
-          : plan.contains('month')
-              ? SubscriptionPlan.monthly
-              : SubscriptionPlan.unknown,
-      renewsAt: dto.renewsAt,
+      status: _subscriptionStatus(dto.status),
+      entitlementActive: dto.entitlementActive,
+      willRenew: dto.willRenew,
+      currentPeriodEndsAt: dto.currentPeriodEndsAt,
+      provider: dto.provider,
+      managementUrl: dto.managementUrl,
+      purchaseAvailability: _purchaseAvailability(dto.purchaseAvailability),
+      accessReason:
+          dto.accessReason == null ? null : _accessReason(dto.accessReason!),
     );
   }
+
+  SubscriptionStatus _subscriptionStatus(String value) => switch (value) {
+        'NOT_SUBSCRIBED' => SubscriptionStatus.notSubscribed,
+        'ACTIVE_RENEWING' => SubscriptionStatus.activeRenewing,
+        'CANCELED_ACTIVE' => SubscriptionStatus.canceledActive,
+        'EXPIRED' => SubscriptionStatus.expired,
+        'PENDING' => SubscriptionStatus.pending,
+        'GRACE_PERIOD' => SubscriptionStatus.gracePeriod,
+        'REVOKED' => SubscriptionStatus.revoked,
+        _ => SubscriptionStatus.unknown,
+      };
+
+  PurchaseAvailability _purchaseAvailability(String value) => switch (value) {
+        'AVAILABLE' => PurchaseAvailability.available,
+        'COMING_SOON' => PurchaseAvailability.comingSoon,
+        'TEMPORARILY_UNAVAILABLE' =>
+          PurchaseAvailability.temporarilyUnavailable,
+        _ => PurchaseAvailability.unknown,
+      };
+
+  SubscriptionAccessReason _accessReason(String value) => switch (value) {
+        'SUBSCRIPTION' => SubscriptionAccessReason.subscription,
+        'MARKET_PREVIEW' => SubscriptionAccessReason.marketPreview,
+        'PROMOTION' => SubscriptionAccessReason.promotion,
+        'ADMIN_GRANT' => SubscriptionAccessReason.adminGrant,
+        _ => SubscriptionAccessReason.unknown,
+      };
 }

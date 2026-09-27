@@ -79,17 +79,44 @@ void main() {
       QuizPlusPurchaseStatus.restoredWithoutEntitlement,
     );
   });
+
+  test('does not initialize or open the store when server blocks purchases',
+      () async {
+    final gateway = _FakePurchaseGateway(packages: const [package]);
+    final notifier = _notifier(gateway, canPurchase: () => false);
+
+    await notifier.load('user-1');
+    await notifier.purchase(package.packageId);
+    await notifier.restore();
+
+    expect(gateway.identifiedUserId, isNull);
+    expect(gateway.purchaseCount, 0);
+    expect(gateway.restoreCount, 0);
+  });
+
+  test('does not allow a repeat purchase with an active server entitlement',
+      () async {
+    final gateway = _FakePurchaseGateway(packages: const [package]);
+    final notifier = _notifier(gateway, entitled: () => true);
+
+    await notifier.load('user-1');
+    await notifier.purchase(package.packageId);
+
+    expect(gateway.purchaseCount, 0);
+  });
 }
 
 QuizPlusPurchaseNotifier _notifier(
   QuizPlusPurchaseGateway gateway, {
   Future<void> Function()? reload,
   bool Function()? entitled,
+  bool Function()? canPurchase,
 }) =>
     QuizPlusPurchaseNotifier(
       gateway: gateway,
       reloadServerProfile: reload ?? () async {},
       isServerEntitled: entitled ?? () => false,
+      canPurchase: canPurchase,
       delay: (_) async {},
     );
 
@@ -106,6 +133,7 @@ class _FakePurchaseGateway implements QuizPlusPurchaseGateway {
   final QuizPlusPurchaseOutcome purchaseOutcome;
   String? identifiedUserId;
   int fetchCount = 0;
+  int purchaseCount = 0;
   int restoreCount = 0;
 
   @override
@@ -124,8 +152,10 @@ class _FakePurchaseGateway implements QuizPlusPurchaseGateway {
   }
 
   @override
-  Future<QuizPlusPurchaseOutcome> purchase(String packageId) async =>
-      purchaseOutcome;
+  Future<QuizPlusPurchaseOutcome> purchase(String packageId) async {
+    purchaseCount++;
+    return purchaseOutcome;
+  }
 
   @override
   Future<void> restore() async => restoreCount++;

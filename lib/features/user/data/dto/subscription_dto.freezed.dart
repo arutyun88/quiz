@@ -20,10 +20,20 @@ SubscriptionDto _$SubscriptionDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SubscriptionDto {
-  bool get active => throw _privateConstructorUsedError;
-  String get plan => throw _privateConstructorUsedError;
-  @JsonKey(name: 'renews_at')
-  DateTime? get renewsAt => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'entitlement_active')
+  bool get entitlementActive => throw _privateConstructorUsedError;
+  @JsonKey(name: 'will_renew')
+  bool get willRenew => throw _privateConstructorUsedError;
+  @JsonKey(name: 'current_period_ends_at')
+  DateTime? get currentPeriodEndsAt => throw _privateConstructorUsedError;
+  String? get provider => throw _privateConstructorUsedError;
+  @JsonKey(name: 'management_url')
+  String? get managementUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'purchase_availability')
+  String get purchaseAvailability => throw _privateConstructorUsedError;
+  @JsonKey(name: 'access_reason')
+  String? get accessReason => throw _privateConstructorUsedError;
 
   /// Serializes this SubscriptionDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,9 +52,14 @@ abstract class $SubscriptionDtoCopyWith<$Res> {
       _$SubscriptionDtoCopyWithImpl<$Res, SubscriptionDto>;
   @useResult
   $Res call(
-      {bool active,
-      String plan,
-      @JsonKey(name: 'renews_at') DateTime? renewsAt});
+      {String status,
+      @JsonKey(name: 'entitlement_active') bool entitlementActive,
+      @JsonKey(name: 'will_renew') bool willRenew,
+      @JsonKey(name: 'current_period_ends_at') DateTime? currentPeriodEndsAt,
+      String? provider,
+      @JsonKey(name: 'management_url') String? managementUrl,
+      @JsonKey(name: 'purchase_availability') String purchaseAvailability,
+      @JsonKey(name: 'access_reason') String? accessReason});
 }
 
 /// @nodoc
@@ -62,23 +77,48 @@ class _$SubscriptionDtoCopyWithImpl<$Res, $Val extends SubscriptionDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? active = null,
-    Object? plan = null,
-    Object? renewsAt = freezed,
+    Object? status = null,
+    Object? entitlementActive = null,
+    Object? willRenew = null,
+    Object? currentPeriodEndsAt = freezed,
+    Object? provider = freezed,
+    Object? managementUrl = freezed,
+    Object? purchaseAvailability = null,
+    Object? accessReason = freezed,
   }) {
     return _then(_value.copyWith(
-      active: null == active
-          ? _value.active
-          : active // ignore: cast_nullable_to_non_nullable
-              as bool,
-      plan: null == plan
-          ? _value.plan
-          : plan // ignore: cast_nullable_to_non_nullable
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
               as String,
-      renewsAt: freezed == renewsAt
-          ? _value.renewsAt
-          : renewsAt // ignore: cast_nullable_to_non_nullable
+      entitlementActive: null == entitlementActive
+          ? _value.entitlementActive
+          : entitlementActive // ignore: cast_nullable_to_non_nullable
+              as bool,
+      willRenew: null == willRenew
+          ? _value.willRenew
+          : willRenew // ignore: cast_nullable_to_non_nullable
+              as bool,
+      currentPeriodEndsAt: freezed == currentPeriodEndsAt
+          ? _value.currentPeriodEndsAt
+          : currentPeriodEndsAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      provider: freezed == provider
+          ? _value.provider
+          : provider // ignore: cast_nullable_to_non_nullable
+              as String?,
+      managementUrl: freezed == managementUrl
+          ? _value.managementUrl
+          : managementUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      purchaseAvailability: null == purchaseAvailability
+          ? _value.purchaseAvailability
+          : purchaseAvailability // ignore: cast_nullable_to_non_nullable
+              as String,
+      accessReason: freezed == accessReason
+          ? _value.accessReason
+          : accessReason // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -92,9 +132,14 @@ abstract class _$$SubscriptionDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool active,
-      String plan,
-      @JsonKey(name: 'renews_at') DateTime? renewsAt});
+      {String status,
+      @JsonKey(name: 'entitlement_active') bool entitlementActive,
+      @JsonKey(name: 'will_renew') bool willRenew,
+      @JsonKey(name: 'current_period_ends_at') DateTime? currentPeriodEndsAt,
+      String? provider,
+      @JsonKey(name: 'management_url') String? managementUrl,
+      @JsonKey(name: 'purchase_availability') String purchaseAvailability,
+      @JsonKey(name: 'access_reason') String? accessReason});
 }
 
 /// @nodoc
@@ -110,23 +155,48 @@ class __$$SubscriptionDtoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? active = null,
-    Object? plan = null,
-    Object? renewsAt = freezed,
+    Object? status = null,
+    Object? entitlementActive = null,
+    Object? willRenew = null,
+    Object? currentPeriodEndsAt = freezed,
+    Object? provider = freezed,
+    Object? managementUrl = freezed,
+    Object? purchaseAvailability = null,
+    Object? accessReason = freezed,
   }) {
     return _then(_$SubscriptionDtoImpl(
-      active: null == active
-          ? _value.active
-          : active // ignore: cast_nullable_to_non_nullable
-              as bool,
-      plan: null == plan
-          ? _value.plan
-          : plan // ignore: cast_nullable_to_non_nullable
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
               as String,
-      renewsAt: freezed == renewsAt
-          ? _value.renewsAt
-          : renewsAt // ignore: cast_nullable_to_non_nullable
+      entitlementActive: null == entitlementActive
+          ? _value.entitlementActive
+          : entitlementActive // ignore: cast_nullable_to_non_nullable
+              as bool,
+      willRenew: null == willRenew
+          ? _value.willRenew
+          : willRenew // ignore: cast_nullable_to_non_nullable
+              as bool,
+      currentPeriodEndsAt: freezed == currentPeriodEndsAt
+          ? _value.currentPeriodEndsAt
+          : currentPeriodEndsAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      provider: freezed == provider
+          ? _value.provider
+          : provider // ignore: cast_nullable_to_non_nullable
+              as String?,
+      managementUrl: freezed == managementUrl
+          ? _value.managementUrl
+          : managementUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      purchaseAvailability: null == purchaseAvailability
+          ? _value.purchaseAvailability
+          : purchaseAvailability // ignore: cast_nullable_to_non_nullable
+              as String,
+      accessReason: freezed == accessReason
+          ? _value.accessReason
+          : accessReason // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -135,24 +205,45 @@ class __$$SubscriptionDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SubscriptionDtoImpl implements _SubscriptionDto {
   const _$SubscriptionDtoImpl(
-      {required this.active,
-      required this.plan,
-      @JsonKey(name: 'renews_at') this.renewsAt});
+      {required this.status,
+      @JsonKey(name: 'entitlement_active') required this.entitlementActive,
+      @JsonKey(name: 'will_renew') required this.willRenew,
+      @JsonKey(name: 'current_period_ends_at') this.currentPeriodEndsAt,
+      this.provider,
+      @JsonKey(name: 'management_url') this.managementUrl,
+      @JsonKey(name: 'purchase_availability')
+      required this.purchaseAvailability,
+      @JsonKey(name: 'access_reason') this.accessReason});
 
   factory _$SubscriptionDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$SubscriptionDtoImplFromJson(json);
 
   @override
-  final bool active;
+  final String status;
   @override
-  final String plan;
+  @JsonKey(name: 'entitlement_active')
+  final bool entitlementActive;
   @override
-  @JsonKey(name: 'renews_at')
-  final DateTime? renewsAt;
+  @JsonKey(name: 'will_renew')
+  final bool willRenew;
+  @override
+  @JsonKey(name: 'current_period_ends_at')
+  final DateTime? currentPeriodEndsAt;
+  @override
+  final String? provider;
+  @override
+  @JsonKey(name: 'management_url')
+  final String? managementUrl;
+  @override
+  @JsonKey(name: 'purchase_availability')
+  final String purchaseAvailability;
+  @override
+  @JsonKey(name: 'access_reason')
+  final String? accessReason;
 
   @override
   String toString() {
-    return 'SubscriptionDto(active: $active, plan: $plan, renewsAt: $renewsAt)';
+    return 'SubscriptionDto(status: $status, entitlementActive: $entitlementActive, willRenew: $willRenew, currentPeriodEndsAt: $currentPeriodEndsAt, provider: $provider, managementUrl: $managementUrl, purchaseAvailability: $purchaseAvailability, accessReason: $accessReason)';
   }
 
   @override
@@ -160,15 +251,35 @@ class _$SubscriptionDtoImpl implements _SubscriptionDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SubscriptionDtoImpl &&
-            (identical(other.active, active) || other.active == active) &&
-            (identical(other.plan, plan) || other.plan == plan) &&
-            (identical(other.renewsAt, renewsAt) ||
-                other.renewsAt == renewsAt));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.entitlementActive, entitlementActive) ||
+                other.entitlementActive == entitlementActive) &&
+            (identical(other.willRenew, willRenew) ||
+                other.willRenew == willRenew) &&
+            (identical(other.currentPeriodEndsAt, currentPeriodEndsAt) ||
+                other.currentPeriodEndsAt == currentPeriodEndsAt) &&
+            (identical(other.provider, provider) ||
+                other.provider == provider) &&
+            (identical(other.managementUrl, managementUrl) ||
+                other.managementUrl == managementUrl) &&
+            (identical(other.purchaseAvailability, purchaseAvailability) ||
+                other.purchaseAvailability == purchaseAvailability) &&
+            (identical(other.accessReason, accessReason) ||
+                other.accessReason == accessReason));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, active, plan, renewsAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      status,
+      entitlementActive,
+      willRenew,
+      currentPeriodEndsAt,
+      provider,
+      managementUrl,
+      purchaseAvailability,
+      accessReason);
 
   /// Create a copy of SubscriptionDto
   /// with the given fields replaced by the non-null parameter values.
@@ -189,21 +300,44 @@ class _$SubscriptionDtoImpl implements _SubscriptionDto {
 
 abstract class _SubscriptionDto implements SubscriptionDto {
   const factory _SubscriptionDto(
-          {required final bool active,
-          required final String plan,
-          @JsonKey(name: 'renews_at') final DateTime? renewsAt}) =
+          {required final String status,
+          @JsonKey(name: 'entitlement_active')
+          required final bool entitlementActive,
+          @JsonKey(name: 'will_renew') required final bool willRenew,
+          @JsonKey(name: 'current_period_ends_at')
+          final DateTime? currentPeriodEndsAt,
+          final String? provider,
+          @JsonKey(name: 'management_url') final String? managementUrl,
+          @JsonKey(name: 'purchase_availability')
+          required final String purchaseAvailability,
+          @JsonKey(name: 'access_reason') final String? accessReason}) =
       _$SubscriptionDtoImpl;
 
   factory _SubscriptionDto.fromJson(Map<String, dynamic> json) =
       _$SubscriptionDtoImpl.fromJson;
 
   @override
-  bool get active;
+  String get status;
   @override
-  String get plan;
+  @JsonKey(name: 'entitlement_active')
+  bool get entitlementActive;
   @override
-  @JsonKey(name: 'renews_at')
-  DateTime? get renewsAt;
+  @JsonKey(name: 'will_renew')
+  bool get willRenew;
+  @override
+  @JsonKey(name: 'current_period_ends_at')
+  DateTime? get currentPeriodEndsAt;
+  @override
+  String? get provider;
+  @override
+  @JsonKey(name: 'management_url')
+  String? get managementUrl;
+  @override
+  @JsonKey(name: 'purchase_availability')
+  String get purchaseAvailability;
+  @override
+  @JsonKey(name: 'access_reason')
+  String? get accessReason;
 
   /// Create a copy of SubscriptionDto
   /// with the given fields replaced by the non-null parameter values.

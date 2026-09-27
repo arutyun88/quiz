@@ -16,9 +16,16 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SubscriptionEntity {
-  bool get active => throw _privateConstructorUsedError;
-  SubscriptionPlan get plan => throw _privateConstructorUsedError;
-  DateTime? get renewsAt => throw _privateConstructorUsedError;
+  SubscriptionStatus get status => throw _privateConstructorUsedError;
+  bool get entitlementActive => throw _privateConstructorUsedError;
+  bool get willRenew => throw _privateConstructorUsedError;
+  DateTime? get currentPeriodEndsAt => throw _privateConstructorUsedError;
+  String? get provider => throw _privateConstructorUsedError;
+  String? get managementUrl => throw _privateConstructorUsedError;
+  PurchaseAvailability get purchaseAvailability =>
+      throw _privateConstructorUsedError;
+  SubscriptionAccessReason? get accessReason =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of SubscriptionEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -33,7 +40,15 @@ abstract class $SubscriptionEntityCopyWith<$Res> {
           SubscriptionEntity value, $Res Function(SubscriptionEntity) then) =
       _$SubscriptionEntityCopyWithImpl<$Res, SubscriptionEntity>;
   @useResult
-  $Res call({bool active, SubscriptionPlan plan, DateTime? renewsAt});
+  $Res call(
+      {SubscriptionStatus status,
+      bool entitlementActive,
+      bool willRenew,
+      DateTime? currentPeriodEndsAt,
+      String? provider,
+      String? managementUrl,
+      PurchaseAvailability purchaseAvailability,
+      SubscriptionAccessReason? accessReason});
 }
 
 /// @nodoc
@@ -51,23 +66,48 @@ class _$SubscriptionEntityCopyWithImpl<$Res, $Val extends SubscriptionEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? active = null,
-    Object? plan = null,
-    Object? renewsAt = freezed,
+    Object? status = null,
+    Object? entitlementActive = null,
+    Object? willRenew = null,
+    Object? currentPeriodEndsAt = freezed,
+    Object? provider = freezed,
+    Object? managementUrl = freezed,
+    Object? purchaseAvailability = null,
+    Object? accessReason = freezed,
   }) {
     return _then(_value.copyWith(
-      active: null == active
-          ? _value.active
-          : active // ignore: cast_nullable_to_non_nullable
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as SubscriptionStatus,
+      entitlementActive: null == entitlementActive
+          ? _value.entitlementActive
+          : entitlementActive // ignore: cast_nullable_to_non_nullable
               as bool,
-      plan: null == plan
-          ? _value.plan
-          : plan // ignore: cast_nullable_to_non_nullable
-              as SubscriptionPlan,
-      renewsAt: freezed == renewsAt
-          ? _value.renewsAt
-          : renewsAt // ignore: cast_nullable_to_non_nullable
+      willRenew: null == willRenew
+          ? _value.willRenew
+          : willRenew // ignore: cast_nullable_to_non_nullable
+              as bool,
+      currentPeriodEndsAt: freezed == currentPeriodEndsAt
+          ? _value.currentPeriodEndsAt
+          : currentPeriodEndsAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      provider: freezed == provider
+          ? _value.provider
+          : provider // ignore: cast_nullable_to_non_nullable
+              as String?,
+      managementUrl: freezed == managementUrl
+          ? _value.managementUrl
+          : managementUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      purchaseAvailability: null == purchaseAvailability
+          ? _value.purchaseAvailability
+          : purchaseAvailability // ignore: cast_nullable_to_non_nullable
+              as PurchaseAvailability,
+      accessReason: freezed == accessReason
+          ? _value.accessReason
+          : accessReason // ignore: cast_nullable_to_non_nullable
+              as SubscriptionAccessReason?,
     ) as $Val);
   }
 }
@@ -80,7 +120,15 @@ abstract class _$$SubscriptionEntityImplCopyWith<$Res>
       __$$SubscriptionEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool active, SubscriptionPlan plan, DateTime? renewsAt});
+  $Res call(
+      {SubscriptionStatus status,
+      bool entitlementActive,
+      bool willRenew,
+      DateTime? currentPeriodEndsAt,
+      String? provider,
+      String? managementUrl,
+      PurchaseAvailability purchaseAvailability,
+      SubscriptionAccessReason? accessReason});
 }
 
 /// @nodoc
@@ -96,23 +144,48 @@ class __$$SubscriptionEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? active = null,
-    Object? plan = null,
-    Object? renewsAt = freezed,
+    Object? status = null,
+    Object? entitlementActive = null,
+    Object? willRenew = null,
+    Object? currentPeriodEndsAt = freezed,
+    Object? provider = freezed,
+    Object? managementUrl = freezed,
+    Object? purchaseAvailability = null,
+    Object? accessReason = freezed,
   }) {
     return _then(_$SubscriptionEntityImpl(
-      active: null == active
-          ? _value.active
-          : active // ignore: cast_nullable_to_non_nullable
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as SubscriptionStatus,
+      entitlementActive: null == entitlementActive
+          ? _value.entitlementActive
+          : entitlementActive // ignore: cast_nullable_to_non_nullable
               as bool,
-      plan: null == plan
-          ? _value.plan
-          : plan // ignore: cast_nullable_to_non_nullable
-              as SubscriptionPlan,
-      renewsAt: freezed == renewsAt
-          ? _value.renewsAt
-          : renewsAt // ignore: cast_nullable_to_non_nullable
+      willRenew: null == willRenew
+          ? _value.willRenew
+          : willRenew // ignore: cast_nullable_to_non_nullable
+              as bool,
+      currentPeriodEndsAt: freezed == currentPeriodEndsAt
+          ? _value.currentPeriodEndsAt
+          : currentPeriodEndsAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      provider: freezed == provider
+          ? _value.provider
+          : provider // ignore: cast_nullable_to_non_nullable
+              as String?,
+      managementUrl: freezed == managementUrl
+          ? _value.managementUrl
+          : managementUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      purchaseAvailability: null == purchaseAvailability
+          ? _value.purchaseAvailability
+          : purchaseAvailability // ignore: cast_nullable_to_non_nullable
+              as PurchaseAvailability,
+      accessReason: freezed == accessReason
+          ? _value.accessReason
+          : accessReason // ignore: cast_nullable_to_non_nullable
+              as SubscriptionAccessReason?,
     ));
   }
 }
@@ -121,18 +194,35 @@ class __$$SubscriptionEntityImplCopyWithImpl<$Res>
 
 class _$SubscriptionEntityImpl implements _SubscriptionEntity {
   const _$SubscriptionEntityImpl(
-      {required this.active, required this.plan, this.renewsAt});
+      {required this.status,
+      required this.entitlementActive,
+      required this.willRenew,
+      this.currentPeriodEndsAt,
+      this.provider,
+      this.managementUrl,
+      required this.purchaseAvailability,
+      this.accessReason});
 
   @override
-  final bool active;
+  final SubscriptionStatus status;
   @override
-  final SubscriptionPlan plan;
+  final bool entitlementActive;
   @override
-  final DateTime? renewsAt;
+  final bool willRenew;
+  @override
+  final DateTime? currentPeriodEndsAt;
+  @override
+  final String? provider;
+  @override
+  final String? managementUrl;
+  @override
+  final PurchaseAvailability purchaseAvailability;
+  @override
+  final SubscriptionAccessReason? accessReason;
 
   @override
   String toString() {
-    return 'SubscriptionEntity(active: $active, plan: $plan, renewsAt: $renewsAt)';
+    return 'SubscriptionEntity(status: $status, entitlementActive: $entitlementActive, willRenew: $willRenew, currentPeriodEndsAt: $currentPeriodEndsAt, provider: $provider, managementUrl: $managementUrl, purchaseAvailability: $purchaseAvailability, accessReason: $accessReason)';
   }
 
   @override
@@ -140,14 +230,34 @@ class _$SubscriptionEntityImpl implements _SubscriptionEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SubscriptionEntityImpl &&
-            (identical(other.active, active) || other.active == active) &&
-            (identical(other.plan, plan) || other.plan == plan) &&
-            (identical(other.renewsAt, renewsAt) ||
-                other.renewsAt == renewsAt));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.entitlementActive, entitlementActive) ||
+                other.entitlementActive == entitlementActive) &&
+            (identical(other.willRenew, willRenew) ||
+                other.willRenew == willRenew) &&
+            (identical(other.currentPeriodEndsAt, currentPeriodEndsAt) ||
+                other.currentPeriodEndsAt == currentPeriodEndsAt) &&
+            (identical(other.provider, provider) ||
+                other.provider == provider) &&
+            (identical(other.managementUrl, managementUrl) ||
+                other.managementUrl == managementUrl) &&
+            (identical(other.purchaseAvailability, purchaseAvailability) ||
+                other.purchaseAvailability == purchaseAvailability) &&
+            (identical(other.accessReason, accessReason) ||
+                other.accessReason == accessReason));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, active, plan, renewsAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      status,
+      entitlementActive,
+      willRenew,
+      currentPeriodEndsAt,
+      provider,
+      managementUrl,
+      purchaseAvailability,
+      accessReason);
 
   /// Create a copy of SubscriptionEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -161,16 +271,31 @@ class _$SubscriptionEntityImpl implements _SubscriptionEntity {
 
 abstract class _SubscriptionEntity implements SubscriptionEntity {
   const factory _SubscriptionEntity(
-      {required final bool active,
-      required final SubscriptionPlan plan,
-      final DateTime? renewsAt}) = _$SubscriptionEntityImpl;
+      {required final SubscriptionStatus status,
+      required final bool entitlementActive,
+      required final bool willRenew,
+      final DateTime? currentPeriodEndsAt,
+      final String? provider,
+      final String? managementUrl,
+      required final PurchaseAvailability purchaseAvailability,
+      final SubscriptionAccessReason? accessReason}) = _$SubscriptionEntityImpl;
 
   @override
-  bool get active;
+  SubscriptionStatus get status;
   @override
-  SubscriptionPlan get plan;
+  bool get entitlementActive;
   @override
-  DateTime? get renewsAt;
+  bool get willRenew;
+  @override
+  DateTime? get currentPeriodEndsAt;
+  @override
+  String? get provider;
+  @override
+  String? get managementUrl;
+  @override
+  PurchaseAvailability get purchaseAvailability;
+  @override
+  SubscriptionAccessReason? get accessReason;
 
   /// Create a copy of SubscriptionEntity
   /// with the given fields replaced by the non-null parameter values.

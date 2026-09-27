@@ -1774,14 +1774,23 @@ class Translations$profile$settings$subscription_page$en {
 	/// ru: 'Неактивна'
 	String get inactive => 'Inactive';
 
-	/// ru: 'Месячная'
-	String get plan_monthly => 'Monthly';
-
-	/// ru: 'Годовая'
-	String get plan_yearly => 'Yearly';
-
 	/// ru: 'Следующее списание · $date'
 	String next_billing({required Object date}) => 'Next billing · ${date}';
+
+	/// ru: 'Доступ до · $date'
+	String access_until({required Object date}) => 'Access until · ${date}';
+
+	/// ru: 'Ожидаем подтверждение сервера'
+	String get pending_confirmation => 'Awaiting server confirmation';
+
+	/// ru: 'Региональный preview-доступ'
+	String get market_preview => 'Regional preview access';
+
+	/// ru: 'Промодоступ'
+	String get promotion_access => 'Promotional access';
+
+	/// ru: 'Предоставленный доступ'
+	String get granted_access => 'Granted access';
 
 	/// ru: 'Выберите план'
 	String get choose_plan => 'Choose a plan';
@@ -1791,6 +1800,15 @@ class Translations$profile$settings$subscription_page$en {
 
 	/// ru: 'Восстановить покупки'
 	String get restore => 'Restore purchases';
+
+	/// ru: 'Управлять подпиской'
+	String get manage_subscription => 'Manage subscription';
+
+	/// ru: 'Покупка Quiz+ скоро станет доступна в вашем регионе.'
+	String get coming_soon => 'Quiz+ purchases are coming soon in your region.';
+
+	/// ru: 'Покупка Quiz+ временно недоступна в вашем регионе.'
+	String get temporarily_unavailable => 'Quiz+ purchases are temporarily unavailable in your region.';
 
 	/// ru: 'Покупки не настроены для этой сборки'
 	String get billing_unavailable => 'Purchases are not configured for this build';
@@ -2233,12 +2251,18 @@ extension on Translations {
 			'profile.settings.subscription_page.title' => 'Subscription',
 			'profile.settings.subscription_page.active' => 'Active',
 			'profile.settings.subscription_page.inactive' => 'Inactive',
-			'profile.settings.subscription_page.plan_monthly' => 'Monthly',
-			'profile.settings.subscription_page.plan_yearly' => 'Yearly',
 			'profile.settings.subscription_page.next_billing' => ({required Object date}) => 'Next billing · ${date}',
+			'profile.settings.subscription_page.access_until' => ({required Object date}) => 'Access until · ${date}',
+			'profile.settings.subscription_page.pending_confirmation' => 'Awaiting server confirmation',
+			'profile.settings.subscription_page.market_preview' => 'Regional preview access',
+			'profile.settings.subscription_page.promotion_access' => 'Promotional access',
+			'profile.settings.subscription_page.granted_access' => 'Granted access',
 			'profile.settings.subscription_page.choose_plan' => 'Choose a plan',
 			'profile.settings.subscription_page.subscribe' => ({required Object price}) => 'Subscribe for ${price}',
 			'profile.settings.subscription_page.restore' => 'Restore purchases',
+			'profile.settings.subscription_page.manage_subscription' => 'Manage subscription',
+			'profile.settings.subscription_page.coming_soon' => 'Quiz+ purchases are coming soon in your region.',
+			'profile.settings.subscription_page.temporarily_unavailable' => 'Quiz+ purchases are temporarily unavailable in your region.',
 			'profile.settings.subscription_page.billing_unavailable' => 'Purchases are not configured for this build',
 			'profile.settings.subscription_page.no_offerings' => 'No Quiz+ plans are available right now',
 			'profile.settings.subscription_page.processing' => 'Checking the purchase with the server…',

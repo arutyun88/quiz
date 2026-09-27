@@ -7,6 +7,7 @@ import 'package:quiz/features/authentication/provider/authentication_provider.da
 import 'package:quiz/features/observability/domain/logger.dart';
 import 'package:quiz/features/subscription/domain/entity/quiz_plus_package_entity.dart';
 import 'package:quiz/features/subscription/domain/gateway/quiz_plus_purchase_gateway.dart';
+import 'package:quiz/features/user/domain/entity/subscription_entity.dart';
 
 enum QuizPlusPurchaseStatus {
   idle,
@@ -52,20 +53,28 @@ class QuizPlusPurchaseState {
 final quizPlusPurchaseProvider = StateNotifierProvider.autoDispose<
     QuizPlusPurchaseNotifier, QuizPlusPurchaseState>((ref) {
   final authNotifier = ref.read(authenticationProvider.notifier);
-  final userId = ref.read(authenticationProvider).mapOrNull(
-        authenticated: (state) => state.user?.id,
+  final user = ref.read(authenticationProvider).mapOrNull(
+        authenticated: (state) => state.user,
       );
   final notifier = QuizPlusPurchaseNotifier(
     gateway: getIt<QuizPlusPurchaseGateway>(),
     reloadServerProfile: authNotifier.reload,
     isServerEntitled: () =>
         ref.read(authenticationProvider).mapOrNull(
-              authenticated: (state) => state.user?.subscription?.active,
+              authenticated: (state) =>
+                  state.user?.subscription?.entitlementActive,
             ) ??
         false,
+    canPurchase: () {
+      final subscription = ref.read(authenticationProvider).mapOrNull(
+            authenticated: (state) => state.user?.subscription,
+          );
+      return subscription?.entitlementActive != true &&
+          subscription?.purchaseAvailability == PurchaseAvailability.available;
+    },
     analytics: getIt<ProductAnalytics>(),
   );
-  if (userId != null) unawaited(notifier.load(userId));
+  if (user != null) unawaited(notifier.load(user.id));
   return notifier;
 });
 
@@ -74,11 +83,13 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
     required QuizPlusPurchaseGateway gateway,
     required Future<void> Function() reloadServerProfile,
     required bool Function() isServerEntitled,
+    bool Function()? canPurchase,
     Future<void> Function(Duration) delay = Future.delayed,
     ProductAnalytics? analytics,
   })  : _gateway = gateway,
         _reloadServerProfile = reloadServerProfile,
         _isServerEntitled = isServerEntitled,
+        _canPurchase = canPurchase ?? (() => true),
         _delay = delay,
         _analytics = analytics,
         super(const QuizPlusPurchaseState());
@@ -86,10 +97,12 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
   final QuizPlusPurchaseGateway _gateway;
   final Future<void> Function() _reloadServerProfile;
   final bool Function() _isServerEntitled;
+  final bool Function() _canPurchase;
   final Future<void> Function(Duration) _delay;
   final ProductAnalytics? _analytics;
 
   Future<void> load(String userId) async {
+    if (!_canPurchase()) return;
     state = state.copyWith(loading: true, status: QuizPlusPurchaseStatus.idle);
     try {
       final available = await _gateway.identify(userId);
@@ -114,7 +127,7 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
   }
 
   Future<void> purchase(String packageId) async {
-    if (state.processing) return;
+    if (state.processing || !_canPurchase() || _isServerEntitled()) return;
     state = state.copyWith(
       processing: true,
       status: QuizPlusPurchaseStatus.idle,
@@ -164,7 +177,7 @@ class QuizPlusPurchaseNotifier extends StateNotifier<QuizPlusPurchaseState> {
   }
 
   Future<void> restore() async {
-    if (state.processing) return;
+    if (state.processing || !_canPurchase() || _isServerEntitled()) return;
     state = state.copyWith(
       processing: true,
       status: QuizPlusPurchaseStatus.idle,
