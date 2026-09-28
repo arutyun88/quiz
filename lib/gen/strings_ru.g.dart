@@ -103,6 +103,7 @@ class _Translations$notifications$ru implements Translations$notifications$en {
 	@override String get earlier => 'РАНЕЕ';
 	@override String get achievement_title => 'НОВОЕ ДОСТИЖЕНИЕ';
 	@override String achievement_message({required Object name, required Object points}) => '${name} · +${points} XP';
+	@override late final _Translations$notifications$achievement_names$ru achievement_names = _Translations$notifications$achievement_names$ru._(_root);
 	@override String get level_title => 'НОВЫЙ УРОВЕНЬ';
 	@override String level_message({required Object level}) => 'Теперь у вас ${level} уровень';
 	@override String get system_title => 'QUIZ';
@@ -714,6 +715,32 @@ class _Translations$profile$edit$ru implements Translations$profile$edit$en {
 	@override String get save_failed => 'Не удалось сохранить изменения';
 	@override late final _Translations$profile$edit$delete_dialog$ru delete_dialog = _Translations$profile$edit$delete_dialog$ru._(_root);
 	@override late final _Translations$profile$edit$password_page$ru password_page = _Translations$profile$edit$password_page$ru._(_root);
+}
+
+// Path: notifications.achievement_names
+class _Translations$notifications$achievement_names$ru implements Translations$notifications$achievement_names$en {
+	_Translations$notifications$achievement_names$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get FIRST_QUESTION => 'Первый вопрос';
+	@override String get FIRST_CORRECT => 'Первый правильный ответ';
+	@override String get QUESTION_MASTER_10 => 'Знаток';
+	@override String get QUESTION_MASTER_50 => 'Эксперт';
+	@override String get QUESTION_MASTER_100 => 'Мастер';
+	@override String get PERFECT_10 => 'Безупречность';
+	@override String get PERFECT_50 => 'Совершенство';
+	@override String get STREAK_3 => 'Постоянство';
+	@override String get STREAK_7 => 'Преданность';
+	@override String get STREAK_30 => 'Легенда';
+	@override String get POINTS_100 => 'Набирающий обороты';
+	@override String get POINTS_500 => 'Коллекционер очков';
+	@override String get POINTS_1000 => 'Магнат очков';
+	@override String get ACCURACY_80 => 'Меткий стрелок';
+	@override String get ACCURACY_90 => 'Снайпер';
+	@override String get ACCURACY_95 => 'Безошибочный';
+	@override String get FLAWLESS => 'Безупречность';
 }
 
 // Path: authentication.failure
@@ -1471,6 +1498,23 @@ extension on TranslationsRu {
 			'notifications.earlier' => 'РАНЕЕ',
 			'notifications.achievement_title' => 'НОВОЕ ДОСТИЖЕНИЕ',
 			'notifications.achievement_message' => ({required Object name, required Object points}) => '${name} · +${points} XP',
+			'notifications.achievement_names.FIRST_QUESTION' => 'Первый вопрос',
+			'notifications.achievement_names.FIRST_CORRECT' => 'Первый правильный ответ',
+			'notifications.achievement_names.QUESTION_MASTER_10' => 'Знаток',
+			'notifications.achievement_names.QUESTION_MASTER_50' => 'Эксперт',
+			'notifications.achievement_names.QUESTION_MASTER_100' => 'Мастер',
+			'notifications.achievement_names.PERFECT_10' => 'Безупречность',
+			'notifications.achievement_names.PERFECT_50' => 'Совершенство',
+			'notifications.achievement_names.STREAK_3' => 'Постоянство',
+			'notifications.achievement_names.STREAK_7' => 'Преданность',
+			'notifications.achievement_names.STREAK_30' => 'Легенда',
+			'notifications.achievement_names.POINTS_100' => 'Набирающий обороты',
+			'notifications.achievement_names.POINTS_500' => 'Коллекционер очков',
+			'notifications.achievement_names.POINTS_1000' => 'Магнат очков',
+			'notifications.achievement_names.ACCURACY_80' => 'Меткий стрелок',
+			'notifications.achievement_names.ACCURACY_90' => 'Снайпер',
+			'notifications.achievement_names.ACCURACY_95' => 'Безошибочный',
+			'notifications.achievement_names.FLAWLESS' => 'Безупречность',
 			'notifications.level_title' => 'НОВЫЙ УРОВЕНЬ',
 			'notifications.level_message' => ({required Object level}) => 'Теперь у вас ${level} уровень',
 			'notifications.system_title' => 'QUIZ',

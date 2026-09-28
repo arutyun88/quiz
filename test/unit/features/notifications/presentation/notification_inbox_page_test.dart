@@ -11,6 +11,8 @@ import 'package:quiz/features/notifications/presentation/provider/notification_i
 import 'package:quiz/gen/strings.g.dart';
 
 void main() {
+  setUpAll(() async => LocaleSettings.setLocale(AppLocale.ru));
+
   testWidgets('shows the dedicated empty inbox state', (tester) async {
     final repository = _FakeRepository(const NotificationInboxEntity(
       items: [],
@@ -33,8 +35,9 @@ void main() {
           id: 'notification-1',
           type: InboxNotificationType.achievementUnlocked,
           payload: const {
-            'achievement_name': 'First win',
-            'achievement_points': 25,
+            'achievement_code': 'PERFECT_10',
+            'achievement_name': 'Flawless',
+            'achievement_points': 100,
           },
           destination: InboxNotificationDestination.achievements,
           isRead: false,
@@ -50,7 +53,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text(t.notifications.achievement_title), findsOneWidget);
-    expect(find.text('First win · +25 XP'), findsOneWidget);
+    expect(find.text('Безупречность · +100 XP'), findsOneWidget);
     expect(find.text(t.notifications.mark_all_read), findsOneWidget);
   });
 }
