@@ -445,7 +445,7 @@ class _CenteredState extends StatelessWidget {
     InboxNotificationType.achievementUnlocked => (
         context.t.notifications.achievement_title,
         context.t.notifications.achievement_message(
-          name: _achievementName(context, payload),
+          name: payload['achievement_name']?.toString() ?? '—',
           points: payload['achievement_points']?.toString() ?? '0',
         ),
       ),
@@ -460,31 +460,6 @@ class _CenteredState extends StatelessWidget {
         payload['message']?.toString() ?? '',
       ),
   };
-}
-
-String _achievementName(BuildContext context, Map<String, Object?> payload) {
-  final names = context.t.notifications.achievement_names;
-  final localized = switch (payload['achievement_code']?.toString()) {
-    'FIRST_QUESTION' => names.FIRST_QUESTION,
-    'FIRST_CORRECT' => names.FIRST_CORRECT,
-    'QUESTION_MASTER_10' => names.QUESTION_MASTER_10,
-    'QUESTION_MASTER_50' => names.QUESTION_MASTER_50,
-    'QUESTION_MASTER_100' => names.QUESTION_MASTER_100,
-    'PERFECT_10' => names.PERFECT_10,
-    'PERFECT_50' => names.PERFECT_50,
-    'STREAK_3' => names.STREAK_3,
-    'STREAK_7' => names.STREAK_7,
-    'STREAK_30' => names.STREAK_30,
-    'POINTS_100' => names.POINTS_100,
-    'POINTS_500' => names.POINTS_500,
-    'POINTS_1000' => names.POINTS_1000,
-    'ACCURACY_80' => names.ACCURACY_80,
-    'ACCURACY_90' => names.ACCURACY_90,
-    'ACCURACY_95' => names.ACCURACY_95,
-    'FLAWLESS' => names.FLAWLESS,
-    _ => null,
-  };
-  return localized ?? payload['achievement_name']?.toString() ?? '—';
 }
 
 IconData _icon(InboxNotificationType type) => switch (type) {

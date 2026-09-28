@@ -124,8 +124,6 @@ class Translations$notifications$en {
 	/// ru: '$name · +$points XP'
 	String achievement_message({required Object name, required Object points}) => '${name} · +${points} XP';
 
-	late final Translations$notifications$achievement_names$en achievement_names = Translations$notifications$achievement_names$en._(_root);
-
 	/// ru: 'НОВЫЙ УРОВЕНЬ'
 	String get level_title => 'NEW LEVEL';
 
@@ -927,26 +925,12 @@ class Translations$review$en {
 
 	/// ru: 'Ошибок: $n'
 	String total({required Object n}) => '${n} mistakes';
-
-	/// ru: 'Фильтр ошибок'
 	String get filter_open => 'Filter mistakes';
-
-	/// ru: 'Все'
 	String get filter_all => 'All';
-
-	/// ru: 'Без тренировки'
 	String get filter_none => 'No practice';
-
-	/// ru: 'В очереди'
 	String get filter_queued => 'Queued';
-
-	/// ru: 'Пройдена'
 	String get filter_completed => 'Practiced';
-
-	/// ru: 'НИЧЕГО НЕ НАЙДЕНО'
 	String get filter_empty_title => 'NOTHING FOUND';
-
-	/// ru: 'Нет ошибок с таким состоянием тренировки'
 	String get filter_empty_message => 'There are no mistakes with this practice status';
 
 	/// ru: 'Ваш ответ'
@@ -981,17 +965,9 @@ class Translations$review$en {
 
 	/// ru: 'Потренировать тему'
 	String get practice_cta => 'Practice this topic';
-
-	/// ru: 'ТРЕНИРОВКА В ОЧЕРЕДИ'
 	String get practice_queued_title => 'PRACTICE QUEUED';
-
-	/// ru: 'Новый вопрос по этой теме добавлен в очередь'
 	String get practice_queued_message => 'A new question on this topic has been added to the queue';
-
-	/// ru: 'ТЕМА ПОТРЕНИРОВАНА'
 	String get practice_completed_title => 'TOPIC PRACTICED';
-
-	/// ru: 'Вы уже ответили на тренировочный вопрос по этой теме'
 	String get practice_completed_message => 'You have already answered a practice question on this topic';
 
 	/// ru: 'Повторение в очереди'
@@ -1266,66 +1242,6 @@ class Translations$profile$edit$en {
 	late final Translations$profile$edit$password_page$en password_page = Translations$profile$edit$password_page$en._(_root);
 }
 
-// Path: notifications.achievement_names
-class Translations$notifications$achievement_names$en {
-	Translations$notifications$achievement_names$en._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// ru: 'Первый вопрос'
-	String get FIRST_QUESTION => 'First Question';
-
-	/// ru: 'Первый правильный ответ'
-	String get FIRST_CORRECT => 'First Correct Answer';
-
-	/// ru: 'Знаток'
-	String get QUESTION_MASTER_10 => 'Scholar';
-
-	/// ru: 'Эксперт'
-	String get QUESTION_MASTER_50 => 'Expert';
-
-	/// ru: 'Мастер'
-	String get QUESTION_MASTER_100 => 'Master';
-
-	/// ru: 'Безупречность'
-	String get PERFECT_10 => 'Flawless';
-
-	/// ru: 'Совершенство'
-	String get PERFECT_50 => 'Perfection';
-
-	/// ru: 'Постоянство'
-	String get STREAK_3 => 'Consistency';
-
-	/// ru: 'Преданность'
-	String get STREAK_7 => 'Dedication';
-
-	/// ru: 'Легенда'
-	String get STREAK_30 => 'Legend';
-
-	/// ru: 'Набирающий обороты'
-	String get POINTS_100 => 'Gaining Momentum';
-
-	/// ru: 'Коллекционер очков'
-	String get POINTS_500 => 'Points Collector';
-
-	/// ru: 'Магнат очков'
-	String get POINTS_1000 => 'Points Magnate';
-
-	/// ru: 'Меткий стрелок'
-	String get ACCURACY_80 => 'Sharp Shooter';
-
-	/// ru: 'Снайпер'
-	String get ACCURACY_90 => 'Sniper';
-
-	/// ru: 'Безошибочный'
-	String get ACCURACY_95 => 'Flawless';
-
-	/// ru: 'Безупречность'
-	String get FLAWLESS => 'Flawless';
-}
-
 // Path: authentication.failure
 class Translations$authentication$failure$en {
 	Translations$authentication$failure$en._(this._root);
@@ -1507,11 +1423,7 @@ class Translations$question$report$en {
 
 	/// ru: 'Вы уже сообщили о неточности'
 	String get status_message => 'You have already reported an inaccuracy';
-
-	/// ru: 'ОТЗЫВ ОБРАБОТАН'
 	String get processed_title => 'REPORT PROCESSED';
-
-	/// ru: 'Редакция рассмотрела ваше сообщение'
 	String get processed_message => 'The editorial team has reviewed your report';
 
 	/// ru: 'Сообщить о проблеме'
@@ -2469,23 +2381,6 @@ extension on Translations {
 			'notifications.earlier' => 'EARLIER',
 			'notifications.achievement_title' => 'NEW ACHIEVEMENT',
 			'notifications.achievement_message' => ({required Object name, required Object points}) => '${name} · +${points} XP',
-			'notifications.achievement_names.FIRST_QUESTION' => 'First Question',
-			'notifications.achievement_names.FIRST_CORRECT' => 'First Correct Answer',
-			'notifications.achievement_names.QUESTION_MASTER_10' => 'Scholar',
-			'notifications.achievement_names.QUESTION_MASTER_50' => 'Expert',
-			'notifications.achievement_names.QUESTION_MASTER_100' => 'Master',
-			'notifications.achievement_names.PERFECT_10' => 'Flawless',
-			'notifications.achievement_names.PERFECT_50' => 'Perfection',
-			'notifications.achievement_names.STREAK_3' => 'Consistency',
-			'notifications.achievement_names.STREAK_7' => 'Dedication',
-			'notifications.achievement_names.STREAK_30' => 'Legend',
-			'notifications.achievement_names.POINTS_100' => 'Gaining Momentum',
-			'notifications.achievement_names.POINTS_500' => 'Points Collector',
-			'notifications.achievement_names.POINTS_1000' => 'Points Magnate',
-			'notifications.achievement_names.ACCURACY_80' => 'Sharp Shooter',
-			'notifications.achievement_names.ACCURACY_90' => 'Sniper',
-			'notifications.achievement_names.ACCURACY_95' => 'Flawless',
-			'notifications.achievement_names.FLAWLESS' => 'Flawless',
 			'notifications.level_title' => 'NEW LEVEL',
 			'notifications.level_message' => ({required Object level}) => 'You are now level ${level}',
 			'notifications.system_title' => 'QUIZ',
