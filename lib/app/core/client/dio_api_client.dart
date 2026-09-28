@@ -12,7 +12,10 @@ import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/core/services/auth_token_service.dart';
 import 'package:quiz/app/core/services/settings_local_storage_service.dart';
 import 'package:quiz/app/core/services/unauthorized_event_service.dart';
+import 'package:quiz/features/observability/domain/logger.dart';
 import 'package:quiz/gen/strings.g.dart';
+
+final _responseLog = logger('DioApiClient')('Response');
 
 class DioApiClient implements ApiClient {
   final Dio _dio;
@@ -80,9 +83,15 @@ class DioApiClient implements ApiClient {
         options: Options(headers: requestHeaders),
       );
 
-      final mappedData = mapper(result.data);
-
-      return Result.ok(converter(mappedData));
+      return Result.ok(
+        _convertResponse(
+          method: 'GET',
+          path: path,
+          data: result.data,
+          mapper: mapper,
+          converter: converter,
+        ),
+      );
     } on DioException catch (e) {
       return Result.failed(_handleError(e));
     }
@@ -118,8 +127,13 @@ class DioApiClient implements ApiClient {
         return Result.ok(null as TEntity);
       }
 
-      final mappedData = mapper(result.data);
-      final convertedData = converter(mappedData);
+      final convertedData = _convertResponse(
+        method: 'POST',
+        path: path,
+        data: result.data,
+        mapper: mapper,
+        converter: converter,
+      );
 
       onSuccess?.call(convertedData);
       return Result.ok(convertedData);
@@ -156,7 +170,15 @@ class DioApiClient implements ApiClient {
         return Result.ok(null as TEntity);
       }
 
-      return Result.ok(converter(mapper(result.data)));
+      return Result.ok(
+        _convertResponse(
+          method: 'PUT',
+          path: path,
+          data: result.data,
+          mapper: mapper,
+          converter: converter,
+        ),
+      );
     } on DioException catch (e) {
       return Result.failed(_handleError(e));
     }
@@ -261,5 +283,44 @@ class DioApiClient implements ApiClient {
           LocaleSettings.currentLocale.languageCode;
     }
     return requestHeaders;
+  }
+}
+
+TEntity _convertResponse<TEntity, TDto>({
+  required String method,
+  required String path,
+  required Object? data,
+  required JsonMapper<TDto> mapper,
+  required TEntity Function(TDto) converter,
+}) {
+  try {
+    return converter(mapper(data as Json));
+  } on Object catch (error, stackTrace) {
+    final endpoint = _normalizedEndpoint(path);
+    _responseLog.error(
+      'API response mapping failed',
+      error: error,
+      stackTrace: stackTrace,
+      data: {
+        'method': method,
+        'endpoint': endpoint,
+        'error_type': error.runtimeType.toString(),
+      },
+      fingerprint: [
+        'api-response-mapping',
+        method,
+        endpoint,
+        error.runtimeType.toString(),
+      ],
+    );
+    Error.throwWithStackTrace(error, stackTrace);
+  }
+}
+
+String _normalizedEndpoint(String path) {
+  try {
+    return normalizeApiPathForGrouping(Uri.parse(path).path);
+  } on FormatException {
+    return '<invalid-path>';
   }
 }

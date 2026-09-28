@@ -7,7 +7,10 @@ import 'package:quiz/app/core/services/settings_local_storage_service.dart';
 import 'package:quiz/app/core/utils/route_authenticated_user.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
+import 'package:quiz/features/observability/domain/logger.dart';
 import 'package:quiz/features/splash/provider/initialization_provider.dart';
+
+final _log = logger('SplashFlow');
 
 class SplashFlow extends ConsumerWidget {
   const SplashFlow({super.key});
@@ -16,8 +19,8 @@ class SplashFlow extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen<AsyncValue<void>>(
       initializationProvider,
-      (_, state) => state.whenData(
-        (_) {
+      (_, state) => state.when(
+        data: (_) {
           ref.read(authenticationProvider).whenOrNull(
                 authenticated: (user) => unawaited(
                   routeAuthenticatedUser(context, ref, user),
@@ -35,6 +38,13 @@ class SplashFlow extends ConsumerWidget {
                 },
               );
         },
+        error: (error, _) => _log.warning(
+          'Splash initialization failed'.attach({
+            'phase': 'authentication_reload',
+            'error_type': error.runtimeType.toString(),
+          }),
+        ),
+        loading: () {},
       ),
     );
 
