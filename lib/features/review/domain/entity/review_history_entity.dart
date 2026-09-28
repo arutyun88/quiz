@@ -34,6 +34,7 @@ class ReviewHistoryItemEntity with _$ReviewHistoryItemEntity {
     required bool hintUsed,
     required ReviewVersionStatus versionStatus,
     required bool practiceRequested,
+    @Default(false) bool reportSubmitted,
     required bool contentRedacted,
   }) = _ReviewHistoryItemEntity;
 }

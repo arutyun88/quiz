@@ -142,6 +142,7 @@ class DailyAttemptDto with _$DailyAttemptDto {
     @JsonKey(name: 'rating_delta') int? ratingDelta,
     required bool provisional,
     @JsonKey(name: 'run_completed') required bool runCompleted,
+    @Default(false) @JsonKey(name: 'report_submitted') bool reportSubmitted,
     PartnerRecommendationDto? partner,
   }) = _DailyAttemptDto;
 

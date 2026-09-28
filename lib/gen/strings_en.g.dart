@@ -404,6 +404,7 @@ class Translations$question$en {
 	late final Translations$question$meta$en meta = Translations$question$meta$en._(_root);
 	late final Translations$question$state$en state = Translations$question$state$en._(_root);
 	late final Translations$question$answer_reveal$en answer_reveal = Translations$question$answer_reveal$en._(_root);
+	late final Translations$question$report$en report = Translations$question$report$en._(_root);
 	late final Translations$question$hint$en hint = Translations$question$hint$en._(_root);
 	late final Translations$question$dialog$en dialog = Translations$question$dialog$en._(_root);
 	late final Translations$question$error_snackbar$en error_snackbar = Translations$question$error_snackbar$en._(_root);
@@ -1387,6 +1388,75 @@ class Translations$question$answer_reveal$en {
 
 	/// ru: 'Не удалось продолжить. Попробуйте ещё раз'
 	String get continue_error => 'Could not continue. Please try again';
+}
+
+// Path: question.report
+class Translations$question$report$en {
+	Translations$question$report$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'СООБЩИТЬ О ПРОБЛЕМЕ'
+	String get action => 'REPORT A PROBLEM';
+
+	/// ru: 'ПОМОГИТЕ УЛУЧШИТЬ ВОПРОС'
+	String get entry_title => 'HELP IMPROVE THIS QUESTION';
+
+	/// ru: 'Нашли неточность? Сообщите редакции'
+	String get entry_message => 'Found an inaccuracy? Tell the editors';
+
+	/// ru: 'ВОПРОС НА ПРОВЕРКЕ'
+	String get status_title => 'QUESTION UNDER REVIEW';
+
+	/// ru: 'Вы уже сообщили о неточности'
+	String get status_message => 'You have already reported an inaccuracy';
+
+	/// ru: 'Сообщить о проблеме'
+	String get title => 'Report a problem';
+
+	/// ru: 'Расскажите, что не так с вопросом. Ваш ответ и рейтинг не изменятся.'
+	String get subtitle => 'Tell us what is wrong with this question. Your answer and rating will not change.';
+
+	/// ru: 'Неверный правильный ответ'
+	String get factual_error => 'The correct answer is wrong';
+
+	/// ru: 'Неоднозначная формулировка'
+	String get ambiguous => 'The wording is ambiguous';
+
+	/// ru: 'Ошибка перевода'
+	String get bad_translation => 'Translation error';
+
+	/// ru: 'Устаревший факт'
+	String get outdated_fact => 'The information is outdated';
+
+	/// ru: 'Проблема с отображением'
+	String get technical => 'Display issue';
+
+	/// ru: 'Другое'
+	String get other => 'Other';
+
+	/// ru: 'Комментарий (необязательно)'
+	String get details_label => 'Comment (optional)';
+
+	/// ru: 'Добавьте детали, которые помогут редактору проверить вопрос'
+	String get details_hint => 'Add details that will help the editor check the question';
+
+	/// ru: 'ОТПРАВИТЬ ОТЗЫВ'
+	String get submit => 'SEND REPORT';
+
+	/// ru: 'ПОВТОРИТЬ'
+	String get retry => 'TRY AGAIN';
+
+	/// ru: 'ОТЗЫВ ОТПРАВЛЕН'
+	String get success_title => 'REPORT SENT';
+
+	/// ru: 'Спасибо. Редакторы проверят этот вопрос.'
+	String get success_message => 'Thank you. The editors will review this question.';
+
+	/// ru: 'Не удалось отправить отзыв. Проверьте соединение и попробуйте ещё раз.'
+	String get error_message => 'Could not send the report. Check your connection and try again.';
 }
 
 // Path: question.hint
@@ -2423,6 +2493,26 @@ extension on Translations {
 			'question.answer_reveal.retry' => 'RETRY',
 			'question.answer_reveal.continue_error_title' => 'COULD NOT CONTINUE',
 			'question.answer_reveal.continue_error' => 'Could not continue. Please try again',
+			'question.report.action' => 'REPORT A PROBLEM',
+			'question.report.entry_title' => 'HELP IMPROVE THIS QUESTION',
+			'question.report.entry_message' => 'Found an inaccuracy? Tell the editors',
+			'question.report.status_title' => 'QUESTION UNDER REVIEW',
+			'question.report.status_message' => 'You have already reported an inaccuracy',
+			'question.report.title' => 'Report a problem',
+			'question.report.subtitle' => 'Tell us what is wrong with this question. Your answer and rating will not change.',
+			'question.report.factual_error' => 'The correct answer is wrong',
+			'question.report.ambiguous' => 'The wording is ambiguous',
+			'question.report.bad_translation' => 'Translation error',
+			'question.report.outdated_fact' => 'The information is outdated',
+			'question.report.technical' => 'Display issue',
+			'question.report.other' => 'Other',
+			'question.report.details_label' => 'Comment (optional)',
+			'question.report.details_hint' => 'Add details that will help the editor check the question',
+			'question.report.submit' => 'SEND REPORT',
+			'question.report.retry' => 'TRY AGAIN',
+			'question.report.success_title' => 'REPORT SENT',
+			'question.report.success_message' => 'Thank you. The editors will review this question.',
+			'question.report.error_message' => 'Could not send the report. Check your connection and try again.',
 			'question.hint.action' => 'HINT',
 			'question.hint.confirm_title' => 'Use a hint?',
 			'question.hint.confirm_message' => 'A hint halves the rating gain for a correct answer. The penalty for a wrong answer, XP, and streak remain unchanged.',

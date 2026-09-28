@@ -87,6 +87,7 @@ extension DailyAttemptDtoConverter on DailyAttemptDto {
         ratingDelta: ratingDelta,
         provisional: provisional,
         runCompleted: runCompleted,
+        reportSubmitted: reportSubmitted,
         partner: partner?.toEntity(),
       );
 }

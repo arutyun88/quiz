@@ -150,4 +150,21 @@ class ReviewNotifier extends StateNotifier<ReviewState> {
         return false;
     }
   }
+
+  void markReportSubmitted(String attemptId) {
+    final current = state;
+    if (current is! ReviewDataState) return;
+    state = ReviewDataState(
+      items: current.items
+          .map(
+            (item) => item.attemptId == attemptId
+                ? item.copyWith(reportSubmitted: true)
+                : item,
+          )
+          .toList(),
+      total: current.total,
+      isLoadingMore: current.isLoadingMore,
+      failure: current.failure,
+    );
+  }
 }

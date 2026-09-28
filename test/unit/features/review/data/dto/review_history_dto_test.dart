@@ -21,6 +21,7 @@ void main() {
       'hint_used': false,
       'version_status': 'UPDATED',
       'practice_requested': true,
+      'report_submitted': true,
       'content_redacted': false,
     });
 
@@ -29,6 +30,7 @@ void main() {
     expect(dto.correctAnswer, 'Correct');
     expect(dto.versionStatus, 'UPDATED');
     expect(dto.practiceRequested, isTrue);
+    expect(dto.reportSubmitted, isTrue);
     expect(dto.contentRedacted, isFalse);
   });
 }

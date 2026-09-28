@@ -23,6 +23,7 @@ import 'package:quiz/features/home/presentation/widgets/quiz/quiz_state_views.da
 import 'package:quiz/features/home/presentation/widgets/start_day_header.dart';
 import 'package:quiz/features/question/domain/entity/question_entity.dart';
 import 'package:quiz/features/question/presentation/question_answer_state.dart';
+import 'package:quiz/features/question_report/presentation/question_report_page.dart';
 import 'package:quiz/features/user/presentation/provider/quiz_plus_provider.dart';
 import 'package:quiz/gen/strings.g.dart';
 
@@ -328,12 +329,14 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       await _showAnswerRevealSheet(
         context,
+        attemptId: attemptId,
         question: question,
         sentState: sentState,
         ratingDelta: latestState.attempt?.ratingDelta,
         partnerBlock: _partnerBlock(ref, latestState),
         isFinalAction: latestState.attempt?.runCompleted == true &&
             !ref.read(dailyEditionProvider.notifier).hasPendingReview,
+        reportSubmitted: latestState.attempt?.reportSubmitted ?? false,
         onNext: () => _advanceFromReveal(ref),
       );
       if (ref.read(dailyEditionProvider)
@@ -347,11 +350,13 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
 
   Future<void> _showAnswerRevealSheet(
     BuildContext context, {
+    required String attemptId,
     required QuestionEntity question,
     required QuestionAnswerSentState sentState,
     required int? ratingDelta,
     required Widget? partnerBlock,
     required bool isFinalAction,
+    required bool reportSubmitted,
     required Future<AnswerRevealFailure?> Function() onNext,
   }) async {
     final palette = context.palette;
@@ -376,6 +381,11 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
           ratingDelta: ratingDelta,
           partnerBlock: partnerBlock,
           isFinalAction: isFinalAction,
+          reportSubmitted: reportSubmitted,
+          onReport: () => openQuestionReportPage(
+            sheetContext,
+            attemptId: attemptId,
+          ),
           onNext: () async {
             final errorMessage = await onNext();
             if (errorMessage == null && sheetContext.mounted) {

@@ -257,6 +257,7 @@ class _Translations$question$ru implements Translations$question$en {
 	@override late final _Translations$question$meta$ru meta = _Translations$question$meta$ru._(_root);
 	@override late final _Translations$question$state$ru state = _Translations$question$state$ru._(_root);
 	@override late final _Translations$question$answer_reveal$ru answer_reveal = _Translations$question$answer_reveal$ru._(_root);
+	@override late final _Translations$question$report$ru report = _Translations$question$report$ru._(_root);
 	@override late final _Translations$question$hint$ru hint = _Translations$question$hint$ru._(_root);
 	@override late final _Translations$question$dialog$ru dialog = _Translations$question$dialog$ru._(_root);
 	@override late final _Translations$question$error_snackbar$ru error_snackbar = _Translations$question$error_snackbar$ru._(_root);
@@ -805,6 +806,35 @@ class _Translations$question$answer_reveal$ru implements Translations$question$a
 	@override String get retry => 'ПОВТОРИТЬ';
 	@override String get continue_error_title => 'НЕ УДАЛОСЬ ПРОДОЛЖИТЬ';
 	@override String get continue_error => 'Не удалось продолжить. Попробуйте ещё раз';
+}
+
+// Path: question.report
+class _Translations$question$report$ru implements Translations$question$report$en {
+	_Translations$question$report$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get action => 'СООБЩИТЬ О ПРОБЛЕМЕ';
+	@override String get entry_title => 'ПОМОГИТЕ УЛУЧШИТЬ ВОПРОС';
+	@override String get entry_message => 'Нашли неточность? Сообщите редакции';
+	@override String get status_title => 'ВОПРОС НА ПРОВЕРКЕ';
+	@override String get status_message => 'Вы уже сообщили о неточности';
+	@override String get title => 'Сообщить о проблеме';
+	@override String get subtitle => 'Расскажите, что не так с вопросом. Ваш ответ и рейтинг не изменятся.';
+	@override String get factual_error => 'Неверный правильный ответ';
+	@override String get ambiguous => 'Неоднозначная формулировка';
+	@override String get bad_translation => 'Ошибка перевода';
+	@override String get outdated_fact => 'Устаревший факт';
+	@override String get technical => 'Проблема с отображением';
+	@override String get other => 'Другое';
+	@override String get details_label => 'Комментарий (необязательно)';
+	@override String get details_hint => 'Добавьте детали, которые помогут редактору проверить вопрос';
+	@override String get submit => 'ОТПРАВИТЬ ОТЗЫВ';
+	@override String get retry => 'ПОВТОРИТЬ';
+	@override String get success_title => 'ОТЗЫВ ОТПРАВЛЕН';
+	@override String get success_message => 'Спасибо. Редакторы проверят этот вопрос.';
+	@override String get error_message => 'Не удалось отправить отзыв. Проверьте соединение и попробуйте ещё раз.';
 }
 
 // Path: question.hint
@@ -1553,6 +1583,26 @@ extension on TranslationsRu {
 			'question.answer_reveal.retry' => 'ПОВТОРИТЬ',
 			'question.answer_reveal.continue_error_title' => 'НЕ УДАЛОСЬ ПРОДОЛЖИТЬ',
 			'question.answer_reveal.continue_error' => 'Не удалось продолжить. Попробуйте ещё раз',
+			'question.report.action' => 'СООБЩИТЬ О ПРОБЛЕМЕ',
+			'question.report.entry_title' => 'ПОМОГИТЕ УЛУЧШИТЬ ВОПРОС',
+			'question.report.entry_message' => 'Нашли неточность? Сообщите редакции',
+			'question.report.status_title' => 'ВОПРОС НА ПРОВЕРКЕ',
+			'question.report.status_message' => 'Вы уже сообщили о неточности',
+			'question.report.title' => 'Сообщить о проблеме',
+			'question.report.subtitle' => 'Расскажите, что не так с вопросом. Ваш ответ и рейтинг не изменятся.',
+			'question.report.factual_error' => 'Неверный правильный ответ',
+			'question.report.ambiguous' => 'Неоднозначная формулировка',
+			'question.report.bad_translation' => 'Ошибка перевода',
+			'question.report.outdated_fact' => 'Устаревший факт',
+			'question.report.technical' => 'Проблема с отображением',
+			'question.report.other' => 'Другое',
+			'question.report.details_label' => 'Комментарий (необязательно)',
+			'question.report.details_hint' => 'Добавьте детали, которые помогут редактору проверить вопрос',
+			'question.report.submit' => 'ОТПРАВИТЬ ОТЗЫВ',
+			'question.report.retry' => 'ПОВТОРИТЬ',
+			'question.report.success_title' => 'ОТЗЫВ ОТПРАВЛЕН',
+			'question.report.success_message' => 'Спасибо. Редакторы проверят этот вопрос.',
+			'question.report.error_message' => 'Не удалось отправить отзыв. Проверьте соединение и попробуйте ещё раз.',
 			'question.hint.action' => 'ПОДСКАЗКА',
 			'question.hint.confirm_title' => 'Использовать подсказку?',
 			'question.hint.confirm_message' => 'Подсказка вдвое уменьшит прибавку к рейтингу за правильный ответ. Штраф за ошибку, XP и серия не изменятся.',

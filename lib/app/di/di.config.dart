@@ -88,6 +88,10 @@ import '../../features/question/data/converter/topic_converter.dart' as _i625;
 import '../../features/question/data/converter/topic_db_converter.dart'
     as _i952;
 import '../../features/question/di/di.dart' as _i906;
+import '../../features/question_report/data/repository/remote_question_report_repository.dart'
+    as _i121;
+import '../../features/question_report/domain/repository/question_report_repository.dart'
+    as _i402;
 import '../../features/review/data/converter/review_history_converter.dart'
     as _i49;
 import '../../features/review/di/di.dart' as _i1035;
@@ -246,6 +250,8 @@ extension GetItInjectableX on _i174.GetIt {
           client: gh<_i782.ApiClient>(),
           userConverter: gh<_i11.UserConverter>(),
         ));
+    gh.lazySingleton<_i402.QuestionReportRepository>(() =>
+        _i121.RemoteQuestionReportRepository(client: gh<_i782.ApiClient>()));
     gh.singleton<_i786.ConnectivityService>(() => _i786.ConnectivityServiceImpl(
         internetConnection: gh<_i161.InternetConnection>()));
     gh.lazySingleton<_i799.LocalUserRepository>(

@@ -2203,6 +2203,8 @@ mixin _$DailyAttemptDto {
   bool get provisional => throw _privateConstructorUsedError;
   @JsonKey(name: 'run_completed')
   bool get runCompleted => throw _privateConstructorUsedError;
+  @JsonKey(name: 'report_submitted')
+  bool get reportSubmitted => throw _privateConstructorUsedError;
   PartnerRecommendationDto? get partner => throw _privateConstructorUsedError;
 
   /// Serializes this DailyAttemptDto to a JSON map.
@@ -2238,6 +2240,7 @@ abstract class $DailyAttemptDtoCopyWith<$Res> {
       @JsonKey(name: 'rating_delta') int? ratingDelta,
       bool provisional,
       @JsonKey(name: 'run_completed') bool runCompleted,
+      @JsonKey(name: 'report_submitted') bool reportSubmitted,
       PartnerRecommendationDto? partner});
 
   $PartnerRecommendationDtoCopyWith<$Res>? get partner;
@@ -2274,6 +2277,7 @@ class _$DailyAttemptDtoCopyWithImpl<$Res, $Val extends DailyAttemptDto>
     Object? ratingDelta = freezed,
     Object? provisional = null,
     Object? runCompleted = null,
+    Object? reportSubmitted = null,
     Object? partner = freezed,
   }) {
     return _then(_value.copyWith(
@@ -2341,6 +2345,10 @@ class _$DailyAttemptDtoCopyWithImpl<$Res, $Val extends DailyAttemptDto>
           ? _value.runCompleted
           : runCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      reportSubmitted: null == reportSubmitted
+          ? _value.reportSubmitted
+          : reportSubmitted // ignore: cast_nullable_to_non_nullable
+              as bool,
       partner: freezed == partner
           ? _value.partner
           : partner // ignore: cast_nullable_to_non_nullable
@@ -2388,6 +2396,7 @@ abstract class _$$DailyAttemptDtoImplCopyWith<$Res>
       @JsonKey(name: 'rating_delta') int? ratingDelta,
       bool provisional,
       @JsonKey(name: 'run_completed') bool runCompleted,
+      @JsonKey(name: 'report_submitted') bool reportSubmitted,
       PartnerRecommendationDto? partner});
 
   @override
@@ -2423,6 +2432,7 @@ class __$$DailyAttemptDtoImplCopyWithImpl<$Res>
     Object? ratingDelta = freezed,
     Object? provisional = null,
     Object? runCompleted = null,
+    Object? reportSubmitted = null,
     Object? partner = freezed,
   }) {
     return _then(_$DailyAttemptDtoImpl(
@@ -2490,6 +2500,10 @@ class __$$DailyAttemptDtoImplCopyWithImpl<$Res>
           ? _value.runCompleted
           : runCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      reportSubmitted: null == reportSubmitted
+          ? _value.reportSubmitted
+          : reportSubmitted // ignore: cast_nullable_to_non_nullable
+              as bool,
       partner: freezed == partner
           ? _value.partner
           : partner // ignore: cast_nullable_to_non_nullable
@@ -2518,6 +2532,7 @@ class _$DailyAttemptDtoImpl implements _DailyAttemptDto {
       @JsonKey(name: 'rating_delta') this.ratingDelta,
       required this.provisional,
       @JsonKey(name: 'run_completed') required this.runCompleted,
+      @JsonKey(name: 'report_submitted') this.reportSubmitted = false,
       this.partner});
 
   factory _$DailyAttemptDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -2568,11 +2583,14 @@ class _$DailyAttemptDtoImpl implements _DailyAttemptDto {
   @JsonKey(name: 'run_completed')
   final bool runCompleted;
   @override
+  @JsonKey(name: 'report_submitted')
+  final bool reportSubmitted;
+  @override
   final PartnerRecommendationDto? partner;
 
   @override
   String toString() {
-    return 'DailyAttemptDto(clientEventId: $clientEventId, attemptId: $attemptId, assignmentId: $assignmentId, questionVersionId: $questionVersionId, action: $action, correct: $correct, answerId: $answerId, correctAnswerId: $correctAnswerId, description: $description, hintUsed: $hintUsed, xpAwarded: $xpAwarded, ratingBefore: $ratingBefore, ratingAfter: $ratingAfter, ratingDelta: $ratingDelta, provisional: $provisional, runCompleted: $runCompleted, partner: $partner)';
+    return 'DailyAttemptDto(clientEventId: $clientEventId, attemptId: $attemptId, assignmentId: $assignmentId, questionVersionId: $questionVersionId, action: $action, correct: $correct, answerId: $answerId, correctAnswerId: $correctAnswerId, description: $description, hintUsed: $hintUsed, xpAwarded: $xpAwarded, ratingBefore: $ratingBefore, ratingAfter: $ratingAfter, ratingDelta: $ratingDelta, provisional: $provisional, runCompleted: $runCompleted, reportSubmitted: $reportSubmitted, partner: $partner)';
   }
 
   @override
@@ -2610,6 +2628,8 @@ class _$DailyAttemptDtoImpl implements _DailyAttemptDto {
                 other.provisional == provisional) &&
             (identical(other.runCompleted, runCompleted) ||
                 other.runCompleted == runCompleted) &&
+            (identical(other.reportSubmitted, reportSubmitted) ||
+                other.reportSubmitted == reportSubmitted) &&
             (identical(other.partner, partner) || other.partner == partner));
   }
 
@@ -2633,6 +2653,7 @@ class _$DailyAttemptDtoImpl implements _DailyAttemptDto {
       ratingDelta,
       provisional,
       runCompleted,
+      reportSubmitted,
       partner);
 
   /// Create a copy of DailyAttemptDto
@@ -2671,6 +2692,7 @@ abstract class _DailyAttemptDto implements DailyAttemptDto {
       @JsonKey(name: 'rating_delta') final int? ratingDelta,
       required final bool provisional,
       @JsonKey(name: 'run_completed') required final bool runCompleted,
+      @JsonKey(name: 'report_submitted') final bool reportSubmitted,
       final PartnerRecommendationDto? partner}) = _$DailyAttemptDtoImpl;
 
   factory _DailyAttemptDto.fromJson(Map<String, dynamic> json) =
@@ -2720,6 +2742,9 @@ abstract class _DailyAttemptDto implements DailyAttemptDto {
   @override
   @JsonKey(name: 'run_completed')
   bool get runCompleted;
+  @override
+  @JsonKey(name: 'report_submitted')
+  bool get reportSubmitted;
   @override
   PartnerRecommendationDto? get partner;
 

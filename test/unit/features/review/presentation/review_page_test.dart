@@ -116,6 +116,50 @@ void main() {
     expect(find.text(t.review.practice_cta), findsNothing);
   });
 
+  testWidgets('shows report status instead of another report action',
+      (tester) async {
+    when(() => repository.fetch(limit: 20, offset: 0)).thenAnswer(
+      (_) async => Result.ok(
+        ReviewHistoryEntity(
+          items: [
+            _item(
+              attemptId: 'attempt-1',
+              question: 'Reported question',
+              description: 'Explanation',
+              reportSubmitted: true,
+            ),
+          ],
+          total: 1,
+          offset: 0,
+          limit: 20,
+        ),
+      ),
+    );
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          reviewProvider.overrideWith(
+            (ref) => ReviewNotifier(reviewRepository: repository),
+          ),
+        ],
+        child: TranslationProvider(
+          child: MaterialApp(
+            theme: AppTheme.light,
+            home: const ReviewPage(),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Reported question'));
+    await tester.pumpAndSettle();
+
+    expect(find.text(t.question.report.action), findsNothing);
+    expect(find.text(t.question.report.status_title), findsOneWidget);
+    expect(find.text(t.question.report.status_message), findsOneWidget);
+  });
+
   testWidgets('shows a dedicated empty state', (tester) async {
     when(() => repository.fetch(limit: 20, offset: 0)).thenAnswer(
       (_) async => const Result.ok(
@@ -177,6 +221,7 @@ ReviewHistoryItemEntity _item({
   required String question,
   required String description,
   bool practiceRequested = false,
+  bool reportSubmitted = false,
 }) =>
     ReviewHistoryItemEntity(
       attemptId: attemptId,
@@ -196,5 +241,6 @@ ReviewHistoryItemEntity _item({
       hintUsed: false,
       versionStatus: ReviewVersionStatus.current,
       practiceRequested: practiceRequested,
+      reportSubmitted: reportSubmitted,
       contentRedacted: false,
     );

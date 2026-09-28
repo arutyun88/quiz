@@ -8,6 +8,8 @@ import 'package:quiz/app/core/widgets/app_snack_bar.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
+import 'package:quiz/features/question_report/presentation/question_report_page.dart';
+import 'package:quiz/features/question_report/presentation/widgets/question_report_submitted_banner.dart';
 import 'package:quiz/features/review/domain/entity/review_history_entity.dart';
 import 'package:quiz/features/review/presentation/provider/review_provider.dart';
 import 'package:quiz/features/review/presentation/widgets/review_state_views.dart';
@@ -380,8 +382,16 @@ class _ReviewCardState extends ConsumerState<_ReviewCard> {
               _TextBlock(label: t.explanation, value: item.description!),
             if (item.hintUsed && item.hint != null)
               _TextBlock(label: t.used_hint, value: item.hint!),
+            const SizedBox(height: 14),
+            if (item.reportSubmitted)
+              const QuestionReportSubmittedBanner()
+            else
+              _OutlineAction(
+                label: context.t.question.report.action,
+                onTap: _openReport,
+              ),
             if (!item.practiceRequested) ...[
-              const SizedBox(height: 14),
+              const SizedBox(height: 8),
               _OutlineAction(
                 label: t.practice_cta,
                 loading: _practiceRequestInFlight,
@@ -461,6 +471,17 @@ class _ReviewCardState extends ConsumerState<_ReviewCard> {
     } finally {
       if (mounted) setState(() => _practiceRequestInFlight = false);
     }
+  }
+
+  Future<void> _openReport() async {
+    final submitted = await openQuestionReportPage(
+      context,
+      attemptId: widget.item.attemptId,
+    );
+    if (!mounted || !submitted) return;
+    ref
+        .read(reviewProvider.notifier)
+        .markReportSubmitted(widget.item.attemptId);
   }
 
   void _showPracticeError() {

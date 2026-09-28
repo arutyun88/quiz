@@ -99,6 +99,7 @@ void main() {
       'rating_delta': -8,
       'provisional': true,
       'run_completed': false,
+      'report_submitted': true,
       'partner': null,
     }).toEntity();
 
@@ -107,6 +108,7 @@ void main() {
     expect(entity.xpAwarded, 2);
     expect(entity.ratingDelta, -8);
     expect(entity.hintUsed, isTrue);
+    expect(entity.reportSubmitted, isTrue);
   });
 
   test('keeps age-redacted reveal nullable during attempt restore', () {
@@ -133,6 +135,7 @@ void main() {
     expect(entity.correctAnswerId, isNull);
     expect(entity.description, isNull);
     expect(entity.ratingBefore, isNull);
+    expect(entity.reportSubmitted, isFalse);
     expect(entity.ratingAfter, isNull);
     expect(entity.ratingDelta, isNull);
     expect(entity.partner, isNull);

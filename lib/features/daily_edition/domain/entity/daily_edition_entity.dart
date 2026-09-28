@@ -153,6 +153,7 @@ class DailyAttemptEntity with _$DailyAttemptEntity {
     required int? ratingDelta,
     required bool provisional,
     required bool runCompleted,
+    @Default(false) bool reportSubmitted,
     required PartnerRecommendationEntity? partner,
   }) = _DailyAttemptEntity;
 }

@@ -42,6 +42,7 @@ final class ReviewHistoryConverterImpl extends ReviewHistoryConverter {
           _ => ReviewVersionStatus.unknown,
         },
         practiceRequested: dto.practiceRequested,
+        reportSubmitted: dto.reportSubmitted,
         contentRedacted: dto.contentRedacted,
       );
 }

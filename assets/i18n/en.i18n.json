@@ -369,6 +369,28 @@
             "continue_error_title": "COULD NOT CONTINUE",
             "continue_error": "Could not continue. Please try again"
         },
+        "report": {
+            "action": "REPORT A PROBLEM",
+            "entry_title": "HELP IMPROVE THIS QUESTION",
+            "entry_message": "Found an inaccuracy? Tell the editors",
+            "status_title": "QUESTION UNDER REVIEW",
+            "status_message": "You have already reported an inaccuracy",
+            "title": "Report a problem",
+            "subtitle": "Tell us what is wrong with this question. Your answer and rating will not change.",
+            "factual_error": "The correct answer is wrong",
+            "ambiguous": "The wording is ambiguous",
+            "bad_translation": "Translation error",
+            "outdated_fact": "The information is outdated",
+            "technical": "Display issue",
+            "other": "Other",
+            "details_label": "Comment (optional)",
+            "details_hint": "Add details that will help the editor check the question",
+            "submit": "SEND REPORT",
+            "retry": "TRY AGAIN",
+            "success_title": "REPORT SENT",
+            "success_message": "Thank you. The editors will review this question.",
+            "error_message": "Could not send the report. Check your connection and try again."
+        },
         "hint": {
             "action": "HINT",
             "confirm_title": "Use a hint?",

@@ -23,6 +23,7 @@ import 'package:quiz/features/home/presentation/quiz_gate_flow.dart';
 import 'package:quiz/features/mastery/presentation/mastery_flow.dart';
 import 'package:quiz/features/notifications/presentation/notification_inbox_flow.dart';
 import 'package:quiz/features/onboarding/presentation/onboarding_flow.dart';
+import 'package:quiz/features/question_report/presentation/question_report_page.dart';
 import 'package:quiz/features/rating/presentation/rating_flow.dart';
 import 'package:quiz/features/review/presentation/review_flow.dart';
 import 'package:quiz/features/settings/presentation/about_page.dart';
@@ -88,6 +89,13 @@ class RouterNotifier extends AsyncNotifier<GoRouter> {
                     state.uri.queryParameters['reviewAttemptId'],
               ),
               state),
+        ),
+        GoRoute(
+          path: '/question-report/:attemptId',
+          name: 'question-report',
+          builder: (context, state) => QuestionReportPage(
+            attemptId: state.pathParameters['attemptId']!,
+          ),
         ),
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) =>
