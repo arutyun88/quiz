@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:quiz/features/question_report/domain/entity/question_report_status.dart';
 
 part 'daily_edition_entity.freezed.dart';
 
@@ -154,6 +155,7 @@ class DailyAttemptEntity with _$DailyAttemptEntity {
     required bool provisional,
     required bool runCompleted,
     @Default(false) bool reportSubmitted,
+    @Default(QuestionReportStatus.none) QuestionReportStatus reportStatus,
     required PartnerRecommendationEntity? partner,
   }) = _DailyAttemptEntity;
 }

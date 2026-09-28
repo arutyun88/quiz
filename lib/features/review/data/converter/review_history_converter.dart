@@ -3,6 +3,7 @@ import 'package:quiz/app/core/model/data_page/data_page_dto.dart';
 import 'package:quiz/app/core/model/dto_converter.dart';
 import 'package:quiz/features/review/data/dto/review_history_dto.dart';
 import 'package:quiz/features/review/domain/entity/review_history_entity.dart';
+import 'package:quiz/features/question_report/domain/entity/question_report_status.dart';
 
 typedef ReviewHistoryConverter
     = DtoConverter<ReviewHistoryEntity, DataPageDto<ReviewHistoryItemDto>>;
@@ -42,7 +43,19 @@ final class ReviewHistoryConverterImpl extends ReviewHistoryConverter {
           _ => ReviewVersionStatus.unknown,
         },
         practiceRequested: dto.practiceRequested,
+        practiceStatus: switch (dto.practiceStatus) {
+          'COMPLETED' => ReviewPracticeStatus.completed,
+          'QUEUED' => ReviewPracticeStatus.queued,
+          _ when dto.practiceRequested => ReviewPracticeStatus.queued,
+          _ => ReviewPracticeStatus.none,
+        },
         reportSubmitted: dto.reportSubmitted,
+        reportStatus: switch (dto.reportStatus) {
+          'PROCESSED' => QuestionReportStatus.processed,
+          'PENDING' => QuestionReportStatus.pending,
+          _ when dto.reportSubmitted => QuestionReportStatus.pending,
+          _ => QuestionReportStatus.none,
+        },
         contentRedacted: dto.contentRedacted,
       );
 }

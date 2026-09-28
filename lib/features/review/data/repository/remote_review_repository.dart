@@ -22,10 +22,18 @@ class RemoteReviewRepository implements ReviewRepository {
   Future<Result<ReviewHistoryEntity, Failure>> fetch({
     required int limit,
     required int offset,
+    Set<ReviewPracticeStatus> practiceStatuses = const {},
   }) async =>
       await _client.get(
         '/questions/review/history',
-        queryParameters: {'limit': limit, 'offset': offset},
+        queryParameters: {
+          'limit': limit,
+          'offset': offset,
+          if (practiceStatuses.isNotEmpty)
+            'practice_status': practiceStatuses
+                .map((status) => status.name.toUpperCase())
+                .join(','),
+        },
         mapper: (json) => DataPageDto.fromJson(
           json,
           (json) => ReviewHistoryItemDto.fromJson(json as Json),

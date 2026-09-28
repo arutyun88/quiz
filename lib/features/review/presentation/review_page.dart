@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:go_router/go_router.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/app_refresh_indicator.dart';
 import 'package:quiz/app/core/widgets/app_snack_bar.dart';
+import 'package:quiz/app/core/widgets/app_status_banner.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
-import 'package:quiz/features/authentication/provider/authentication_provider.dart';
-import 'package:quiz/features/daily_edition/presentation/provider/daily_edition_provider.dart';
 import 'package:quiz/features/question_report/presentation/question_report_page.dart';
 import 'package:quiz/features/question_report/presentation/widgets/question_report_submitted_banner.dart';
 import 'package:quiz/features/review/domain/entity/review_history_entity.dart';
@@ -23,6 +21,8 @@ class ReviewPage extends ConsumerStatefulWidget {
 }
 
 class _ReviewPageState extends ConsumerState<ReviewPage> {
+  ReviewPracticeStatus? _practiceStatus;
+
   @override
   void initState() {
     super.initState();
@@ -49,6 +49,10 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
 
     return AppScaffold(
       title: context.t.review.title,
+      trailing: _PracticeFilterMenu(
+        selected: _practiceStatus,
+        onChanged: _changePracticeFilter,
+      ),
       body: AppRefreshIndicator(
         onRefresh: () async {
           final refreshed = await ref.read(reviewProvider.notifier).refresh();
@@ -63,7 +67,9 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
         child: switch (state) {
           ReviewLoadingState() => const ReviewLoadingView(),
           ReviewDataState(items: final items) when items.isEmpty =>
-            const _ReviewEmpty(),
+            _ReviewEmpty(
+              filtered: _practiceStatus != null,
+            ),
           ReviewDataState() => _ReviewHistory(
               state: state,
               onLoadMore: ref.read(reviewProvider.notifier).loadMore,
@@ -75,10 +81,34 @@ class _ReviewPageState extends ConsumerState<ReviewPage> {
       ),
     );
   }
+
+  Future<void> _changePracticeFilter(ReviewPracticeStatus? status) async {
+    final previous = _practiceStatus;
+    if (previous == status) return;
+
+    setState(() {
+      _practiceStatus = status;
+    });
+    final loaded = await ref
+        .read(reviewProvider.notifier)
+        .setPracticeStatus(_practiceStatus);
+    if (!mounted || loaded) return;
+    setState(() {
+      _practiceStatus = previous;
+    });
+    AppSnackBar.showError(
+      context,
+      title: context.t.review.refresh_error_title,
+      message: context.t.review.refresh_error_message,
+    );
+  }
 }
 
 class _ReviewHistory extends StatefulWidget {
-  const _ReviewHistory({required this.state, required this.onLoadMore});
+  const _ReviewHistory({
+    required this.state,
+    required this.onLoadMore,
+  });
 
   final ReviewDataState state;
   final VoidCallback onLoadMore;
@@ -128,10 +158,6 @@ class _ReviewHistoryState extends State<_ReviewHistory> {
     }
   }
 
-  void _collapse(String attemptId) {
-    _controllers[attemptId]?.collapse();
-  }
-
   @override
   Widget build(BuildContext context) {
     final t = context.t.review;
@@ -157,7 +183,6 @@ class _ReviewHistoryState extends State<_ReviewHistory> {
             controller: _controllerFor(item.attemptId),
             onExpansionChanged: (expanded) =>
                 _handleExpansionChanged(item.attemptId, expanded),
-            onPracticeCompleted: () => _collapse(item.attemptId),
           ),
         if (widget.state.hasMore)
           Padding(
@@ -174,7 +199,9 @@ class _ReviewHistoryState extends State<_ReviewHistory> {
 }
 
 class _ReviewEmpty extends StatelessWidget {
-  const _ReviewEmpty();
+  const _ReviewEmpty({required this.filtered});
+
+  final bool filtered;
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +210,7 @@ class _ReviewEmpty extends StatelessWidget {
     return CustomScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
       slivers: [
-        const SliverPadding(
+        SliverPadding(
           padding: EdgeInsets.fromLTRB(22, 16, 22, 0),
           sliver: SliverToBoxAdapter(child: _InfoBanner()),
         ),
@@ -209,7 +236,9 @@ class _ReviewEmpty extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    context.t.review.empty_title,
+                    filtered
+                        ? context.t.review.filter_empty_title
+                        : context.t.review.empty_title,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.unbounded(
                       fontSize: 24,
@@ -219,7 +248,9 @@ class _ReviewEmpty extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    context.t.review.empty_message,
+                    filtered
+                        ? context.t.review.filter_empty_message
+                        : context.t.review.empty_message,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.spectral(
                       fontSize: 18,
@@ -234,6 +265,121 @@ class _ReviewEmpty extends StatelessWidget {
       ],
     );
   }
+}
+
+enum _PracticeFilter { all, none, queued, completed }
+
+class _PracticeFilterMenu extends StatelessWidget {
+  const _PracticeFilterMenu({required this.selected, required this.onChanged});
+
+  final ReviewPracticeStatus? selected;
+  final ValueChanged<ReviewPracticeStatus?> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.palette;
+    final t = context.t.review;
+    final active = selected != null;
+    return Theme(
+      data: Theme.of(context).copyWith(
+        splashFactory: NoSplash.splashFactory,
+        highlightColor: Colors.transparent,
+      ),
+      child: PopupMenuButton<_PracticeFilter>(
+        key: const ValueKey('review-filter-button'),
+        tooltip: t.filter_open,
+        color: colors.card.background,
+        elevation: 0,
+        offset: const Offset(0, 42),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero,
+          side: BorderSide(color: colors.card.border),
+        ),
+        onSelected: (filter) => onChanged(filter.status),
+        itemBuilder: (context) => [
+          _filterItem(
+            context,
+            filter: _PracticeFilter.all,
+            label: t.filter_all,
+          ),
+          _filterItem(
+            context,
+            filter: _PracticeFilter.none,
+            label: t.filter_none,
+          ),
+          _filterItem(
+            context,
+            filter: _PracticeFilter.queued,
+            label: t.filter_queued,
+          ),
+          _filterItem(
+            context,
+            filter: _PracticeFilter.completed,
+            label: t.filter_completed,
+          ),
+        ],
+        child: Container(
+          width: 34,
+          height: 34,
+          decoration: BoxDecoration(
+            color: active ? colors.text.accent : Colors.transparent,
+            border: Border.all(
+              color: active ? colors.text.accent : colors.text.primary,
+              width: 1.5,
+            ),
+          ),
+          child: Icon(
+            Icons.filter_list,
+            size: 19,
+            color: active ? colors.background.static : colors.text.primary,
+          ),
+        ),
+      ),
+    );
+  }
+
+  PopupMenuItem<_PracticeFilter> _filterItem(
+    BuildContext context, {
+    required _PracticeFilter filter,
+    required String label,
+  }) {
+    final colors = context.palette;
+    final isSelected = filter.status == selected;
+    return PopupMenuItem(
+      key: ValueKey('review-filter-${filter.name}'),
+      value: filter,
+      height: 42,
+      child: Row(
+        children: [
+          SizedBox(
+            width: 22,
+            child: isSelected
+                ? Icon(Icons.check, size: 17, color: colors.text.accent)
+                : null,
+          ),
+          const SizedBox(width: 8),
+          Text(
+            label.toUpperCase(),
+            style: GoogleFonts.jetBrainsMono(
+              fontSize: 9,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.7,
+              color: isSelected ? colors.text.accent : colors.text.primary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+extension on _PracticeFilter {
+  ReviewPracticeStatus? get status => switch (this) {
+        _PracticeFilter.all => null,
+        _PracticeFilter.none => ReviewPracticeStatus.none,
+        _PracticeFilter.queued => ReviewPracticeStatus.queued,
+        _PracticeFilter.completed => ReviewPracticeStatus.completed,
+      };
 }
 
 class _InfoBanner extends StatelessWidget {
@@ -272,13 +418,11 @@ class _ReviewCard extends ConsumerStatefulWidget {
     required this.item,
     required this.controller,
     required this.onExpansionChanged,
-    required this.onPracticeCompleted,
   });
 
   final ReviewHistoryItemEntity item;
   final ExpansibleController controller;
   final ValueChanged<bool> onExpansionChanged;
-  final VoidCallback onPracticeCompleted;
 
   @override
   ConsumerState<_ReviewCard> createState() => _ReviewCardState();
@@ -317,11 +461,14 @@ class _ReviewCardState extends ConsumerState<_ReviewCard> {
       );
     }
 
-    final cardBackground = switch ((item.practiceRequested, _isExpanded)) {
-      (false, false) => colors.card.background,
-      (false, true) => colors.background.static,
-      (true, false) => colors.background.static,
-      (true, true) => colors.background.static,
+    final completedBackground = Color.alphaBlend(
+      colors.answer.successMint.withValues(alpha: 0.14),
+      colors.card.background,
+    );
+    final cardBackground = switch ((item.practiceStatus, _isExpanded)) {
+      (ReviewPracticeStatus.completed, _) => completedBackground,
+      (ReviewPracticeStatus.none, false) => colors.card.background,
+      _ => colors.background.static,
     };
 
     return AnimatedContainer(
@@ -384,20 +531,33 @@ class _ReviewCardState extends ConsumerState<_ReviewCard> {
               _TextBlock(label: t.used_hint, value: item.hint!),
             const SizedBox(height: 14),
             if (item.reportSubmitted)
-              const QuestionReportSubmittedBanner()
+              QuestionReportSubmittedBanner(status: item.reportStatus)
             else
               _OutlineAction(
                 label: context.t.question.report.action,
                 onTap: _openReport,
               ),
-            if (!item.practiceRequested) ...[
-              const SizedBox(height: 8),
-              _OutlineAction(
-                label: t.practice_cta,
-                loading: _practiceRequestInFlight,
-                onTap: _openPractice,
-              ),
-            ],
+            const SizedBox(height: 8),
+            switch (item.practiceStatus) {
+              ReviewPracticeStatus.queued => AppStatusBanner(
+                  key: const ValueKey('practice-queued'),
+                  title: t.practice_queued_title,
+                  message: t.practice_queued_message,
+                  color: colors.progress,
+                ),
+              ReviewPracticeStatus.completed => AppStatusBanner(
+                  key: const ValueKey('practice-completed'),
+                  title: t.practice_completed_title,
+                  message: t.practice_completed_message,
+                  color: colors.answer.success,
+                ),
+              ReviewPracticeStatus.none => _OutlineAction(
+                  key: const ValueKey('practice-action'),
+                  label: t.practice_cta,
+                  loading: _practiceRequestInFlight,
+                  onTap: _openPractice,
+                ),
+            },
           ],
         ),
       ),
@@ -428,46 +588,11 @@ class _ReviewCardState extends ConsumerState<_ReviewCard> {
     if (_practiceRequestInFlight) return;
     setState(() => _practiceRequestInFlight = true);
     try {
-      if (!widget.item.practiceRequested) {
-        final marked = await ref
-            .read(reviewProvider.notifier)
-            .requestPractice(widget.item.attemptId);
-        if (!mounted) return;
-        if (!marked) {
-          widget.onPracticeCompleted();
-          _showPracticeError();
-          return;
-        }
-      }
-
-      final timezoneId = ref.read(authenticationProvider).mapOrNull(
-            authenticated: (state) => state.user?.timezoneId,
-          );
-      final result = await ref
-          .read(dailyEditionProvider.notifier)
-          .bootstrapReviewReplacement(
-            sourceAttemptId: widget.item.attemptId,
-            timezoneId: timezoneId,
-          );
+      final marked = await ref
+          .read(reviewProvider.notifier)
+          .requestPractice(widget.item.attemptId);
       if (!mounted) return;
-      if (result != ReviewReplacementBootstrapResult.busy) {
-        widget.onPracticeCompleted();
-      }
-
-      switch (result) {
-        case ReviewReplacementBootstrapResult.opened:
-          context.goNamed('quiz');
-        case ReviewReplacementBootstrapResult.queued:
-          AppSnackBar.showNotice(
-            context,
-            title: context.t.review.queued_title,
-            message: context.t.review.queued_message,
-          );
-        case ReviewReplacementBootstrapResult.failed:
-          _showPracticeError();
-        case ReviewReplacementBootstrapResult.busy:
-          break;
-      }
+      if (!marked) _showPracticeError();
     } finally {
       if (mounted) setState(() => _practiceRequestInFlight = false);
     }
@@ -566,6 +691,7 @@ class _TextBlock extends StatelessWidget {
 
 class _OutlineAction extends StatelessWidget {
   const _OutlineAction({
+    super.key,
     required this.label,
     required this.onTap,
     this.loading = false,

@@ -6,12 +6,13 @@ import 'package:quiz/features/question/domain/entity/answer_entity.dart';
 import 'package:quiz/features/question/domain/entity/question_entity.dart';
 import 'package:quiz/features/question/domain/entity/topic_entity.dart';
 import 'package:quiz/features/question/presentation/question_answer_state.dart';
+import 'package:quiz/features/question_report/domain/entity/question_report_status.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 void main() {
   setUpAll(() async => LocaleSettings.setLocale(AppLocale.ru));
 
-  testWidgets('advances after a report and keeps status if advancing fails',
+  testWidgets('keeps reveal open after a report until next is tapped',
       (tester) async {
     var reportCalls = 0;
     var advanceCalls = 0;
@@ -47,10 +48,15 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(reportCalls, 1);
-    expect(advanceCalls, 1);
+    expect(advanceCalls, 0);
     expect(find.text(t.question.report.entry_title), findsNothing);
     expect(find.text(t.question.report.status_title), findsOneWidget);
     expect(find.text(t.question.report.status_message), findsOneWidget);
+
+    await tester.tap(find.text(t.question.answer_reveal.next_question));
+    await tester.pumpAndSettle();
+
+    expect(advanceCalls, 1);
   });
 
   testWidgets('shows persisted report status without another action',
@@ -64,7 +70,7 @@ void main() {
               child: AnswerRevealBottomSheet(
                 question: _question,
                 sentState: _sentState,
-                reportSubmitted: true,
+                reportStatus: QuestionReportStatus.processed,
                 onReport: () async => true,
                 onNext: () async => null,
               ),
@@ -75,7 +81,8 @@ void main() {
     );
 
     expect(find.text(t.question.report.entry_title), findsNothing);
-    expect(find.text(t.question.report.status_title), findsOneWidget);
+    expect(find.text(t.question.report.processed_title), findsOneWidget);
+    expect(find.text(t.question.report.processed_message), findsOneWidget);
   });
 }
 

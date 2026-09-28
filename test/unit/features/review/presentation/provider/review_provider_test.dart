@@ -7,6 +7,7 @@ import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/features/review/domain/entity/review_history_entity.dart';
 import 'package:quiz/features/review/domain/repository/review_repository.dart';
 import 'package:quiz/features/review/presentation/provider/review_provider.dart';
+import 'package:quiz/features/question_report/domain/entity/question_report_status.dart';
 
 class _MockReviewRepository extends Mock implements ReviewRepository {}
 
@@ -132,6 +133,7 @@ void main() {
     expect(requested, isTrue);
     final state = notifier.state as ReviewDataState;
     expect(state.items.single.practiceRequested, isTrue);
+    expect(state.items.single.practiceStatus, ReviewPracticeStatus.queued);
   });
 
   test('marks a submitted report in the current history', () async {
@@ -174,6 +176,10 @@ void main() {
     expect(
       (notifier.state as ReviewDataState).items.single.reportSubmitted,
       isTrue,
+    );
+    expect(
+      (notifier.state as ReviewDataState).items.single.reportStatus,
+      QuestionReportStatus.pending,
     );
   });
 }

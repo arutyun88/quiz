@@ -555,6 +555,13 @@ class _Translations$review$ru implements Translations$review$en {
 	@override String get title => 'История ошибок';
 	@override String get info_banner => 'Разберите точную попытку или потренируйтесь на новом непройденном вопросе';
 	@override String total({required Object n}) => 'Ошибок: ${n}';
+	@override String get filter_open => 'Фильтр ошибок';
+	@override String get filter_all => 'Все';
+	@override String get filter_none => 'Без тренировки';
+	@override String get filter_queued => 'В очереди';
+	@override String get filter_completed => 'Пройдена';
+	@override String get filter_empty_title => 'НИЧЕГО НЕ НАЙДЕНО';
+	@override String get filter_empty_message => 'Нет ошибок с таким состоянием тренировки';
 	@override String get your_answer => 'Ваш ответ';
 	@override String get correct_answer => 'Правильный ответ';
 	@override String get explanation => 'Объяснение';
@@ -566,6 +573,10 @@ class _Translations$review$ru implements Translations$review$en {
 	@override String get version_withdrawn => 'Снято с публикации';
 	@override String get version_unknown => 'Неизвестная версия';
 	@override String get practice_cta => 'Потренировать тему';
+	@override String get practice_queued_title => 'ТРЕНИРОВКА В ОЧЕРЕДИ';
+	@override String get practice_queued_message => 'Новый вопрос по этой теме добавлен в очередь';
+	@override String get practice_completed_title => 'ТЕМА ПОТРЕНИРОВАНА';
+	@override String get practice_completed_message => 'Вы уже ответили на тренировочный вопрос по этой теме';
 	@override String get queued_title => 'Повторение в очереди';
 	@override String get queued_message => 'Тренировка откроется после выпуска дня, когда будет доступен дополнительный вопрос';
 	@override String get practice_error_title => 'Не удалось добавить тренировку';
@@ -820,6 +831,8 @@ class _Translations$question$report$ru implements Translations$question$report$e
 	@override String get entry_message => 'Нашли неточность? Сообщите редакции';
 	@override String get status_title => 'ВОПРОС НА ПРОВЕРКЕ';
 	@override String get status_message => 'Вы уже сообщили о неточности';
+	@override String get processed_title => 'ОТЗЫВ ОБРАБОТАН';
+	@override String get processed_message => 'Редакция рассмотрела ваше сообщение';
 	@override String get title => 'Сообщить о проблеме';
 	@override String get subtitle => 'Расскажите, что не так с вопросом. Ваш ответ и рейтинг не изменятся.';
 	@override String get factual_error => 'Неверный правильный ответ';
@@ -1588,6 +1601,8 @@ extension on TranslationsRu {
 			'question.report.entry_message' => 'Нашли неточность? Сообщите редакции',
 			'question.report.status_title' => 'ВОПРОС НА ПРОВЕРКЕ',
 			'question.report.status_message' => 'Вы уже сообщили о неточности',
+			'question.report.processed_title' => 'ОТЗЫВ ОБРАБОТАН',
+			'question.report.processed_message' => 'Редакция рассмотрела ваше сообщение',
 			'question.report.title' => 'Сообщить о проблеме',
 			'question.report.subtitle' => 'Расскажите, что не так с вопросом. Ваш ответ и рейтинг не изменятся.',
 			'question.report.factual_error' => 'Неверный правильный ответ',
@@ -1767,6 +1782,13 @@ extension on TranslationsRu {
 			'review.title' => 'История ошибок',
 			'review.info_banner' => 'Разберите точную попытку или потренируйтесь на новом непройденном вопросе',
 			'review.total' => ({required Object n}) => 'Ошибок: ${n}',
+			'review.filter_open' => 'Фильтр ошибок',
+			'review.filter_all' => 'Все',
+			'review.filter_none' => 'Без тренировки',
+			'review.filter_queued' => 'В очереди',
+			'review.filter_completed' => 'Пройдена',
+			'review.filter_empty_title' => 'НИЧЕГО НЕ НАЙДЕНО',
+			'review.filter_empty_message' => 'Нет ошибок с таким состоянием тренировки',
 			'review.your_answer' => 'Ваш ответ',
 			'review.correct_answer' => 'Правильный ответ',
 			'review.explanation' => 'Объяснение',
@@ -1778,6 +1800,10 @@ extension on TranslationsRu {
 			'review.version_withdrawn' => 'Снято с публикации',
 			'review.version_unknown' => 'Неизвестная версия',
 			'review.practice_cta' => 'Потренировать тему',
+			'review.practice_queued_title' => 'ТРЕНИРОВКА В ОЧЕРЕДИ',
+			'review.practice_queued_message' => 'Новый вопрос по этой теме добавлен в очередь',
+			'review.practice_completed_title' => 'ТЕМА ПОТРЕНИРОВАНА',
+			'review.practice_completed_message' => 'Вы уже ответили на тренировочный вопрос по этой теме',
 			'review.queued_title' => 'Повторение в очереди',
 			'review.queued_message' => 'Тренировка откроется после выпуска дня, когда будет доступен дополнительный вопрос',
 			'review.practice_error_title' => 'Не удалось добавить тренировку',

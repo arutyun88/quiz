@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:quiz/features/daily_edition/data/converter/daily_edition_converter.dart';
 import 'package:quiz/features/daily_edition/data/dto/daily_edition_dto.dart';
 import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.dart';
+import 'package:quiz/features/question_report/domain/entity/question_report_status.dart';
 
 void main() {
   test('parses the server open contract without applying device-local dates',
@@ -100,6 +101,7 @@ void main() {
       'provisional': true,
       'run_completed': false,
       'report_submitted': true,
+      'report_status': 'PROCESSED',
       'partner': null,
     }).toEntity();
 
@@ -109,6 +111,7 @@ void main() {
     expect(entity.ratingDelta, -8);
     expect(entity.hintUsed, isTrue);
     expect(entity.reportSubmitted, isTrue);
+    expect(entity.reportStatus, QuestionReportStatus.processed);
   });
 
   test('keeps age-redacted reveal nullable during attempt restore', () {

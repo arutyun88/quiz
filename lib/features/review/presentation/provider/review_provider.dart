@@ -3,6 +3,7 @@ import 'package:quiz/app/core/model/failure.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
+import 'package:quiz/features/question_report/domain/entity/question_report_status.dart';
 import 'package:quiz/features/review/domain/entity/review_history_entity.dart';
 import 'package:quiz/features/review/domain/repository/review_repository.dart';
 
@@ -64,10 +65,14 @@ class ReviewNotifier extends StateNotifier<ReviewState> {
   static const _pageSize = 20;
   final ReviewRepository _reviewRepository;
   Future<bool>? _pendingFetch;
+  ReviewPracticeStatus? _practiceStatus;
+  int _requestRevision = 0;
 
-  Future<bool> fetch() => _pendingFetch ??= _fetch().whenComplete(
-        () => _pendingFetch = null,
-      );
+  Future<bool> fetch() {
+    final pending = _pendingFetch;
+    if (pending != null) return pending;
+    return _startFetch();
+  }
 
   Future<bool> refresh() {
     if (state case ReviewDataState(isLoadingMore: true)) {
@@ -76,9 +81,42 @@ class ReviewNotifier extends StateNotifier<ReviewState> {
     return fetch();
   }
 
-  Future<bool> _fetch() async {
+  Future<bool> setPracticeStatus(ReviewPracticeStatus? practiceStatus) async {
+    if (_practiceStatus == practiceStatus) return true;
+
+    final previous = _practiceStatus;
+    _practiceStatus = practiceStatus;
+    _requestRevision += 1;
+    _pendingFetch = null;
+    final loaded = await _startFetch();
+    if (!loaded && _practiceStatus == practiceStatus) {
+      _practiceStatus = previous;
+    }
+    return loaded;
+  }
+
+  Future<bool> _startFetch() {
+    final revision = ++_requestRevision;
+    final status = _practiceStatus;
+    late final Future<bool> request;
+    request = _fetch(revision, status).whenComplete(() {
+      if (identical(_pendingFetch, request)) _pendingFetch = null;
+    });
+    _pendingFetch = request;
+    return request;
+  }
+
+  Future<bool> _fetch(
+    int revision,
+    ReviewPracticeStatus? practiceStatus,
+  ) async {
     final previousState = state;
-    final result = await _reviewRepository.fetch(limit: _pageSize, offset: 0);
+    final result = await _fetchPage(
+      limit: _pageSize,
+      offset: 0,
+      practiceStatus: practiceStatus,
+    );
+    if (revision != _requestRevision) return true;
     switch (result) {
       case ResultOk(data: final history):
         state = ReviewDataState(
@@ -107,10 +145,13 @@ class ReviewNotifier extends StateNotifier<ReviewState> {
       total: current.total,
       isLoadingMore: true,
     );
-    final result = await _reviewRepository.fetch(
+    final revision = _requestRevision;
+    final result = await _fetchPage(
       limit: _pageSize,
       offset: current.items.length,
+      practiceStatus: _practiceStatus,
     );
+    if (revision != _requestRevision) return;
     switch (result) {
       case ResultOk(data: final history):
         state = ReviewDataState(
@@ -136,7 +177,10 @@ class ReviewNotifier extends StateNotifier<ReviewState> {
             items: current.items
                 .map(
                   (item) => item.attemptId == attemptId
-                      ? item.copyWith(practiceRequested: true)
+                      ? item.copyWith(
+                          practiceRequested: true,
+                          practiceStatus: ReviewPracticeStatus.queued,
+                        )
                       : item,
                 )
                 .toList(),
@@ -158,7 +202,10 @@ class ReviewNotifier extends StateNotifier<ReviewState> {
       items: current.items
           .map(
             (item) => item.attemptId == attemptId
-                ? item.copyWith(reportSubmitted: true)
+                ? item.copyWith(
+                    reportSubmitted: true,
+                    reportStatus: QuestionReportStatus.pending,
+                  )
                 : item,
           )
           .toList(),
@@ -167,4 +214,17 @@ class ReviewNotifier extends StateNotifier<ReviewState> {
       failure: current.failure,
     );
   }
+
+  Future<Result<ReviewHistoryEntity, Failure>> _fetchPage({
+    required int limit,
+    required int offset,
+    required ReviewPracticeStatus? practiceStatus,
+  }) =>
+      practiceStatus == null
+          ? _reviewRepository.fetch(limit: limit, offset: offset)
+          : _reviewRepository.fetch(
+              limit: limit,
+              offset: offset,
+              practiceStatuses: {practiceStatus},
+            );
 }

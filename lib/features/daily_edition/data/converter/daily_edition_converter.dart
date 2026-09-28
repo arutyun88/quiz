@@ -1,5 +1,6 @@
 import 'package:quiz/features/daily_edition/data/dto/daily_edition_dto.dart';
 import 'package:quiz/features/daily_edition/domain/entity/daily_edition_entity.dart';
+import 'package:quiz/features/question_report/domain/entity/question_report_status.dart';
 
 extension DailyOpenDtoConverter on DailyOpenDto {
   DailyRunEntity toEntity() => DailyRunEntity(
@@ -88,6 +89,12 @@ extension DailyAttemptDtoConverter on DailyAttemptDto {
         provisional: provisional,
         runCompleted: runCompleted,
         reportSubmitted: reportSubmitted,
+        reportStatus: switch (reportStatus) {
+          'PROCESSED' => QuestionReportStatus.processed,
+          'PENDING' => QuestionReportStatus.pending,
+          _ when reportSubmitted => QuestionReportStatus.pending,
+          _ => QuestionReportStatus.none,
+        },
         partner: partner?.toEntity(),
       );
 }

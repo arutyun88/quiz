@@ -21,7 +21,9 @@ void main() {
       'hint_used': false,
       'version_status': 'UPDATED',
       'practice_requested': true,
+      'practice_status': 'COMPLETED',
       'report_submitted': true,
+      'report_status': 'PROCESSED',
       'content_redacted': false,
     });
 
@@ -30,7 +32,9 @@ void main() {
     expect(dto.correctAnswer, 'Correct');
     expect(dto.versionStatus, 'UPDATED');
     expect(dto.practiceRequested, isTrue);
+    expect(dto.practiceStatus, 'COMPLETED');
     expect(dto.reportSubmitted, isTrue);
+    expect(dto.reportStatus, 'PROCESSED');
     expect(dto.contentRedacted, isFalse);
   });
 }

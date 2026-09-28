@@ -208,6 +208,7 @@ _$DailyAttemptDtoImpl _$$DailyAttemptDtoImplFromJson(
       provisional: json['provisional'] as bool,
       runCompleted: json['run_completed'] as bool,
       reportSubmitted: json['report_submitted'] as bool? ?? false,
+      reportStatus: json['report_status'] as String?,
       partner: json['partner'] == null
           ? null
           : PartnerRecommendationDto.fromJson(
@@ -234,6 +235,7 @@ Map<String, dynamic> _$$DailyAttemptDtoImplToJson(
       'provisional': instance.provisional,
       'run_completed': instance.runCompleted,
       'report_submitted': instance.reportSubmitted,
+      'report_status': instance.reportStatus,
       'partner': instance.partner,
     };
 

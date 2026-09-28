@@ -57,6 +57,43 @@ void main() {
     expect(query, {'limit': 20, 'offset': 20});
   });
 
+  test('serializes practice statuses as a server-side filter', () async {
+    when(
+      () => client.get<ReviewHistoryEntity, DataPageDto<ReviewHistoryItemDto>>(
+        any(),
+        queryParameters: any(named: 'queryParameters'),
+        headers: any(named: 'headers'),
+        mapper: any(named: 'mapper'),
+        converter: any(named: 'converter'),
+        enableLocale: any(named: 'enableLocale'),
+      ),
+    ).thenAnswer((_) async => const Result.ok(history));
+
+    await repository.fetch(
+      limit: 20,
+      offset: 0,
+      practiceStatuses: const {
+        ReviewPracticeStatus.none,
+        ReviewPracticeStatus.queued,
+      },
+    );
+
+    final query = verify(
+      () => client.get<ReviewHistoryEntity, DataPageDto<ReviewHistoryItemDto>>(
+        '/questions/review/history',
+        queryParameters: captureAny(named: 'queryParameters'),
+        headers: any(named: 'headers'),
+        mapper: any(named: 'mapper'),
+        converter: any(named: 'converter'),
+        enableLocale: true,
+      ),
+    ).captured.single as Map<String, dynamic>;
+    expect(
+      query,
+      {'limit': 20, 'offset': 0, 'practice_status': 'NONE,QUEUED'},
+    );
+  });
+
   test('persistently requests practice for an attempt', () async {
     when(
       () => client.post<void, void>(

@@ -1967,6 +1967,7 @@ mixin _$DailyAttemptEntity {
   bool get provisional => throw _privateConstructorUsedError;
   bool get runCompleted => throw _privateConstructorUsedError;
   bool get reportSubmitted => throw _privateConstructorUsedError;
+  QuestionReportStatus get reportStatus => throw _privateConstructorUsedError;
   PartnerRecommendationEntity? get partner =>
       throw _privateConstructorUsedError;
 
@@ -2001,6 +2002,7 @@ abstract class $DailyAttemptEntityCopyWith<$Res> {
       bool provisional,
       bool runCompleted,
       bool reportSubmitted,
+      QuestionReportStatus reportStatus,
       PartnerRecommendationEntity? partner});
 
   $PartnerRecommendationEntityCopyWith<$Res>? get partner;
@@ -2038,6 +2040,7 @@ class _$DailyAttemptEntityCopyWithImpl<$Res, $Val extends DailyAttemptEntity>
     Object? provisional = null,
     Object? runCompleted = null,
     Object? reportSubmitted = null,
+    Object? reportStatus = null,
     Object? partner = freezed,
   }) {
     return _then(_value.copyWith(
@@ -2109,6 +2112,10 @@ class _$DailyAttemptEntityCopyWithImpl<$Res, $Val extends DailyAttemptEntity>
           ? _value.reportSubmitted
           : reportSubmitted // ignore: cast_nullable_to_non_nullable
               as bool,
+      reportStatus: null == reportStatus
+          ? _value.reportStatus
+          : reportStatus // ignore: cast_nullable_to_non_nullable
+              as QuestionReportStatus,
       partner: freezed == partner
           ? _value.partner
           : partner // ignore: cast_nullable_to_non_nullable
@@ -2157,6 +2164,7 @@ abstract class _$$DailyAttemptEntityImplCopyWith<$Res>
       bool provisional,
       bool runCompleted,
       bool reportSubmitted,
+      QuestionReportStatus reportStatus,
       PartnerRecommendationEntity? partner});
 
   @override
@@ -2193,6 +2201,7 @@ class __$$DailyAttemptEntityImplCopyWithImpl<$Res>
     Object? provisional = null,
     Object? runCompleted = null,
     Object? reportSubmitted = null,
+    Object? reportStatus = null,
     Object? partner = freezed,
   }) {
     return _then(_$DailyAttemptEntityImpl(
@@ -2264,6 +2273,10 @@ class __$$DailyAttemptEntityImplCopyWithImpl<$Res>
           ? _value.reportSubmitted
           : reportSubmitted // ignore: cast_nullable_to_non_nullable
               as bool,
+      reportStatus: null == reportStatus
+          ? _value.reportStatus
+          : reportStatus // ignore: cast_nullable_to_non_nullable
+              as QuestionReportStatus,
       partner: freezed == partner
           ? _value.partner
           : partner // ignore: cast_nullable_to_non_nullable
@@ -2293,6 +2306,7 @@ class _$DailyAttemptEntityImpl implements _DailyAttemptEntity {
       required this.provisional,
       required this.runCompleted,
       this.reportSubmitted = false,
+      this.reportStatus = QuestionReportStatus.none,
       required this.partner});
 
   @override
@@ -2331,11 +2345,14 @@ class _$DailyAttemptEntityImpl implements _DailyAttemptEntity {
   @JsonKey()
   final bool reportSubmitted;
   @override
+  @JsonKey()
+  final QuestionReportStatus reportStatus;
+  @override
   final PartnerRecommendationEntity? partner;
 
   @override
   String toString() {
-    return 'DailyAttemptEntity(clientEventId: $clientEventId, attemptId: $attemptId, assignmentId: $assignmentId, questionVersionId: $questionVersionId, action: $action, isCorrect: $isCorrect, answerId: $answerId, correctAnswerId: $correctAnswerId, description: $description, hintUsed: $hintUsed, xpAwarded: $xpAwarded, ratingBefore: $ratingBefore, ratingAfter: $ratingAfter, ratingDelta: $ratingDelta, provisional: $provisional, runCompleted: $runCompleted, reportSubmitted: $reportSubmitted, partner: $partner)';
+    return 'DailyAttemptEntity(clientEventId: $clientEventId, attemptId: $attemptId, assignmentId: $assignmentId, questionVersionId: $questionVersionId, action: $action, isCorrect: $isCorrect, answerId: $answerId, correctAnswerId: $correctAnswerId, description: $description, hintUsed: $hintUsed, xpAwarded: $xpAwarded, ratingBefore: $ratingBefore, ratingAfter: $ratingAfter, ratingDelta: $ratingDelta, provisional: $provisional, runCompleted: $runCompleted, reportSubmitted: $reportSubmitted, reportStatus: $reportStatus, partner: $partner)';
   }
 
   @override
@@ -2376,30 +2393,34 @@ class _$DailyAttemptEntityImpl implements _DailyAttemptEntity {
                 other.runCompleted == runCompleted) &&
             (identical(other.reportSubmitted, reportSubmitted) ||
                 other.reportSubmitted == reportSubmitted) &&
+            (identical(other.reportStatus, reportStatus) ||
+                other.reportStatus == reportStatus) &&
             (identical(other.partner, partner) || other.partner == partner));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      clientEventId,
-      attemptId,
-      assignmentId,
-      questionVersionId,
-      action,
-      isCorrect,
-      answerId,
-      correctAnswerId,
-      description,
-      hintUsed,
-      xpAwarded,
-      ratingBefore,
-      ratingAfter,
-      ratingDelta,
-      provisional,
-      runCompleted,
-      reportSubmitted,
-      partner);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        clientEventId,
+        attemptId,
+        assignmentId,
+        questionVersionId,
+        action,
+        isCorrect,
+        answerId,
+        correctAnswerId,
+        description,
+        hintUsed,
+        xpAwarded,
+        ratingBefore,
+        ratingAfter,
+        ratingDelta,
+        provisional,
+        runCompleted,
+        reportSubmitted,
+        reportStatus,
+        partner
+      ]);
 
   /// Create a copy of DailyAttemptEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -2430,6 +2451,7 @@ abstract class _DailyAttemptEntity implements DailyAttemptEntity {
           required final bool provisional,
           required final bool runCompleted,
           final bool reportSubmitted,
+          final QuestionReportStatus reportStatus,
           required final PartnerRecommendationEntity? partner}) =
       _$DailyAttemptEntityImpl;
 
@@ -2467,6 +2489,8 @@ abstract class _DailyAttemptEntity implements DailyAttemptEntity {
   bool get runCompleted;
   @override
   bool get reportSubmitted;
+  @override
+  QuestionReportStatus get reportStatus;
   @override
   PartnerRecommendationEntity? get partner;
 

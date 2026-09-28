@@ -24,6 +24,7 @@ import 'package:quiz/features/home/presentation/widgets/start_day_header.dart';
 import 'package:quiz/features/question/domain/entity/question_entity.dart';
 import 'package:quiz/features/question/presentation/question_answer_state.dart';
 import 'package:quiz/features/question_report/presentation/question_report_page.dart';
+import 'package:quiz/features/question_report/domain/entity/question_report_status.dart';
 import 'package:quiz/features/user/presentation/provider/quiz_plus_provider.dart';
 import 'package:quiz/gen/strings.g.dart';
 
@@ -336,7 +337,8 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
         partnerBlock: _partnerBlock(ref, latestState),
         isFinalAction: latestState.attempt?.runCompleted == true &&
             !ref.read(dailyEditionProvider.notifier).hasPendingReview,
-        reportSubmitted: latestState.attempt?.reportSubmitted ?? false,
+        reportStatus:
+            latestState.attempt?.reportStatus ?? QuestionReportStatus.none,
         onNext: () => _advanceFromReveal(ref),
       );
       if (ref.read(dailyEditionProvider)
@@ -356,7 +358,7 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
     required int? ratingDelta,
     required Widget? partnerBlock,
     required bool isFinalAction,
-    required bool reportSubmitted,
+    required QuestionReportStatus reportStatus,
     required Future<AnswerRevealFailure?> Function() onNext,
   }) async {
     final palette = context.palette;
@@ -381,7 +383,7 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
           ratingDelta: ratingDelta,
           partnerBlock: partnerBlock,
           isFinalAction: isFinalAction,
-          reportSubmitted: reportSubmitted,
+          reportStatus: reportStatus,
           onReport: () => openQuestionReportPage(
             sheetContext,
             attemptId: attemptId,

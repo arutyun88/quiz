@@ -1,8 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:quiz/features/question_report/domain/entity/question_report_status.dart';
 
 part 'review_history_entity.freezed.dart';
 
 enum ReviewVersionStatus { current, updated, withdrawn, unknown }
+
+enum ReviewPracticeStatus { none, queued, completed }
 
 @freezed
 class ReviewHistoryEntity with _$ReviewHistoryEntity {
@@ -34,7 +37,9 @@ class ReviewHistoryItemEntity with _$ReviewHistoryItemEntity {
     required bool hintUsed,
     required ReviewVersionStatus versionStatus,
     required bool practiceRequested,
+    @Default(ReviewPracticeStatus.none) ReviewPracticeStatus practiceStatus,
     @Default(false) bool reportSubmitted,
+    @Default(QuestionReportStatus.none) QuestionReportStatus reportStatus,
     required bool contentRedacted,
   }) = _ReviewHistoryItemEntity;
 }

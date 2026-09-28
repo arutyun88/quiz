@@ -9,6 +9,7 @@ import 'package:quiz/app/core/widgets/app_snack_bar.dart';
 import 'package:quiz/features/question/domain/entity/question_entity.dart';
 import 'package:quiz/features/question/presentation/question_answer_state.dart';
 import 'package:quiz/features/question_report/presentation/widgets/question_report_submitted_banner.dart';
+import 'package:quiz/features/question_report/domain/entity/question_report_status.dart';
 import 'package:quiz/gen/strings.g.dart';
 
 enum AnswerRevealFailureKind { error, offline }
@@ -35,7 +36,7 @@ class AnswerRevealBottomSheet extends StatelessWidget {
     this.ratingDelta,
     this.partnerBlock,
     this.onReport,
-    this.reportSubmitted = false,
+    this.reportStatus = QuestionReportStatus.none,
   });
 
   final QuestionEntity question;
@@ -45,7 +46,7 @@ class AnswerRevealBottomSheet extends StatelessWidget {
   final int? ratingDelta;
   final Widget? partnerBlock;
   final Future<bool> Function()? onReport;
-  final bool reportSubmitted;
+  final QuestionReportStatus reportStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +71,7 @@ class AnswerRevealBottomSheet extends StatelessWidget {
             description: sentState.description,
             partnerBlock: partnerBlock,
             onReport: onReport,
-            reportSubmitted: reportSubmitted,
+            reportStatus: reportStatus,
             onNext: onNext,
             isFinalAction: isFinalAction,
           ),
@@ -161,7 +162,7 @@ class _AnswerExplanationPanel extends StatefulWidget {
     required this.description,
     required this.partnerBlock,
     required this.onReport,
-    required this.reportSubmitted,
+    required this.reportStatus,
     required this.onNext,
     required this.isFinalAction,
   });
@@ -170,7 +171,7 @@ class _AnswerExplanationPanel extends StatefulWidget {
   final String? description;
   final Widget? partnerBlock;
   final Future<bool> Function()? onReport;
-  final bool reportSubmitted;
+  final QuestionReportStatus reportStatus;
   final FutureOr<AnswerRevealFailure?> Function() onNext;
   final bool isFinalAction;
 
@@ -182,7 +183,7 @@ class _AnswerExplanationPanel extends StatefulWidget {
 class _AnswerExplanationPanelState extends State<_AnswerExplanationPanel> {
   bool _retry = false;
   bool _reportInFlight = false;
-  bool _reportSubmitted = false;
+  QuestionReportStatus _reportStatus = QuestionReportStatus.none;
 
   @override
   Widget build(BuildContext context) {
@@ -216,8 +217,11 @@ class _AnswerExplanationPanelState extends State<_AnswerExplanationPanel> {
           if (widget.partnerBlock case final partnerBlock?) partnerBlock,
           if (widget.onReport case final onReport?) ...[
             const SizedBox(height: 14),
-            if (_reportSubmitted || widget.reportSubmitted)
-              const QuestionReportSubmittedBanner()
+            if ((_reportStatus != QuestionReportStatus.none
+                    ? _reportStatus
+                    : widget.reportStatus)
+                case final status when status != QuestionReportStatus.none)
+              QuestionReportSubmittedBanner(status: status)
             else
               _ReportAction(
                 title: context.t.question.report.entry_title,
@@ -247,15 +251,14 @@ class _AnswerExplanationPanelState extends State<_AnswerExplanationPanel> {
     try {
       final submitted = await onReport();
       if (!mounted || !submitted) return;
-      setState(() => _reportSubmitted = true);
-      await _advance(dismissNotices: false);
+      setState(() => _reportStatus = QuestionReportStatus.pending);
     } finally {
       _reportInFlight = false;
     }
   }
 
-  Future<void> _advance({bool dismissNotices = true}) async {
-    if (dismissNotices) AppSnackBar.dismissAboveRoutes();
+  Future<void> _advance() async {
+    AppSnackBar.dismissAboveRoutes();
     final failure = await widget.onNext();
     if (!mounted || failure == null) return;
     setState(() => _retry = true);

@@ -925,6 +925,13 @@ class Translations$review$en {
 
 	/// ru: 'Ошибок: $n'
 	String total({required Object n}) => '${n} mistakes';
+	String get filter_open => 'Filter mistakes';
+	String get filter_all => 'All';
+	String get filter_none => 'No practice';
+	String get filter_queued => 'Queued';
+	String get filter_completed => 'Practiced';
+	String get filter_empty_title => 'NOTHING FOUND';
+	String get filter_empty_message => 'There are no mistakes with this practice status';
 
 	/// ru: 'Ваш ответ'
 	String get your_answer => 'Your answer';
@@ -958,6 +965,10 @@ class Translations$review$en {
 
 	/// ru: 'Потренировать тему'
 	String get practice_cta => 'Practice this topic';
+	String get practice_queued_title => 'PRACTICE QUEUED';
+	String get practice_queued_message => 'A new question on this topic has been added to the queue';
+	String get practice_completed_title => 'TOPIC PRACTICED';
+	String get practice_completed_message => 'You have already answered a practice question on this topic';
 
 	/// ru: 'Повторение в очереди'
 	String get queued_title => 'Practice queued';
@@ -1412,6 +1423,8 @@ class Translations$question$report$en {
 
 	/// ru: 'Вы уже сообщили о неточности'
 	String get status_message => 'You have already reported an inaccuracy';
+	String get processed_title => 'REPORT PROCESSED';
+	String get processed_message => 'The editorial team has reviewed your report';
 
 	/// ru: 'Сообщить о проблеме'
 	String get title => 'Report a problem';
@@ -2498,6 +2511,8 @@ extension on Translations {
 			'question.report.entry_message' => 'Found an inaccuracy? Tell the editors',
 			'question.report.status_title' => 'QUESTION UNDER REVIEW',
 			'question.report.status_message' => 'You have already reported an inaccuracy',
+			'question.report.processed_title' => 'REPORT PROCESSED',
+			'question.report.processed_message' => 'The editorial team has reviewed your report',
 			'question.report.title' => 'Report a problem',
 			'question.report.subtitle' => 'Tell us what is wrong with this question. Your answer and rating will not change.',
 			'question.report.factual_error' => 'The correct answer is wrong',
@@ -2677,6 +2692,13 @@ extension on Translations {
 			'review.title' => 'Mistake history',
 			'review.info_banner' => 'Review the exact attempt or practice with a new unseen question',
 			'review.total' => ({required Object n}) => '${n} mistakes',
+			'review.filter_open' => 'Filter mistakes',
+			'review.filter_all' => 'All',
+			'review.filter_none' => 'No practice',
+			'review.filter_queued' => 'Queued',
+			'review.filter_completed' => 'Practiced',
+			'review.filter_empty_title' => 'NOTHING FOUND',
+			'review.filter_empty_message' => 'There are no mistakes with this practice status',
 			'review.your_answer' => 'Your answer',
 			'review.correct_answer' => 'Correct answer',
 			'review.explanation' => 'Explanation',
@@ -2688,6 +2710,10 @@ extension on Translations {
 			'review.version_withdrawn' => 'Withdrawn',
 			'review.version_unknown' => 'Unknown version',
 			'review.practice_cta' => 'Practice this topic',
+			'review.practice_queued_title' => 'PRACTICE QUEUED',
+			'review.practice_queued_message' => 'A new question on this topic has been added to the queue',
+			'review.practice_completed_title' => 'TOPIC PRACTICED',
+			'review.practice_completed_message' => 'You have already answered a practice question on this topic',
 			'review.queued_title' => 'Practice queued',
 			'review.queued_message' => 'Practice will open after the daily issue when an extra question is available',
 			'review.practice_error_title' => 'Could not add practice',
