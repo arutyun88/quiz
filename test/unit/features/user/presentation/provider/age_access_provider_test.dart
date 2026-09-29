@@ -32,6 +32,19 @@ void main() {
     currentPolicyVersion: 'adult-content-v2',
   );
 
+  const minor = AgeAccessEntity(
+    adultEligibleAt: '2026-08-25',
+    ageSignalSource: AgeSignalSource.selfDeclared,
+    storeAgeSignal: StoreAgeSignal.unknown,
+    adultEligible: false,
+    adultContentEnabled: false,
+    confirmedAt: null,
+    policyVersion: null,
+    revokedAt: null,
+    adultAccessOverride: AdultAccessOverride.none,
+    currentPolicyVersion: 'adult-content-v2',
+  );
+
   const enabled = AgeAccessEntity(
     adultEligibleAt: '2026-08-25',
     ageSignalSource: AgeSignalSource.selfDeclared,
@@ -55,6 +68,19 @@ void main() {
     policyVersion: null,
     revokedAt: null,
     adultAccessOverride: AdultAccessOverride.allow,
+    currentPolicyVersion: 'adult-content-v2',
+  );
+
+  final revoked = AgeAccessEntity(
+    adultEligibleAt: '2026-08-25',
+    ageSignalSource: AgeSignalSource.selfDeclared,
+    storeAgeSignal: StoreAgeSignal.adult,
+    adultEligible: true,
+    adultContentEnabled: false,
+    confirmedAt: DateTime.utc(2026, 8, 25),
+    policyVersion: 'adult-content-v2',
+    revokedAt: DateTime.utc(2026, 8, 25, 1),
+    adultAccessOverride: AdultAccessOverride.none,
     currentPolicyVersion: 'adult-content-v2',
   );
 
@@ -163,6 +189,57 @@ void main() {
     expect(user.ageAccess, eligible);
     expect(notifier.state.status, eligible);
     expect(notifier.state.isFresh, isTrue);
+  });
+
+  test('follows the complete minor, consent, revoke and store block lifecycle',
+      () async {
+    final fetchResponses = <AgeAccessEntity>[
+      minor,
+      eligible,
+      eligible,
+      restricted,
+    ];
+    when(() => repository.fetch()).thenAnswer(
+      (_) async => Result.ok(fetchResponses.removeAt(0)),
+    );
+    when(
+      () => repository.confirm(policyVersion: any(named: 'policyVersion')),
+    ).thenAnswer((_) async => const Result.ok(enabled));
+    when(() => repository.revoke()).thenAnswer((_) async => Result.ok(revoked));
+
+    await notifier.refresh();
+    expect(notifier.state.status, minor);
+    expect(notifier.state.isFresh, isTrue);
+
+    await notifier.refresh();
+    expect(notifier.state.status, eligible);
+    expect(notifier.state.status?.adultContentEnabled, isFalse);
+
+    await notifier.confirm();
+    expect(notifier.state.status, enabled);
+    expect(user.ageAccess, enabled);
+
+    await notifier.revoke();
+    expect(notifier.state.status, revoked);
+    expect(user.ageAccess, revoked);
+
+    await notifier.refresh();
+    expect(notifier.state.status, restricted);
+    expect(notifier.state.status?.adultContentEnabled, isFalse);
+    expect(user.ageAccess, restricted);
+
+    verify(() => repository.confirm(policyVersion: 'adult-content-v2'))
+        .called(1);
+    verify(() => repository.revoke()).called(1);
+    expect(fetchResponses, isEmpty);
+    expect(updates.map((update) => update.ageAccess), [
+      minor,
+      eligible,
+      eligible,
+      enabled,
+      revoked,
+      restricted,
+    ]);
   });
 }
 
