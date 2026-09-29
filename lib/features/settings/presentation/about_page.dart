@@ -5,6 +5,7 @@ import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/ads/domain/rewarded_ads_gateway.dart';
+import 'package:quiz/features/legal/domain/legal_documents.dart';
 import 'package:quiz/features/settings/presentation/widgets/settings_rows.dart';
 import 'package:quiz/gen/strings.g.dart';
 
@@ -65,8 +66,14 @@ class _AboutPageState extends State<AboutPage> {
             const SizedBox(height: 22),
             SettingsRowGroup(
               children: [
-                SettingsLinkRow(label: t.about_page.terms),
-                SettingsLinkRow(label: t.about_page.privacy),
+                SettingsLinkRow(
+                  label: t.about_page.terms,
+                  onTap: () => LegalDocuments.open(LegalDocument.terms),
+                ),
+                SettingsLinkRow(
+                  label: t.about_page.privacy,
+                  onTap: () => LegalDocuments.open(LegalDocument.privacy),
+                ),
                 FutureBuilder<bool>(
                   future: _privacyOptionsRequired,
                   builder: (context, snapshot) => snapshot.data == true

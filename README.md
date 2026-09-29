@@ -64,6 +64,21 @@ capture are disabled. Quiz uses Firebase Remote Config, Sentry, and FCM for
 those responsibilities. Product analytics is best-effort and must never decide
 entitlement, rewarded quota, rating, streak, or navigation eligibility.
 
+## Legal documents
+
+Terms and privacy links open in the system browser. Production defaults are
+`https://eruday.app/terms` and `https://eruday.app/privacy`. Override them for a
+build only when necessary:
+
+```sh
+fvm flutter build apk \
+  --dart-define=TERMS_URL=https://eruday.app/terms \
+  --dart-define=PRIVACY_URL=https://eruday.app/privacy
+```
+
+Only HTTPS URLs without embedded credentials are accepted. Invalid values fall
+back to the Eruday defaults.
+
 ## Sentry
 
 Crash and error reporting is disabled when its DSN is absent. Enable it for a
