@@ -1,7 +1,11 @@
 abstract interface class ProductAnalytics {
   bool get enabled;
 
+  bool get consentGranted;
+
   Future<void> initialize();
+
+  Future<bool> setConsent(bool granted);
 
   Future<void> identify(String userId);
 

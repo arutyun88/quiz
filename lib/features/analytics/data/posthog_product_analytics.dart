@@ -1,10 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
+import 'package:quiz/features/analytics/data/analytics_consent_store.dart';
 import 'package:quiz/features/analytics/domain/product_analytics.dart';
 
 abstract interface class PostHogSdk {
   Future<void> setup(PostHogConfig config);
+
+  Future<void> enable();
+
+  Future<void> disable();
 
   Future<void> identify(String userId);
 
@@ -20,6 +25,12 @@ final class NativePostHogSdk implements PostHogSdk {
 
   @override
   Future<void> setup(PostHogConfig config) => Posthog().setup(config);
+
+  @override
+  Future<void> enable() => Posthog().enable();
+
+  @override
+  Future<void> disable() => Posthog().disable();
 
   @override
   Future<void> identify(String userId) => Posthog().identify(userId: userId);
@@ -41,18 +52,21 @@ final class NativePostHogSdk implements PostHogSdk {
 
 @LazySingleton(as: ProductAnalytics)
 class PostHogProductAnalytics implements ProductAnalytics {
-  PostHogProductAnalytics()
+  PostHogProductAnalytics(AnalyticsConsentStore consentStore)
       : this.forTesting(
           projectToken: const String.fromEnvironment('POSTHOG_PROJECT_TOKEN'),
           sdk: const NativePostHogSdk(),
+          consentStore: consentStore,
         );
 
   @visibleForTesting
   PostHogProductAnalytics.forTesting({
     required String projectToken,
     required PostHogSdk sdk,
+    required AnalyticsConsentStore consentStore,
   })  : _projectToken = projectToken.trim(),
-        _sdk = sdk;
+        _sdk = sdk,
+        _consentStore = consentStore;
 
   static const host = 'https://eu.i.posthog.com';
   static final _uuidPattern = RegExp(
@@ -94,18 +108,22 @@ class PostHogProductAnalytics implements ProductAnalytics {
 
   final String _projectToken;
   final PostHogSdk _sdk;
+  final AnalyticsConsentStore _consentStore;
   Future<void>? _initialization;
   String? _identifiedUserId;
   bool _identitySynchronized = false;
 
   @override
-  bool get enabled => _projectToken.isNotEmpty;
+  bool get enabled => _projectToken.isNotEmpty && consentGranted;
+
+  @override
+  bool get consentGranted => _consentStore.granted;
 
   @override
   Future<void> initialize() => _initialization ??= _initialize();
 
   Future<void> _initialize() async {
-    if (!enabled) return;
+    if (_projectToken.isEmpty) return;
     final config = PostHogConfig(_projectToken)
       ..host = host
       ..debug = false
@@ -116,12 +134,38 @@ class PostHogProductAnalytics implements ProductAnalytics {
       ..captureApplicationLifecycleEvents = false
       ..capturePushNotificationSubscriptions = false
       ..capturePushNotificationOpened = false
-      ..personProfiles = PostHogPersonProfiles.never;
+      ..personProfiles = PostHogPersonProfiles.never
+      ..optOut = !consentGranted;
     try {
       await _sdk.setup(config);
     } catch (_) {
       // Product analytics must never prevent the app from starting.
     }
+  }
+
+  @override
+  Future<bool> setConsent(bool granted) async {
+    try {
+      final saved = await _consentStore.setGranted(granted);
+      if (!saved || consentGranted != granted) return false;
+    } catch (_) {
+      return false;
+    }
+    if (_projectToken.isEmpty) return true;
+    await initialize();
+    try {
+      if (granted) {
+        await _sdk.enable();
+      } else {
+        await _sdk.disable();
+        await _sdk.reset();
+        _identifiedUserId = null;
+        _identitySynchronized = true;
+      }
+    } catch (_) {
+      // A local privacy choice must remain authoritative if the SDK fails.
+    }
+    return true;
   }
 
   @override

@@ -25,6 +25,7 @@ import '../../features/achievements/domain/repository/user_achievement_repositor
     as _i518;
 import '../../features/ads/data/admob_rewarded_ads_gateway.dart' as _i437;
 import '../../features/ads/domain/rewarded_ads_gateway.dart' as _i353;
+import '../../features/analytics/data/analytics_consent_store.dart' as _i74;
 import '../../features/analytics/data/posthog_product_analytics.dart' as _i332;
 import '../../features/analytics/domain/product_analytics.dart' as _i1027;
 import '../../features/attribution/data/repository/remote_acquisition_attribution_repository.dart'
@@ -188,8 +189,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => authenticationModule.passwordResetGateway());
     gh.factory<_i625.TopicConverter>(() => _i625.TopicConverterImpl());
     gh.factory<_i78.MasteryConverter>(() => _i78.MasteryConverterImpl());
-    gh.lazySingleton<_i1027.ProductAnalytics>(
-        () => _i332.PostHogProductAnalytics());
     gh.factory<_i498.AnswerConverter>(() => _i498.AnswerConverterImpl());
     gh.factory<_i606.UserAchievementConverter>(
         () => _i606.UserAchievementConverterImpl());
@@ -270,6 +269,8 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i450.UserRepository>(),
               gh<_i799.LocalUserRepository>(),
             ));
+    gh.lazySingleton<_i74.AnalyticsConsentStore>(
+        () => _i74.AnalyticsConsentStore(gh<_i460.SharedPreferences>()));
     gh.factory<_i426.AnsweredQuestionDao>(() => _i426.AnsweredQuestionDaoImpl(
           gh<_i935.AppDatabase>(),
           answeredQuestionDbConverter: gh<_i988.AnsweredQuestionDbConverter>(),
@@ -311,6 +312,8 @@ extension GetItInjectableX on _i174.GetIt {
               client: gh<_i782.ApiClient>(),
               reviewHistoryConverter: gh<_i49.ReviewHistoryConverter>(),
             ));
+    gh.lazySingleton<_i1027.ProductAnalytics>(
+        () => _i332.PostHogProductAnalytics(gh<_i74.AnalyticsConsentStore>()));
     gh.lazySingleton<_i566.AcquisitionAttributionRepository>(() =>
         _i209.RemoteAcquisitionAttributionRepository(
             client: gh<_i782.ApiClient>()));

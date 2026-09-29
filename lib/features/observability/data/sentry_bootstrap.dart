@@ -8,6 +8,10 @@ abstract final class SentryBootstrap {
   static const configuredEnvironment = String.fromEnvironment(
     'SENTRY_ENVIRONMENT',
   );
+  static final _uuidPattern = RegExp(
+    r'^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+    caseSensitive: false,
+  );
 
   static bool get enabled => dsn.trim().isNotEmpty;
 
@@ -64,7 +68,9 @@ abstract final class SentryBootstrap {
       ..request = null
       ..serverName = null;
     final userId = event.user?.id;
-    event.user = userId == null ? null : SentryUser(id: userId);
+    event.user = userId != null && _uuidPattern.hasMatch(userId)
+        ? SentryUser(id: userId)
+        : null;
     return event;
   }
 
@@ -72,7 +78,9 @@ abstract final class SentryBootstrap {
   static Breadcrumb? scrubBreadcrumb(Breadcrumb? breadcrumb, Hint hint) {
     final category = breadcrumb?.category?.toLowerCase();
     if (category == null) return breadcrumb;
-    if (category.contains('http') || category.contains('network')) {
+    if (category.contains('http') ||
+        category.contains('network') ||
+        category.contains('console')) {
       return null;
     }
     return breadcrumb;

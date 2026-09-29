@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz/app/config/theme/theme_ex.dart';
 import 'package:quiz/app/core/widgets/dialog/app_confirm_dialog.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
+import 'package:quiz/app/di/di.dart';
+import 'package:quiz/features/analytics/domain/product_analytics.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/settings/presentation/widgets/settings_rows.dart';
 import 'package:quiz/features/settings/presentation/widgets/theme_mode_switcher.dart';
@@ -66,6 +68,7 @@ class SettingsPage extends ConsumerWidget {
                   onTap: () => context.push('/profile/settings/language'),
                 ),
                 const _ThemeRow(),
+                const _ProductAnalyticsRow(),
                 SettingsLinkRow(
                   label: t.about,
                   onTap: () => context.push('/profile/settings/about'),
@@ -82,6 +85,60 @@ class SettingsPage extends ConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+class _ProductAnalyticsRow extends ConsumerStatefulWidget {
+  const _ProductAnalyticsRow();
+
+  @override
+  ConsumerState<_ProductAnalyticsRow> createState() =>
+      _ProductAnalyticsRowState();
+}
+
+class _ProductAnalyticsRowState extends ConsumerState<_ProductAnalyticsRow> {
+  late final ProductAnalytics _analytics;
+  late bool _granted;
+  bool _saving = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _analytics = getIt<ProductAnalytics>();
+    _granted = _analytics.consentGranted;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.t.profile.settings.product_analytics;
+    return SwitchListTile.adaptive(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 2),
+      title: Text(t.label.toUpperCase()),
+      subtitle: Text(t.description),
+      value: _granted,
+      onChanged: _saving ? null : _setConsent,
+    );
+  }
+
+  Future<void> _setConsent(bool granted) async {
+    setState(() {
+      _saving = true;
+      _granted = granted;
+    });
+    await _analytics.setConsent(granted);
+    final storedConsent = _analytics.consentGranted;
+    if (storedConsent) {
+      final userId = ref.read(authenticationProvider).mapOrNull(
+            authenticated: (state) => state.user?.id,
+          );
+      if (userId != null) await _analytics.identify(userId);
+    }
+    if (mounted) {
+      setState(() {
+        _granted = storedConsent;
+        _saving = false;
+      });
+    }
   }
 }
 

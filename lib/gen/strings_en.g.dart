@@ -925,12 +925,26 @@ class Translations$review$en {
 
 	/// ru: 'Ошибок: $n'
 	String total({required Object n}) => '${n} mistakes';
+
+	/// ru: 'Фильтр ошибок'
 	String get filter_open => 'Filter mistakes';
+
+	/// ru: 'Все'
 	String get filter_all => 'All';
+
+	/// ru: 'Без тренировки'
 	String get filter_none => 'No practice';
+
+	/// ru: 'В очереди'
 	String get filter_queued => 'Queued';
+
+	/// ru: 'Пройдена'
 	String get filter_completed => 'Practiced';
+
+	/// ru: 'НИЧЕГО НЕ НАЙДЕНО'
 	String get filter_empty_title => 'NOTHING FOUND';
+
+	/// ru: 'Нет ошибок с таким состоянием тренировки'
 	String get filter_empty_message => 'There are no mistakes with this practice status';
 
 	/// ru: 'Ваш ответ'
@@ -965,9 +979,17 @@ class Translations$review$en {
 
 	/// ru: 'Потренировать тему'
 	String get practice_cta => 'Practice this topic';
+
+	/// ru: 'ТРЕНИРОВКА В ОЧЕРЕДИ'
 	String get practice_queued_title => 'PRACTICE QUEUED';
+
+	/// ru: 'Новый вопрос по этой теме добавлен в очередь'
 	String get practice_queued_message => 'A new question on this topic has been added to the queue';
+
+	/// ru: 'ТЕМА ПОТРЕНИРОВАНА'
 	String get practice_completed_title => 'TOPIC PRACTICED';
+
+	/// ru: 'Вы уже ответили на тренировочный вопрос по этой теме'
 	String get practice_completed_message => 'You have already answered a practice question on this topic';
 
 	/// ru: 'Повторение в очереди'
@@ -1191,6 +1213,8 @@ class Translations$profile$settings$en {
 
 	/// ru: 'О приложении'
 	String get about => 'About';
+
+	late final Translations$profile$settings$product_analytics$en product_analytics = Translations$profile$settings$product_analytics$en._(_root);
 
 	/// ru: 'Войти'
 	String get sign_in => 'Sign in';
@@ -1423,7 +1447,11 @@ class Translations$question$report$en {
 
 	/// ru: 'Вы уже сообщили о неточности'
 	String get status_message => 'You have already reported an inaccuracy';
+
+	/// ru: 'ОТЗЫВ ОБРАБОТАН'
 	String get processed_title => 'REPORT PROCESSED';
+
+	/// ru: 'Редакция рассмотрела ваше сообщение'
 	String get processed_message => 'The editorial team has reviewed your report';
 
 	/// ru: 'Сообщить о проблеме'
@@ -1658,6 +1686,21 @@ class Translations$mastery$paywall$en {
 
 	/// ru: 'Попробовать Quiz+'
 	String get cta => 'Try Quiz+';
+}
+
+// Path: profile.settings.product_analytics
+class Translations$profile$settings$product_analytics$en {
+	Translations$profile$settings$product_analytics$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Делиться аналитикой использования'
+	String get label => 'Share usage analytics';
+
+	/// ru: 'Отправлять ограниченные события без содержимого вопросов и ответов, чтобы помогать улучшать Eruday. Согласие можно отозвать в любой момент.'
+	String get description => 'Send limited, non-content usage events to help improve Eruday. You can withdraw consent at any time.';
 }
 
 // Path: profile.settings.sign_out_dialog
@@ -2284,6 +2327,8 @@ extension on Translations {
 			'profile.settings.theme_system' => 'System',
 			'profile.settings.theme_dark' => 'Dark',
 			'profile.settings.about' => 'About',
+			'profile.settings.product_analytics.label' => 'Share usage analytics',
+			'profile.settings.product_analytics.description' => 'Send limited, non-content usage events to help improve Eruday. You can withdraw consent at any time.',
 			'profile.settings.sign_in' => 'Sign in',
 			'profile.settings.sign_out' => 'Sign out',
 			'profile.settings.sign_out_dialog.title' => 'Sign out?',

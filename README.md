@@ -63,6 +63,11 @@ build:
 - document product analytics, the server UUID identifier, retention and the
   applicable consent or other legal basis in the published privacy policy.
 
+Product analytics is opt-in and defaults to off even when the project token is
+present. Users can grant or withdraw consent under Settings. Withdrawal calls
+the SDK opt-out and resets its local identity before any later event can be
+accepted. Advertising consent remains independently controlled by Google UMP.
+
 The SDK is pinned to the EU ingestion host (`https://eu.i.posthog.com`) and
 identifies an authenticated account only by its server UUID. Do not add email,
 name, age-access fields, question text, answer text, or free-form error data to
@@ -119,6 +124,8 @@ Before publishing a release build:
 - explicitly set `SENTRY_ENVIRONMENT=production` and do not reuse the local
   `.dart_tool/vscode/common_defines.json` configuration;
 - configure release symbol upload in CI before distributing obfuscated builds.
+- document the lawful basis, retention period and user contact for this
+  minimized diagnostic processing separately from optional PostHog consent.
 
 The DSN is a public client configuration value, while Sentry auth tokens used
 for symbol upload must remain CI secrets.

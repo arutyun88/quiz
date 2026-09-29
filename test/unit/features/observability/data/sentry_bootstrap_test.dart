@@ -46,7 +46,17 @@ void main() {
     expect(scrubbed.user?.data, isNull);
   });
 
-  test('drops network breadcrumbs but keeps logger and navigation records', () {
+  test('drops a non-UUID user identifier before sending', () {
+    final scrubbed = SentryBootstrap.scrubEvent(
+      SentryEvent(user: SentryUser(id: 'person@example.com')),
+      Hint(),
+    );
+
+    expect(scrubbed.user, isNull);
+  });
+
+  test('drops network and console breadcrumbs but keeps navigation records',
+      () {
     expect(
       SentryBootstrap.scrubBreadcrumb(
         Breadcrumb(category: 'http.client', message: 'private-url'),
@@ -59,7 +69,7 @@ void main() {
         Breadcrumb(category: 'console', message: 'private-value'),
         Hint(),
       ),
-      isNotNull,
+      isNull,
     );
     expect(
       SentryBootstrap.scrubBreadcrumb(

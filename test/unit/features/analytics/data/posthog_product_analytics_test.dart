@@ -1,12 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
+import 'package:quiz/features/analytics/data/analytics_consent_store.dart';
 import 'package:quiz/features/analytics/data/posthog_product_analytics.dart';
 import 'package:quiz/features/analytics/domain/product_analytics.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   test('blank project token keeps analytics disabled', () async {
     final sdk = _FakePostHogSdk();
-    final analytics = PostHogProductAnalytics.forTesting(
+    final analytics = await _analytics(
       projectToken: ' ',
       sdk: sdk,
     );
@@ -23,7 +25,7 @@ void main() {
 
   test('uses EU ingestion and disables overlapping PostHog products', () async {
     final sdk = _FakePostHogSdk();
-    final analytics = PostHogProductAnalytics.forTesting(
+    final analytics = await _analytics(
       projectToken: 'phc_test',
       sdk: sdk,
     );
@@ -40,11 +42,52 @@ void main() {
     expect(config.capturePushNotificationSubscriptions, isFalse);
     expect(config.capturePushNotificationOpened, isFalse);
     expect(config.personProfiles, PostHogPersonProfiles.never);
+    expect(config.optOut, isFalse);
+  });
+
+  test('defaults to opt-out and sends nothing before consent', () async {
+    final sdk = _FakePostHogSdk();
+    final analytics = await _analytics(
+      projectToken: 'phc_test',
+      sdk: sdk,
+      consentGranted: false,
+    );
+
+    await analytics.initialize();
+    await analytics.capture(ProductAnalyticsEvent.dailyEditionOpened);
+
+    expect(analytics.enabled, isFalse);
+    expect(analytics.consentGranted, isFalse);
+    expect(sdk.config?.optOut, isTrue);
+    expect(sdk.events, isEmpty);
+  });
+
+  test('grant enables capture and revoke disables and resets identity',
+      () async {
+    final sdk = _FakePostHogSdk();
+    final analytics = await _analytics(
+      projectToken: 'phc_test',
+      sdk: sdk,
+      consentGranted: false,
+    );
+
+    await analytics.setConsent(true);
+    await analytics.identify('019c9f74-d3f0-7a5b-8f35-6ecb9a642488');
+    await analytics.capture(ProductAnalyticsEvent.dailyEditionOpened);
+    await analytics.setConsent(false);
+    await analytics.capture(ProductAnalyticsEvent.dailyEditionOpened);
+
+    expect(sdk.enableCount, 1);
+    expect(sdk.disableCount, 1);
+    expect(sdk.resetCount, 1);
+    expect(sdk.events, hasLength(1));
+    expect(analytics.consentGranted, isFalse);
+    expect(analytics.enabled, isFalse);
   });
 
   test('identifies only UUID accounts and resets once on logout', () async {
     final sdk = _FakePostHogSdk();
-    final analytics = PostHogProductAnalytics.forTesting(
+    final analytics = await _analytics(
       projectToken: 'phc_test',
       sdk: sdk,
     );
@@ -63,7 +106,7 @@ void main() {
   test('clears a persisted SDK identity on an unauthenticated cold start',
       () async {
     final sdk = _FakePostHogSdk();
-    final analytics = PostHogProductAnalytics.forTesting(
+    final analytics = await _analytics(
       projectToken: 'phc_test',
       sdk: sdk,
     );
@@ -77,7 +120,7 @@ void main() {
   test('captures only safe route names and the fixed event wire name',
       () async {
     final sdk = _FakePostHogSdk();
-    final analytics = PostHogProductAnalytics.forTesting(
+    final analytics = await _analytics(
       projectToken: 'phc_test',
       sdk: sdk,
     );
@@ -97,7 +140,7 @@ void main() {
 
   test('keeps only allowlisted non-sensitive event properties', () async {
     final sdk = _FakePostHogSdk();
-    final analytics = PostHogProductAnalytics.forTesting(
+    final analytics = await _analytics(
       projectToken: 'phc_test',
       sdk: sdk,
     );
@@ -136,15 +179,40 @@ void main() {
   });
 }
 
+Future<PostHogProductAnalytics> _analytics({
+  required String projectToken,
+  required PostHogSdk sdk,
+  bool consentGranted = true,
+}) async {
+  SharedPreferences.setMockInitialValues({
+    AnalyticsConsentStore.preferenceKey: consentGranted,
+  });
+  return PostHogProductAnalytics.forTesting(
+    projectToken: projectToken,
+    sdk: sdk,
+    consentStore: AnalyticsConsentStore(
+      await SharedPreferences.getInstance(),
+    ),
+  );
+}
+
 class _FakePostHogSdk implements PostHogSdk {
   PostHogConfig? config;
   final identifiedUsers = <String>[];
   final screens = <String>[];
   final events = <(String, Map<String, Object>)>[];
   int resetCount = 0;
+  int enableCount = 0;
+  int disableCount = 0;
 
   @override
   Future<void> setup(PostHogConfig config) async => this.config = config;
+
+  @override
+  Future<void> enable() async => enableCount++;
+
+  @override
+  Future<void> disable() async => disableCount++;
 
   @override
   Future<void> identify(String userId) async => identifiedUsers.add(userId);

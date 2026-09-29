@@ -687,6 +687,7 @@ class _Translations$profile$settings$ru implements Translations$profile$settings
 	@override String get theme_system => 'Система';
 	@override String get theme_dark => 'Тёмная';
 	@override String get about => 'О приложении';
+	@override late final _Translations$profile$settings$product_analytics$ru product_analytics = _Translations$profile$settings$product_analytics$ru._(_root);
 	@override String get sign_in => 'Войти';
 	@override String get sign_out => 'Выйти из профиля';
 	@override late final _Translations$profile$settings$sign_out_dialog$ru sign_out_dialog = _Translations$profile$settings$sign_out_dialog$ru._(_root);
@@ -972,6 +973,17 @@ class _Translations$mastery$paywall$ru implements Translations$mastery$paywall$e
 	@override String get tagline => 'Мастерство тем';
 	@override String get description => 'Узнайте, где вы сильны, а где стоит подтянуть — и алгоритм сделает остальное.';
 	@override String get cta => 'Попробовать Quiz+';
+}
+
+// Path: profile.settings.product_analytics
+class _Translations$profile$settings$product_analytics$ru implements Translations$profile$settings$product_analytics$en {
+	_Translations$profile$settings$product_analytics$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Делиться аналитикой использования';
+	@override String get description => 'Отправлять ограниченные события без содержимого вопросов и ответов, чтобы помогать улучшать Eruday. Согласие можно отозвать в любой момент.';
 }
 
 // Path: profile.settings.sign_out_dialog
@@ -1374,6 +1386,8 @@ extension on TranslationsRu {
 			'profile.settings.theme_system' => 'Система',
 			'profile.settings.theme_dark' => 'Тёмная',
 			'profile.settings.about' => 'О приложении',
+			'profile.settings.product_analytics.label' => 'Делиться аналитикой использования',
+			'profile.settings.product_analytics.description' => 'Отправлять ограниченные события без содержимого вопросов и ответов, чтобы помогать улучшать Eruday. Согласие можно отозвать в любой момент.',
 			'profile.settings.sign_in' => 'Войти',
 			'profile.settings.sign_out' => 'Выйти из профиля',
 			'profile.settings.sign_out_dialog.title' => 'Выйти из профиля?',
