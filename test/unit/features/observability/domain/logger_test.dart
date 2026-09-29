@@ -127,7 +127,10 @@ void main() {
 
   test('processes breadcrumbs using the configured minimum level', () {
     logger(QuizRepository).info(
-      'Attempt submitted'.attach({'retry': 2}),
+      'Attempt submitted'.attach({
+        'retry': 2,
+        'question_text': 'private free-form value',
+      }),
     );
     final record = records.single;
 
@@ -146,6 +149,34 @@ void main() {
     expect(processed?.message, 'Attempt submitted');
     expect(processed?.level, SentryLevel.info);
     expect(processed?.data?['object'], {'retry': 2});
+  });
+
+  test('keeps only bounded allowlisted Sentry context values', () {
+    expect(
+      LoggingSetup.sanitizeSentryData({
+        'method': 'POST',
+        'normalized_path': '/users/{id}/attempts',
+        'status_code': 500,
+        'sentry_event_suppressed': true,
+        'resolved_transport_failures': [
+          'network_unavailable',
+          'connection_failed',
+        ],
+        'path': '/users/019c9f74-d3f0-7a5b-8f35-6ecb9a642488/attempts',
+        'cause': 'person@example.com sent private answer text',
+        'message_id': 'stable-provider-id',
+      }),
+      {
+        'method': 'POST',
+        'normalized_path': '/users/{id}/attempts',
+        'status_code': 500,
+        'sentry_event_suppressed': true,
+        'resolved_transport_failures': [
+          'network_unavailable',
+          'connection_failed',
+        ],
+      },
+    );
   });
 
   test('logs expected failures as breadcrumbs and unexpected ones as errors',

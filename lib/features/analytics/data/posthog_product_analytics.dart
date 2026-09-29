@@ -60,6 +60,37 @@ class PostHogProductAnalytics implements ProductAnalytics {
     caseSensitive: false,
   );
   static final _routeNamePattern = RegExp(r'^[a-z0-9-]{1,64}$');
+  static final _safeStringPattern = RegExp(r'^[a-zA-Z0-9_./:{}$-]{1,128}$');
+
+  static const _allowedProperties = {
+    ProductAnalyticsEvent.dailyEditionOpened: {'run_status'},
+    ProductAnalyticsEvent.dailyAttemptAccepted: {
+      r'$insert_id',
+      'action',
+      'correct',
+      'hint_used',
+      'run_completed',
+      'assignment_kind',
+      'rating_delta',
+    },
+    ProductAnalyticsEvent.dailySummaryViewed: {
+      'run_status',
+      'resolved_count',
+      'correct_count',
+      'skipped_count',
+      'hint_count',
+      'bonus_served',
+    },
+    ProductAnalyticsEvent.rewardedAdFinished: {
+      'sdk_outcome',
+      'server_confirmed',
+    },
+    ProductAnalyticsEvent.quizPlusPurchaseFinished: {
+      'action',
+      'outcome',
+      'package_id',
+    },
+  };
 
   final String _projectToken;
   final PostHogSdk _sdk;
@@ -82,10 +113,10 @@ class PostHogProductAnalytics implements ProductAnalytics {
       ..sendFeatureFlagEvents = false
       ..sessionReplay = false
       ..surveys = false
-      ..captureApplicationLifecycleEvents = true
+      ..captureApplicationLifecycleEvents = false
       ..capturePushNotificationSubscriptions = false
       ..capturePushNotificationOpened = false
-      ..personProfiles = PostHogPersonProfiles.identifiedOnly;
+      ..personProfiles = PostHogPersonProfiles.never;
     try {
       await _sdk.setup(config);
     } catch (_) {
@@ -144,9 +175,34 @@ class PostHogProductAnalytics implements ProductAnalytics {
     if (!enabled) return;
     await initialize();
     try {
-      await _sdk.capture(event.wireName, Map.unmodifiable(properties));
+      await _sdk.capture(event.wireName, sanitizeProperties(event, properties));
     } catch (_) {
       // Product events are best-effort and never drive application state.
     }
+  }
+
+  @visibleForTesting
+  static Map<String, Object> sanitizeProperties(
+    ProductAnalyticsEvent event,
+    Map<String, Object> properties,
+  ) {
+    final allowed = _allowedProperties[event] ?? const <String>{};
+    final sanitized = <String, Object>{};
+    for (final entry in properties.entries) {
+      if (!allowed.contains(entry.key)) continue;
+      final value = entry.value;
+      if (value is bool) {
+        sanitized[entry.key] = value;
+      } else if (value is int && value.abs() <= 1000000000) {
+        sanitized[entry.key] = value;
+      } else if (value is double &&
+          value.isFinite &&
+          value.abs() <= 1000000000) {
+        sanitized[entry.key] = value;
+      } else if (value is String && _safeStringPattern.hasMatch(value)) {
+        sanitized[entry.key] = value;
+      }
+    }
+    return Map.unmodifiable(sanitized);
   }
 }

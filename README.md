@@ -59,10 +59,15 @@ identifies an authenticated account only by its server UUID. Do not add email,
 name, age-access fields, question text, answer text, or free-form error data to
 analytics properties.
 
-PostHog session replay, surveys, feature flags, error capture, and push token
-capture are disabled. Quiz uses Firebase Remote Config, Sentry, and FCM for
-those responsibilities. Product analytics is best-effort and must never decide
-entitlement, rewarded quota, rating, streak, or navigation eligibility.
+Every product event has a code-level property allowlist. Unknown fields and
+unbounded or free-form values are removed before the PostHog SDK receives the
+event.
+
+PostHog automatic lifecycle events, person profiles, session replay, surveys,
+feature flags, error capture, and push token capture are disabled. Quiz uses
+Firebase Remote Config, Sentry, and FCM for those responsibilities. Product
+analytics is best-effort and must never decide entitlement, rewarded quota,
+rating, streak, or navigation eligibility.
 
 ## Legal documents
 
@@ -95,6 +100,9 @@ PII, request capture, request bodies, screenshots, replay, performance tracing,
 user-interaction breadcrumbs, and network/console breadcrumbs are disabled.
 Never attach auth tokens, email, name, age-access state, question or answer
 text, request payloads, or free-form user input to Sentry tags and contexts.
+Remote breadcrumb/context data is additionally reduced to a bounded allowlist
+of operational fields. Full diagnostic values remain available only in local
+debug output.
 
 Before publishing a release build:
 

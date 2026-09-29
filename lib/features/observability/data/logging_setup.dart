@@ -32,6 +32,33 @@ abstract final class LoggingSetup {
   static Level Function() _readConfiguredConsoleMinimumLevel = () => Level.ALL;
   static Level Function() _readBreadcrumbMinimumLevel = () => Level.ALL;
   static Level? _runtimeConsoleMinimumLevel;
+  static final _safeContextStringPattern =
+      RegExp(r'^[a-zA-Z0-9_./:{}-]{1,160}$');
+  static const _safeContextKeys = {
+    'action',
+    'cause_type',
+    'destination',
+    'dio_type',
+    'duration_ms',
+    'endpoint',
+    'error_code',
+    'error_type',
+    'failure',
+    'from',
+    'method',
+    'normalized_path',
+    'operation',
+    'phase',
+    'platform',
+    'reason',
+    'resolved_transport_failures',
+    'retry',
+    'sentry_event_suppressed',
+    'status_code',
+    'to',
+    'transport_failure',
+    'type',
+  };
 
   static void setup({
     SharedPreferences? preferences,
@@ -150,12 +177,14 @@ abstract final class LoggingSetup {
       stackTrace: record.stackTrace,
       withScope: (scope) async {
         if (failureRecord != null) {
-          await scope.setContexts('failure', {
+          final context = sanitizeSentryData({
             ...?failureRecord.extra,
             'failure': failureLogName(failureRecord.failure),
           });
+          if (context.isNotEmpty) await scope.setContexts('failure', context);
         } else if (record.object case StringRecord value) {
-          await scope.setContexts('data', value.toJson());
+          final context = sanitizeSentryData(value.toJson());
+          if (context.isNotEmpty) await scope.setContexts('data', context);
         }
       },
     );
@@ -200,25 +229,67 @@ abstract final class LoggingSetup {
     Level minimumLevel = Level.ALL,
   }) {
     if (record.level < minimumLevel) return null;
-    final object = () {
-      if (record.object == null) return null;
-      try {
-        return jsonDecode(jsonEncode(record.object));
-      } on Object {
-        return record.object.toString();
-      }
-    }();
-    final data = <String, dynamic>{
-      if (object != null) 'object': object,
-      if (record.error != null) 'error': record.error.toString(),
-      if (record.stackTrace != null) 'stackTrace': record.stackTrace.toString(),
-    };
+    final object = sanitizeSentryData(record.object);
+    final data = <String, dynamic>{if (object.isNotEmpty) 'object': object};
     return (
       message: record.message,
       level: sentryLevel(record.level),
       data: data.isEmpty ? null : data,
       timestamp: record.time.toUtc(),
     );
+  }
+
+  @visibleForTesting
+  static Map<String, Object> sanitizeSentryData(Object? rawData) {
+    final encoded = () {
+      if (rawData == null) return null;
+      try {
+        return jsonDecode(
+          jsonEncode(
+            rawData,
+            toEncodable: (value) {
+              if (value is StringRecord) return value.toJson();
+              try {
+                return (value as dynamic).toJson();
+              } on Object {
+                return value.toString();
+              }
+            },
+          ),
+        );
+      } on Object {
+        return null;
+      }
+    }();
+    if (encoded is! Map) return const {};
+
+    final sanitized = <String, Object>{};
+    for (final entry in encoded.entries) {
+      final key = entry.key;
+      if (key is! String || !_safeContextKeys.contains(key)) continue;
+      final value = _sanitizeContextValue(entry.value);
+      if (value != null) sanitized[key] = value;
+    }
+    return Map.unmodifiable(sanitized);
+  }
+
+  static Object? _sanitizeContextValue(Object? value) {
+    if (value is bool) return value;
+    if (value is int && value.abs() <= 1000000000) return value;
+    if (value is double && value.isFinite && value.abs() <= 1000000000) {
+      return value;
+    }
+    if (value is String && _safeContextStringPattern.hasMatch(value)) {
+      return value;
+    }
+    if (value is List && value.length <= 10) {
+      final items = value
+          .map(_sanitizeContextValue)
+          .whereType<Object>()
+          .toList(growable: false);
+      return items.length == value.length ? items : null;
+    }
+    return null;
   }
 
   @visibleForTesting

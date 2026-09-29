@@ -36,9 +36,10 @@ void main() {
     expect(config.sendFeatureFlagEvents, isFalse);
     expect(config.sessionReplay, isFalse);
     expect(config.surveys, isFalse);
+    expect(config.captureApplicationLifecycleEvents, isFalse);
     expect(config.capturePushNotificationSubscriptions, isFalse);
     expect(config.capturePushNotificationOpened, isFalse);
-    expect(config.personProfiles, PostHogPersonProfiles.identifiedOnly);
+    expect(config.personProfiles, PostHogPersonProfiles.never);
   });
 
   test('identifies only UUID accounts and resets once on logout', () async {
@@ -92,6 +93,46 @@ void main() {
     expect(sdk.screens, ['daily-result']);
     expect(sdk.events.single.$1, 'rewarded ad finished');
     expect(sdk.events.single.$2, {'server_confirmed': true});
+  });
+
+  test('keeps only allowlisted non-sensitive event properties', () async {
+    final sdk = _FakePostHogSdk();
+    final analytics = PostHogProductAnalytics.forTesting(
+      projectToken: 'phc_test',
+      sdk: sdk,
+    );
+
+    await analytics.capture(
+      ProductAnalyticsEvent.quizPlusPurchaseFinished,
+      properties: const {
+        'action': 'purchase',
+        'outcome': 'completed',
+        'package_id': 'com.eruday.quiz.plus.monthly',
+        'email': 'person@example.com',
+        'question_text': 'A private free-form value',
+        'server_confirmed': true,
+      },
+    );
+
+    expect(sdk.events.single.$2, {
+      'action': 'purchase',
+      'outcome': 'completed',
+      'package_id': 'com.eruday.quiz.plus.monthly',
+    });
+  });
+
+  test('drops unsafe values even for allowlisted property names', () async {
+    final sanitized = PostHogProductAnalytics.sanitizeProperties(
+      ProductAnalyticsEvent.dailyAttemptAccepted,
+      {
+        r'$insert_id': 'person@example.com',
+        'action': 'answer with private text',
+        'correct': true,
+        'rating_delta': double.infinity,
+      },
+    );
+
+    expect(sanitized, {'correct': true});
   });
 }
 
