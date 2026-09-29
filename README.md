@@ -54,6 +54,15 @@ it for a build with:
 fvm flutter run --dart-define=POSTHOG_PROJECT_TOKEN=phc_...
 ```
 
+PostHog is required for production releases. Before publishing a production
+build:
+
+- create a dedicated PostHog EU production project;
+- provide `POSTHOG_PROJECT_TOKEN` through the release CI configuration;
+- verify that every allowlisted event reaches the production project;
+- document product analytics, the server UUID identifier, retention and the
+  applicable consent or other legal basis in the published privacy policy.
+
 The SDK is pinned to the EU ingestion host (`https://eu.i.posthog.com`) and
 identifies an authenticated account only by its server UUID. Do not add email,
 name, age-access fields, question text, answer text, or free-form error data to
