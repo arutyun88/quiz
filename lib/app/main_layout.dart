@@ -44,6 +44,11 @@ class MainLayout extends ConsumerWidget {
 
     final state = ref.read(dailyEditionProvider);
     if (state case DailyEditionSummaryState(:final summary)
+        when !summary.summaryAcknowledged) {
+      context.goNamed('daily-result');
+      return;
+    }
+    if (state case DailyEditionSummaryState(:final summary)
         when summary.summaryAcknowledged) {
       if (summary.continuation.nextAction ==
           DailyContinuationAction.playQuestion) {
