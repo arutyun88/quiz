@@ -52,12 +52,32 @@ void main() {
       findsOneWidget,
     );
   });
+
+  testWidgets('shows progress within the market preview question allowance',
+      (tester) async {
+    await tester.pumpWidget(
+      _app(
+        isTopicPractice: false,
+        questionNumber: 13,
+        totalQuestions: 10,
+        extraQuestionsTotal: 10,
+      ),
+    );
+
+    expect(
+      find.text(
+        t.question.meta.market_preview_counter(current: 3, total: 10),
+      ),
+      findsOneWidget,
+    );
+  });
 }
 
 Widget _app({
   required bool isTopicPractice,
   int questionNumber = 11,
   int totalQuestions = 10,
+  int extraQuestionsTotal = 0,
 }) =>
     TranslationProvider(
       child: MaterialApp(
@@ -80,6 +100,7 @@ Widget _app({
             answerState: const QuestionAnswerState.wait(),
             questionNumber: questionNumber,
             totalQuestions: totalQuestions,
+            extraQuestionsTotal: extraQuestionsTotal,
             onSelect: null,
             isTopicPractice: isTopicPractice,
           ),
