@@ -588,6 +588,36 @@ void main() {
     verify(() => repository.fetchCurrent('run-1')).called(1);
   });
 
+  test('continueEdition carries market preview size into the question UI',
+      () async {
+    final previewSummary = summary.copyWith(
+      continuation: continuation.copyWith(
+        nextAction: DailyContinuationAction.playQuestion,
+        accessReason: DailyContinuationAccessReason.marketPreview,
+        marketPreviewQuestions: 10,
+        bonusQuestionsGranted: 10,
+        bonusQuestionsRemaining: 10,
+      ),
+    );
+    final previewAssignment = assignment.copyWith(
+      position: 11,
+      kind: DailyAssignmentKind.bonus,
+    );
+    when(() => repository.open(timezoneId: null))
+        .thenAnswer((_) async => Result.ok(completedRun));
+    when(() => repository.fetchSummary('run-1'))
+        .thenAnswer((_) async => Result.ok(previewSummary));
+    when(() => repository.fetchCurrent('run-1'))
+        .thenAnswer((_) async => Result.ok(previewAssignment));
+    await notifier.bootstrap();
+
+    await notifier.continueEdition();
+
+    final state = notifier.state as DailyEditionActiveState;
+    expect(state.marketPreviewQuestions, 10);
+    expect(state.assignment.position, 11);
+  });
+
   test('continueEdition cannot bypass a server rewarded-ad decision', () async {
     when(() => repository.open(timezoneId: null))
         .thenAnswer((_) async => Result.ok(completedRun));

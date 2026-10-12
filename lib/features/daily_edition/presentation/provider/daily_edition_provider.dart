@@ -15,7 +15,8 @@ import 'package:quiz/features/daily_edition/domain/service/daily_attempt_outbox.
 import 'package:quiz/features/observability/domain/logger.dart';
 import 'package:uuid/uuid.dart';
 
-final dailyEditionProvider = StateNotifierProvider<DailyEditionNotifier, DailyEditionState>((ref) {
+final dailyEditionProvider =
+    StateNotifierProvider<DailyEditionNotifier, DailyEditionState>((ref) {
   final accountId = ref.watch(
     authenticationProvider.select(
       (state) => state.mapOrNull(
@@ -64,6 +65,7 @@ final class DailyEditionActiveState extends DailyEditionState {
     this.attempt,
     this.isBusy = false,
     this.failure,
+    this.marketPreviewQuestions = 0,
   });
 
   final DailyRunEntity run;
@@ -72,6 +74,7 @@ final class DailyEditionActiveState extends DailyEditionState {
   final DailyAttemptEntity? attempt;
   final bool isBusy;
   final Failure? failure;
+  final int marketPreviewQuestions;
 
   DailyEditionActiveState copyWith({
     DailyAssignmentEntity? assignment,
@@ -80,6 +83,7 @@ final class DailyEditionActiveState extends DailyEditionState {
     bool? isBusy,
     Failure? failure,
     bool clearFailure = false,
+    int? marketPreviewQuestions,
   }) =>
       DailyEditionActiveState(
         run: run,
@@ -88,6 +92,8 @@ final class DailyEditionActiveState extends DailyEditionState {
         attempt: attempt ?? this.attempt,
         isBusy: isBusy ?? this.isBusy,
         failure: clearFailure ? null : failure ?? this.failure,
+        marketPreviewQuestions:
+            marketPreviewQuestions ?? this.marketPreviewQuestions,
       );
 }
 
@@ -147,7 +153,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
         _repository = repository,
         _outbox = outbox,
         _connectivityService = connectivityService,
-        _clientEventIdFactory = clientEventIdFactory ?? (() => const Uuid().v4()),
+        _clientEventIdFactory =
+            clientEventIdFactory ?? (() => const Uuid().v4()),
         _now = now ?? DateTime.now,
         _delay = delay ?? Future.delayed,
         _automaticRetryDelay = automaticRetryDelay ?? Future.delayed,
@@ -175,6 +182,7 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
   int _automaticRetryGeneration = 0;
   int _serverRetryIndex = 0;
   String? _pendingReviewSource;
+  int _marketPreviewQuestions = 0;
   bool get hasPendingReview => _pendingReviewSource != null;
 
   static const _serverRetryDelays = <Duration>[
@@ -258,8 +266,10 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
               _pendingReviewSource = null;
               await _showAssignment(run, assignment);
               return ReviewReplacementBootstrapResult.opened;
-            case ResultFailed(error: final failure) when _isDailyRunComplete(failure):
-              final acknowledged = await _repository.acknowledgeSummary(run.runId);
+            case ResultFailed(error: final failure)
+                when _isDailyRunComplete(failure):
+              final acknowledged =
+                  await _repository.acknowledgeSummary(run.runId);
               switch (acknowledged) {
                 case ResultOk(data: final summary):
                   state = DailyEditionSummaryState(
@@ -272,7 +282,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
                   state = DailyEditionFailedState(failure: error, run: run);
                   return ReviewReplacementBootstrapResult.failed;
               }
-            case ResultFailed(error: final failure) when _hasErrorCode(failure, 'CURRENT_ASSIGNMENT_EXISTS'):
+            case ResultFailed(error: final failure)
+                when _hasErrorCode(failure, 'CURRENT_ASSIGNMENT_EXISTS'):
               final existing = await _repository.fetchCurrent(run.runId);
               switch (existing) {
                 case ResultOk(data: final assignment):
@@ -282,7 +293,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
                   state = DailyEditionFailedState(failure: error, run: run);
                   return ReviewReplacementBootstrapResult.failed;
               }
-            case ResultFailed(error: final failure) when _hasErrorCode(failure, 'MAIN_EDITION_INCOMPLETE'):
+            case ResultFailed(error: final failure)
+                when _hasErrorCode(failure, 'MAIN_EDITION_INCOMPLETE'):
               await _restoreOrLoadRun(accountId, run);
               return state is DailyEditionFailedState
                   ? ReviewReplacementBootstrapResult.failed
@@ -324,7 +336,9 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
 
   Future<void> useHint() async {
     final current = state;
-    if (current is! DailyEditionActiveState || current.isBusy || current.attempt != null) {
+    if (current is! DailyEditionActiveState ||
+        current.isBusy ||
+        current.attempt != null) {
       return;
     }
 
@@ -352,7 +366,10 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
   }) async {
     final current = state;
     final accountId = _accountId;
-    if (current is! DailyEditionActiveState || accountId == null || current.isBusy || current.attempt != null) {
+    if (current is! DailyEditionActiveState ||
+        accountId == null ||
+        current.isBusy ||
+        current.attempt != null) {
       return;
     }
 
@@ -383,7 +400,10 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
   Future<bool> retryPendingAttempt() async {
     final current = state;
     final accountId = _accountId;
-    if (current is! DailyEditionActiveState || accountId == null || current.isBusy || current.attempt != null) {
+    if (current is! DailyEditionActiveState ||
+        accountId == null ||
+        current.isBusy ||
+        current.attempt != null) {
       return false;
     }
 
@@ -464,10 +484,12 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
             failure: Failure.unknown(error),
           );
         }
-      case ResultFailed(error: final failure) when _hasErrorCode(failure, 'ASSIGNMENT_NOT_CURRENT'):
+      case ResultFailed(error: final failure)
+          when _hasErrorCode(failure, 'ASSIGNMENT_NOT_CURRENT'):
         _cancelAutomaticRetryWait();
         await _clearPendingAndLoadRun(current.run, pending);
-      case ResultFailed(error: final failure) when _hasErrorCode(failure, 'DAILY_RUN_NOT_FOUND'):
+      case ResultFailed(error: final failure)
+          when _hasErrorCode(failure, 'DAILY_RUN_NOT_FOUND'):
         _cancelAutomaticRetryWait();
         await _clearPendingAndBootstrap(current, pending);
       case ResultFailed(error: final failure):
@@ -516,7 +538,10 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
 
   Future<void> _retryIfConnectionAlreadyRestored(int generation) async {
     final connected = await _connectivityService!.hasInternetConnection();
-    if (_disposed || generation != _automaticRetryGeneration || !_waitingForConnection || !connected) {
+    if (_disposed ||
+        generation != _automaticRetryGeneration ||
+        !_waitingForConnection ||
+        !connected) {
       return;
     }
     await _runAutomaticRetry();
@@ -546,8 +571,13 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
 
   bool _isRetryableServerFailure(Failure failure) => switch (failure) {
         ServerUnavailableFailure() => true,
-        NetworkFailure(reason: NetworkFailureTimeoutReason() || NetworkFailureServerReason()) => true,
-        NetworkFailure(reason: NetworkFailureBadResponseReason(:final statusCode))
+        NetworkFailure(
+          reason: NetworkFailureTimeoutReason() || NetworkFailureServerReason()
+        ) =>
+          true,
+        NetworkFailure(
+          reason: NetworkFailureBadResponseReason(:final statusCode)
+        )
             when statusCode != null && statusCode >= 500 =>
           true,
         _ => false,
@@ -679,7 +709,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     final current = state;
     if (current is! DailyEditionSummaryState ||
         current.isBusy ||
-        current.summary.continuation.nextAction != DailyContinuationAction.playQuestion) {
+        current.summary.continuation.nextAction !=
+            DailyContinuationAction.playQuestion) {
       return;
     }
 
@@ -687,6 +718,10 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
       await bootstrapReviewReplacement(sourceAttemptId: source);
       return;
     }
+    _marketPreviewQuestions = current.summary.continuation.accessReason ==
+            DailyContinuationAccessReason.marketPreview
+        ? current.summary.continuation.marketPreviewQuestions
+        : 0;
     state = current.copyWith(isBusy: true, clearFailure: true);
     final result = await _repository.fetchCurrent(current.run.runId);
     switch (result) {
@@ -722,12 +757,15 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
 
   Future<void> resumeAcknowledgedSummary() async {
     final current = state;
-    if (current is! DailyEditionSummaryState || !current.resumeContinuation || current.isBusy) {
+    if (current is! DailyEditionSummaryState ||
+        !current.resumeContinuation ||
+        current.isBusy) {
       return;
     }
 
     state = current.copyWith(resumeContinuation: false);
-    if (current.summary.continuation.nextAction == DailyContinuationAction.playQuestion) {
+    if (current.summary.continuation.nextAction ==
+        DailyContinuationAction.playQuestion) {
       await continueEdition();
     }
   }
@@ -740,7 +778,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     if (current is! DailyEditionSummaryState || current.isBusy) {
       return false;
     }
-    if (current.summary.continuation.rewardedVideosUsed > previousRewardedVideosUsed) {
+    if (current.summary.continuation.rewardedVideosUsed >
+        previousRewardedVideosUsed) {
       return true;
     }
 
@@ -801,7 +840,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
         switch (result) {
           case ResultOk(data: final assignment):
             await _showAssignment(run, assignment);
-          case ResultFailed(error: final failure) when _isDailyRunComplete(failure):
+          case ResultFailed(error: final failure)
+              when _isDailyRunComplete(failure):
             await _loadSummary(run);
           case ResultFailed(error: final failure):
             state = DailyEditionFailedState(failure: failure, run: run);
@@ -826,7 +866,11 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
     DailyAssignmentEntity assignment,
   ) async {
     if (!assignment.hintUsed) {
-      state = DailyEditionActiveState(run: run, assignment: assignment);
+      state = DailyEditionActiveState(
+        run: run,
+        assignment: assignment,
+        marketPreviewQuestions: _marketPreviewQuestions,
+      );
       return;
     }
 
@@ -839,12 +883,14 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
         state = DailyEditionActiveState(
           run: run,
           assignment: assignment,
+          marketPreviewQuestions: _marketPreviewQuestions,
           hint: hint,
         );
       case ResultFailed(error: final failure):
         state = DailyEditionActiveState(
           run: run,
           assignment: assignment,
+          marketPreviewQuestions: _marketPreviewQuestions,
           failure: failure,
         );
     }
@@ -911,7 +957,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
           return;
         }
         final restoredAssignment = pending.assignment;
-        if (restoredAssignment != null && restoredAssignment.assignmentId == attempt.assignmentId) {
+        if (restoredAssignment != null &&
+            restoredAssignment.assignmentId == attempt.assignmentId) {
           state = DailyEditionActiveState(
             run: run,
             assignment: restoredAssignment,
@@ -928,7 +975,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
           _trackAttempt(attempt);
           await _loadRun(run);
         }
-      case ResultFailed(error: final failure) when _hasErrorCode(failure, 'ASSIGNMENT_NOT_CURRENT'):
+      case ResultFailed(error: final failure)
+          when _hasErrorCode(failure, 'ASSIGNMENT_NOT_CURRENT'):
         await _clearPendingAndLoadRun(run, pending);
       case ResultFailed(error: final failure):
         state = DailyEditionFailedState(failure: failure, run: run);
@@ -1008,8 +1056,10 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
               'correct': attempt.isCorrect,
               'hint_used': attempt.hintUsed,
               'run_completed': attempt.runCompleted,
-              if (assignmentKind != null) 'assignment_kind': assignmentKind.name,
-              if (attempt.ratingDelta != null) 'rating_delta': attempt.ratingDelta!,
+              if (assignmentKind != null)
+                'assignment_kind': assignmentKind.name,
+              if (attempt.ratingDelta != null)
+                'rating_delta': attempt.ratingDelta!,
             },
           ) ??
           Future.value(),
@@ -1034,7 +1084,8 @@ class DailyEditionNotifier extends StateNotifier<DailyEditionState> {
   }
 }
 
-bool _isDailyRunComplete(Failure failure) => _hasErrorCode(failure, 'DAILY_RUN_COMPLETE');
+bool _isDailyRunComplete(Failure failure) =>
+    _hasErrorCode(failure, 'DAILY_RUN_COMPLETE');
 
 bool _hasErrorCode(Failure failure, String expected) => switch (failure) {
       NetworkFailure(

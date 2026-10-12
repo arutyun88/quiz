@@ -719,6 +719,18 @@ class Translations$daily_result$en {
 	/// ru: 'ИГРАТЬ ДАЛЬШЕ'
 	String get continue_button => 'KEEP PLAYING';
 
+	/// ru: 'ИГРАТЬ ДАЛЬШЕ БЕСПЛАТНО'
+	String get market_preview_button => 'KEEP PLAYING FOR FREE';
+
+	/// ru: 'ЗАВЕРШИТЬ НА СЕГОДНЯ'
+	String get market_preview_done_button => 'FINISH FOR TODAY';
+
+	/// ru: 'ДОСТУПНО ЕЩЁ $count ВОПРОСОВ БЕЗ РЕКЛАМЫ'
+	String market_preview_footer({required Object count}) => '${count} MORE QUESTIONS WITHOUT ADS';
+
+	/// ru: 'НА СЕГОДНЯ ВСЁ · НОВЫЙ ВЫПУСК ЗАВТРА'
+	String get market_preview_exhausted_footer => 'THAT\'S ALL FOR TODAY · A NEW ISSUE TOMORROW';
+
 	/// ru: 'ЕЩЁ ВОПРОСЫ'
 	String get more_questions_button => 'MORE QUESTIONS';
 
@@ -799,6 +811,27 @@ class Translations$daily_limit$en {
 
 	/// ru: 'БЕЗЛИМИТ С QUIZ+'
 	String get quiz_plus => 'UNLIMITED WITH QUIZ+';
+
+	/// ru: 'БЕСПЛАТНОЕ ПРОДОЛЖЕНИЕ'
+	String get market_preview_section => 'FREE CONTINUATION';
+
+	/// ru: 'НА СЕГОДНЯ ВСЁ'
+	String get market_preview_done_title => 'THAT\'S ALL FOR TODAY';
+
+	/// ru: 'Вам доступно ещё $count вопросов без рекламы.'
+	String market_preview_available({required Object count}) => 'You have ${count} more questions without ads.';
+
+	/// ru: 'На сегодня всё. Полная статистика выпуска сохранена.'
+	String get market_preview_exhausted => 'That\'s all for today. Your full issue stats are saved.';
+
+	/// ru: 'ИГРАТЬ ДАЛЬШЕ БЕСПЛАТНО'
+	String get market_preview_keep_playing => 'KEEP PLAYING FOR FREE';
+
+	/// ru: 'РАЗБОР ОТВЕТОВ'
+	String get review_answers => 'REVIEW ANSWERS';
+
+	/// ru: 'НА ГЛАВНУЮ'
+	String get home => 'GO HOME';
 }
 
 // Path: demo
@@ -1359,6 +1392,9 @@ class Translations$question$meta$en {
 
 	/// ru: 'ДОП. ВОПРОС $n'
 	String extra_counter({required Object n}) => 'EXTRA QUESTION ${n}';
+
+	/// ru: 'ДОПОЛНИТЕЛЬНЫЙ ВОПРОС $current ИЗ $total'
+	String market_preview_counter({required Object current, required Object total}) => 'EXTRA QUESTION ${current} OF ${total}';
 
 	/// ru: 'ПРАКТИКА'
 	String get practice_marker => 'PRACTICE';
@@ -2541,6 +2577,7 @@ extension on Translations {
 			'question.answer_letters.3' => 'D',
 			'question.meta.counter' => ({required Object current, required Object total}) => 'QUESTION ${current} / ${total}',
 			'question.meta.extra_counter' => ({required Object n}) => 'EXTRA QUESTION ${n}',
+			'question.meta.market_preview_counter' => ({required Object current, required Object total}) => 'EXTRA QUESTION ${current} OF ${total}',
 			'question.meta.practice_marker' => 'PRACTICE',
 			'question.meta.topic' => ({required Object topic}) => '// ${topic}',
 			'question.state.empty' => 'You\'re done with today\'s questions.\nCome back tomorrow!',
@@ -2684,6 +2721,10 @@ extension on Translations {
 			'daily_result.season_rank_label' => 'SEASON POSITION',
 			'daily_result.streak_value' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: '${n} DAY STREAK', other: '${n} DAY STREAK', ), 
 			'daily_result.continue_button' => 'KEEP PLAYING',
+			'daily_result.market_preview_button' => 'KEEP PLAYING FOR FREE',
+			'daily_result.market_preview_done_button' => 'FINISH FOR TODAY',
+			'daily_result.market_preview_footer' => ({required Object count}) => '${count} MORE QUESTIONS WITHOUT ADS',
+			'daily_result.market_preview_exhausted_footer' => 'THAT\'S ALL FOR TODAY · A NEW ISSUE TOMORROW',
 			'daily_result.more_questions_button' => 'MORE QUESTIONS',
 			'daily_result.home_button' => 'GO HOME',
 			'daily_result.rating_button' => 'VIEW RATING',
@@ -2707,6 +2748,13 @@ extension on Translations {
 			'daily_limit.ad_exhausted' => 'No more extra questions today',
 			'daily_limit.keep_playing' => 'KEEP PLAYING',
 			'daily_limit.quiz_plus' => 'UNLIMITED WITH QUIZ+',
+			'daily_limit.market_preview_section' => 'FREE CONTINUATION',
+			'daily_limit.market_preview_done_title' => 'THAT\'S ALL FOR TODAY',
+			'daily_limit.market_preview_available' => ({required Object count}) => 'You have ${count} more questions without ads.',
+			'daily_limit.market_preview_exhausted' => 'That\'s all for today. Your full issue stats are saved.',
+			'daily_limit.market_preview_keep_playing' => 'KEEP PLAYING FOR FREE',
+			'daily_limit.review_answers' => 'REVIEW ANSWERS',
+			'daily_limit.home' => 'GO HOME',
 			'demo.start.badge' => 'GUEST DEMO',
 			'demo.start.title' => 'Try Quiz before signing up',
 			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'Answer one short question and see how answer explanations work.', other: 'Answer ${n} short questions and see how answer explanations work.', ),

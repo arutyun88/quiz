@@ -18,6 +18,8 @@ class DailyLimitPage extends StatelessWidget {
     required this.onKeepPlaying,
     required this.onQuizPlus,
     required this.onClose,
+    required this.onHome,
+    required this.onReview,
     required this.onRefresh,
     this.onWatchAd,
     this.adStatus,
@@ -29,6 +31,8 @@ class DailyLimitPage extends StatelessWidget {
   final VoidCallback onKeepPlaying;
   final VoidCallback onQuizPlus;
   final VoidCallback onClose;
+  final VoidCallback onHome;
+  final VoidCallback onReview;
   final VoidCallback onRefresh;
   final VoidCallback? onWatchAd;
   final String? adStatus;
@@ -40,6 +44,8 @@ class DailyLimitPage extends StatelessWidget {
     final canPlay =
         continuation.nextAction == DailyContinuationAction.playQuestion;
     final canRequestAd = continuation.rewardedAdAvailable;
+    final marketPreview = continuation.accessReason ==
+        DailyContinuationAccessReason.marketPreview;
 
     return Scaffold(
       backgroundColor: colors.background.static,
@@ -49,6 +55,7 @@ class DailyLimitPage extends StatelessWidget {
           children: [
             _Header(
               remaining: continuation.bonusQuestionsRemaining,
+              marketPreviewExhausted: marketPreview && !canPlay,
               onClose: onClose,
             ),
             const AppDivider(indent: 22, endIndent: 22),
@@ -59,7 +66,9 @@ class DailyLimitPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      t.extras_section,
+                      marketPreview
+                          ? t.market_preview_section
+                          : t.extras_section,
                       style: GoogleFonts.jetBrainsMono(
                         fontSize: 10,
                         fontWeight: FontWeight.w500,
@@ -68,23 +77,38 @@ class DailyLimitPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    _GrantSlots(
-                      used: continuation.rewardedVideosUsed,
-                      maximum: continuation.rewardedVideosMax,
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      t.slots_hint(
-                        grants: continuation.rewardedVideosMax,
-                        questions: continuation.questionsPerReward,
+                    if (marketPreview)
+                      Text(
+                        canPlay
+                            ? t.market_preview_available(
+                                count: continuation.bonusQuestionsRemaining,
+                              )
+                            : t.market_preview_exhausted,
+                        style: GoogleFonts.spectral(
+                          fontSize: 18,
+                          height: 1.35,
+                          color: colors.text.primary,
+                        ),
+                      )
+                    else ...[
+                      _GrantSlots(
+                        used: continuation.rewardedVideosUsed,
+                        maximum: continuation.rewardedVideosMax,
                       ),
-                      style: GoogleFonts.jetBrainsMono(
-                        fontSize: 9,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 1,
-                        color: colors.text.secondary,
+                      const SizedBox(height: 10),
+                      Text(
+                        t.slots_hint(
+                          grants: continuation.rewardedVideosMax,
+                          questions: continuation.questionsPerReward,
+                        ),
+                        style: GoogleFonts.jetBrainsMono(
+                          fontSize: 9,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 1,
+                          color: colors.text.secondary,
+                        ),
                       ),
-                    ),
+                    ],
                     const Spacer(),
                     _CountdownBlock(
                       continuation: continuation,
@@ -121,7 +145,7 @@ class DailyLimitPage extends StatelessWidget {
                           onTap: isBusy ? null : onWatchAd,
                         ),
                       )
-                    else if (!canPlay)
+                    else if (!canPlay && !marketPreview)
                       Padding(
                         padding: const EdgeInsets.only(bottom: 30),
                         child: Text(
@@ -139,7 +163,9 @@ class DailyLimitPage extends StatelessWidget {
                           bottom: continuation.quizPlus ? 30 : 10,
                         ),
                         child: AppButtonV2(
-                          label: t.keep_playing,
+                          label: marketPreview
+                              ? t.market_preview_keep_playing
+                              : t.keep_playing,
                           onTap: isBusy
                               ? null
                               : (complete) {
@@ -149,7 +175,36 @@ class DailyLimitPage extends StatelessWidget {
                                 },
                         ),
                       ),
-                    if (!continuation.quizPlus)
+                    if (marketPreview && !canPlay) ...[
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: AppButtonV2(
+                          label: t.review_answers,
+                          onTap: isBusy
+                              ? null
+                              : (complete) {
+                                  complete();
+                                  onReview();
+                                  return null;
+                                },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 30),
+                        child: AppButtonV2(
+                          label: t.home,
+                          backgroundColor: colors.text.accent,
+                          foregroundColor: colors.background.static,
+                          onTap: isBusy
+                              ? null
+                              : (complete) {
+                                  complete();
+                                  onHome();
+                                  return null;
+                                },
+                        ),
+                      ),
+                    ] else if (!continuation.quizPlus && !marketPreview)
                       Padding(
                         padding: const EdgeInsets.only(bottom: 30),
                         child: AppButtonV2(
@@ -179,10 +234,12 @@ class DailyLimitPage extends StatelessWidget {
 class _Header extends StatelessWidget {
   const _Header({
     required this.remaining,
+    required this.marketPreviewExhausted,
     required this.onClose,
   });
 
   final int remaining;
+  final bool marketPreviewExhausted;
   final VoidCallback onClose;
 
   @override
@@ -204,7 +261,9 @@ class _Header extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              context.t.daily_limit.title,
+              marketPreviewExhausted
+                  ? context.t.daily_limit.market_preview_done_title
+                  : context.t.daily_limit.title,
               maxLines: 1,
               softWrap: false,
               overflow: TextOverflow.fade,
@@ -217,28 +276,29 @@ class _Header extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          SizedBox(
-            width: isCompact ? 88 : null,
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              alignment: Alignment.centerRight,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.bolt, size: 18, color: counterColor),
-                  const SizedBox(width: 6),
-                  Text(
-                    context.t.daily_limit.available_count(count: remaining),
-                    style: GoogleFonts.jetBrainsMono(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: counterColor,
+          if (!marketPreviewExhausted)
+            SizedBox(
+              width: isCompact ? 88 : null,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.centerRight,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.bolt, size: 18, color: counterColor),
+                    const SizedBox(width: 6),
+                    Text(
+                      context.t.daily_limit.available_count(count: remaining),
+                      style: GoogleFonts.jetBrainsMono(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: counterColor,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
         ],
       ),
     );

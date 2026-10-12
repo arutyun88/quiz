@@ -111,6 +111,8 @@ class _DailyLimitFlowState extends ConsumerState<DailyLimitFlow>
           onRefresh: () =>
               ref.read(dailyEditionProvider.notifier).refreshContinuation(),
           onClose: () => context.pop(),
+          onHome: () => context.goNamed('home'),
+          onReview: () => context.goNamed('profile-review'),
           onWatchAd: _ads.available ? _watchAd : null,
           adStatus: _adStatus,
         ),

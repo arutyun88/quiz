@@ -13,6 +13,10 @@ class DailyContinuationDto with _$DailyContinuationDto {
     @JsonKey(name: 'closes_at') required DateTime closesAt,
     @JsonKey(name: 'next_action') required String nextAction,
     @JsonKey(name: 'quiz_plus') required bool quizPlus,
+    @JsonKey(name: 'access_reason') String? accessReason,
+    @JsonKey(name: 'market_preview_questions')
+    @Default(0)
+    int marketPreviewQuestions,
     @JsonKey(name: 'bonus_questions_granted')
     required int bonusQuestionsGranted,
     @JsonKey(name: 'bonus_questions_served') required int bonusQuestionsServed,

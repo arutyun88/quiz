@@ -350,6 +350,7 @@
         "meta": {
             "counter": "ВОПРОС $current / $total",
             "extra_counter": "ДОП. ВОПРОС $n",
+            "market_preview_counter": "ДОПОЛНИТЕЛЬНЫЙ ВОПРОС $current ИЗ $total",
             "practice_marker": "ПРАКТИКА",
             "topic": "// $topic"
         },
@@ -574,6 +575,10 @@
             "other": "СЕРИЯ $n ДНЯ"
         },
         "continue_button": "ИГРАТЬ ДАЛЬШЕ",
+        "market_preview_button": "ИГРАТЬ ДАЛЬШЕ БЕСПЛАТНО",
+        "market_preview_done_button": "ЗАВЕРШИТЬ НА СЕГОДНЯ",
+        "market_preview_footer(count)": "ДОСТУПНО ЕЩЁ $count ВОПРОСОВ БЕЗ РЕКЛАМЫ",
+        "market_preview_exhausted_footer": "НА СЕГОДНЯ ВСЁ · НОВЫЙ ВЫПУСК ЗАВТРА",
         "more_questions_button": "ЕЩЁ ВОПРОСЫ",
         "home_button": "НА ГЛАВНУЮ",
         "rating_button": "СМОТРЕТЬ РЕЙТИНГ",
@@ -603,7 +608,14 @@
         "ad_failed_hint": "ПОПРОБУЙТЕ ЕЩЁ РАЗ",
         "ad_exhausted": "На сегодня доп. вопросы закончились",
         "keep_playing": "ИГРАТЬ ДАЛЬШЕ",
-        "quiz_plus": "БЕЗЛИМИТ С QUIZ+"
+        "quiz_plus": "БЕЗЛИМИТ С QUIZ+",
+        "market_preview_section": "БЕСПЛАТНОЕ ПРОДОЛЖЕНИЕ",
+        "market_preview_done_title": "НА СЕГОДНЯ ВСЁ",
+        "market_preview_available(count)": "Вам доступно ещё $count вопросов без рекламы.",
+        "market_preview_exhausted": "На сегодня всё. Полная статистика выпуска сохранена.",
+        "market_preview_keep_playing": "ИГРАТЬ ДАЛЬШЕ БЕСПЛАТНО",
+        "review_answers": "РАЗБОР ОТВЕТОВ",
+        "home": "НА ГЛАВНУЮ"
     },
     "demo": {
         "start": {

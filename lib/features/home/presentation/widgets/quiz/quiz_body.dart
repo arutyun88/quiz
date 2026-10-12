@@ -17,6 +17,7 @@ class QuizBody extends StatelessWidget {
     required this.totalQuestions,
     required this.onSelect,
     this.isTopicPractice = false,
+    this.extraQuestionsTotal = 0,
     this.questionSupplement,
   });
 
@@ -26,6 +27,7 @@ class QuizBody extends StatelessWidget {
   final int totalQuestions;
   final void Function(AnswerEntity)? onSelect;
   final bool isTopicPractice;
+  final int extraQuestionsTotal;
   final Widget? questionSupplement;
 
   @override
@@ -44,6 +46,7 @@ class QuizBody extends StatelessWidget {
             totalQuestions: totalQuestions,
             topicName: question.topic.name,
             isTopicPractice: isTopicPractice,
+            extraQuestionsTotal: extraQuestionsTotal,
           ),
           const SizedBox(height: 16),
           Text(
@@ -95,12 +98,14 @@ class _QuestionMetaRow extends StatelessWidget {
     required this.totalQuestions,
     required this.topicName,
     required this.isTopicPractice,
+    required this.extraQuestionsTotal,
   });
 
   final int questionNumber;
   final int totalQuestions;
   final String topicName;
   final bool isTopicPractice;
+  final int extraQuestionsTotal;
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +113,12 @@ class _QuestionMetaRow extends StatelessWidget {
     final t = context.t.question.meta;
     final isExtra = questionNumber > totalQuestions;
     final counterLabel = isExtra
-        ? t.extra_counter(n: questionNumber - totalQuestions)
+        ? extraQuestionsTotal > 0
+            ? t.market_preview_counter(
+                current: questionNumber - totalQuestions,
+                total: extraQuestionsTotal,
+              )
+            : t.extra_counter(n: questionNumber - totalQuestions)
         : t.counter(
             current: questionNumber.toString().padLeft(2, '0'),
             total: totalQuestions.toString().padLeft(2, '0'),

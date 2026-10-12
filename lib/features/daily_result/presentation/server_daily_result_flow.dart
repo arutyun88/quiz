@@ -36,12 +36,16 @@ class _ServerDailyResultFlowState extends ConsumerState<ServerDailyResultFlow> {
     final state = ref.watch(dailyEditionProvider);
     if (state is DailyEditionActiveState) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted && ModalRoute.of(context)?.isCurrent == true) context.goNamed('quiz');
+        if (mounted && ModalRoute.of(context)?.isCurrent == true) {
+          context.goNamed('quiz');
+        }
       });
     }
     if (state case DailyEditionSummaryState(resumeContinuation: true)) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
-        if (!context.mounted || ModalRoute.of(context)?.isCurrent != true) return;
+        if (!context.mounted || ModalRoute.of(context)?.isCurrent != true) {
+          return;
+        }
         await ref
             .read(dailyEditionProvider.notifier)
             .resumeAcknowledgedSummary();

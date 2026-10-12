@@ -42,6 +42,15 @@ enum DailyContinuationAction {
   unknown,
 }
 
+enum DailyContinuationAccessReason {
+  subscription,
+  marketPreview,
+  promotion,
+  adminGrant,
+  none,
+  unknown,
+}
+
 @freezed
 class DailyContinuationEntity with _$DailyContinuationEntity {
   const factory DailyContinuationEntity({
@@ -51,6 +60,9 @@ class DailyContinuationEntity with _$DailyContinuationEntity {
     required DateTime closesAt,
     required DailyContinuationAction nextAction,
     required bool quizPlus,
+    @Default(DailyContinuationAccessReason.none)
+    DailyContinuationAccessReason accessReason,
+    @Default(0) int marketPreviewQuestions,
     required int bonusQuestionsGranted,
     required int bonusQuestionsServed,
     required int bonusQuestionsRemaining,

@@ -30,6 +30,10 @@ mixin _$DailyContinuationDto {
   String get nextAction => throw _privateConstructorUsedError;
   @JsonKey(name: 'quiz_plus')
   bool get quizPlus => throw _privateConstructorUsedError;
+  @JsonKey(name: 'access_reason')
+  String? get accessReason => throw _privateConstructorUsedError;
+  @JsonKey(name: 'market_preview_questions')
+  int get marketPreviewQuestions => throw _privateConstructorUsedError;
   @JsonKey(name: 'bonus_questions_granted')
   int get bonusQuestionsGranted => throw _privateConstructorUsedError;
   @JsonKey(name: 'bonus_questions_served')
@@ -75,6 +79,8 @@ abstract class $DailyContinuationDtoCopyWith<$Res> {
       @JsonKey(name: 'closes_at') DateTime closesAt,
       @JsonKey(name: 'next_action') String nextAction,
       @JsonKey(name: 'quiz_plus') bool quizPlus,
+      @JsonKey(name: 'access_reason') String? accessReason,
+      @JsonKey(name: 'market_preview_questions') int marketPreviewQuestions,
       @JsonKey(name: 'bonus_questions_granted') int bonusQuestionsGranted,
       @JsonKey(name: 'bonus_questions_served') int bonusQuestionsServed,
       @JsonKey(name: 'bonus_questions_remaining') int bonusQuestionsRemaining,
@@ -110,6 +116,8 @@ class _$DailyContinuationDtoCopyWithImpl<$Res,
     Object? closesAt = null,
     Object? nextAction = null,
     Object? quizPlus = null,
+    Object? accessReason = freezed,
+    Object? marketPreviewQuestions = null,
     Object? bonusQuestionsGranted = null,
     Object? bonusQuestionsServed = null,
     Object? bonusQuestionsRemaining = null,
@@ -143,6 +151,14 @@ class _$DailyContinuationDtoCopyWithImpl<$Res,
           ? _value.quizPlus
           : quizPlus // ignore: cast_nullable_to_non_nullable
               as bool,
+      accessReason: freezed == accessReason
+          ? _value.accessReason
+          : accessReason // ignore: cast_nullable_to_non_nullable
+              as String?,
+      marketPreviewQuestions: null == marketPreviewQuestions
+          ? _value.marketPreviewQuestions
+          : marketPreviewQuestions // ignore: cast_nullable_to_non_nullable
+              as int,
       bonusQuestionsGranted: null == bonusQuestionsGranted
           ? _value.bonusQuestionsGranted
           : bonusQuestionsGranted // ignore: cast_nullable_to_non_nullable
@@ -205,6 +221,8 @@ abstract class _$$DailyContinuationDtoImplCopyWith<$Res>
       @JsonKey(name: 'closes_at') DateTime closesAt,
       @JsonKey(name: 'next_action') String nextAction,
       @JsonKey(name: 'quiz_plus') bool quizPlus,
+      @JsonKey(name: 'access_reason') String? accessReason,
+      @JsonKey(name: 'market_preview_questions') int marketPreviewQuestions,
       @JsonKey(name: 'bonus_questions_granted') int bonusQuestionsGranted,
       @JsonKey(name: 'bonus_questions_served') int bonusQuestionsServed,
       @JsonKey(name: 'bonus_questions_remaining') int bonusQuestionsRemaining,
@@ -237,6 +255,8 @@ class __$$DailyContinuationDtoImplCopyWithImpl<$Res>
     Object? closesAt = null,
     Object? nextAction = null,
     Object? quizPlus = null,
+    Object? accessReason = freezed,
+    Object? marketPreviewQuestions = null,
     Object? bonusQuestionsGranted = null,
     Object? bonusQuestionsServed = null,
     Object? bonusQuestionsRemaining = null,
@@ -270,6 +290,14 @@ class __$$DailyContinuationDtoImplCopyWithImpl<$Res>
           ? _value.quizPlus
           : quizPlus // ignore: cast_nullable_to_non_nullable
               as bool,
+      accessReason: freezed == accessReason
+          ? _value.accessReason
+          : accessReason // ignore: cast_nullable_to_non_nullable
+              as String?,
+      marketPreviewQuestions: null == marketPreviewQuestions
+          ? _value.marketPreviewQuestions
+          : marketPreviewQuestions // ignore: cast_nullable_to_non_nullable
+              as int,
       bonusQuestionsGranted: null == bonusQuestionsGranted
           ? _value.bonusQuestionsGranted
           : bonusQuestionsGranted // ignore: cast_nullable_to_non_nullable
@@ -327,6 +355,9 @@ class _$DailyContinuationDtoImpl implements _DailyContinuationDto {
       @JsonKey(name: 'closes_at') required this.closesAt,
       @JsonKey(name: 'next_action') required this.nextAction,
       @JsonKey(name: 'quiz_plus') required this.quizPlus,
+      @JsonKey(name: 'access_reason') this.accessReason,
+      @JsonKey(name: 'market_preview_questions')
+      this.marketPreviewQuestions = 0,
       @JsonKey(name: 'bonus_questions_granted')
       required this.bonusQuestionsGranted,
       @JsonKey(name: 'bonus_questions_served')
@@ -363,6 +394,12 @@ class _$DailyContinuationDtoImpl implements _DailyContinuationDto {
   @JsonKey(name: 'quiz_plus')
   final bool quizPlus;
   @override
+  @JsonKey(name: 'access_reason')
+  final String? accessReason;
+  @override
+  @JsonKey(name: 'market_preview_questions')
+  final int marketPreviewQuestions;
+  @override
   @JsonKey(name: 'bonus_questions_granted')
   final int bonusQuestionsGranted;
   @override
@@ -398,7 +435,7 @@ class _$DailyContinuationDtoImpl implements _DailyContinuationDto {
 
   @override
   String toString() {
-    return 'DailyContinuationDto(runId: $runId, serverTime: $serverTime, closesAt: $closesAt, nextAction: $nextAction, quizPlus: $quizPlus, bonusQuestionsGranted: $bonusQuestionsGranted, bonusQuestionsServed: $bonusQuestionsServed, bonusQuestionsRemaining: $bonusQuestionsRemaining, questionsPerReward: $questionsPerReward, rewardedVideosUsed: $rewardedVideosUsed, rewardedVideosMax: $rewardedVideosMax, rewardedVideosRemaining: $rewardedVideosRemaining, rollingVideosUsed: $rollingVideosUsed, rollingVideosMax: $rollingVideosMax, rewardedAdAvailable: $rewardedAdAvailable, rewardedAdNextAvailableAt: $rewardedAdNextAvailableAt)';
+    return 'DailyContinuationDto(runId: $runId, serverTime: $serverTime, closesAt: $closesAt, nextAction: $nextAction, quizPlus: $quizPlus, accessReason: $accessReason, marketPreviewQuestions: $marketPreviewQuestions, bonusQuestionsGranted: $bonusQuestionsGranted, bonusQuestionsServed: $bonusQuestionsServed, bonusQuestionsRemaining: $bonusQuestionsRemaining, questionsPerReward: $questionsPerReward, rewardedVideosUsed: $rewardedVideosUsed, rewardedVideosMax: $rewardedVideosMax, rewardedVideosRemaining: $rewardedVideosRemaining, rollingVideosUsed: $rollingVideosUsed, rollingVideosMax: $rollingVideosMax, rewardedAdAvailable: $rewardedAdAvailable, rewardedAdNextAvailableAt: $rewardedAdNextAvailableAt)';
   }
 
   @override
@@ -415,6 +452,10 @@ class _$DailyContinuationDtoImpl implements _DailyContinuationDto {
                 other.nextAction == nextAction) &&
             (identical(other.quizPlus, quizPlus) ||
                 other.quizPlus == quizPlus) &&
+            (identical(other.accessReason, accessReason) ||
+                other.accessReason == accessReason) &&
+            (identical(other.marketPreviewQuestions, marketPreviewQuestions) ||
+                other.marketPreviewQuestions == marketPreviewQuestions) &&
             (identical(other.bonusQuestionsGranted, bonusQuestionsGranted) ||
                 other.bonusQuestionsGranted == bonusQuestionsGranted) &&
             (identical(other.bonusQuestionsServed, bonusQuestionsServed) ||
@@ -451,6 +492,8 @@ class _$DailyContinuationDtoImpl implements _DailyContinuationDto {
       closesAt,
       nextAction,
       quizPlus,
+      accessReason,
+      marketPreviewQuestions,
       bonusQuestionsGranted,
       bonusQuestionsServed,
       bonusQuestionsRemaining,
@@ -488,6 +531,9 @@ abstract class _DailyContinuationDto implements DailyContinuationDto {
       @JsonKey(name: 'closes_at') required final DateTime closesAt,
       @JsonKey(name: 'next_action') required final String nextAction,
       @JsonKey(name: 'quiz_plus') required final bool quizPlus,
+      @JsonKey(name: 'access_reason') final String? accessReason,
+      @JsonKey(name: 'market_preview_questions')
+      final int marketPreviewQuestions,
       @JsonKey(name: 'bonus_questions_granted')
       required final int bonusQuestionsGranted,
       @JsonKey(name: 'bonus_questions_served')
@@ -528,6 +574,12 @@ abstract class _DailyContinuationDto implements DailyContinuationDto {
   @override
   @JsonKey(name: 'quiz_plus')
   bool get quizPlus;
+  @override
+  @JsonKey(name: 'access_reason')
+  String? get accessReason;
+  @override
+  @JsonKey(name: 'market_preview_questions')
+  int get marketPreviewQuestions;
   @override
   @JsonKey(name: 'bonus_questions_granted')
   int get bonusQuestionsGranted;

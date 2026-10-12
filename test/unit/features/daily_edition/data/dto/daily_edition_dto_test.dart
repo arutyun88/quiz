@@ -338,6 +338,24 @@ void main() {
     expect(entity.action, DailyAttemptAction.unknown);
     expect(() => entity.action.apiValue, throwsStateError);
   });
+
+  test('parses market preview continuation metadata', () {
+    final entity = DailyContinuationDto.fromJson({
+      ..._continuationJson(nextAction: 'PLAY_QUESTION', bonusRemaining: 10),
+      'access_reason': 'MARKET_PREVIEW',
+      'market_preview_questions': 10,
+      'rewarded_videos_max': 0,
+      'rewarded_videos_remaining': 0,
+    }).toEntity();
+
+    expect(
+      entity.accessReason,
+      DailyContinuationAccessReason.marketPreview,
+    );
+    expect(entity.marketPreviewQuestions, 10);
+    expect(entity.bonusQuestionsRemaining, 10);
+    expect(entity.rewardedVideosMax, 0);
+  });
 }
 
 Map<String, dynamic> _continuationJson({

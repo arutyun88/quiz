@@ -14,6 +14,9 @@ _$DailyContinuationDtoImpl _$$DailyContinuationDtoImplFromJson(
       closesAt: DateTime.parse(json['closes_at'] as String),
       nextAction: json['next_action'] as String,
       quizPlus: json['quiz_plus'] as bool,
+      accessReason: json['access_reason'] as String?,
+      marketPreviewQuestions:
+          (json['market_preview_questions'] as num?)?.toInt() ?? 0,
       bonusQuestionsGranted: (json['bonus_questions_granted'] as num).toInt(),
       bonusQuestionsServed: (json['bonus_questions_served'] as num).toInt(),
       bonusQuestionsRemaining:
@@ -39,6 +42,8 @@ Map<String, dynamic> _$$DailyContinuationDtoImplToJson(
       'closes_at': instance.closesAt.toIso8601String(),
       'next_action': instance.nextAction,
       'quiz_plus': instance.quizPlus,
+      'access_reason': instance.accessReason,
+      'market_preview_questions': instance.marketPreviewQuestions,
       'bonus_questions_granted': instance.bonusQuestionsGranted,
       'bonus_questions_served': instance.bonusQuestionsServed,
       'bonus_questions_remaining': instance.bonusQuestionsRemaining,

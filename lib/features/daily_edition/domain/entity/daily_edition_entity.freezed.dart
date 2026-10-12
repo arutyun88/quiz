@@ -22,6 +22,9 @@ mixin _$DailyContinuationEntity {
   DateTime get closesAt => throw _privateConstructorUsedError;
   DailyContinuationAction get nextAction => throw _privateConstructorUsedError;
   bool get quizPlus => throw _privateConstructorUsedError;
+  DailyContinuationAccessReason get accessReason =>
+      throw _privateConstructorUsedError;
+  int get marketPreviewQuestions => throw _privateConstructorUsedError;
   int get bonusQuestionsGranted => throw _privateConstructorUsedError;
   int get bonusQuestionsServed => throw _privateConstructorUsedError;
   int get bonusQuestionsRemaining => throw _privateConstructorUsedError;
@@ -54,6 +57,8 @@ abstract class $DailyContinuationEntityCopyWith<$Res> {
       DateTime closesAt,
       DailyContinuationAction nextAction,
       bool quizPlus,
+      DailyContinuationAccessReason accessReason,
+      int marketPreviewQuestions,
       int bonusQuestionsGranted,
       int bonusQuestionsServed,
       int bonusQuestionsRemaining,
@@ -89,6 +94,8 @@ class _$DailyContinuationEntityCopyWithImpl<$Res,
     Object? closesAt = null,
     Object? nextAction = null,
     Object? quizPlus = null,
+    Object? accessReason = null,
+    Object? marketPreviewQuestions = null,
     Object? bonusQuestionsGranted = null,
     Object? bonusQuestionsServed = null,
     Object? bonusQuestionsRemaining = null,
@@ -126,6 +133,14 @@ class _$DailyContinuationEntityCopyWithImpl<$Res,
           ? _value.quizPlus
           : quizPlus // ignore: cast_nullable_to_non_nullable
               as bool,
+      accessReason: null == accessReason
+          ? _value.accessReason
+          : accessReason // ignore: cast_nullable_to_non_nullable
+              as DailyContinuationAccessReason,
+      marketPreviewQuestions: null == marketPreviewQuestions
+          ? _value.marketPreviewQuestions
+          : marketPreviewQuestions // ignore: cast_nullable_to_non_nullable
+              as int,
       bonusQuestionsGranted: null == bonusQuestionsGranted
           ? _value.bonusQuestionsGranted
           : bonusQuestionsGranted // ignore: cast_nullable_to_non_nullable
@@ -190,6 +205,8 @@ abstract class _$$DailyContinuationEntityImplCopyWith<$Res>
       DateTime closesAt,
       DailyContinuationAction nextAction,
       bool quizPlus,
+      DailyContinuationAccessReason accessReason,
+      int marketPreviewQuestions,
       int bonusQuestionsGranted,
       int bonusQuestionsServed,
       int bonusQuestionsRemaining,
@@ -224,6 +241,8 @@ class __$$DailyContinuationEntityImplCopyWithImpl<$Res>
     Object? closesAt = null,
     Object? nextAction = null,
     Object? quizPlus = null,
+    Object? accessReason = null,
+    Object? marketPreviewQuestions = null,
     Object? bonusQuestionsGranted = null,
     Object? bonusQuestionsServed = null,
     Object? bonusQuestionsRemaining = null,
@@ -261,6 +280,14 @@ class __$$DailyContinuationEntityImplCopyWithImpl<$Res>
           ? _value.quizPlus
           : quizPlus // ignore: cast_nullable_to_non_nullable
               as bool,
+      accessReason: null == accessReason
+          ? _value.accessReason
+          : accessReason // ignore: cast_nullable_to_non_nullable
+              as DailyContinuationAccessReason,
+      marketPreviewQuestions: null == marketPreviewQuestions
+          ? _value.marketPreviewQuestions
+          : marketPreviewQuestions // ignore: cast_nullable_to_non_nullable
+              as int,
       bonusQuestionsGranted: null == bonusQuestionsGranted
           ? _value.bonusQuestionsGranted
           : bonusQuestionsGranted // ignore: cast_nullable_to_non_nullable
@@ -319,6 +346,8 @@ class _$DailyContinuationEntityImpl implements _DailyContinuationEntity {
       required this.closesAt,
       required this.nextAction,
       required this.quizPlus,
+      this.accessReason = DailyContinuationAccessReason.none,
+      this.marketPreviewQuestions = 0,
       required this.bonusQuestionsGranted,
       required this.bonusQuestionsServed,
       required this.bonusQuestionsRemaining,
@@ -344,6 +373,12 @@ class _$DailyContinuationEntityImpl implements _DailyContinuationEntity {
   @override
   final bool quizPlus;
   @override
+  @JsonKey()
+  final DailyContinuationAccessReason accessReason;
+  @override
+  @JsonKey()
+  final int marketPreviewQuestions;
+  @override
   final int bonusQuestionsGranted;
   @override
   final int bonusQuestionsServed;
@@ -368,7 +403,7 @@ class _$DailyContinuationEntityImpl implements _DailyContinuationEntity {
 
   @override
   String toString() {
-    return 'DailyContinuationEntity(runId: $runId, serverTime: $serverTime, receivedAt: $receivedAt, closesAt: $closesAt, nextAction: $nextAction, quizPlus: $quizPlus, bonusQuestionsGranted: $bonusQuestionsGranted, bonusQuestionsServed: $bonusQuestionsServed, bonusQuestionsRemaining: $bonusQuestionsRemaining, questionsPerReward: $questionsPerReward, rewardedVideosUsed: $rewardedVideosUsed, rewardedVideosMax: $rewardedVideosMax, rewardedVideosRemaining: $rewardedVideosRemaining, rollingVideosUsed: $rollingVideosUsed, rollingVideosMax: $rollingVideosMax, rewardedAdAvailable: $rewardedAdAvailable, rewardedAdNextAvailableAt: $rewardedAdNextAvailableAt)';
+    return 'DailyContinuationEntity(runId: $runId, serverTime: $serverTime, receivedAt: $receivedAt, closesAt: $closesAt, nextAction: $nextAction, quizPlus: $quizPlus, accessReason: $accessReason, marketPreviewQuestions: $marketPreviewQuestions, bonusQuestionsGranted: $bonusQuestionsGranted, bonusQuestionsServed: $bonusQuestionsServed, bonusQuestionsRemaining: $bonusQuestionsRemaining, questionsPerReward: $questionsPerReward, rewardedVideosUsed: $rewardedVideosUsed, rewardedVideosMax: $rewardedVideosMax, rewardedVideosRemaining: $rewardedVideosRemaining, rollingVideosUsed: $rollingVideosUsed, rollingVideosMax: $rollingVideosMax, rewardedAdAvailable: $rewardedAdAvailable, rewardedAdNextAvailableAt: $rewardedAdNextAvailableAt)';
   }
 
   @override
@@ -387,6 +422,10 @@ class _$DailyContinuationEntityImpl implements _DailyContinuationEntity {
                 other.nextAction == nextAction) &&
             (identical(other.quizPlus, quizPlus) ||
                 other.quizPlus == quizPlus) &&
+            (identical(other.accessReason, accessReason) ||
+                other.accessReason == accessReason) &&
+            (identical(other.marketPreviewQuestions, marketPreviewQuestions) ||
+                other.marketPreviewQuestions == marketPreviewQuestions) &&
             (identical(other.bonusQuestionsGranted, bonusQuestionsGranted) ||
                 other.bonusQuestionsGranted == bonusQuestionsGranted) &&
             (identical(other.bonusQuestionsServed, bonusQuestionsServed) ||
@@ -415,25 +454,28 @@ class _$DailyContinuationEntityImpl implements _DailyContinuationEntity {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      runId,
-      serverTime,
-      receivedAt,
-      closesAt,
-      nextAction,
-      quizPlus,
-      bonusQuestionsGranted,
-      bonusQuestionsServed,
-      bonusQuestionsRemaining,
-      questionsPerReward,
-      rewardedVideosUsed,
-      rewardedVideosMax,
-      rewardedVideosRemaining,
-      rollingVideosUsed,
-      rollingVideosMax,
-      rewardedAdAvailable,
-      rewardedAdNextAvailableAt);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        runId,
+        serverTime,
+        receivedAt,
+        closesAt,
+        nextAction,
+        quizPlus,
+        accessReason,
+        marketPreviewQuestions,
+        bonusQuestionsGranted,
+        bonusQuestionsServed,
+        bonusQuestionsRemaining,
+        questionsPerReward,
+        rewardedVideosUsed,
+        rewardedVideosMax,
+        rewardedVideosRemaining,
+        rollingVideosUsed,
+        rollingVideosMax,
+        rewardedAdAvailable,
+        rewardedAdNextAvailableAt
+      ]);
 
   /// Create a copy of DailyContinuationEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -453,6 +495,8 @@ abstract class _DailyContinuationEntity implements DailyContinuationEntity {
           required final DateTime closesAt,
           required final DailyContinuationAction nextAction,
           required final bool quizPlus,
+          final DailyContinuationAccessReason accessReason,
+          final int marketPreviewQuestions,
           required final int bonusQuestionsGranted,
           required final int bonusQuestionsServed,
           required final int bonusQuestionsRemaining,
@@ -478,6 +522,10 @@ abstract class _DailyContinuationEntity implements DailyContinuationEntity {
   DailyContinuationAction get nextAction;
   @override
   bool get quizPlus;
+  @override
+  DailyContinuationAccessReason get accessReason;
+  @override
+  int get marketPreviewQuestions;
   @override
   int get bonusQuestionsGranted;
   @override

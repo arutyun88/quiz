@@ -439,6 +439,10 @@ class _Translations$daily_result$ru implements Translations$daily_result$en {
 		other: 'СЕРИЯ ${n} ДНЯ',
 	);
 	@override String get continue_button => 'ИГРАТЬ ДАЛЬШЕ';
+	@override String get market_preview_button => 'ИГРАТЬ ДАЛЬШЕ БЕСПЛАТНО';
+	@override String get market_preview_done_button => 'ЗАВЕРШИТЬ НА СЕГОДНЯ';
+	@override String market_preview_footer({required Object count}) => 'ДОСТУПНО ЕЩЁ ${count} ВОПРОСОВ БЕЗ РЕКЛАМЫ';
+	@override String get market_preview_exhausted_footer => 'НА СЕГОДНЯ ВСЁ · НОВЫЙ ВЫПУСК ЗАВТРА';
 	@override String get more_questions_button => 'ЕЩЁ ВОПРОСЫ';
 	@override String get home_button => 'НА ГЛАВНУЮ';
 	@override String get rating_button => 'СМОТРЕТЬ РЕЙТИНГ';
@@ -476,6 +480,13 @@ class _Translations$daily_limit$ru implements Translations$daily_limit$en {
 	@override String get ad_exhausted => 'На сегодня доп. вопросы закончились';
 	@override String get keep_playing => 'ИГРАТЬ ДАЛЬШЕ';
 	@override String get quiz_plus => 'БЕЗЛИМИТ С QUIZ+';
+	@override String get market_preview_section => 'БЕСПЛАТНОЕ ПРОДОЛЖЕНИЕ';
+	@override String get market_preview_done_title => 'НА СЕГОДНЯ ВСЁ';
+	@override String market_preview_available({required Object count}) => 'Вам доступно ещё ${count} вопросов без рекламы.';
+	@override String get market_preview_exhausted => 'На сегодня всё. Полная статистика выпуска сохранена.';
+	@override String get market_preview_keep_playing => 'ИГРАТЬ ДАЛЬШЕ БЕСПЛАТНО';
+	@override String get review_answers => 'РАЗБОР ОТВЕТОВ';
+	@override String get home => 'НА ГЛАВНУЮ';
 }
 
 // Path: demo
@@ -779,6 +790,7 @@ class _Translations$question$meta$ru implements Translations$question$meta$en {
 	// Translations
 	@override String counter({required Object current, required Object total}) => 'ВОПРОС ${current} / ${total}';
 	@override String extra_counter({required Object n}) => 'ДОП. ВОПРОС ${n}';
+	@override String market_preview_counter({required Object current, required Object total}) => 'ДОПОЛНИТЕЛЬНЫЙ ВОПРОС ${current} ИЗ ${total}';
 	@override String get practice_marker => 'ПРАКТИКА';
 	@override String topic({required Object topic}) => '// ${topic}';
 }
@@ -1594,6 +1606,7 @@ extension on TranslationsRu {
 			'question.answer_letters.3' => 'Г',
 			'question.meta.counter' => ({required Object current, required Object total}) => 'ВОПРОС ${current} / ${total}',
 			'question.meta.extra_counter' => ({required Object n}) => 'ДОП. ВОПРОС ${n}',
+			'question.meta.market_preview_counter' => ({required Object current, required Object total}) => 'ДОПОЛНИТЕЛЬНЫЙ ВОПРОС ${current} ИЗ ${total}',
 			'question.meta.practice_marker' => 'ПРАКТИКА',
 			'question.meta.topic' => ({required Object topic}) => '// ${topic}',
 			'question.state.empty' => 'На сегодня вопросы закончились.\nЗаходите завтра!',
@@ -1737,6 +1750,10 @@ extension on TranslationsRu {
 			'daily_result.season_rank_label' => 'ПОЗИЦИЯ В СЕЗОНЕ',
 			'daily_result.streak_value' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'СЕРИЯ ${n} ДЕНЬ', few: 'СЕРИЯ ${n} ДНЯ', many: 'СЕРИЯ ${n} ДНЕЙ', other: 'СЕРИЯ ${n} ДНЯ', ), 
 			'daily_result.continue_button' => 'ИГРАТЬ ДАЛЬШЕ',
+			'daily_result.market_preview_button' => 'ИГРАТЬ ДАЛЬШЕ БЕСПЛАТНО',
+			'daily_result.market_preview_done_button' => 'ЗАВЕРШИТЬ НА СЕГОДНЯ',
+			'daily_result.market_preview_footer' => ({required Object count}) => 'ДОСТУПНО ЕЩЁ ${count} ВОПРОСОВ БЕЗ РЕКЛАМЫ',
+			'daily_result.market_preview_exhausted_footer' => 'НА СЕГОДНЯ ВСЁ · НОВЫЙ ВЫПУСК ЗАВТРА',
 			'daily_result.more_questions_button' => 'ЕЩЁ ВОПРОСЫ',
 			'daily_result.home_button' => 'НА ГЛАВНУЮ',
 			'daily_result.rating_button' => 'СМОТРЕТЬ РЕЙТИНГ',
@@ -1760,6 +1777,13 @@ extension on TranslationsRu {
 			'daily_limit.ad_exhausted' => 'На сегодня доп. вопросы закончились',
 			'daily_limit.keep_playing' => 'ИГРАТЬ ДАЛЬШЕ',
 			'daily_limit.quiz_plus' => 'БЕЗЛИМИТ С QUIZ+',
+			'daily_limit.market_preview_section' => 'БЕСПЛАТНОЕ ПРОДОЛЖЕНИЕ',
+			'daily_limit.market_preview_done_title' => 'НА СЕГОДНЯ ВСЁ',
+			'daily_limit.market_preview_available' => ({required Object count}) => 'Вам доступно ещё ${count} вопросов без рекламы.',
+			'daily_limit.market_preview_exhausted' => 'На сегодня всё. Полная статистика выпуска сохранена.',
+			'daily_limit.market_preview_keep_playing' => 'ИГРАТЬ ДАЛЬШЕ БЕСПЛАТНО',
+			'daily_limit.review_answers' => 'РАЗБОР ОТВЕТОВ',
+			'daily_limit.home' => 'НА ГЛАВНУЮ',
 			'demo.start.badge' => 'ГОСТЕВОЕ ДЕМО',
 			'demo.start.title' => 'Попробуйте Quiz без регистрации',
 			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'Ответьте на один короткий вопрос и посмотрите разбор ответа.', few: 'Ответьте на ${n} коротких вопроса и посмотрите разбор ответа.', many: 'Ответьте на ${n} коротких вопросов и посмотрите разбор ответа.', other: 'Ответьте на ${n} короткого вопроса и посмотрите разбор ответа.', ),

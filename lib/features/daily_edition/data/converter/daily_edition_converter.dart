@@ -35,6 +35,8 @@ extension DailyContinuationDtoConverter on DailyContinuationDto {
         closesAt: closesAt,
         nextAction: _continuationAction(nextAction),
         quizPlus: quizPlus,
+        accessReason: _continuationAccessReason(accessReason),
+        marketPreviewQuestions: marketPreviewQuestions,
         bonusQuestionsGranted: bonusQuestionsGranted,
         bonusQuestionsServed: bonusQuestionsServed,
         bonusQuestionsRemaining: bonusQuestionsRemaining,
@@ -48,6 +50,16 @@ extension DailyContinuationDtoConverter on DailyContinuationDto {
         rewardedAdNextAvailableAt: rewardedAdNextAvailableAt,
       );
 }
+
+DailyContinuationAccessReason _continuationAccessReason(String? value) =>
+    switch (value) {
+      'SUBSCRIPTION' => DailyContinuationAccessReason.subscription,
+      'MARKET_PREVIEW' => DailyContinuationAccessReason.marketPreview,
+      'PROMOTION' => DailyContinuationAccessReason.promotion,
+      'ADMIN_GRANT' => DailyContinuationAccessReason.adminGrant,
+      null => DailyContinuationAccessReason.none,
+      _ => DailyContinuationAccessReason.unknown,
+    };
 
 extension DailyAssignmentDtoConverter on DailyAssignmentDto {
   DailyAssignmentEntity toEntity() => DailyAssignmentEntity(

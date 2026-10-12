@@ -167,6 +167,7 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
         :final assignment,
         :final hint,
         :final isBusy,
+        :final marketPreviewQuestions,
       ) =>
         switch (assignment.toQuestionEntity()) {
           final QuestionEntity question => Column(
@@ -177,6 +178,7 @@ class _DailyQuizPageState extends ConsumerState<DailyQuizPage>
                     answerState: answerState,
                     questionNumber: assignment.position,
                     totalQuestions: run.requiredCount,
+                    extraQuestionsTotal: marketPreviewQuestions,
                     isTopicPractice:
                         assignment.kind == DailyAssignmentKind.review,
                     onSelect: !isBusy &&

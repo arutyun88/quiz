@@ -30,6 +30,10 @@ class ServerDailyResultPage extends StatelessWidget {
         true,
       _ => false,
     };
+    final marketPreview = summary.continuation.accessReason ==
+        DailyContinuationAccessReason.marketPreview;
+    final marketPreviewExhausted = marketPreview &&
+        summary.continuation.nextAction == DailyContinuationAction.limitReached;
 
     return Scaffold(
       backgroundColor: colors.background.static,
@@ -56,6 +60,8 @@ class ServerDailyResultPage extends StatelessWidget {
                     label: _buttonLabel(
                       context,
                       summary.continuation.nextAction,
+                      marketPreview: marketPreview,
+                      marketPreviewExhausted: marketPreviewExhausted,
                     ),
                     onTap: (complete) {
                       complete();
@@ -65,7 +71,16 @@ class ServerDailyResultPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    canContinue ? t.continue_footer : t.footer,
+                    marketPreviewExhausted
+                        ? t.market_preview_exhausted_footer
+                        : marketPreview
+                            ? t.market_preview_footer(
+                                count: summary
+                                    .continuation.bonusQuestionsRemaining,
+                              )
+                            : canContinue
+                                ? t.continue_footer
+                                : t.footer,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.jetBrainsMono(
                       fontSize: 10,
@@ -83,9 +98,17 @@ class ServerDailyResultPage extends StatelessWidget {
     );
   }
 
-  String _buttonLabel(BuildContext context, DailyContinuationAction action) {
+  String _buttonLabel(
+    BuildContext context,
+    DailyContinuationAction action, {
+    required bool marketPreview,
+    required bool marketPreviewExhausted,
+  }) {
     final t = context.t.daily_result;
     return switch (action) {
+      _ when marketPreviewExhausted => t.market_preview_done_button,
+      DailyContinuationAction.playQuestion when marketPreview =>
+        t.market_preview_button,
       DailyContinuationAction.playQuestion => t.continue_button,
       DailyContinuationAction.watchRewarded ||
       DailyContinuationAction.waitForRewarded ||

@@ -340,6 +340,7 @@
         "meta": {
             "counter": "QUESTION $current / $total",
             "extra_counter": "EXTRA QUESTION $n",
+            "market_preview_counter": "EXTRA QUESTION $current OF $total",
             "practice_marker": "PRACTICE",
             "topic": "// $topic"
         },
@@ -552,6 +553,10 @@
             "other": "$n DAY STREAK"
         },
         "continue_button": "KEEP PLAYING",
+        "market_preview_button": "KEEP PLAYING FOR FREE",
+        "market_preview_done_button": "FINISH FOR TODAY",
+        "market_preview_footer(count)": "$count MORE QUESTIONS WITHOUT ADS",
+        "market_preview_exhausted_footer": "THAT'S ALL FOR TODAY · A NEW ISSUE TOMORROW",
         "more_questions_button": "MORE QUESTIONS",
         "home_button": "GO HOME",
         "rating_button": "VIEW RATING",
@@ -579,7 +584,14 @@
         "ad_failed_hint": "PLEASE TRY AGAIN",
         "ad_exhausted": "No more extra questions today",
         "keep_playing": "KEEP PLAYING",
-        "quiz_plus": "UNLIMITED WITH QUIZ+"
+        "quiz_plus": "UNLIMITED WITH QUIZ+",
+        "market_preview_section": "FREE CONTINUATION",
+        "market_preview_done_title": "THAT'S ALL FOR TODAY",
+        "market_preview_available(count)": "You have $count more questions without ads.",
+        "market_preview_exhausted": "That's all for today. Your full issue stats are saved.",
+        "market_preview_keep_playing": "KEEP PLAYING FOR FREE",
+        "review_answers": "REVIEW ANSWERS",
+        "home": "GO HOME"
     },
     "demo": {
         "start": {
