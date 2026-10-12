@@ -120,6 +120,9 @@ class PostHogProductAnalytics implements ProductAnalytics {
   bool get consentGranted => _consentStore.granted;
 
   @override
+  bool get consentDecided => _consentStore.decided;
+
+  @override
   Future<void> initialize() => _initialization ??= _initialize();
 
   Future<void> _initialize() async {
@@ -134,7 +137,7 @@ class PostHogProductAnalytics implements ProductAnalytics {
       ..captureApplicationLifecycleEvents = false
       ..capturePushNotificationSubscriptions = false
       ..capturePushNotificationOpened = false
-      ..personProfiles = PostHogPersonProfiles.never
+      ..personProfiles = PostHogPersonProfiles.identifiedOnly
       ..optOut = !consentGranted;
     try {
       await _sdk.setup(config);

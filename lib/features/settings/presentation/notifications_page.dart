@@ -101,7 +101,7 @@ class _ToggleRow extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            _SquareSwitch(value: value),
+            SettingsSquareSwitch(value: value),
           ],
         ),
       ),
@@ -148,37 +148,6 @@ class _PermissionCard extends StatelessWidget {
             ),
           ],
         ],
-      ),
-    );
-  }
-}
-
-/// Squared editorial switch: 42×24, ink track when on, no rounding.
-class _SquareSwitch extends StatelessWidget {
-  const _SquareSwitch({required this.value});
-
-  final bool value;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.palette;
-
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 150),
-      width: 42,
-      height: 24,
-      padding: const EdgeInsets.all(2),
-      color: value ? colors.text.primary : colors.background.dynamic,
-      child: AnimatedAlign(
-        duration: const Duration(milliseconds: 150),
-        alignment: value
-            ? AlignmentDirectional.centerEnd
-            : AlignmentDirectional.centerStart,
-        child: Container(
-          width: 20,
-          height: 20,
-          color: colors.background.static,
-        ),
       ),
     );
   }

@@ -7,6 +7,7 @@ import 'package:quiz/app/core/widgets/dialog/app_confirm_dialog.dart';
 import 'package:quiz/app/core/widgets/scaffold/app_scaffold.dart';
 import 'package:quiz/app/di/di.dart';
 import 'package:quiz/features/analytics/domain/product_analytics.dart';
+import 'package:quiz/features/analytics/presentation/product_analytics_consent_dialog.dart';
 import 'package:quiz/features/authentication/provider/authentication_provider.dart';
 import 'package:quiz/features/settings/presentation/widgets/settings_rows.dart';
 import 'package:quiz/features/settings/presentation/widgets/theme_mode_switcher.dart';
@@ -111,13 +112,50 @@ class _ProductAnalyticsRowState extends ConsumerState<_ProductAnalyticsRow> {
   @override
   Widget build(BuildContext context) {
     final t = context.t.profile.settings.product_analytics;
-    return SwitchListTile.adaptive(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 2),
-      title: Text(t.label.toUpperCase()),
-      subtitle: Text(t.description),
-      value: _granted,
-      onChanged: _saving ? null : _setConsent,
+    final colors = context.palette;
+    return Semantics(
+      button: true,
+      enabled: !_saving,
+      toggled: _granted,
+      label: t.label,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: _saving ? null : _toggleConsent,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 2),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Text(
+                  t.label.toUpperCase(),
+                  style: GoogleFonts.jetBrainsMono(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 1.5,
+                    color: colors.text.primary,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 16),
+              Opacity(
+                opacity: _saving ? 0.45 : 1,
+                child: SettingsSquareSwitch(value: _granted),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
+  }
+
+  Future<void> _toggleConsent() async {
+    final granted = !_granted;
+    if (granted) {
+      final confirmed = await showProductAnalyticsConsentDialog(context);
+      if (!confirmed || !mounted) return;
+    }
+    await _setConsent(granted);
   }
 
   Future<void> _setConsent(bool granted) async {

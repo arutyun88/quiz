@@ -41,7 +41,7 @@ void main() {
     expect(config.captureApplicationLifecycleEvents, isFalse);
     expect(config.capturePushNotificationSubscriptions, isFalse);
     expect(config.capturePushNotificationOpened, isFalse);
-    expect(config.personProfiles, PostHogPersonProfiles.never);
+    expect(config.personProfiles, PostHogPersonProfiles.identifiedOnly);
     expect(config.optOut, isFalse);
   });
 

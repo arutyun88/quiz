@@ -1701,6 +1701,15 @@ class Translations$profile$settings$product_analytics$en {
 
 	/// ru: 'Отправлять ограниченные события без содержимого вопросов и ответов, чтобы помогать улучшать Eruday. Согласие можно отозвать в любой момент.'
 	String get description => 'Send limited, non-content usage events to help improve Eruday. You can withdraw consent at any time.';
+
+	/// ru: 'Аналитика использования'
+	String get dialog_title => 'Usage analytics';
+
+	/// ru: 'Разрешить'
+	String get confirm => 'Allow';
+
+	/// ru: 'Отмена'
+	String get cancel => 'Cancel';
 }
 
 // Path: profile.settings.sign_out_dialog
@@ -2329,6 +2338,9 @@ extension on Translations {
 			'profile.settings.about' => 'About',
 			'profile.settings.product_analytics.label' => 'Share usage analytics',
 			'profile.settings.product_analytics.description' => 'Send limited, non-content usage events to help improve Eruday. You can withdraw consent at any time.',
+			'profile.settings.product_analytics.dialog_title' => 'Usage analytics',
+			'profile.settings.product_analytics.confirm' => 'Allow',
+			'profile.settings.product_analytics.cancel' => 'Cancel',
 			'profile.settings.sign_in' => 'Sign in',
 			'profile.settings.sign_out' => 'Sign out',
 			'profile.settings.sign_out_dialog.title' => 'Sign out?',

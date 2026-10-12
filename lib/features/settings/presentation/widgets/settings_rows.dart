@@ -36,8 +36,12 @@ class SettingsRowGroup extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               border: Border(
-                top: i == 0 ? BorderSide(color: colors.text.primary, width: 1.5) : BorderSide(color: colors.divider),
-                bottom: i == children.length - 1 ? BorderSide(color: colors.text.primary, width: 1.5) : BorderSide.none,
+                top: i == 0
+                    ? BorderSide(color: colors.text.primary, width: 1.5)
+                    : BorderSide(color: colors.divider),
+                bottom: i == children.length - 1
+                    ? BorderSide(color: colors.text.primary, width: 1.5)
+                    : BorderSide.none,
               ),
             ),
             child: children[i],
@@ -94,6 +98,37 @@ class SettingsLinkRow extends StatelessWidget {
             else
               Icon(Icons.arrow_forward, size: 20, color: colors.text.primary),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Squared editorial switch used by settings rows: 42×24 with no rounding.
+class SettingsSquareSwitch extends StatelessWidget {
+  const SettingsSquareSwitch({super.key, required this.value});
+
+  final bool value;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.palette;
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 150),
+      width: 42,
+      height: 24,
+      padding: const EdgeInsets.all(2),
+      color: value ? colors.text.primary : colors.background.dynamic,
+      child: AnimatedAlign(
+        duration: const Duration(milliseconds: 150),
+        alignment: value
+            ? AlignmentDirectional.centerEnd
+            : AlignmentDirectional.centerStart,
+        child: Container(
+          width: 20,
+          height: 20,
+          color: colors.background.static,
         ),
       ),
     );

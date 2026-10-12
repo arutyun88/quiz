@@ -3,6 +3,8 @@ abstract interface class ProductAnalytics {
 
   bool get consentGranted;
 
+  bool get consentDecided;
+
   Future<void> initialize();
 
   Future<bool> setConsent(bool granted);

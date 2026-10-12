@@ -984,6 +984,9 @@ class _Translations$profile$settings$product_analytics$ru implements Translation
 	// Translations
 	@override String get label => 'Делиться аналитикой использования';
 	@override String get description => 'Отправлять ограниченные события без содержимого вопросов и ответов, чтобы помогать улучшать Eruday. Согласие можно отозвать в любой момент.';
+	@override String get dialog_title => 'Аналитика использования';
+	@override String get confirm => 'Разрешить';
+	@override String get cancel => 'Отмена';
 }
 
 // Path: profile.settings.sign_out_dialog
@@ -1388,6 +1391,9 @@ extension on TranslationsRu {
 			'profile.settings.about' => 'О приложении',
 			'profile.settings.product_analytics.label' => 'Делиться аналитикой использования',
 			'profile.settings.product_analytics.description' => 'Отправлять ограниченные события без содержимого вопросов и ответов, чтобы помогать улучшать Eruday. Согласие можно отозвать в любой момент.',
+			'profile.settings.product_analytics.dialog_title' => 'Аналитика использования',
+			'profile.settings.product_analytics.confirm' => 'Разрешить',
+			'profile.settings.product_analytics.cancel' => 'Отмена',
 			'profile.settings.sign_in' => 'Войти',
 			'profile.settings.sign_out' => 'Выйти из профиля',
 			'profile.settings.sign_out_dialog.title' => 'Выйти из профиля?',

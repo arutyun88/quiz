@@ -9,6 +9,8 @@ class AnalyticsConsentStore {
 
   final SharedPreferences _preferences;
 
+  bool get decided => _preferences.containsKey(preferenceKey);
+
   bool get granted => _preferences.getBool(preferenceKey) ?? false;
 
   Future<bool> setGranted(bool value) =>

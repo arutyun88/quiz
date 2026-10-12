@@ -62,7 +62,10 @@
             "about": "About",
             "product_analytics": {
                 "label": "Share usage analytics",
-                "description": "Send limited, non-content usage events to help improve Eruday. You can withdraw consent at any time."
+                "description": "Send limited, non-content usage events to help improve Eruday. You can withdraw consent at any time.",
+                "dialog_title": "Usage analytics",
+                "confirm": "Allow",
+                "cancel": "Cancel"
             },
             "sign_in": "Sign in",
             "sign_out": "Sign out",

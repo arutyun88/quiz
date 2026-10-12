@@ -64,9 +64,11 @@ build:
   applicable consent or other legal basis in the published privacy policy.
 
 Product analytics is opt-in and defaults to off even when the project token is
-present. Users can grant or withdraw consent under Settings. Withdrawal calls
-the SDK opt-out and resets its local identity before any later event can be
-accepted. Advertising consent remains independently controlled by Google UMP.
+present. The app asks once on the first visit to the Profile tab; a refusal is
+remembered and is not prompted again. Users can later grant or withdraw consent
+under Settings. Withdrawal calls the SDK opt-out and resets its local identity
+before any later event can be accepted. Advertising consent remains
+independently controlled by Google UMP.
 
 The SDK is pinned to the EU ingestion host (`https://eu.i.posthog.com`) and
 identifies an authenticated account only by its server UUID. Do not add email,
@@ -77,11 +79,13 @@ Every product event has a code-level property allowlist. Unknown fields and
 unbounded or free-form values are removed before the PostHog SDK receives the
 event.
 
-PostHog automatic lifecycle events, person profiles, session replay, surveys,
-feature flags, error capture, and push token capture are disabled. Quiz uses
-Firebase Remote Config, Sentry, and FCM for those responsibilities. Product
-analytics is best-effort and must never decide entitlement, rewarded quota,
-rating, streak, or navigation eligibility.
+PostHog automatic lifecycle events, session replay, surveys, feature flags,
+error capture, and push token capture are disabled. A minimal person profile is
+created only for an identified, consenting account and contains the server UUID;
+Quiz does not attach profile properties. Quiz uses Firebase Remote Config,
+Sentry, and FCM for those responsibilities. Product analytics is best-effort and
+must never decide entitlement, rewarded quota, rating, streak, or navigation
+eligibility.
 
 ## Legal documents
 
