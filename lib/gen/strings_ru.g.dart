@@ -1071,6 +1071,18 @@ class _Translations$profile$settings$about_page$ru implements Translations$profi
 	@override String get privacy => 'Политика конфиденциальности';
 	@override String get privacy_choices => 'Настройки конфиденциальности';
 	@override String get support => 'Написать в поддержку';
+	@override String get support_dialog_title => 'Связаться с разработчиком';
+	@override String support_dialog_body({required Object email}) => 'Напишите нам на ${email} или откройте страницу поддержки.';
+	@override String get support_warning => 'Не отправляйте пароли, коды подтверждения и платёжные данные.';
+	@override String get support_email => 'Открыть почту';
+	@override String get support_email_subject => 'Поддержка Eruday';
+	@override String get support_copy => 'Скопировать адрес';
+	@override String get support_website => 'Страница поддержки';
+	@override String get support_close => 'Закрыть';
+	@override String get support_copied_title => 'Адрес скопирован';
+	@override String support_copied_message({required Object email}) => '${email} скопирован в буфер обмена.';
+	@override String get support_open_failed_title => 'Не удалось открыть страницу';
+	@override String get support_open_failed_message => 'Попробуйте позже или напишите на support@eruday.app.';
 }
 
 // Path: profile.settings.language_sync
@@ -1444,6 +1456,18 @@ extension on TranslationsRu {
 			'profile.settings.about_page.privacy' => 'Политика конфиденциальности',
 			'profile.settings.about_page.privacy_choices' => 'Настройки конфиденциальности',
 			'profile.settings.about_page.support' => 'Написать в поддержку',
+			'profile.settings.about_page.support_dialog_title' => 'Связаться с разработчиком',
+			'profile.settings.about_page.support_dialog_body' => ({required Object email}) => 'Напишите нам на ${email} или откройте страницу поддержки.',
+			'profile.settings.about_page.support_warning' => 'Не отправляйте пароли, коды подтверждения и платёжные данные.',
+			'profile.settings.about_page.support_email' => 'Открыть почту',
+			'profile.settings.about_page.support_email_subject' => 'Поддержка Eruday',
+			'profile.settings.about_page.support_copy' => 'Скопировать адрес',
+			'profile.settings.about_page.support_website' => 'Страница поддержки',
+			'profile.settings.about_page.support_close' => 'Закрыть',
+			'profile.settings.about_page.support_copied_title' => 'Адрес скопирован',
+			'profile.settings.about_page.support_copied_message' => ({required Object email}) => '${email} скопирован в буфер обмена.',
+			'profile.settings.about_page.support_open_failed_title' => 'Не удалось открыть страницу',
+			'profile.settings.about_page.support_open_failed_message' => 'Попробуйте позже или напишите на support@eruday.app.',
 			'profile.settings.language_sync.title' => 'Обновляем вопросы',
 			'profile.settings.language_sync.syncing' => 'Загружаем вопросы, темы и ответы на выбранном языке',
 			'profile.settings.language_sync.success' => 'Вопросы обновлены',
@@ -1786,7 +1810,7 @@ extension on TranslationsRu {
 			'daily_limit.home' => 'НА ГЛАВНУЮ',
 			'demo.start.badge' => 'ГОСТЕВОЕ ДЕМО',
 			'demo.start.title' => 'Попробуйте Quiz без регистрации',
-			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'Ответьте на один короткий вопрос и посмотрите разбор ответа.', few: 'Ответьте на ${n} коротких вопроса и посмотрите разбор ответа.', many: 'Ответьте на ${n} коротких вопросов и посмотрите разбор ответа.', other: 'Ответьте на ${n} короткого вопроса и посмотрите разбор ответа.', ),
+			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(n, one: 'Ответьте на один короткий вопрос и посмотрите разбор ответа.', few: 'Ответьте на ${n} коротких вопроса и посмотрите разбор ответа.', many: 'Ответьте на ${n} коротких вопросов и посмотрите разбор ответа.', other: 'Ответьте на ${n} короткого вопроса и посмотрите разбор ответа.', ), 
 			'demo.start.notice' => 'Ответы демо не сохраняются и никогда не влияют на рейтинг, XP или серию.',
 			'demo.start.start_button' => 'НАЧАТЬ ДЕМО',
 			'demo.start.sign_in_button' => 'У МЕНЯ УЖЕ ЕСТЬ АККАУНТ',
@@ -1856,6 +1880,8 @@ extension on TranslationsRu {
 			'review.load_more_error_title' => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ ЕЩЁ',
 			'review.load_more_error_message' => 'Попробуйте ещё раз',
 			'review.empty_title' => 'ОШИБОК ПОКА НЕТ',
+			_ => null,
+		} ?? switch (path) {
 			'review.empty_message' => 'Здесь появятся вопросы, в которых вы ошиблись или которые пропустили',
 			'review.error_title' => 'НЕ УДАЛОСЬ ЗАГРУЗИТЬ',
 			'review.error_message' => 'Что-то пошло не так. Попробуйте ещё раз',

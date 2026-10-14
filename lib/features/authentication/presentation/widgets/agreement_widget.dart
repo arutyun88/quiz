@@ -14,7 +14,10 @@ class AgreementWidget extends StatefulWidget {
 
 class _AgreementWidgetState extends State<AgreementWidget> {
   late final TapGestureRecognizer _termsRecognizer = TapGestureRecognizer()
-    ..onTap = () => LegalDocuments.open(LegalDocument.terms);
+    ..onTap = () => LegalDocuments.open(
+          LegalDocument.terms,
+          languageCode: LocaleSettings.instance.currentLocale.languageCode,
+        );
 
   @override
   void dispose() {

@@ -111,7 +111,19 @@
                 "terms": "Пользовательское соглашение",
                 "privacy": "Политика конфиденциальности",
                 "privacy_choices": "Настройки конфиденциальности",
-                "support": "Написать в поддержку"
+                "support": "Написать в поддержку",
+                "support_dialog_title": "Связаться с разработчиком",
+                "support_dialog_body": "Напишите нам на $email или откройте страницу поддержки.",
+                "support_warning": "Не отправляйте пароли, коды подтверждения и платёжные данные.",
+                "support_email": "Открыть почту",
+                "support_email_subject": "Поддержка Eruday",
+                "support_copy": "Скопировать адрес",
+                "support_website": "Страница поддержки",
+                "support_close": "Закрыть",
+                "support_copied_title": "Адрес скопирован",
+                "support_copied_message": "$email скопирован в буфер обмена.",
+                "support_open_failed_title": "Не удалось открыть страницу",
+                "support_open_failed_message": "Попробуйте позже или напишите на support@eruday.app."
             },
             "language_sync": {
                 "title": "Обновляем вопросы",

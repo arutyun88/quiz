@@ -1890,6 +1890,42 @@ class Translations$profile$settings$about_page$en {
 
 	/// ru: 'Написать в поддержку'
 	String get support => 'Contact support';
+
+	/// ru: 'Связаться с разработчиком'
+	String get support_dialog_title => 'Contact the developer';
+
+	/// ru: 'Напишите нам на $email или откройте страницу поддержки.'
+	String support_dialog_body({required Object email}) => 'Email us at ${email} or open the support page.';
+
+	/// ru: 'Не отправляйте пароли, коды подтверждения и платёжные данные.'
+	String get support_warning => 'Do not send passwords, verification codes, or payment details.';
+
+	/// ru: 'Открыть почту'
+	String get support_email => 'Open mail';
+
+	/// ru: 'Поддержка Eruday'
+	String get support_email_subject => 'Eruday support';
+
+	/// ru: 'Скопировать адрес'
+	String get support_copy => 'Copy address';
+
+	/// ru: 'Страница поддержки'
+	String get support_website => 'Support page';
+
+	/// ru: 'Закрыть'
+	String get support_close => 'Close';
+
+	/// ru: 'Адрес скопирован'
+	String get support_copied_title => 'Address copied';
+
+	/// ru: '$email скопирован в буфер обмена.'
+	String support_copied_message({required Object email}) => '${email} was copied to the clipboard.';
+
+	/// ru: 'Не удалось открыть страницу'
+	String get support_open_failed_title => 'Could not open the page';
+
+	/// ru: 'Попробуйте позже или напишите на support@eruday.app.'
+	String get support_open_failed_message => 'Try again later or email support@eruday.app.';
 }
 
 // Path: profile.settings.language_sync
@@ -2415,6 +2451,18 @@ extension on Translations {
 			'profile.settings.about_page.privacy' => 'Privacy policy',
 			'profile.settings.about_page.privacy_choices' => 'Privacy choices',
 			'profile.settings.about_page.support' => 'Contact support',
+			'profile.settings.about_page.support_dialog_title' => 'Contact the developer',
+			'profile.settings.about_page.support_dialog_body' => ({required Object email}) => 'Email us at ${email} or open the support page.',
+			'profile.settings.about_page.support_warning' => 'Do not send passwords, verification codes, or payment details.',
+			'profile.settings.about_page.support_email' => 'Open mail',
+			'profile.settings.about_page.support_email_subject' => 'Eruday support',
+			'profile.settings.about_page.support_copy' => 'Copy address',
+			'profile.settings.about_page.support_website' => 'Support page',
+			'profile.settings.about_page.support_close' => 'Close',
+			'profile.settings.about_page.support_copied_title' => 'Address copied',
+			'profile.settings.about_page.support_copied_message' => ({required Object email}) => '${email} was copied to the clipboard.',
+			'profile.settings.about_page.support_open_failed_title' => 'Could not open the page',
+			'profile.settings.about_page.support_open_failed_message' => 'Try again later or email support@eruday.app.',
 			'profile.settings.language_sync.title' => 'Updating questions',
 			'profile.settings.language_sync.syncing' => 'Loading questions, topics, and answers in the selected language',
 			'profile.settings.language_sync.success' => 'Questions are updated',
@@ -2757,7 +2805,7 @@ extension on Translations {
 			'daily_limit.home' => 'GO HOME',
 			'demo.start.badge' => 'GUEST DEMO',
 			'demo.start.title' => 'Try Quiz before signing up',
-			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'Answer one short question and see how answer explanations work.', other: 'Answer ${n} short questions and see how answer explanations work.', ),
+			'demo.start.body' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'Answer one short question and see how answer explanations work.', other: 'Answer ${n} short questions and see how answer explanations work.', ), 
 			'demo.start.notice' => 'Demo answers are not saved and never affect rating, XP, or streak.',
 			'demo.start.start_button' => 'START DEMO',
 			'demo.start.sign_in_button' => 'I ALREADY HAVE AN ACCOUNT',
@@ -2827,6 +2875,8 @@ extension on Translations {
 			'review.load_more_error_title' => 'COULD NOT LOAD MORE',
 			'review.load_more_error_message' => 'Please try again',
 			'review.empty_title' => 'NO MISTAKES YET',
+			_ => null,
+		} ?? switch (path) {
 			'review.empty_message' => 'Questions you answered incorrectly or skipped will appear here',
 			'review.error_title' => 'COULD NOT LOAD',
 			'review.error_message' => 'Something went wrong. Please try again',

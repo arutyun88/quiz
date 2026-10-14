@@ -111,7 +111,19 @@
                 "terms": "Terms of service",
                 "privacy": "Privacy policy",
                 "privacy_choices": "Privacy choices",
-                "support": "Contact support"
+                "support": "Contact support",
+                "support_dialog_title": "Contact the developer",
+                "support_dialog_body": "Email us at $email or open the support page.",
+                "support_warning": "Do not send passwords, verification codes, or payment details.",
+                "support_email": "Open mail",
+                "support_email_subject": "Eruday support",
+                "support_copy": "Copy address",
+                "support_website": "Support page",
+                "support_close": "Close",
+                "support_copied_title": "Address copied",
+                "support_copied_message": "$email was copied to the clipboard.",
+                "support_open_failed_title": "Could not open the page",
+                "support_open_failed_message": "Try again later or email support@eruday.app."
             },
             "language_sync": {
                 "title": "Updating questions",
