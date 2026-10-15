@@ -85,6 +85,22 @@ void main() {
     expect(analytics.enabled, isFalse);
   });
 
+  test('revoke still resets identity when SDK opt-out fails', () async {
+    final sdk = _FakePostHogSdk()..failDisable = true;
+    final analytics = await _analytics(
+      projectToken: 'phc_test',
+      sdk: sdk,
+    );
+
+    await analytics.identify('019c9f74-d3f0-7a5b-8f35-6ecb9a642488');
+
+    expect(await analytics.setConsent(false), isTrue);
+    expect(sdk.disableCount, 1);
+    expect(sdk.resetCount, 1);
+    expect(analytics.consentGranted, isFalse);
+    expect(analytics.enabled, isFalse);
+  });
+
   test('identifies only UUID accounts and resets once on logout', () async {
     final sdk = _FakePostHogSdk();
     final analytics = await _analytics(
@@ -153,6 +169,9 @@ void main() {
         'package_id': 'com.eruday.quiz.plus.monthly',
         'email': 'person@example.com',
         'question_text': 'A private free-form value',
+        'adult_eligible': true,
+        'adult_content_enabled': true,
+        'store_age_signal': 'MINOR',
         'server_confirmed': true,
       },
     );
@@ -204,6 +223,7 @@ class _FakePostHogSdk implements PostHogSdk {
   int resetCount = 0;
   int enableCount = 0;
   int disableCount = 0;
+  bool failDisable = false;
 
   @override
   Future<void> setup(PostHogConfig config) async => this.config = config;
@@ -212,7 +232,10 @@ class _FakePostHogSdk implements PostHogSdk {
   Future<void> enable() async => enableCount++;
 
   @override
-  Future<void> disable() async => disableCount++;
+  Future<void> disable() async {
+    disableCount++;
+    if (failDisable) throw StateError('disable failed');
+  }
 
   @override
   Future<void> identify(String userId) async => identifiedUsers.add(userId);

@@ -156,17 +156,25 @@ class PostHogProductAnalytics implements ProductAnalytics {
     }
     if (_projectToken.isEmpty) return true;
     await initialize();
-    try {
-      if (granted) {
+    if (granted) {
+      try {
         await _sdk.enable();
-      } else {
+      } catch (_) {
+        // A local privacy choice must remain authoritative if the SDK fails.
+      }
+    } else {
+      try {
         await _sdk.disable();
+      } catch (_) {
+        // Identity cleanup must still be attempted if opt-out fails.
+      }
+      try {
         await _sdk.reset();
         _identifiedUserId = null;
         _identitySynchronized = true;
+      } catch (_) {
+        // Capture remains blocked by the local consent state.
       }
-    } catch (_) {
-      // A local privacy choice must remain authoritative if the SDK fails.
     }
     return true;
   }
