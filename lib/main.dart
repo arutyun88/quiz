@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:quiz/app/application.dart';
-import 'package:quiz/app/config/firebase/firebase_options.dart';
+import 'package:quiz/app/config/firebase/firebase_bootstrap.dart';
 import 'package:quiz/app/core/localization/gateway/change_locale_gateway.dart';
 import 'package:quiz/app/core/services/firebase_remote_config_service.dart';
 import 'package:quiz/app/core/theme/provider/theme_provider.dart';
@@ -20,16 +19,17 @@ Future<void> main() => SentryBootstrap.run(_runApplication);
 
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await FirebaseBootstrap.initialize();
   // Data is handled by the server-owned flow after the user opens the app.
 }
 
 Future<void> _runApplication() async {
   WidgetsFlutterBinding.ensureInitialized();
   LoggingSetup.setup();
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  await FirebaseBootstrap.initialize();
+  if (FirebaseBootstrap.available) {
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  }
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 

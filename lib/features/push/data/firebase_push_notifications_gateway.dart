@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
+import 'package:quiz/app/config/firebase/firebase_bootstrap.dart';
 import 'package:quiz/app/core/model/result.dart';
 import 'package:quiz/app/core/services/device_id_service.dart';
 import 'package:quiz/app/core/services/settings_local_storage_service.dart';
@@ -15,16 +16,13 @@ import 'package:quiz/gen/strings.g.dart';
 final class FirebasePushNotificationsGateway
     implements PushNotificationsGateway {
   FirebasePushNotificationsGateway({
-    required FirebaseMessaging messaging,
     required PushRepository repository,
     required DeviceIdService deviceIdService,
     required SettingsLocalStorageService settingsStorage,
-  })  : _messaging = messaging,
-        _repository = repository,
+  })  : _repository = repository,
         _installationId = deviceIdService.deviceId,
         _settingsStorage = settingsStorage;
 
-  final FirebaseMessaging _messaging;
   final PushRepository _repository;
   final String _installationId;
   final SettingsLocalStorageService _settingsStorage;
@@ -42,6 +40,15 @@ final class FirebasePushNotificationsGateway
   bool _active = false;
   bool _initialMessageRead = false;
 
+  FirebaseMessaging? get _messaging {
+    if (!FirebaseBootstrap.available) return null;
+    try {
+      return FirebaseMessaging.instance;
+    } on Object {
+      return null;
+    }
+  }
+
   @override
   Stream<PushDestination> get openedDestinations => _openedDestinations.stream;
 
@@ -49,12 +56,19 @@ final class FirebasePushNotificationsGateway
   Stream<PushMessage> get receivedMessages => _receivedMessages.stream;
 
   @override
-  Future<PushPermissionStatus> permissionStatus() async => _mapPermission(
-      (await _messaging.getNotificationSettings()).authorizationStatus);
+  Future<PushPermissionStatus> permissionStatus() async {
+    final messaging = _messaging;
+    if (messaging == null) return PushPermissionStatus.notDetermined;
+    return _mapPermission(
+      (await messaging.getNotificationSettings()).authorizationStatus,
+    );
+  }
 
   @override
   Future<PushPermissionStatus> requestPermission() async {
-    final settings = await _messaging.requestPermission(
+    final messaging = _messaging;
+    if (messaging == null) return PushPermissionStatus.denied;
+    final settings = await messaging.requestPermission(
       alert: true,
       badge: true,
       sound: true,
@@ -72,8 +86,10 @@ final class FirebasePushNotificationsGateway
 
   @override
   Future<void> activate() async {
+    final messaging = _messaging;
+    if (messaging == null) return;
     _active = true;
-    _tokenSubscription ??= _messaging.onTokenRefresh.listen(
+    _tokenSubscription ??= messaging.onTokenRefresh.listen(
       (token) => unawaited(_register(token)),
       onError: (Object error, StackTrace stackTrace) => log.error(
         'Push token refresh failed',
@@ -91,14 +107,14 @@ final class FirebasePushNotificationsGateway
 
     if (!_initialMessageRead) {
       _initialMessageRead = true;
-      final initialMessage = await _messaging.getInitialMessage();
+      final initialMessage = await messaging.getInitialMessage();
       if (initialMessage != null) _emitDestination(initialMessage);
     }
 
     if (await permissionStatus() != PushPermissionStatus.authorized) return;
-    if (Platform.isIOS && await _messaging.getAPNSToken() == null) return;
+    if (Platform.isIOS && await messaging.getAPNSToken() == null) return;
 
-    final token = await _messaging.getToken();
+    final token = await messaging.getToken();
     if (token != null) await _register(token);
   }
 

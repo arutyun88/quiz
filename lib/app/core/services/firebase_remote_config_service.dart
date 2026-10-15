@@ -34,7 +34,7 @@ class FirebaseRemoteConfigService {
 
   static const int defaultGuestDemoQuestionCount = 3;
 
-  final FirebaseRemoteConfig _remoteConfig;
+  final FirebaseRemoteConfig? _remoteConfig;
   final RemoteConfigDefaultsLoader _loadDefaults;
   Map<String, Object> _bundledDefaults = emergencyRemoteConfigDefaults;
   StreamSubscription<RemoteConfigUpdate>? _updatesSubscription;
@@ -54,10 +54,16 @@ class FirebaseRemoteConfigService {
       _bundledDefaults = emergencyRemoteConfigDefaults;
     }
 
+    final remoteConfig = _remoteConfig;
+    if (remoteConfig == null) {
+      _status = MobileRemoteConfigStatus.failure;
+      return;
+    }
+
     try {
-      await _remoteConfig.setDefaults(_bundledDefaults);
-      await _remoteConfig.ensureInitialized();
-      final activated = await _remoteConfig.activate();
+      await remoteConfig.setDefaults(_bundledDefaults);
+      await remoteConfig.ensureInitialized();
+      final activated = await remoteConfig.activate();
       if (activated) _markFirebaseActive();
     } on Object {
       _source = MobileRemoteConfigSource.bundledDefaults;
@@ -68,11 +74,16 @@ class FirebaseRemoteConfigService {
   }
 
   Future<void> refresh() async {
+    final remoteConfig = _remoteConfig;
+    if (remoteConfig == null) {
+      _status = MobileRemoteConfigStatus.failure;
+      return;
+    }
     try {
-      await _remoteConfig.fetchAndActivate();
+      await remoteConfig.fetchAndActivate();
       _markFirebaseActive();
     } on Object {
-      _status = switch (_remoteConfig.lastFetchStatus) {
+      _status = switch (remoteConfig.lastFetchStatus) {
         RemoteConfigFetchStatus.throttle => MobileRemoteConfigStatus.throttle,
         _ => MobileRemoteConfigStatus.failure,
       };
@@ -80,8 +91,9 @@ class FirebaseRemoteConfigService {
   }
 
   int get guestDemoQuestionCount {
+    final remoteConfig = _remoteConfig;
     final remote = parseGuestDemoQuestionCount(
-      _remoteConfig.getInt(guestDemoQuestionCountKey),
+      remoteConfig?.getInt(guestDemoQuestionCountKey),
     );
     final bundled = parseGuestDemoQuestionCount(
       _bundledDefaults[guestDemoQuestionCountKey],
@@ -90,8 +102,9 @@ class FirebaseRemoteConfigService {
   }
 
   DateTime? get appLaunchDate {
+    final remoteConfig = _remoteConfig;
     final remote = parseAppLaunchDate(
-      _remoteConfig.getString(appLaunchDateKey),
+      remoteConfig?.getString(appLaunchDateKey),
     );
     final bundled = parseAppLaunchDate(_bundledDefaults[appLaunchDateKey]);
     final raw = remote?.isNotEmpty == true ? remote : bundled;
@@ -101,8 +114,9 @@ class FirebaseRemoteConfigService {
   }
 
   LogLevels get logLevels {
+    final remoteConfig = _remoteConfig;
     final remote = parseLogLevels(
-      _remoteConfig.getString(logLevelsKey),
+      remoteConfig?.getString(logLevelsKey),
     );
     final bundled = parseLogLevels(_bundledDefaults[logLevelsKey]);
     return remote ?? bundled ?? defaultLogLevels;
@@ -113,11 +127,13 @@ class FirebaseRemoteConfigService {
   int get debugLoggingLevel => logLevels.debug;
 
   void _listenForUpdates() {
+    final remoteConfig = _remoteConfig;
+    if (remoteConfig == null) return;
     try {
-      _updatesSubscription ??= _remoteConfig.onConfigUpdated.listen(
+      _updatesSubscription ??= remoteConfig.onConfigUpdated.listen(
         (_) async {
           try {
-            await _remoteConfig.activate();
+            await remoteConfig.activate();
             _markFirebaseActive();
           } on Object {
             _status = MobileRemoteConfigStatus.failure;

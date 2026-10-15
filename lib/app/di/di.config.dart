@@ -9,9 +9,6 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:firebase_core/firebase_core.dart' as _i982;
-import 'package:firebase_messaging/firebase_messaging.dart' as _i892;
-import 'package:firebase_remote_config/firebase_remote_config.dart' as _i627;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart'
@@ -73,7 +70,6 @@ import '../../features/push/data/firebase_push_notifications_gateway.dart'
     as _i814;
 import '../../features/push/data/repository/remote_push_repository.dart'
     as _i305;
-import '../../features/push/di/di.dart' as _i705;
 import '../../features/push/domain/push_notifications_gateway.dart' as _i404;
 import '../../features/push/domain/repository/push_repository.dart' as _i783;
 import '../../features/question/data/converter/answer_converter.dart' as _i498;
@@ -159,7 +155,6 @@ extension GetItInjectableX on _i174.GetIt {
     final localStorageModule = _$LocalStorageModule();
     final networkModule = _$NetworkModule();
     final databaseModule = _$DatabaseModule();
-    final pushModule = _$PushModule();
     final authenticationModule = _$AuthenticationModule();
     final questionModule = _$QuestionModule();
     final userModule = _$UserModule();
@@ -170,12 +165,8 @@ extension GetItInjectableX on _i174.GetIt {
     final masteryModule = _$MasteryModule();
     final notificationInboxModule = _$NotificationInboxModule();
     final leaderboardModule = _$LeaderboardModule();
-    await gh.factoryAsync<_i982.FirebaseApp>(
-      () => firebaseConfigModule.firebase(),
-      preResolve: true,
-    );
-    await gh.factoryAsync<_i627.FirebaseRemoteConfig>(
-      () => firebaseConfigModule.remoteConfig(),
+    await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(
+      () => firebaseConfigModule.remoteConfigService(),
       preResolve: true,
     );
     await gh.factoryAsync<_i460.SharedPreferences>(
@@ -185,7 +176,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i161.InternetConnection>(
         () => networkModule.internetConnection);
     gh.lazySingleton<_i935.AppDatabase>(() => databaseModule.database());
-    gh.lazySingleton<_i892.FirebaseMessaging>(() => pushModule.messaging());
     gh.lazySingleton<_i771.DeviceTimezoneService>(
         () => authenticationModule.deviceTimezoneService());
     gh.lazySingleton<_i959.PasswordResetGateway>(
@@ -195,11 +185,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i498.AnswerConverter>(() => _i498.AnswerConverterImpl());
     gh.factory<_i606.UserAchievementConverter>(
         () => _i606.UserAchievementConverterImpl());
-    await gh.factoryAsync<_i307.FirebaseRemoteConfigService>(
-      () => firebaseConfigModule
-          .remoteConfigService(gh<_i627.FirebaseRemoteConfig>()),
-      preResolve: true,
-    );
     gh.factory<_i988.AnsweredQuestionDbConverter>(
         () => const _i988.AnsweredQuestionDbConverterImpl());
     gh.lazySingleton<_i218.SettingsLocalStorageService>(() => localStorageModule
@@ -297,13 +282,6 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i782.ApiClient>(),
               gh<_i740.UserStatisticsConverter>(),
             ));
-    gh.lazySingleton<_i404.PushNotificationsGateway>(
-        () => _i814.FirebasePushNotificationsGateway(
-              messaging: gh<_i892.FirebaseMessaging>(),
-              repository: gh<_i783.PushRepository>(),
-              deviceIdService: gh<_i709.DeviceIdService>(),
-              settingsStorage: gh<_i218.SettingsLocalStorageService>(),
-            ));
     gh.lazySingleton<_i309.ChangeLocaleGateway>(() => appSettingsModule
         .changeLocaleGateway(gh<_i218.SettingsLocalStorageService>()));
     gh.lazySingleton<_i482.ChangeUserInfoGateway>(
@@ -314,6 +292,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => achievementsModule.userAchievementPageConverter(
               gh<_i606.UserAchievementConverter>(),
               gh<_i724.PageInfoConverter>(),
+            ));
+    gh.lazySingleton<_i404.PushNotificationsGateway>(
+        () => _i814.FirebasePushNotificationsGateway(
+              repository: gh<_i783.PushRepository>(),
+              deviceIdService: gh<_i709.DeviceIdService>(),
+              settingsStorage: gh<_i218.SettingsLocalStorageService>(),
             ));
     gh.lazySingleton<_i31.GamificationRepository>(
         () => gamificationModule.gamificationRepository(
@@ -378,8 +362,6 @@ class _$LocalStorageModule extends _i913.LocalStorageModule {}
 class _$NetworkModule extends _i567.NetworkModule {}
 
 class _$DatabaseModule extends _i913.DatabaseModule {}
-
-class _$PushModule extends _i705.PushModule {}
 
 class _$AuthenticationModule extends _i415.AuthenticationModule {}
 

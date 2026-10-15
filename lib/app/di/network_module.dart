@@ -10,6 +10,21 @@ import 'package:quiz/app/core/services/settings_local_storage_service.dart';
 import 'package:quiz/app/core/services/unauthorized_event_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+const productionApiBaseUrl = 'https://api.eruday.app/api';
+
+@visibleForTesting
+String resolveApiBaseUrl({
+  required String configuredBaseUrl,
+  required bool debug,
+  required TargetPlatform platform,
+}) {
+  if (configuredBaseUrl.isNotEmpty) return configuredBaseUrl;
+  if (!debug) return productionApiBaseUrl;
+  return platform == TargetPlatform.android
+      ? 'http://10.0.2.2:8081/api'
+      : 'http://localhost:8081/api';
+}
+
 @module
 abstract class NetworkModule {
   @preResolve
@@ -29,11 +44,11 @@ abstract class NetworkModule {
     const devTime = String.fromEnvironment('QUIZ_DEV_TIME');
     const devTimeKey = String.fromEnvironment('QUIZ_DEV_TIME_KEY');
     const configuredApiBaseUrl = String.fromEnvironment('API_BASE_URL');
-    final apiBaseUrl = configuredApiBaseUrl.isNotEmpty
-        ? configuredApiBaseUrl
-        : kDebugMode && defaultTargetPlatform == TargetPlatform.android
-            ? 'http://10.0.2.2:8081/api'
-            : 'http://localhost:8081/api';
+    final apiBaseUrl = resolveApiBaseUrl(
+      configuredBaseUrl: configuredApiBaseUrl,
+      debug: kDebugMode,
+      platform: defaultTargetPlatform,
+    );
     final config = ApiClientConfig(
       baseUrl: apiBaseUrl,
       defaultHeaders: kDebugMode && devTime.isNotEmpty && devTimeKey.isNotEmpty

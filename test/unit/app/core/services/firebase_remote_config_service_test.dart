@@ -123,6 +123,24 @@ void main() {
     expect(service.source, MobileRemoteConfigSource.bundledDefaults);
     expect(service.status, MobileRemoteConfigStatus.failure);
   });
+
+  test('uses bundled values when Firebase is not initialized', () async {
+    service = FirebaseRemoteConfigService(
+      null,
+      loadDefaults: () async => const {
+        'guest_demo_question_count': 6,
+        'app_launch_date': '2026-08-29',
+        'log_levels': '{"production":400,"debug":0}',
+      },
+    );
+
+    await service.init();
+
+    expect(service.guestDemoQuestionCount, 6);
+    expect(service.appLaunchDate, DateTime.utc(2026, 8, 29));
+    expect(service.source, MobileRemoteConfigSource.bundledDefaults);
+    expect(service.status, MobileRemoteConfigStatus.failure);
+  });
 }
 
 class _MockFirebaseRemoteConfig extends Mock implements FirebaseRemoteConfig {}
