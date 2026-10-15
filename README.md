@@ -1,5 +1,33 @@
 # quiz
 
+## Android distributions
+
+The regular Google Play build uses the `global` flavor. Firebase, FCM, AdMob
+and RevenueCat remain available when their release configuration is present:
+
+```sh
+flutter build apk --flavor global --release
+```
+
+Android commands must select either `global` or `china` explicitly. iOS keeps
+its existing unflavored build configuration.
+
+Mainland China Android artifacts must be built through the dedicated command:
+
+```sh
+scripts/build_china_android.sh --release
+```
+
+The script builds the `china` flavor and removes Firebase, FCM, AdMob and
+RevenueCat from the native plugin graph. The flavor also removes Google Play
+billing and notification permissions and reports its distribution to Dart at
+startup. The free core then uses bundled Remote Config defaults, leaves push,
+rewarded ads and purchases unavailable, and continues against the production
+API. The completed APK is inspected with Android's `apkanalyzer`; the build
+fails if a forbidden SDK package or manifest entry is present. A direct
+`flutter build apk --flavor china` is rejected so a partially filtered China
+artifact cannot be published accidentally.
+
 ## RevenueCat
 
 Pass the platform public SDK key at build time. The app intentionally treats a

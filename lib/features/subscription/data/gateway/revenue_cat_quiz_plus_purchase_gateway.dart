@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:quiz/app/config/distribution/distribution_config.dart';
 import 'package:quiz/features/subscription/domain/entity/quiz_plus_package_entity.dart';
 import 'package:quiz/features/subscription/domain/gateway/quiz_plus_purchase_gateway.dart';
 
@@ -20,7 +21,7 @@ class RevenueCatQuizPlusPurchaseGateway implements QuizPlusPurchaseGateway {
   bool get available => _apiKey != null;
 
   String? get _apiKey {
-    if (kIsWeb) return null;
+    if (kIsWeb || DistributionConfig.isChina) return null;
     return switch (defaultTargetPlatform) {
       TargetPlatform.iOS when _iosApiKey.isNotEmpty => _iosApiKey,
       TargetPlatform.android when _androidApiKey.isNotEmpty => _androidApiKey,

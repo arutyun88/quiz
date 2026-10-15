@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:injectable/injectable.dart';
+import 'package:quiz/app/config/distribution/distribution_config.dart';
 import 'package:quiz/features/ads/domain/rewarded_ads_gateway.dart';
 
 @LazySingleton(as: RewardedAdsGateway)
@@ -25,7 +26,7 @@ class AdMobRewardedAdsGateway implements RewardedAdsGateway {
   bool get available => _adUnitId != null;
 
   String? get _adUnitId {
-    if (kIsWeb) return null;
+    if (kIsWeb || DistributionConfig.isChina) return null;
     return switch (defaultTargetPlatform) {
       TargetPlatform.android when kDebugMode => _androidTestRewardedAdUnitId,
       TargetPlatform.iOS when kDebugMode => _iosTestRewardedAdUnitId,

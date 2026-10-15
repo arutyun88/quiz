@@ -33,12 +33,62 @@ android {
         versionName = flutter.versionName
     }
 
+    flavorDimensions += "distribution"
+    productFlavors {
+        global {
+            dimension "distribution"
+            buildConfigField "String", "APP_DISTRIBUTION", '"global"'
+        }
+        china {
+            dimension "distribution"
+            buildConfigField "String", "APP_DISTRIBUTION", '"china"'
+        }
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
         }
+    }
+}
+
+def chinaExcludedDependencyGroups = [
+    "com.android.billingclient",
+    "com.google.android.gms",
+    "com.google.android.play",
+    "com.google.android.ump",
+    "com.google.firebase",
+    "com.revenuecat.purchases",
+]
+
+configurations.configureEach { configuration ->
+    if (configuration.name.toLowerCase().startsWith("china")) {
+        chinaExcludedDependencyGroups.each { groupName ->
+            configuration.exclude group: groupName
+        }
+    }
+}
+
+tasks.configureEach { task ->
+    if (task.name.startsWith("processChina") && task.name.endsWith("GoogleServices")) {
+        task.enabled = false
+    }
+}
+
+gradle.taskGraph.whenReady { taskGraph ->
+    def buildsChina = gradle.startParameter.taskNames.any { taskName ->
+        taskName.toLowerCase().contains("china")
+    }
+    if (buildsChina && !project.hasProperty("chinaGmsFree")) {
+        throw new GradleException(
+            "China artifacts must be built with scripts/build_china_android.sh"
+        )
     }
 }
 

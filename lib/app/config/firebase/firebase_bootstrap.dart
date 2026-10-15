@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:quiz/app/config/distribution/distribution_config.dart';
 import 'package:quiz/app/config/firebase/firebase_options.dart';
 
 final class FirebaseBootstrap {
@@ -13,6 +14,10 @@ final class FirebaseBootstrap {
   static Future<bool> initialize() => _initialization ??= _initialize();
 
   static Future<bool> _initialize() async {
+    if (DistributionConfig.isChina) {
+      _available = false;
+      return false;
+    }
     try {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,

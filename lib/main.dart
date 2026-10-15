@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:quiz/app/application.dart';
+import 'package:quiz/app/config/distribution/distribution_config.dart';
 import 'package:quiz/app/config/firebase/firebase_bootstrap.dart';
 import 'package:quiz/app/core/localization/gateway/change_locale_gateway.dart';
 import 'package:quiz/app/core/services/firebase_remote_config_service.dart';
@@ -26,6 +27,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 Future<void> _runApplication() async {
   WidgetsFlutterBinding.ensureInitialized();
   LoggingSetup.setup();
+  await DistributionConfig.initialize();
   await FirebaseBootstrap.initialize();
   if (FirebaseBootstrap.available) {
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
