@@ -137,6 +137,7 @@ import '../core/model/data_page/page_info_converter.dart' as _i724;
 import '../core/services/auth_token_service.dart' as _i422;
 import '../core/services/connectivity_service.dart' as _i786;
 import '../core/services/device_id_service.dart' as _i709;
+import '../core/services/device_timezone_service.dart' as _i771;
 import '../core/services/firebase_remote_config_service.dart' as _i307;
 import '../core/services/settings_local_storage_service.dart' as _i218;
 import '../core/services/unauthorized_event_service.dart' as _i941;
@@ -185,6 +186,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => networkModule.internetConnection);
     gh.lazySingleton<_i935.AppDatabase>(() => databaseModule.database());
     gh.lazySingleton<_i892.FirebaseMessaging>(() => pushModule.messaging());
+    gh.lazySingleton<_i771.DeviceTimezoneService>(
+        () => authenticationModule.deviceTimezoneService());
     gh.lazySingleton<_i959.PasswordResetGateway>(
         () => authenticationModule.passwordResetGateway());
     gh.factory<_i625.TopicConverter>(() => _i625.TopicConverterImpl());
@@ -251,6 +254,11 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.lazySingleton<_i402.QuestionReportRepository>(() =>
         _i121.RemoteQuestionReportRepository(client: gh<_i782.ApiClient>()));
+    gh.lazySingleton<_i797.AuthenticationRepository>(
+        () => authenticationModule.repository(
+              client: gh<_i782.ApiClient>(),
+              timezoneService: gh<_i771.DeviceTimezoneService>(),
+            ));
     gh.singleton<_i786.ConnectivityService>(() => _i786.ConnectivityServiceImpl(
         internetConnection: gh<_i161.InternetConnection>()));
     gh.lazySingleton<_i799.LocalUserRepository>(
@@ -271,6 +279,11 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.lazySingleton<_i74.AnalyticsConsentStore>(
         () => _i74.AnalyticsConsentStore(gh<_i460.SharedPreferences>()));
+    gh.lazySingleton<_i1052.UserLogoutGateway>(() => _i1052.UserLogoutGateway(
+          authenticationRepository: gh<_i797.AuthenticationRepository>(),
+          tokenService: gh<_i422.AuthTokenService>(),
+          localUserRepository: gh<_i799.LocalUserRepository>(),
+        ));
     gh.factory<_i426.AnsweredQuestionDao>(() => _i426.AnsweredQuestionDaoImpl(
           gh<_i935.AppDatabase>(),
           answeredQuestionDbConverter: gh<_i988.AnsweredQuestionDbConverter>(),
@@ -326,8 +339,6 @@ extension GetItInjectableX on _i174.GetIt {
         _i522.RemoteDailyEditionRepository(client: gh<_i782.ApiClient>()));
     gh.lazySingleton<_i191.AgeAccessRepository>(
         () => _i918.RemoteAgeAccessRepository(client: gh<_i782.ApiClient>()));
-    gh.lazySingleton<_i797.AuthenticationRepository>(
-        () => authenticationModule.repository(client: gh<_i782.ApiClient>()));
     gh.lazySingleton<_i993.NotificationInboxRepository>(() =>
         notificationInboxModule.notificationInboxRepository(
             client: gh<_i782.ApiClient>()));
@@ -349,11 +360,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i265.QuestionDao>(() => _i265.QuestionDaoImpl(
           gh<_i935.AppDatabase>(),
           questionConverter: gh<_i813.QuestionDbConverter>(),
-        ));
-    gh.lazySingleton<_i1052.UserLogoutGateway>(() => _i1052.UserLogoutGateway(
-          authenticationRepository: gh<_i797.AuthenticationRepository>(),
-          tokenService: gh<_i422.AuthTokenService>(),
-          localUserRepository: gh<_i799.LocalUserRepository>(),
         ));
     gh.lazySingleton<_i518.UserAchievementRepository>(
         () => achievementsModule.userAchievementRepository(

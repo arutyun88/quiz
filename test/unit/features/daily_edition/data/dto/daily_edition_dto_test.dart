@@ -376,7 +376,7 @@ Map<String, dynamic> _continuationJson({
       'rewarded_videos_max': 6,
       'rewarded_videos_remaining': 6,
       'rolling_videos_used': 0,
-      'rolling_videos_max': 2,
+      'rolling_videos_max': 6,
       'rewarded_ad_available': false,
       'rewarded_ad_next_available_at': null,
     };

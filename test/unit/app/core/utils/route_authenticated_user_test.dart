@@ -75,7 +75,7 @@ DailyEditionState _acknowledgedSummaryState() => DailyEditionSummaryState(
           rewardedVideosMax: 6,
           rewardedVideosRemaining: 6,
           rollingVideosUsed: 0,
-          rollingVideosMax: 2,
+          rollingVideosMax: 6,
           rewardedAdAvailable: true,
           rewardedAdNextAvailableAt: null,
         ),
