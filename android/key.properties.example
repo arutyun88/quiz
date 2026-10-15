@@ -1,0 +1,5 @@
+# Keep android/key.properties and the referenced keystore out of Git.
+storeFile=eruday-release.jks
+storePassword=replace-with-a-secret
+keyAlias=eruday
+keyPassword=replace-with-a-secret

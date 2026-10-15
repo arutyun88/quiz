@@ -8,6 +8,28 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+def releaseSigningProperties = new Properties()
+def releaseSigningPropertiesFile = rootProject.file("key.properties")
+if (releaseSigningPropertiesFile.exists()) {
+    releaseSigningPropertiesFile.withInputStream {
+        releaseSigningProperties.load(it)
+    }
+}
+
+def signingValue = { String environmentName, String propertyName ->
+    def environmentValue = System.getenv(environmentName)
+    return environmentValue ?: releaseSigningProperties.getProperty(propertyName)
+}
+def releaseStorePath = signingValue("ANDROID_KEYSTORE_PATH", "storeFile")
+def releaseStorePassword = signingValue("ANDROID_KEYSTORE_PASSWORD", "storePassword")
+def releaseKeyAlias = signingValue("ANDROID_KEY_ALIAS", "keyAlias")
+def releaseKeyPassword = signingValue("ANDROID_KEY_PASSWORD", "keyPassword")
+def releaseStoreFile = releaseStorePath ? rootProject.file(releaseStorePath) : null
+def releaseSigningConfigured = releaseStoreFile?.isFile()
+        && releaseStorePassword
+        && releaseKeyAlias
+        && releaseKeyPassword
+
 android {
     namespace = "com.quiz.quiz"
     compileSdk = flutter.compileSdkVersion
@@ -49,11 +71,22 @@ android {
         buildConfig = true
     }
 
+    signingConfigs {
+        if (releaseSigningConfigured) {
+            release {
+                storeFile = releaseStoreFile
+                storePassword = releaseStorePassword
+                keyAlias = releaseKeyAlias
+                keyPassword = releaseKeyPassword
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+            if (releaseSigningConfigured) {
+                signingConfig = signingConfigs.release
+            }
         }
     }
 }
@@ -82,12 +115,25 @@ tasks.configureEach { task ->
 }
 
 gradle.taskGraph.whenReady { taskGraph ->
-    def buildsChina = gradle.startParameter.taskNames.any { taskName ->
-        taskName.toLowerCase().contains("china")
+    def requestedTasks = gradle.startParameter.taskNames.collect {
+        it.toLowerCase()
+    }
+    def buildsChina = requestedTasks.any { taskName ->
+        taskName.contains("china")
     }
     if (buildsChina && !project.hasProperty("chinaGmsFree")) {
         throw new GradleException(
             "China artifacts must be built with scripts/build_china_android.sh"
+        )
+    }
+    def buildsRelease = requestedTasks.any { taskName ->
+        taskName.contains("release")
+    }
+    if (buildsRelease && !releaseSigningConfigured) {
+        throw new GradleException(
+            "Android release signing is not configured. " +
+            "Copy android/key.properties.example to android/key.properties " +
+            "or provide the ANDROID_KEYSTORE_* environment variables."
         )
     }
 }

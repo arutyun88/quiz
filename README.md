@@ -3,10 +3,11 @@
 ## Android distributions
 
 The regular Google Play build uses the `global` flavor. Firebase, FCM, AdMob
-and RevenueCat remain available when their release configuration is present:
+and RevenueCat remain available when their release configuration is present.
+Build the signed Google Play App Bundle with:
 
 ```sh
-flutter build apk --flavor global --release
+scripts/build_global_android.sh
 ```
 
 Android commands must select either `global` or `china` explicitly. iOS keeps
@@ -27,6 +28,51 @@ API. The completed APK is inspected with Android's `apkanalyzer`; the build
 fails if a forbidden SDK package or manifest entry is present. A direct
 `flutter build apk --flavor china` is rejected so a partially filtered China
 artifact cannot be published accidentally.
+
+## Android release signing
+
+Release builds never fall back to the Android debug certificate. Create one
+long-lived signing key for both Android distributions because `global` and
+`china` use the same application ID:
+
+```sh
+keytool -genkeypair -v \
+  -keystore android/eruday-release.jks \
+  -alias eruday \
+  -keyalg RSA \
+  -keysize 4096 \
+  -validity 10000
+```
+
+The command prompts for passwords and certificate details. Do not put
+passwords on the command line. Copy `android/key.properties.example` to the
+ignored `android/key.properties` and fill its four values. Store the keystore
+and its credentials in separate encrypted backups: losing this signing
+identity can prevent users from installing future updates.
+
+CI may provide the same values without creating `key.properties`:
+
+- `ANDROID_KEYSTORE_PATH`
+- `ANDROID_KEYSTORE_PASSWORD`
+- `ANDROID_KEY_ALIAS`
+- `ANDROID_KEY_PASSWORD`
+- `ANDROID_SIGNING_CERT_SHA256` (recommended certificate pin)
+
+Read the certificate fingerprint after creating the key with:
+
+```sh
+keytool -list -v -keystore android/eruday-release.jks -alias eruday
+```
+
+Both release scripts reject missing signing configuration and debug-signed
+artifacts. When `ANDROID_SIGNING_CERT_SHA256` is present they also reject a
+valid artifact signed by the wrong production key.
+
+When enrolling in Google Play App Signing for the first time, use this existing
+key as the app signing key if installs must remain update-compatible between
+Google Play and AppGallery. Allowing Google Play to generate a different app
+signing key produces a different certificate for Play-delivered APKs even
+though the uploaded AAB was signed locally.
 
 ## RevenueCat
 

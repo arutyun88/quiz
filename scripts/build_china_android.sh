@@ -45,3 +45,7 @@ for argument in "$@"; do
 done
 "$project_dir/scripts/verify_china_android_apk.sh" \
   "$project_dir/build/app/outputs/flutter-apk/app-china-$build_mode.apk"
+if [[ "$build_mode" == "release" ]]; then
+  "$project_dir/scripts/verify_android_release_signature.sh" \
+    "$project_dir/build/app/outputs/flutter-apk/app-china-release.apk"
+fi
