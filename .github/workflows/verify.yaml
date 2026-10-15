@@ -20,6 +20,22 @@ jobs:
       - name: Analyze
         run: flutter analyze
 
+      - name: Enable Android emulator acceleration
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
+            | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Daily edition end-to-end flow
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          script: flutter test integration_test/daily_edition_flow_test.dart -d emulator-5554 --flavor global
+
       - name: Unit tests + coverage (≥20%)
         run: |
           set -euo pipefail

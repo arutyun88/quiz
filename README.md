@@ -1,5 +1,18 @@
 # quiz
 
+## End-to-end tests
+
+The deterministic mobile end-to-end scenario exercises the production daily
+edition screens, routing and state machine through all 10 main questions and
+the 10-question `MARKET_PREVIEW` continuation. It uses an in-process server
+contract double, so it is safe to run repeatedly without consuming a staging
+edition:
+
+```sh
+fvm flutter test integration_test/daily_edition_flow_test.dart \
+  -d emulator-5554 --flavor global
+```
+
 ## Android distributions
 
 The regular Google Play build uses the `global` flavor. Firebase, FCM, AdMob
