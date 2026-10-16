@@ -22,9 +22,14 @@ case "$artifact_path" in
       echo "apksigner is required to verify the Android release" >&2
       exit 69
     fi
-    certificate="$($apksigner verify --print-certs "$artifact_path")"
-    subject="$(printf '%s\n' "$certificate" | sed -n 's/^Signer #1 certificate DN: //p')"
-    fingerprint="$(printf '%s\n' "$certificate" | sed -n 's/^Signer #1 certificate SHA-256 digest: //p')"
+    if ! certificate="$(LC_ALL=C "$apksigner" verify --print-certs "$artifact_path" 2>&1)"; then
+      printf '%s\n' "$certificate" >&2
+      exit 1
+    fi
+    subject="$(printf '%s\n' "$certificate" | sed -nE \
+      's/^Signer #[0-9]+ certificate (DN|distinguished name):[[:space:]]*//p' | head -1)"
+    fingerprint="$(printf '%s\n' "$certificate" | sed -nE \
+      's/^Signer #[0-9]+ certificate SHA-?256 (digest|fingerprint):[[:space:]]*//p' | head -1)"
     ;;
   *.aab)
     certificate="$(LC_ALL=C keytool -printcert -jarfile "$artifact_path")"
@@ -37,11 +42,11 @@ case "$artifact_path" in
     ;;
 esac
 
-if [[ -z "$subject" || -z "$fingerprint" ]]; then
+if [[ -z "$fingerprint" ]]; then
   echo "Could not read the Android signing certificate" >&2
   exit 1
 fi
-if [[ "$subject" == *"CN=Android Debug"* ]]; then
+if [[ -n "$subject" && "$subject" == *"CN=Android Debug"* ]]; then
   echo "Android release artifact is signed with the debug certificate" >&2
   exit 1
 fi
@@ -49,6 +54,10 @@ fi
 normalized_fingerprint="$(printf '%s' "$fingerprint" | tr -d ':' | tr '[:upper:]' '[:lower:]')"
 expected_fingerprint="${ANDROID_SIGNING_CERT_SHA256:-}"
 expected_fingerprint="$(printf '%s' "$expected_fingerprint" | tr -d ':' | tr '[:upper:]' '[:lower:]')"
+if [[ -z "$subject" && -z "$expected_fingerprint" ]]; then
+  echo "Could not verify that the Android signing certificate is not a debug certificate" >&2
+  exit 1
+fi
 if [[ -n "$expected_fingerprint" && "$normalized_fingerprint" != "$expected_fingerprint" ]]; then
   echo "Android signing certificate does not match ANDROID_SIGNING_CERT_SHA256" >&2
   exit 1
