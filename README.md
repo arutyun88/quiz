@@ -81,6 +81,23 @@ Both release scripts reject missing signing configuration and debug-signed
 artifacts. When `ANDROID_SIGNING_CERT_SHA256` is present they also reject a
 valid artifact signed by the wrong production key.
 
+The manually triggered `Android release` GitHub Actions workflow builds the
+Global AAB and China APK with the same pinned certificate. Configure these
+secrets in the repository's `production` environment before running it:
+
+- `ANDROID_KEYSTORE_BASE64` (base64-encoded contents of the production JKS);
+- `ANDROID_KEYSTORE_PASSWORD`;
+- `ANDROID_KEY_ALIAS`;
+- `ANDROID_KEY_PASSWORD`;
+- `ANDROID_SIGNING_CERT_SHA256`;
+- `POSTHOG_PROJECT_TOKEN` for the dedicated PostHog EU production project;
+- `SENTRY_DSN` for the production Sentry project.
+
+The workflow reconstructs the JKS only on the disposable runner, passes the
+analytics and diagnostics settings through a private define file, verifies
+both artifacts against `ANDROID_SIGNING_CERT_SHA256`, and uploads the AAB, APK,
+and SHA-256 checksums. It does not create or rotate the signing identity.
+
 When enrolling in Google Play App Signing for the first time, use this existing
 key as the app signing key if installs must remain update-compatible between
 Google Play and AppGallery. Allowing Google Play to generate a different app

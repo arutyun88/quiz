@@ -25,7 +25,8 @@ void main(List<String> arguments) {
   final android = plugins['android'] as List<dynamic>;
   plugins['android'] = android.where((entry) {
     final plugin = entry as Map<String, dynamic>;
-    return !_excludedAndroidPlugins.contains(plugin['name']);
+    return plugin['dev_dependency'] != true &&
+        !_excludedAndroidPlugins.contains(plugin['name']);
   }).toList(growable: false);
   output.writeAsStringSync(jsonEncode(root));
 }
